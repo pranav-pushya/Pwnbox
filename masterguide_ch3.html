@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-green" id="ch3">
+  <div class="chapter-header">
+    <div class="chapter-icon">🛡️</div>
+    <div class="chapter-title-block">
+      <h2>Defensive Tools & Technologies</h2>
+      <p>Yeh weapons tumhari taraf hain — organizations inhe use karti hain apna bachav karne ke liye</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="firewall">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">🔥</div><div><div class="term-name">Firewall</div><div class="term-tagline">Network traffic ka gatekeeper — allow/block rules</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Network traffic monitor karta hai aur predefined rules ke basis pe allow ya block karta hai. Ek border guard ki tarah — passport check karo, phir andar jaane do.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>Packet Filtering:</strong> IP/port check<br/><strong>Stateful:</strong> Connection state track<br/><strong>NGFW:</strong> Deep packet inspection, app-aware<br/><strong>WAF:</strong> Web apps ke liye specifically</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Building ka security guard. Rules hai — employees andar, strangers stop. Firewall bhi aisa — trusted IP allow, unknown ports block. But smart attacker allowed port use karta hai (bypass).</p></div>
+      <div class="severity-row"><span class="sev-label">Effectiveness</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:70%;background:var(--accent-green)"></div></div><span class="sev-tag low">Essential</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="antivirus">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">💊</div><div><div class="term-name">Antivirus / Anti-Malware</div><div class="term-tagline">Malware detect aur remove karne ka software</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">How it works</div><p><strong>Signature-based:</strong> Known malware ke "fingerprints" se match<br/><strong>Heuristic:</strong> Suspicious behavior detect karo (new malware ke liye)<br/><strong>Sandboxing:</strong> Isolated environment mein run karke dekho</p></div>
+        <div class="block"><div class="block-label">Limitation</div><p>Signature-based antivirus sirf known threats detect karta hai. Zero-day, fileless malware, polymorphic malware (jo apna code change karta hai) se bachna mushkil. Modern AV + behavior analysis zaroori hai.</p></div>
+      </div>
+      <div class="severity-row"><span class="sev-label">Effectiveness</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:65%;background:var(--accent-green)"></div></div><span class="sev-tag low">Good but not enough alone</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="ids">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">🚨</div><div><div class="term-name">IDS</div><div class="term-tagline">Intrusion Detection System — alert deta hai attack pe</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Network/system traffic monitor karta hai suspicious activity ke liye. Kuch galat dikhta hai to alert bhejta hai security team ko. But khud kuch nahi karta — sirf bolta hai "kuch ho raha hai!"</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>NIDS:</strong> Network-based (poora network traffic dekhe)<br/><strong>HIDS:</strong> Host-based (ek specific machine dekhe)<br/><strong>Signature-based:</strong> Known attack patterns<br/><strong>Anomaly-based:</strong> Normal se deviation detect kare</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Smoke detector. Aag lagti hai, alarm bajta hai. But khud aag nahi bujhaata — tumhe call karna padega fire brigade (human response). IDS detect karta hai, IPS block bhi karta hai.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="ips">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">🚒</div><div><div class="term-name">IPS</div><div class="term-tagline">Intrusion Prevention System — detect + automatically block</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">IDS vs IPS</div><p>IDS = passive (sirf alert), IPS = active (alert + automatically block karta hai). IPS network path mein inline hota hai — traffic isse hoke jaata hai, woh inspect karta hai, aur block kar sakta hai real-time mein.</p></div>
+        <div class="block"><div class="block-label">Risk</div><p>False positives ka risk — legitimate traffic bhi block ho sakta hai. Production systems mein carefully configure karna padta hai nahi to business impact hota hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="siem">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">📊</div><div><div class="term-name">SIEM</div><div class="term-tagline">Security Information & Event Management — central dashboard</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Poore organization ke saare security tools se logs collect karta hai ek jagah, correlate karta hai, patterns dhundta hai, aur threats identify karta hai. SOC team ka main tool.</p></div>
+        <div class="block"><div class="block-label">Examples</div><p>Splunk, IBM QRadar, Microsoft Sentinel, LogRhythm. Large enterprises mein terabytes of daily logs ek dashboard pe analyze hote hain.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>CCTV control room of a mall — hazaron cameras ek jagah. Guard sab dekh sakta hai ek monitor pe. Alag-alag cameras dekhen to pattern miss ho jaaye, SIEM central view deta hai.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="waf">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">🌐</div><div><div class="term-name">WAF</div><div class="term-tagline">Web Application Firewall — web apps ke liye specific protection</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Normal firewall packets block karta hai, WAF HTTP traffic ko analyze karta hai specifically. SQL injection, XSS, CSRF detect aur block karta hai web layer pe.</p></div>
+        <div class="block"><div class="block-label">Where it sits</div><p>Web server aur internet ke beech. Cloudflare, AWS WAF, Imperva popular solutions hain. Har incoming web request ko scan karta hai malicious patterns ke liye.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="endpoint">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">💻</div><div><div class="term-name">Endpoint Security</div><div class="term-tagline">Individual devices (laptops, phones) ko protect karna</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Har individual device (endpoint) ko secure karna — laptops, phones, tablets, servers. Sirf antivirus nahi — EDR (Endpoint Detection & Response) tools real-time behavior monitor karte hain.</p></div>
+        <div class="block"><div class="block-label">Modern Approach</div><p>EDR tools (CrowdStrike, SentinelOne) behavior analytics, threat hunting, automated response sab karte hain. Zero-day bhi detect ho sakta hai anomalous behavior se.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="dlp">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">🔒</div><div><div class="term-name">DLP</div><div class="term-tagline">Data Loss Prevention — sensitive data bahar nahi jaane deta</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Monitor aur control karta hai ki sensitive data (credit cards, SSN, confidential docs) organization se bahar na jaaye — email, USB, cloud uploads ke through.</p></div>
+        <div class="block"><div class="block-label">How</div><p>Content inspection — emails scan karta hai "confidential" patterns ke liye. Block kar deta hai ya alert deta hai. Insider threats ke against especially useful.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="sandbox">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">📦</div><div><div class="term-name">Sandbox</div><div class="term-tagline">Isolated environment — suspicious files test karo safely</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Isolated virtual environment jahan suspicious files ya programs run kiye jaate hain safely. Agar malware hai to real system affect nahi hoga — sandbox ke andar hi confined.</p></div>
+        <div class="block"><div class="block-label">Usage</div><p>Email attachments, unknown executables, browser extensions — pehle sandbox mein run karo, behavior dekho, phir decide karo. Automated malware analysis ke liye use hota hai.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Chemical lab mein hazardous material ke liye glove box. Bahar effects nahi pahunch sakte, andar jaake experiment kar sakte ho safely.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="honeypot">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(16,185,129,0.1)">🍯</div><div><div class="term-name">Honeypot</div><div class="term-tagline">Decoy system — attackers ko attract karo, unhe study karo</div></div></div>
+      <span class="term-badge badge-defense">Defense</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Deliberately vulnerable fake system jo attackers ko lure karta hai. Jab attacker ise target karta hai, security team unke tactics, techniques, tools study kar sakti hai real-time mein.</p></div>
+        <div class="block"><div class="block-label">Benefits</div><p>Early warning system. Attacker iska real system samajh ke attack karta hai, par actually decoy hai. Unke methods log hote hain — future defenses improve hote hain.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Police ka undercover operation ya bait car. Woh deliberately exposed car chodh ke thieves attract karte hain, phir catch karte hain ya unhe study karte hain patterns ke liye.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

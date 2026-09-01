@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-cyan" id="ch5">
+  <div class="chapter-header">
+    <div class="chapter-icon">🆔</div>
+    <div class="chapter-title-block">
+      <h2>Identity & Access Management</h2>
+      <p>Who are you? Kya tumhe yahan rehne ka haq hai? Yeh sab IAM decide karta hai.</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="2fa">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">📱</div><div><div class="term-name">2FA</div><div class="term-tagline">Two-Factor Authentication — password + something else</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Login ke liye 2 cheezein chahiye: kuch tum jaante ho (password) + kuch tumhare paas hai (phone OTP) ya kuch tum ho (fingerprint). Password chori bhi ho to koi faida nahi attacker ko.</p></div>
+        <div class="block"><div class="block-label">Types</div><p>SMS OTP (weakest — SIM swap possible), Authenticator App (better — Google Auth, Authy), Hardware Key (strongest — YubiKey), Biometric.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>ATM — PIN (kuch tum jaante ho) + ATM card (kuch tumhare paas hai). Sirf PIN nahi, sirf card nahi — dono chahiye. 2FA yahi concept online.</p></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p>2023 mein MGM Resorts hack mein — social engineering se employee credentials mili. Agar proper MFA hota to hack fail ho jaata. $100M+ loss directly 2FA missing ki wajah se.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="mfa">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🔑</div><div><div class="term-name">MFA</div><div class="term-tagline">Multi-Factor Authentication — 2FA ka superset</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">2FA vs MFA</div><p>2FA specifically 2 factors. MFA = 2 ya zyada factors. Three categories: Knowledge (password), Possession (phone/token), Inherence (biometric). Mix karo — harder to breach.</p></div>
+        <div class="block"><div class="block-label">Factors</div><p>🧠 <strong>Know:</strong> Password, PIN, security question<br/>📱 <strong>Have:</strong> Phone, security key, smart card<br/>👁️ <strong>Are:</strong> Fingerprint, face, iris, voice<br/>📍 <strong>Where:</strong> Location-based (bonus layer)</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="iam">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">👥</div><div><div class="term-name">IAM</div><div class="term-tagline">Identity & Access Management — who gets what access</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Framework aur tools jo define karte hain ki kaun user kaun sa resource access kar sakta hai. User accounts banao, permissions assign karo, review karo. Okta, Microsoft Azure AD popular tools.</p></div>
+        <div class="block"><div class="block-label">Principle</div><p><strong>Least Privilege:</strong> Har user sirf woh access mile jo kaam ke liye absolutely zaroori hai — extra nahi. Agar DB admin ko billing system access nahi chahiye, nahi milega.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="pam">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">👑</div><div><div class="term-name">PAM</div><div class="term-tagline">Privileged Access Management — admin accounts ka special protection</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>IAM ka subset jo specifically privileged accounts (admins, root, service accounts) ko protect karta hai. These accounts are highest risk — inka control matlab full system control.</p></div>
+        <div class="block"><div class="block-label">Features</div><p>Just-in-time access (sirf jab zaroori), session recording (admin ne kya kiya), password vaulting (auto-rotate passwords), MFA enforcement.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="sso">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🗝️</div><div><div class="term-name">SSO</div><div class="term-tagline">Single Sign-On — ek login, sab access</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Ek baar login karo (Google ya company account se), sab apps automatically accessible. "Sign in with Google" = SSO. Token exchange hota hai behind the scenes (OAuth, SAML).</p></div>
+        <div class="block"><div class="block-label">Risk</div><p>SSO account compromise = sab apps compromise. Isliye SSO account pe strong MFA absolutely zaroori. "Single point of failure" bhi ho sakta hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="zerotrust">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🚫</div><div><div class="term-name">Zero Trust Security</div><div class="term-tagline">"Never trust, always verify" — koi bhi trusted nahi by default</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Traditional model: network ke andar ho to trusted. Zero Trust: andar ya bahar koi fark nahi — har request verify karo, least privilege do, assume breach. "Trust but verify" → "Never trust, always verify."</p></div>
+        <div class="block"><div class="block-label">Why important</div><p>Remote work, cloud era mein "corporate network" ka concept gone. Employees anywhere se kaam karte hain. Zero Trust ke bina insider threats aur compromised accounts devastating hote hain.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p>Google ka BeyondCorp — industry ka pehla large-scale Zero Trust implementation (post-Operation Aurora 2010 China hack). Now industry standard recommendation.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="accesscontrol">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🚪</div><div><div class="term-name">Access Control</div><div class="term-tagline">Resources tak kaun ja sakta hai — policy enforcement</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Models</div><p><strong>DAC:</strong> Owner decide karta hai (files on your PC)<br/><strong>MAC:</strong> System decide karta hai (military, classified)<br/><strong>RBAC:</strong> Role-based (employees, managers, admins)<br/><strong>ABAC:</strong> Attribute-based (time, location, device)</p></div>
+        <div class="block"><div class="block-label">Example RBAC</div><p>HR role = employee data access. Finance role = payroll access. Developer role = code repo access. Mix nahi hota. Role change karo, permissions automatically change.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="authn">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🪪</div><div><div class="term-name">Authentication</div><div class="term-tagline">"Tum kaun ho?" — identity prove karna</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Identity verify karna — prove karo tum wahi ho jo tum claim karte ho. Password, biometric, token — sab authentication methods hain.</p></div>
+        <div class="block"><div class="block-label">Authentication vs Authorization</div><p><strong>Authentication = WHO are you?</strong> (Passport check)<br/><strong>Authorization = WHAT can you do?</strong> (Visa allows entry to certain areas)</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="authz">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">✅</div><div><div class="term-name">Authorization</div><div class="term-tagline">"Tumhe kya karne ka haq hai?" — permissions check</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Authenticated user ko kya resources access karne ki permission hai. Login ke baad — "can this user read/write/delete this file?" Authorization decide karta hai.</p></div>
+        <div class="block"><div class="block-label">Fails when</div><p>Broken Access Control — OWASP Top 10 mein #1. User A ki ID change karke User B ka data access karna (IDOR). Horizontal aur vertical privilege escalation.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="token">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🎫</div><div><div class="term-name">Token</div><div class="term-tagline">Digital proof of identity — baar baar login mat karo</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Login ke baad server ek token deta hai (string of characters). Agle requests mein password ki jagah token bhejo. Limited time ke liye valid. JWT (JSON Web Token) most common.</p></div>
+        <div class="block"><div class="block-label">JWT Structure</div><p>Header.Payload.Signature — 3 parts dot se separated. Payload mein user info (encrypted nahi, base64 encoded!). Signature server verify karta hai.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Movie ticket. Counter pe ID dikhaya (login), ticket mila (token). Ab har movie hall mein token dikhao — baar baar ID nahi dikhani. Ticket expire hoti hai (token expiry).</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

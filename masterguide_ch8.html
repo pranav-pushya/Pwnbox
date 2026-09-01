@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-yellow" id="ch8">
+  <div class="chapter-header">
+    <div class="chapter-icon">📋</div>
+    <div class="chapter-title-block">
+      <h2>Governance & Compliance</h2>
+      <p>Rules, regulations, aur processes — security ko systematic banana</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="risk">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">⚖️</div><div><div class="term-name">Risk Management</div><div class="term-tagline">Threats ko identify, assess aur treat karna systematically</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Risk = Threat × Vulnerability × Impact. Identify karo kya risks hain, kitni probability hai, agar hua to kitna damage — phir decide karo accept karo, mitigate karo, transfer karo (insurance) ya avoid karo.</p></div>
+        <div class="block"><div class="block-label">Framework</div><p>Risk Assessment → Treatment → Monitoring → Repeat. Business decision — har risk ko eliminate karna practically/financially impossible. Acceptable risk level define karo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="compliance">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">📝</div><div><div class="term-name">Compliance</div><div class="term-tagline">Laws aur standards follow karna — legal obligation</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Key Standards</div><p><strong>GDPR:</strong> EU data privacy (fines up to 4% revenue)<br/><strong>PCI-DSS:</strong> Credit card data<br/><strong>HIPAA:</strong> US healthcare data<br/><strong>ISO 27001:</strong> Information security management<br/><strong>SOC 2:</strong> Cloud services</p></div>
+        <div class="block"><div class="block-label">Compliance ≠ Security</div><p>Critical distinction! Compliant system can still be insecure. Compliance is minimum bar. Real security goes beyond checkboxes. Many breached companies were "compliant."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="insurance">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🏥</div><div><div class="term-name">Cyber Insurance</div><div class="term-tagline">Cyberattack ke financial losses cover karna</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What covers</div><p>Ransomware payment, data breach notification costs, legal fees, business interruption, regulatory fines, PR/crisis management. Premium increasingly expensive — ransomware surge se.</p></div>
+        <div class="block"><div class="block-label">Requirements</div><p>Insurers ab MFA, EDR, backups mandatory require karte hain policy ke liye. Poor security = no insurance ya very high premium.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="vuln">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🪟</div><div><div class="term-name">Vulnerability</div><div class="term-tagline">System mein weakness — exploit ho sakta hai</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Terminology</div><p><strong>Vulnerability:</strong> Weakness (unpatched software, misconfiguration)<br/><strong>Threat:</strong> Potential for harm (attacker wanting to exploit)<br/><strong>Exploit:</strong> Actual code/method to use the vulnerability<br/><strong>CVE:</strong> Common Vulnerabilities & Exposures — public database</p></div>
+        <div class="block"><div class="block-label">CVSS Score</div><p>0-10 severity rating. 9.0+ = Critical. CVE-2021-44228 (Log4Shell) = 10/10 — literally maximum severity. Patching priority = CVSS score.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="pentest">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🔍</div><div><div class="term-name">Penetration Testing</div><div class="term-tagline">Ethical hacking — authorized attack to find weaknesses</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Company authorize karta hai security professionals ko attack karne ke liye — vulnerabilities find karo before real attackers do. Ethical hackers = white hat hackers.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>Black Box:</strong> No prior info (realistic)<br/><strong>White Box:</strong> Full access/info given<br/><strong>Grey Box:</strong> Partial info<br/><strong>Red Team:</strong> Extended adversary simulation</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Bank apne security expert ko bolti hai "try to rob us" — legally. Expert koshish karta hai, gaps dhundhta hai, report karta hai. Fix hote hain before real robber try kare.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="resilience">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">💪</div><div><div class="term-name">Cyber Resilience</div><div class="term-tagline">Attack ke baad bhi survive aur recover karna</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Prevention vs Resilience</div><p>Prevention = attack hone mat do. Resilience = attack hone ke baad bhi business continue karo, jaldi recover karo. Modern philosophy: "assume breach" — it WILL happen, be ready.</p></div>
+        <div class="block"><div class="block-label">Components</div><p>Incident Response plan, backups, disaster recovery, business continuity plan, crisis communication, lessons learned. RTO (Recovery Time Objective) aur RPO define karo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cti">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🧠</div><div><div class="term-name">CTI — Cyber Threat Intelligence</div><div class="term-tagline">Threats ke baare mein actionable information</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Threat actors, their tactics, techniques, procedures (TTPs), indicators of compromise (IoCs) ke baare mein collected aur analyzed information. Proactive defense ke liye use hota hai.</p></div>
+        <div class="block"><div class="block-label">Types</div><p>Strategic (board level — risk decisions), Operational (security team — active campaigns), Tactical (analysts — specific TTPs), Technical (SOC — IPs, hashes, domains).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cybercrime">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🚔</div><div><div class="term-name">Cyber Crime</div><div class="term-tagline">Computer ya internet ke through illegal activities</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Types</div><p>Financial fraud, identity theft, ransomware, hacking, child exploitation, intellectual property theft, dark web drug markets, cyber stalking. $8 trillion+ global annual cost (2023).</p></div>
+        <div class="block"><div class="block-label">India context</div><p>IT Act 2000 (amended 2008) covers cyber crimes in India. Cyber cells in major cities. Incidents report karo: cybercrime.gov.in. Section 66 = unauthorized access, Section 67 = obscene content.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="bully">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">😢</div><div><div class="term-name">Cyber Bullying</div><div class="term-tagline">Online harassment aur intimidation</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Digital platforms pe harassment, threatening, humiliation. Social media, gaming, messaging apps. Doxxing (private info public karna), revenge porn, trolling, fake profiles.</p></div>
+        <div class="block"><div class="block-label">Impact</div><p>Serious mental health consequences. India mein IT Act aur state laws cover this. Screenshots rakho evidence ke liye, platform report karo, cyber cell complaint karo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="forensics">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🔬</div><div><div class="term-name">Digital Forensics</div><div class="term-tagline">Crime scene investigation — digital evidence collect karna</div></div></div>
+      <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Incident ke baad digital evidence collect, preserve, analyze, aur present karna — court mein use hone ke liye. Disk images, memory dumps, network logs, deleted file recovery.</p></div>
+        <div class="block"><div class="block-label">Key principle</div><p>Evidence integrity — original tamper nahi hona chahiye. Write blockers use karo, hashes verify karo, chain of custody maintain karo. Tampered evidence court mein inadmissible.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-pink" id="ch7">
+  <div class="chapter-header">
+    <div class="chapter-icon">⚠️</div>
+    <div class="chapter-title-block">
+      <h2>Advanced Threats & Social Engineering</h2>
+      <p>Sophisticated attacks jo months tak undetected reh sakte hain — human psychology exploit karna</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="apt">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">🕵️</div><div><div class="term-name">APT</div><div class="term-tagline">Advanced Persistent Threat — stealth, long-term attack</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Long-term targeted attack — attacker mahino ya saalo tak network mein chupa rehta hai bina detect hue. Nation-states typically. Goal: data exfiltration ya sabotage — not ransomware quick hit.</p></div>
+        <div class="block"><div class="block-label">Characteristics</div><p><strong>Advanced:</strong> Zero-days, custom malware, multiple vectors<br/><strong>Persistent:</strong> Months/years long campaign<br/><strong>Threat:</strong> Specific high-value target</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>SolarWinds (2020):</strong> Russia's SVR ne SolarWinds software update mein malware inject kiya (supply chain). 18,000 organizations ne infected update install kiya. US government agencies breach — 9 months undetected.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="espionage">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">🔭</div><div><div class="term-name">Cyber Espionage</div><div class="term-tagline">Digital jasoos — state/corporate secrets chori</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Government ya corporations ke sensitive information chori karna digital means se. Military plans, technology secrets, diplomatic cables, trade secrets — sab target. Traditional spy agencies ka cyber equivalent.</p></div>
+        <div class="block"><div class="block-label">Players</div><p>China (APT40, APT10), Russia (APT28 Fancy Bear, APT29 Cozy Bear), North Korea (Lazarus Group), Iran. India bhi increasingly targeted.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="warfare">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">⚔️</div><div><div class="term-name">Cyber Warfare</div><div class="term-tagline">Nations ke beech digital war — critical infrastructure target</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>State-sponsored cyberattacks dusre nations ko disrupt ya damage karne ke liye. Power grids, water systems, financial systems, military systems target hote hain. 5th domain of warfare — land, sea, air, space, cyber.</p></div>
+        <div class="block"><div class="block-label">Examples</div><p>Ukraine power grid attacks by Russia (2015, 2016). Estonia DDoS (2007). Stuxnet vs Iran. NotPetya Ukraine attack ($10B+ global damage). These are acts of war.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="supply">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">📦</div><div><div class="term-name">Supply Chain Attack</div><div class="term-tagline">Third-party vendor ke through attack — trusted software compromise</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Direct target attack mushkil hai. To attacker uske software supplier, hardware vendor, ya IT provider ko compromise karta hai. Target khud infected software install kar leta hai thinking it's legitimate.</p></div>
+        <div class="block"><div class="block-label">Why devastating</div><p>Trusted source se aata hai — security bypasses. Scale: ek vendor compromise = hazaron customers compromise simultaneously. Defense very difficult.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>SolarWinds Orion (2020) + XZ Utils (2024):</strong> Open source library mein backdoor inject kiya gaya 2 years ke patient social engineering ke baad. Nearly compromised OpenSSH on millions of Linux servers.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="social">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">🎭</div><div><div class="term-name">Social Engineering</div><div class="term-tagline">Human psychology hack karna — technical bypass nahi, human bypass</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Humans ko manipulate karke confidential info reveal karwana ya actions perform karwana. Technical skills ki zaroorat nahi — psychological manipulation. Phishing, pretexting, baiting, quid pro quo sab forms.</p></div>
+        <div class="block"><div class="block-label">Techniques</div><p><strong>Pretexting:</strong> Fake identity banao (IT support, bank)<br/><strong>Baiting:</strong> Infected USB chhodna parking mein<br/><strong>Quid Pro Quo:</strong> "IT help ke badle password do"<br/><strong>Tailgating:</strong> Physically follow someone through secure door</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>"Tumhara PC virus infected hai, main IT se hun, abhi remote access do" — yahi social engineering. Firewall bypass nahi kiya, tumhe manipulate kiya khud access dene ke liye.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="brute">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">💪</div><div><div class="term-name">Brute Force Attack</div><div class="term-tagline">Try every combination — until it works</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Systematically har possible password/key combination try karna jab tak sahi na mile. Simple 4-digit PIN = 10,000 combinations. "abc123" jaise common passwords seconds mein crack.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>Simple Brute Force:</strong> aaa, aab, aac...<br/><strong>Dictionary Attack:</strong> Common words list<br/><strong>Rainbow Table:</strong> Pre-computed hash lookups<br/><strong>Hybrid:</strong> Dictionary + variations</p></div>
+      </div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Rate limiting — 3 attempts failed → lockout</li>
+        <li>CAPTCHA</li>
+        <li>Long, complex passwords — "Tr0ub4dor&3" better than "password123"</li>
+        <li>MFA — even if password cracked, need 2nd factor</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cred">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">🗃️</div><div><div class="term-name">Credential Stuffing</div><div class="term-tagline">Leaked passwords ko doosre sites pe try karna</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Data breach se leaked username-password pairs ko automated tools se hazaron other sites pe try karna. Same password everywhere use karte ho? Ek site breach = sab sites compromise.</p></div>
+        <div class="block"><div class="block-label">Scale</div><p>Billions of credentials dark web pe available. Tools like Snipr, STORM automate yeh process. 0.1% success rate bhi millions of accounts = huge impact.</p></div>
+      </div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Unique password har site pe — password manager use karo (Bitwarden, 1Password)</li>
+        <li>haveibeenpwned.com pe check karo tumhara email leaked hai kya</li>
+        <li>MFA always</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="insider">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">🏢</div><div><div class="term-name">Insider Threat</div><div class="term-tagline">Ghar ka bhed lanka dhaye — employee ya contractor</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Types</div><p><strong>Malicious:</strong> Deliberately data steal ya damage kare (disgruntled employee)<br/><strong>Negligent:</strong> Accidentally security mistake kare (click phishing, lose laptop)<br/><strong>Compromised:</strong> External attacker ne account highjack kiya</p></div>
+        <div class="block"><div class="block-label">Detection</div><p>UEBA (behavior analytics) — normal se deviation. Unusual access times, large data downloads, off-hours logins. DLP tools unusual data movement flag karte hain.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Edward Snowden (2013):</strong> NSA contractor — 1.7 million classified documents copied aur media ko diye. Sab access legitimate tha — audit trail nahi tha ki woh itna sab ek saath download kar raha hai.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="kiddie">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">👦</div><div><div class="term-name">Script Kiddie</div><div class="term-tagline">Beginner attacker jo tools use karta hai bina samjhe</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Unskilled individuals jo publicly available tools/scripts use karte hain attacks ke liye bina understanding ke. "Point and click" hacking. Real hackers inhe seriously nahi lete, par inka sheer volume ek threat hai.</p></div>
+        <div class="block"><div class="block-label">Still dangerous</div><p>Volume mein dangerous — hazaron script kiddies = significant DDoS. Basic vulnerabilities exploit kar lete hain. Patched systems ka importance inhi se pata chalta hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cyberphys">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(236,72,153,0.1)">⚙️</div><div><div class="term-name">Cyber-Physical Systems</div><div class="term-tagline">Digital attacks with physical consequences</div></div></div>
+      <span class="term-badge badge-adv">Advanced</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Systems jahan digital aur physical world meet karte hain — industrial control systems (ICS), SCADA, power plants, water treatment, hospital equipment. Hack karo → physical world mein damage.</p></div>
+        <div class="block"><div class="block-label">Danger</div><p>Power grid hack → lights off city mein. Water treatment hack → poison in water. Hospital device hack → patient harm. These are life-and-death scenarios — not just data theft.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

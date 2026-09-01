@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-teal" id="ch10">
+  <div class="chapter-header">
+    <div class="chapter-icon">🚀</div>
+    <div class="chapter-title-block">
+      <h2>Emerging & Essential Concepts</h2>
+      <p>Future of cybersecurity — AI, dark web, aur jo aage aane wala hai</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="aisec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🤖</div><div><div class="term-name">AI Security</div><div class="term-tagline">AI as attacker aur defender — new arms race</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">AI as Attacker</div><p>Deepfake phishing (voice/video clone), AI-generated perfect spear phishing emails, automated vulnerability discovery, adversarial attacks on ML models, AI-generated malware.</p></div>
+        <div class="block"><div class="block-label">AI as Defender</div><p>Anomaly detection, automated threat response, behavior analytics (UEBA), log analysis at scale, vulnerability prediction, smart SIEM. Both sides use AI — arms race.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>WormGPT (2023):</strong> ChatGPT jaise AI model, sans restrictions — phishing emails, malware code generate karta tha. Dark web pe subscribe kiya ja sakta tha. Ethics training ke bina AI = powerful criminal tool.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="root">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">👑</div><div><div class="term-name">Root Access</div><div class="term-tagline">Highest privilege — full system control</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Linux/Unix mein "root" = superuser = god mode. Windows mein "Administrator". Full unrestricted access — files delete, users create, services install, anything. Attackers always try to escalate to root.</p></div>
+        <div class="block"><div class="block-label">Privilege Escalation</div><p>Low-level user access se root access tak jaana. Vertical privilege escalation (user → admin) or horizontal (user A → user B's data). Critical vulnerability class.</p></div>
+      </div>
+      <div class="code-block"><span class="comment">// Normal user can't read /etc/shadow:</span>
+$ cat /etc/shadow
+<span class="bad">Permission denied</span>
+
+<span class="comment">// Root can read everything:</span>
+$ sudo cat /etc/shadow
+<span class="string">root:$6$xyz...  # password hashes of all users</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="pwdcrack">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">💥</div><div><div class="term-name">Password Cracking</div><div class="term-tagline">Stored password hashes ko crack karna</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">How passwords stored</div><p>Proper systems passwords plain text nahi store karte — hash store karte hain. SHA256("password123") = fixed string. Attacker hash file chura ke offline crack karta hai.</p></div>
+        <div class="block"><div class="block-label">Tools</div><p>Hashcat, John the Ripper — GPU-accelerated password cracking. RTX 4090 = 300 billion MD5 hashes/second. "password" = cracked instantly. "Tr0ub4dor&3" = years.</p></div>
+      </div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense (for developers)</div><ul>
+        <li>bcrypt, Argon2, scrypt — slow hashing algorithms specifically designed for passwords</li>
+        <li>Salt (random string add karo before hashing) — rainbow tables defeat karo</li>
+        <li>Never use MD5 or SHA1 for passwords</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="dos">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🚫</div><div><div class="term-name">DoS — Denial of Service</div><div class="term-tagline">Single source se service unavailable karna</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">DoS vs DDoS</div><p><strong>DoS:</strong> Single machine se attack. Easy to block (IP ban karo). Limited bandwidth/impact.<br/><strong>DDoS:</strong> Distributed — thousands of sources. Can't block all IPs. Chapter 1 mein covered.</p></div>
+        <div class="block"><div class="block-label">Types of DoS</div><p>Volumetric (flood karo), Protocol (TCP SYN flood — half-open connections exhaust karo), Application layer (HTTP requests — web server crash). Each needs different defense.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="ueba">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">📊</div><div><div class="term-name">UEBA</div><div class="term-tagline">User & Entity Behavior Analytics — anomalies detect karna</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Machine learning se user aur entity ka normal behavior baseline karo, phir deviations flag karo. John usually 9-5 India se login karta hai. Suddenly 3am Russia se login = red flag.</p></div>
+        <div class="block"><div class="block-label">Detects</div><p>Insider threats, compromised accounts, data exfiltration, privilege abuse. Signature se nahi — behavior se detect karta hai. Zero-day threats bhi pakad sakta hai unusual behavior se.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="darkweb">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🌑</div><div><div class="term-name">Dark Web</div><div class="term-tagline">Hidden internet — Tor network pe, not indexed by Google</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Internet Layers</div><p><strong>Surface Web:</strong> Google index karta hai (4%)<br/><strong>Deep Web:</strong> Password-protected, not indexed — email, banking (90%)<br/><strong>Dark Web:</strong> Tor needed, anonymous, not indexed (6%)</p></div>
+        <div class="block"><div class="block-label">Not all evil</div><p>Dark web = journalist whistleblowers (Tor Project made by US Navy), censorship bypass (Iran, China activists), privacy enthusiasts. But also: drugs, stolen credentials, hitmen (mostly scams), hacking services, child abuse material (ICAC investigates).</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Ocean ki tarah. Surface = visible waala hissa. Deep = underwater (banks, gov databases — not evil, just inaccessible without access). Dark = Mariana Trench — reach karna mushkil, kuch genuinely dangerous creatures wahan.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cpa">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">⚡</div><div><div class="term-name">Cyber-Physical Attack</div><div class="term-tagline">Digital attack → real world physical harm</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-top">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Cyber attack jiske physical consequences hain. Power grids off karna, traffic lights hack, pacemaker attack, autonomous vehicle hijack, water poison — digital command = physical disaster.</p></div>
+        <div class="block"><div class="block-label">Increasing threat</div><p>Smart cities, connected infrastructure, Industry 4.0 — jitna zyada connectivity, utna zyada attack surface. OT (Operational Technology) security critical ho gayi hai.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Florida Water Treatment (2021):</strong> Hacker ne Oldsmar city ke water treatment plant ka SCADA system access kiya aur sodium hydroxide 111x badha diya — drinking water poison attempt. Operator ne catch kiya, disaster averted.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cloudiam">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">☁️</div><div><div class="term-name">Cloud IAM</div><div class="term-tagline">Cloud resources ka access management — AWS, Azure, GCP</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Cloud provider ke resources (S3, EC2, databases) tak access control. Roles, policies, permissions — kaunsa service kaunsa resource access kar sakta hai. Misconfigured Cloud IAM = most common cloud breach cause.</p></div>
+        <div class="block"><div class="block-label">Best practices</div><p>Least privilege — root account daily use mat karo. MFA on root. Roles use karo instead of long-lived access keys. Regular access review. CloudTrail logging enable karo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="databreach">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">💧</div><div><div class="term-name">Data Breach</div><div class="term-tagline">Unauthorized access to sensitive data — confidential info leak</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Sensitive, confidential ya protected information unauthorized parties ke hands mein jaana. Intentional (hack) ya accidental (misconfigured database). Average cost: $4.45 million (IBM 2023).</p></div>
+        <div class="block"><div class="block-label">Aftermath</div><p>GDPR notification 72 hours mein required. Stock price drop (avg 7.5%). Customer trust loss. Class action lawsuits. Regulatory fines. Executives fired. haveibeenpwned.com track karta hai breaches.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Aadhaar (2018):</strong> Report aaya ki 1.1 billion Indians ka Aadhaar data accessible tha for ₹500 via WhatsApp. UIDAI ne deny kiya, par investigation ne serious vulnerabilities found. Government data breach consequences are population-scale.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="framework">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🏗️</div><div><div class="term-name">Cybersecurity Framework</div><div class="term-tagline">Structured approach to manage cybersecurity risk</div></div></div>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">NIST CSF</div><p>Most widely used. 5 functions:<br/>1. <strong>Identify:</strong> Assets, risks samjho<br/>2. <strong>Protect:</strong> Safeguards implement karo<br/>3. <strong>Detect:</strong> Incidents identify karo<br/>4. <strong>Respond:</strong> Action lo<br/>5. <strong>Recover:</strong> Restore karo</p></div>
+        <div class="block"><div class="block-label">Other Frameworks</div><p><strong>ISO 27001:</strong> International standard<br/><strong>MITRE ATT&CK:</strong> Adversary tactics matrix — actual attack techniques documented<br/><strong>CIS Controls:</strong> Top 18 security actions<br/><strong>OWASP Top 10:</strong> Web vulnerabilities</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Building code for architecture. Alag-alag engineers alag-alag sochein to inconsistency. Framework ek common language aur standard approach deta hai — security "building code."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

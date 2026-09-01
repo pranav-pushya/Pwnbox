@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enumeration & Mapping - PwnBox</title>
+    
+    <link rel="stylesheet" href="css/Enumeration.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+
+<body class="tab-tools">
+
+    <div class="sidebar">
+        <div class="header">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+            <a href="index.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>Enumeration & Mapping</h2>
+            <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
+        </div>
+        <div class="tool-list" id="toolList"></div>
+        <div class="sidebar-footer">
+            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
+        </div>
+    </div>
+
+    <div class="workspace">
+        <div class="content-split">
+            <div class="details-panel" id="detailsPanel">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 20vh;">
+                    <h3>Select a tool from the menu to view beginner-friendly intelligence data.</h3>
+                </div>
+            </div>
+
+            <div class="chat-panel">
+                <div class="chat-header" style="flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="status-container">
+                            <div class="status-dot online" id="statusDot"></div>
+                            Enumeration Assistant
+                        </div>
+                        <div class="local-badge">MODULE 03</div>
+                    </div>
+                    <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                        <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 Assistant</button>
+                        <button class="panel-tab" onclick="switchPanelTab('terminal')">💻 CLI Terminal</button>
+                        <button class="panel-tab" onclick="switchPanelTab('quiz')">📝 Knowledge Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Chat Tab Content -->
+                <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
+                    <div class="chat-history" id="chatHistory">
+                        <div class="msg bot">System Initialized. Don't know where to start? Ask me: "What is SNMP enumeration and why is it dangerous?"</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask about NetBIOS, Samba, SNMP, or LDAP..."
+                            onkeypress="handleEnter(event)">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+
+                <!-- Terminal Tab Content -->
+                <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #58a6ff; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
+                        <div style="color: #8b949e;">Cyber-X Enumeration Sandbox v1.0.0</div>
+                        <div style="color: #8b949e; margin-bottom: 10px;">Type 'help' to view available commands.</div>
+                    </div>
+                    <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        <span style="color: #34d399; margin-right: 8px; font-weight: bold; font-size: 0.85rem;">guest@cyberx:~$</span>
+                        <input type="text" id="terminalInput" onkeypress="handleTerminalEnter(event)" style="flex-grow: 1; background: transparent; border: none; outline: none; color: #f8fafc; font-family: 'Space Mono', monospace; font-size: 0.8rem;" placeholder="run a command...">
+                    </div>
+                </div>
+
+                <!-- Quiz Tab Content -->
+                <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
+                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">📝 Module 03 Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Test your understanding of LDAP configurations, SNMP strings, and SMB/Samba tools.</p>
+                    
+                    <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Question 1 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. Which tool queries NetBIOS name tables over TCP/IP?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'A')"> A) nbtstat</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'A')"> B) snmpwalk</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'A')"> C) ldapsearch</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. What is the standard port for LDAP directory queries?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'B')"> A) 445 (SMB)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'B')"> B) 389 (LDAP)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'B')"> C) 161 (SNMP)</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. Which enum4linux flag runs a full user and share dump?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'A')"> A) -a (Simple/All flags)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'A')"> B) -v (Verbose)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'A')"> C) -u (User only)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="quizCompletionMsg" style="display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-primary); border-radius: 8px; padding: 12px; margin-top: 15px; text-align: center;">
+                        <h4 style="color: var(--accent-primary); margin-bottom: 4px; font-size: 0.9rem;">🎉 Quiz Passed!</h4>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">You scored 3/3 on the enumeration and mapping check!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <div class="mobile-nav-bar">
+        <a class="nav-tab active" onclick="switchMobileTab('tools')">
+            <span class="tab-icon">🔌</span>
+            <span class="tab-label">Tools</span>
+        </a>
+        <a class="nav-tab" onclick="switchMobileTab('details')">
+            <span class="tab-icon">📄</span>
+            <span class="tab-label">Info</span>
+        </a>
+        <a class="nav-tab" onclick="switchMobileTab('chat')">
+            <span class="tab-icon">💬</span>
+            <span class="tab-label">Playground</span>
+        </a>
+    </div>
+
+    <!-- Add/Edit Tool Modal -->
+    <div class="modal" id="addToolModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add Custom Tool</h3>
+                <button class="close-modal" onclick="closeAddToolModal()">&times;</button>
+            </div>
+            <form id="addToolForm" onsubmit="submitNewTool(event)">
+                <div class="form-group">
+                    <label for="toolName">Tool Name</label>
+                    <input type="text" id="toolName" placeholder="e.g., SNMPwalk" required>
+                </div>
+                <div class="form-group">
+                    <label for="toolLink">Tool Link (URL)</label>
+                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/net-snmp/net-snmp" required>
+                </div>
+                <div class="form-group">
+                    <label for="toolCategory">Category</label>
+                    <div style="display: flex; gap: 8px;">
+                        <select id="toolCategory" required style="flex-grow: 1;">
+                            <option value="NetBIOS">🔌 NetBIOS & Samba</option>
+                            <option value="SNMP">📡 SNMP Enumeration</option>
+                            <option value="LDAP">🔑 LDAP Directory Services</option>
+                            <option value="SystemInfo">🖥️ System & Users Info</option>
+                        </select>
+                        <button type="button" class="btn" onclick="showNewCategoryForm()" style="padding: 10px; white-space: nowrap; font-size: 0.85rem;">➕ New</button>
+                    </div>
+                    <div id="newCategoryGroup" style="display: none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px dashed var(--border-dim); margin-top: 10px;">
+                        <div style="margin-bottom: 8px;">
+                            <label for="newCategoryName" style="margin-bottom: 4px;">New Category Name</label>
+                            <input type="text" id="newCategoryName" placeholder="e.g., DNS Enum" style="width: 100%;">
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <label for="newCategoryIcon" style="margin-bottom: 4px;">Category Icon (Emoji)</label>
+                            <input type="text" id="newCategoryIcon" placeholder="e.g., 🏷️" style="width: 100%;">
+                        </div>
+                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                            <button type="button" class="btn" onclick="cancelNewCategory()" style="font-size: 0.8rem; padding: 6px 12px;">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="saveNewCategory()" style="font-size: 0.8rem; padding: 6px 12px;">Save Category</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="toolBrief">Simple Explanation (What is it?)</label>
+                    <textarea id="toolBrief" placeholder="Explain what the tool does in simple terms..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="toolUse">How to Use It</label>
+                    <textarea id="toolUse" placeholder="Step-by-step instructions or CLI command examples..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="toolUseful">Why Hackers Care About This</label>
+                    <textarea id="toolUseful" placeholder="Explain the security value or hacker perspective..." required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn" onclick="closeAddToolModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Tool</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <script src="js/Enumeration.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-indigo" id="ch9">
+  <div class="chapter-header">
+    <div class="chapter-icon">⚡</div>
+    <div class="chapter-title-block">
+      <h2>Operations & Response</h2>
+      <p>Day-to-day security operations — jab attack hota hai, kya karte hain</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="ir">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🚨</div><div><div class="term-name">Incident Response</div><div class="term-tagline">Security incident handle karna — structured process</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">IR Phases (NIST)</div><p>1. <strong>Preparation:</strong> Plan banaao pehle<br/>2. <strong>Detection & Analysis:</strong> Incident identify karo<br/>3. <strong>Containment:</strong> Spread rokko<br/>4. <strong>Eradication:</strong> Root cause remove karo<br/>5. <strong>Recovery:</strong> Normal operations restore<br/>6. <strong>Lessons Learned:</strong> Post-mortem</p></div>
+        <div class="block"><div class="block-label">Who does it</div><p>IR Team = CSIRT (Computer Security Incident Response Team). SOC analysts detect karte hain, IR team respond karta hai, executives communicate karte hain. Playbooks pre-defined hote hain.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="soc">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🖥️</div><div><div class="term-name">SOC</div><div class="term-tagline">Security Operations Center — 24/7 security monitoring command center</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Dedicated team aur facility jo 24/7/365 organization ki security monitor karti hai. SIEM se alerts aate hain, analysts investigate karte hain, incidents respond karte hain. Tier 1-2-3 analysts.</p></div>
+        <div class="block"><div class="block-label">Careers</div><p>SOC Analyst — cybersecurity mein most common entry point. Tier 1: alert triage. Tier 2: investigation. Tier 3: threat hunting, advanced analysis. Well paid career path.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="hygiene">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🧼</div><div><div class="term-name">Cyber Hygiene</div><div class="term-tagline">Basic security habits — daily practice</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Regular security practices jo risk significantly reduce karte hain — just like physical hygiene. 80% of attacks patching aur basic hygiene se prevent ho sakte the.</p></div>
+        <div class="block"><div class="block-label">Essentials</div><p>✅ Strong unique passwords + manager<br/>✅ MFA everywhere<br/>✅ Software updates promptly<br/>✅ Regular backups<br/>✅ Phishing awareness<br/>✅ Least privilege<br/>✅ Encrypt sensitive data</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="coc">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">⛓️</div><div><div class="term-name">Chain of Custody</div><div class="term-tagline">Evidence ki integrity track karna — court ke liye</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Documentation jo track karta hai evidence kahan hai, kisne handle kiya, kab, aur kaise. Criminal cases mein agar chain break ho to evidence inadmissible ho sakta hai court mein.</p></div>
+        <div class="block"><div class="block-label">Digital forensics mein</div><p>Disk image lena → hash verify → sealed storage → transport log → analysis. Har step documented. Original kabhi touch nahi — sirf forensic copy pe kaam karo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="uem">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">📱</div><div><div class="term-name">UEM</div><div class="term-tagline">Unified Endpoint Management — all devices ek jagah manage</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Organization ke saare devices (laptops, phones, tablets) ek platform se manage karna — policies enforce karo, software deploy karo, remote wipe karo agar device lost ho.</p></div>
+        <div class="block"><div class="block-label">Why important</div><p>BYOD (Bring Your Own Device) era mein employees apne phones pe corporate email use karte hain. UEM security policies enforce karta hai without fully controlling personal devices.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="backup">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">💾</div><div><div class="term-name">Backup</div><div class="term-tagline">Data ki copy — last line of defense against ransomware</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">3-2-1 Rule</div><p><strong>3</strong> copies of data<br/><strong>2</strong> different storage media types<br/><strong>1</strong> offsite/offline copy<br/><br/>Offline backup = ransomware encrypt nahi kar sakta. Cloud backup alag account mein — not same credentials.</p></div>
+        <div class="block"><div class="block-label">Test karo!</div><p>Backup hai par restore nahi kiya kabhi? Useless. Regular restore tests mandatory. Many organizations discover backup broken hai tab jab actual disaster ho.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="keymgmt">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🗝️</div><div><div class="term-name">Encryption Key Management</div><div class="term-tagline">Keys protect karna — bina key ke encryption useless</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Encryption keys ka lifecycle manage karna — generation, distribution, storage, rotation, destruction. Keys data ke saath same jagah store nahi karni (sabse common mistake).</p></div>
+        <div class="block"><div class="block-label">HSM</div><p>Hardware Security Module — dedicated hardware jo keys physically protect karta hai. Banks, governments use karte hain. Keys kabhi HSM se bahar nahi jaate.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="cloudsec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">☁️</div><div><div class="term-name">Cloud Security</div><div class="term-tagline">Cloud environments secure karna — shared responsibility</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Shared Responsibility</div><p>AWS/Azure/GCP → cloud infrastructure secure karte hain. Customer → data, access, application, configuration secure karna customer ki responsibility. Misconfigured S3 bucket = customer ka fault.</p></div>
+        <div class="block"><div class="block-label">Common misconfigs</div><p>Public S3 buckets, weak IAM roles, no encryption at rest, default security groups allowing all traffic, exposed credentials in code repositories (GitHub).</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Capital One (2019):</strong> Misconfigured AWS WAF se 100 million credit applications exposed. $190M settlement. Ex-Amazon employee ne exploit kiya. Misconfiguration, not AWS's fault.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="emailsec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">📧</div><div><div class="term-name">Email Security</div><div class="term-tagline">Email sabse common attack vector — protect karna zaroori</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Technologies</div><p><strong>SPF:</strong> Authorized mail servers list<br/><strong>DKIM:</strong> Email digital signature<br/><strong>DMARC:</strong> Policy for SPF/DKIM failures<br/><strong>Secure Email Gateway:</strong> Spam/malware filter<br/><strong>Sandboxing:</strong> Attachments isolate karo</p></div>
+        <div class="block"><div class="block-label">Why critical</div><p>91% of cyberattacks start from phishing email. Email sabse exploited vector hai. SPF+DKIM+DMARC configure karo apne domain pe — email spoofing prevent karta hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="physec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🏢</div><div><div class="term-name">Physical Security</div><div class="term-tagline">Cyber security sirf digital nahi — physical access bhi</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Why matters</div><p>Best firewall bhi useless hai agar attacker physically server room mein ghus jaaye. Lock pick, RFID clone, tailgating — physical attacks real hain. Server rooms biometric access chahiye.</p></div>
+        <div class="block"><div class="block-label">Controls</div><p>Keycards, biometrics, CCTV, guards, mantrap (double door airlock), cable locks on laptops, screen locks, clean desk policy, no USB drives policy, visitor logs.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

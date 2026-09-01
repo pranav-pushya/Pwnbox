@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
+  <h1>Zero to Cyber</h1>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="search-bar">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+  </div>
+  <div class="sidebar-title">// Chapters</div>
+
+  <div class="nav-section" id="nav-content">
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-red)"></span>01. Core Threats</div>
+    <a class="nav-link" href="masterguide_ch1.html#malware">Malware</a><a class="nav-link" href="masterguide_ch1.html#phishing">Phishing</a><a class="nav-link" href="masterguide_ch1.html#ransomware">Ransomware</a><a class="nav-link" href="masterguide_ch1.html#botnet">Botnet</a><a class="nav-link" href="masterguide_ch1.html#ddos">DDoS</a><a class="nav-link" href="masterguide_ch1.html#mitm">MITM</a><a class="nav-link" href="masterguide_ch1.html#sqli">SQL Injection</a><a class="nav-link" href="masterguide_ch1.html#xss">XSS</a><a class="nav-link" href="masterguide_ch1.html#csrf">CSRF</a><a class="nav-link" href="masterguide_ch1.html#zeroday">Zero-day</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-orange)"></span>02. Malware Types</div>
+    <a class="nav-link" href="masterguide_ch2.html#virus">Virus</a><a class="nav-link" href="masterguide_ch2.html#worm">Worm</a><a class="nav-link" href="masterguide_ch2.html#trojan">Trojan Horse</a><a class="nav-link" href="masterguide_ch2.html#rootkit">Rootkit</a><a class="nav-link" href="masterguide_ch2.html#keylogger">Keylogger</a><a class="nav-link" href="masterguide_ch2.html#spyware">Spyware</a><a class="nav-link" href="masterguide_ch2.html#adware">Adware</a><a class="nav-link" href="masterguide_ch2.html#fileless">Fileless Malware</a><a class="nav-link" href="masterguide_ch2.html#rat">RAT</a><a class="nav-link" href="masterguide_ch2.html#raas">RaaS</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-green)"></span>03. Defensive Tools</div>
+    <a class="nav-link" href="masterguide_ch3.html#firewall">Firewall</a><a class="nav-link" href="masterguide_ch3.html#antivirus">Antivirus</a><a class="nav-link" href="masterguide_ch3.html#ids">IDS</a><a class="nav-link" href="masterguide_ch3.html#ips">IPS</a><a class="nav-link" href="masterguide_ch3.html#siem">SIEM</a><a class="nav-link" href="masterguide_ch3.html#waf">WAF</a><a class="nav-link" href="masterguide_ch3.html#endpoint">Endpoint Security</a><a class="nav-link" href="masterguide_ch3.html#dlp">DLP</a><a class="nav-link" href="masterguide_ch3.html#sandbox">Sandbox</a><a class="nav-link" href="masterguide_ch3.html#honeypot">Honeypot</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-blue)"></span>04. Encryption</div>
+    <a class="nav-link" href="masterguide_ch4.html#encryption">Encryption</a><a class="nav-link" href="masterguide_ch4.html#e2ee">End-to-End Encryption</a><a class="nav-link" href="masterguide_ch4.html#aes">AES</a><a class="nav-link" href="masterguide_ch4.html#pki">PKI</a><a class="nav-link" href="masterguide_ch4.html#digicert">Digital Certificate</a><a class="nav-link" href="masterguide_ch4.html#digisig">Digital Signature</a><a class="nav-link" href="masterguide_ch4.html#ssl">SSL</a><a class="nav-link" href="masterguide_ch4.html#tls">TLS</a><a class="nav-link" href="masterguide_ch4.html#https">HTTPS</a><a class="nav-link" href="masterguide_ch4.html#ssh">SSH</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-cyan)"></span>05. Identity & Access</div>
+    <a class="nav-link" href="masterguide_ch5.html#2fa">2FA</a><a class="nav-link" href="masterguide_ch5.html#mfa">MFA</a><a class="nav-link" href="masterguide_ch5.html#iam">IAM</a><a class="nav-link" href="masterguide_ch5.html#pam">PAM</a><a class="nav-link" href="masterguide_ch5.html#sso">SSO</a><a class="nav-link" href="masterguide_ch5.html#zerotrust">Zero Trust</a><a class="nav-link" href="masterguide_ch5.html#accesscontrol">Access Control</a><a class="nav-link" href="masterguide_ch5.html#authn">Authentication</a><a class="nav-link" href="masterguide_ch5.html#authz">Authorization</a><a class="nav-link" href="masterguide_ch5.html#token">Token</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-purple)"></span>06. Network & Cloud</div>
+    <a class="nav-link" href="masterguide_ch6.html#vpn">VPN</a><a class="nav-link" href="masterguide_ch6.html#netseg">Network Segmentation</a><a class="nav-link" href="masterguide_ch6.html#dnspois">DNS Poisoning</a><a class="nav-link" href="masterguide_ch6.html#nat">NAT</a><a class="nav-link" href="masterguide_ch6.html#sdn">SDN</a><a class="nav-link" href="masterguide_ch6.html#casb">CASB</a><a class="nav-link" href="masterguide_ch6.html#iot">IoT</a><a class="nav-link" href="masterguide_ch6.html#iotsec">IoT Security</a><a class="nav-link" href="masterguide_ch6.html#netsec">Network Security</a><a class="nav-link" href="masterguide_ch6.html#threatactor">Threat Actor</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-pink)"></span>07. Advanced Threats</div>
+    <a class="nav-link" href="masterguide_ch7.html#apt">APT</a><a class="nav-link" href="masterguide_ch7.html#espionage">Cyber Espionage</a><a class="nav-link" href="masterguide_ch7.html#warfare">Cyber Warfare</a><a class="nav-link" href="masterguide_ch7.html#supply">Supply Chain Attack</a><a class="nav-link" href="masterguide_ch7.html#social">Social Engineering</a><a class="nav-link" href="masterguide_ch7.html#brute">Brute Force</a><a class="nav-link" href="masterguide_ch7.html#cred">Credential Stuffing</a><a class="nav-link" href="masterguide_ch7.html#insider">Insider Threat</a><a class="nav-link" href="masterguide_ch7.html#kiddie">Script Kiddie</a><a class="nav-link" href="masterguide_ch7.html#cyberphys">Cyber-Physical</a>
+
+    <div class="nav-cat"><span class="dot" style="background:var(--accent-yellow)"></span>08. Governance</div>
+    <a class="nav-link" href="masterguide_ch8.html#risk">Risk Management</a><a class="nav-link" href="masterguide_ch8.html#compliance">Compliance</a><a class="nav-link" href="masterguide_ch8.html#insurance">Cyber Insurance</a><a class="nav-link" href="masterguide_ch8.html#vuln">Vulnerability</a><a class="nav-link" href="masterguide_ch8.html#pentest">Pen Testing</a><a class="nav-link" href="masterguide_ch8.html#resilience">Cyber Resilience</a><a class="nav-link" href="masterguide_ch8.html#cti">CTI</a><a class="nav-link" href="masterguide_ch8.html#cybercrime">Cyber Crime</a><a class="nav-link" href="masterguide_ch8.html#bully">Cyber Bullying</a><a class="nav-link" href="masterguide_ch8.html#forensics">Digital Forensics</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#818cf8)"></span>09. Operations</div>
+    <a class="nav-link" href="masterguide_ch9.html#ir">Incident Response</a><a class="nav-link" href="masterguide_ch9.html#soc">SOC</a><a class="nav-link" href="masterguide_ch9.html#hygiene">Cyber Hygiene</a><a class="nav-link" href="masterguide_ch9.html#coc">Chain of Custody</a><a class="nav-link" href="masterguide_ch9.html#uem">UEM</a><a class="nav-link" href="masterguide_ch9.html#backup">Backup</a><a class="nav-link" href="masterguide_ch9.html#keymgmt">Key Management</a><a class="nav-link" href="masterguide_ch9.html#cloudsec">Cloud Security</a><a class="nav-link" href="masterguide_ch9.html#emailsec">Email Security</a><a class="nav-link" href="masterguide_ch9.html#physec">Physical Security</a>
+
+    <div class="nav-cat"><span class="dot" style="background:#2dd4bf)"></span>10. Emerging</div>
+    <a class="nav-link" href="masterguide_ch10.html#aisec">AI Security</a><a class="nav-link" href="masterguide_ch10.html#root">Root Access</a><a class="nav-link" href="masterguide_ch10.html#pwdcrack">Password Cracking</a><a class="nav-link" href="masterguide_ch10.html#dos">DoS</a><a class="nav-link" href="masterguide_ch10.html#ueba">UEBA</a><a class="nav-link" href="masterguide_ch10.html#darkweb">Dark Web</a><a class="nav-link" href="masterguide_ch10.html#cpa">Cyber-Physical Attack</a><a class="nav-link" href="masterguide_ch10.html#cloudiam">Cloud IAM</a><a class="nav-link" href="masterguide_ch10.html#databreach">Data Breach</a><a class="nav-link" href="masterguide_ch10.html#framework">Cybersecurity Framework</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<section class="chapter ch-purple" id="ch6">
+  <div class="chapter-header">
+    <div class="chapter-icon">🌐</div>
+    <div class="chapter-title-block">
+      <h2>Network & Cloud Security</h2>
+      <p>Data travel karta hai — usse protect karna aur cloud era ki challenges</p>
+    </div>
+  </div>
+
+  <div class="term-card" id="vpn">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🔮</div><div><div class="term-name">VPN</div><div class="term-tagline">Virtual Private Network — encrypted tunnel through internet</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Tumhare device aur VPN server ke beech encrypted tunnel. ISP, network admin, hackers — koi nahi dekh sakta tum kya browse kar rahe ho. Tumhara IP bhi VPN server ka IP dikhta hai.</p></div>
+        <div class="block"><div class="block-label">Uses</div><p>Privacy (ISP se hide), regional content access, public WiFi pe safety, company network remote access. Free VPNs se beware — they sell your data.</p></div>
+      </div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Glass tunnel ke through jaana vs opaque armored tube. Normal internet = glass — sab dekh sakte hain. VPN = opaque tube — bahar se kuch nazar nahi.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="netseg">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🧱</div><div><div class="term-name">Network Segmentation</div><div class="term-tagline">Network ko zones mein todna — damage isolate karna</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Ek bada network ko smaller segments mein divide karna (VLANs, subnets). Finance network se developer network alag. Ek zone compromise ho to doosre safe rahein.</p></div>
+        <div class="block"><div class="block-label">Why critical</div><p>Lateral movement prevent karta hai. Attacker ek machine compromise kare par poore network mein freely nahi ghoom sakta. Colonial Pipeline worm bhi segmentation se rok sakte the.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="dnspois">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">☠️</div><div><div class="term-name">DNS Poisoning</div><div class="term-tagline">DNS cache corrupt karna — wrong IP pe redirect</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>DNS server ki cache mein fake records inject karna. "google.com = 1.2.3.4" — yeh galat IP hai par DNS ye record return karta hai. User google.com type kare, attacker site pe jaaye.</p></div>
+        <div class="block"><div class="block-label">DNS kya hai</div><p>Phone book of internet. "google.com" → "142.250.195.46" translate karta hai. DNS poisoning is phonebook mein galat entries daalna.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="nat">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🔄</div><div><div class="term-name">NAT</div><div class="term-tagline">Network Address Translation — private IPs hide karna</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Tumhare ghar ke saare devices ek public IP share karte hain (router ka). Router andar private IPs maintain karta hai. Internet se direct access nahi hota internal devices ko — security benefit.</p></div>
+        <div class="block"><div class="block-label">Home Network</div><p>Phone: 192.168.1.5, Laptop: 192.168.1.6 — private IPs. Router: 103.45.67.89 — public IP. Internet pe sirf router ka IP dikhta hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="sdn">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🕸️</div><div><div class="term-name">SDN</div><div class="term-tagline">Software Defined Networking — network programmable banana</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Traditional networks mein hardware configure karo manually. SDN mein software se network control hota hai centrally. Security policies dynamically apply ho sakti hain, faster response to threats.</p></div>
+        <div class="block"><div class="block-label">Security benefit</div><p>Threat detect hote hi, SDN controller automatically affected segment isolate kar sakta hai. Micro-segmentation easily implement. Cloud networks aise hi work karte hain.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="casb">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">☁️</div><div><div class="term-name">CASB</div><div class="term-tagline">Cloud Access Security Broker — cloud apps ka security gateway</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Employees cloud apps (Google Drive, Dropbox, Salesforce) use karte hain. CASB monitor karta hai kya data cloud pe ja raha hai, unauthorized apps ka use ("shadow IT") detect karta hai.</p></div>
+        <div class="block"><div class="block-label">Use case</div><p>Employee ne confidential doc Dropbox personal pe upload kiya. CASB detect karta hai — alert ya block. DLP + cloud = CASB.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="iot">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🏠</div><div><div class="term-name">IoT</div><div class="term-tagline">Internet of Things — internet-connected physical devices</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Smart devices jo internet se connected hain — smart bulbs, cameras, fridges, thermostats, wearables, industrial sensors, medical devices. Billions of devices globally.</p></div>
+        <div class="block"><div class="block-label">Scale</div><p>2030 tak 75 billion+ IoT devices expected. Har device ek potential entry point. Most IoT devices have terrible security — no updates, weak passwords, old firmware.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="iotsec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🔐</div><div><div class="term-name">IoT Security</div><div class="term-tagline">Smart devices ko secure karna — mushkil kaam</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Why hard</div><p>Limited processing power (can't run complex security), no screen/keyboard for setup, vendors update nahi karte, users default passwords change nahi karte, long lifecycle (10-20 years).</p></div>
+        <div class="block"><div class="block-label">Best practices</div><p>Default passwords change karo, separate network/VLAN pe rakho IoT devices, firmware update karo, unnecessary features disable karo, network monitoring rakho.</p></div>
+      </div>
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Hospital hack via Fish Tank (2017):</strong> Casino ka smart fish tank thermometer hack hua. Attackers ne isse network access liya aur casino's high-roller database exfiltrate ki — 10GB data.</p></div>
+    </div>
+  </div>
+
+  <div class="term-card" id="netsec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🌉</div><div><div class="term-name">Network Security</div><div class="term-tagline">Network infrastructure ko protect karna — overall umbrella term</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">What is it</div><p>Policies, tools, aur practices jo network infrastructure protect karte hain — unauthorized access, misuse, modification, denial prevent karna. Firewall, IDS/IPS, VPN, segmentation sab iske components.</p></div>
+        <div class="block"><div class="block-label">Layers</div><p>Defense in depth — ek layer breach ho to doosri catch kare. Firewall → IDS → WAF → Endpoint → SIEM — layered approach best practice hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="threatactor">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(168,85,247,0.1)">🎭</div><div><div class="term-name">Threat Actor</div><div class="term-tagline">Koi bhi jo cyberattack kare — multiple types</div></div></div>
+      <span class="term-badge badge-network">Network</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Types</div><p><strong>Nation-State:</strong> Government-backed (Russia APT28, China APT40)<br/><strong>Cybercriminals:</strong> Financial motivation<br/><strong>Hacktivists:</strong> Political (Anonymous)<br/><strong>Insider Threat:</strong> Employees<br/><strong>Script Kiddies:</strong> Amateurs</p></div>
+        <div class="block"><div class="block-label">Why matters</div><p>Threat actor type se pata chalta hai motivation kya hai, resources kitne hain, aur defenses kaise adjust karein. Nation-state actors ka zero-day budget ≠ script kiddie ka free tools.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+</div>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+    <script src="js/cybersecurity_masterguide.js"></script>
+    <script src="js/theme.js"></script>
+    </body>
+</html>
