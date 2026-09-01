@@ -290,7 +290,7 @@
             flex-grow: 1;
             background: var(--bg-panel);
             border: var(--border-width) solid var(--border-dim);
-            color: white;
+            color: var(--text-main);
             padding: 10px 18px;
             border-radius: 0;
             outline: none;
@@ -619,7 +619,7 @@
             background: var(--bg-panel);
             border: var(--border-width) solid var(--border-dim);
             border-radius: 0;
-            color: white;
+            color: var(--text-main);
             padding: 10px 12px;
             outline: none;
             font-size: 0.9rem;

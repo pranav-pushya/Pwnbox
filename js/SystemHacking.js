@@ -259,7 +259,7 @@ Be direct, no fluff, never vague.`;
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
                     body: JSON.stringify({
-                        model: "llama-3.1-8b-instant",
+                        model: "openai/gpt-oss-20b",
                         messages: [{ role: "system", content: systemPrompt }, { role: "user", content: msg }]
                     })
                 });

@@ -306,7 +306,7 @@
                         'Authorization': `Bearer ${apiKey}` // Groq requires Bearer token
                     },
                     body: JSON.stringify({
-                        model: "llama-3.1-8b-instant", // You can change this to "mixtral-8x7b-32768" if you want
+                        model: "openai/gpt-oss-20b", // You can change this to "openai/gpt-oss-20b" if you want
                         messages: [
                             { role: "system", content: systemPrompt },
                             { role: "user", content: msg }
