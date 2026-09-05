@@ -1,0 +1,758 @@
+{
+  "chapter": 6,
+  "chapterTitle": "Network & Cloud Security",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch6_q01",
+      "termRef": "vpn",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a VPN create between your device and its server?",
+      "options": [
+        "A firewall rule set",
+        "A backup copy of your files",
+        "A physical cable connection",
+        "An encrypted tunnel that hides your traffic from ISPs, admins, and hackers"
+      ],
+      "correctIndex": 3,
+      "explanation": "Tumhare device aur VPN server ke beech encrypted tunnel — ISP, network admin, hackers koi nahi dekh sakta tum kya browse kar rahe ho."
+    },
+    {
+      "id": "ch6_q02",
+      "termRef": "vpn",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to describe a VPN?",
+      "options": [
+        "A smoke detector",
+        "A postman reading your letters",
+        "An opaque armored tube versus a glass tunnel that everyone can see through",
+        "A guard checking IDs"
+      ],
+      "correctIndex": 2,
+      "explanation": "Normal internet = glass tunnel — sab dekh sakte hain. VPN = opaque armored tube — bahar se kuch nazar nahi."
+    },
+    {
+      "id": "ch6_q03",
+      "termRef": "vpn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What warning does the guide give about free VPN services?",
+      "options": [
+        "They are illegal in every country",
+        "They may sell your data",
+        "They are always faster than paid VPNs",
+        "They cannot be used on mobile devices"
+      ],
+      "correctIndex": 1,
+      "explanation": "Free VPNs se beware — they sell your data. Privacy protect karne ke naam pe khud data bech sakte hain."
+    },
+    {
+      "id": "ch6_q04",
+      "termRef": "vpn",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You connect to a coffee shop's public WiFi while using a VPN, and even someone monitoring the WiFi network cannot see which websites you're visiting. What is enabling this protection?",
+      "options": [
+        "The VPN's encrypted tunnel",
+        "DNS caching",
+        "A honeypot on the network",
+        "The coffee shop's firewall"
+      ],
+      "correctIndex": 0,
+      "explanation": "VPN encrypted tunnel banaata hai — public WiFi pe safety ke liye ek prime use case hai."
+    },
+    {
+      "id": "ch6_q05",
+      "termRef": "vpn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What IP address does a website see when you're browsing through a VPN?",
+      "options": [
+        "The website's own IP address",
+        "No IP address at all",
+        "Your actual home IP address, unchanged",
+        "The VPN server's IP address, not your own"
+      ],
+      "correctIndex": 3,
+      "explanation": "Tumhara IP bhi VPN server ka IP dikhta hai — yeh regional content access aur privacy ke liye use hota hai."
+    },
+    {
+      "id": "ch6_q06",
+      "termRef": "netseg",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does network segmentation do?",
+      "options": [
+        "Combines multiple small networks into one large network",
+        "Encrypts all data on a single server",
+        "Divides a large network into smaller isolated segments to contain damage",
+        "Blocks all outbound internet traffic entirely"
+      ],
+      "correctIndex": 2,
+      "explanation": "Ek bada network ko smaller segments mein divide karna (VLANs, subnets) — finance network se developer network alag."
+    },
+    {
+      "id": "ch6_q07",
+      "termRef": "netseg",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What specific attack behavior does network segmentation help prevent?",
+      "options": [
+        "Weak password usage by employees",
+        "Physical theft of laptops",
+        "Phishing emails reaching employee inboxes",
+        "Lateral movement — an attacker moving freely across the whole network after compromising one machine"
+      ],
+      "correctIndex": 3,
+      "explanation": "Lateral movement prevent karta hai — attacker ek machine compromise kare par poore network mein freely nahi ghoom sakta."
+    },
+    {
+      "id": "ch6_q08",
+      "termRef": "netseg",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A worm compromises one workstation in the marketing department, but is unable to spread into the finance department's systems because they sit on a completely separate network segment. What prevented the spread?",
+      "options": [
+        "A VPN",
+        "NAT",
+        "Network segmentation",
+        "DNS Poisoning defenses"
+      ],
+      "correctIndex": 2,
+      "explanation": "Ek zone compromise ho to doosre safe rahein — yeh network segmentation ka core benefit hai, jaise Colonial Pipeline worm ko bhi is se roka ja sakta tha."
+    },
+    {
+      "id": "ch6_q09",
+      "termRef": "netseg",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which real-world incident does the guide say could have been contained better with proper network segmentation?",
+      "options": [
+        "The MGM Resorts hack",
+        "The Capital One breach",
+        "The Colonial Pipeline attack",
+        "The GitHub DDoS attack"
+      ],
+      "correctIndex": 2,
+      "explanation": "Colonial Pipeline worm bhi segmentation se rok sakte the — guide is example ko specifically mention karti hai."
+    },
+    {
+      "id": "ch6_q10",
+      "termRef": "netseg",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which technical tools does the guide mention for implementing network segmentation?",
+      "options": [
+        "VLANs and subnets",
+        "Digital certificates and CAs",
+        "Password managers and vaults",
+        "Honeypots and sandboxes"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ek bada network ko smaller segments mein divide karna (VLANs, subnets) — yeh technical implementation ka tareeka hai."
+    },
+    {
+      "id": "ch6_q11",
+      "termRef": "dnspois",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What happens during DNS poisoning?",
+      "options": [
+        "Fake records get injected into a DNS server's cache, redirecting users to the wrong IP",
+        "A user's browser history gets deleted",
+        "All DNS servers worldwide go offline simultaneously",
+        "A DNS server is physically destroyed"
+      ],
+      "correctIndex": 0,
+      "explanation": "DNS server ki cache mein fake records inject karna — 'google.com = galat IP' record return karta hai, user attacker site pe pahunch jaata hai."
+    },
+    {
+      "id": "ch6_q12",
+      "termRef": "dnspois",
+      "type": "analogy",
+      "difficulty": "medium",
+      "question": "How does the guide describe what DNS itself is, before explaining poisoning?",
+      "options": [
+        "A type of encrypted messaging protocol",
+        "A firewall rule engine",
+        "A backup storage system",
+        "The 'phone book' of the internet, translating domain names into IP addresses"
+      ],
+      "correctIndex": 3,
+      "explanation": "Phone book of internet — 'google.com' → '142.250.195.46' translate karta hai. DNS poisoning is phonebook mein galat entries daalna hai."
+    },
+    {
+      "id": "ch6_q13",
+      "termRef": "dnspois",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A user types 'google.com' correctly into their browser, but ends up on a fake malicious website instead. Which attack likely caused this, assuming their own device isn't infected?",
+      "options": [
+        "A CASB failure",
+        "A firewall misconfiguration",
+        "DNS Poisoning",
+        "SSH key theft"
+      ],
+      "correctIndex": 2,
+      "explanation": "DNS poisoning se galat IP wapas milta hai even though URL sahi type kiya gaya — user ko pata bhi nahi chalta ki fake site pe pahunch gaya."
+    },
+    {
+      "id": "ch6_q14",
+      "termRef": "dnspois",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does a poisoned DNS cache record for a legitimate domain like 'google.com' actually contain?",
+      "options": [
+        "The user's own personal IP address",
+        "The correct IP address, but encrypted differently",
+        "An incorrect IP address controlled by the attacker",
+        "No IP address at all"
+      ],
+      "correctIndex": 2,
+      "explanation": "'google.com = 1.2.3.4' — yeh galat IP hai par DNS ye record return karta hai jab poisoning ho chuki ho."
+    },
+    {
+      "id": "ch6_q15",
+      "termRef": "dnspois",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "DNS poisoning is essentially an attack on which core internet function?",
+      "options": [
+        "User authentication",
+        "File encryption at rest",
+        "Data compression",
+        "Domain name to IP address translation"
+      ],
+      "correctIndex": 3,
+      "explanation": "DNS ka core function domain name ko IP address mein translate karna hai — poisoning isi function ko corrupt karta hai."
+    },
+    {
+      "id": "ch6_q16",
+      "termRef": "nat",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the primary security benefit of NAT (Network Address Translation)?",
+      "options": [
+        "It automatically manages user passwords",
+        "It encrypts all internet traffic automatically",
+        "Internal devices' private IPs are hidden from the internet, so they can't be accessed directly",
+        "It blocks all malware regardless of source"
+      ],
+      "correctIndex": 2,
+      "explanation": "Router andar private IPs maintain karta hai, internet se direct access nahi hota internal devices ko — security benefit."
+    },
+    {
+      "id": "ch6_q17",
+      "termRef": "nat",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In a typical home network, what does the outside internet see?",
+      "options": [
+        "Only the phone's IP, never the laptop's",
+        "Every individual device's private IP address",
+        "Only the router's single public IP address",
+        "Nothing at all, the network is invisible"
+      ],
+      "correctIndex": 2,
+      "explanation": "Router: 103.45.67.89 — public IP. Internet pe sirf router ka IP dikhta hai, andar ke devices ke private IPs hidden rehte hain."
+    },
+    {
+      "id": "ch6_q18",
+      "termRef": "nat",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is an example of a private IP address, as shown in the guide's home network example?",
+      "options": [
+        "8.8.8.8",
+        "192.168.1.5",
+        "1.1.1.1",
+        "103.45.67.89"
+      ],
+      "correctIndex": 1,
+      "explanation": "Phone: 192.168.1.5, Laptop: 192.168.1.6 — yeh private IPs hain, sirf ghar ke network ke andar valid."
+    },
+    {
+      "id": "ch6_q19",
+      "termRef": "nat",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker scanning the internet cannot directly find or connect to your home laptop's private IP address, even though they can see your router's public IP. What is providing this protection?",
+      "options": [
+        "NAT (Network Address Translation)",
+        "A VPN",
+        "DNS Poisoning defenses",
+        "SSH keys"
+      ],
+      "correctIndex": 0,
+      "explanation": "NAT internal devices ko internet se direct access se protect karta hai, sirf router ka public IP visible hota hai."
+    },
+    {
+      "id": "ch6_q20",
+      "termRef": "nat",
+      "type": "category",
+      "difficulty": "easy",
+      "question": "What does NAT stand for?",
+      "options": [
+        "Network Access Token",
+        "Network Authentication Tool",
+        "New Application Traffic",
+        "Network Address Translation"
+      ],
+      "correctIndex": 3,
+      "explanation": "NAT = Network Address Translation — private IPs hide karna internet se, security ka ek natural side-benefit."
+    },
+    {
+      "id": "ch6_q21",
+      "termRef": "sdn",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does SDN (Software Defined Networking) enable compared to traditional networks?",
+      "options": [
+        "Removing the need for any network security at all",
+        "Only allowing wireless connections",
+        "Physically rewiring the network every time a policy changes",
+        "Centralized, software-based control of the network instead of manual hardware configuration"
+      ],
+      "correctIndex": 3,
+      "explanation": "Traditional networks mein hardware configure karo manually. SDN mein software se network control hota hai centrally."
+    },
+    {
+      "id": "ch6_q22",
+      "termRef": "sdn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What security advantage does SDN offer when a threat is detected?",
+      "options": [
+        "It permanently deletes all network logs",
+        "It requires a technician to physically unplug a cable",
+        "It disables the internet for the entire company",
+        "The SDN controller can automatically isolate the affected network segment"
+      ],
+      "correctIndex": 3,
+      "explanation": "Threat detect hote hi, SDN controller automatically affected segment isolate kar sakta hai — faster response to threats."
+    },
+    {
+      "id": "ch6_q23",
+      "termRef": "sdn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which environments does the guide say typically rely on SDN-like architecture?",
+      "options": [
+        "Standalone offline computers",
+        "Cloud networks",
+        "Physical paper filing systems",
+        "Old dial-up modem networks"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cloud networks aise hi work karte hain — micro-segmentation easily implement, SDN-based architecture common hai."
+    },
+    {
+      "id": "ch6_q24",
+      "termRef": "sdn",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "As soon as a security tool flags anomalous traffic, the network automatically reconfigures itself in seconds to isolate the affected segment, without any human manually reconfiguring hardware. What technology enables this rapid response?",
+      "options": [
+        "DNS Poisoning defenses",
+        "SSH key rotation",
+        "NAT alone",
+        "SDN (Software Defined Networking)"
+      ],
+      "correctIndex": 3,
+      "explanation": "SDN security policies dynamically apply ho sakti hain — automated, fast response jo traditional hardware configuration se possible nahi tha."
+    },
+    {
+      "id": "ch6_q25",
+      "termRef": "sdn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does SDN make easier to implement, according to the guide?",
+      "options": [
+        "Micro-segmentation",
+        "Manual firewall rule entry only",
+        "Paper-based audit trails",
+        "Physical cable management"
+      ],
+      "correctIndex": 0,
+      "explanation": "Micro-segmentation easily implement — SDN ki flexibility isse possible banati hai."
+    },
+    {
+      "id": "ch6_q26",
+      "termRef": "casb",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a CASB (Cloud Access Security Broker) primarily monitor?",
+      "options": [
+        "Hardware keyloggers on employee laptops",
+        "What data employees send to cloud apps and detect unauthorized ('shadow IT') app usage",
+        "Email spam filtering rules only",
+        "Physical access to the server room"
+      ],
+      "correctIndex": 1,
+      "explanation": "Employees cloud apps (Google Drive, Dropbox, Salesforce) use karte hain — CASB monitor karta hai kya data cloud pe ja raha hai."
+    },
+    {
+      "id": "ch6_q27",
+      "termRef": "casb",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'shadow IT', which a CASB helps detect?",
+      "options": [
+        "A backup server hidden in a data center",
+        "A type of ransomware",
+        "A hacking group operating in the dark web",
+        "Unauthorized apps or cloud services being used without IT department approval"
+      ],
+      "correctIndex": 3,
+      "explanation": "Unauthorized apps ka use ('shadow IT') detect karta hai — jab employees bina approval ke apne cloud tools use karte hain."
+    },
+    {
+      "id": "ch6_q28",
+      "termRef": "casb",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An employee uploads a confidential company document to their personal Dropbox account, and a security tool immediately flags and alerts the security team. Which tool caught this?",
+      "options": [
+        "CASB",
+        "NAT",
+        "SSH",
+        "DNS Poisoning protection"
+      ],
+      "correctIndex": 0,
+      "explanation": "Employee ne confidential doc Dropbox personal pe upload kiya, CASB detect karta hai — alert ya block. DLP + cloud = CASB."
+    },
+    {
+      "id": "ch6_q29",
+      "termRef": "casb",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How does the guide describe CASB in relation to DLP?",
+      "options": [
+        "CASB replaces the need for any encryption",
+        "CASB has nothing to do with DLP",
+        "CASB is essentially DLP combined with cloud visibility",
+        "CASB is only for physical security"
+      ],
+      "correctIndex": 2,
+      "explanation": "DLP + cloud = CASB — guide explicitly is combination ko describe karti hai."
+    },
+    {
+      "id": "ch6_q30",
+      "termRef": "casb",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these apps would a CASB typically monitor employee usage of?",
+      "options": [
+        "Only the company's internal firewall",
+        "Only the office printer",
+        "Only the company's physical badge system",
+        "Google Drive, Dropbox, and Salesforce"
+      ],
+      "correctIndex": 3,
+      "explanation": "Employees cloud apps (Google Drive, Dropbox, Salesforce) use karte hain — CASB inhi apps pe data flow monitor karta hai."
+    },
+    {
+      "id": "ch6_q31",
+      "termRef": "iot",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the Internet of Things (IoT)?",
+      "options": [
+        "Internet-connected physical devices like smart bulbs, cameras, and thermostats",
+        "A type of encryption algorithm",
+        "A network security monitoring tool",
+        "A cloud storage provider"
+      ],
+      "correctIndex": 0,
+      "explanation": "Smart devices jo internet se connected hain — smart bulbs, cameras, fridges, thermostats, wearables, industrial sensors, medical devices."
+    },
+    {
+      "id": "ch6_q32",
+      "termRef": "iot",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How many IoT devices are expected globally by 2030, according to the guide?",
+      "options": [
+        "7.5 million",
+        "75 billion or more",
+        "7.5 billion",
+        "750,000"
+      ],
+      "correctIndex": 1,
+      "explanation": "2030 tak 75 billion+ IoT devices expected — har device ek potential entry point banta hai."
+    },
+    {
+      "id": "ch6_q33",
+      "termRef": "iot",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What common security problem does the guide highlight about most IoT devices?",
+      "options": [
+        "They often have weak passwords, outdated firmware, and no security updates",
+        "They cannot connect to the internet at all",
+        "They are only used by governments",
+        "They are always more secure than laptops"
+      ],
+      "correctIndex": 0,
+      "explanation": "Most IoT devices have terrible security — no updates, weak passwords, old firmware — isliye har device ek potential entry point banta hai."
+    },
+    {
+      "id": "ch6_q34",
+      "termRef": "iot",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A smart doorbell, a smart thermostat, and a smart TV in your house all still have their default factory passwords set. What does this collectively represent?",
+      "options": [
+        "An expanded attack surface due to poor IoT security practices",
+        "A DNS poisoning vulnerability specifically",
+        "A guaranteed DDoS attack within 24 hours",
+        "No risk at all since they're just household appliances"
+      ],
+      "correctIndex": 0,
+      "explanation": "Default passwords change na karna common IoT mistake hai — har unsecured device ek potential entry point ban jaata hai attackers ke liye."
+    },
+    {
+      "id": "ch6_q35",
+      "termRef": "iot",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is an example of an IoT device, according to the guide's list?",
+      "options": [
+        "A traditional desktop PC only",
+        "A smart bulb",
+        "A landline telephone",
+        "A physical paper document"
+      ],
+      "correctIndex": 1,
+      "explanation": "Smart bulbs, cameras, fridges, thermostats, wearables, industrial sensors, medical devices — sab IoT devices hain."
+    },
+    {
+      "id": "ch6_q36",
+      "termRef": "iotsec",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Why does the guide describe securing IoT devices as especially difficult?",
+      "options": [
+        "Because IoT devices don't connect to the internet at all",
+        "Because IoT devices are always encrypted by default",
+        "Because IoT devices have unlimited processing power",
+        "Limited processing power, no screen for setup, and vendors rarely issue updates"
+      ],
+      "correctIndex": 3,
+      "explanation": "Limited processing power (can't run complex security), no screen/keyboard for setup, vendors update nahi karte, users default passwords change nahi karte."
+    },
+    {
+      "id": "ch6_q37",
+      "termRef": "iotsec",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "In the 2017 casino hack, attackers used a smart fish tank thermometer to exfiltrate how much data from the casino's high-roller database?",
+      "options": [
+        "100MB",
+        "100GB",
+        "1GB",
+        "10GB"
+      ],
+      "correctIndex": 3,
+      "explanation": "Casino ka smart fish tank thermometer hack hua — attackers ne isse network access liya aur casino's high-roller database exfiltrate ki, 10GB data."
+    },
+    {
+      "id": "ch6_q38",
+      "termRef": "iotsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is a recommended best practice for IoT security, according to the guide?",
+      "options": [
+        "Keep IoT devices on a separate network/VLAN from critical systems",
+        "Connect every IoT device directly to the main corporate network",
+        "Always keep default passwords unchanged for compatibility",
+        "Never update IoT device firmware, to avoid breaking it"
+      ],
+      "correctIndex": 0,
+      "explanation": "Default passwords change karo, separate network/VLAN pe rakho IoT devices, firmware update karo, unnecessary features disable karo, network monitoring rakho."
+    },
+    {
+      "id": "ch6_q39",
+      "termRef": "iotsec",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A seemingly harmless smart device on a network becomes the entry point for a much larger data breach into supposedly unrelated systems. Which real-world incident does this describe?",
+      "options": [
+        "The GitHub DDoS attack",
+        "The Zeus Trojan campaign",
+        "The Colonial Pipeline attack",
+        "The casino fish tank thermometer hack"
+      ],
+      "correctIndex": 3,
+      "explanation": "Hospital/casino hack via fish tank thermometer (2017) — exactly is scenario ko describe karta hai, ek chhota IoT device bada breach ka entry point bana."
+    },
+    {
+      "id": "ch6_q40",
+      "termRef": "iotsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is IoT device lifecycle a security challenge, according to the guide?",
+      "options": [
+        "Devices never need power and thus never need updates",
+        "Devices are replaced every month, causing config chaos",
+        "Devices are always managed by a dedicated IT team",
+        "Devices can remain in use for 10-20 years, often without ongoing security support"
+      ],
+      "correctIndex": 3,
+      "explanation": "Long lifecycle (10-20 years) — vendor support kabhi khatam ho jaata hai but device abhi bhi use ho raha hota hai, security gap create karta hai."
+    },
+    {
+      "id": "ch6_q41",
+      "termRef": "netsec",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Network Security encompass, as an umbrella term?",
+      "options": [
+        "Only physical locks on server room doors",
+        "Only antivirus software installed on individual laptops",
+        "Only employee training programs",
+        "Policies, tools, and practices that protect network infrastructure from unauthorized access, misuse, and denial"
+      ],
+      "correctIndex": 3,
+      "explanation": "Policies, tools, aur practices jo network infrastructure protect karte hain — unauthorized access, misuse, modification, denial prevent karna."
+    },
+    {
+      "id": "ch6_q42",
+      "termRef": "netsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'defense in depth', as described in the guide's Network Security layers?",
+      "options": [
+        "Removing all layers to simplify the network",
+        "Only using antivirus and nothing else",
+        "Relying on a single very strong firewall alone",
+        "Using multiple layers (firewall, IDS, WAF, endpoint, SIEM) so that if one layer fails, another catches the threat"
+      ],
+      "correctIndex": 3,
+      "explanation": "Defense in depth — ek layer breach ho to doosri catch kare. Firewall → IDS → WAF → Endpoint → SIEM — layered approach best practice hai."
+    },
+    {
+      "id": "ch6_q43",
+      "termRef": "netsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these tools is listed as a component of overall Network Security?",
+      "options": [
+        "Firewall",
+        "A physical paper filing cabinet",
+        "A coffee machine",
+        "An office chair"
+      ],
+      "correctIndex": 0,
+      "explanation": "Firewall, IDS/IPS, VPN, segmentation sab Network Security ke components hain."
+    },
+    {
+      "id": "ch6_q44",
+      "termRef": "netsec",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker bypasses the firewall, but is then caught by the IDS, and even if that failed too, the WAF would have blocked the web-layer attack anyway. What security philosophy is being demonstrated?",
+      "options": [
+        "Zero Trust alone",
+        "Defense in depth",
+        "Single Sign-On",
+        "Network Address Translation alone"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ek layer breach ho to doosri catch kare — yeh defense in depth ka core idea hai, multiple layers overlapping protection dete hain."
+    },
+    {
+      "id": "ch6_q45",
+      "termRef": "netsec",
+      "type": "category",
+      "difficulty": "easy",
+      "question": "Which order does the guide list as a typical layered defense-in-depth stack?",
+      "options": [
+        "SIEM → Firewall → Endpoint → IDS → WAF",
+        "Endpoint → SIEM → Firewall → WAF → IDS",
+        "Firewall → IDS → WAF → Endpoint → SIEM",
+        "WAF → SIEM → IDS → Firewall → Endpoint"
+      ],
+      "correctIndex": 2,
+      "explanation": "Firewall → IDS → WAF → Endpoint → SIEM — layered approach best practice hai jo guide mein specifically likha gaya hai."
+    },
+    {
+      "id": "ch6_q46",
+      "termRef": "threatactor",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a 'threat actor'?",
+      "options": [
+        "Only an insider employee",
+        "Anyone who carries out a cyberattack, regardless of their motivation or skill level",
+        "Only a piece of malicious software",
+        "Only a government employee working in cybersecurity"
+      ],
+      "correctIndex": 1,
+      "explanation": "Koi bhi jo cyberattack kare — multiple types: nation-state, cybercriminals, hacktivists, insider threats, script kiddies."
+    },
+    {
+      "id": "ch6_q47",
+      "termRef": "threatactor",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which threat actor type is primarily motivated by political causes?",
+      "options": [
+        "Nation-State actors",
+        "Cybercriminals",
+        "Hacktivists",
+        "Script Kiddies"
+      ],
+      "correctIndex": 2,
+      "explanation": "Hacktivists: Political (Anonymous) — cybercriminals financial motivation rakhte hain, nation-state government-backed hote hain."
+    },
+    {
+      "id": "ch6_q48",
+      "termRef": "threatactor",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does knowing the type of threat actor matter for defense, according to the guide?",
+      "options": [
+        "It reveals their likely motivation and resources, helping tailor defenses accordingly",
+        "It has no practical impact on defense strategy at all",
+        "It determines which color the security badge should be",
+        "It only matters for legal prosecution, not security"
+      ],
+      "correctIndex": 0,
+      "explanation": "Threat actor type se pata chalta hai motivation kya hai, resources kitne hain — nation-state actors ka zero-day budget ≠ script kiddie ka free tools."
+    },
+    {
+      "id": "ch6_q49",
+      "termRef": "threatactor",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A government-backed group like Russia's APT28 launches a highly sophisticated, well-funded, multi-year campaign against a target. Which threat actor category does this represent?",
+      "options": [
+        "Script Kiddie",
+        "Hacktivist",
+        "Insider Threat",
+        "Nation-State"
+      ],
+      "correctIndex": 3,
+      "explanation": "Nation-State: government-backed (Russia APT28, China APT40) — highly resourced aur sophisticated compared to other threat actor types."
+    },
+    {
+      "id": "ch6_q50",
+      "termRef": "threatactor",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which threat actor type does the guide describe as motivated purely by financial gain?",
+      "options": [
+        "Cybercriminals",
+        "Script Kiddies",
+        "Hacktivists",
+        "Nation-State actors"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cybercriminals: Financial motivation — yeh unhe hacktivists (political) ya nation-state (geopolitical) se alag karta hai."
+    }
+  ]
+}

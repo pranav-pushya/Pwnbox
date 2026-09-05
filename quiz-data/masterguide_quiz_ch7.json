@@ -1,0 +1,758 @@
+{
+  "chapter": 7,
+  "chapterTitle": "Advanced Threats & Social Engineering",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch7_q01",
+      "termRef": "apt",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is an APT (Advanced Persistent Threat)?",
+      "options": [
+        "A firewall configuration error",
+        "A quick, single-hit ransomware attack",
+        "A basic phishing email sent to random users",
+        "A long-term, targeted attack where an attacker stays hidden inside a network for months or years"
+      ],
+      "correctIndex": 3,
+      "explanation": "Long-term targeted attack — attacker mahino ya saalo tak network mein chupa rehta hai bina detect hue. Nation-states typically karte hain."
+    },
+    {
+      "id": "ch7_q02",
+      "termRef": "apt",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the 'Persistent' in APT specifically refer to?",
+      "options": [
+        "A single attack that happens instantly",
+        "A months- or years-long campaign inside the target's network",
+        "The attacker's persistence in sending spam emails",
+        "A malware that repeatedly crashes the system"
+      ],
+      "correctIndex": 1,
+      "explanation": "Persistent: Months/years long campaign — yehi APT ko ordinary attacks se alag banata hai."
+    },
+    {
+      "id": "ch7_q03",
+      "termRef": "apt",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "The SolarWinds (2020) APT attack, attributed to Russia's SVR, went undetected for how long inside US government agencies?",
+      "options": [
+        "9 years",
+        "9 days",
+        "9 months",
+        "9 weeks"
+      ],
+      "correctIndex": 2,
+      "explanation": "Russia's SVR ne SolarWinds software update mein malware inject kiya (supply chain), 18,000 organizations infected, US government agencies breach — 9 months undetected."
+    },
+    {
+      "id": "ch7_q04",
+      "termRef": "apt",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is typically the goal of an APT, as opposed to a quick ransomware attack?",
+      "options": [
+        "Immediate financial extortion only",
+        "Displaying advertisements to the target",
+        "Data exfiltration or sabotage, not a quick financial hit",
+        "Testing a company's firewall configuration"
+      ],
+      "correctIndex": 2,
+      "explanation": "Goal: data exfiltration ya sabotage — not ransomware quick hit. APT ka objective long-term rehta hai."
+    },
+    {
+      "id": "ch7_q05",
+      "termRef": "apt",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Security investigators discover that an attacker had quiet, ongoing access to a company's network for over a year before being detected, slowly extracting sensitive data the whole time. What type of threat does this match?",
+      "options": [
+        "Adware",
+        "An APT (Advanced Persistent Threat)",
+        "A DDoS attack",
+        "A simple phishing attempt"
+      ],
+      "correctIndex": 1,
+      "explanation": "Long-term stealth presence, gradual data exfiltration — yeh exactly APT ki defining characteristic hai."
+    },
+    {
+      "id": "ch7_q06",
+      "termRef": "espionage",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Cyber Espionage?",
+      "options": [
+        "Stealing sensitive government or corporate information through digital means",
+        "Publicly disclosing a company's security vulnerabilities",
+        "A defensive tool used to detect intrusions",
+        "A type of ransomware that targets governments only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Government ya corporations ke sensitive information chori karna digital means se — traditional spy agencies ka cyber equivalent."
+    },
+    {
+      "id": "ch7_q07",
+      "termRef": "espionage",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these groups is mentioned in the guide as associated with cyber espionage?",
+      "options": [
+        "APT28 'Fancy Bear' (Russia)",
+        "The Tor Project",
+        "MITRE",
+        "OWASP"
+      ],
+      "correctIndex": 0,
+      "explanation": "China (APT40, APT10), Russia (APT28 Fancy Bear, APT29 Cozy Bear), North Korea (Lazarus Group), Iran — sab cyber espionage players hain."
+    },
+    {
+      "id": "ch7_q08",
+      "termRef": "espionage",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What kind of information is typically targeted in cyber espionage, according to the guide?",
+      "options": [
+        "Only social media likes and comments",
+        "Only publicly available news articles",
+        "Military plans, technology secrets, and trade secrets",
+        "Only weather forecast data"
+      ],
+      "correctIndex": 2,
+      "explanation": "Military plans, technology secrets, diplomatic cables, trade secrets — sab target hote hain cyber espionage mein."
+    },
+    {
+      "id": "ch7_q09",
+      "termRef": "espionage",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "Which nation-state group is specifically associated with North Korea, according to the guide?",
+      "options": [
+        "Lazarus Group",
+        "APT28 Fancy Bear",
+        "APT40",
+        "APT29 Cozy Bear"
+      ],
+      "correctIndex": 0,
+      "explanation": "North Korea ka Lazarus Group — guide mein specifically North Korea se associate kiya gaya hai."
+    },
+    {
+      "id": "ch7_q10",
+      "termRef": "espionage",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A foreign intelligence agency secretly accesses a defense contractor's servers to steal blueprints for a new weapons system. What is this an example of?",
+      "options": [
+        "A simple DDoS attack",
+        "Cyber Espionage",
+        "Adware distribution",
+        "Credential stuffing"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sensitive military/technology information government ke through chori karna — exactly cyber espionage ki definition hai."
+    },
+    {
+      "id": "ch7_q11",
+      "termRef": "warfare",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Cyber Warfare?",
+      "options": [
+        "State-sponsored cyberattacks designed to disrupt or damage another nation",
+        "A friendly competition between two companies' security teams",
+        "A type of antivirus software update",
+        "A training exercise for ethical hackers"
+      ],
+      "correctIndex": 0,
+      "explanation": "State-sponsored cyberattacks dusre nations ko disrupt ya damage karne ke liye — power grids, water systems, financial systems target hote hain."
+    },
+    {
+      "id": "ch7_q12",
+      "termRef": "warfare",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "According to the guide, cyber is considered which numbered 'domain of warfare'?",
+      "options": [
+        "Not considered a domain of warfare at all",
+        "The 3rd domain, after land and sea",
+        "The 1st and only domain of modern warfare",
+        "The 5th domain, alongside land, sea, air, and space"
+      ],
+      "correctIndex": 3,
+      "explanation": "5th domain of warfare — land, sea, air, space, cyber. Iska matlab hai cyber attacks ko literally war ke acts ki tarah treat kiya jaata hai."
+    },
+    {
+      "id": "ch7_q13",
+      "termRef": "warfare",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "NotPetya, which spread from a Ukraine-targeted cyberattack, caused how much in global damage?",
+      "options": [
+        "$1 billion",
+        "$10 billion or more",
+        "$100 million",
+        "$1 trillion"
+      ],
+      "correctIndex": 1,
+      "explanation": "NotPetya Ukraine attack ($10B+ global damage) — guide is figure ko specifically cyber warfare ke context mein mention karti hai."
+    },
+    {
+      "id": "ch7_q14",
+      "termRef": "warfare",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a real cyber warfare example in the guide?",
+      "options": [
+        "The Blackshades RAT case",
+        "The Capital One breach",
+        "The MGM Resorts hack",
+        "Ukraine power grid attacks by Russia (2015, 2016)"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ukraine power grid attacks by Russia (2015, 2016), Estonia DDoS (2007), Stuxnet vs Iran, NotPetya — sab examples of cyber warfare acts of war."
+    },
+    {
+      "id": "ch7_q15",
+      "termRef": "warfare",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What kind of systems are the primary targets in cyber warfare, according to the guide?",
+      "options": [
+        "Power grids, water systems, and military systems",
+        "Only personal social media accounts",
+        "Only university research databases",
+        "Only online shopping websites"
+      ],
+      "correctIndex": 0,
+      "explanation": "Power grids, water systems, financial systems, military systems target hote hain — critical infrastructure cyber warfare ka main focus hai."
+    },
+    {
+      "id": "ch7_q16",
+      "termRef": "supply",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a Supply Chain Attack?",
+      "options": [
+        "Sending phishing emails directly to the target",
+        "Flooding a target's website with traffic",
+        "Directly hacking the target's own servers with no third party involved",
+        "Compromising a trusted third-party vendor so the real target installs infected software unknowingly"
+      ],
+      "correctIndex": 3,
+      "explanation": "Direct target attack mushkil hai, to attacker uske software supplier, hardware vendor, ya IT provider ko compromise karta hai."
+    },
+    {
+      "id": "ch7_q17",
+      "termRef": "supply",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is a supply chain attack especially devastating in terms of scale?",
+      "options": [
+        "It requires physical access to every victim's building",
+        "Compromising one vendor can simultaneously compromise thousands of that vendor's customers",
+        "It only ever affects a single individual user",
+        "It only works against small startups"
+      ],
+      "correctIndex": 1,
+      "explanation": "Scale: ek vendor compromise = hazaron customers compromise simultaneously — defense very difficult hai."
+    },
+    {
+      "id": "ch7_q18",
+      "termRef": "supply",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "The XZ Utils backdoor (2024) was inserted after how long a patient social engineering effort, according to the guide?",
+      "options": [
+        "2 weeks",
+        "2 years",
+        "2 months",
+        "2 days"
+      ],
+      "correctIndex": 1,
+      "explanation": "Open source library mein backdoor inject kiya gaya 2 years ke patient social engineering ke baad — nearly compromised OpenSSH on millions of Linux servers."
+    },
+    {
+      "id": "ch7_q19",
+      "termRef": "supply",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why do supply chain attacks often bypass normal security measures?",
+      "options": [
+        "They only target air-gapped systems",
+        "The malicious software comes from a trusted, already-approved source",
+        "They require the victim's password beforehand",
+        "They always use zero antivirus-detectable code"
+      ],
+      "correctIndex": 1,
+      "explanation": "Trusted source se aata hai — security bypasses. Target khud infected software install kar leta hai thinking it's legitimate."
+    },
+    {
+      "id": "ch7_q20",
+      "termRef": "supply",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Thousands of organizations unknowingly install a legitimate software update from a trusted vendor, not realizing attackers compromised the vendor's build process to embed malware in it. What kind of attack is this?",
+      "options": [
+        "A Supply Chain Attack",
+        "Credential Stuffing",
+        "A phishing campaign",
+        "A DDoS attack"
+      ],
+      "correctIndex": 0,
+      "explanation": "Yeh exactly SolarWinds Orion (2020) jaisa scenario hai — trusted vendor compromise karke uske customers ko target karna."
+    },
+    {
+      "id": "ch7_q21",
+      "termRef": "social",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Social Engineering exploit, rather than technical vulnerabilities?",
+      "options": [
+        "A software bug in a web application",
+        "Human psychology, manipulating people into revealing information or performing actions",
+        "A weak encryption algorithm",
+        "An unpatched operating system vulnerability"
+      ],
+      "correctIndex": 1,
+      "explanation": "Humans ko manipulate karke confidential info reveal karwana ya actions perform karwana — technical skills ki zaroorat nahi, psychological manipulation."
+    },
+    {
+      "id": "ch7_q22",
+      "termRef": "social",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'baiting' as a social engineering technique?",
+      "options": [
+        "Physically following someone through a secure door",
+        "Creating a fake identity claiming to be IT support",
+        "Offering IT help in exchange for a password",
+        "Leaving an infected USB drive somewhere the victim will find and plug it in"
+      ],
+      "correctIndex": 3,
+      "explanation": "Baiting: Infected USB chhodna parking mein — victim curiosity se plug in kar deta hai, malware install ho jaata hai."
+    },
+    {
+      "id": "ch7_q23",
+      "termRef": "social",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'tailgating' in the context of social engineering?",
+      "options": [
+        "Sending a fake email pretending to be a bank",
+        "Offering fake IT help in exchange for a password",
+        "Physically following someone through a secure door without their own access credentials",
+        "Leaving an infected USB drive in a parking lot"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tailgating: Physically follow someone through a secure door — a physical social engineering technique."
+    },
+    {
+      "id": "ch7_q24",
+      "termRef": "social",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker calls an employee claiming to be from the IT department, saying the employee's PC is infected, and asks for remote access to 'fix' it. Which technique is this?",
+      "options": [
+        "Network segmentation bypass",
+        "SQL Injection",
+        "A supply chain attack",
+        "Social Engineering (pretexting)"
+      ],
+      "correctIndex": 3,
+      "explanation": "'Tumhara PC virus infected hai, main IT se hun, abhi remote access do' — yahi social engineering hai. Firewall bypass nahi kiya, tumhe manipulate kiya."
+    },
+    {
+      "id": "ch7_q25",
+      "termRef": "social",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'quid pro quo' in social engineering, according to the guide?",
+      "options": [
+        "Creating a fake CA-issued certificate",
+        "Physically tailgating through a secure door",
+        "Leaving an infected USB drive as bait",
+        "Offering something (like IT help) in exchange for information such as a password"
+      ],
+      "correctIndex": 3,
+      "explanation": "Quid Pro Quo: 'IT help ke badle password do' — ek transaction jaisa dikhta hai lekin manipulation hai."
+    },
+    {
+      "id": "ch7_q26",
+      "termRef": "brute",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a brute force attack do?",
+      "options": [
+        "Exploits a software vulnerability directly",
+        "Encrypts files and demands a ransom",
+        "Systematically tries every possible password/key combination until the correct one is found",
+        "Tricks a user into revealing their password voluntarily"
+      ],
+      "correctIndex": 2,
+      "explanation": "Systematically har possible password/key combination try karna jab tak sahi na mile — simple 4-digit PIN = 10,000 combinations."
+    },
+    {
+      "id": "ch7_q27",
+      "termRef": "brute",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which brute force variant uses a list of commonly used words and phrases instead of every possible combination?",
+      "options": [
+        "Dictionary Attack",
+        "Simple Brute Force",
+        "Hybrid Attack",
+        "Rainbow Table"
+      ],
+      "correctIndex": 0,
+      "explanation": "Dictionary Attack: Common words list use karta hai, jabki Simple Brute Force har combination try karta hai (aaa, aab, aac...)."
+    },
+    {
+      "id": "ch7_q28",
+      "termRef": "brute",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "Which defense against brute force attacks locks an account after a small number of failed login attempts?",
+      "options": [
+        "Rate limiting",
+        "Long passwords alone",
+        "MFA alone",
+        "CAPTCHA alone"
+      ],
+      "correctIndex": 0,
+      "explanation": "Rate limiting — 3 attempts failed → lockout. Yeh ek specific defense hai jo failed attempts ko count karke account lock karti hai."
+    },
+    {
+      "id": "ch7_q29",
+      "termRef": "brute",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker's automated tool systematically tries thousands of pre-computed password hashes against a stolen hash file, looking for a match. Which brute-force technique is this closest to?",
+      "options": [
+        "Supply chain attack",
+        "Social engineering",
+        "Rainbow Table attack",
+        "Simple sequential brute force (aaa, aab, aac...)"
+      ],
+      "correctIndex": 2,
+      "explanation": "Rainbow Table: Pre-computed hash lookups — yeh ek efficient technique hai jo pehle se calculated hashes ka use karti hai."
+    },
+    {
+      "id": "ch7_q30",
+      "termRef": "brute",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which password is described as breakable 'in seconds' due to its commonness?",
+      "options": [
+        "'abc123'",
+        "A biometric fingerprint",
+        "'Tr0ub4dor&3'",
+        "A 20-character random string"
+      ],
+      "correctIndex": 0,
+      "explanation": "'abc123' jaise common passwords seconds mein crack ho jaate hain — length aur complexity dono zaroori hain."
+    },
+    {
+      "id": "ch7_q31",
+      "termRef": "cred",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Credential Stuffing?",
+      "options": [
+        "Tricking a user into revealing their password via a fake email",
+        "Physically stealing a written password note",
+        "Guessing a password character by character",
+        "Using leaked username-password pairs from one breach to try logging into many other sites"
+      ],
+      "correctIndex": 3,
+      "explanation": "Data breach se leaked username-password pairs ko automated tools se hazaron other sites pe try karna."
+    },
+    {
+      "id": "ch7_q32",
+      "termRef": "cred",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does credential stuffing work so effectively against people who reuse passwords?",
+      "options": [
+        "It works only on sites that don't use HTTPS",
+        "It requires physical access to the victim's device",
+        "It only works against government accounts",
+        "A single breach on one site can compromise all of their accounts across many other sites"
+      ],
+      "correctIndex": 3,
+      "explanation": "Same password everywhere use karte ho? Ek site breach = sab sites compromise — yehi credential stuffing ka core risk hai."
+    },
+    {
+      "id": "ch7_q33",
+      "termRef": "cred",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Even at a very low success rate, why can credential stuffing still cause massive impact?",
+      "options": [
+        "Because it only needs a single attempt to work",
+        "Because every attempt is guaranteed to succeed",
+        "Because it targets only one account at a time by design",
+        "Because billions of leaked credentials are available, so even 0.1% success means millions of accounts"
+      ],
+      "correctIndex": 3,
+      "explanation": "0.1% success rate bhi millions of accounts = huge impact, kyunki billions of credentials dark web pe available hain."
+    },
+    {
+      "id": "ch7_q34",
+      "termRef": "cred",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "What is the single most effective personal defense against credential stuffing, according to the guide?",
+      "options": [
+        "Using the same strong password everywhere for consistency",
+        "Disabling all password requirements",
+        "Never logging into any website",
+        "Using a unique password for every site with a password manager"
+      ],
+      "correctIndex": 3,
+      "explanation": "Unique password har site pe — password manager use karo (Bitwarden, 1Password) — isse ek breach dusri sites ko affect nahi karta."
+    },
+    {
+      "id": "ch7_q35",
+      "termRef": "cred",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After a data breach at one shopping website, an attacker successfully logs into a completely unrelated user's email account using the exact same leaked username and password. What attack technique was used?",
+      "options": [
+        "SQL Injection",
+        "Brute Force",
+        "Credential Stuffing",
+        "Cyber Espionage"
+      ],
+      "correctIndex": 2,
+      "explanation": "Same leaked credentials ko dusri site pe try karna — exactly credential stuffing ki definition hai, password reuse ka direct consequence."
+    },
+    {
+      "id": "ch7_q36",
+      "termRef": "insider",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Which of these is one of the three insider threat types listed in the guide?",
+      "options": [
+        "Automated — a bot with no human control",
+        "External — someone with no access at all",
+        "Negligent — someone who accidentally makes a security mistake",
+        "Anonymous — someone using Tor exclusively"
+      ],
+      "correctIndex": 2,
+      "explanation": "Malicious: deliberately data steal ya damage kare. Negligent: accidentally security mistake kare. Compromised: external attacker ne account hijack kiya."
+    },
+    {
+      "id": "ch7_q37",
+      "termRef": "insider",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which technology does the guide say is used to detect insider threats through behavioral deviation?",
+      "options": [
+        "A basic packet-filtering firewall",
+        "NAT alone",
+        "SSL alone",
+        "UEBA (User & Entity Behavior Analytics)"
+      ],
+      "correctIndex": 3,
+      "explanation": "UEBA (behavior analytics) — normal se deviation. Unusual access times, large data downloads, off-hours logins."
+    },
+    {
+      "id": "ch7_q38",
+      "termRef": "insider",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "Edward Snowden, an NSA contractor, copied how many classified documents in the 2013 insider threat case?",
+      "options": [
+        "17 million",
+        "1.7 million",
+        "170,000",
+        "17,000"
+      ],
+      "correctIndex": 1,
+      "explanation": "NSA contractor Snowden — 1.7 million classified documents copied aur media ko diye — sab access legitimate tha, audit trail nahi tha."
+    },
+    {
+      "id": "ch7_q39",
+      "termRef": "insider",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What made the Snowden case difficult to catch in real time, according to the guide?",
+      "options": [
+        "He physically broke into an NSA data center",
+        "He bribed multiple NSA employees",
+        "He used a zero-day exploit to gain access",
+        "His access to the documents was entirely legitimate — there was no audit trail flagging the bulk download"
+      ],
+      "correctIndex": 3,
+      "explanation": "Sab access legitimate tha — audit trail nahi tha ki woh itna sab ek saath download kar raha hai — is is insider threat detection ki mushkil ko highlight karta hai."
+    },
+    {
+      "id": "ch7_q40",
+      "termRef": "insider",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A disgruntled employee deliberately deletes critical company files right before resigning. Which type of insider threat does this represent?",
+      "options": [
+        "Malicious insider threat",
+        "Negligent insider threat",
+        "Not an insider threat at all",
+        "Compromised insider threat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Malicious: deliberately data steal ya damage kare (disgruntled employee) — exactly is scenario ko match karta hai."
+    },
+    {
+      "id": "ch7_q41",
+      "termRef": "kiddie",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a Script Kiddie?",
+      "options": [
+        "A software developer who builds security tools",
+        "A highly skilled nation-state hacker",
+        "An unskilled individual who uses publicly available hacking tools without understanding how they work",
+        "A cybersecurity professional working in a SOC"
+      ],
+      "correctIndex": 2,
+      "explanation": "Unskilled individuals jo publicly available tools/scripts use karte hain attacks ke liye bina understanding ke — 'point and click' hacking."
+    },
+    {
+      "id": "ch7_q42",
+      "termRef": "kiddie",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why are script kiddies still considered a real threat, despite their lack of skill?",
+      "options": [
+        "They always target only large corporations",
+        "Their sheer numbers can add up to a significant collective impact, like a large DDoS",
+        "They are immune to law enforcement action",
+        "They always have nation-state level funding"
+      ],
+      "correctIndex": 1,
+      "explanation": "Volume mein dangerous — hazaron script kiddies = significant DDoS. Basic vulnerabilities exploit kar lete hain."
+    },
+    {
+      "id": "ch7_q43",
+      "termRef": "kiddie",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the prevalence of script kiddies successfully exploiting basic vulnerabilities reveal about an organization?",
+      "options": [
+        "The importance of keeping systems patched",
+        "That their SIEM is broken",
+        "That their firewall is definitely misconfigured",
+        "That they must be a target of nation-state espionage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Patched systems ka importance inhi se pata chalta hai — agar basic vulnerabilities patched na hon, script kiddies bhi exploit kar sakte hain."
+    },
+    {
+      "id": "ch7_q44",
+      "termRef": "kiddie",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A teenager downloads a free hacking tool from a forum and, without understanding how it works internally, manages to deface a poorly-secured small business website. What category of threat actor does this represent?",
+      "options": [
+        "Nation-State actor",
+        "APT group",
+        "Script Kiddie",
+        "Insider Threat"
+      ],
+      "correctIndex": 2,
+      "explanation": "'Point and click' hacking bina samjhe — exactly script kiddie ki definition hai, unlike sophisticated APT groups."
+    },
+    {
+      "id": "ch7_q45",
+      "termRef": "kiddie",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How do experienced hackers generally view script kiddies, according to the guide?",
+      "options": [
+        "As the most dangerous threat actor category overall",
+        "As completely harmless with zero impact",
+        "As equivalent to nation-state actors in skill",
+        "Not seriously in terms of skill, but their volume is still a legitimate threat"
+      ],
+      "correctIndex": 3,
+      "explanation": "Real hackers inhe seriously nahi lete, par inka sheer volume ek threat hai — dono baaten guide mein explicitly likhi hain."
+    },
+    {
+      "id": "ch7_q46",
+      "termRef": "cyberphys",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What are Cyber-Physical Systems?",
+      "options": [
+        "Only refers to social media platforms",
+        "Systems where digital and physical worlds meet, like industrial control systems and SCADA",
+        "Purely software applications with no hardware component",
+        "Only refers to smartphones and tablets"
+      ],
+      "correctIndex": 1,
+      "explanation": "Systems jahan digital aur physical world meet karte hain — industrial control systems (ICS), SCADA, power plants, water treatment, hospital equipment."
+    },
+    {
+      "id": "ch7_q47",
+      "termRef": "cyberphys",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does the guide describe attacks on cyber-physical systems as 'life-and-death scenarios'?",
+      "options": [
+        "They cannot be executed remotely at all",
+        "A hack can cause real physical harm, like poisoning water or disabling hospital equipment",
+        "They only affect video game servers",
+        "They only ever result in minor data theft"
+      ],
+      "correctIndex": 1,
+      "explanation": "Power grid hack → lights off city mein. Water treatment hack → poison in water. Hospital device hack → patient harm — not just data theft."
+    },
+    {
+      "id": "ch7_q48",
+      "termRef": "cyberphys",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which term refers to the industrial/physical-facing technology (as opposed to standard IT) that has become critical to secure?",
+      "options": [
+        "SSO (Single Sign-On)",
+        "OT (Operational Technology)",
+        "DLP (Data Loss Prevention)",
+        "CASB (Cloud Access Security Broker)"
+      ],
+      "correctIndex": 1,
+      "explanation": "OT (Operational Technology) security critical ho gayi hai — smart cities, connected infrastructure, Industry 4.0 ki wajah se attack surface badh gaya hai."
+    },
+    {
+      "id": "ch7_q49",
+      "termRef": "cyberphys",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker gains digital access to a hospital's connected medical equipment and remotely alters its settings, directly endangering patients. What category of attack does this fall under?",
+      "options": [
+        "Cyber-Physical attack",
+        "Adware infection",
+        "A simple phishing campaign",
+        "Credential stuffing"
+      ],
+      "correctIndex": 0,
+      "explanation": "Digital command jiske physical, real-world consequences hain — exactly cyber-physical systems attack ki definition hai."
+    },
+    {
+      "id": "ch7_q50",
+      "termRef": "cyberphys",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is 'more connectivity' identified as a growing risk factor for cyber-physical systems?",
+      "options": [
+        "More connected infrastructure means a larger attack surface for attackers to exploit",
+        "More connectivity always makes systems automatically more secure",
+        "Connectivity only matters for social media platforms",
+        "Connectivity has no relationship to security risk at all"
+      ],
+      "correctIndex": 0,
+      "explanation": "Smart cities, connected infrastructure, Industry 4.0 — jitna zyada connectivity, utna zyada attack surface."
+    }
+  ]
+}

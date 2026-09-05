@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberSec Master Guide — Interactive Test Exam</title>
+    <link rel="icon" type="image/svg+xml" href="favicon-guide.svg">
+
+    <!-- Design Fonts & Tokens -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
+    <link rel="stylesheet" href="css/masterguide_test.css">
+    <link rel="stylesheet" href="css/masterguide_chat.css">
+
+    <!-- Global Theme Initializer -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+
+<body>
+
+    <!-- ══ STICKY NAVIGATION HEADER ══ -->
+    <header class="test-header">
+        <a href="index.html" class="logo-group">
+            <div class="logo-badge">🛡️</div>
+            <div class="logo-text-wrap">
+                <h1>PwnBox Master Exam</h1>
+                <p>// 100 TERMS &bull; 10 CHAPTERS &bull; CERTIFICATION BANK</p>
+            </div>
+        </a>
+        <div class="header-nav-actions">
+            <button onclick="toggleTheme()" class="nav-action-btn theme-btn" id="themeToggleBtn">🌓 Theme</button>
+            <a href="masterguide_ch1.html" class="nav-action-btn guide-btn">📚 Master Guide</a>
+            <a href="index.html" class="nav-action-btn main-btn">🔙 Main</a>
+        </div>
+    </header>
+
+    <!-- ══ MAIN CONTAINER ══ -->
+    <main class="test-main-container">
+
+        <!-- HERO HEADER -->
+        <section class="test-hero">
+            <div class="test-hero-badge">// CERTIFICATION KNOWLEDGE BENCHMARK</div>
+            <h2>CyberSec Master Guide Exam</h2>
+            <p>Test your operational, offensive, cryptographic, and defense concepts across the 100 essential master
+                guide terms. Get real-time Hinglish explanations, pinpoint skill gaps, and track your operative rank.
+            </p>
+        </section>
+
+        <!-- ── VIEW 1: SETUP & CONFIGURATION ── -->
+        <section class="setup-card" id="setupView">
+            <div class="setup-card-title">
+                <span>⚙️</span> Configure Your Assessment
+            </div>
+
+            <div class="filter-grid">
+                <!-- Chapter Selector -->
+                <div class="filter-group">
+                    <label class="filter-label" for="chapterSelect">Chapter Track</label>
+                    <select class="filter-select" id="chapterSelect">
+                        <option value="all">All Chapters</option>
+                        <option value="1">01. Core Threats & Attacks</option>
+                        <option value="2">02. Malware Types</option>
+                        <option value="3">03. Defensive Tools</option>
+                        <option value="4">04. Encryption & PKI</option>
+                        <option value="5">05. Identity & Access (IAM)</option>
+                        <option value="6">06. Network & Cloud Security</option>
+                        <option value="7">07. Advanced Threats & APTs</option>
+                        <option value="8">08. Governance & Risk</option>
+                        <option value="9">09. SOC & Incident Operations</option>
+                        <option value="10">10. Emerging Tech & Cloud</option>
+                    </select>
+                </div>
+
+                <!-- Difficulty Filter -->
+                <div class="filter-group">
+                    <label class="filter-label" for="diffSelect">Difficulty Level</label>
+                    <select class="filter-select" id="diffSelect">
+                        <option value="all">All Difficulties (Balanced)</option>
+                        <option value="easy">Easy (Fundamentals)</option>
+                        <option value="medium">Medium (Application)</option>
+                        <option value="hard">Hard (Advanced Scenarios)</option>
+                    </select>
+                </div>
+
+                <!-- Question Type Filter -->
+                <div class="filter-group">
+                    <label class="filter-label" for="typeSelect">Question Type</label>
+                    <select class="filter-select" id="typeSelect">
+                        <option value="all">All Question Types</option>
+                        <option value="definition">Definition & Concept</option>
+                        <option value="category">Categorization / Classification</option>
+                        <option value="real_world">Real World Case Studies</option>
+                        <option value="defense">Defensive Mitigation</option>
+                        <option value="analogy">Analogy Understanding</option>
+                        <option value="scenario">Tactical Scenarios</option>
+                    </select>
+                </div>
+
+                <!-- Question Count Selector -->
+                <div class="filter-group">
+                    <label class="filter-label" for="countSelect">Exam Length</label>
+                    <select class="filter-select" id="countSelect">
+                        <option value="10">10 Questions (Quick Sprint)</option>
+                        <option value="25">25 Questions (Standard Exam)</option>
+                        <option value="all">All Matching (Full Drill)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Match Count Feedback -->
+            <div class="filter-summary-row">
+                <div class="filter-summary-info" id="matchCountText">Loading question dataset...</div>
+            </div>
+
+            <!-- Start Button -->
+            <button class="btn-start-exam" id="startExamBtn">
+                <span>🚀 Launch Knowledge Exam</span>
+            </button>
+        </section>
+
+
+            <!-- ── VIEW 2: LIVE QUESTION SCREEN ── -->
+            <section class="exam-view" id="examView">
+                <div class="exam-card">
+                    <!-- Top Progress Bar and Metas -->
+                    <div class="exam-top-bar">
+                        <div class="exam-counter" id="examCounter">QUESTION 1 OF 10</div>
+                        <div class="exam-badges-row" id="examBadges"></div>
+                    </div>
+
+                    <div class="exam-progress-wrap">
+                        <div class="exam-progress-bar" id="examProgressFill"></div>
+                    </div>
+
+                    <!-- Question Prompt -->
+                    <div class="question-content">
+                        <h3 class="question-text" id="questionText">Loading question...</h3>
+                    </div>
+
+                    <!-- 4 Options Grid -->
+                    <div class="options-grid" id="optionsGrid"></div>
+
+                    <!-- Explanation Panel (Revealed on Answer) -->
+                    <div class="explanation-panel" id="explanationPanel">
+                        <div class="explanation-header">
+                            <div class="explanation-label">
+                                <span>💡</span> Simply Explained (Hinglish)
+                            </div>
+                            <button class="btn-ask-tutor-inline" onclick="window.toggleDoubtChat()">💬 Ask Doubt
+                                Tutor</button>
+                        </div>
+                        <div class="explanation-text" id="explanationText"></div>
+                    </div>
+
+                    <!-- Actions Row -->
+                    <div class="exam-actions-row">
+                        <button class="btn-next-question" id="nextQuestionBtn" style="display: none;">Next Question
+                            →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── VIEW 3: RESULTS & ANALYTICS ── -->
+            <section class="results-view" id="resultsView">
+                <div class="results-card">
+                    <div class="results-hero-header">
+                        <div class="results-rank-badge" id="resultsRankBadge">🏆 Master Cyber Operative</div>
+                        <div class="results-score-big" id="resultsScoreBig">0 / 0</div>
+                        <div class="results-score-subtitle" id="resultsScoreSubtitle">Overall Accuracy: 0%</div>
+                    </div>
+
+                    <!-- Breakdown Performance -->
+                    <div class="results-breakdown-grid">
+                        <div class="breakdown-box">
+                            <h4>📊 Performance by Difficulty</h4>
+                            <div id="difficultyBreakdown"></div>
+                        </div>
+                        <div class="breakdown-box">
+                            <h4>🎯 Performance by Question Type</h4>
+                            <div id="typeBreakdown"></div>
+                        </div>
+                    </div>
+
+                    <!-- Missed Questions Review -->
+                    <div class="missed-questions-section" id="missedQuestionsSection">
+                        <div class="missed-questions-title">
+                            <span>⚠️</span> Missed Questions &amp; Detailed Review
+                        </div>
+                        <div class="missed-list" id="missedQuestionsList"></div>
+                    </div>
+
+                    <!-- Navigation Actions -->
+                    <div class="results-actions-bar">
+                        <button class="results-btn primary" id="retakeExamBtn">🔄 Retake Same Quiz</button>
+                        <button class="results-btn secondary" id="reconfigExamBtn">⚙️ Configure New Exam</button>
+                        <a href="masterguide_ch1.html" class="results-btn secondary">📚 Return to Guide</a>
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="test-footer">
+        <p>PwnBox Academy &bull; Certified Ethical Hacker (CEH) Tactical Exam Engine &bull; Designed &amp; Developed by
+            Pranav Pushya</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/masterguide_chat.js"></script>
+    <script src="quiz-data/quiz_data.js"></script>
+    <script src="js/masterguide_test.js"></script>
+</body>
+
+</html>

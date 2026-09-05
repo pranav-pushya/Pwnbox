@@ -635,7 +635,7 @@
             body {
                 flex-direction: column !important;
                 height: 100vh !important;
-                padding-bottom: 60px !important;
+                padding-bottom: 65px !important;
                 overflow: hidden !important;
             }
 
@@ -646,11 +646,12 @@
                 left: 0;
                 right: 0;
                 height: 60px;
+                padding-bottom: max(0px, env(safe-area-inset-bottom));
                 background: var(--bg-panel);
-                                -webkit-                border-top: var(--border-width) solid var(--border-dim);
+                border-top: var(--border-width) solid var(--border-dim);
                 justify-content: space-around;
                 align-items: center;
-                z-index: 1000;
+                z-index: 10000;
                 box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
             }
 
@@ -664,9 +665,10 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                gap: 4px;
+                gap: 2px;
                 cursor: pointer;
                 transition: all 0.2s ease;
+                padding: 6px 0;
             }
 
             .nav-tab:hover {
@@ -679,11 +681,11 @@
             }
 
             .nav-tab .tab-icon {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .nav-tab .tab-label {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 font-weight: 600;
             }
 
@@ -704,6 +706,14 @@
                 display: flex !important;
             }
 
+            .sidebar .header {
+                padding: 15px;
+            }
+
+            .sidebar .header h2 {
+                font-size: 1rem;
+            }
+
             /* Details Tab active */
             body.tab-details .workspace {
                 display: flex !important;
@@ -720,6 +730,7 @@
             }
             body.tab-chat .chat-panel {
                 display: flex !important;
+                min-width: 0 !important;
             }
 
             /* Details and Chat layout adjustment inside workspace */
@@ -729,7 +740,8 @@
             }
 
             .card {
-                padding: 15px !important;
+                padding: 16px !important;
+                box-shadow: 4px 4px 0 var(--border-dim) !important;
             }
 
             .card h1 {
@@ -742,15 +754,47 @@
             .card h1 a {
                 width: 100%;
                 text-align: center;
+                display: block;
+            }
+
+            .chat-header {
+                padding: 10px 12px !important;
+            }
+
+            .panel-tabs {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .panel-tab {
+                font-size: 0.68rem !important;
+                padding: 5px 4px !important;
             }
 
             .chat-input-area {
-                padding: 10px 15px !important;
+                padding: 10px 12px !important;
+                gap: 8px !important;
+            }
+
+            .chat-input-area input {
+                padding: 8px 12px !important;
+                font-size: 0.85rem !important;
             }
 
             .modal-card {
-                padding: 15px !important;
-                width: 95% !important;
+                padding: 16px !important;
+                width: 92% !important;
+                max-width: 450px !important;
+                box-shadow: 4px 4px 0 var(--border-dim) !important;
+            }
+
+            .ctf-card > div[style*="display: flex"] {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+
+            .ctf-card button {
+                width: 100% !important;
             }
         }
 

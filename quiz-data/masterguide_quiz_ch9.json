@@ -1,0 +1,758 @@
+{
+  "chapter": 9,
+  "chapterTitle": "Operations & Response",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch9_q01",
+      "termRef": "ir",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Incident Response?",
+      "options": [
+        "A structured process for handling a security incident from detection through recovery",
+        "A method for preventing all attacks permanently",
+        "A type of firewall configuration",
+        "A tool for encrypting files automatically"
+      ],
+      "correctIndex": 0,
+      "explanation": "Security incident handle karna — structured process, NIST phases follow karta hai."
+    },
+    {
+      "id": "ch9_q02",
+      "termRef": "ir",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is the correct order of the NIST Incident Response phases, according to the guide?",
+      "options": [
+        "Lessons Learned → Preparation → Detection → Recovery → Containment → Eradication",
+        "Containment → Eradication → Preparation → Recovery → Detection → Lessons Learned",
+        "Preparation → Detection & Analysis → Containment → Eradication → Recovery → Lessons Learned",
+        "Recovery → Preparation → Containment → Detection → Eradication → Lessons Learned"
+      ],
+      "correctIndex": 2,
+      "explanation": "1. Preparation, 2. Detection & Analysis, 3. Containment, 4. Eradication, 5. Recovery, 6. Lessons Learned — yeh NIST ka standard order hai."
+    },
+    {
+      "id": "ch9_q03",
+      "termRef": "ir",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does CSIRT stand for?",
+      "options": [
+        "Computer Security Incident Response Team",
+        "Critical Software Integration Response Team",
+        "Central Security Information Report Tool",
+        "Cyber Systems Internal Risk Tracker"
+      ],
+      "correctIndex": 0,
+      "explanation": "IR Team = CSIRT (Computer Security Incident Response Team) — SOC analysts detect karte hain, IR team respond karta hai."
+    },
+    {
+      "id": "ch9_q04",
+      "termRef": "ir",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What are pre-defined, documented sets of IR steps for common scenarios called?",
+      "options": [
+        "Honeypots",
+        "Sandboxes",
+        "Playbooks",
+        "Firewalls"
+      ],
+      "correctIndex": 2,
+      "explanation": "Playbooks pre-defined hote hain — jab specific incident type hota hai, team pehle se defined steps follow karti hai."
+    },
+    {
+      "id": "ch9_q05",
+      "termRef": "ir",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After containing a ransomware attack and restoring systems, a security team holds a formal meeting to document what went wrong and how to prevent it next time. Which IR phase does this represent?",
+      "options": [
+        "Preparation",
+        "Lessons Learned",
+        "Containment",
+        "Detection & Analysis"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lessons Learned: Post-mortem — yeh final phase hai jahan incident se seekh kar future preparation improve ki jaati hai."
+    },
+    {
+      "id": "ch9_q06",
+      "termRef": "soc",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a SOC (Security Operations Center)?",
+      "options": [
+        "A tool for encrypting files at rest",
+        "A physical lock on the server room door",
+        "A dedicated team and facility that monitors an organization's security 24/7/365",
+        "A type of firewall hardware"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dedicated team aur facility jo 24/7/365 organization ki security monitor karti hai — SIEM se alerts aate hain, analysts investigate karte hain."
+    },
+    {
+      "id": "ch9_q07",
+      "termRef": "soc",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which SOC tier is responsible for advanced threat hunting and deep analysis?",
+      "options": [
+        "There is only one tier",
+        "Tier 3",
+        "Tier 2",
+        "Tier 1"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tier 1: alert triage. Tier 2: investigation. Tier 3: threat hunting, advanced analysis — hierarchy of increasing expertise."
+    },
+    {
+      "id": "ch9_q08",
+      "termRef": "soc",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "According to the guide, what is the most common entry-level career point in cybersecurity?",
+      "options": [
+        "Penetration Tester",
+        "Chief Information Security Officer",
+        "Digital Forensics Lead",
+        "SOC Analyst"
+      ],
+      "correctIndex": 3,
+      "explanation": "SOC Analyst — cybersecurity mein most common entry point. Well paid career path bhi hai."
+    },
+    {
+      "id": "ch9_q09",
+      "termRef": "soc",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which SOC tier handles initial alert triage?",
+      "options": [
+        "Tier 3",
+        "None, alerts go directly to management",
+        "Tier 1",
+        "Tier 2"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tier 1: alert triage — pehla level jo initial alerts ko sort aur prioritize karta hai."
+    },
+    {
+      "id": "ch9_q10",
+      "termRef": "soc",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An analyst quickly reviews an incoming SIEM alert to decide whether it needs deeper investigation or can be dismissed as a false positive. Which SOC tier is most likely performing this task?",
+      "options": [
+        "External auditors",
+        "Only management",
+        "Tier 1",
+        "Tier 3"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tier 1 ka kaam hi alert triage hai — quickly assess karna ki alert genuine hai ya false positive."
+    },
+    {
+      "id": "ch9_q11",
+      "termRef": "hygiene",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Cyber Hygiene?",
+      "options": [
+        "A type of encryption algorithm",
+        "A legal compliance framework",
+        "Regular security practices that significantly reduce risk, like physical hygiene habits",
+        "A tool for detecting network intrusions automatically"
+      ],
+      "correctIndex": 2,
+      "explanation": "Regular security practices jo risk significantly reduce karte hain — just like physical hygiene, consistent daily habits."
+    },
+    {
+      "id": "ch9_q12",
+      "termRef": "hygiene",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What percentage of attacks could be prevented by patching and basic hygiene, according to the guide?",
+      "options": [
+        "80%",
+        "50%",
+        "20%",
+        "10%"
+      ],
+      "correctIndex": 0,
+      "explanation": "80% of attacks patching aur basic hygiene se prevent ho sakte the — yeh statistic guide mein specifically diya gaya hai."
+    },
+    {
+      "id": "ch9_q13",
+      "termRef": "hygiene",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a cyber hygiene essential in the guide?",
+      "options": [
+        "Ignoring software updates",
+        "Reusing the same password across sites",
+        "Disabling all backups",
+        "MFA everywhere"
+      ],
+      "correctIndex": 3,
+      "explanation": "Strong unique passwords + manager, MFA everywhere, software updates promptly, regular backups, phishing awareness, least privilege, encrypt sensitive data."
+    },
+    {
+      "id": "ch9_q14",
+      "termRef": "hygiene",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An organization avoids most common attacks simply by consistently applying updates, using unique passwords, and enabling MFA across all accounts — no advanced tools involved. What does this illustrate?",
+      "options": [
+        "The need for penetration testing alone",
+        "The power of basic cyber hygiene",
+        "The requirement for cyber insurance",
+        "The necessity of an expensive SOC"
+      ],
+      "correctIndex": 1,
+      "explanation": "80% of attacks basic hygiene se prevent ho sakte the — yeh exactly demonstrate karta hai ki fundamentals kitne powerful hain."
+    },
+    {
+      "id": "ch9_q15",
+      "termRef": "hygiene",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which principle from IAM is also listed as part of good cyber hygiene?",
+      "options": [
+        "Shared admin passwords",
+        "No authentication required",
+        "Least privilege",
+        "Maximum privilege for all"
+      ],
+      "correctIndex": 2,
+      "explanation": "Least privilege bhi cyber hygiene essentials mein listed hai — yeh dikhata hai ki concepts ek dusre se linked hote hain."
+    },
+    {
+      "id": "ch9_q16",
+      "termRef": "coc",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Chain of Custody document?",
+      "options": [
+        "The list of all firewall rules in place",
+        "The company's annual revenue and profits",
+        "Where evidence is, who handled it, when, and how",
+        "The number of employees in the SOC"
+      ],
+      "correctIndex": 2,
+      "explanation": "Documentation jo track karta hai evidence kahan hai, kisne handle kiya, kab, aur kaise."
+    },
+    {
+      "id": "ch9_q17",
+      "termRef": "coc",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What happens to evidence in a criminal case if the chain of custody is broken?",
+      "options": [
+        "The evidence automatically becomes stronger proof",
+        "The evidence can become inadmissible in court",
+        "Nothing changes; it remains fully valid regardless",
+        "The case is immediately dismissed with no other consequence"
+      ],
+      "correctIndex": 1,
+      "explanation": "Criminal cases mein agar chain break ho to evidence inadmissible ho sakta hai court mein — legal validity directly is process pe depend karti hai."
+    },
+    {
+      "id": "ch9_q18",
+      "termRef": "coc",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In digital forensics, what should investigators avoid touching directly, working only on a copy instead?",
+      "options": [
+        "The original evidence/disk",
+        "The forensic report template",
+        "The incident response playbook",
+        "The SIEM dashboard"
+      ],
+      "correctIndex": 0,
+      "explanation": "Original kabhi touch nahi — sirf forensic copy pe kaam karo, chain of custody maintain karne ke liye zaroori hai."
+    },
+    {
+      "id": "ch9_q19",
+      "termRef": "coc",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A disk image is taken from a compromised server, its hash is verified, it's placed in sealed storage, and every transport step is logged in detail. What process is being followed here?",
+      "options": [
+        "Risk transfer via insurance",
+        "Penetration testing methodology",
+        "Chain of Custody documentation",
+        "Cyber hygiene practices"
+      ],
+      "correctIndex": 2,
+      "explanation": "Disk image lena → hash verify → sealed storage → transport log → analysis — har step documented, exactly chain of custody process hai."
+    },
+    {
+      "id": "ch9_q20",
+      "termRef": "coc",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is documenting who handled evidence and when considered critical?",
+      "options": [
+        "It proves the evidence wasn't tampered with, supporting its admissibility in court",
+        "It replaces the need for encryption entirely",
+        "It has no legal relevance at all",
+        "It only matters for internal HR purposes"
+      ],
+      "correctIndex": 0,
+      "explanation": "Documentation evidence ki integrity prove karne ke liye zaroori hai — court mein admissibility isi par depend karti hai."
+    },
+    {
+      "id": "ch9_q21",
+      "termRef": "uem",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does UEM (Unified Endpoint Management) allow an organization to do?",
+      "options": [
+        "Only manage employee email accounts",
+        "Only manage physical servers in a data center",
+        "Manage all devices (laptops, phones, tablets) from a single platform",
+        "Only encrypt files on a single device"
+      ],
+      "correctIndex": 2,
+      "explanation": "Organization ke saare devices (laptops, phones, tablets) ek platform se manage karna — policies enforce karo, software deploy karo, remote wipe karo."
+    },
+    {
+      "id": "ch9_q22",
+      "termRef": "uem",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why has UEM become especially important, according to the guide?",
+      "options": [
+        "Because desktop computers are now obsolete",
+        "Because of the BYOD (Bring Your Own Device) era, where employees use personal phones for work email",
+        "Because all companies have banned smartphones entirely",
+        "Because it replaces the need for any password policy"
+      ],
+      "correctIndex": 1,
+      "explanation": "BYOD era mein employees apne phones pe corporate email use karte hain — UEM security policies enforce karta hai without fully controlling personal devices."
+    },
+    {
+      "id": "ch9_q23",
+      "termRef": "uem",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What capability does UEM provide if a device is lost or stolen?",
+      "options": [
+        "Nothing can be done at all",
+        "Remote wipe",
+        "Instant device replacement, shipped free",
+        "Automatic physical recovery of the device"
+      ],
+      "correctIndex": 1,
+      "explanation": "Remote wipe karo agar device lost ho — yeh UEM ka ek key security feature hai jo data ko protect karta hai."
+    },
+    {
+      "id": "ch9_q24",
+      "termRef": "uem",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An employee's personal phone, which also has corporate email set up, gets lost at an airport. The IT team remotely wipes only the corporate data on the device without touching personal photos. What technology enabled this selective control?",
+      "options": [
+        "A firewall",
+        "SSH",
+        "NAT",
+        "UEM (Unified Endpoint Management)"
+      ],
+      "correctIndex": 3,
+      "explanation": "UEM policies enforce karta hai without fully controlling personal devices — exactly BYOD ke liye design kiya gaya feature."
+    },
+    {
+      "id": "ch9_q25",
+      "termRef": "uem",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is a core function of UEM, according to the guide?",
+      "options": [
+        "Enforcing security policies across all managed devices",
+        "Only managing office furniture inventory",
+        "Only tracking employee attendance",
+        "Only handling company payroll"
+      ],
+      "correctIndex": 0,
+      "explanation": "Policies enforce karo, software deploy karo, remote wipe karo — sab UEM ke core functions hain."
+    },
+    {
+      "id": "ch9_q26",
+      "termRef": "backup",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Why is backup called the 'last line of defense against ransomware'?",
+      "options": [
+        "It's a copy of your data that lets you recover without paying the attacker",
+        "It physically blocks all network intrusions",
+        "It encrypts every file permanently",
+        "It automatically detects and removes malware"
+      ],
+      "correctIndex": 0,
+      "explanation": "Data ki copy — last line of defense against ransomware. Agar backup ho, ransom pay karne ki zaroorat nahi padti."
+    },
+    {
+      "id": "ch9_q27",
+      "termRef": "backup",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In the 3-2-1 backup rule, what does the '1' represent?",
+      "options": [
+        "1 encryption algorithm used",
+        "1 offsite/offline copy",
+        "1 employee responsible for backups",
+        "1 password for all backups"
+      ],
+      "correctIndex": 1,
+      "explanation": "3 copies of data, 2 different storage media types, 1 offsite/offline copy — offline backup ransomware encrypt nahi kar sakta."
+    },
+    {
+      "id": "ch9_q28",
+      "termRef": "backup",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What critical mistake does the guide warn about regarding backup credentials?",
+      "options": [
+        "Storing backups in more than one location",
+        "Using the same account credentials for cloud backup as for the main system",
+        "Testing backups too frequently",
+        "Encrypting the backup data"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cloud backup alag account mein — not same credentials — agar same ho, ransomware attacker backup bhi encrypt/delete kar sakta hai."
+    },
+    {
+      "id": "ch9_q29",
+      "termRef": "backup",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the guide say about organizations that have backups but never test restoring them?",
+      "options": [
+        "Testing backups is unnecessary if storage space is limited",
+        "This is the recommended best practice",
+        "Many discover the backup is broken only when an actual disaster strikes",
+        "They are always perfectly safe with no risk at all"
+      ],
+      "correctIndex": 2,
+      "explanation": "Backup hai par restore nahi kiya kabhi? Useless. Regular restore tests mandatory — warna disaster ke waqt pata chalta hai backup kaam nahi kar raha."
+    },
+    {
+      "id": "ch9_q30",
+      "termRef": "backup",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "During a ransomware incident, a company discovers its cloud backup was encrypted too, because the backup used the exact same login credentials as the main compromised system. What mistake caused this?",
+      "options": [
+        "Using an offline backup instead of cloud",
+        "Testing the backup too often",
+        "Following the 3-2-1 rule too strictly",
+        "Not keeping the backup account separate with different credentials"
+      ],
+      "correctIndex": 3,
+      "explanation": "Cloud backup alag account mein rakhna chahiye — not same credentials, warna attacker backup ko bhi compromise kar sakta hai."
+    },
+    {
+      "id": "ch9_q31",
+      "termRef": "keymgmt",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Encryption Key Management involve?",
+      "options": [
+        "Only backing up data to the cloud",
+        "Only creating strong passwords for user accounts",
+        "Only encrypting a single file once",
+        "Managing the lifecycle of encryption keys — generation, distribution, storage, rotation, destruction"
+      ],
+      "correctIndex": 3,
+      "explanation": "Encryption keys ka lifecycle manage karna — generation, distribution, storage, rotation, destruction."
+    },
+    {
+      "id": "ch9_q32",
+      "termRef": "keymgmt",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the most common mistake in key management, according to the guide?",
+      "options": [
+        "Using AES instead of RSA",
+        "Rotating keys too frequently",
+        "Storing encryption keys in the same location as the data they protect",
+        "Using a Hardware Security Module"
+      ],
+      "correctIndex": 2,
+      "explanation": "Keys data ke saath same jagah store nahi karni (sabse common mistake) — agar attacker data access kare, keys bhi mil jaayengi."
+    },
+    {
+      "id": "ch9_q33",
+      "termRef": "keymgmt",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is an HSM (Hardware Security Module)?",
+      "options": [
+        "A type of software firewall",
+        "Dedicated hardware that physically protects encryption keys",
+        "A cloud-based password manager",
+        "A network monitoring dashboard"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hardware Security Module — dedicated hardware jo keys physically protect karta hai. Banks, governments use karte hain."
+    },
+    {
+      "id": "ch9_q34",
+      "termRef": "keymgmt",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Do encryption keys stored in an HSM ever leave the device, according to the guide?",
+      "options": [
+        "Yes, they are exported daily for backup",
+        "Yes, they are emailed to administrators regularly",
+        "Yes, but only once a year",
+        "No, keys never leave the HSM"
+      ],
+      "correctIndex": 3,
+      "explanation": "Keys kabhi HSM se bahar nahi jaate — yeh HSM ka core security guarantee hai."
+    },
+    {
+      "id": "ch9_q35",
+      "termRef": "keymgmt",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker steals an entire encrypted database along with the encryption key, which was carelessly stored in the same folder. What mistake made the encryption effectively useless?",
+      "options": [
+        "Rotating the key too often",
+        "Using AES instead of RSA",
+        "Using a Hardware Security Module",
+        "Storing the key alongside the data it protects"
+      ],
+      "correctIndex": 3,
+      "explanation": "Yeh exactly guide ke mutabik 'sabse common mistake' hai — keys data ke saath store karna encryption ko pointless bana deta hai."
+    },
+    {
+      "id": "ch9_q36",
+      "termRef": "cloudsec",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the 'Shared Responsibility' model in Cloud Security?",
+      "options": [
+        "The cloud provider is responsible for absolutely everything, always",
+        "The cloud provider secures the infrastructure; the customer secures their data, access, and configuration",
+        "The customer is responsible for absolutely everything, always",
+        "Responsibility is randomly assigned each month"
+      ],
+      "correctIndex": 1,
+      "explanation": "AWS/Azure/GCP → cloud infrastructure secure karte hain. Customer → data, access, application, configuration secure karna customer ki responsibility."
+    },
+    {
+      "id": "ch9_q37",
+      "termRef": "cloudsec",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "The Capital One breach (2019), caused by a misconfigured AWS WAF, exposed how many credit applications and led to what settlement amount?",
+      "options": [
+        "100 million applications, $190 million settlement",
+        "10 million applications, $19 million settlement",
+        "100,000 applications, $1.9 million settlement",
+        "1 billion applications, $1.9 billion settlement"
+      ],
+      "correctIndex": 0,
+      "explanation": "Misconfigured AWS WAF se 100 million credit applications exposed. $190M settlement — ex-Amazon employee ne exploit kiya, misconfiguration, not AWS's fault."
+    },
+    {
+      "id": "ch9_q38",
+      "termRef": "cloudsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a common cloud misconfiguration in the guide?",
+      "options": [
+        "Too much encryption at rest",
+        "Too many MFA prompts",
+        "Overly restrictive firewall rules",
+        "Public S3 buckets"
+      ],
+      "correctIndex": 3,
+      "explanation": "Public S3 buckets, weak IAM roles, no encryption at rest, default security groups allowing all traffic, exposed credentials in code repositories."
+    },
+    {
+      "id": "ch9_q39",
+      "termRef": "cloudsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In the Capital One breach, whose fault was the security failure, according to the guide?",
+      "options": [
+        "The customer's (Capital One's) misconfiguration, not AWS's fault",
+        "No one's fault; it was purely bad luck",
+        "Entirely AWS's fault as the cloud provider",
+        "The end customers whose data was exposed"
+      ],
+      "correctIndex": 0,
+      "explanation": "Misconfiguration, not AWS's fault — yeh exactly shared responsibility model ko illustrate karta hai, customer ki configuration responsibility thi."
+    },
+    {
+      "id": "ch9_q40",
+      "termRef": "cloudsec",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company's sensitive database is exposed to the public internet not because of a flaw in AWS itself, but because the company's own security team left default settings unchanged. Whose responsibility does this fall under, per the shared responsibility model?",
+      "options": [
+        "The internet service provider's responsibility",
+        "The customer's responsibility",
+        "The cloud provider's responsibility",
+        "No one's responsibility since it's automated"
+      ],
+      "correctIndex": 1,
+      "explanation": "Customer → data, access, application, configuration secure karna customer ki responsibility hai, exactly jaisa Capital One case mein hua."
+    },
+    {
+      "id": "ch9_q41",
+      "termRef": "emailsec",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Why is email security so critical, according to the guide?",
+      "options": [
+        "Only 1% of attacks involve email",
+        "Email is never used by attackers",
+        "91% of cyberattacks start from a phishing email",
+        "Email is completely immune to all attacks by default"
+      ],
+      "correctIndex": 2,
+      "explanation": "91% of cyberattacks start from phishing email — email sabse exploited vector hai, isliye security critical hai."
+    },
+    {
+      "id": "ch9_q42",
+      "termRef": "emailsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which technology publishes a list of servers authorized to send email on behalf of a domain?",
+      "options": [
+        "SPF",
+        "DMARC",
+        "TLS",
+        "DKIM"
+      ],
+      "correctIndex": 0,
+      "explanation": "SPF: Authorized mail servers list. DKIM: email digital signature. DMARC: policy for SPF/DKIM failures."
+    },
+    {
+      "id": "ch9_q43",
+      "termRef": "emailsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which technology defines what should happen when SPF or DKIM checks fail for an email?",
+      "options": [
+        "DMARC",
+        "DKIM alone",
+        "SPF alone",
+        "TLS alone"
+      ],
+      "correctIndex": 0,
+      "explanation": "DMARC: Policy for SPF/DKIM failures — yeh decide karta hai failed emails ka kya karna hai (reject, quarantine, etc.)."
+    },
+    {
+      "id": "ch9_q44",
+      "termRef": "emailsec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the recommended combination for preventing email spoofing on your own domain, according to the guide?",
+      "options": [
+        "SPF + DKIM + DMARC configured together",
+        "Only a firewall on the mail server",
+        "Only a strong company password policy",
+        "Only antivirus on the email server"
+      ],
+      "correctIndex": 0,
+      "explanation": "SPF+DKIM+DMARC configure karo apne domain pe — email spoofing prevent karta hai, tino saath use karna best practice hai."
+    },
+    {
+      "id": "ch9_q45",
+      "termRef": "emailsec",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A malicious email pretending to be from your own company domain is automatically rejected by the recipient's mail server because it fails an authenticity check based on your domain's published security policy. What technology likely caused this rejection?",
+      "options": [
+        "A WAF",
+        "A honeypot",
+        "NAT",
+        "DMARC"
+      ],
+      "correctIndex": 3,
+      "explanation": "DMARC policy define karta hai ki SPF/DKIM fail hone pe email ka kya karna hai — reject karna is policy ka result hai."
+    },
+    {
+      "id": "ch9_q46",
+      "termRef": "physec",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Why does the guide emphasize that cybersecurity isn't purely digital?",
+      "options": [
+        "Only software matters; hardware access is irrelevant",
+        "Physical security has no relevance to cybersecurity at all",
+        "Physical attacks stopped being a threat years ago",
+        "The best firewall is useless if an attacker can physically access a server room"
+      ],
+      "correctIndex": 3,
+      "explanation": "Best firewall bhi useless hai agar attacker physically server room mein ghus jaaye — lock pick, RFID clone, tailgating physical attacks real hain."
+    },
+    {
+      "id": "ch9_q47",
+      "termRef": "physec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is a 'mantrap' in the context of physical security?",
+      "options": [
+        "A type of encrypted USB drive",
+        "A double-door airlock that only lets one person through at a time after verification",
+        "A trap set to catch script kiddies online",
+        "A software tool for catching malware"
+      ],
+      "correctIndex": 1,
+      "explanation": "Mantrap (double door airlock) — physical access control jo ek time pe sirf ek verified person ko andar aane deta hai."
+    },
+    {
+      "id": "ch9_q48",
+      "termRef": "physec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a physical security control in the guide?",
+      "options": [
+        "Keycards and biometrics",
+        "SPF email records",
+        "TLS handshakes",
+        "SQL parameterized queries"
+      ],
+      "correctIndex": 0,
+      "explanation": "Keycards, biometrics, CCTV, guards, mantrap, cable locks on laptops, screen locks, clean desk policy, visitor logs — sab physical security controls hain."
+    },
+    {
+      "id": "ch9_q49",
+      "termRef": "physec",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker follows closely behind an employee through a secure badge-access door without swiping their own card, and nobody stops them. Which physical security failure does this represent?",
+      "options": [
+        "A weak TLS handshake",
+        "Tailgating that could have been prevented with a mantrap or vigilant staff",
+        "A DNS poisoning attack",
+        "A CASB misconfiguration"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tailgating physical social engineering technique hai — mantrap jaisa control isko prevent karne ke liye design hua hai."
+    },
+    {
+      "id": "ch9_q50",
+      "termRef": "physec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does a 'clean desk policy' aim to prevent?",
+      "options": [
+        "Sensitive documents being left visible and accessible to unauthorized people",
+        "Employees using two monitors instead of one",
+        "Employees personalizing their workspace",
+        "Employees eating lunch at their desks"
+      ],
+      "correctIndex": 0,
+      "explanation": "Clean desk policy — sensitive documents khule na chhode jaayein jahan koi bhi dekh/le sakta ho, ek physical security best practice."
+    }
+  ]
+}

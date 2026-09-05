@@ -548,78 +548,78 @@
 
         @media (max-width: 768px) {
             body {
-                flex-direction: column;
+                flex-direction: column !important;
+                height: 100vh !important;
+                padding-bottom: 65px !important;
+                overflow: hidden !important;
             }
+
+            .mobile-nav, .mobile-nav-bar {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 60px;
+                padding-bottom: max(0px, env(safe-area-inset-bottom));
+                background: var(--bg-panel);
+                border-top: var(--border-width) solid var(--border-dim);
+                justify-content: space-around;
+                align-items: center;
+                z-index: 10000;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-tab {
+                flex: 1;
+                height: 100%;
+                background: transparent;
+                border: none;
+                color: var(--text-muted);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                padding: 6px 0;
+            }
+
+            .nav-tab:hover { color: var(--text-main); }
+            .nav-tab.active { color: var(--accent-primary) !important; text-shadow: 0 0 10px var(--accent-glow); }
+            .nav-tab .tab-icon { font-size: 1.1rem; }
+            .nav-tab .tab-label { font-size: 0.7rem; font-weight: 600; }
 
             .sidebar, .workspace, .details-panel, .chat-panel {
                 display: none !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                min-width: 0 !important;
-                height: 100% !important;
-                flex: 1 1 auto !important;
-                border-right: none !important;
-                border-left: none !important;
+                width: 100% !important; max-width: 100% !important; min-width: 0 !important;
+                height: 100% !important; flex: 1 1 auto !important;
+                border-right: none !important; border-left: none !important;
             }
 
-            body.tab-tools .sidebar {
-                display: flex !important;
-                height: calc(100vh - 60px) !important;
-            }
+            body.tab-tools .sidebar { display: flex !important; }
+            .sidebar .header { padding: 15px; }
+            .sidebar .header h2 { font-size: 1rem; }
 
-            body.tab-details .workspace {
-                display: flex !important;
-                height: calc(100vh - 60px) !important;
-            }
+            body.tab-details .workspace { display: flex !important; }
+            body.tab-details .details-panel { display: block !important; padding: 15px !important; overflow-y: auto !important; }
 
-            body.tab-details .details-panel {
-                display: block !important;
-                padding: 15px !important;
-                overflow-y: auto !important;
-            }
+            body.tab-chat .workspace { display: flex !important; }
+            body.tab-chat .chat-panel { display: flex !important; min-width: 0 !important; }
 
-            body.tab-chat .workspace {
-                display: flex !important;
-                height: calc(100vh - 60px) !important;
-            }
-
-            body.tab-chat .chat-panel {
-                display: flex !important;
-            }
-
-            .content-split {
-                flex-direction: column !important;
-                height: 100% !important;
-            }
-
-            .card {
-                padding: 15px !important;
-            }
-
-            .card h1 {
-                font-size: 1.2rem !important;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .card h1 a {
-                width: 100%;
-                text-align: center;
-            }
-
-            .chat-input-area {
-                padding: 10px 15px !important;
-            }
-
-            .modal-card {
-                padding: 15px !important;
-                width: 95% !important;
-            }
-
-            .mobile-nav-bar {
-                display: flex;
-            }
+            .content-split { flex-direction: column !important; height: 100% !important; }
+            .card { padding: 16px !important; box-shadow: 4px 4px 0 var(--border-dim) !important; }
+            .card h1 { font-size: 1.2rem !important; flex-direction: column; align-items: flex-start; gap: 10px; }
+            .card h1 a { width: 100%; text-align: center; display: block; }
+            .chat-header { padding: 10px 12px !important; }
+            .panel-tabs { width: 100%; justify-content: space-between; }
+            .panel-tab { font-size: 0.68rem !important; padding: 5px 4px !important; }
+            .chat-input-area { padding: 10px 12px !important; gap: 8px !important; }
+            .chat-input-area input { padding: 8px 12px !important; font-size: 0.85rem !important; }
+            .modal-card { padding: 16px !important; width: 92% !important; max-width: 450px !important; box-shadow: 4px 4px 0 var(--border-dim) !important; }
+            .quiz-card > div[style*="display: flex"] { flex-direction: column !important; gap: 8px !important; }
+            .quiz-card button { width: 100% !important; }
         }
 
         /* Panel Tabs styling */

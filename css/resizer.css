@@ -1,0 +1,18 @@
+
+/* Resizer CSS */
+.resizer-v {
+    width: 6px;
+    background-color: var(--border-dim);
+    cursor: col-resize;
+    z-index: 10;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+.resizer-v:hover, .resizer-v.dragging {
+    background-color: var(--accent-primary);
+}
+@media (max-width: 768px) {
+    .resizer-v {
+        display: none !important;
+    }
+}

@@ -1,0 +1,758 @@
+{
+  "chapter": 10,
+  "chapterTitle": "Emerging & Essential Concepts",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch10_q01",
+      "termRef": "aisec",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does 'AI Security' cover, according to the guide?",
+      "options": [
+        "Only antivirus software that uses no AI at all",
+        "AI being used both as a tool for attackers and as a tool for defenders",
+        "Only the security of self-driving cars",
+        "Only AI being used to write marketing content"
+      ],
+      "correctIndex": 1,
+      "explanation": "AI as attacker aur defender — new arms race. Deepfake phishing, AI-generated malware ek taraf; anomaly detection, automated response doosri taraf."
+    },
+    {
+      "id": "ch10_q02",
+      "termRef": "aisec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as an example of 'AI as attacker' in the guide?",
+      "options": [
+        "Deepfake phishing using cloned voice or video",
+        "Behavior analytics (UEBA)",
+        "Automated threat response in a SIEM",
+        "Smart log analysis at scale"
+      ],
+      "correctIndex": 0,
+      "explanation": "AI as Attacker: Deepfake phishing (voice/video clone), AI-generated perfect spear phishing emails, automated vulnerability discovery."
+    },
+    {
+      "id": "ch10_q03",
+      "termRef": "aisec",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "WormGPT (2023) was notable for what capability?",
+      "options": [
+        "Detecting deepfakes with perfect accuracy",
+        "Providing free cybersecurity training to students",
+        "Generating phishing emails and malware code with no ethical restrictions, available on the dark web",
+        "Automatically patching vulnerabilities for free"
+      ],
+      "correctIndex": 2,
+      "explanation": "WormGPT: ChatGPT jaise AI model, sans restrictions — phishing emails, malware code generate karta tha, dark web pe subscribe kiya ja sakta tha."
+    },
+    {
+      "id": "ch10_q04",
+      "termRef": "aisec",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as an example of 'AI as defender' in the guide?",
+      "options": [
+        "Adversarial attacks on ML models",
+        "AI-generated malware",
+        "Anomaly detection and automated threat response",
+        "AI-generated spear phishing emails"
+      ],
+      "correctIndex": 2,
+      "explanation": "AI as Defender: Anomaly detection, automated threat response, behavior analytics (UEBA), log analysis at scale, vulnerability prediction, smart SIEM."
+    },
+    {
+      "id": "ch10_q05",
+      "termRef": "aisec",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker uses an AI tool to clone a CEO's voice and calls an employee requesting an urgent wire transfer. What category of AI-enabled threat does this represent?",
+      "options": [
+        "Automated vulnerability discovery",
+        "Deepfake phishing",
+        "Behavior analytics detection",
+        "Smart SIEM defense"
+      ],
+      "correctIndex": 1,
+      "explanation": "Deepfake phishing (voice/video clone) — exactly is scenario ko match karta hai, AI ka attacker-side use."
+    },
+    {
+      "id": "ch10_q06",
+      "termRef": "root",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does 'root' mean in Linux/Unix systems?",
+      "options": [
+        "Superuser — full, unrestricted access to the system",
+        "A type of encryption key",
+        "A basic guest-level account with minimal access",
+        "A network monitoring tool"
+      ],
+      "correctIndex": 0,
+      "explanation": "Linux/Unix mein 'root' = superuser = god mode. Windows mein 'Administrator'. Full unrestricted access — files delete, users create, services install."
+    },
+    {
+      "id": "ch10_q07",
+      "termRef": "root",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'vertical privilege escalation'?",
+      "options": [
+        "Encrypting a file with a stronger algorithm",
+        "Accessing another same-level user's data",
+        "Moving laterally across a segmented network",
+        "Going from a low-level user account to admin/root access"
+      ],
+      "correctIndex": 3,
+      "explanation": "Vertical privilege escalation (user → admin) — attackers hamesha root access tak escalate karne ki koshish karte hain."
+    },
+    {
+      "id": "ch10_q08",
+      "termRef": "root",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the Windows equivalent term for 'root' access on Linux/Unix systems?",
+      "options": [
+        "Domain User",
+        "Standard User",
+        "Administrator",
+        "Guest"
+      ],
+      "correctIndex": 2,
+      "explanation": "Linux/Unix mein 'root', Windows mein 'Administrator' — dono terms same level of full access refer karte hain."
+    },
+    {
+      "id": "ch10_q09",
+      "termRef": "root",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A low-privilege user account on a compromised server exploits a vulnerability to gain full administrator control of the entire system. What is this called?",
+      "options": [
+        "Network segmentation bypass",
+        "Horizontal privilege escalation",
+        "A CASB failure",
+        "Vertical privilege escalation"
+      ],
+      "correctIndex": 3,
+      "explanation": "Low-level user access se root access tak jaana — yehi vertical privilege escalation ki definition hai, ek critical vulnerability class."
+    },
+    {
+      "id": "ch10_q10",
+      "termRef": "root",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the goal an attacker typically has once inside a system with limited access, according to the guide?",
+      "options": [
+        "Immediately leaving the system without further action",
+        "Only changing the desktop wallpaper",
+        "Only reading publicly available files",
+        "Escalating to root access for full control"
+      ],
+      "correctIndex": 3,
+      "explanation": "Attackers always try to escalate to root — full control ke liye yeh unka common goal hota hai."
+    },
+    {
+      "id": "ch10_q11",
+      "termRef": "pwdcrack",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "How do properly designed systems store passwords, according to the guide?",
+      "options": [
+        "As plain text for easy recovery",
+        "Written down on paper only",
+        "Only in the user's memory, never stored",
+        "As a hash, not as plain text"
+      ],
+      "correctIndex": 3,
+      "explanation": "Proper systems passwords plain text nahi store karte — hash store karte hain. SHA256('password123') = fixed string."
+    },
+    {
+      "id": "ch10_q12",
+      "termRef": "pwdcrack",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which tools does the guide mention as GPU-accelerated password cracking tools?",
+      "options": [
+        "Wireshark and Nmap",
+        "Okta and Azure AD",
+        "Splunk and QRadar",
+        "Hashcat and John the Ripper"
+      ],
+      "correctIndex": 3,
+      "explanation": "Hashcat, John the Ripper — GPU-accelerated password cracking. RTX 4090 = 300 billion MD5 hashes/second."
+    },
+    {
+      "id": "ch10_q13",
+      "termRef": "pwdcrack",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "Which hashing algorithms does the guide specifically recommend NEVER using for passwords?",
+      "options": [
+        "Any algorithm at all is forbidden",
+        "scrypt",
+        "MD5 or SHA1",
+        "bcrypt or Argon2"
+      ],
+      "correctIndex": 2,
+      "explanation": "Never use MD5 or SHA1 for passwords — instead bcrypt, Argon2, scrypt use karo, jo specifically slow hashing ke liye designed hain."
+    },
+    {
+      "id": "ch10_q14",
+      "termRef": "pwdcrack",
+      "type": "defense",
+      "difficulty": "hard",
+      "question": "What is the purpose of adding a 'salt' before hashing a password?",
+      "options": [
+        "Defeating precomputed rainbow table attacks",
+        "Making the password visible in plain text for recovery",
+        "Removing the need for a password entirely",
+        "Speeding up the hashing process significantly"
+      ],
+      "correctIndex": 0,
+      "explanation": "Salt (random string add karo before hashing) — rainbow tables defeat karo, ek same password bhi alag hash produce karega alag salt ke saath."
+    },
+    {
+      "id": "ch10_q15",
+      "termRef": "pwdcrack",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "The password 'password' gets cracked instantly, while 'Tr0ub4dor&3' takes years to crack using the same tool. What does this illustrate?",
+      "options": [
+        "GPU-based cracking tools don't affect crack time at all",
+        "Password complexity and length dramatically affect crack resistance",
+        "Only password length matters, complexity is irrelevant",
+        "All passwords are equally vulnerable regardless of complexity"
+      ],
+      "correctIndex": 1,
+      "explanation": "'password' = cracked instantly, 'Tr0ub4dor&3' = years — yeh directly demonstrate karta hai ki complexity aur length crack resistance ko kitna affect karte hain."
+    },
+    {
+      "id": "ch10_q16",
+      "termRef": "dos",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a DoS (Denial of Service) attack?",
+      "options": [
+        "A method for securely managing passwords",
+        "An attack that only steals data, never disrupts availability",
+        "An attack from a single source designed to make a service unavailable",
+        "A type of encrypted backup process"
+      ],
+      "correctIndex": 2,
+      "explanation": "Single source se service unavailable karna — DoS: single machine se attack, DDoS: distributed sources se."
+    },
+    {
+      "id": "ch10_q17",
+      "termRef": "dos",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is a pure DoS attack described as easier to block than a DDoS attack?",
+      "options": [
+        "Because DoS attacks are illegal but DDoS is not",
+        "Because DoS attacks never actually reach the target server",
+        "Because DoS attacks always use encrypted traffic",
+        "Since it comes from a single machine, you can simply ban that one IP"
+      ],
+      "correctIndex": 3,
+      "explanation": "DoS: Single machine se attack. Easy to block (IP ban karo). Limited bandwidth/impact — DDoS is is se harder hai kyunki hazaron sources hote hain."
+    },
+    {
+      "id": "ch10_q18",
+      "termRef": "dos",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which type of DoS attack exhausts server resources using half-open TCP connections?",
+      "options": [
+        "Application layer attack",
+        "Protocol attack (TCP SYN flood)",
+        "Volumetric attack",
+        "None of these types exist"
+      ],
+      "correctIndex": 1,
+      "explanation": "Protocol (TCP SYN flood — half-open connections exhaust karo), Volumetric (flood karo), Application layer (HTTP requests — web server crash)."
+    },
+    {
+      "id": "ch10_q19",
+      "termRef": "dos",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which type of DoS attack works by sending HTTP requests that crash the web server directly at the application layer?",
+      "options": [
+        "Protocol attack",
+        "None, this doesn't exist",
+        "Application layer attack",
+        "Volumetric attack"
+      ],
+      "correctIndex": 2,
+      "explanation": "Application layer (HTTP requests — web server crash) — each type needs different defense, according to the guide."
+    },
+    {
+      "id": "ch10_q20",
+      "termRef": "dos",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A single machine floods a small website with traffic, and the site's admin quickly identifies and blocks that one IP address, resolving the issue within minutes. What made this attack relatively easy to mitigate?",
+      "options": [
+        "It was a DoS attack from a single source, not a distributed DDoS",
+        "It was an APT campaign",
+        "It was a credential stuffing attempt",
+        "It was actually a supply chain attack"
+      ],
+      "correctIndex": 0,
+      "explanation": "DoS single machine se attack hai isliye easy to block hai — ek IP ban karke resolve ho sakta hai, DDoS ke against yeh mushkil hota."
+    },
+    {
+      "id": "ch10_q21",
+      "termRef": "ueba",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does UEBA (User & Entity Behavior Analytics) do?",
+      "options": [
+        "Encrypts all network traffic automatically",
+        "Manages a company's cloud storage costs",
+        "Uses machine learning to baseline normal behavior and flag deviations",
+        "Physically blocks unauthorized building access"
+      ],
+      "correctIndex": 2,
+      "explanation": "Machine learning se user aur entity ka normal behavior baseline karo, phir deviations flag karo."
+    },
+    {
+      "id": "ch10_q22",
+      "termRef": "ueba",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In the guide's example, what does UEBA flag when 'John usually logs in 9-5 from India'?",
+      "options": [
+        "John changing his own password",
+        "John using a company laptop",
+        "Any login during normal business hours",
+        "A sudden 3am login from Russia"
+      ],
+      "correctIndex": 3,
+      "explanation": "John usually 9-5 India se login karta hai. Suddenly 3am Russia se login = red flag — behavioral deviation detect hoti hai."
+    },
+    {
+      "id": "ch10_q23",
+      "termRef": "ueba",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What kind of threats can UEBA detect that signature-based tools might miss?",
+      "options": [
+        "Only known malware with existing signatures",
+        "Only threats from outside the organization, never insiders",
+        "Zero-day threats, through unusual behavior rather than known signatures",
+        "Only physical break-ins"
+      ],
+      "correctIndex": 2,
+      "explanation": "Zero-day threats bhi pakad sakta hai unusual behavior se — signature se nahi, behavior se detect karta hai."
+    },
+    {
+      "id": "ch10_q24",
+      "termRef": "ueba",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as something UEBA can detect, according to the guide?",
+      "options": [
+        "Only hardware temperature spikes",
+        "Only weather changes affecting servers",
+        "Only software license expiration",
+        "Data exfiltration and privilege abuse"
+      ],
+      "correctIndex": 3,
+      "explanation": "Detects: Insider threats, compromised accounts, data exfiltration, privilege abuse — sab behavior deviation ke through pakde jaate hain."
+    },
+    {
+      "id": "ch10_q25",
+      "termRef": "ueba",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An employee who normally downloads a few files a week suddenly downloads the company's entire customer database at 2am on a Sunday. A security tool automatically flags this as unusual. Which technology is most likely responsible?",
+      "options": [
+        "SSH",
+        "UEBA",
+        "NAT",
+        "A digital certificate"
+      ],
+      "correctIndex": 1,
+      "explanation": "Unusual access times, large data downloads, off-hours logins — exactly UEBA jo behavior baseline se deviation detect karta hai."
+    },
+    {
+      "id": "ch10_q26",
+      "termRef": "darkweb",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What technology is required to access the Dark Web?",
+      "options": [
+        "A standard web browser with no special software",
+        "Tor",
+        "A special type of antivirus",
+        "A VPN alone, without any other tool"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dark Web: Tor needed, anonymous, not indexed by Google — ek hidden part of the internet."
+    },
+    {
+      "id": "ch10_q27",
+      "termRef": "darkweb",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Roughly what percentage of the internet does the guide say makes up the 'Surface Web'?",
+      "options": [
+        "90%",
+        "6%",
+        "50%",
+        "4%"
+      ],
+      "correctIndex": 3,
+      "explanation": "Surface Web: Google index karta hai (4%), Deep Web: not indexed (90%), Dark Web: Tor needed, not indexed (6%)."
+    },
+    {
+      "id": "ch10_q28",
+      "termRef": "darkweb",
+      "type": "analogy",
+      "difficulty": "medium",
+      "question": "Which analogy does the guide use to describe the layers of the internet?",
+      "options": [
+        "A postman delivering sealed letters",
+        "A phone book listing every website",
+        "A library with locked and unlocked sections",
+        "An ocean, with the Dark Web compared to the Mariana Trench"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ocean ki tarah — Surface = visible waala hissa, Deep = underwater, Dark = Mariana Trench, reach karna mushkil, genuinely dangerous creatures wahan."
+    },
+    {
+      "id": "ch10_q29",
+      "termRef": "darkweb",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Who originally created the Tor Project, according to the guide?",
+      "options": [
+        "The United Nations",
+        "Google",
+        "The US Navy",
+        "A private cybercrime organization"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tor Project made by US Navy — journalist whistleblowers, censorship bypass jaise legitimate uses bhi hain, dark web = mostly evil nahi hai."
+    },
+    {
+      "id": "ch10_q30",
+      "termRef": "darkweb",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a legitimate use of the Dark Web, according to the guide?",
+      "options": [
+        "Only stolen credential sales",
+        "Only hacking-for-hire services",
+        "Censorship bypass for activists in restrictive countries",
+        "Only illegal drug marketplaces"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dark web = journalist whistleblowers, censorship bypass (Iran, China activists), privacy enthusiasts — 'not all evil'."
+    },
+    {
+      "id": "ch10_q31",
+      "termRef": "cpa",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a Cyber-Physical Attack?",
+      "options": [
+        "A purely theoretical scenario that has never actually happened",
+        "A cyberattack whose consequences manifest in the physical world",
+        "An attack that only steals digital data with no real-world impact",
+        "A type of physical break-in with no digital component"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cyber attack jiske physical consequences hain — power grids off karna, traffic lights hack, water poison — digital command = physical disaster."
+    },
+    {
+      "id": "ch10_q32",
+      "termRef": "cpa",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "In the Florida Water Treatment attack (2021), by how much did the hacker increase the sodium hydroxide levels?",
+      "options": [
+        "111x",
+        "1.1x",
+        "11x",
+        "1,100x"
+      ],
+      "correctIndex": 0,
+      "explanation": "Hacker ne Oldsmar city ke water treatment plant ka SCADA system access kiya aur sodium hydroxide 111x badha diya — drinking water poison attempt, operator ne catch kiya."
+    },
+    {
+      "id": "ch10_q33",
+      "termRef": "cpa",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Who ultimately prevented disaster in the Florida Water Treatment attack case, according to the guide?",
+      "options": [
+        "A firewall automatically blocked the attacker",
+        "The FBI intervened remotely in real time",
+        "A human operator noticed and reversed the change",
+        "An automated AI defense system"
+      ],
+      "correctIndex": 2,
+      "explanation": "Operator ne catch kiya, disaster averted — is case mein human vigilance ne bade damage ko roka."
+    },
+    {
+      "id": "ch10_q34",
+      "termRef": "cpa",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which growing trend does the guide say is increasing the risk of cyber-physical attacks?",
+      "options": [
+        "Companies abandoning cloud computing entirely",
+        "The decline of internet usage overall",
+        "Smart cities and connected infrastructure (Industry 4.0)",
+        "A reduction in the number of IoT devices"
+      ],
+      "correctIndex": 2,
+      "explanation": "Smart cities, connected infrastructure, Industry 4.0 — jitna zyada connectivity, utna zyada attack surface."
+    },
+    {
+      "id": "ch10_q35",
+      "termRef": "cpa",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker gains access to a city's water treatment SCADA system and attempts to alter chemical dosing levels to dangerous amounts, but a vigilant operator catches and reverses it in time. What type of attack was attempted?",
+      "options": [
+        "A DDoS attack",
+        "A Cyber-Physical Attack",
+        "Credential stuffing",
+        "A supply chain attack"
+      ],
+      "correctIndex": 1,
+      "explanation": "Digital command = physical disaster attempt — exactly cyber-physical attack ki definition, jaisa Florida water treatment case mein hua."
+    },
+    {
+      "id": "ch10_q36",
+      "termRef": "cloudiam",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Cloud IAM control?",
+      "options": [
+        "Only email spam filtering rules",
+        "Only physical access to a data center building",
+        "Only which fonts are used in a cloud application",
+        "Access to cloud provider resources like S3 buckets, EC2 instances, and databases"
+      ],
+      "correctIndex": 3,
+      "explanation": "Cloud provider ke resources (S3, EC2, databases) tak access control — roles, policies, permissions, kaunsa service kaunsa resource access kar sakta hai."
+    },
+    {
+      "id": "ch10_q37",
+      "termRef": "cloudiam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the most common cause of cloud breaches, according to the guide?",
+      "options": [
+        "Encryption being too strong",
+        "Misconfigured Cloud IAM",
+        "Weather-related outages",
+        "Physical theft of cloud servers"
+      ],
+      "correctIndex": 1,
+      "explanation": "Misconfigured Cloud IAM = most common cloud breach cause — yeh directly Capital One jaise breaches se bhi connect hota hai."
+    },
+    {
+      "id": "ch10_q38",
+      "termRef": "cloudiam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is a recommended Cloud IAM best practice, according to the guide?",
+      "options": [
+        "Sharing long-lived access keys among all team members",
+        "Not using the root account for daily use",
+        "Disabling MFA on the root account",
+        "Using the root account for all daily tasks"
+      ],
+      "correctIndex": 1,
+      "explanation": "Least privilege — root account daily use mat karo. MFA on root. Roles use karo instead of long-lived access keys."
+    },
+    {
+      "id": "ch10_q39",
+      "termRef": "cloudiam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which logging feature does the guide recommend enabling for cloud access auditing (specifically for AWS)?",
+      "options": [
+        "SPF records",
+        "DNS Poisoning logs",
+        "SSH key logs",
+        "CloudTrail"
+      ],
+      "correctIndex": 3,
+      "explanation": "CloudTrail logging enable karo — regular access review ke saath, yeh AWS-specific auditing tool hai."
+    },
+    {
+      "id": "ch10_q40",
+      "termRef": "cloudiam",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A junior developer is given the cloud root account's long-lived access key for a simple daily task instead of a scoped, temporary role. What best practice does this violate?",
+      "options": [
+        "Using roles instead of long-lived access keys, and not using root for daily tasks",
+        "The 3-2-1 backup rule",
+        "The NIST Incident Response phases",
+        "Chain of custody documentation"
+      ],
+      "correctIndex": 0,
+      "explanation": "Roles use karo instead of long-lived access keys, root account daily use mat karo — is scenario mein dono best practices violate ho rahi hain."
+    },
+    {
+      "id": "ch10_q41",
+      "termRef": "databreach",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a Data Breach?",
+      "options": [
+        "A planned, authorized penetration test",
+        "Sensitive or confidential information ending up in unauthorized hands",
+        "A type of encrypted backup process",
+        "A firewall configuration update"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sensitive, confidential ya protected information unauthorized parties ke hands mein jaana — intentional ya accidental dono ho sakta hai."
+    },
+    {
+      "id": "ch10_q42",
+      "termRef": "databreach",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the average cost of a data breach, according to the guide (citing IBM 2023 data)?",
+      "options": [
+        "$4.45 million",
+        "$445,000",
+        "$44.5 million",
+        "$4,450"
+      ],
+      "correctIndex": 0,
+      "explanation": "Average cost: $4.45 million (IBM 2023) — yeh statistic guide mein specifically diya gaya hai."
+    },
+    {
+      "id": "ch10_q43",
+      "termRef": "databreach",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Within how many hours must a data breach be reported under GDPR, according to the guide?",
+      "options": [
+        "7 days",
+        "7 hours",
+        "72 hours",
+        "24 hours"
+      ],
+      "correctIndex": 2,
+      "explanation": "GDPR notification 72 hours mein required — yeh ek strict regulatory deadline hai companies ke liye."
+    },
+    {
+      "id": "ch10_q44",
+      "termRef": "databreach",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "A 2018 report suggested that 1.1 billion Indians' Aadhaar data was accessible for how much money via WhatsApp?",
+      "options": [
+        "₹500",
+        "₹5,000",
+        "₹50",
+        "₹50,000"
+      ],
+      "correctIndex": 0,
+      "explanation": "Report aaya ki 1.1 billion Indians ka Aadhaar data accessible tha for ₹500 via WhatsApp — UIDAI ne deny kiya, par investigation ne serious vulnerabilities found."
+    },
+    {
+      "id": "ch10_q45",
+      "termRef": "databreach",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as an aftermath consequence of a data breach, according to the guide?",
+      "options": [
+        "No impact on customer trust whatsoever",
+        "Guaranteed government bailout funding",
+        "Automatic exemption from future regulations",
+        "Average stock price drop of 7.5%"
+      ],
+      "correctIndex": 3,
+      "explanation": "Stock price drop (avg 7.5%), customer trust loss, class action lawsuits, regulatory fines, executives fired — sab aftermath consequences hain."
+    },
+    {
+      "id": "ch10_q46",
+      "termRef": "framework",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a Cybersecurity Framework?",
+      "options": [
+        "A type of encryption algorithm",
+        "A physical lock mechanism for server rooms",
+        "A single specific antivirus product",
+        "A structured approach to managing cybersecurity risk"
+      ],
+      "correctIndex": 3,
+      "explanation": "Structured approach to manage cybersecurity risk — building code jaisa, ek common language aur standard approach deta hai."
+    },
+    {
+      "id": "ch10_q47",
+      "termRef": "framework",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What are the 5 core functions of the NIST Cybersecurity Framework (CSF)?",
+      "options": [
+        "Identify, Protect, Detect, Respond, Recover",
+        "Plan, Build, Test, Deploy, Maintain",
+        "Encrypt, Decrypt, Hash, Salt, Verify",
+        "Scan, Patch, Report, Audit, Repeat"
+      ],
+      "correctIndex": 0,
+      "explanation": "NIST CSF: 1. Identify (assets, risks samjho), 2. Protect, 3. Detect, 4. Respond, 5. Recover — 5 core functions."
+    },
+    {
+      "id": "ch10_q48",
+      "termRef": "framework",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which framework specifically documents actual adversary tactics as a matrix?",
+      "options": [
+        "CIS Controls",
+        "ISO 27001",
+        "OWASP Top 10",
+        "MITRE ATT&CK"
+      ],
+      "correctIndex": 3,
+      "explanation": "MITRE ATT&CK: Adversary tactics matrix — actual attack techniques documented, ek unique framework focused on attacker behavior."
+    },
+    {
+      "id": "ch10_q49",
+      "termRef": "framework",
+      "type": "analogy",
+      "difficulty": "medium",
+      "question": "Which analogy does the guide use to describe a cybersecurity framework?",
+      "options": [
+        "A CCTV control room watching cameras",
+        "A building code for architecture — a common standard so engineers don't build inconsistently",
+        "A postman delivering sealed letters",
+        "A movie ticket used once for entry"
+      ],
+      "correctIndex": 1,
+      "explanation": "Building code for architecture jaisa — alag-alag engineers alag-alag sochein to inconsistency, framework ek common language aur standard approach deta hai."
+    },
+    {
+      "id": "ch10_q50",
+      "termRef": "framework",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which framework specifically focuses on web application vulnerabilities?",
+      "options": [
+        "OWASP Top 10",
+        "MITRE ATT&CK",
+        "CIS Controls",
+        "NIST CSF"
+      ],
+      "correctIndex": 0,
+      "explanation": "OWASP Top 10: Web vulnerabilities — ISO 27001 international standard hai, MITRE ATT&CK adversary tactics, CIS Controls top 18 security actions."
+    }
+  ]
+}

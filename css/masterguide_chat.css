@@ -1,0 +1,443 @@
+/* ==========================================================================
+   PWNBOX ACADEMY — "ASK A DOUBT" SIDEBAR CHATBOT (BAUHAUS BRUTALISM)
+   ========================================================================== */
+
+/* ── Floating Toggle Button ── */
+.doubt-chat-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9990;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #D9291C;
+    color: #ffffff;
+    border: var(--border-width, 4px) solid var(--border-dim, #0a0a0a);
+    box-shadow: 4px 4px 0 var(--border-dim, #0a0a0a);
+    padding: 10px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
+    user-select: none;
+}
+
+.doubt-chat-toggle:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--border-dim, #0a0a0a);
+    background: #e6392c;
+}
+
+.doubt-chat-toggle:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--border-dim, #0a0a0a);
+}
+
+.doubt-chat-toggle .chat-icon {
+    font-size: 1.1rem;
+}
+
+.doubt-chat-toggle .chat-pulse {
+    width: 8px;
+    height: 8px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #10B981;
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+/* ── Drawer Overlay ── */
+.doubt-chat-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 9994;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.doubt-chat-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ── Slide-in Drawer ── */
+.doubt-chat-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 440px;
+    max-width: 92vw;
+    height: 100vh;
+    background: var(--bg-panel, #ffffff);
+    border-left: var(--border-width, 4px) solid var(--border-dim, #0a0a0a);
+    box-shadow: -8px 0 0 rgba(0, 0, 0, 0.15);
+    z-index: 9995;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(105%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text-main, #0a0a0a);
+}
+
+.doubt-chat-drawer.open {
+    transform: translateX(0);
+}
+
+/* ── Drawer Header ── */
+.doubt-chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--bg-base, #f4f4f0);
+    border-bottom: var(--border-width, 4px) solid var(--border-dim, #0a0a0a);
+}
+
+.doubt-chat-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.doubt-avatar {
+    font-size: 1.6rem;
+    width: 40px;
+    height: 40px;
+    background: #005A9C;
+    border: 2px solid var(--border-dim, #0a0a0a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.doubt-chat-title h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    color: var(--text-main, #0a0a0a);
+}
+
+.doubt-subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted, #555555);
+    margin-top: 2px;
+}
+
+.doubt-subtitle span {
+    color: #005A9C;
+    font-weight: 700;
+}
+
+.doubt-chat-close {
+    background: transparent;
+    border: 2px solid var(--border-dim, #0a0a0a);
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    line-height: 1;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    color: var(--text-main, #0a0a0a);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.doubt-chat-close:hover {
+    background: #D9291C;
+    color: #ffffff;
+}
+
+/* ── Chat Body ── */
+.doubt-chat-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+    background: var(--bg-panel, #ffffff);
+}
+
+.doubt-chat-body .chat-history {
+    flex-grow: 1;
+    padding: 18px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--bg-panel, #ffffff);
+}
+
+/* ── Chat Bubbles ── */
+.doubt-chat-body .msg {
+    max-width: 88%;
+    padding: 12px 14px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    word-break: break-word;
+    border: var(--border-width, 3px) solid var(--border-dim, #0a0a0a);
+    box-shadow: 3px 3px 0 var(--border-dim, #0a0a0a);
+}
+
+.doubt-chat-body .msg.bot {
+    background: var(--bg-base, #f4f4f0);
+    color: var(--text-main, #0a0a0a);
+    align-self: flex-start;
+    border-left: 5px solid #005A9C;
+}
+
+.doubt-chat-body .msg.user {
+    background: #005A9C;
+    color: #ffffff;
+    align-self: flex-end;
+    font-weight: 500;
+    border-left: var(--border-width, 3px) solid var(--border-dim, #0a0a0a);
+    border-right: 5px solid #D9291C;
+}
+
+.doubt-chat-body .msg.bot pre {
+    background: #0d1117;
+    color: #34d399;
+    border: 2px solid var(--border-dim, #0a0a0a);
+    padding: 8px 10px;
+    margin: 8px 0;
+    overflow-x: auto;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+}
+
+.doubt-chat-body .msg code:not(pre code) {
+    background: rgba(0, 90, 156, 0.12);
+    color: #005A9C;
+    padding: 1px 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    border: 1px solid rgba(0, 90, 156, 0.3);
+}
+
+.doubt-chat-body .msg.user code:not(pre code) {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.doubt-chat-body .msg ul {
+    margin: 6px 0 6px 18px;
+    padding: 0;
+}
+
+.doubt-chat-body .msg li {
+    margin-bottom: 4px;
+}
+
+/* ── Typing Indicator ── */
+.doubt-chat-body .typing-indicator {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 12px 16px;
+    width: fit-content;
+}
+
+.doubt-chat-body .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #005A9C;
+    display: inline-block;
+    animation: typingBounce 1s infinite alternate;
+}
+
+.doubt-chat-body .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.doubt-chat-body .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0% { transform: translateY(0); opacity: 0.3; }
+    100% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ── Quick Prompts ── */
+.doubt-quick-prompts {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 16px;
+    background: var(--bg-base, #f4f4f0);
+    border-top: 2px solid var(--border-dim, #0a0a0a);
+    scrollbar-width: none;
+}
+
+.doubt-quick-prompts::-webkit-scrollbar {
+    display: none;
+}
+
+.doubt-quick-prompts button {
+    white-space: nowrap;
+    background: var(--bg-panel, #ffffff);
+    border: 1px solid var(--border-dim, #0a0a0a);
+    color: var(--text-main, #0a0a0a);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border-dim, #0a0a0a);
+    transition: all 0.1s;
+}
+
+.doubt-quick-prompts button:hover {
+    background: #005A9C;
+    color: #ffffff;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-dim, #0a0a0a);
+}
+
+/* ── Chat Input Area ── */
+.doubt-chat-body .chat-input-area {
+    padding: 12px 16px;
+    background: var(--bg-base, #f4f4f0);
+    border-top: var(--border-width, 3px) solid var(--border-dim, #0a0a0a);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.doubt-chat-body .chat-input-area input {
+    flex-grow: 1;
+    background: var(--bg-panel, #ffffff);
+    border: var(--border-width, 3px) solid var(--border-dim, #0a0a0a);
+    color: var(--text-main, #0a0a0a);
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.15s;
+}
+
+.doubt-chat-body .chat-input-area input:focus {
+    border-color: #005A9C;
+    box-shadow: 3px 3px 0 var(--border-dim, #0a0a0a);
+}
+
+.doubt-chat-body .chat-input-area button {
+    background: #D9291C;
+    color: white;
+    border: var(--border-width, 3px) solid var(--border-dim, #0a0a0a);
+    padding: 10px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--border-dim, #0a0a0a);
+    transition: all 0.1s;
+}
+
+.doubt-chat-body .chat-input-area button:hover {
+    background: #b82216;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-dim, #0a0a0a);
+}
+
+.doubt-chat-body .chat-input-area button:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--border-dim, #0a0a0a);
+}
+
+/* ── Dark Theme Overrides ── */
+[data-theme="dark"] .doubt-chat-toggle {
+    background: #D9291C;
+    color: #f4f4f0;
+    border-color: #f4f4f0;
+    box-shadow: 4px 4px 0 #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-drawer {
+    background: #1a1a1a;
+    border-left-color: #f4f4f0;
+    color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-header {
+    background: #111111;
+    border-bottom-color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-title h3 {
+    color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-close {
+    border-color: #f4f4f0;
+    color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-body {
+    background: #1a1a1a;
+}
+
+[data-theme="dark"] .doubt-chat-body .chat-history {
+    background: #1a1a1a;
+}
+
+[data-theme="dark"] .doubt-chat-body .msg {
+    border-color: #f4f4f0;
+    box-shadow: 3px 3px 0 #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-body .msg.bot {
+    background: #242424;
+    color: #f4f4f0;
+    border-left: 5px solid #60a5fa;
+}
+
+[data-theme="dark"] .doubt-chat-body .msg.user {
+    background: #005A9C;
+    color: #ffffff;
+    border-right: 5px solid #f87171;
+}
+
+[data-theme="dark"] .doubt-quick-prompts {
+    background: #111111;
+    border-top-color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-quick-prompts button {
+    background: #1a1a1a;
+    border-color: #f4f4f0;
+    color: #f4f4f0;
+    box-shadow: 2px 2px 0 #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-body .chat-input-area {
+    background: #111111;
+    border-top-color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-body .chat-input-area input {
+    background: #1a1a1a;
+    border-color: #f4f4f0;
+    color: #f4f4f0;
+}
+
+[data-theme="dark"] .doubt-chat-body .chat-input-area button {
+    background: #D9291C;
+    border-color: #f4f4f0;
+    box-shadow: 3px 3px 0 #f4f4f0;
+}

@@ -1,0 +1,758 @@
+{
+  "chapter": 2,
+  "chapterTitle": "Malware Types",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch2_q01",
+      "termRef": "virus",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a computer virus fundamentally do?",
+      "options": [
+        "Attaches itself to existing files and activates when the infected file is run",
+        "Spreads automatically across a network without any user action",
+        "Disguises itself as legitimate software to trick users into installing it",
+        "Hides at the operating system's kernel level to avoid detection"
+      ],
+      "correctIndex": 0,
+      "explanation": "Virus ek malicious code hai jo existing files mein attach ho jaata hai — jab infected file run hoti hai, virus execute hota hai aur doosri files ko infect karna shuru karta hai."
+    },
+    {
+      "id": "ch2_q02",
+      "termRef": "virus",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the key characteristic that distinguishes a virus from a worm?",
+      "options": [
+        "A virus can spread entirely on its own across a network",
+        "A virus always disguises itself as useful software",
+        "A virus requires human action (like sharing a file) to spread further",
+        "A virus hides at the kernel level of the OS"
+      ],
+      "correctIndex": 2,
+      "explanation": "Virus ko spread hone ke liye human help chahiye — infected file kisi ko deni padti hai (email, USB, download). Worm ke uलट, yeh automatic nahi hota."
+    },
+    {
+      "id": "ch2_q03",
+      "termRef": "virus",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "The ILOVEYOU virus (2000) spread through an email attachment. How many computers did it infect within 10 days?",
+      "options": [
+        "500,000",
+        "5 million",
+        "50 million",
+        "5 billion"
+      ],
+      "correctIndex": 2,
+      "explanation": "ILOVEYOU email attachment 'LOVE-LETTER-FOR-YOU.txt.vbs' ke through millions ne open kiya — 10 din mein 50 million computers infect hue, $10 billion ka damage."
+    },
+    {
+      "id": "ch2_q04",
+      "termRef": "virus",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to describe how a virus spreads?",
+      "options": [
+        "Like thousands of bots flooding a server at once",
+        "Like a biological flu virus — it needs contact with an infected carrier",
+        "Like a postman secretly reading your mail",
+        "Like a fake ID card used to gain trust"
+      ],
+      "correctIndex": 1,
+      "explanation": "Biological virus jaisa — apne aap nahi chalta, kisi infected insaan/file se contact chahiye. Ek infected USB → PC → shared drive → colleagues."
+    },
+    {
+      "id": "ch2_q05",
+      "termRef": "virus",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You share a USB drive containing an infected file with a colleague, and their computer soon shows the same symptoms as yours. What does this demonstrate?",
+      "options": [
+        "Classic worm behavior — it spread automatically across the network",
+        "A supply chain attack through the USB manufacturer",
+        "Classic virus behavior — it spreads only when a human action carries the infected file",
+        "A rootkit hiding itself from both systems"
+      ],
+      "correctIndex": 2,
+      "explanation": "Virus ko spread hone ke liye human action chahiye — file share karna jaisa. Yeh worm se alag hai jo bina kisi help ke khud spread hota hai."
+    },
+    {
+      "id": "ch2_q06",
+      "termRef": "worm",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What makes a worm different from ordinary malware in how it spreads?",
+      "options": [
+        "It requires a user to open an infected file first",
+        "It spreads automatically across a network by exploiting vulnerabilities, with no human action needed",
+        "It disguises itself as a useful application",
+        "It only activates when a specific date is reached"
+      ],
+      "correctIndex": 1,
+      "explanation": "Worm standalone hai — kisi file se attach nahi hota, koi human action nahi chahiye. Network vulnerabilities exploit karke apne aap spread hota hai."
+    },
+    {
+      "id": "ch2_q07",
+      "termRef": "worm",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Besides spreading itself, what else can a worm do according to the guide?",
+      "options": [
+        "Carry additional payloads like ransomware or keyloggers and deliver them automatically",
+        "Only record keystrokes",
+        "Only display unwanted advertisements",
+        "Only monitor browsing history"
+      ],
+      "correctIndex": 0,
+      "explanation": "Worm network bandwidth kha jaata hai aur side payloads bhi carry karta hai — jaise ransomware ya keyloggers automatically deliver karna."
+    },
+    {
+      "id": "ch2_q08",
+      "termRef": "worm",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "WannaCry (2017) used the EternalBlue exploit and needed no user action at all. How many computers did it infect across 150 countries?",
+      "options": [
+        "300,000+",
+        "3 million+",
+        "30,000,000+",
+        "30,000+"
+      ],
+      "correctIndex": 0,
+      "explanation": "WannaCry ne EternalBlue exploit (NSA ka stolen tool) use karke Windows SMB vulnerability attack ki — 300,000+ computers, 150 countries, bina kisi user action ke."
+    },
+    {
+      "id": "ch2_q09",
+      "termRef": "worm",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Malware spreads from one machine to an entire office network overnight, with no employee clicking on anything or opening any file. What type of malware behavior does this match?",
+      "options": [
+        "A virus — requires a human carrier",
+        "Adware — requires a bundled download",
+        "A Trojan — requires voluntary installation",
+        "A worm — self-spreading via network vulnerabilities"
+      ],
+      "correctIndex": 3,
+      "explanation": "Bina kisi human action ke poore network mein spread hona worm ki nishaani hai — ek infected machine se poora network infect ho sakta hai."
+    },
+    {
+      "id": "ch2_q10",
+      "termRef": "worm",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the practical impact of a worm on a network's infrastructure?",
+      "options": [
+        "It consumes network bandwidth and can overload servers",
+        "It only intercepts keyboard input",
+        "It only affects a single file on a single machine",
+        "It only displays pop-up advertisements"
+      ],
+      "correctIndex": 0,
+      "explanation": "Worm network bandwidth kha jaata hai aur servers ko overload kar deta hai — apne aap replicate hote hue."
+    },
+    {
+      "id": "ch2_q11",
+      "termRef": "trojan",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a Trojan Horse malware?",
+      "options": [
+        "Malware that hides at the operating system's kernel level",
+        "Software that appears legitimate and useful but contains malicious code inside",
+        "Malware that spreads automatically without any human action",
+        "Malware that only displays unwanted advertisements"
+      ],
+      "correctIndex": 1,
+      "explanation": "Legit software ki tarah dikhta hai (game, utility, crack) par andar malicious code hota hai — tum khud install karte ho."
+    },
+    {
+      "id": "ch2_q12",
+      "termRef": "trojan",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is NOT one of the Trojan types mentioned in the guide?",
+      "options": [
+        "Downloader Trojan",
+        "Polymorphic Trojan",
+        "Backdoor Trojan",
+        "Banking Trojan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Guide mein listed types: Banking Trojans (credentials chori), RATs, Backdoor Trojans, aur Downloader Trojans — 'Polymorphic Trojan' iss list mein nahi hai."
+    },
+    {
+      "id": "ch2_q13",
+      "termRef": "trojan",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "The Zeus Trojan (2007–2010) stole banking credentials. How much money did it steal in total?",
+      "options": [
+        "Over $7 billion",
+        "Over $700 million",
+        "Over $7 million",
+        "Over $70 million"
+      ],
+      "correctIndex": 3,
+      "explanation": "Zeus Trojan ne 70,000+ organizations affect kiye, $70 million+ chura liye including NASA computers — typically ek pirated game ke saath aata tha."
+    },
+    {
+      "id": "ch2_q14",
+      "termRef": "trojan",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which historical reference inspired the name 'Trojan Horse' malware?",
+      "options": [
+        "A postman secretly opening private letters",
+        "A disease spreading through unaware carriers",
+        "A guard checking IDs at a building entrance",
+        "The Greek mythology story of soldiers hidden inside a gift horse"
+      ],
+      "correctIndex": 3,
+      "explanation": "Greek mythology ke Trojan Horse jaisa — gift ke andar soldiers chhupe the, waise hi legit-looking software ke andar malicious code chhupa hota hai."
+    },
+    {
+      "id": "ch2_q15",
+      "termRef": "trojan",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You downloaded a cracked version of a paid game from an unofficial website, and weeks later your bank account was accessed without your permission. What likely happened?",
+      "options": [
+        "Your bank's server had a zero-day exploit",
+        "A CSRF attack was executed through your browser",
+        "A Banking Trojan was bundled with the cracked game",
+        "A DDoS attack targeted your bank directly"
+      ],
+      "correctIndex": 2,
+      "explanation": "Cracked/pirated software ke saath Trojan bundle hona common hai — Zeus Trojan jaisa banking Trojan credentials chura leta hai."
+    },
+    {
+      "id": "ch2_q16",
+      "termRef": "rootkit",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a rootkit do at a technical level?",
+      "options": [
+        "Spreads automatically through network vulnerabilities",
+        "Records every keystroke a user types",
+        "Installs itself at the operating system's deepest (kernel) level to hide itself and other malware",
+        "Displays unwanted pop-up advertisements"
+      ],
+      "correctIndex": 2,
+      "explanation": "Rootkit OS ke deepest level (kernel) mein install hota hai aur apne aap ko aur doosre malware ko antivirus se hide karta hai."
+    },
+    {
+      "id": "ch2_q17",
+      "termRef": "rootkit",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is a rootkit especially dangerous compared to standard malware?",
+      "options": [
+        "It always disguises itself as a game or utility",
+        "It always spreads without any human action",
+        "Standard antivirus software often cannot detect it because it intercepts system calls and returns fake information",
+        "It is limited to displaying advertisements only"
+      ],
+      "correctIndex": 2,
+      "explanation": "Rootkit OS ke andar se hi system calls intercept karta hai aur fake information return karta hai — remove karna almost impossible ho jaata hai."
+    },
+    {
+      "id": "ch2_q18",
+      "termRef": "rootkit",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "The Sony BMG CD Rootkit scandal (2005) involved Sony secretly embedding a rootkit in music CDs. How many CDs were affected?",
+      "options": [
+        "220 million",
+        "2.2 million",
+        "22 million",
+        "220,000"
+      ],
+      "correctIndex": 2,
+      "explanation": "Sony ne music CDs mein rootkit embed kiya DRM ke liye — 22 million CDs affected, bina bataye users ke computers pe install ho jaata tha, massive public outrage."
+    },
+    {
+      "id": "ch2_q19",
+      "termRef": "rootkit",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your antivirus keeps reporting the system as 'clean', but Task Manager doesn't show a process that is clearly consuming resources, and the system behaves suspiciously. What is most likely present?",
+      "options": [
+        "A rootkit hiding itself at the kernel level",
+        "A DDoS attack originating from your machine",
+        "Ordinary adware",
+        "A simple phishing email"
+      ],
+      "correctIndex": 0,
+      "explanation": "Rootkit ki khaasiyat hi yeh hai ki woh antivirus aur task manager dono se khud ko chhupa leta hai — system calls intercept karke fake info deta hai."
+    },
+    {
+      "id": "ch2_q20",
+      "termRef": "rootkit",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What do the two parts of the word 'Rootkit' refer to?",
+      "options": [
+        "'Root' = a network protocol, 'Kit' = an encryption method",
+        "'Root' = highest admin access, 'Kit' = a collection of tools",
+        "'Root' = a hacking group, 'Kit' = a malware family",
+        "'Root' = the file system, 'Kit' = an antivirus bypass"
+      ],
+      "correctIndex": 1,
+      "explanation": "'Root' matlab highest admin access, 'Kit' matlab tools ka collection — isliye rootkit naam pada."
+    },
+    {
+      "id": "ch2_q21",
+      "termRef": "keylogger",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a keylogger do?",
+      "options": [
+        "Quietly records every keystroke and sends the log to the attacker",
+        "Spreads automatically across a network",
+        "Encrypts files and demands a ransom",
+        "Displays unwanted advertisements automatically"
+      ],
+      "correctIndex": 0,
+      "explanation": "Background mein quietly tumhare keyboard ke har key press ko record karta hai, phir log file attacker ko bhejta hai — passwords, messages sab caught."
+    },
+    {
+      "id": "ch2_q22",
+      "termRef": "keylogger",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is NOT one of the keylogger types mentioned in the guide?",
+      "options": [
+        "Cloud-based keylogger",
+        "Browser-based keylogger",
+        "Software keylogger (OS-level hook)",
+        "Hardware keylogger (physical device)"
+      ],
+      "correctIndex": 0,
+      "explanation": "Guide ke types: Software (OS level hook), Hardware (physical device between keyboard and PC), Browser-based (form data intercept) — 'Cloud-based' iss list mein nahi hai."
+    },
+    {
+      "id": "ch2_q23",
+      "termRef": "keylogger",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "Which defense specifically neutralizes a keylogger's ability to steal a typed password?",
+      "options": [
+        "Using a VPN",
+        "Regularly clearing your browser cache",
+        "Enabling 2FA, since a stolen password alone becomes useless",
+        "Installing a firewall"
+      ],
+      "correctIndex": 2,
+      "explanation": "2FA se keylogger useless ho jaata hai passwords ke liye — password chori bhi ho jaaye, dusra factor attacker ke paas nahi hota."
+    },
+    {
+      "id": "ch2_q24",
+      "termRef": "keylogger",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your banking password was compromised despite never clicking any suspicious link, and you recently used a public library computer to check your email. What is a likely cause?",
+      "options": [
+        "A DDoS attack on the bank's servers",
+        "A supply chain attack on your bank",
+        "A hardware or software keylogger installed on the shared public computer",
+        "A CSRF attack from a browser tab"
+      ],
+      "correctIndex": 2,
+      "explanation": "Public/shared computers pe keylogger install hone ka risk hota hai — physical device ya software hook se keystrokes record ho sakti hain."
+    },
+    {
+      "id": "ch2_q25",
+      "termRef": "keylogger",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How does a keylogger differ from spyware in scope, according to the guide?",
+      "options": [
+        "A keylogger is broader than spyware",
+        "A keylogger only works on mobile devices",
+        "A keylogger only captures keystrokes, while spyware is broader and can capture screenshots, location, and more",
+        "They are exactly the same thing with different names"
+      ],
+      "correctIndex": 2,
+      "explanation": "Keylogger sirf keystrokes capture karta hai, jabki Spyware broader hai — screenshots, file access, location, social media, call logs sab."
+    },
+    {
+      "id": "ch2_q26",
+      "termRef": "spyware",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does spyware do once installed on a device?",
+      "options": [
+        "Silently monitors activities like browsing history, location, and camera/microphone access, and sends the data to the attacker",
+        "Only records keyboard input",
+        "Only displays unwanted advertisements",
+        "Encrypts files and demands payment"
+      ],
+      "correctIndex": 0,
+      "explanation": "Background mein chup ke tumhari activities monitor karta hai — browsing history, location, contacts, camera/microphone access, screenshots — data attacker ko remotely bhejta hai."
+    },
+    {
+      "id": "ch2_q27",
+      "termRef": "spyware",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "Pegasus Spyware (developed by NSO Group) was notable for what unusual infection method?",
+      "options": [
+        "It spread only through infected USB drives",
+        "It required victims to enter their password on a fake page",
+        "It required victims to download a fake update",
+        "Zero-click exploits — the victim didn't need to click anything at all"
+      ],
+      "correctIndex": 3,
+      "explanation": "Pegasus iOS aur Android zero-click exploit se install hota tha — tumhe kuch click bhi nahi karna. Journalists, activists, world leaders targeted."
+    },
+    {
+      "id": "ch2_q28",
+      "termRef": "spyware",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A journalist's phone gets compromised without them ever clicking a link, downloading a file, or entering any credentials. What kind of attack does this most closely match?",
+      "options": [
+        "A zero-click spyware attack (like Pegasus)",
+        "A brute force attack on their email password",
+        "A SQL injection attack",
+        "A DDoS attack on their phone carrier"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zero-click exploits mein victim ko kuch bhi action lene ki zaroorat nahi — Pegasus jaisa spyware bina interaction ke install ho sakta hai."
+    },
+    {
+      "id": "ch2_q29",
+      "termRef": "spyware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is within spyware's typical data-collection scope, according to the guide?",
+      "options": [
+        "Only network traffic between two servers",
+        "Screenshots, camera/microphone access, and location data",
+        "Only firewall log entries",
+        "Only DNS lookup records"
+      ],
+      "correctIndex": 1,
+      "explanation": "Spyware broader scope rakhta hai — screenshots, file access, location, social media, call logs, camera/mic access sab collect kar sakta hai."
+    },
+    {
+      "id": "ch2_q30",
+      "termRef": "spyware",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "Who reportedly used Pegasus spyware to monitor the network around journalist Jamal Khashoggi, according to the guide?",
+      "options": [
+        "Saudi Arabia",
+        "A US intelligence agency",
+        "A private cybercrime group",
+        "North Korea"
+      ],
+      "correctIndex": 0,
+      "explanation": "Guide ke mutabik Saudi Arabia ne Pegasus use kiya journalist Jamal Khashoggi ke network ko monitor karne ke liye."
+    },
+    {
+      "id": "ch2_q31",
+      "termRef": "adware",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the primary behavior of adware?",
+      "options": [
+        "Encrypts files and demands a ransom",
+        "Automatically displays unwanted ads such as pop-ups and browser redirects",
+        "Hides itself at the kernel level of the OS",
+        "Records every keystroke silently"
+      ],
+      "correctIndex": 1,
+      "explanation": "Adware automatically ads show karta hai — popups, browser redirects, fake alerts. Revenue generate karta hai advertiser ke liye, free software ke saath bundled aata hai."
+    },
+    {
+      "id": "ch2_q32",
+      "termRef": "adware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Beyond being annoying, what serious risk can adware pose?",
+      "options": [
+        "It can physically damage computer hardware",
+        "It can single-handedly encrypt an entire hard drive",
+        "It always installs a rootkit alongside itself",
+        "Malvertising (malicious ads) can lead to downloading more serious malware"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mostly annoying, but some adware spyware ka gateway hai — malvertising (malicious ads) se serious malware download ho sakta hai, browser settings hijack ho sakti hain."
+    },
+    {
+      "id": "ch2_q33",
+      "termRef": "adware",
+      "type": "scenario",
+      "difficulty": "medium",
+      "question": "After installing a free utility tool, your browser homepage changed on its own and you now see constant pop-up ads. What has most likely happened?",
+      "options": [
+        "A DDoS attack has occurred",
+        "Adware was bundled with the free software",
+        "A ransomware attack has encrypted your files",
+        "SQL injection has affected your browser"
+      ],
+      "correctIndex": 1,
+      "explanation": "Free software ke saath adware bundled aana common hai — browser hijack, popups, redirects yeh sab adware ki classic symptoms hain."
+    },
+    {
+      "id": "ch2_q34",
+      "termRef": "adware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How does adware typically reach a victim's system?",
+      "options": [
+        "Only through physical USB infection",
+        "Only through unpatched server vulnerabilities",
+        "Only through targeted phishing emails",
+        "Bundled together with free software downloads"
+      ],
+      "correctIndex": 3,
+      "explanation": "Adware free software ke saath bundled aata hai often — user ko pata bhi nahi chalta ki install karte waqt adware bhi saath install ho gaya."
+    },
+    {
+      "id": "ch2_q35",
+      "termRef": "adware",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "Compared to spyware, what is adware's primary purpose?",
+      "options": [
+        "Providing remote access to the attacker",
+        "Generating advertising revenue rather than stealing personal data (though it can become a gateway to spyware)",
+        "Encrypting files for ransom",
+        "Stealing banking credentials directly"
+      ],
+      "correctIndex": 1,
+      "explanation": "Adware ka primary purpose ad revenue generate karna hai, spyware ka primary purpose data churana — lekin adware kabhi-kabhi spyware ka gateway ban jaata hai."
+    },
+    {
+      "id": "ch2_q36",
+      "termRef": "fileless",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What makes fileless malware difficult for traditional antivirus to detect?",
+      "options": [
+        "It only operates during specific hours of the day",
+        "It disguises its file name to look like a system file",
+        "It only targets mobile devices, which antivirus can't scan",
+        "It runs directly in RAM or abuses legitimate tools like PowerShell, without writing any file to disk"
+      ],
+      "correctIndex": 3,
+      "explanation": "Disk pe koi file nahi likhta, directly RAM mein run karta hai ya Windows ke legitimate tools (PowerShell, WMI) abuse karta hai — antivirus file scan nahi kar sakta kyunki file hi nahi hai."
+    },
+    {
+      "id": "ch2_q37",
+      "termRef": "fileless",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the technique of abusing an operating system's own legitimate tools for an attack called?",
+      "options": [
+        "Credential Stuffing",
+        "Living-off-the-Land (LotL)",
+        "Supply Chain Compromise",
+        "Privilege Escalation"
+      ],
+      "correctIndex": 1,
+      "explanation": "Living-off-the-land (LotL) attack — PowerShell, cmd, regedit jaise Windows ke apne tools use karta hai, computer restart pe woh gone but damage ho chuka hota hai."
+    },
+    {
+      "id": "ch2_q38",
+      "termRef": "fileless",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "During Operation Cobalt Kitty (2017), how long did the fileless malware attack on a Vietnamese bank remain undetected?",
+      "options": [
+        "6 days",
+        "6 years",
+        "6 months",
+        "6 weeks"
+      ],
+      "correctIndex": 2,
+      "explanation": "Operation Cobalt Kitty mein PowerShell aur WMI tools use hone ki wajah se attack 6 mahine tak undetected raha — $200M+ theft attempt hua."
+    },
+    {
+      "id": "ch2_q39",
+      "termRef": "fileless",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After a system reboot, security investigators find no malicious file anywhere on disk, yet unusual activity had clearly occurred beforehand. What does this suggest?",
+      "options": [
+        "A fileless malware attack that ran entirely in RAM",
+        "A Trojan disguised as a legitimate program",
+        "Adware bundled with free software",
+        "A standard virus that requires a host file"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fileless malware disk pe koi trace nahi chhodta — RAM mein run hota hai, restart hote hi gayab ho jaata hai, but tab tak damage ho chuka hota hai."
+    },
+    {
+      "id": "ch2_q40",
+      "termRef": "fileless",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which legitimate Windows tools are commonly abused in fileless malware attacks?",
+      "options": [
+        "File Explorer only",
+        "Task Manager and Control Panel",
+        "Notepad and Paint",
+        "PowerShell, cmd, and WMI"
+      ],
+      "correctIndex": 3,
+      "explanation": "PowerShell, cmd, regedit — Windows ke apne legitimate tools use karta hai fileless malware, isliye detect karna mushkil hota hai."
+    },
+    {
+      "id": "ch2_q41",
+      "termRef": "rat",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What can an attacker do once a Remote Access Trojan (RAT) is installed on a victim's PC?",
+      "options": [
+        "Only encrypt files for ransom",
+        "Remotely control the mouse, keyboard, camera, microphone, and files, all without the victim's knowledge",
+        "Only display unwanted advertisements",
+        "Only monitor network bandwidth usage"
+      ],
+      "correctIndex": 1,
+      "explanation": "Attacker tumhara poora computer remotely control kar sakta hai — mouse, keyboard, camera, microphone, files, install software — TeamViewer jaisa but bina tumhari knowledge ke."
+    },
+    {
+      "id": "ch2_q42",
+      "termRef": "rat",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of the following is something a RAT-infected computer can be used for, according to the guide?",
+      "options": [
+        "Being added to a botnet",
+        "Only serving as a VPN exit node",
+        "Only mining cryptocurrency",
+        "Only sending spam SMS messages"
+      ],
+      "correctIndex": 0,
+      "explanation": "Attacker screen dekh sakta hai live, camera on kar sakta hai, files copy/delete, keylog, bank transfers, screenshot, aur tumhare PC ko botnet mein add kar sakta hai."
+    },
+    {
+      "id": "ch2_q43",
+      "termRef": "rat",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "The Blackshades RAT (2012–2014) was created by a 17-year-old and sold on the dark web for how much?",
+      "options": [
+        "$4",
+        "$400",
+        "$40",
+        "$4,000"
+      ],
+      "correctIndex": 2,
+      "explanation": "17-year-old Swedish teen ne banaya, $40 pe dark web pe becha — 700,000 computers compromise huye, FBI ne worldwide sting operation chalayi."
+    },
+    {
+      "id": "ch2_q44",
+      "termRef": "rat",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your webcam indicator light turns on randomly when you're not using any camera app, and files seem to move on their own. What is most likely happening?",
+      "options": [
+        "A firmware update is in progress",
+        "A Remote Access Trojan (RAT) is giving an attacker control of your device",
+        "A routine antivirus scan is running",
+        "Your webcam driver is malfunctioning"
+      ],
+      "correctIndex": 1,
+      "explanation": "Webcam randomly on hona aur files move hona bina apne action ke — RAT ki classic nishaani hai, attacker ke paas full remote control hai."
+    },
+    {
+      "id": "ch2_q45",
+      "termRef": "rat",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which legitimate software does a RAT most closely resemble in function, minus the victim's consent?",
+      "options": [
+        "Antivirus software",
+        "A password manager",
+        "A web browser",
+        "Remote desktop tools like TeamViewer"
+      ],
+      "correctIndex": 3,
+      "explanation": "TeamViewer jaisa, but without your knowledge — attacker legitimate remote-access tool jaisi hi functionality use karta hai bina consent ke."
+    },
+    {
+      "id": "ch2_q46",
+      "termRef": "raas",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Ransomware as a Service (RaaS)?",
+      "options": [
+        "A government program that helps victims recover from ransomware",
+        "A cloud service that automatically backs up files to prevent ransomware",
+        "A type of antivirus subscription service",
+        "A business model where ransomware developers rent out their malware to other attackers on the dark web"
+      ],
+      "correctIndex": 3,
+      "explanation": "SaaS ki tarah, but evil — ransomware developers apna malware dark web pe 'rent' pe dete hain, koi bhi coding nahi jaanta buy kar sakta hai."
+    },
+    {
+      "id": "ch2_q47",
+      "termRef": "raas",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In a typical RaaS revenue split, what percentage does the attacker (the person launching the attack) usually keep?",
+      "options": [
+        "90%",
+        "30%",
+        "50%",
+        "70%"
+      ],
+      "correctIndex": 3,
+      "explanation": "70-30 split typically — attacker 70% leta hai ransom ka, developer 30% — support aur control panel bhi milta hai, pure criminal enterprise."
+    },
+    {
+      "id": "ch2_q48",
+      "termRef": "raas",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "The DarkSide RaaS group (behind the Colonial Pipeline attack) reportedly had which unusual feature?",
+      "options": [
+        "A 'code of ethics' that told affiliates not to attack hospitals",
+        "A public bug bounty program",
+        "Free antivirus for its customers",
+        "Government sponsorship from a G7 nation"
+      ],
+      "correctIndex": 0,
+      "explanation": "DarkSide RaaS ki professional website thi, customer support, even ek 'code of ethics' — hospitals attack mat karo. Pure criminal SaaS business model."
+    },
+    {
+      "id": "ch2_q49",
+      "termRef": "raas",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Someone with zero programming skills manages to launch a ransomware attack after paying a monthly subscription on the dark web. What business model made this possible?",
+      "options": [
+        "Social Engineering",
+        "Ransomware as a Service (RaaS)",
+        "Supply Chain Attack",
+        "Credential Stuffing"
+      ],
+      "correctIndex": 1,
+      "explanation": "RaaS is barrier ko hata deta hai — koi bhi coding nahi jaanta hue bhi malware rent karke attack launch kar sakta hai."
+    },
+    {
+      "id": "ch2_q50",
+      "termRef": "raas",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does RaaS provide to its 'customers' beyond just the malware itself, according to the guide?",
+      "options": [
+        "Physical hardware for the attack",
+        "Government-issued cybersecurity certifications",
+        "Support, a control panel, and even ransom negotiation services",
+        "Free legal defense if caught"
+      ],
+      "correctIndex": 2,
+      "explanation": "Support bhi milta hai, control panel, ransom negotiation services — full criminal enterprise jaise organized business model."
+    }
+  ]
+}

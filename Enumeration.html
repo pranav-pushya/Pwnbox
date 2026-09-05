@@ -12,6 +12,7 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
+    <link rel="stylesheet" href="css/resizer.css">
 </head>
 
 <body class="tab-tools">
@@ -28,7 +29,7 @@
             <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
         </div>
     </div>
-
+    <div class="resizer-v" id="sidebarResizer"></div>
     <div class="workspace">
         <div class="content-split">
             <div class="details-panel" id="detailsPanel">
@@ -36,7 +37,7 @@
                     <h3>Select a tool from the menu to view beginner-friendly intelligence data.</h3>
                 </div>
             </div>
-
+            <div class="resizer-v" id="panelResizer"></div>
             <div class="chat-panel">
                 <div class="chat-header" style="flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 15px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -202,8 +203,10 @@
     </div>
 
     
+    <script src="js/config.js"></script>
     <script src="js/Enumeration.js"></script>
     <script src="js/theme.js"></script>
-    </body>
+    <script src="js/resizer.js"></script>
+</body>
 
 </html>

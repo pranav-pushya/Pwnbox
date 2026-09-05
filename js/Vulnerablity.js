@@ -1,7 +1,8 @@
-const keyP1 = "gsk_OCCHNxtXBVzq8";
-        const keyP2 = "GdGCu99WGdyb3FY";
-        const keyP3 = "sqdvAWM3jBcoxcwJaUrC8EGa";
-        const apiKey = keyP1 + keyP2 + keyP3;
+// ==========================================
+// API Key loaded from js/config.js
+// ==========================================
+const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
+// ==========================================
 
         const MODULE_KEY = 'module_vulnanalysis_completed';
         const CUSTOM_TOOLS_KEY = 'vuln_custom_tools';
@@ -177,9 +178,9 @@ const keyP1 = "gsk_OCCHNxtXBVzq8";
                 });
             }
 
-            if (apiKey.includes("YOUR_MIDDLE_PART")) {
+            if (!apiKey) {
                 document.getElementById('statusDot').classList.remove('online');
-                addBotMessage("⚠️ API key not configured. Update keyP1/keyP2/keyP3 in the HTML.");
+                addBotMessage("⚠️ API key not configured. Please configure GROQ_API_KEY in js/config.js.");
             }
         }
 
@@ -232,8 +233,8 @@ const keyP1 = "gsk_OCCHNxtXBVzq8";
             addUserMessage(msg);
             inputEl.value = '';
 
-            if (!apiKey || apiKey.includes("YOUR_MIDDLE_PART")) {
-                setTimeout(() => addBotMessage("❌ Missing Groq API Key. Edit keyP1/keyP2/keyP3."), 500);
+            if (!apiKey) {
+                setTimeout(() => addBotMessage("❌ Missing Groq API Key. Configure GROQ_API_KEY in js/config.js."), 500);
                 return;
             }
 

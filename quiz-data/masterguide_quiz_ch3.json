@@ -1,0 +1,758 @@
+{
+  "chapter": 3,
+  "chapterTitle": "Defensive Tools & Technologies",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch3_q01",
+      "termRef": "firewall",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a firewall do?",
+      "options": [
+        "Removes malware that has already infected a system",
+        "Records every keystroke a user types",
+        "Encrypts sensitive data before it is transmitted",
+        "Monitors network traffic and allows or blocks it based on predefined rules"
+      ],
+      "correctIndex": 3,
+      "explanation": "Firewall network traffic monitor karta hai aur predefined rules ke basis pe allow ya block karta hai — border guard ki tarah, passport check karke andar jaane deta hai."
+    },
+    {
+      "id": "ch3_q02",
+      "termRef": "firewall",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which type of firewall performs deep packet inspection and is application-aware?",
+      "options": [
+        "WAF",
+        "Packet Filtering firewall",
+        "Stateful firewall",
+        "NGFW (Next-Generation Firewall)"
+      ],
+      "correctIndex": 3,
+      "explanation": "Packet Filtering sirf IP/port check karta hai, Stateful connection state track karta hai, NGFW deep packet inspection karta hai aur app-aware hota hai."
+    },
+    {
+      "id": "ch3_q03",
+      "termRef": "firewall",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to explain a firewall?",
+      "options": [
+        "A CCTV control room watching thousands of cameras",
+        "A postman opening and reading letters",
+        "A building's security guard who checks IDs before letting people in",
+        "A chemical lab's glove box for safe testing"
+      ],
+      "correctIndex": 2,
+      "explanation": "Building ka security guard analogy — trusted IP allow, unknown ports block. But smart attacker allowed port use karke bypass kar sakta hai."
+    },
+    {
+      "id": "ch3_q04",
+      "termRef": "firewall",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker manages to bypass a firewall by disguising malicious traffic as normal traffic over an already-allowed port. What does this demonstrate about firewalls?",
+      "options": [
+        "Firewalls can detect and stop any type of attack automatically",
+        "Firewalls enforce rules but a sufficiently disguised attack can still get through allowed ports",
+        "Firewalls physically prevent all network intrusions",
+        "Firewalls only work on wireless networks"
+      ],
+      "correctIndex": 1,
+      "explanation": "Guide khud bolti hai — smart attacker allowed port use karta hai (bypass). Firewall foolproof nahi hai, sirf ek layer of defense hai."
+    },
+    {
+      "id": "ch3_q05",
+      "termRef": "firewall",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which firewall type is designed specifically to protect web applications?",
+      "options": [
+        "Packet Filtering",
+        "WAF",
+        "NGFW",
+        "Stateful"
+      ],
+      "correctIndex": 1,
+      "explanation": "WAF (Web Application Firewall) web apps ke liye specifically design ki gayi hai, jabki baaki types general network traffic handle karte hain."
+    },
+    {
+      "id": "ch3_q06",
+      "termRef": "antivirus",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is one method antivirus software uses to detect malware?",
+      "options": [
+        "Rewriting the operating system's kernel",
+        "Encrypting the entire hard drive automatically",
+        "Physically isolating the hardware from the network",
+        "Signature-based detection — matching known malware 'fingerprints'"
+      ],
+      "correctIndex": 3,
+      "explanation": "Signature-based: known malware ke 'fingerprints' se match karta hai. Heuristic: suspicious behavior detect karta hai. Sandboxing: isolated environment mein run karke dekhta hai."
+    },
+    {
+      "id": "ch3_q07",
+      "termRef": "antivirus",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is a key limitation of signature-based antivirus software?",
+      "options": [
+        "It struggles against zero-day and polymorphic malware that changes its own code",
+        "It requires a live internet connection to function at all",
+        "It only works against ransomware, not other malware types",
+        "It cannot run on Windows operating systems"
+      ],
+      "correctIndex": 0,
+      "explanation": "Signature-based antivirus sirf known threats detect karta hai — zero-day, fileless, polymorphic malware (jo apna code change karta hai) se bachna mushkil hai."
+    },
+    {
+      "id": "ch3_q08",
+      "termRef": "antivirus",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which antivirus detection method involves running a suspicious file in an isolated environment to observe its behavior?",
+      "options": [
+        "Rate limiting",
+        "Signature-based detection",
+        "Packet filtering",
+        "Sandboxing"
+      ],
+      "correctIndex": 3,
+      "explanation": "Sandboxing: isolated environment mein file run karke uska behavior observe kiya jaata hai — heuristic detection ka ek advanced form."
+    },
+    {
+      "id": "ch3_q09",
+      "termRef": "antivirus",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A brand-new piece of malware infects several systems before any antivirus vendor has released a signature for it. What does this illustrate?",
+      "options": [
+        "Antivirus software is completely useless in all situations",
+        "The core limitation of purely signature-based antivirus against unknown threats",
+        "The malware must be a rootkit specifically",
+        "Firewalls are more important than antivirus in every case"
+      ],
+      "correctIndex": 1,
+      "explanation": "Naya malware jiska signature abhi exist hi nahi karta — signature-based antivirus use miss kar sakta hai, isliye behavior analysis zaroori hai."
+    },
+    {
+      "id": "ch3_q10",
+      "termRef": "antivirus",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the guide say is necessary alongside signature-based detection for modern protection?",
+      "options": [
+        "Disabling all software updates",
+        "Using only hardware-based firewalls",
+        "Behavior analysis combined with signature-based detection",
+        "Relying purely on user common sense"
+      ],
+      "correctIndex": 2,
+      "explanation": "Guide ke mutabik modern AV + behavior analysis zaroori hai, sirf signature-based detection kaafi nahi hai naye threats ke against."
+    },
+    {
+      "id": "ch3_q11",
+      "termRef": "ids",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does an IDS (Intrusion Detection System) do when it spots suspicious activity?",
+      "options": [
+        "It automatically shuts down the entire network",
+        "It automatically deletes the malicious files",
+        "It sends an alert to the security team but does not block the traffic itself",
+        "It automatically blocks the traffic in real time"
+      ],
+      "correctIndex": 2,
+      "explanation": "IDS network/system traffic monitor karta hai, kuch galat dikhta hai to alert bhejta hai — but khud kuch nahi karta, sirf bolta hai 'kuch ho raha hai!'"
+    },
+    {
+      "id": "ch3_q12",
+      "termRef": "ids",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for an IDS?",
+      "options": [
+        "A security guard who physically stops intruders",
+        "A postman delivering mail",
+        "A smoke detector — it alerts you to fire but doesn't put it out itself",
+        "A vault door that locks automatically"
+      ],
+      "correctIndex": 2,
+      "explanation": "Smoke detector analogy — aag lagti hai, alarm bajta hai, but khud aag nahi bujhaata. IDS detect karta hai, response human/IPS ka kaam hai."
+    },
+    {
+      "id": "ch3_q13",
+      "termRef": "ids",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which type of IDS monitors an entire network's traffic rather than a single machine?",
+      "options": [
+        "HIDS (Host-based IDS)",
+        "NIDS (Network-based IDS)",
+        "Anomaly-based IDS only",
+        "Signature-based IDS only"
+      ],
+      "correctIndex": 1,
+      "explanation": "NIDS: network-based, poora network traffic dekhta hai. HIDS: host-based, ek specific machine dekhta hai — dono complementary hain."
+    },
+    {
+      "id": "ch3_q14",
+      "termRef": "ids",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the fundamental difference between an IDS and an IPS?",
+      "options": [
+        "IDS and IPS are exactly the same technology",
+        "IDS only works on wireless networks",
+        "IDS is more expensive than IPS",
+        "IDS only alerts (passive); IPS alerts and automatically blocks (active)"
+      ],
+      "correctIndex": 3,
+      "explanation": "IDS = passive (sirf alert), IPS = active (alert + automatically block karta hai) — yehi fundamental difference hai."
+    },
+    {
+      "id": "ch3_q15",
+      "termRef": "ids",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A security team receives an alert about suspicious traffic, but the traffic itself was never blocked and continued flowing during the investigation. What kind of system generated this alert?",
+      "options": [
+        "An IDS (Intrusion Detection System)",
+        "A firewall in blocking mode",
+        "A WAF",
+        "An IPS (Intrusion Prevention System)"
+      ],
+      "correctIndex": 0,
+      "explanation": "IDS sirf alert deta hai, traffic block nahi karta — isliye traffic continue flow hoti rehti hai jab tak koi human/IPS action na le."
+    },
+    {
+      "id": "ch3_q16",
+      "termRef": "ips",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "How does an IPS (Intrusion Prevention System) respond to a detected threat?",
+      "options": [
+        "It shuts down the entire company network",
+        "It only logs the event for later manual review",
+        "It sends an email to the CEO",
+        "It automatically blocks the traffic in real time as it sits inline in the network path"
+      ],
+      "correctIndex": 3,
+      "explanation": "IPS network path mein inline hota hai — traffic isse hoke jaata hai, woh inspect karta hai, aur block kar sakta hai real-time mein."
+    },
+    {
+      "id": "ch3_q17",
+      "termRef": "ips",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is a notable risk of deploying an IPS in a production environment?",
+      "options": [
+        "It only works on encrypted traffic",
+        "False positives can block legitimate traffic and impact the business",
+        "It requires physical access to every device",
+        "It cannot be configured at all"
+      ],
+      "correctIndex": 1,
+      "explanation": "False positives ka risk — legitimate traffic bhi block ho sakta hai. Production systems mein carefully configure karna padta hai nahi to business impact hota hai."
+    },
+    {
+      "id": "ch3_q18",
+      "termRef": "ips",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After deploying a new security tool, some legitimate customer traffic starts getting blocked unexpectedly. What is the most likely cause?",
+      "options": [
+        "A DDoS attack against the customers",
+        "A supply chain compromise",
+        "A DNS poisoning attack",
+        "An overly aggressive IPS configuration causing false positives"
+      ],
+      "correctIndex": 3,
+      "explanation": "IPS ka known risk hai false positives — sahi traffic ko bhi galat pattern match karke block kar sakta hai agar carefully configure na ho."
+    },
+    {
+      "id": "ch3_q19",
+      "termRef": "ips",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Where does an IPS typically sit within the network architecture?",
+      "options": [
+        "Completely outside the network, offline",
+        "Only on the end-user's personal device",
+        "Inline, directly in the path of network traffic",
+        "Only inside the company's physical server room"
+      ],
+      "correctIndex": 2,
+      "explanation": "IPS inline hota hai — traffic isi se hoke guzarta hai, jisse woh real-time mein inspect aur block kar sakta hai."
+    },
+    {
+      "id": "ch3_q20",
+      "termRef": "ips",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Compared to an IDS, what additional capability does an IPS provide?",
+      "options": [
+        "Lower cost only",
+        "Better logging format only",
+        "Active, automatic blocking, not just passive alerting",
+        "Support for more operating systems only"
+      ],
+      "correctIndex": 2,
+      "explanation": "IPS ka core value-add hai active response — sirf alert nahi, automatically block bhi karta hai real-time mein."
+    },
+    {
+      "id": "ch3_q21",
+      "termRef": "siem",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the core function of a SIEM (Security Information & Event Management) system?",
+      "options": [
+        "Running penetration tests against the company's own systems",
+        "Encrypting all company emails automatically",
+        "Collecting and correlating logs from across an organization's security tools to identify threats",
+        "Physically blocking network intrusions in real time"
+      ],
+      "correctIndex": 2,
+      "explanation": "SIEM poore organization ke saare security tools se logs collect karta hai ek jagah, correlate karta hai, patterns dhundta hai, aur threats identify karta hai."
+    },
+    {
+      "id": "ch3_q22",
+      "termRef": "siem",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to describe a SIEM?",
+      "options": [
+        "A postman delivering sealed letters",
+        "A locked vault protecting valuables",
+        "A mall's CCTV control room where a guard watches all cameras on one screen",
+        "A firewall blocking unauthorized visitors"
+      ],
+      "correctIndex": 2,
+      "explanation": "CCTV control room analogy — hazaron cameras ek jagah, guard sab dekh sakta hai ek monitor pe. Alag-alag cameras dekhen to pattern miss ho jaaye, SIEM central view deta hai."
+    },
+    {
+      "id": "ch3_q23",
+      "termRef": "siem",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a real-world SIEM tool in the guide?",
+      "options": [
+        "Wireshark",
+        "Nmap",
+        "Splunk",
+        "Metasploit"
+      ],
+      "correctIndex": 2,
+      "explanation": "Guide mein examples diye hain: Splunk, IBM QRadar, Microsoft Sentinel, LogRhythm — large enterprises mein terabytes of daily logs ek dashboard pe analyze hote hain."
+    },
+    {
+      "id": "ch3_q24",
+      "termRef": "siem",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which team primarily relies on a SIEM as its main working tool?",
+      "options": [
+        "The HR department",
+        "External auditors only",
+        "The SOC (Security Operations Center) team",
+        "The sales team"
+      ],
+      "correctIndex": 2,
+      "explanation": "SIEM SOC team ka main tool hai — poore organization ke logs ek jagah aa jaate hain jisse analysts patterns dhund sakte hain."
+    },
+    {
+      "id": "ch3_q25",
+      "termRef": "siem",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A security team notices a subtle attack pattern only after correlating logs from the firewall, the antivirus, and the VPN together — no single log source showed it clearly alone. What tool made this correlation possible?",
+      "options": [
+        "A single firewall log",
+        "A single IDS alert",
+        "A single antivirus console",
+        "A SIEM"
+      ],
+      "correctIndex": 3,
+      "explanation": "SIEM ka poora purpose hi yeh hai — alag-alag sources ke logs ko correlate karna taaki pattern dikhe jo individually visible nahi hota."
+    },
+    {
+      "id": "ch3_q26",
+      "termRef": "waf",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "How does a WAF (Web Application Firewall) differ from a normal firewall?",
+      "options": [
+        "A WAF only works on internal company networks",
+        "A WAF replaces the need for antivirus software entirely",
+        "A WAF blocks all traffic from all sources equally",
+        "A WAF analyzes HTTP traffic specifically, detecting things like SQL injection and XSS"
+      ],
+      "correctIndex": 3,
+      "explanation": "Normal firewall packets block karta hai, WAF HTTP traffic ko analyze karta hai specifically — SQL injection, XSS, CSRF detect aur block karta hai web layer pe."
+    },
+    {
+      "id": "ch3_q27",
+      "termRef": "waf",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Where does a WAF typically sit in relation to a web server?",
+      "options": [
+        "Between the web server and the internet",
+        "Only inside a physical server room",
+        "On the end-user's personal device",
+        "Inside the database only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Web server aur internet ke beech mein sits — Cloudflare, AWS WAF, Imperva popular solutions hain, har incoming web request scan karta hai."
+    },
+    {
+      "id": "ch3_q28",
+      "termRef": "waf",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of the following attack types is a WAF specifically designed to detect and block?",
+      "options": [
+        "Hardware keyloggers",
+        "Lost or stolen laptops",
+        "Physical server room break-ins",
+        "SQL Injection and Cross-Site Scripting (XSS)"
+      ],
+      "correctIndex": 3,
+      "explanation": "WAF SQL injection, XSS, CSRF detect aur block karta hai web layer pe — web-application-specific attacks ke against protection deta hai."
+    },
+    {
+      "id": "ch3_q29",
+      "termRef": "waf",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An e-commerce website starts blocking malicious input attempts that try to manipulate its database queries through the login form, before they ever reach the application code. Which defensive tool is most likely responsible?",
+      "options": [
+        "An email security gateway",
+        "A WAF",
+        "A honeypot",
+        "A hardware keylogger detector"
+      ],
+      "correctIndex": 1,
+      "explanation": "WAF specifically web-layer attacks jaise SQL injection ko web server tak pahunchne se pehle hi block kar deta hai."
+    },
+    {
+      "id": "ch3_q30",
+      "termRef": "waf",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these companies offers a well-known WAF solution, according to the guide?",
+      "options": [
+        "Spotify",
+        "Zoom",
+        "Adobe",
+        "Cloudflare"
+      ],
+      "correctIndex": 3,
+      "explanation": "Cloudflare, AWS WAF, Imperva — guide mein listed popular WAF solutions hain."
+    },
+    {
+      "id": "ch3_q31",
+      "termRef": "endpoint",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Endpoint Security protect?",
+      "options": [
+        "Only the physical server room",
+        "Only email communication",
+        "Individual devices such as laptops, phones, and tablets",
+        "Only the company's central database server"
+      ],
+      "correctIndex": 2,
+      "explanation": "Har individual device (endpoint) ko secure karna — laptops, phones, tablets, servers — sirf antivirus nahi, EDR tools real-time behavior monitor karte hain."
+    },
+    {
+      "id": "ch3_q32",
+      "termRef": "endpoint",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does EDR (Endpoint Detection & Response) add beyond traditional antivirus?",
+      "options": [
+        "Real-time behavior analytics, threat hunting, and automated response",
+        "Only faster virus scanning speed",
+        "Only encrypted file storage",
+        "Only better ad-blocking"
+      ],
+      "correctIndex": 0,
+      "explanation": "EDR tools (CrowdStrike, SentinelOne) behavior analytics, threat hunting, automated response sab karte hain — zero-day bhi detect ho sakta hai anomalous behavior se."
+    },
+    {
+      "id": "ch3_q33",
+      "termRef": "endpoint",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these tools is mentioned in the guide as a modern EDR solution?",
+      "options": [
+        "Zoom",
+        "Photoshop",
+        "CrowdStrike",
+        "Slack"
+      ],
+      "correctIndex": 2,
+      "explanation": "Guide mein CrowdStrike aur SentinelOne examples diye gaye hain — modern EDR tools jo behavior analytics use karte hain."
+    },
+    {
+      "id": "ch3_q34",
+      "termRef": "endpoint",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A zero-day threat with no known signature is caught because a security tool noticed unusual behavior on an employee's laptop, not because it matched a known malware pattern. Which category of tool did this?",
+      "options": [
+        "A basic packet-filtering firewall",
+        "An EDR (Endpoint Detection & Response) tool",
+        "A traditional signature-only antivirus",
+        "A simple email spam filter"
+      ],
+      "correctIndex": 1,
+      "explanation": "EDR behavior-based detection use karta hai, isliye zero-day bhi anomalous behavior se pakda ja sakta hai — traditional signature-based antivirus yeh nahi kar paata."
+    },
+    {
+      "id": "ch3_q35",
+      "termRef": "endpoint",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Endpoint security has expanded beyond which single tool to become a broader strategy?",
+      "options": [
+        "Antivirus alone",
+        "SIEM alone",
+        "Firewalls alone",
+        "VPNs alone"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sirf antivirus nahi — EDR tools real-time behavior monitor karte hain, endpoint security ab ek broader strategy hai."
+    },
+    {
+      "id": "ch3_q36",
+      "termRef": "dlp",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the main purpose of a DLP (Data Loss Prevention) system?",
+      "options": [
+        "Encrypting a company's entire hard drive",
+        "Detecting and blocking network intrusions in real time",
+        "Running penetration tests on company servers",
+        "Preventing sensitive data from leaving the organization through email, USB, or cloud uploads"
+      ],
+      "correctIndex": 3,
+      "explanation": "Monitor aur control karta hai ki sensitive data (credit cards, SSN, confidential docs) organization se bahar na jaaye — email, USB, cloud uploads ke through."
+    },
+    {
+      "id": "ch3_q37",
+      "termRef": "dlp",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How does a DLP system typically identify sensitive data being sent out?",
+      "options": [
+        "Content inspection, scanning for patterns like 'confidential' markers",
+        "Randomly blocking all outgoing emails",
+        "Disabling internet access company-wide",
+        "Physically inspecting employee bags at the door"
+      ],
+      "correctIndex": 0,
+      "explanation": "Content inspection — emails scan karta hai 'confidential' patterns ke liye, block kar deta hai ya alert deta hai."
+    },
+    {
+      "id": "ch3_q38",
+      "termRef": "dlp",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Against which specific type of risk is DLP described as especially useful?",
+      "options": [
+        "Zero-day exploits against the OS",
+        "Physical building break-ins",
+        "Distributed Denial of Service attacks",
+        "Insider threats"
+      ],
+      "correctIndex": 3,
+      "explanation": "Insider threats ke against especially useful hai — jab koi andar ka hi banda sensitive data bahar bhejne ki koshish kare, DLP catch kar leta hai."
+    },
+    {
+      "id": "ch3_q39",
+      "termRef": "dlp",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An employee tries to email a spreadsheet containing customer credit card numbers to their personal Gmail account, and the email gets automatically blocked with an alert to security. Which tool caused this?",
+      "options": [
+        "DLP (Data Loss Prevention)",
+        "A sandbox",
+        "An IDS",
+        "A honeypot"
+      ],
+      "correctIndex": 0,
+      "explanation": "DLP exactly is scenario ke liye design hui hai — sensitive data ko organization se bahar jaane se rokna, chahe woh insider ho ya accidental."
+    },
+    {
+      "id": "ch3_q40",
+      "termRef": "dlp",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these would a DLP system most likely monitor and control?",
+      "options": [
+        "Incoming network ping requests",
+        "Outgoing emails, USB transfers, and cloud uploads of sensitive data",
+        "The company's public website design",
+        "CPU temperature of servers"
+      ],
+      "correctIndex": 1,
+      "explanation": "DLP outgoing channels monitor karta hai jahan se sensitive data organization se bahar ja sakta hai — email, USB, cloud."
+    },
+    {
+      "id": "ch3_q41",
+      "termRef": "sandbox",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a sandbox in cybersecurity?",
+      "options": [
+        "An isolated virtual environment where suspicious files can be run safely without affecting the real system",
+        "A tool for cracking passwords",
+        "A physical safe used to store backup drives",
+        "A type of firewall rule for blocking IPs"
+      ],
+      "correctIndex": 0,
+      "explanation": "Isolated virtual environment jahan suspicious files ya programs run kiye jaate hain safely — agar malware hai to real system affect nahi hoga."
+    },
+    {
+      "id": "ch3_q42",
+      "termRef": "sandbox",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for a sandbox?",
+      "options": [
+        "A security guard checking IDs",
+        "A postman delivering sealed letters",
+        "A CCTV control room monitoring cameras",
+        "A chemical lab's glove box for handling hazardous material safely"
+      ],
+      "correctIndex": 3,
+      "explanation": "Chemical lab mein hazardous material ke liye glove box jaisa — bahar effects nahi pahunch sakte, andar jaake experiment kar sakte ho safely."
+    },
+    {
+      "id": "ch3_q43",
+      "termRef": "sandbox",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What kinds of items are typically tested in a sandbox before being trusted, according to the guide?",
+      "options": [
+        "Email attachments, unknown executables, and browser extensions",
+        "Only network cables",
+        "Only employee ID badges",
+        "Only physical hardware devices"
+      ],
+      "correctIndex": 0,
+      "explanation": "Email attachments, unknown executables, browser extensions — pehle sandbox mein run karo, behavior dekho, phir decide karo."
+    },
+    {
+      "id": "ch3_q44",
+      "termRef": "sandbox",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A security team runs a suspicious email attachment in an isolated virtual machine first to observe what it does, before allowing it anywhere near the real company network. What technique is this?",
+      "options": [
+        "Sandboxing",
+        "Digital forensics",
+        "Penetration testing",
+        "Network segmentation"
+      ],
+      "correctIndex": 0,
+      "explanation": "Suspicious file ko isolated environment mein run karke behavior dekhna aur real system ko safe rakhna — yehi sandboxing hai."
+    },
+    {
+      "id": "ch3_q45",
+      "termRef": "sandbox",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the main benefit of automated malware analysis using a sandbox?",
+      "options": [
+        "It blocks all incoming network traffic",
+        "It reveals a file's real behavior safely, without risking the actual system",
+        "It permanently deletes all malware from the internet",
+        "It automatically patches all known vulnerabilities"
+      ],
+      "correctIndex": 1,
+      "explanation": "Automated malware analysis ke liye use hota hai — file ka actual behavior dekha jaata hai bina real system ko risk mein daale."
+    },
+    {
+      "id": "ch3_q46",
+      "termRef": "honeypot",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a honeypot?",
+      "options": [
+        "A password manager for employees",
+        "A device that physically blocks USB ports",
+        "A deliberately vulnerable fake system designed to lure and study attackers",
+        "A tool for encrypting sensitive files"
+      ],
+      "correctIndex": 2,
+      "explanation": "Deliberately vulnerable fake system jo attackers ko lure karta hai — jab attacker ise target karta hai, security team unke tactics study kar sakti hai real-time mein."
+    },
+    {
+      "id": "ch3_q47",
+      "termRef": "honeypot",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to describe a honeypot?",
+      "options": [
+        "A police undercover operation or bait car used to lure and catch criminals",
+        "A smoke detector alerting to danger",
+        "A firewall blocking traffic",
+        "A locked vault protecting valuables"
+      ],
+      "correctIndex": 0,
+      "explanation": "Police ka undercover operation ya bait car jaisa — deliberately exposed car chodh ke thieves attract karte hain, phir catch ya study karte hain."
+    },
+    {
+      "id": "ch3_q48",
+      "termRef": "honeypot",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the main benefit a security team gains from deploying a honeypot?",
+      "options": [
+        "Free legal protection against cybercrime",
+        "Automatic patching of all software vulnerabilities",
+        "Guaranteed elimination of all malware on the network",
+        "Early warning and insight into attacker tactics, techniques, and tools"
+      ],
+      "correctIndex": 3,
+      "explanation": "Early warning system hai — attacker iska real system samajh ke attack karta hai, par actually decoy hai, unke methods log hote hain."
+    },
+    {
+      "id": "ch3_q49",
+      "termRef": "honeypot",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company deliberately sets up a fake, poorly-secured server to attract attackers so its security team can study their techniques in real time. What is this technique called?",
+      "options": [
+        "A sandbox",
+        "Network segmentation",
+        "A honeypot",
+        "A firewall"
+      ],
+      "correctIndex": 2,
+      "explanation": "Deliberately vulnerable decoy system attackers ko attract karta hai taaki unke tactics study kiye ja sakein — yehi honeypot ka core concept hai."
+    },
+    {
+      "id": "ch3_q50",
+      "termRef": "honeypot",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does an attacker fail to realize they are inside a honeypot?",
+      "options": [
+        "Because honeypots automatically disguise the attacker's own IP",
+        "Because it is designed to convincingly look like a real, exploitable system",
+        "Because honeypots require the attacker's login credentials first",
+        "Because honeypots are always physically inaccessible"
+      ],
+      "correctIndex": 1,
+      "explanation": "Attacker iska real system samajh ke attack karta hai, par actually decoy hai — is illusion ki wajah se attacker apne methods reveal kar deta hai."
+    }
+  ]
+}

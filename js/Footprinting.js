@@ -1,13 +1,8 @@
 // ==========================================
-        // 🛑 API KEY CONFIGURATION (LOCAL USE ONLY)
-        // Put your 3 parts here. Do NOT push to GitHub.
-        // ==========================================
-        const keyP1 = "gsk_OCCHNxtXBVzq8";
-        const keyP2 = "GdGCu99WGdyb3FY";
-        const keyP3 = "sqdvAWM3jBcoxcwJaUrC8EGa";
-
-        const apiKey = keyP1 + keyP2 + keyP3;
-        // ==========================================
+// API Key loaded from js/config.js
+// ==========================================
+const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
+// ==========================================
 
         const defaultTools = [
             {
@@ -221,9 +216,9 @@
                 });
             }
 
-            if (apiKey.includes("YOUR_MIDDLE_PART")) {
+            if (!apiKey) {
                 document.getElementById('statusDot').classList.remove('online');
-                addBotMessage("⚠️ WARNING: You haven't configured the API key parts in the HTML code yet. Open the file in an editor and update keyP1, keyP2, and keyP3.");
+                addBotMessage("⚠️ WARNING: API key not configured. Please configure GROQ_API_KEY in js/config.js.");
             }
         }
 
@@ -283,9 +278,9 @@
             addUserMessage(msg);
             inputEl.value = '';
 
-            // Check if key is empty or still the default text
-            if (!apiKey || apiKey.includes("YOUR_MIDDLE_PART")) {
-                setTimeout(() => addBotMessage("❌ ERROR: Missing Groq API Key. Edit the HTML file to add your split key."), 500);
+            // Check if key is empty
+            if (!apiKey) {
+                setTimeout(() => addBotMessage("❌ ERROR: Missing Groq API Key. Configure GROQ_API_KEY in js/config.js."), 500);
                 return;
             }
 

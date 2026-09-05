@@ -1,11 +1,8 @@
 // ==========================================
-        // API KEY — replace with your Groq key parts
-        // ==========================================
-        const keyP1 = "gsk_OCCHNxtXBVzq8";
-        const keyP2 = "GdGCu99WGdyb3FY";
-        const keyP3 = "sqdvAWM3jBcoxcwJaUrC8EGa";
-        const apiKey = keyP1 + keyP2 + keyP3;
-        // ==========================================
+// API Key loaded from js/config.js
+// ==========================================
+const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
+// ==========================================
 
         // localStorage key is module-specific so progress doesn't bleed between modules
         const MODULE_KEY = 'module_enumeration_completed';
@@ -137,9 +134,9 @@
                 });
             }
 
-            if (apiKey.includes("YOUR_MIDDLE_PART")) {
+            if (!apiKey) {
                 document.getElementById('statusDot').classList.remove('online');
-                addBotMessage("⚠️ WARNING: API key not configured. Open the HTML file and update keyP1, keyP2, keyP3.");
+                addBotMessage("⚠️ WARNING: API key not configured. Please configure GROQ_API_KEY in js/config.js.");
             }
         }
 
@@ -204,8 +201,8 @@
             addUserMessage(msg);
             inputEl.value = '';
 
-            if (!apiKey || apiKey.includes("YOUR_MIDDLE_PART")) {
-                setTimeout(() => addBotMessage("❌ ERROR: Missing Groq API Key. Edit the HTML file to add your split key."), 500);
+            if (!apiKey) {
+                setTimeout(() => addBotMessage("❌ ERROR: Missing Groq API Key. Configure GROQ_API_KEY in js/config.js."), 500);
                 return;
             }
 

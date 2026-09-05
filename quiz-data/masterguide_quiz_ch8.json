@@ -1,0 +1,758 @@
+{
+  "chapter": 8,
+  "chapterTitle": "Governance & Compliance",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch8_q01",
+      "termRef": "risk",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "How does the guide define Risk in cybersecurity terms?",
+      "options": [
+        "Risk = Threat × Vulnerability × Impact",
+        "Risk = Only the size of the company",
+        "Risk = Only the cost of a firewall",
+        "Risk = Only the number of employees"
+      ],
+      "correctIndex": 0,
+      "explanation": "Risk = Threat × Vulnerability × Impact — identify karo kya risks hain, kitni probability hai, agar hua to kitna damage."
+    },
+    {
+      "id": "ch8_q02",
+      "termRef": "risk",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is NOT one of the four ways to treat a risk, according to the guide?",
+      "options": [
+        "Mitigate",
+        "Ignore",
+        "Transfer (insurance)",
+        "Accept"
+      ],
+      "correctIndex": 1,
+      "explanation": "Decide karo accept karo, mitigate karo, transfer karo (insurance) ya avoid karo — 'Ignore' formal risk treatment option nahi hai."
+    },
+    {
+      "id": "ch8_q03",
+      "termRef": "risk",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is it practically impossible to eliminate every single risk, according to the guide?",
+      "options": [
+        "It is practically and financially impossible; an acceptable risk level must be defined instead",
+        "Because all risks are always equally severe",
+        "Because risks are randomly generated and unpredictable",
+        "Because insurance companies forbid it"
+      ],
+      "correctIndex": 0,
+      "explanation": "Har risk ko eliminate karna practically/financially impossible hai — business decision hai, acceptable risk level define karna zaroori hai."
+    },
+    {
+      "id": "ch8_q04",
+      "termRef": "risk",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the correct order of the risk management framework cycle, according to the guide?",
+      "options": [
+        "Repeat → Treatment → Monitoring → Assessment",
+        "Risk Assessment → Treatment → Monitoring → Repeat",
+        "Monitoring → Repeat → Assessment → Treatment",
+        "Treatment → Assessment → Repeat → Monitoring"
+      ],
+      "correctIndex": 1,
+      "explanation": "Risk Assessment → Treatment → Monitoring → Repeat — yeh cyclical framework guide mein specifically diya gaya hai."
+    },
+    {
+      "id": "ch8_q05",
+      "termRef": "risk",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company decides to purchase cyber insurance instead of spending heavily to fully prevent a low-probability, high-cost risk. Which risk treatment strategy is this?",
+      "options": [
+        "Mitigate",
+        "Avoid",
+        "Accept",
+        "Transfer"
+      ],
+      "correctIndex": 3,
+      "explanation": "Transfer karo (insurance) — yeh risk ko kisi third party ko transfer karna hai, exactly jaise cyber insurance karti hai."
+    },
+    {
+      "id": "ch8_q06",
+      "termRef": "compliance",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does compliance mean in cybersecurity?",
+      "options": [
+        "Personally choosing your own preferred security tools",
+        "A synonym for encryption",
+        "Following laws and standards as a legal obligation",
+        "Only applies to government agencies, never businesses"
+      ],
+      "correctIndex": 2,
+      "explanation": "Laws aur standards follow karna — legal obligation, jaise GDPR, PCI-DSS, HIPAA, ISO 27001, SOC 2."
+    },
+    {
+      "id": "ch8_q07",
+      "termRef": "compliance",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which compliance standard specifically protects credit card data?",
+      "options": [
+        "PCI-DSS",
+        "ISO 27001",
+        "HIPAA",
+        "GDPR"
+      ],
+      "correctIndex": 0,
+      "explanation": "PCI-DSS: Credit card data. GDPR: EU data privacy. HIPAA: US healthcare data — sab alag domains cover karte hain."
+    },
+    {
+      "id": "ch8_q08",
+      "termRef": "compliance",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "What critical distinction does the guide make between compliance and real security?",
+      "options": [
+        "Compliance is always identical to real security, with no difference at all",
+        "Compliance means a company can never be breached",
+        "Compliance is more important than actual security in every scenario",
+        "Compliance is only a minimum bar; a compliant system can still be insecure"
+      ],
+      "correctIndex": 3,
+      "explanation": "Critical distinction! Compliant system can still be insecure. Compliance is minimum bar. Many breached companies were 'compliant.'"
+    },
+    {
+      "id": "ch8_q09",
+      "termRef": "compliance",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How severe can GDPR fines be, according to the guide?",
+      "options": [
+        "A flat $100 fee regardless of company size",
+        "There are no financial penalties under GDPR",
+        "Fines apply only to companies based in the EU, never elsewhere",
+        "Up to 4% of global revenue"
+      ],
+      "correctIndex": 3,
+      "explanation": "GDPR: EU data privacy (fines up to 4% revenue) — yeh ek significant financial risk hai non-compliant companies ke liye."
+    },
+    {
+      "id": "ch8_q10",
+      "termRef": "compliance",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company passes all its official PCI-DSS compliance audits, yet still suffers a major data breach shortly afterward due to a security gap the audit didn't cover. What does this illustrate?",
+      "options": [
+        "Compliance and security are always exactly the same thing",
+        "Compliance is a minimum bar, not a guarantee of actual security",
+        "The breach must have been the auditor's direct fault legally",
+        "PCI-DSS audits are always 100% accurate and thorough"
+      ],
+      "correctIndex": 1,
+      "explanation": "Guide explicitly warns — many breached companies were 'compliant.' Compliance ≠ Security, yeh critical distinction hai."
+    },
+    {
+      "id": "ch8_q11",
+      "termRef": "insurance",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does cyber insurance typically cover?",
+      "options": [
+        "Free antivirus software for all employees",
+        "Physical damage to office furniture",
+        "Ransomware payments, breach notification costs, legal fees, and business interruption",
+        "Employee salary increases"
+      ],
+      "correctIndex": 2,
+      "explanation": "Ransomware payment, data breach notification costs, legal fees, business interruption, regulatory fines, PR/crisis management."
+    },
+    {
+      "id": "ch8_q12",
+      "termRef": "insurance",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What do insurers increasingly require before issuing a cyber insurance policy, according to the guide?",
+      "options": [
+        "A public disclosure of the company's source code",
+        "MFA, EDR, and backups being mandatory in place",
+        "A guarantee of zero prior security incidents ever",
+        "A minimum of 100 employees"
+      ],
+      "correctIndex": 1,
+      "explanation": "Insurers ab MFA, EDR, backups mandatory require karte hain policy ke liye — poor security = no insurance ya very high premium."
+    },
+    {
+      "id": "ch8_q13",
+      "termRef": "insurance",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why has cyber insurance premium been increasing significantly, according to the guide?",
+      "options": [
+        "Due to the surge in ransomware attacks",
+        "Because MFA has become obsolete",
+        "Because compliance requirements have been removed",
+        "Due to fewer companies buying policies"
+      ],
+      "correctIndex": 0,
+      "explanation": "Premium increasingly expensive — ransomware surge se, insurers ko zyada claims handle karne padte hain."
+    },
+    {
+      "id": "ch8_q14",
+      "termRef": "insurance",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company applies for cyber insurance but is denied coverage because it doesn't use MFA or maintain regular backups. What does this reflect about the insurance industry today?",
+      "options": [
+        "Insurers no longer offer any cyber insurance products at all",
+        "MFA and backups have no relevance to insurance decisions",
+        "Insurers now require baseline security practices before offering coverage",
+        "This company will automatically be exempt from all cyberattacks"
+      ],
+      "correctIndex": 2,
+      "explanation": "Poor security = no insurance ya very high premium — insurers ne apni requirements tighten kar di hain ransomware surge ki wajah se."
+    },
+    {
+      "id": "ch8_q15",
+      "termRef": "insurance",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Besides ransomware payments, what other cost category does cyber insurance help cover, according to the guide?",
+      "options": [
+        "Employee holiday bonuses",
+        "PR and crisis management costs",
+        "Office rent payments",
+        "Marketing campaign costs"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ransomware payment, data breach notification costs, legal fees, business interruption, regulatory fines, PR/crisis management — sab cover hota hai."
+    },
+    {
+      "id": "ch8_q16",
+      "termRef": "vuln",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "How does the guide define a 'Vulnerability' in cybersecurity terminology?",
+      "options": [
+        "An actual code or method used to exploit a weakness",
+        "A weakness, such as unpatched software or a misconfiguration",
+        "A public database listing known attackers",
+        "The potential for harm from an attacker wanting to cause damage"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vulnerability: weakness (unpatched software, misconfiguration). Threat: potential for harm. Exploit: actual code/method to use the vulnerability."
+    },
+    {
+      "id": "ch8_q17",
+      "termRef": "vuln",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does CVE stand for?",
+      "options": [
+        "Common Vulnerabilities & Exposures",
+        "Cyber Vulnerability Engine",
+        "Certified Vulnerability Evaluation",
+        "Central Vendor Exchange"
+      ],
+      "correctIndex": 0,
+      "explanation": "CVE: Common Vulnerabilities & Exposures — public database jahan known vulnerabilities track ki jaati hain."
+    },
+    {
+      "id": "ch8_q18",
+      "termRef": "vuln",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "What was the CVSS score of CVE-2021-44228 (Log4Shell), the vulnerability described as literally maximum severity?",
+      "options": [
+        "8/10",
+        "7/10",
+        "9/10",
+        "10/10"
+      ],
+      "correctIndex": 3,
+      "explanation": "CVE-2021-44228 (Log4Shell) = 10/10 — literally maximum severity, yeh guide mein specifically iska example diya gaya hai."
+    },
+    {
+      "id": "ch8_q19",
+      "termRef": "vuln",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What CVSS score range does the guide say counts as 'Critical'?",
+      "options": [
+        "0.0 exactly",
+        "1.0 to 3.0",
+        "9.0 and above",
+        "5.0 to 6.0"
+      ],
+      "correctIndex": 2,
+      "explanation": "0-10 severity rating. 9.0+ = Critical — patching priority = CVSS score, higher score means more urgent."
+    },
+    {
+      "id": "ch8_q20",
+      "termRef": "vuln",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A security researcher discovers a weakness in a company's software but has no code yet to actually take advantage of it. In the guide's terminology, what has been found so far?",
+      "options": [
+        "A vulnerability, but not yet an exploit",
+        "An exploit, but not yet a vulnerability",
+        "A CVE score of exactly zero",
+        "A threat actor"
+      ],
+      "correctIndex": 0,
+      "explanation": "Vulnerability = weakness itself. Exploit = actual code/method to use the vulnerability — dono alag concepts hain."
+    },
+    {
+      "id": "ch8_q21",
+      "termRef": "pentest",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Penetration Testing?",
+      "options": [
+        "Company-authorized security professionals attacking systems to find weaknesses before real attackers do",
+        "A method for training employees on phishing awareness only",
+        "A tool for encrypting sensitive files",
+        "An unauthorized attack carried out by criminals"
+      ],
+      "correctIndex": 0,
+      "explanation": "Company authorize karta hai security professionals ko attack karne ke liye — vulnerabilities find karo before real attackers do."
+    },
+    {
+      "id": "ch8_q22",
+      "termRef": "pentest",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for penetration testing?",
+      "options": [
+        "A bank legally telling a security expert to 'try to rob us' and fixing the gaps found",
+        "A postman opening and reading letters",
+        "A movie ticket used once for entry",
+        "A smoke detector alerting to danger"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bank apne security expert ko bolti hai 'try to rob us' — legally. Expert koshish karta hai, gaps dhundhta hai, fix hote hain before real robber try kare."
+    },
+    {
+      "id": "ch8_q23",
+      "termRef": "pentest",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which penetration testing type gives the tester no prior information about the target, making it more realistic?",
+      "options": [
+        "Black Box",
+        "Grey Box",
+        "White Box",
+        "Red Team only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Black Box: No prior info (realistic). White Box: full access/info given. Grey Box: partial info."
+    },
+    {
+      "id": "ch8_q24",
+      "termRef": "pentest",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What term describes penetration testers who are authorized to legally test a system's security?",
+      "options": [
+        "Script kiddies",
+        "Threat actors",
+        "White hat hackers",
+        "Cybercriminals"
+      ],
+      "correctIndex": 2,
+      "explanation": "Ethical hackers = white hat hackers — legally authorized to find vulnerabilities before criminals do."
+    },
+    {
+      "id": "ch8_q25",
+      "termRef": "pentest",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company hires a firm and gives them full internal documentation, source code, and architecture diagrams to test the system as thoroughly as possible. Which type of penetration test is this?",
+      "options": [
+        "Script Kiddie testing",
+        "White Box",
+        "Black Box",
+        "Grey Box"
+      ],
+      "correctIndex": 1,
+      "explanation": "White Box: Full access/info given — jitna zyada info tester ke paas hai, utna thorough test possible hai."
+    },
+    {
+      "id": "ch8_q26",
+      "termRef": "resilience",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Cyber Resilience, as distinct from prevention?",
+      "options": [
+        "A type of firewall configuration",
+        "The ability to survive an attack and recover quickly, assuming a breach will happen",
+        "A tool for encrypting network traffic",
+        "Only about preventing every attack from ever happening"
+      ],
+      "correctIndex": 1,
+      "explanation": "Prevention = attack hone mat do. Resilience = attack hone ke baad bhi business continue karo, jaldi recover karo — 'assume breach' philosophy."
+    },
+    {
+      "id": "ch8_q27",
+      "termRef": "resilience",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is listed as a component of cyber resilience, according to the guide?",
+      "options": [
+        "Free coffee for employees",
+        "A social media marketing plan",
+        "A larger office building",
+        "An Incident Response plan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Components: Incident Response plan, backups, disaster recovery, business continuity plan, crisis communication, lessons learned."
+    },
+    {
+      "id": "ch8_q28",
+      "termRef": "resilience",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does RTO (Recovery Time Objective) define?",
+      "options": [
+        "The length of a penetration test",
+        "The number of employees affected by an attack",
+        "The target time within which systems should be restored after an incident",
+        "The total cost of a data breach"
+      ],
+      "correctIndex": 2,
+      "explanation": "RTO (Recovery Time Objective) aur RPO define karo — RTO specifically restore hone ke liye target time define karta hai."
+    },
+    {
+      "id": "ch8_q29",
+      "termRef": "resilience",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "What modern philosophy does the guide say drives cyber resilience thinking?",
+      "options": [
+        "'Assume breach' — it WILL happen, so be ready",
+        "'Never trust anyone, including your own IT team'",
+        "'Only focus on prevention, never on recovery'",
+        "'Ignore incidents until they escalate publicly'"
+      ],
+      "correctIndex": 0,
+      "explanation": "Modern philosophy: 'assume breach' — it WILL happen, be ready, isliye resilience prevention jitna hi important hai."
+    },
+    {
+      "id": "ch8_q30",
+      "termRef": "resilience",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After a ransomware attack, a company restores full operations within hours because it had a tested incident response plan, offline backups, and a clear business continuity strategy. What does this demonstrate?",
+      "options": [
+        "Strong cyber resilience",
+        "Zero Trust security",
+        "A CASB deployment",
+        "A successful penetration test"
+      ],
+      "correctIndex": 0,
+      "explanation": "Attack hone ke baad bhi business jaldi continue karna — exactly cyber resilience ka goal hai, prevention se alag."
+    },
+    {
+      "id": "ch8_q31",
+      "termRef": "cti",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does CTI (Cyber Threat Intelligence) provide?",
+      "options": [
+        "A physical security camera system",
+        "Actionable, collected information about threat actors and their tactics, for proactive defense",
+        "A backup solution for critical files",
+        "A tool for encrypting company emails"
+      ],
+      "correctIndex": 1,
+      "explanation": "Threat actors, their tactics, techniques, procedures (TTPs), indicators of compromise (IoCs) ke baare mein collected aur analyzed information."
+    },
+    {
+      "id": "ch8_q32",
+      "termRef": "cti",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which type of CTI is aimed at board-level, strategic risk decisions?",
+      "options": [
+        "Operational CTI",
+        "Technical CTI",
+        "Strategic CTI",
+        "Tactical CTI"
+      ],
+      "correctIndex": 2,
+      "explanation": "Strategic (board level — risk decisions), Operational (active campaigns), Tactical (specific TTPs), Technical (IPs, hashes, domains)."
+    },
+    {
+      "id": "ch8_q33",
+      "termRef": "cti",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which type of CTI deals with specific technical indicators like IPs, hashes, and domains?",
+      "options": [
+        "Operational CTI",
+        "Tactical CTI",
+        "Technical CTI",
+        "Strategic CTI"
+      ],
+      "correctIndex": 2,
+      "explanation": "Technical (SOC — IPs, hashes, domains) — yeh sabse granular level hai, SOC analysts ke liye directly usable."
+    },
+    {
+      "id": "ch8_q34",
+      "termRef": "cti",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "What does TTP stand for in the context of Cyber Threat Intelligence?",
+      "options": [
+        "Transport Traffic Protocol",
+        "Total Threat Prevention",
+        "Trusted Third Party",
+        "Tactics, Techniques, Procedures"
+      ],
+      "correctIndex": 3,
+      "explanation": "TTPs (tactics, techniques, procedures) — threat actors ke behavior patterns document karne ka standard tareeka."
+    },
+    {
+      "id": "ch8_q35",
+      "termRef": "cti",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A security team receives a report listing specific malicious IP addresses and file hashes seen in a recent campaign, which they immediately load into their SIEM to block. What level of CTI did they use?",
+      "options": [
+        "None of these, this is just antivirus data",
+        "Technical CTI",
+        "Only Tactical CTI",
+        "Strategic CTI"
+      ],
+      "correctIndex": 1,
+      "explanation": "IPs, hashes, domains — yeh Technical CTI ka scope hai, directly SOC tools mein usable hota hai."
+    },
+    {
+      "id": "ch8_q36",
+      "termRef": "cybercrime",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Cyber Crime?",
+      "options": [
+        "Only refers to physical theft of computer hardware",
+        "Illegal activities carried out through computers or the internet",
+        "A synonym for penetration testing",
+        "Only refers to government-sponsored attacks"
+      ],
+      "correctIndex": 1,
+      "explanation": "Computer ya internet ke through illegal activities — financial fraud, identity theft, ransomware, hacking, dark web markets, cyber stalking."
+    },
+    {
+      "id": "ch8_q37",
+      "termRef": "cybercrime",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "What is the estimated global annual cost of cybercrime in 2023, according to the guide?",
+      "options": [
+        "$8 trillion or more",
+        "$8 billion",
+        "$800 million",
+        "$8 million"
+      ],
+      "correctIndex": 0,
+      "explanation": "$8 trillion+ global annual cost (2023) — yeh cybercrime ki scale ko dikhata hai global economy pe."
+    },
+    {
+      "id": "ch8_q38",
+      "termRef": "cybercrime",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which Indian law covers cyber crimes, according to the guide?",
+      "options": [
+        "The Indian Penal Code alone, without any IT-specific law",
+        "The Companies Act 2013",
+        "The Consumer Protection Act",
+        "The IT Act 2000 (amended 2008)"
+      ],
+      "correctIndex": 3,
+      "explanation": "IT Act 2000 (amended 2008) covers cyber crimes in India — cyber cells in major cities handle enforcement."
+    },
+    {
+      "id": "ch8_q39",
+      "termRef": "cybercrime",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Where does the guide say cyber crime incidents can be reported in India?",
+      "options": [
+        "A local police station only, no online option exists",
+        "Only a private law firm",
+        "cybercrime.gov.in",
+        "Only the RBI website"
+      ],
+      "correctIndex": 2,
+      "explanation": "Incidents report karo: cybercrime.gov.in — India mein official reporting portal jo guide mein mention kiya gaya hai."
+    },
+    {
+      "id": "ch8_q40",
+      "termRef": "cybercrime",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "According to the guide, which IT Act section deals with unauthorized access?",
+      "options": [
+        "Section 43",
+        "Section 100",
+        "Section 66",
+        "Section 67"
+      ],
+      "correctIndex": 2,
+      "explanation": "Section 66 = unauthorized access, Section 67 = obscene content — yeh specific sections guide mein cite kiye gaye hain."
+    },
+    {
+      "id": "ch8_q41",
+      "termRef": "bully",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Cyber Bullying?",
+      "options": [
+        "Online harassment, threatening, or humiliation carried out via digital platforms",
+        "A defensive tool that blocks unwanted network traffic",
+        "A type of encryption used in social media apps",
+        "A type of penetration test done for training purposes"
+      ],
+      "correctIndex": 0,
+      "explanation": "Digital platforms pe harassment, threatening, humiliation — social media, gaming, messaging apps ke through hoti hai."
+    },
+    {
+      "id": "ch8_q42",
+      "termRef": "bully",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'doxxing', as mentioned in the guide's discussion of cyber bullying?",
+      "options": [
+        "Sending an encrypted message to a friend",
+        "A method for securely backing up data",
+        "Publishing someone's private information publicly without consent",
+        "A type of penetration testing technique"
+      ],
+      "correctIndex": 2,
+      "explanation": "Doxxing (private info public karna), revenge porn, trolling, fake profiles — sab cyber bullying ke forms hain."
+    },
+    {
+      "id": "ch8_q43",
+      "termRef": "bully",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the guide recommend as a first step if you experience cyber bullying?",
+      "options": [
+        "Ignore it completely and never report it",
+        "Immediately delete all your social media accounts permanently",
+        "Confront the bully in person alone",
+        "Take screenshots as evidence"
+      ],
+      "correctIndex": 3,
+      "explanation": "Screenshots rakho evidence ke liye, platform report karo, cyber cell complaint karo — yeh recommended steps hain."
+    },
+    {
+      "id": "ch8_q44",
+      "termRef": "bully",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What kind of consequences does the guide highlight as resulting from cyber bullying?",
+      "options": [
+        "Serious mental health consequences",
+        "Purely financial losses only",
+        "Only minor inconvenience with no lasting impact",
+        "Only affects the bully, not the victim"
+      ],
+      "correctIndex": 0,
+      "explanation": "Serious mental health consequences — guide is impact ko explicitly highlight karti hai, halka mudda nahi hai."
+    },
+    {
+      "id": "ch8_q45",
+      "termRef": "bully",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Someone's private address and phone number are posted publicly online without their consent, as part of an ongoing harassment campaign. What specific tactic does this represent?",
+      "options": [
+        "Cyber espionage",
+        "Supply chain attack",
+        "Credential stuffing",
+        "Doxxing"
+      ],
+      "correctIndex": 3,
+      "explanation": "Private info public karna bina consent ke — exactly doxxing ki definition hai, cyber bullying ka ek severe form."
+    },
+    {
+      "id": "ch8_q46",
+      "termRef": "forensics",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is Digital Forensics?",
+      "options": [
+        "A method for training employees on phishing awareness",
+        "Collecting, preserving, and analyzing digital evidence after an incident, for possible use in court",
+        "A type of penetration testing",
+        "A tool for automatically blocking malware in real time"
+      ],
+      "correctIndex": 1,
+      "explanation": "Incident ke baad digital evidence collect, preserve, analyze, aur present karna — court mein use hone ke liye — disk images, memory dumps, network logs sab include."
+    },
+    {
+      "id": "ch8_q47",
+      "termRef": "forensics",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is a 'write blocker' used for in digital forensics?",
+      "options": [
+        "Encrypting a hard drive automatically",
+        "Preventing employees from writing emails",
+        "Preventing any accidental modification to the original evidence during analysis",
+        "Blocking all outgoing network traffic permanently"
+      ],
+      "correctIndex": 2,
+      "explanation": "Write blockers use karo, hashes verify karo, chain of custody maintain karo — evidence ka original tamper nahi hona chahiye."
+    },
+    {
+      "id": "ch8_q48",
+      "termRef": "forensics",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What happens to tampered digital evidence in a court proceeding, according to the guide?",
+      "options": [
+        "It is automatically considered stronger proof",
+        "It is used exactly the same as untampered evidence",
+        "It becomes inadmissible in court",
+        "It is destroyed by the court immediately"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tampered evidence court mein inadmissible hai — isliye evidence integrity maintain karna critical hai."
+    },
+    {
+      "id": "ch8_q49",
+      "termRef": "forensics",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Besides disk images, what other type of digital evidence does the guide mention forensic investigators collect?",
+      "options": [
+        "Memory dumps and network logs",
+        "Only handwritten notes from employees",
+        "Only social media likes and shares",
+        "Only physical photographs of the server room"
+      ],
+      "correctIndex": 0,
+      "explanation": "Disk images, memory dumps, network logs, deleted file recovery — sab forensic evidence collection ke part hain."
+    },
+    {
+      "id": "ch8_q50",
+      "termRef": "forensics",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An investigator makes a forensic copy of a compromised server's hard drive and works only on that copy, never touching the original, while documenting every handling step. What core principle is being followed?",
+      "options": [
+        "Maintaining evidence integrity through chain of custody",
+        "Zero Trust security",
+        "Risk transfer via insurance",
+        "Penetration testing methodology"
+      ],
+      "correctIndex": 0,
+      "explanation": "Original kabhi touch nahi — sirf forensic copy pe kaam karo, evidence integrity aur chain of custody maintain karna key principle hai."
+    }
+  ]
+}

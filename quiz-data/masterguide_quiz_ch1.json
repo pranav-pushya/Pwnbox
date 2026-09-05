@@ -1,0 +1,818 @@
+{
+  "chapter": 1,
+  "chapterTitle": "Core Threats & Attacks",
+  "termCount": 10,
+  "questionCount": 54,
+  "questions": [
+    {
+      "id": "ch1_q01",
+      "termRef": "malware",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does the term 'Malware' literally stand for, and what is its core purpose?",
+      "options": [
+        "Managed Software — provides automatic patch updates",
+        "Mainframe Software — used to manage large servers",
+        "Modular Software — used to install browser plugins",
+        "Malicious Software — designed to deliberately harm a system"
+      ],
+      "correctIndex": 3,
+      "explanation": "Malware = Malicious + Software. Koi bhi software jo jaan-boojh kar system ko harm karta hai — data churaana, corrupt karna, ya control lena."
+    },
+    {
+      "id": "ch1_q02",
+      "termRef": "malware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of the following is NOT classified as a type of malware?",
+      "options": [
+        "Ransomware",
+        "Trojan Horse",
+        "Firewall",
+        "Rootkit"
+      ],
+      "correctIndex": 2,
+      "explanation": "Firewall ek defensive tool hai, malware nahi. Rootkit, Trojan aur Ransomware — sab malware ke forms hain."
+    },
+    {
+      "id": "ch1_q03",
+      "termRef": "malware",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "In the guide's disease analogy, which illness is compared to a computer worm?",
+      "options": [
+        "Malaria — spreads through mosquito bites",
+        "Common Cold — spreads through air",
+        "Jaundice — causes slow, silent damage",
+        "Cholera — spreads rapidly through water"
+      ],
+      "correctIndex": 3,
+      "explanation": "Analogy mein worm ko cholera se compare kiya gaya — jaise cholera paani se spread hoti hai, worm bhi network se khud-b-khud spread hota hai."
+    },
+    {
+      "id": "ch1_q04",
+      "termRef": "malware",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "What was the estimated global financial loss caused by the WannaCry ransomware attack in 2017?",
+      "options": [
+        "$400 million",
+        "$40 million",
+        "$4 billion or more",
+        "$4 million"
+      ],
+      "correctIndex": 2,
+      "explanation": "WannaCry ne 150 countries mein NHS hospitals, Telefónica Spain, FedEx ko paralyze kiya — $4 billion+ ka estimated loss hua, ek unpatched Windows vulnerability se."
+    },
+    {
+      "id": "ch1_q05",
+      "termRef": "malware",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "Which of these is NOT listed as a recommended defense against malware?",
+      "options": [
+        "Running updated antivirus software",
+        "Applying OS and software patches promptly",
+        "Keeping regular offline backups",
+        "Clicking unknown links to verify if they are safe"
+      ],
+      "correctIndex": 3,
+      "explanation": "Guide bolti hai unknown links/files pe click MAT karo — verify karne ke liye click karna hi risky habit hai."
+    },
+    {
+      "id": "ch1_q06",
+      "termRef": "malware",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your laptop has become slow, an unknown background process is consuming CPU, and you recently installed cracked software from an untrusted website. What is most likely happening?",
+      "options": [
+        "A necessary RAM upgrade is required",
+        "The battery is nearing the end of its life",
+        "A routine Windows update is running",
+        "A malware infection introduced through the cracked software"
+      ],
+      "correctIndex": 3,
+      "explanation": "Untrusted source se cracked software install karna malware ka common entry point hai — unknown process aur slowdown classic symptoms hain."
+    },
+    {
+      "id": "ch1_q07",
+      "termRef": "phishing",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does an attacker fundamentally do in a phishing attack?",
+      "options": [
+        "Floods a network with traffic",
+        "Directly breaches a server's database",
+        "Creates a fake email or website to steal credentials",
+        "Physically steals a device"
+      ],
+      "correctIndex": 2,
+      "explanation": "Phishing mein attacker legit dikhne wali fake email/website/SMS banaata hai jisme victim apni credentials daal deta hai."
+    },
+    {
+      "id": "ch1_q08",
+      "termRef": "phishing",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Phishing carried out over a phone call is known as what?",
+      "options": [
+        "Smishing",
+        "Spear Phishing",
+        "Vishing",
+        "Whaling"
+      ],
+      "correctIndex": 2,
+      "explanation": "Vishing = Voice + Phishing. Smishing SMS se, Whaling CEOs ko target karta hai, Spear Phishing naam se targeted hota hai."
+    },
+    {
+      "id": "ch1_q09",
+      "termRef": "phishing",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "How much money did Evaldas Rimasauskas steal from Google and Facebook using fake invoices (2013–2015)?",
+      "options": [
+        "Over $100 million",
+        "Over $1 billion",
+        "Over $10 million",
+        "Around $500,000"
+      ],
+      "correctIndex": 0,
+      "explanation": "Rimasauskas ne Quanta Computer impersonate karke fake invoices bheji — Google aur Facebook ne actually $100M+ pay kar diya."
+    },
+    {
+      "id": "ch1_q10",
+      "termRef": "phishing",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "According to the guide, what should you do if an email urgently demands immediate action, such as 'your account will be closed in 24 hours'?",
+      "options": [
+        "Forward the email to friends for a second opinion",
+        "Change your password before doing anything else",
+        "Pause and verify independently instead of reacting to the urgency",
+        "Click the link immediately to resolve it"
+      ],
+      "correctIndex": 2,
+      "explanation": "Guide specifically bolti hai — koi bhi urgency feel ho toh ruko, verify karo. Urgency create karna attacker ki common tactic hai."
+    },
+    {
+      "id": "ch1_q11",
+      "termRef": "phishing",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You receive an email addressed to you by name, appearing to be from your company's CEO, urgently requesting a wire transfer. What kind of attack is this most likely to be?",
+      "options": [
+        "SQL Injection",
+        "A DDoS attack",
+        "A botnet recruitment attempt",
+        "Spear Phishing (or Whaling if the CEO is the actual target)"
+      ],
+      "correctIndex": 3,
+      "explanation": "Naam se target karna aur specific person ko address karna Spear Phishing ki nishaani hai — agar high-value target (CEO) hai toh Whaling bhi keh sakte hain."
+    },
+    {
+      "id": "ch1_q12",
+      "termRef": "ransomware",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What happens during a ransomware attack?",
+      "options": [
+        "The network is shut down due to traffic overload",
+        "Data is only copied, nothing is locked",
+        "The entire system is permanently deleted",
+        "Files are encrypted and a payment is demanded to unlock them"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ransomware files ko encrypt (lock) kar deta hai, phir Bitcoin mein payment maanga jaata hai decryption key ke liye."
+    },
+    {
+      "id": "ch1_q13",
+      "termRef": "ransomware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of the following are common ways ransomware spreads, according to the guide?",
+      "options": [
+        "Only through physical theft of devices",
+        "Only through USB drives",
+        "Phishing emails, malicious attachments, unpatched software, and RDP brute-forcing",
+        "Only through social media messages"
+      ],
+      "correctIndex": 2,
+      "explanation": "Guide ke mutabik ransomware phishing emails, malicious attachments, unpatched software, aur RDP bruteforce se spread hota hai."
+    },
+    {
+      "id": "ch1_q14",
+      "termRef": "ransomware",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "How much ransom was paid during the Colonial Pipeline attack in 2021?",
+      "options": [
+        "$440,000",
+        "$4.4 billion",
+        "$44 million",
+        "$4.4 million"
+      ],
+      "correctIndex": 3,
+      "explanation": "DarkSide ransomware ne US ki sabse badi fuel pipeline band kar di — $4.4 million ransom diya gaya, east coast mein fuel shortage aur panic buying hui."
+    },
+    {
+      "id": "ch1_q15",
+      "termRef": "ransomware",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "What does the guide's '3-2-1 rule' refer to?",
+      "options": [
+        "Backups: 3 copies of data, 2 different media types, 1 stored offsite",
+        "Passwords: 3 words, 2 numbers, 1 symbol",
+        "Encryption: 3 keys, 2 algorithms, 1 vault",
+        "Network layers: 3 firewalls, 2 IDS systems, 1 honeypot"
+      ],
+      "correctIndex": 0,
+      "explanation": "3-2-1 backup rule: 3 copies of data, 2 different media types, 1 copy offsite — ransomware recovery ke liye critical defense."
+    },
+    {
+      "id": "ch1_q16",
+      "termRef": "ransomware",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A note suddenly appears on your screen: 'Your files are encrypted. Pay 2 BTC within 48 hours.' According to the guide, what should you NOT do first?",
+      "options": [
+        "Check whether backups of the affected files exist",
+        "Pay the ransom immediately",
+        "Inform your IT/security team",
+        "Disconnect the system from the network"
+      ],
+      "correctIndex": 1,
+      "explanation": "Guide specifically bolti hai — pay mat karo, koi guarantee nahi ki key milegi hi. Pehla step hamesha isolate karna aur verify karna hai."
+    },
+    {
+      "id": "ch1_q17",
+      "termRef": "ransomware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "According to the guide's 'How It Works' breakdown, what typically happens right after ransomware encrypts your files?",
+      "options": [
+        "The system automatically restarts",
+        "Files are automatically restored from backup",
+        "Antivirus software instantly detects and removes it",
+        "A ransom note appears with a Bitcoin address"
+      ],
+      "correctIndex": 3,
+      "explanation": "Steps: install → files dhundhna → AES-256 se encrypt → ransom note dikhna with Bitcoin address → timer shuru."
+    },
+    {
+      "id": "ch1_q18",
+      "termRef": "botnet",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a botnet?",
+      "options": [
+        "A single, highly powerful hacking tool",
+        "An encrypted messaging application",
+        "A network of infected computers remotely controlled by an attacker",
+        "A type of antivirus software"
+      ],
+      "correctIndex": 2,
+      "explanation": "Botnet = hazaron/laakhon infected computers ka network jise ek 'bot herder' (attacker) remotely control karta hai."
+    },
+    {
+      "id": "ch1_q19",
+      "termRef": "botnet",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of the following is NOT a common use of a botnet, according to the guide?",
+      "options": [
+        "Sending spam",
+        "Cryptocurrency mining",
+        "Launching DDoS attacks",
+        "Legitimate software development"
+      ],
+      "correctIndex": 3,
+      "explanation": "Guide ke mutabik botnet uses: DDoS attacks, spam sending, crypto mining, credential theft, ad fraud — legitimate development inmein nahi aata."
+    },
+    {
+      "id": "ch1_q20",
+      "termRef": "botnet",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "What type of devices did the Mirai Botnet (2016) primarily infect?",
+      "options": [
+        "IoT devices such as cameras and routers",
+        "Only laptops",
+        "Only smartphones",
+        "Only enterprise servers"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mirai ne IoT devices (cameras, routers) infect kiye aur Dyn DNS pe DDoS kiya — Twitter, Netflix, Amazon, Reddit US mein down ho gaye."
+    },
+    {
+      "id": "ch1_q21",
+      "termRef": "botnet",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to describe a botnet?",
+      "options": [
+        "Someone is secretly remote-controlling your phone in the background",
+        "Someone forces your hand to sign a cheque while you sleep",
+        "A disease that spreads in different forms",
+        "A postman is secretly reading your letters"
+      ],
+      "correctIndex": 0,
+      "explanation": "Botnet analogy: tum normal use kar rahe ho, but background mein koi tumhara device remotely spam/attack ke liye use kar raha hai."
+    },
+    {
+      "id": "ch1_q22",
+      "termRef": "botnet",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You notice your router has been sending heavy outbound traffic 24/7 that you never initiated. What does this most likely indicate?",
+      "options": [
+        "The router has become part of a botnet",
+        "This is normal background sync activity",
+        "The router's firmware is updating",
+        "The ISP has made a billing error"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bina wajah heavy outbound traffic — especially IoT device jaise router se — botnet infection ka classic sign hai (jaise Mirai)."
+    },
+    {
+      "id": "ch1_q23",
+      "termRef": "ddos",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Why does a server crash during a DDoS attack?",
+      "options": [
+        "The server's hardware physically fails",
+        "The database becomes corrupted",
+        "The power supply is cut off",
+        "Thousands of bots send so much traffic at once that the server cannot handle it"
+      ],
+      "correctIndex": 3,
+      "explanation": "DDoS mein distributed bots massive traffic bhejte hain jisse server overload ho ke crash/freeze ho jaata hai — real users access nahi kar paate."
+    },
+    {
+      "id": "ch1_q24",
+      "termRef": "ddos",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the main difference between DoS and DDoS?",
+      "options": [
+        "DoS only targets websites; DDoS only targets apps",
+        "They are the same attack with different names",
+        "DoS comes from a single machine; DDoS is distributed across thousands of machines",
+        "DoS is more dangerous than DDoS"
+      ],
+      "correctIndex": 2,
+      "explanation": "DoS single machine se attack hai (block karna easy), DDoS distributed hai hazaron machines se (block karna almost impossible)."
+    },
+    {
+      "id": "ch1_q25",
+      "termRef": "ddos",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "The 2018 GitHub DDoS attack was the largest recorded at the time. What was its peak traffic speed?",
+      "options": [
+        "13.5 Tbps",
+        "1.35 Tbps",
+        "135 Gbps",
+        "1.35 Gbps"
+      ],
+      "correctIndex": 1,
+      "explanation": "GitHub pe 1.35 Tbps ka attack hua tha — Memcached servers ka amplification exploit karke. GitHub 10 minutes down raha, phir Akamai ne absorb kiya."
+    },
+    {
+      "id": "ch1_q26",
+      "termRef": "ddos",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "Which technique does the guide recommend as a defense against DDoS attacks?",
+      "options": [
+        "Installing antivirus software",
+        "Using parameterized SQL queries",
+        "Using a CDN (such as Cloudflare or Akamai) to absorb traffic",
+        "Increasing password complexity"
+      ],
+      "correctIndex": 2,
+      "explanation": "DDoS defenses: CDN use karo, rate limiting, Anycast network diffusion, ISP-level filtering — antivirus/password yeh DDoS-specific defenses nahi hain."
+    },
+    {
+      "id": "ch1_q27",
+      "termRef": "ddos",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your e-commerce site crashes during a big sale, and traffic logs show 50,000 different IPs sending requests within the same second. What is most likely happening?",
+      "options": [
+        "A zero-day exploit",
+        "A phishing campaign",
+        "A SQL Injection attack",
+        "A DDoS attack"
+      ],
+      "correctIndex": 3,
+      "explanation": "Multiple distributed IPs se massive simultaneous traffic — classic DDoS signature, genuine sale traffic itna sudden aur distributed nahi hota."
+    },
+    {
+      "id": "ch1_q28",
+      "termRef": "mitm",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does an attacker do in a Man-in-the-Middle (MITM) attack?",
+      "options": [
+        "Directly crashes the target server",
+        "Sends a fake email to steal credentials",
+        "Secretly inserts themselves between two parties to read or modify their data",
+        "Installs malware on the victim's system"
+      ],
+      "correctIndex": 2,
+      "explanation": "MITM mein attacker do communicating parties ke beech secretly aa jaata hai aur unka data intercept/modify karta hai bina unko pata chale."
+    },
+    {
+      "id": "ch1_q29",
+      "termRef": "mitm",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is it called when an attacker sets up a fake WiFi hotspot to intercept traffic?",
+      "options": [
+        "DNS Spoofing",
+        "ARP Spoofing",
+        "Evil Twin",
+        "SSL Stripping"
+      ],
+      "correctIndex": 2,
+      "explanation": "Evil Twin = fake WiFi hotspot jo legit se same naam ka hota hai. ARP/DNS spoofing aur SSL stripping alag MITM techniques hain."
+    },
+    {
+      "id": "ch1_q30",
+      "termRef": "mitm",
+      "type": "analogy",
+      "difficulty": "medium",
+      "question": "Which analogy does the guide use to explain MITM attacks?",
+      "options": [
+        "A postman opens your letter, alters it, reseals it, and delivers it",
+        "Someone is secretly controlling your phone remotely",
+        "Thousands of bots send traffic at once",
+        "A disease that spreads in different forms"
+      ],
+      "correctIndex": 0,
+      "explanation": "Postman analogy — letter tumne bheja, par beech mein koi usse open/modify karke aage bhej deta hai bina dono parties ko pata chale."
+    },
+    {
+      "id": "ch1_q31",
+      "termRef": "mitm",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After connecting to free airport WiFi, your banking app login fails and you see a suspicious certificate warning. What is most likely happening?",
+      "options": [
+        "Your password has expired",
+        "A MITM attack (possibly an Evil Twin or SSL Stripping)",
+        "The app simply needs an update",
+        "Routine server maintenance"
+      ],
+      "correctIndex": 1,
+      "explanation": "Public WiFi + certificate warning = classic MITM red flag. Attacker traffic intercept karne ki koshish kar raha ho sakta hai."
+    },
+    {
+      "id": "ch1_q32",
+      "termRef": "mitm",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "According to the guide, what is the most common MITM technique used at public WiFi locations like coffee shops or airports?",
+      "options": [
+        "Evil Twin — a fake hotspot with the same name",
+        "Recruiting the device into a botnet",
+        "Automatic ransomware installation",
+        "SQL injection through the router"
+      ],
+      "correctIndex": 0,
+      "explanation": "Public WiFi pe attacker Evil Twin (same naam ka fake hotspot) banaata hai — victim connect hota hai, attacker sab traffic dekh leta hai."
+    },
+    {
+      "id": "ch1_q33",
+      "termRef": "sqli",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does an attacker do in a SQL Injection attack?",
+      "options": [
+        "Enters SQL code into a web form to trick the database",
+        "Physically hacks into the database server",
+        "Floods the network with traffic",
+        "Sends malware through email"
+      ],
+      "correctIndex": 0,
+      "explanation": "SQL Injection mein attacker web forms mein malicious SQL code daalta hai jo database directly execute kar leta hai bina proper sanitization ke."
+    },
+    {
+      "id": "ch1_q34",
+      "termRef": "sqli",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does SQL Injection work in the first place?",
+      "options": [
+        "When a server's RAM becomes full",
+        "When a firewall is disabled",
+        "When a website inserts unsanitized user input directly into a SQL query",
+        "When an HTTPS certificate expires"
+      ],
+      "correctIndex": 2,
+      "explanation": "Root cause: unsanitized user input directly SQL query mein jaana — attacker apna SQL command as input de deta hai jo execute ho jaata hai."
+    },
+    {
+      "id": "ch1_q35",
+      "termRef": "sqli",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Typing `admin'--` into a login form's username field can bypass the password check. What concept does this demonstrate?",
+      "options": [
+        "XSS — a script injected into the browser",
+        "CSRF — a forged, unwanted request",
+        "SQL Injection — '--' is a SQL comment, so the rest of the query is ignored",
+        "Phishing — a fake login page"
+      ],
+      "correctIndex": 2,
+      "explanation": "Guide ke code example ke mutabik `admin'--` se query ka password-check part comment ban jaata hai SQL mein, aur skip ho jaata hai — classic SQLi."
+    },
+    {
+      "id": "ch1_q36",
+      "termRef": "sqli",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "How many credit card numbers were stolen in the Heartland Payment Systems breach (2008) via SQL injection?",
+      "options": [
+        "13 million",
+        "1.3 million",
+        "1.3 billion",
+        "130 million"
+      ],
+      "correctIndex": 3,
+      "explanation": "SQL injection se 130 million credit card numbers chori huye, $140 million+ settlement — us waqt US history ki largest data breach thi."
+    },
+    {
+      "id": "ch1_q37",
+      "termRef": "sqli",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "What is the primary technique the guide recommends for defending against SQL Injection?",
+      "options": [
+        "Closing firewall ports",
+        "Parameterized queries / prepared statements",
+        "Installing antivirus software",
+        "Increasing password length"
+      ],
+      "correctIndex": 1,
+      "explanation": "Parameterized queries/prepared statements user input ko SQL command ki tarah execute hone se rokte hain — sabse effective SQLi defense."
+    },
+    {
+      "id": "ch1_q38",
+      "termRef": "xss",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does an attacker do in a Cross-Site Scripting (XSS) attack?",
+      "options": [
+        "Injects malicious JavaScript into a website that runs in the victim's browser",
+        "Floods the server's bandwidth",
+        "Directly accesses the database",
+        "Physically steals a device"
+      ],
+      "correctIndex": 0,
+      "explanation": "XSS mein attacker JS inject karta hai; jab victim page open karta hai, uska browser attacker ka script run kar deta hai — cookies/tokens chori ho sakte hain."
+    },
+    {
+      "id": "ch1_q39",
+      "termRef": "xss",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "A script that gets permanently saved in a database (such as in a comment section) is which type of XSS?",
+      "options": [
+        "Reflected XSS",
+        "Stored XSS",
+        "Blind XSS",
+        "DOM-based XSS"
+      ],
+      "correctIndex": 1,
+      "explanation": "Stored XSS = script database mein save ho jaata hai (e.g. comments), Reflected = URL mein, DOM-based = client-side manipulation."
+    },
+    {
+      "id": "ch1_q40",
+      "termRef": "xss",
+      "type": "real_world",
+      "difficulty": "medium",
+      "question": "How many profiles did the Samy Worm (MySpace, 2005) infect within a single day?",
+      "options": [
+        "Over 10 million",
+        "Over 100,000",
+        "Over 10,000",
+        "Over 1 million"
+      ],
+      "correctIndex": 3,
+      "explanation": "Samy Kamkar ne XSS script daali, ek din mein 1 million+ profiles ne automatically 'Samy is my hero' add kar liya — history ka fastest spreading virus."
+    },
+    {
+      "id": "ch1_q41",
+      "termRef": "xss",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A user posts a script in a forum's comment box that steals cookies, and it gets saved permanently. What is the risk?",
+      "options": [
+        "Nothing happens, browsers block this automatically",
+        "Only the commenter's own account will be compromised",
+        "Every user who views the page will have their cookies sent to the attacker (Stored XSS)",
+        "The forum's database will be deleted"
+      ],
+      "correctIndex": 2,
+      "explanation": "Yeh Stored XSS ka classic example hai — script database mein saved hai, jo bhi page open karega uska browser script run karega aur cookie chori hogi."
+    },
+    {
+      "id": "ch1_q42",
+      "termRef": "xss",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "What is the most fundamental step to protect a website from Stored/Reflected XSS?",
+      "options": [
+        "Use HTTPS only",
+        "Close all firewall ports",
+        "Escape or sanitize user input before rendering it as output",
+        "Install antivirus software on the server"
+      ],
+      "correctIndex": 2,
+      "explanation": "User-supplied input ko HTML mein render karne se pehle escape karna (jaise `escapeHtml()`) XSS ka fundamental defense hai."
+    },
+    {
+      "id": "ch1_q43",
+      "termRef": "csrf",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What happens in a CSRF (Cross-Site Request Forgery) attack?",
+      "options": [
+        "The attacker installs malware on the victim's device",
+        "The attacker directly steals the victim's password",
+        "The attacker floods the server with traffic",
+        "The attacker tricks the victim's browser into performing an unwanted action using their active login session"
+      ],
+      "correctIndex": 3,
+      "explanation": "Tum logged in ho bank.com pe; evil website background mein bank.com ko request bhejti hai tumhare naam se — tumhare cookies/auth use karke."
+    },
+    {
+      "id": "ch1_q44",
+      "termRef": "csrf",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does CSRF work?",
+      "options": [
+        "The network connection is unencrypted",
+        "Browsers automatically attach same-domain cookies to every request",
+        "The user's password is weak",
+        "The server's encryption is weak"
+      ],
+      "correctIndex": 1,
+      "explanation": "Browser automatically cookies attach karta hai same-domain requests mein — attacker isi cheez ka fayda uthata hai, tumhara browser khud auth kar deta hai."
+    },
+    {
+      "id": "ch1_q45",
+      "termRef": "csrf",
+      "type": "analogy",
+      "difficulty": "medium",
+      "question": "Which analogy does the guide use for CSRF?",
+      "options": [
+        "A postman opens and reads your letter",
+        "Someone forces your hand to sign a cheque while you are asleep",
+        "Someone is remotely controlling your phone",
+        "A disease that spreads in different forms"
+      ],
+      "correctIndex": 1,
+      "explanation": "CSRF analogy: signature tumhara hai but tumne consciously sign nahi kiya — browser ne unknowingly action authorize kar diya, jaise neend mein sign karwaana."
+    },
+    {
+      "id": "ch1_q46",
+      "termRef": "csrf",
+      "type": "defense",
+      "difficulty": "medium",
+      "question": "Which technique does the guide recommend as a defense against CSRF?",
+      "options": [
+        "Regular data backups",
+        "CSRF tokens — a unique token included in every request",
+        "Antivirus scanning",
+        "A strong password policy"
+      ],
+      "correctIndex": 1,
+      "explanation": "CSRF defenses: unique CSRF tokens har request mein, SameSite cookie attribute, aur server-side origin header verification."
+    },
+    {
+      "id": "ch1_q47",
+      "termRef": "csrf",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "While logged into your bank account, you briefly open a random website in a new tab that closes itself immediately. Later, you discover an unauthorized transfer occurred. What likely happened?",
+      "options": [
+        "A botnet infection",
+        "A DDoS attack",
+        "A zero-day exploit",
+        "A CSRF attack"
+      ],
+      "correctIndex": 3,
+      "explanation": "Background mein evil website ne tumhare active bank session (cookies) use karke unauthorized request bhej di — classic CSRF scenario."
+    },
+    {
+      "id": "ch1_q48",
+      "termRef": "zeroday",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "Why is it called a 'Zero-Day' exploit?",
+      "options": [
+        "The attack completes within a single day",
+        "The exploit is sold for zero cost on the dark web",
+        "The vendor has had zero days to build a fix, and attackers are already exploiting it",
+        "The attack happens with zero seconds of warning"
+      ],
+      "correctIndex": 2,
+      "explanation": "Vulnerability abhi discover hua hai, patch exist nahi karta — vendor ke paas 'zero days' hain fix karne ke liye, aur attacker already exploit kar raha hai."
+    },
+    {
+      "id": "ch1_q49",
+      "termRef": "zeroday",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "According to the guide, how much can a zero-day exploit sell for on the dark web?",
+      "options": [
+        "Around $100",
+        "$1 million or more",
+        "Around $1,000",
+        "Around $10,000"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zero-day exploits dark web pe $1M+ mein bikte hain — intelligence agencies bhi buy karti hain, Google Project Zero inhe hunt karta hai."
+    },
+    {
+      "id": "ch1_q50",
+      "termRef": "zeroday",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "How many zero-day exploits did Stuxnet (2010) use simultaneously, which was considered unprecedented?",
+      "options": [
+        "1",
+        "10",
+        "2",
+        "4"
+      ],
+      "correctIndex": 3,
+      "explanation": "Stuxnet ne 4 zero-days ek saath use kiye — Iran ke Natanz facility mein 1,000 centrifuges destroy kiye bina koi bomb use kiye."
+    },
+    {
+      "id": "ch1_q51",
+      "termRef": "zeroday",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A researcher discovers a new bug with no patch available yet, and attackers are already exploiting it in the wild. What is this called?",
+      "options": [
+        "A botnet attack",
+        "A SQL Injection attack",
+        "A phishing campaign",
+        "A zero-day exploit"
+      ],
+      "correctIndex": 3,
+      "explanation": "Bina patch ke, already-exploited-in-the-wild vulnerability — yehi zero-day exploit ki definition hai."
+    },
+    {
+      "id": "ch1_q52",
+      "termRef": "malware",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How many of Chapter 1's 10 terms carry the 'Threat' badge in the guide?",
+      "options": [
+        "5",
+        "3",
+        "7",
+        "All 10"
+      ],
+      "correctIndex": 3,
+      "explanation": "Chapter 1 ('Core Threats & Attacks') ke saare 10 terms — Malware se Zero-Day tak — 'Threat' badge ke saath categorized hain."
+    },
+    {
+      "id": "ch1_q53",
+      "termRef": "ransomware",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "Based on the guide's severity bars, which of these Chapter 1 threats has the highest listed severity?",
+      "options": [
+        "Ransomware (95%)",
+        "Botnet (80%)",
+        "DDoS (75%)",
+        "CSRF (65%)"
+      ],
+      "correctIndex": 0,
+      "explanation": "Guide ke severity bars ke mutabik Ransomware 95% ke saath sabse high hai Chapter 1 mein, jabki Zero-day 98% ke saath overall highest hai."
+    },
+    {
+      "id": "ch1_q54",
+      "termRef": "phishing",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "In a real attack chain, a phishing email first steals an employee's password, which the attacker then uses to perform SQL injection on the company database. What does this illustrate?",
+      "options": [
+        "Multi-stage attacks — one weak point (phishing) becomes the gateway to a bigger attack (SQLi)",
+        "Phishing and SQLi are never used together",
+        "This is a single-step attack",
+        "This is purely theoretical and doesn't happen in reality"
+      ],
+      "correctIndex": 0,
+      "explanation": "Real-world attacks rarely single-technique hote hain — chapter ke saare threats ek dusre ke saath chain ban sakte hain, isliye har layer ki defense zaroori hai."
+    }
+  ]
+}

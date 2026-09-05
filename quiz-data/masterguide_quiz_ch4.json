@@ -1,0 +1,758 @@
+{
+  "chapter": 4,
+  "chapterTitle": "Encryption & Protocols",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch4_q01",
+      "termRef": "encryption",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does encryption fundamentally do to data?",
+      "options": [
+        "Compresses data to save storage space",
+        "Automatically detects malware inside a file",
+        "Permanently deletes the original data after backup",
+        "Converts plaintext into unreadable ciphertext using an algorithm and a key"
+      ],
+      "correctIndex": 3,
+      "explanation": "Plaintext ko ciphertext mein convert karna using an algorithm aur key — bina key ke garbage, key ke saath original data."
+    },
+    {
+      "id": "ch4_q02",
+      "termRef": "encryption",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the main difference between symmetric and asymmetric encryption?",
+      "options": [
+        "Symmetric is always slower than asymmetric",
+        "Symmetric encryption can only be used for video files",
+        "Asymmetric encryption doesn't require any key at all",
+        "Symmetric uses the same key for encryption and decryption; asymmetric uses a public/private key pair"
+      ],
+      "correctIndex": 3,
+      "explanation": "Symmetric: AES — same key encrypt aur decrypt karne ke liye, fast. Asymmetric: RSA — public key se encrypt, private key se decrypt, slower but more secure."
+    },
+    {
+      "id": "ch4_q03",
+      "termRef": "encryption",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use to describe encryption?",
+      "options": [
+        "A smoke detector sounding an alarm",
+        "A postman delivering sealed letters",
+        "Writing a diary in a secret code language only you understand",
+        "A guard checking IDs at a door"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tumhara diary mein secret language likhna jaisa — sirf tumhe pata hai key kya hai, key ke saath padho, nahi to gibberish."
+    },
+    {
+      "id": "ch4_q04",
+      "termRef": "encryption",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which encryption type is generally faster to perform?",
+      "options": [
+        "Both are exactly equal in speed always",
+        "Asymmetric encryption",
+        "Neither type has a speed difference",
+        "Symmetric encryption"
+      ],
+      "correctIndex": 3,
+      "explanation": "Symmetric (AES) fast hai kyunki same key use hoti hai; asymmetric (RSA) slower hai but more secure key exchange ke liye."
+    },
+    {
+      "id": "ch4_q05",
+      "termRef": "encryption",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Two people who have never met before need to securely exchange a secret key over the internet before they can start using fast symmetric encryption. Which type of encryption is typically used to solve this initial exchange problem?",
+      "options": [
+        "Symmetric encryption alone",
+        "A simple password only",
+        "No encryption is needed",
+        "Asymmetric encryption"
+      ],
+      "correctIndex": 3,
+      "explanation": "Asymmetric encryption (public/private key pair) securely key exchange karne ke liye use hoti hai, jiske baad fast symmetric encryption use ho sakti hai — yeh TLS handshake ka bhi core idea hai."
+    },
+    {
+      "id": "ch4_q06",
+      "termRef": "e2ee",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does End-to-End Encryption (E2EE) guarantee?",
+      "options": [
+        "The message is automatically translated to any language",
+        "Only the sender and receiver can read the message — not even the service provider",
+        "The message is stored permanently on the provider's server",
+        "The message is visible to the service provider but not to third parties"
+      ],
+      "correctIndex": 1,
+      "explanation": "Message sirf sender ke device pe encrypt hota hai aur sirf receiver ke device pe decrypt hota hai — server bhi nahi padh sakta, even WhatsApp apne messages nahi padh sakta."
+    },
+    {
+      "id": "ch4_q07",
+      "termRef": "e2ee",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "According to the guide, which messaging feature is a notable exception where E2EE is NOT applied by default?",
+      "options": [
+        "iMessage between two iPhones",
+        "Signal's regular messages",
+        "Telegram's normal chats (only Secret Chats use E2EE)",
+        "WhatsApp's regular messages"
+      ],
+      "correctIndex": 2,
+      "explanation": "Telegram ke Secret Chats hi E2EE use karte hain — normal chats E2EE nahi hain! Yeh ek common misconception hai."
+    },
+    {
+      "id": "ch4_q08",
+      "termRef": "e2ee",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A government requests a messaging company hand over the plaintext content of a user's messages, but the company says it technically cannot comply because it never had access to the decrypted content. What technology explains this?",
+      "options": [
+        "End-to-End Encryption (E2EE)",
+        "Network segmentation",
+        "A simple firewall",
+        "A WAF"
+      ],
+      "correctIndex": 0,
+      "explanation": "E2EE ki wajah se company khud bhi messages padh nahi sakti — decryption sirf receiver ke device pe hota hai."
+    },
+    {
+      "id": "ch4_q09",
+      "termRef": "e2ee",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which protocol does WhatsApp use to implement its End-to-End Encryption?",
+      "options": [
+        "SFTP",
+        "SSH",
+        "TLS 1.3 only",
+        "The Signal Protocol"
+      ],
+      "correctIndex": 3,
+      "explanation": "WhatsApp Signal Protocol use karta hai E2EE implement karne ke liye — Signal app khud bhi isi protocol pe based hai."
+    },
+    {
+      "id": "ch4_q10",
+      "termRef": "e2ee",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Is regular email typically protected by End-to-End Encryption?",
+      "options": [
+        "Only corporate email is E2EE",
+        "Only Gmail is E2EE, all others are not",
+        "No, regular email is not E2EE by default",
+        "Yes, all email is always E2EE"
+      ],
+      "correctIndex": 2,
+      "explanation": "Regular email E2EE nahi hai by default — isliye email provider technically content padh sakta hai (jab tak koi extra tool use na ho)."
+    },
+    {
+      "id": "ch4_q11",
+      "termRef": "aes",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is AES?",
+      "options": [
+        "A network monitoring tool",
+        "A type of firewall used to filter web traffic",
+        "A government-approved symmetric encryption algorithm used as an industry standard",
+        "An authentication protocol for logging into websites"
+      ],
+      "correctIndex": 2,
+      "explanation": "US government approved symmetric encryption algorithm. AES-128, AES-192, AES-256 (key size) — industry gold standard."
+    },
+    {
+      "id": "ch4_q12",
+      "termRef": "aes",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How practically breakable is AES-256 with today's computing power, according to the guide?",
+      "options": [
+        "Crackable within a day using a normal laptop",
+        "Unbreakable — even a supercomputer would need billions of years",
+        "Easily crackable within a few hours",
+        "Already broken by known attacks"
+      ],
+      "correctIndex": 1,
+      "explanation": "AES-256 is unbreakable with today's computers — even supercomputer billions of years lagenge is se crack karne mein."
+    },
+    {
+      "id": "ch4_q13",
+      "termRef": "aes",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these commonly uses AES encryption, according to the guide?",
+      "options": [
+        "Only old dial-up modems",
+        "Only physical door locks",
+        "Wi-Fi (WPA2), HTTPS, and disk encryption like BitLocker",
+        "Only paper-based filing systems"
+      ],
+      "correctIndex": 2,
+      "explanation": "Wi-Fi (WPA2), HTTPS, file encryption, banking, WhatsApp messages, disk encryption (BitLocker, FileVault) — tum daily AES use karte ho without knowing."
+    },
+    {
+      "id": "ch4_q14",
+      "termRef": "aes",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your laptop's disk encryption tool (BitLocker/FileVault) is protecting your files at rest. What underlying encryption algorithm is most likely doing the actual work?",
+      "options": [
+        "MD5",
+        "SHA-256 hashing alone",
+        "AES",
+        "RSA only"
+      ],
+      "correctIndex": 2,
+      "explanation": "Disk encryption tools (BitLocker, FileVault) internally AES use karte hain — yeh symmetric encryption ka industry standard hai."
+    },
+    {
+      "id": "ch4_q15",
+      "termRef": "aes",
+      "type": "category",
+      "difficulty": "easy",
+      "question": "AES stands for what?",
+      "options": [
+        "Advanced Encryption Standard",
+        "Automated Encryption System",
+        "Authenticated Encryption Service",
+        "Asymmetric Encryption Suite"
+      ],
+      "correctIndex": 0,
+      "explanation": "AES = Advanced Encryption Standard — industry gold standard symmetric encryption algorithm."
+    },
+    {
+      "id": "ch4_q16",
+      "termRef": "pki",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What problem does PKI (Public Key Infrastructure) solve?",
+      "options": [
+        "It blocks malware from running on a device",
+        "It verifies online identity, e.g., confirming that a website is genuinely who it claims to be",
+        "It manages employee login passwords",
+        "It compresses large files for faster transfer"
+      ],
+      "correctIndex": 1,
+      "explanation": "PKI public key pairs, digital certificates, Certificate Authorities (CA) ka poora framework hai — identity verify karta hai online."
+    },
+    {
+      "id": "ch4_q17",
+      "termRef": "pki",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What role does a Certificate Authority (CA) play in PKI?",
+      "options": [
+        "It physically manufactures network hardware",
+        "It stores all users' passwords in plaintext",
+        "It is a trusted issuer of digital certificates, like DigiCert or Let's Encrypt",
+        "It blocks DDoS attacks directly"
+      ],
+      "correctIndex": 2,
+      "explanation": "CA (Certificate Authority): trusted issuer (DigiCert, Let's Encrypt), Digital Certificate: identity proof, CRL: revoked certificates ki list."
+    },
+    {
+      "id": "ch4_q18",
+      "termRef": "pki",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does a CRL (Certificate Revocation List) contain?",
+      "options": [
+        "A list of certificates that have been revoked and should no longer be trusted",
+        "A list of authorized VPN users",
+        "A list of all encrypted files on a server",
+        "A list of blocked IP addresses"
+      ],
+      "correctIndex": 0,
+      "explanation": "CRL: revoked certificates ki list — jo certificates ab valid nahi hain, unko track karne ke liye."
+    },
+    {
+      "id": "ch4_q19",
+      "termRef": "pki",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "Your browser shows a padlock and confirms a site is genuinely 'google.com' rather than a fake lookalike site. Which underlying framework makes this identity verification possible?",
+      "options": [
+        "A firewall alone",
+        "PKI (Public Key Infrastructure)",
+        "DNS Poisoning defenses alone",
+        "NAT"
+      ],
+      "correctIndex": 1,
+      "explanation": "PKI ka poora purpose hi identity verify karna hai online — CA-issued digital certificates ke through browser confirm karta hai ki site genuine hai."
+    },
+    {
+      "id": "ch4_q20",
+      "termRef": "pki",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is a component of PKI, according to the guide?",
+      "options": [
+        "Sandboxing environments",
+        "Digital Certificate",
+        "Honeypots",
+        "Rate limiting rules"
+      ],
+      "correctIndex": 1,
+      "explanation": "PKI ke components: CA, Digital Certificate, aur CRL — yeh sab milke online trust management system banate hain."
+    },
+    {
+      "id": "ch4_q21",
+      "termRef": "digicert",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is a digital certificate?",
+      "options": [
+        "A type of malware detection signature",
+        "A physical ID card issued by the government",
+        "An electronic document that proves an entity's identity and contains its public key",
+        "A backup copy of encrypted files"
+      ],
+      "correctIndex": 2,
+      "explanation": "Electronic document jo ek entity ki identity prove karta hai aur unki public key contain karta hai — CA issue karta hai."
+    },
+    {
+      "id": "ch4_q22",
+      "termRef": "digicert",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for a digital certificate?",
+      "options": [
+        "A postman delivering sealed letters",
+        "A guard checking IDs at a building",
+        "A passport — issued by a trusted authority, with your details and an expiry date",
+        "A movie ticket used once"
+      ],
+      "correctIndex": 2,
+      "explanation": "Passport jaisa — government (CA) ne issue kiya, tumhara photo aur details hain (public key), expiry date hai, tamper-proof features hain."
+    },
+    {
+      "id": "ch4_q23",
+      "termRef": "digicert",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the browser's padlock icon in the address bar represent?",
+      "options": [
+        "That the website has no malware whatsoever",
+        "A valid digital certificate being presented by the website",
+        "That the website loads faster than others",
+        "That the website is government-approved"
+      ],
+      "correctIndex": 1,
+      "explanation": "Browser ka padlock icon yahi hai — digital certificate present ho raha hai, matlab site apni identity prove kar rahi hai."
+    },
+    {
+      "id": "ch4_q24",
+      "termRef": "digicert",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is contained within a digital certificate, according to the guide?",
+      "options": [
+        "The owner's public key and the issuing CA's digital signature",
+        "The user's plaintext password",
+        "The user's home address",
+        "The user's credit card number"
+      ],
+      "correctIndex": 0,
+      "explanation": "Contains: owner name, public key, issuing CA, validity dates, domain name, CA's digital signature (tamper proof)."
+    },
+    {
+      "id": "ch4_q25",
+      "termRef": "digicert",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A bank trusts a customer's document because it carries an official passport-like proof of identity issued by a recognized authority. What is the digital equivalent of this trust mechanism online?",
+      "options": [
+        "A firewall rule",
+        "A digital certificate issued by a Certificate Authority",
+        "A simple username and password",
+        "An IDS alert"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bank ne passport dekha → trust kiya — online iska equivalent digital certificate hai jo CA ne issue kiya."
+    },
+    {
+      "id": "ch4_q26",
+      "termRef": "digisig",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does a digital signature provide?",
+      "options": [
+        "Automatic encryption of the entire hard drive",
+        "Protection against network flooding attacks",
+        "Proof that a document was signed by a specific person and hasn't been tampered with (non-repudiation)",
+        "A backup copy of the signed document"
+      ],
+      "correctIndex": 2,
+      "explanation": "Apni private key se document ko 'sign' karna — koi bhi tumhari public key se verify kar sakta hai ki document tumne hi sign kiya aur modify nahi hua. Non-repudiation provide karta hai."
+    },
+    {
+      "id": "ch4_q27",
+      "termRef": "digisig",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the first step in the digital signature process, according to the guide?",
+      "options": [
+        "Send the document over an unencrypted channel",
+        "Compress the document into a zip file",
+        "Delete the original document",
+        "Generate a hash of the document"
+      ],
+      "correctIndex": 3,
+      "explanation": "Process: 1. Document ka hash generate karo, 2. private key se hash encrypt karo (= signature), 3. Receiver same hash generate kar verify karta hai."
+    },
+    {
+      "id": "ch4_q28",
+      "termRef": "digisig",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which key is used to create a digital signature, and which key is used to verify it?",
+      "options": [
+        "No key is needed for either step",
+        "The signer's private key creates it; the signer's public key verifies it",
+        "The signer's public key creates it; the signer's private key verifies it",
+        "Both creation and verification use the same shared secret password"
+      ],
+      "correctIndex": 1,
+      "explanation": "Private key se hash encrypt karke signature banta hai; receiver public key se signature decrypt karke verify karta hai."
+    },
+    {
+      "id": "ch4_q29",
+      "termRef": "digisig",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A contract's recipient can mathematically prove the sender actually signed it and that no one altered even a single word afterward. Which security concept guarantees this?",
+      "options": [
+        "Network segmentation",
+        "NAT",
+        "Digital Signature",
+        "A firewall rule"
+      ],
+      "correctIndex": 2,
+      "explanation": "Digital signature non-repudiation provide karta hai — sender deny nahi kar sakta ki usne sign kiya, aur tampering bhi detect ho jaati hai."
+    },
+    {
+      "id": "ch4_q30",
+      "termRef": "digisig",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What security property specifically means 'the signer cannot later deny having signed the document'?",
+      "options": [
+        "Anonymity",
+        "Availability",
+        "Non-repudiation",
+        "Confidentiality"
+      ],
+      "correctIndex": 2,
+      "explanation": "Non-repudiation exactly yehi property hai — digital signature ka primary benefit."
+    },
+    {
+      "id": "ch4_q31",
+      "termRef": "ssl",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the current status of SSL, according to the guide?",
+      "options": [
+        "Still the most current and secure protocol in use",
+        "Technically deprecated and replaced by TLS, though the term 'SSL' is still commonly used",
+        "Never existed — it was always called TLS",
+        "A hardware device used to encrypt disks"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ab technically deprecated hai — TLS use hota hai, par 'SSL' term abhi bhi common usage mein hai."
+    },
+    {
+      "id": "ch4_q32",
+      "termRef": "ssl",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why was SSL 3.0 specifically abandoned, according to the guide?",
+      "options": [
+        "It required a paid license to use",
+        "It had the POODLE vulnerability",
+        "It was too slow for modern internet speeds",
+        "It was never adopted by any browser"
+      ],
+      "correctIndex": 1,
+      "explanation": "SSL 3.0 mein POODLE vulnerability thi isliye abandon kiya gaya — TLS 1.0 se aage evolution hua."
+    },
+    {
+      "id": "ch4_q33",
+      "termRef": "ssl",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the correct chronological evolution from SSL to the current standard, according to the guide?",
+      "options": [
+        "TLS 1.3 → SSL 3.0 → SSL 2.0 → TLS 1.0",
+        "SSL 3.0 → TLS 1.3 → SSL 2.0 → TLS 1.0",
+        "SSL 2.0 → SSL 3.0 → TLS 1.0 → TLS 1.3",
+        "TLS 1.0 → SSL 2.0 → SSL 3.0 → TLS 1.3"
+      ],
+      "correctIndex": 2,
+      "explanation": "SSL 2.0 (1995) → SSL 3.0 → TLS 1.0 → TLS 1.1 → TLS 1.2 → TLS 1.3 (current) — yeh sahi chronological order hai."
+    },
+    {
+      "id": "ch4_q34",
+      "termRef": "ssl",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A colleague refers to a website's 'SSL certificate,' even though the site is actually using the modern TLS protocol underneath. What does this illustrate?",
+      "options": [
+        "SSL and TLS are entirely unrelated technologies",
+        "The colleague is completely wrong and the site is insecure",
+        "TLS is actually older than SSL",
+        "The term 'SSL' is still used colloquially even though TLS has replaced it technically"
+      ],
+      "correctIndex": 3,
+      "explanation": "Guide khud bolti hai 'SSL' term abhi bhi common hai, chahe technically TLS use ho raha ho — industry jargon mein legacy naming persist karta hai."
+    },
+    {
+      "id": "ch4_q35",
+      "termRef": "ssl",
+      "type": "category",
+      "difficulty": "easy",
+      "question": "What does SSL stand for?",
+      "options": [
+        "Secure Sockets Layer",
+        "Standard Socket Language",
+        "Secure Server Login",
+        "System Security Layer"
+      ],
+      "correctIndex": 0,
+      "explanation": "SSL = Secure Sockets Layer — secure communication protocol jo ab TLS se replace ho chuka hai."
+    },
+    {
+      "id": "ch4_q36",
+      "termRef": "tls",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is actually running behind the scenes when you use HTTPS today?",
+      "options": [
+        "Telnet",
+        "FTP",
+        "SSL 2.0",
+        "TLS"
+      ],
+      "correctIndex": 3,
+      "explanation": "Jab tum HTTPS use karte ho, actually TLS run ho raha hai — current secure communication protocol jo encryption, authentication, integrity teeno provide karta hai."
+    },
+    {
+      "id": "ch4_q37",
+      "termRef": "tls",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the first step of a TLS handshake, according to the guide?",
+      "options": [
+        "The client says 'Hello, I support TLS 1.3'",
+        "The server immediately sends encrypted data",
+        "The client sends its password in plaintext",
+        "The connection is closed automatically"
+      ],
+      "correctIndex": 0,
+      "explanation": "1. Client: 'Hello, I support TLS 1.3', 2. Server: 'OK, here's my certificate', 3. Key exchange, 4. Encrypted communication begins."
+    },
+    {
+      "id": "ch4_q38",
+      "termRef": "tls",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which three properties does TLS provide together, according to the guide?",
+      "options": [
+        "Encryption, authentication, and integrity",
+        "Speed, compression, and caching",
+        "Backup, recovery, and archiving",
+        "Firewalling, sandboxing, and logging"
+      ],
+      "correctIndex": 0,
+      "explanation": "TLS encryption, authentication, integrity — teeno provide karta hai simultaneously, sirf data hide karna nahi."
+    },
+    {
+      "id": "ch4_q39",
+      "termRef": "tls",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "During a connection setup, the server sends its certificate to the client, and both sides then exchange keys before any actual data is sent. What process is this describing?",
+      "options": [
+        "A TLS handshake",
+        "A firewall rule update",
+        "A DDoS attack",
+        "A DNS lookup"
+      ],
+      "correctIndex": 0,
+      "explanation": "Yeh exactly TLS handshake ka process hai — hello, certificate exchange, key exchange, phir encrypted communication begins."
+    },
+    {
+      "id": "ch4_q40",
+      "termRef": "tls",
+      "type": "category",
+      "difficulty": "easy",
+      "question": "What does TLS stand for?",
+      "options": [
+        "Transport Layer Security",
+        "Trusted Local System",
+        "Total Link Security",
+        "Traffic Load Sensor"
+      ],
+      "correctIndex": 0,
+      "explanation": "TLS = Transport Layer Security — SSL ka successor, internet ki backbone security protocol."
+    },
+    {
+      "id": "ch4_q41",
+      "termRef": "https",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is HTTPS made of, according to the guide?",
+      "options": [
+        "HTTP + a VPN",
+        "HTTP + a firewall",
+        "HTTP + AES only",
+        "HTTP + TLS"
+      ],
+      "correctIndex": 3,
+      "explanation": "HTTP (web protocol) + TLS (encryption) = HTTPS. Browser ka padlock icon = HTTPS."
+    },
+    {
+      "id": "ch4_q42",
+      "termRef": "https",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What common misconception does the guide correct about HTTPS?",
+      "options": [
+        "HTTPS makes a website completely immune to hacking",
+        "HTTPS does not mean the site itself is trustworthy — it only means the connection is encrypted",
+        "HTTPS automatically blocks all phishing attempts",
+        "HTTPS is only used by government websites"
+      ],
+      "correctIndex": 1,
+      "explanation": "HTTPS = secure site NAHI. Sirf matlab hai connection encrypted hai. Fake phishing sites bhi HTTPS use karti hain. Padlock ≠ trustworthy website."
+    },
+    {
+      "id": "ch4_q43",
+      "termRef": "https",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A phishing website has a valid padlock icon and uses HTTPS, yet it is still designed to steal your login credentials. What does this demonstrate?",
+      "options": [
+        "HTTPS automatically verifies a site's honesty",
+        "The browser has a bug if this occurs",
+        "HTTPS certificates are never issued to malicious sites, so this can't happen",
+        "HTTPS only guarantees an encrypted connection, not that the site itself is legitimate"
+      ],
+      "correctIndex": 3,
+      "explanation": "Exactly the misconception the guide warns about — fake phishing sites bhi HTTPS use kar sakti hain, padlock trustworthiness ki guarantee nahi deta."
+    },
+    {
+      "id": "ch4_q44",
+      "termRef": "https",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the padlock icon in a browser's address bar specifically indicate?",
+      "options": [
+        "That the website has been manually reviewed by the browser vendor",
+        "That the website has no ads",
+        "That the website is hosted in the user's own country",
+        "That HTTPS (encrypted transit) is being used"
+      ],
+      "correctIndex": 3,
+      "explanation": "Padlock icon = HTTPS active hai, data encrypted hai transit mein — MITM attacker garbled text hi dekhega — but yeh site ki legitimacy guarantee nahi karta."
+    },
+    {
+      "id": "ch4_q45",
+      "termRef": "https",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "If a MITM attacker intercepts traffic on an HTTPS-protected connection, what will they typically see?",
+      "options": [
+        "The exact plaintext of the conversation",
+        "Only the sender's IP address in plaintext, nothing else",
+        "Garbled, encrypted text they cannot easily read",
+        "A full copy of the user's password in plaintext, always"
+      ],
+      "correctIndex": 2,
+      "explanation": "Data encrypted hai transit mein — MITM attacker garbled text hi dekhega, yehi HTTPS ka core protection hai."
+    },
+    {
+      "id": "ch4_q46",
+      "termRef": "ssh",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is SSH primarily used for?",
+      "options": [
+        "Encrypting emails end-to-end",
+        "Securely accessing a remote server from the command line",
+        "Scanning files for malware signatures",
+        "Blocking malicious web traffic"
+      ],
+      "correctIndex": 1,
+      "explanation": "Remote server ko securely access karna command line se — web developers, system admins daily use karte hain."
+    },
+    {
+      "id": "ch4_q47",
+      "termRef": "ssh",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which older, unencrypted protocol did SSH replace in 1995?",
+      "options": [
+        "HTTP",
+        "SMTP",
+        "FTP",
+        "Telnet"
+      ],
+      "correctIndex": 3,
+      "explanation": "Telnet (unencrypted predecessor) ko replace kiya 1995 mein — SSH ne encrypted alternative provide kiya."
+    },
+    {
+      "id": "ch4_q48",
+      "termRef": "ssh",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is a more secure alternative to password login when using SSH?",
+      "options": [
+        "Using a 4-digit PIN instead",
+        "Disabling authentication entirely",
+        "SSH keys, where the public key sits on the server and the private key stays with the user",
+        "Sharing the same password across all servers"
+      ],
+      "correctIndex": 2,
+      "explanation": "Password ke alawa SSH keys use kar sakte ho — more secure. Public key server pe, private key tumhare paas — brute force practically impossible."
+    },
+    {
+      "id": "ch4_q49",
+      "termRef": "ssh",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A system administrator connects to a remote Linux server to run commands, and the entire session is encrypted so no one on the network can see the commands or their output. Which protocol enables this?",
+      "options": [
+        "Plain Telnet",
+        "Plain HTTP",
+        "Unencrypted FTP",
+        "SSH"
+      ],
+      "correctIndex": 3,
+      "explanation": "SSH exactly is use case ke liye design hui hai — encrypted remote server access via command line."
+    },
+    {
+      "id": "ch4_q50",
+      "termRef": "ssh",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why is brute-forcing an SSH connection secured with SSH keys considered 'practically impossible'?",
+      "options": [
+        "Because SSH blocks all connection attempts automatically",
+        "Because SSH doesn't allow remote connections at all",
+        "Because the private key never leaves the user's device and isn't a guessable password",
+        "Because SSH keys expire every second"
+      ],
+      "correctIndex": 2,
+      "explanation": "Private key kabhi network pe transmit nahi hoti aur itni complex hoti hai ki brute force practically impossible ho jaata hai."
+    }
+  ]
+}

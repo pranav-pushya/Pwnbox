@@ -1,0 +1,758 @@
+{
+  "chapter": 5,
+  "chapterTitle": "Identity & Access Management",
+  "termCount": 10,
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "ch5_q01",
+      "termRef": "2fa",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Two-Factor Authentication (2FA) require at login?",
+      "options": [
+        "Something you know (password) plus something you have or are (like an OTP or fingerprint)",
+        "Only your device's IP address",
+        "Only a security question",
+        "Only a strong, complex password"
+      ],
+      "correctIndex": 0,
+      "explanation": "Login ke liye 2 cheezein chahiye: kuch tum jaante ho (password) + kuch tumhare paas hai (phone OTP) ya kuch tum ho (fingerprint) — password chori bhi ho to koi faida nahi attacker ko."
+    },
+    {
+      "id": "ch5_q02",
+      "termRef": "2fa",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which 2FA method is described as the weakest, due to SIM swap risk?",
+      "options": [
+        "SMS OTP",
+        "Biometric",
+        "Hardware Key (YubiKey)",
+        "Authenticator App"
+      ],
+      "correctIndex": 0,
+      "explanation": "SMS OTP (weakest — SIM swap possible), Authenticator App (better), Hardware Key (strongest — YubiKey), Biometric."
+    },
+    {
+      "id": "ch5_q03",
+      "termRef": "2fa",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for 2FA?",
+      "options": [
+        "An ATM — you need both your PIN and your physical card",
+        "A postman delivering sealed letters",
+        "A chemical lab's glove box",
+        "A CCTV control room"
+      ],
+      "correctIndex": 0,
+      "explanation": "ATM analogy — PIN (kuch tum jaante ho) + ATM card (kuch tumhare paas hai). Sirf PIN nahi, sirf card nahi — dono chahiye."
+    },
+    {
+      "id": "ch5_q04",
+      "termRef": "2fa",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "In the 2023 MGM Resorts hack, how much loss was directly attributed to missing MFA, according to the guide?",
+      "options": [
+        "$1 million",
+        "$1 billion",
+        "$10 million",
+        "$100 million or more"
+      ],
+      "correctIndex": 3,
+      "explanation": "Social engineering se employee credentials mili, agar proper MFA hota to hack fail ho jaata — $100M+ loss directly 2FA missing ki wajah se."
+    },
+    {
+      "id": "ch5_q05",
+      "termRef": "2fa",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker steals your password through a phishing email, but fails to log into your account because they don't have the OTP sent to your phone. What protected you?",
+      "options": [
+        "Network segmentation",
+        "A firewall",
+        "A honeypot",
+        "2FA (Two-Factor Authentication)"
+      ],
+      "correctIndex": 3,
+      "explanation": "2FA exactly is scenario ke liye design hui hai — password chori bhi ho jaaye, dusra factor attacker ke paas nahi hota."
+    },
+    {
+      "id": "ch5_q06",
+      "termRef": "mfa",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "How does MFA differ from 2FA?",
+      "options": [
+        "MFA and 2FA are completely unrelated concepts",
+        "MFA only applies to banking systems",
+        "MFA can use two or more factors, while 2FA specifically means exactly two",
+        "2FA is stronger than MFA in every case"
+      ],
+      "correctIndex": 2,
+      "explanation": "2FA specifically 2 factors. MFA = 2 ya zyada factors — MFA is 2FA ka superset."
+    },
+    {
+      "id": "ch5_q07",
+      "termRef": "mfa",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is NOT one of the three core MFA factor categories listed in the guide?",
+      "options": [
+        "Inherence (something you are)",
+        "Possession (something you have)",
+        "Knowledge (something you know)",
+        "Location you frequently visit"
+      ],
+      "correctIndex": 3,
+      "explanation": "Three core categories: Knowledge (password), Possession (phone/token), Inherence (biometric). Location-based hai ek bonus layer, core category nahi."
+    },
+    {
+      "id": "ch5_q08",
+      "termRef": "mfa",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which factor category does a fingerprint scan belong to?",
+      "options": [
+        "Location (where you are)",
+        "Possession (something you have)",
+        "Inherence (something you are)",
+        "Knowledge (something you know)"
+      ],
+      "correctIndex": 2,
+      "explanation": "👁️ Are: fingerprint, face, iris, voice — yeh sab Inherence category mein aate hain."
+    },
+    {
+      "id": "ch5_q09",
+      "termRef": "mfa",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company requires employees to enter a password, tap approve on an authenticator app, AND scan their fingerprint to log in. How many distinct factor categories does this use?",
+      "options": [
+        "Three — knowledge, possession, and inherence",
+        "Only one — knowledge",
+        "Only two — possession and inherence",
+        "Zero, since these aren't real factors"
+      ],
+      "correctIndex": 0,
+      "explanation": "Password = knowledge, authenticator app = possession, fingerprint = inherence — teeno categories mix karna MFA ko harder to breach banata hai."
+    },
+    {
+      "id": "ch5_q10",
+      "termRef": "mfa",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why does mixing multiple factor categories make an account harder to breach?",
+      "options": [
+        "Because it disables the password entirely",
+        "Because it changes the account's IP address",
+        "Because it slows down the login page loading time",
+        "Because an attacker would need to compromise multiple, fundamentally different types of proof simultaneously"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mix karo — harder to breach, kyunki attacker ko alag-alag categories (jaante ho, paas hai, tum ho) sabhi compromise karni padengi."
+    },
+    {
+      "id": "ch5_q11",
+      "termRef": "iam",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does IAM (Identity & Access Management) define?",
+      "options": [
+        "How malware is detected on endpoints",
+        "Which user can access which resource within an organization",
+        "How fast a network connection is",
+        "How data is encrypted during transit"
+      ],
+      "correctIndex": 1,
+      "explanation": "Framework aur tools jo define karte hain ki kaun user kaun sa resource access kar sakta hai — user accounts banao, permissions assign karo, review karo."
+    },
+    {
+      "id": "ch5_q12",
+      "termRef": "iam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does the 'Principle of Least Privilege' in IAM mean?",
+      "options": [
+        "Every user should have full admin access by default",
+        "Access should never be reviewed once granted",
+        "Each user should only get the minimum access absolutely necessary for their job",
+        "Only the CEO should have any system access"
+      ],
+      "correctIndex": 2,
+      "explanation": "Least Privilege: har user sirf woh access mile jo kaam ke liye absolutely zaroori hai — extra nahi."
+    },
+    {
+      "id": "ch5_q13",
+      "termRef": "iam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is mentioned in the guide as a popular IAM tool?",
+      "options": [
+        "Okta",
+        "Photoshop",
+        "Slack",
+        "Zoom"
+      ],
+      "correctIndex": 0,
+      "explanation": "Okta, Microsoft Azure AD popular IAM tools hain guide ke mutabik."
+    },
+    {
+      "id": "ch5_q14",
+      "termRef": "iam",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A database administrator requests access to the company's billing system for an unrelated task, but the request is denied because it isn't required for their role. What IAM principle is being enforced?",
+      "options": [
+        "Least Privilege",
+        "Zero Trust exclusively",
+        "Single Sign-On",
+        "Multi-Factor Authentication"
+      ],
+      "correctIndex": 0,
+      "explanation": "Agar DB admin ko billing system access nahi chahiye kaam ke liye, nahi milega — yehi Least Privilege principle hai."
+    },
+    {
+      "id": "ch5_q15",
+      "termRef": "iam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What two actions does an IAM system typically perform for every user, according to the guide?",
+      "options": [
+        "Only monitor internet speed",
+        "Only manage physical door locks",
+        "Only track employee attendance",
+        "Create accounts and assign permissions"
+      ],
+      "correctIndex": 3,
+      "explanation": "User accounts banao, permissions assign karo, review karo — yeh IAM ke core functions hain."
+    },
+    {
+      "id": "ch5_q16",
+      "termRef": "pam",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does PAM (Privileged Access Management) specifically protect?",
+      "options": [
+        "Only the physical office building",
+        "Privileged accounts like admins, root, and service accounts",
+        "Regular employee email accounts only",
+        "Only guest WiFi access"
+      ],
+      "correctIndex": 1,
+      "explanation": "IAM ka subset jo specifically privileged accounts (admins, root, service accounts) ko protect karta hai — highest risk accounts."
+    },
+    {
+      "id": "ch5_q17",
+      "termRef": "pam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is 'just-in-time access' in the context of PAM?",
+      "options": [
+        "Granting privileged access only when it is actually needed, not permanently",
+        "Giving every employee permanent admin rights",
+        "Allowing access only during office hours",
+        "Removing all access controls entirely"
+      ],
+      "correctIndex": 0,
+      "explanation": "Just-in-time access (sirf jab zaroori) — PAM ka ek key feature, permanent privileged access ka risk kam karta hai."
+    },
+    {
+      "id": "ch5_q18",
+      "termRef": "pam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which PAM feature records what an admin actually did during a privileged session?",
+      "options": [
+        "MFA enforcement",
+        "Just-in-time access",
+        "Password vaulting",
+        "Session recording"
+      ],
+      "correctIndex": 3,
+      "explanation": "Session recording (admin ne kya kiya) ek core PAM feature hai — accountability aur audit ke liye zaroori."
+    },
+    {
+      "id": "ch5_q19",
+      "termRef": "pam",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why are privileged accounts considered especially high-risk, according to the guide?",
+      "options": [
+        "Because they are only used for marketing tasks",
+        "Because they are never used by anyone in the company",
+        "Because they have no password at all",
+        "Because controlling them means gaining full control of the system"
+      ],
+      "correctIndex": 3,
+      "explanation": "These accounts are highest risk — inka control matlab full system control, isliye special protection zaroori hai."
+    },
+    {
+      "id": "ch5_q20",
+      "termRef": "pam",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A company automatically rotates its admin account passwords regularly and stores them in a secure vault rather than letting employees memorize static passwords. Which PAM feature does this describe?",
+      "options": [
+        "Token-based authentication",
+        "Single Sign-On",
+        "Zero Trust",
+        "Password vaulting"
+      ],
+      "correctIndex": 3,
+      "explanation": "Password vaulting (auto-rotate passwords) — PAM ka feature jo privileged account passwords ko securely manage karta hai."
+    },
+    {
+      "id": "ch5_q21",
+      "termRef": "sso",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Single Sign-On (SSO) allow a user to do?",
+      "options": [
+        "Log in once and automatically gain access to multiple connected apps",
+        "Only access one app forever without any other access",
+        "Use a different password for every single application",
+        "Bypass all authentication requirements entirely"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ek baar login karo (Google ya company account se), sab apps automatically accessible — 'Sign in with Google' = SSO."
+    },
+    {
+      "id": "ch5_q22",
+      "termRef": "sso",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which technologies commonly power SSO behind the scenes, according to the guide?",
+      "options": [
+        "DNS and DHCP",
+        "OAuth and SAML",
+        "TCP and UDP",
+        "AES and RSA only"
+      ],
+      "correctIndex": 1,
+      "explanation": "Token exchange hota hai behind the scenes (OAuth, SAML) — yeh SSO ko technically implement karne wale protocols hain."
+    },
+    {
+      "id": "ch5_q23",
+      "termRef": "sso",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the biggest security risk associated with SSO?",
+      "options": [
+        "It makes logging in slower for users",
+        "If the SSO account is compromised, all connected apps become compromised too",
+        "It requires every app to have a separate password",
+        "It cannot be used with MFA at all"
+      ],
+      "correctIndex": 1,
+      "explanation": "SSO account compromise = sab apps compromise — isliye SSO account pe strong MFA absolutely zaroori. 'Single point of failure' bhi ho sakta hai."
+    },
+    {
+      "id": "ch5_q24",
+      "termRef": "sso",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An attacker compromises an employee's single company Google account and suddenly gains access to a dozen connected internal tools without needing separate passwords for each. What made this possible?",
+      "options": [
+        "SSO — a single compromised account exposed every connected app",
+        "Network segmentation failure",
+        "A firewall bypass",
+        "A honeypot misconfiguration"
+      ],
+      "correctIndex": 0,
+      "explanation": "Yeh exactly SSO ka risk hai — single point of failure, isliye strong MFA SSO account pe zaroori hai."
+    },
+    {
+      "id": "ch5_q25",
+      "termRef": "sso",
+      "type": "category",
+      "difficulty": "easy",
+      "question": "Which everyday feature is a real-world example of SSO?",
+      "options": [
+        "Using a physical key to open a door",
+        "Entering a separate password for every website",
+        "Scanning a fingerprint on your own phone only",
+        "'Sign in with Google' buttons on other websites"
+      ],
+      "correctIndex": 3,
+      "explanation": "'Sign in with Google' = SSO — ek baar login, sab apps automatically accessible."
+    },
+    {
+      "id": "ch5_q26",
+      "termRef": "zerotrust",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the core principle of Zero Trust Security?",
+      "options": [
+        "Trust is based purely on job title",
+        "Trust every device that connects to the internal network automatically",
+        "Never trust, always verify — no user or device is trusted by default, inside or outside the network",
+        "Only verify users once a year"
+      ],
+      "correctIndex": 2,
+      "explanation": "Traditional model: network ke andar ho to trusted. Zero Trust: andar ya bahar koi fark nahi — har request verify karo, least privilege do, assume breach."
+    },
+    {
+      "id": "ch5_q27",
+      "termRef": "zerotrust",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Why has Zero Trust become especially important in the remote work and cloud era, according to the guide?",
+      "options": [
+        "Because cloud services don't require any authentication",
+        "Because passwords have become obsolete entirely",
+        "Because all employees now work from a single physical office",
+        "Because the traditional concept of a fixed 'corporate network' boundary no longer applies"
+      ],
+      "correctIndex": 3,
+      "explanation": "Remote work, cloud era mein 'corporate network' ka concept gone. Employees anywhere se kaam karte hain — Zero Trust ke bina insider threats devastating ho sakte hain."
+    },
+    {
+      "id": "ch5_q28",
+      "termRef": "zerotrust",
+      "type": "real_world",
+      "difficulty": "hard",
+      "question": "Google's BeyondCorp, the industry's first large-scale Zero Trust implementation, was built following which major security incident?",
+      "options": [
+        "The SolarWinds breach",
+        "The WannaCry outbreak",
+        "The Colonial Pipeline attack",
+        "Operation Aurora (2010 China hack)"
+      ],
+      "correctIndex": 3,
+      "explanation": "Google ka BeyondCorp — post-Operation Aurora (2010 China hack) — industry ka pehla large-scale Zero Trust implementation, ab industry standard recommendation."
+    },
+    {
+      "id": "ch5_q29",
+      "termRef": "zerotrust",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An employee working from home, connected via the company VPN, is still required to re-verify their identity for every sensitive request, exactly as if they were an unknown external user. What philosophy is being applied?",
+      "options": [
+        "SSO without MFA",
+        "No security policy at all",
+        "Zero Trust Security",
+        "Traditional perimeter-based trust"
+      ],
+      "correctIndex": 2,
+      "explanation": "'Never trust, always verify' — andar ya bahar koi fark nahi, har request verify karna Zero Trust ka core hai."
+    },
+    {
+      "id": "ch5_q30",
+      "termRef": "zerotrust",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "How does the traditional security model differ fundamentally from Zero Trust?",
+      "options": [
+        "There is no real difference between the two models",
+        "Traditional model trusts anyone already inside the network; Zero Trust trusts no one by default",
+        "Zero Trust only applies to physical security, not digital",
+        "Traditional model has no concept of passwords at all"
+      ],
+      "correctIndex": 1,
+      "explanation": "Traditional model: network ke andar ho to trusted. Zero Trust: 'Trust but verify' se 'Never trust, always verify' ki taraf shift."
+    },
+    {
+      "id": "ch5_q31",
+      "termRef": "accesscontrol",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the general purpose of access control models?",
+      "options": [
+        "Managing a company's physical inventory",
+        "Encrypting network traffic between two devices",
+        "Detecting malware signatures automatically",
+        "Enforcing policy on who can access which resources"
+      ],
+      "correctIndex": 3,
+      "explanation": "Resources tak kaun ja sakta hai — policy enforcement, alag-alag models (DAC, MAC, RBAC, ABAC) yeh alag tareeke se karte hain."
+    },
+    {
+      "id": "ch5_q32",
+      "termRef": "accesscontrol",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In which access control model does the system (rather than the resource owner) decide access, typically used for classified/military data?",
+      "options": [
+        "ABAC (Attribute-Based Access Control)",
+        "RBAC (Role-Based Access Control)",
+        "DAC (Discretionary Access Control)",
+        "MAC (Mandatory Access Control)"
+      ],
+      "correctIndex": 3,
+      "explanation": "MAC: system decide karta hai (military, classified). DAC: owner decide karta hai (files on your PC)."
+    },
+    {
+      "id": "ch5_q33",
+      "termRef": "accesscontrol",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which access control model grants permissions based on job roles, like 'HR', 'Finance', or 'Developer'?",
+      "options": [
+        "MAC (Mandatory Access Control)",
+        "None of these use roles",
+        "DAC (Discretionary Access Control)",
+        "RBAC (Role-Based Access Control)"
+      ],
+      "correctIndex": 3,
+      "explanation": "RBAC: role-based (employees, managers, admins). HR role = employee data access, Finance role = payroll access, Developer role = code repo access."
+    },
+    {
+      "id": "ch5_q34",
+      "termRef": "accesscontrol",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "An access control system grants or denies a request based on multiple real-time factors like the time of day, the user's location, and the device being used. Which model does this describe?",
+      "options": [
+        "RBAC (Role-Based Access Control) alone",
+        "MAC (Mandatory Access Control) alone",
+        "DAC (Discretionary Access Control)",
+        "ABAC (Attribute-Based Access Control)"
+      ],
+      "correctIndex": 3,
+      "explanation": "ABAC: attribute-based (time, location, device) — yeh multiple dynamic factors ke basis pe access decide karta hai."
+    },
+    {
+      "id": "ch5_q35",
+      "termRef": "accesscontrol",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "In RBAC, what happens automatically when an employee's role changes (e.g. from developer to manager)?",
+      "options": [
+        "Nothing changes; permissions must be manually reset from scratch",
+        "Their permissions automatically change to match the new role",
+        "Their account is permanently deleted",
+        "Their password is reset to a default value"
+      ],
+      "correctIndex": 1,
+      "explanation": "Role change karo, permissions automatically change — yeh RBAC ka core benefit hai, manual reassignment ki zaroorat nahi."
+    },
+    {
+      "id": "ch5_q36",
+      "termRef": "authn",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What question does Authentication answer?",
+      "options": [
+        "'Where are you located?'",
+        "'What can you do?'",
+        "'Who are you?'",
+        "'How much data can you access?'"
+      ],
+      "correctIndex": 2,
+      "explanation": "Identity verify karna — prove karo tum wahi ho jo tum claim karte ho. Password, biometric, token — sab authentication methods hain."
+    },
+    {
+      "id": "ch5_q37",
+      "termRef": "authn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "Which of these is described as an authentication method in the guide?",
+      "options": [
+        "A CDN",
+        "A CVE score",
+        "Password",
+        "A firewall rule"
+      ],
+      "correctIndex": 2,
+      "explanation": "Password, biometric, token — sab authentication methods hain, identity verify karne ke liye."
+    },
+    {
+      "id": "ch5_q38",
+      "termRef": "authn",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for authentication versus authorization?",
+      "options": [
+        "Authentication is a passport check; authorization is what areas your visa allows you into",
+        "Authentication is a lock; authorization is a key duplicate",
+        "Authentication is a CCTV camera; authorization is a smoke detector",
+        "Authentication is a firewall; authorization is a VPN"
+      ],
+      "correctIndex": 0,
+      "explanation": "Authentication = WHO are you? (Passport check). Authorization = WHAT can you do? (Visa allows entry to certain areas)."
+    },
+    {
+      "id": "ch5_q39",
+      "termRef": "authn",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A user successfully proves their identity with a correct username, password, and fingerprint scan. Which security step has just occurred?",
+      "options": [
+        "Authorization",
+        "Network segmentation",
+        "Authentication",
+        "Encryption"
+      ],
+      "correctIndex": 2,
+      "explanation": "Identity verify hona — 'tum kaun ho' prove karna — yeh authentication hai, authorization ke pehle ka step."
+    },
+    {
+      "id": "ch5_q40",
+      "termRef": "authn",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What comes logically before Authorization in the access process?",
+      "options": [
+        "Network segmentation",
+        "Encryption",
+        "Digital forensics",
+        "Authentication"
+      ],
+      "correctIndex": 3,
+      "explanation": "Pehle identity prove karo (Authentication), phir decide hota hai kya access hai (Authorization) — authentication pehle aata hai."
+    },
+    {
+      "id": "ch5_q41",
+      "termRef": "authz",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What does Authorization determine after a user has logged in?",
+      "options": [
+        "Whether the user's password is strong enough",
+        "Whether the user's device has antivirus installed",
+        "What resources and actions the authenticated user is permitted to access",
+        "The user's physical location"
+      ],
+      "correctIndex": 2,
+      "explanation": "Authenticated user ko kya resources access karne ki permission hai — login ke baad — 'can this user read/write/delete this file?'"
+    },
+    {
+      "id": "ch5_q42",
+      "termRef": "authz",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "What is 'Broken Access Control', and where does it rank on the OWASP Top 10?",
+      "options": [
+        "It's when a password is too short; it ranks #10",
+        "It's a type of physical break-in; not covered by OWASP",
+        "It's a hardware failure in a firewall; it isn't part of OWASP Top 10",
+        "It's when authorization checks fail, allowing unauthorized access; it ranks #1 on OWASP Top 10"
+      ],
+      "correctIndex": 3,
+      "explanation": "Broken Access Control — OWASP Top 10 mein #1. User A ki ID change karke User B ka data access karna (IDOR) — horizontal aur vertical privilege escalation."
+    },
+    {
+      "id": "ch5_q43",
+      "termRef": "authz",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What does IDOR (Insecure Direct Object Reference) typically involve?",
+      "options": [
+        "Changing an ID in a request to access another user's data without permission",
+        "Installing a rootkit on a server",
+        "Sending too many login requests at once",
+        "Encrypting a database with a weak key"
+      ],
+      "correctIndex": 0,
+      "explanation": "User A ki ID change karke User B ka data access karna (IDOR) — Broken Access Control ka classic example."
+    },
+    {
+      "id": "ch5_q44",
+      "termRef": "authz",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A logged-in user changes a number in the website's URL from their own account ID to someone else's, and successfully views that other person's private data. What vulnerability class does this fall under?",
+      "options": [
+        "Broken Access Control / IDOR",
+        "DNS Poisoning",
+        "SQL Injection",
+        "Cross-Site Scripting"
+      ],
+      "correctIndex": 0,
+      "explanation": "Yeh classic IDOR (Insecure Direct Object Reference) hai, jo Broken Access Control ke under aata hai — OWASP Top 10 ka #1 issue."
+    },
+    {
+      "id": "ch5_q45",
+      "termRef": "authz",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What is the difference between horizontal and vertical privilege escalation?",
+      "options": [
+        "Horizontal means gaining admin rights; vertical means accessing peer data",
+        "Horizontal is accessing another same-level user's data; vertical is gaining higher-level (admin) privileges",
+        "They are the same thing with different names",
+        "Neither relates to Broken Access Control"
+      ],
+      "correctIndex": 1,
+      "explanation": "Horizontal: User A ka access User B ke data tak (same level). Vertical: normal user se admin tak escalate karna."
+    },
+    {
+      "id": "ch5_q46",
+      "termRef": "token",
+      "type": "definition",
+      "difficulty": "easy",
+      "question": "What is the purpose of a token after a user logs in?",
+      "options": [
+        "It automatically encrypts the entire disk",
+        "It permanently deletes the user's password",
+        "It blocks all future login attempts",
+        "It replaces the password for subsequent requests, so the user doesn't need to log in repeatedly"
+      ],
+      "correctIndex": 3,
+      "explanation": "Login ke baad server ek token deta hai (string of characters) — agle requests mein password ki jagah token bhejo, limited time ke liye valid."
+    },
+    {
+      "id": "ch5_q47",
+      "termRef": "token",
+      "type": "category",
+      "difficulty": "medium",
+      "question": "What are the three parts of a JWT (JSON Web Token), separated by dots?",
+      "options": [
+        "Header, Payload, Signature",
+        "Key, Value, Hash",
+        "Source, Destination, Port",
+        "Username, Password, IP address"
+      ],
+      "correctIndex": 0,
+      "explanation": "Header.Payload.Signature — 3 parts dot se separated. Payload mein user info (encrypted nahi, base64 encoded!), signature server verify karta hai."
+    },
+    {
+      "id": "ch5_q48",
+      "termRef": "token",
+      "type": "analogy",
+      "difficulty": "easy",
+      "question": "Which analogy does the guide use for a token?",
+      "options": [
+        "A CCTV camera in a control room",
+        "A postman delivering sealed letters",
+        "A movie ticket — you showed ID once at the counter, now you just show the ticket",
+        "A firewall blocking traffic"
+      ],
+      "correctIndex": 2,
+      "explanation": "Movie ticket jaisa — counter pe ID dikhaya (login), ticket mila (token). Ab har movie hall mein token dikhao — baar baar ID nahi dikhani, ticket expire hoti hai."
+    },
+    {
+      "id": "ch5_q49",
+      "termRef": "token",
+      "type": "category",
+      "difficulty": "hard",
+      "question": "Is the payload section of a JWT encrypted?",
+      "options": [
+        "Yes, it's protected by RSA encryption",
+        "Yes, it's fully AES-256 encrypted",
+        "No, it's only base64 encoded, not encrypted",
+        "It doesn't contain any user information at all"
+      ],
+      "correctIndex": 2,
+      "explanation": "Payload mein user info encrypted nahi hai, base64 encoded hai! — matlab koi bhi decode kar sakta hai (par tamper nahi kar sakta bina signature tode)."
+    },
+    {
+      "id": "ch5_q50",
+      "termRef": "token",
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "After a user logs in once, their app keeps making requests over the next hour without ever asking for the password again — until the token eventually expires. What mechanism explains this?",
+      "options": [
+        "A firewall allowing unlimited requests",
+        "A honeypot logging all requests",
+        "A token, such as a JWT, replacing repeated password entry",
+        "A CASB monitoring cloud data"
+      ],
+      "correctIndex": 2,
+      "explanation": "Token limited time ke liye valid hai — expire hone tak baar baar login karne ki zaroorat nahi, movie ticket jaisa concept."
+    }
+  ]
+}
