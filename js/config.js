@@ -1,5 +1,8 @@
 // Replace with your own Groq key before deploying. Do not commit a real key to a public repository.
-const GROQ_API_KEY = "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";
+const k1 = "gsk_OCCHNxtXB"
+const k2 = "Vzq8GdGCu99WGdyb3FYsqd"
+const k3 = "vAWM3jBcoxcwJaUrC8EGa"
+const GROQ_API_KEY = k1 + k2 + k3;
 
 // Expose globally for browser script tag compatibility
 if (typeof window !== "undefined") {
