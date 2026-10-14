@@ -422,6 +422,24 @@
             border-color: rgba(245, 158, 11, 0.25);
         }
 
+        .badge-threatintel {
+            background-color: rgba(217, 70, 239, 0.12);
+            color: #e879f9;
+            border-color: rgba(217, 70, 239, 0.25);
+        }
+
+        .badge-codesearch {
+            background-color: rgba(20, 184, 166, 0.12);
+            color: #2dd4bf;
+            border-color: rgba(20, 184, 166, 0.25);
+        }
+
+        .badge-wireless {
+            background-color: rgba(234, 179, 8, 0.12);
+            color: #facc15;
+            border-color: rgba(234, 179, 8, 0.25);
+        }
+
         .btn-edit-tool {
             border-color: #3b82f6;
             color: #60a5fa;
@@ -635,7 +653,7 @@
             body {
                 flex-direction: column !important;
                 height: 100vh !important;
-                padding-bottom: 65px !important;
+                padding-bottom: 60px !important;
                 overflow: hidden !important;
             }
 
@@ -646,12 +664,11 @@
                 left: 0;
                 right: 0;
                 height: 60px;
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
                 background: var(--bg-panel);
-                border-top: var(--border-width) solid var(--border-dim);
+                                -webkit-                border-top: var(--border-width) solid var(--border-dim);
                 justify-content: space-around;
                 align-items: center;
-                z-index: 10000;
+                z-index: 1000;
                 box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
             }
 
@@ -665,10 +682,9 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                gap: 2px;
+                gap: 4px;
                 cursor: pointer;
                 transition: all 0.2s ease;
-                padding: 6px 0;
             }
 
             .nav-tab:hover {
@@ -681,11 +697,11 @@
             }
 
             .nav-tab .tab-icon {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
 
             .nav-tab .tab-label {
-                font-size: 0.7rem;
+                font-size: 0.75rem;
                 font-weight: 600;
             }
 
@@ -706,14 +722,6 @@
                 display: flex !important;
             }
 
-            .sidebar .header {
-                padding: 15px;
-            }
-
-            .sidebar .header h2 {
-                font-size: 1rem;
-            }
-
             /* Details Tab active */
             body.tab-details .workspace {
                 display: flex !important;
@@ -730,7 +738,6 @@
             }
             body.tab-chat .chat-panel {
                 display: flex !important;
-                min-width: 0 !important;
             }
 
             /* Details and Chat layout adjustment inside workspace */
@@ -740,8 +747,7 @@
             }
 
             .card {
-                padding: 16px !important;
-                box-shadow: 4px 4px 0 var(--border-dim) !important;
+                padding: 15px !important;
             }
 
             .card h1 {
@@ -754,47 +760,15 @@
             .card h1 a {
                 width: 100%;
                 text-align: center;
-                display: block;
-            }
-
-            .chat-header {
-                padding: 10px 12px !important;
-            }
-
-            .panel-tabs {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .panel-tab {
-                font-size: 0.68rem !important;
-                padding: 5px 4px !important;
             }
 
             .chat-input-area {
-                padding: 10px 12px !important;
-                gap: 8px !important;
-            }
-
-            .chat-input-area input {
-                padding: 8px 12px !important;
-                font-size: 0.85rem !important;
+                padding: 10px 15px !important;
             }
 
             .modal-card {
-                padding: 16px !important;
-                width: 92% !important;
-                max-width: 450px !important;
-                box-shadow: 4px 4px 0 var(--border-dim) !important;
-            }
-
-            .ctf-card > div[style*="display: flex"] {
-                flex-direction: column !important;
-                gap: 8px !important;
-            }
-
-            .ctf-card button {
-                width: 100% !important;
+                padding: 15px !important;
+                width: 95% !important;
             }
         }
 
