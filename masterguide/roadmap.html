@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity & CEH Career Roadmap — PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization (Prevents FOUT) -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/roadmap.css">
+</head>
+
+<body>
+    <!-- Cyber Confetti Celebration Canvas -->
+    <canvas id="roadmap-confetti"></canvas>
+
+    <!-- Top Navigation Bar -->
+    <header class="roadmap-nav">
+        <a href="../index.html" class="nav-brand">
+            <span class="brand-icon">🗺️</span>
+            <span class="brand-title">PwnBox // Career Roadmap</span>
+        </a>
+
+        <div class="nav-actions">
+            <button onclick="toggleTheme()" class="nav-btn btn-theme" title="Toggle Light / Dark Mode">🌓 Theme</button>
+            <a href="cybersecurity_masterguide.html" class="nav-btn btn-guide">📖 Master Guide</a>
+            <a href="imp_info.html" class="nav-btn btn-info">💡 Imp Info</a>
+            <a href="../dashboard.html" class="nav-btn btn-dash">🔙 Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="roadmap-container">
+        <!-- Hero Header & Progress Cockpit -->
+        <section class="roadmap-hero">
+            <span class="hero-tag">// 9-MONTH COMPREHENSIVE CYBERSECURITY CURRICULUM</span>
+            <h1 class="hero-title">ETHICAL HACKING & CEH CAREER ROADMAP</h1>
+            <p class="hero-subtitle">
+                A structured, battle-tested 4-phase trajectory taking you from absolute technical fundamentals to Certified Ethical Hacker (CEH) certification and landing your first cybersecurity role or bug bounty payout.
+            </p>
+
+            <div class="golden-principle-box">
+                <span>💡</span>
+                <span>GOLDEN PRINCIPLE: Consistency beats intensity. Dedicating 1 to 2 hours every day is enough to complete this entire roadmap.</span>
+            </div>
+
+            <!-- Live Interactive Progress Cockpit -->
+            <div class="progress-cockpit">
+                <div class="cockpit-header">
+                    <div class="cockpit-title">
+                        <span>🎯</span>
+                        <span>YOUR ROADMAP COMPLETION RATE:</span>
+                    </div>
+                    <div class="cockpit-meta" id="progressPercentText">0%</div>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+
+                <div class="cockpit-footer">
+                    <span id="progressCountText">0 / 0 Objectives Completed</span>
+                    <button class="btn-reset-tasks" id="btnResetTasks" title="Clear checked boxes">Reset Progress</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase Overview Mode: Only 4 Phases with Name & Short Description -->
+        <section id="phasesOverviewView" class="phases-overview-section">
+            <div class="section-badge-bar">
+                <span>// SELECT ANY PHASE TO REVEAL FULL CURRICULUM, MILESTONES & TASKS</span>
+            </div>
+            <div class="phases-overview-grid">
+                <!-- Phase 1 Card -->
+                <div class="phase-overview-card" style="--phase-accent: var(--bauhaus-red);" onclick="showPhaseDetail('p1')" role="button" tabindex="0">
+                    <div class="phase-card-top">
+                        <span class="phase-badge-pill badge-p1">PHASE 01</span>
+                        <span class="phase-card-timeline">Month 1 – 2 (8 Weeks)</span>
+                    </div>
+                    <h2 class="phase-card-title">Phase 1: Build the Foundation</h2>
+                    <p class="phase-card-desc">
+                        Understand how computers, networks, and operating systems communicate before touching any offensive hacking concept. Covers networking protocols, Linux CLI mastery, Python scripting basics, and setting up an isolated virtual attack lab.
+                    </p>
+                    <div class="phase-card-meta">
+                        <span class="phase-card-milestone-tag">4 Core Milestones</span>
+                        <span class="phase-card-milestone-tag">Networking • Linux • Python • Lab</span>
+                    </div>
+                    <div class="btn-open-phase">
+                        <span>View Phase 1 Info</span>
+                        <span>➔</span>
+                    </div>
+                </div>
+
+                <!-- Phase 2 Card -->
+                <div class="phase-overview-card" style="--phase-accent: var(--bauhaus-blue);" onclick="showPhaseDetail('p2')" role="button" tabindex="0">
+                    <div class="phase-card-top">
+                        <span class="phase-badge-pill badge-p2">PHASE 02</span>
+                        <span class="phase-card-timeline">Month 3 – 5 (12 Weeks)</span>
+                    </div>
+                    <h2 class="phase-card-title">Phase 2: Learn to Hack</h2>
+                    <p class="phase-card-desc">
+                        Execute real security auditing workflows across the 5 ethical hacking phases. Master reconnaissance, port scanning, web application vulnerabilities (OWASP Top 10), Wi-Fi auditing, and practical beginner-to-intermediate CTFs.
+                    </p>
+                    <div class="phase-card-meta">
+                        <span class="phase-card-milestone-tag">5 Core Milestones</span>
+                        <span class="phase-card-milestone-tag">Recon • Scanning • OWASP • Wireless • CTFs</span>
+                    </div>
+                    <div class="btn-open-phase">
+                        <span>View Phase 2 Info</span>
+                        <span>➔</span>
+                    </div>
+                </div>
+
+                <!-- Phase 3 Card -->
+                <div class="phase-overview-card" style="--phase-accent: var(--bauhaus-yellow);" onclick="showPhaseDetail('p3')" role="button" tabindex="0">
+                    <div class="phase-card-top">
+                        <span class="phase-badge-pill badge-p3">PHASE 03</span>
+                        <span class="phase-card-timeline">Month 6 – 7 (8 Weeks)</span>
+                    </div>
+                    <h2 class="phase-card-title">Phase 3: The CEH Exam Sprint</h2>
+                    <p class="phase-card-desc">
+                        Systematic and focused exam preparation for the EC-Council CEH v13 ANSI certification. Review all 20 exam domains, study high-yield cheat sheets, and consistently benchmark 85%+ on timed realistic practice exams.
+                    </p>
+                    <div class="phase-card-meta">
+                        <span class="phase-card-milestone-tag">4 Sprint Milestones</span>
+                        <span class="phase-card-milestone-tag">20 Domains • Practice Mocks • Exam Day</span>
+                    </div>
+                    <div class="btn-open-phase">
+                        <span>View Phase 3 Info</span>
+                        <span>➔</span>
+                    </div>
+                </div>
+
+                <!-- Phase 4 Card -->
+                <div class="phase-overview-card" style="--phase-accent: var(--cyber-green);" onclick="showPhaseDetail('p4')" role="button" tabindex="0">
+                    <div class="phase-card-top">
+                        <span class="phase-badge-pill badge-p4">PHASE 04</span>
+                        <span class="phase-card-timeline">Month 8 – 9 (8 Weeks)</span>
+                    </div>
+                    <h2 class="phase-card-title">Phase 4: Career Launch & Mastery</h2>
+                    <p class="phase-card-desc">
+                        Bridge the gap between certification and getting hired. Hunt on live Bug Bounty platforms (HackerOne / Bugcrowd), engineer a public security portfolio on GitHub, ace technical security interviews, and map next-level certs.
+                    </p>
+                    <div class="phase-card-meta">
+                        <span class="phase-card-milestone-tag">4 Career Tracks</span>
+                        <span class="phase-card-milestone-tag">Bug Bounties • GitHub • Interviews • OSCP Path</span>
+                    </div>
+                    <div class="btn-open-phase">
+                        <span>View Phase 4 Info</span>
+                        <span>➔</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Phase View (Revealed when a phase is clicked) -->
+        <div id="phasesDetailView" class="phases-detail-view" style="display: none;">
+            <div class="detail-back-bar">
+                <button class="btn-back-overview" onclick="showPhaseOverview()" title="Return to Overview of 4 Phases">
+                    <span>⬅️</span>
+                    <span>Back to All 4 Phases Overview</span>
+                </button>
+                <div class="detail-current-title" id="detailCurrentTitle">Currently Viewing: Phase 1 — Build the Foundation</div>
+            </div>
+
+            <!-- Phase Filter Bar -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-phase="p1">Phase 1: Foundation</button>
+                <button class="filter-btn" data-phase="p2">Phase 2: Learn to Hack</button>
+                <button class="filter-btn" data-phase="p3">Phase 3: CEH Exam</button>
+                <button class="filter-btn" data-phase="p4">Phase 4: Career Launch</button>
+            </div>
+
+            <!-- All 4 Interactive Roadmap Phases -->
+            <div class="phases-wrapper">
+            <!-- ════ PHASE 1: BUILD THE FOUNDATION ════ -->
+            <section class="phase-block" data-phase="p1">
+                <div class="phase-header">
+                    <div class="phase-meta-left">
+                        <span class="phase-badge-pill badge-p1">PHASE 01</span>
+                        <h2 class="phase-title">Build the Foundation</h2>
+                        <p class="phase-goal">🎯 Primary Goal: Understand how computers and networks communicate before touching any offensive hacking concept.</p>
+                    </div>
+                    <div class="phase-duration">Month 1 – 2 (8 Weeks)</div>
+                </div>
+
+                <div class="milestones-grid">
+                    <!-- Week 1-2: Computer & Internet Basics -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Weeks 1 – 2</span>
+                            <span class="milestone-icon">🌐</span>
+                        </div>
+                        <h3 class="milestone-title">Computer & Internet Basics</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w1_1">
+                                <span>Understand how computers communicate over packet networks (frames, packets, segments).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w1_2">
+                                <span>Trace the complete lifecycle of what happens when you type a URL and hit Enter.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w1_3">
+                                <span>Master IP addressing: IPv4 vs. IPv6, public vs. private ranges (RFC 1918).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w1_4">
+                                <span>DNS architecture: Root servers, TLDs, authoritative resolvers & record types (A, AAAA, MX, CNAME, TXT).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w1_5">
+                                <span>Learn standard service ports: 21 (FTP), 22 (SSH), 25 (SMTP), 53 (DNS), 80 (HTTP), 443 (HTTPS), 445 (SMB).</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Connected PwnBox Labs & Guide:</span>
+                            <div class="resource-links">
+                                <a href="masterguide_ch6.html#netsec" class="resource-pill">📚 Ch 06: Network Security</a>
+                                <a href="../modules/Footprinting.html" class="resource-pill">🛠️ Module 01: Recon</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 3-4: Networking Deep Dive -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Weeks 3 – 4</span>
+                            <span class="milestone-icon">📡</span>
+                        </div>
+                        <h3 class="milestone-title">Networking Deep Dive</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w2_1">
+                                <span>OSI 7-Layer Model: Master physical, data link, network, transport, session, presentation, and application layers.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w2_2">
+                                <span>TCP/IP Model vs. OSI: Encapsulation and decapsulation flows.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w2_3">
+                                <span>IP Subnetting & CIDR: Calculate network IDs, broadcast addresses, and usable host ranges (/24, /27, /30).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w2_4">
+                                <span>Essential protocols: ARP resolution, DHCP DORA process, and NAT (Network Address Translation).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w2_5">
+                                <span>Hardware packet routing: Hubs vs. Layer-2 switches vs. Layer-3 routers & stateful firewalls.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Connected PwnBox Labs & Guide:</span>
+                            <div class="resource-links">
+                                <a href="masterguide_ch3.html#firewall" class="resource-pill">📚 Ch 03: Firewalls & IDS</a>
+                                <a href="../modules/Scanning.html" class="resource-pill">🛠️ Module 02: Scanning</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 5-6: Linux Fundamentals -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Weeks 5 – 6</span>
+                            <span class="milestone-icon">🐧</span>
+                        </div>
+                        <h3 class="milestone-title">Linux Fundamentals</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w3_1">
+                                <span>Install Kali Linux in a virtual machine environment (VirtualBox / VMware).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w3_2">
+                                <span>Master directory navigation and file manipulation: ls, cd, pwd, cat, head, tail, grep, find, nano.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w3_3">
+                                <span>Linux permissions model: read/write/execute (rwx), chmod octal modes (755, 644, 400), and chown ownership.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w3_4">
+                                <span>Users, groups & privileges: sudoers, useradd, passwd, /etc/passwd, and /etc/shadow structures.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w3_5">
+                                <span>Network administration CLI: ip a, ifconfig, ss -tuln, netstat, ping, traceroute, curl.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w3_6">
+                                <span>Practice daily: Terminal navigation must feel as natural as using a graphical file manager by Week 6.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Recommended Practice:</span>
+                            <div class="resource-links">
+                                <a href="https://overthewire.org/wargames/bandit/" target="_blank" rel="noopener" class="resource-pill">🕹️ OverTheWire Bandit (0–15)</a>
+                                <a href="../modules/SystemHacking.html" class="resource-pill">🛠️ Module 05: Linux Root</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 7-8+: Web Basics -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Weeks 7 – 8+</span>
+                            <span class="milestone-icon">🕸️</span>
+                        </div>
+                        <h3 class="milestone-title">Web Basics & Protocols</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w4_1">
+                                <span>How web applications are structured: HTML DOM, CSS layout, client-side JavaScript execution.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w4_2">
+                                <span>HTTP request-response cycle: Request headers, User-Agents, Methods (GET, POST, PUT, DELETE).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w4_3">
+                                <span>HTTP Status Codes: 200 (Success), 301/302 (Redirects), 400 (Bad Request), 401/403 (Auth/Forbidden), 500 (Internal Error).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p1_w4_4">
+                                <span>Stateless web mechanisms: Cookies, Set-Cookie headers, Session IDs, and JWT auth tokens.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Connected PwnBox Labs & Guide:</span>
+                            <div class="resource-links">
+                                <a href="masterguide_ch1.html#xss" class="resource-pill">📚 Ch 01: Web Threats</a>
+                                <a href="../modules/WebAppThreats.html" class="resource-pill">🛠️ Module 06: Web Labs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 1 Milestone Checkpoint -->
+                <div class="phase-checkpoint">
+                    <div class="checkpoint-text">
+                        <span>🏆</span>
+                        <span>PHASE 1 MILESTONE: You thoroughly understand how packet networks function and are completely comfortable in the Linux terminal.</span>
+                    </div>
+                    <span class="checkpoint-badge">FOUNDATION UNLOCKED</span>
+                </div>
+            </section>
+
+            <!-- ════ PHASE 2: LEARN CORE CONCEPTS & PRACTICE ════ -->
+            <section class="phase-block" data-phase="p2">
+                <div class="phase-header">
+                    <div class="phase-meta-left">
+                        <span class="phase-badge-pill badge-p2">PHASE 02</span>
+                        <h2 class="phase-title">Learn Core Concepts & Practice</h2>
+                        <p class="phase-goal">🎯 Primary Goal: Start executing real attacks and practice hands-on exploitation in safe, legal, and controlled lab environments.</p>
+                    </div>
+                    <div class="phase-duration">Month 3 – 5 (3 Months)</div>
+                </div>
+
+                <div class="milestones-grid">
+                    <!-- Month 3: Core Hacking Concepts -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Month 3</span>
+                            <span class="milestone-icon">🔍</span>
+                        </div>
+                        <h3 class="milestone-title">Core Hacking & 5 Phases</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m1_1">
+                                <span>Master the 5 formal phases of ethical hacking: Reconnaissance, Scanning, Gaining Access, Maintaining Access, Clearing Tracks.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m1_2">
+                                <span>Active vs. passive reconnaissance: Whois queries, DNS zone transfers, Google dorking, Harvester scraping.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m1_3">
+                                <span>Network scanning deep dive: TCP 3-way handshake, SYN stealth scans (-sS), UDP scans (-sU), and timing templates (-T4).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m1_4">
+                                <span>Service & OS fingerprinting: Understanding open, closed, and filtered port states with Nmap and Hping3.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m1_5">
+                                <span>Complete the TryHackMe "Pre-Security" guided learning path.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Connected PwnBox Labs & Practice:</span>
+                            <div class="resource-links">
+                                <a href="../modules/Footprinting.html" class="resource-pill">🛠️ M-01 Recon (22+ Tools)</a>
+                                <a href="../modules/Scanning.html" class="resource-pill">🛠️ M-02 Scanning (15+ Tools)</a>
+                                <a href="https://tryhackme.com/path/outline/presecurity" target="_blank" rel="noopener" class="resource-pill">🌐 TryHackMe Pre-Security</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Month 4: Web Application Hacking -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Month 4</span>
+                            <span class="milestone-icon">💻</span>
+                        </div>
+                        <h3 class="milestone-title">Web Application Exploitation</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m2_1">
+                                <span>Understand how common web vulnerabilities work at a conceptual architecture level first.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m2_2">
+                                <span>SQL Injection (SQLi): Error-based, UNION-based, Boolean blind, and Time-based payloads.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m2_3">
+                                <span>Cross-Site Scripting (XSS): Reflected, Stored, and DOM-based script injection and cookie stealing.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m2_4">
+                                <span>Broken Authentication, Session Hijacking, and Insecure Direct Object References (IDOR).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m2_5">
+                                <span>Hands-on Practice: Deploy and solve DVWA (Damn Vulnerable Web App) on low and medium security modes.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m2_6">
+                                <span>Hands-on Practice: Complete PortSwigger Web Security Academy free apprentice labs.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Connected PwnBox Labs & Practice:</span>
+                            <div class="resource-links">
+                                <a href="../modules/WebAppThreats.html" class="resource-pill">🛠️ M-06 Web Threats</a>
+                                <a href="https://portswigger.net/web-security" target="_blank" rel="noopener" class="resource-pill">🌐 PortSwigger Web Academy</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Month 5: System Hacking & Social Engineering -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Month 5</span>
+                            <span class="milestone-icon">🔐</span>
+                        </div>
+                        <h3 class="milestone-title">System Hacking & Social Eng</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m3_1">
+                                <span>Understand how attackers compromise operating systems beyond the browser (exploits, payloads, listeners).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m3_2">
+                                <span>Password storage & hashing mechanics: MD5, SHA-256, NTLM, and salted bcrypt.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m3_3">
+                                <span>Password cracking tools: John the Ripper wordlist attacks, Hashcat GPU cracking, and Hydra brute-forcing.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m3_4">
+                                <span>Social engineering mechanics: Spear phishing, Pretexting, Baiting, Vishing — why humans are the weakest link.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p2_m3_5">
+                                <span>Compete in your first beginner CTF: Solve 25+ introductory challenges on PicoCTF.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Connected PwnBox Labs & Practice:</span>
+                            <div class="resource-links">
+                                <a href="../modules/SystemHacking.html" class="resource-pill">🛠️ M-05 System Hacking</a>
+                                <a href="../modules/Enumeration.html" class="resource-pill">🛠️ M-03 Enumeration</a>
+                                <a href="https://play.picoctf.org/" target="_blank" rel="noopener" class="resource-pill">🚩 PicoCTF Challenges</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 Milestone Checkpoint -->
+                <div class="phase-checkpoint">
+                    <div class="checkpoint-text">
+                        <span>🏆</span>
+                        <span>PHASE 2 MILESTONE: You have exploited real web vulnerabilities in lab environments and solved beginner CTF challenges.</span>
+                    </div>
+                    <span class="checkpoint-badge">OPERATOR LEVEL REACHED</span>
+                </div>
+            </section>
+
+            <!-- ════ PHASE 3: CEH EXAM PREPARATION ════ -->
+            <section class="phase-block" data-phase="p3">
+                <div class="phase-header">
+                    <div class="phase-meta-left">
+                        <span class="phase-badge-pill badge-p3">PHASE 03</span>
+                        <h2 class="phase-title">CEH Exam Preparation</h2>
+                        <p class="phase-goal">🎯 Primary Goal: Systematically prepare for and clear the EC-Council Certified Ethical Hacker examination with high confidence.</p>
+                    </div>
+                    <div class="phase-duration">Month 6 – 7 (2 Months)</div>
+                </div>
+
+                <div class="milestones-grid">
+                    <!-- Week 1-2: Cover the CEH Syllabus -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Weeks 1 – 2</span>
+                            <span class="milestone-icon">📚</span>
+                        </div>
+                        <h3 class="milestone-title">Cover the 20 CEH Domains</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w1_1">
+                                <span>Review all 20 CEH exam domains systematically — focus on core concepts rather than memorizing questions.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w1_2">
+                                <span>Heavy domain focus: Cryptography (Symmetric vs. Asymmetric, AES, RSA, Diffie-Hellman, PKI, Digital Signatures).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w1_3">
+                                <span>Cloud Computing & Virtualization security (AWS/Azure shared responsibility model, container attacks).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w1_4">
+                                <span>IoT Security & OT/SCADA threats and attack surfaces.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w1_5">
+                                <span>Recommended Reading: Read "CEH Certified Ethical Hacker All-in-One Exam Guide" by Matt Walker.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">PwnBox Master Guide Chapters:</span>
+                            <div class="resource-links">
+                                <a href="masterguide_ch4.html#encryption" class="resource-pill">📚 Ch 04: Encryption</a>
+                                <a href="masterguide_ch6.html#iot" class="resource-pill">📚 Ch 06: IoT & Cloud</a>
+                                <a href="masterguide_ch8.html#compliance" class="resource-pill">📚 Ch 08: Governance</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 3: Deep Practice on Weak Areas -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Week 3</span>
+                            <span class="milestone-icon">🔬</span>
+                        </div>
+                        <h3 class="milestone-title">Remediate Weak Domains</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w2_1">
+                                <span>Run diagnostic practice tests on the PwnBox Master Test engine to identify the domains you score lowest in.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w2_2">
+                                <span>Targeted lab rooms: Revisit concepts by completing specific TryHackMe rooms that match those weak topics.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w2_3">
+                                <span>Feynman Technique: Write detailed notes in your own words — explain every concept as if you were teaching someone else.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w2_4">
+                                <span>Memorize essential Nmap scan flags (-sS, -sT, -sU, -sN, -sF, -sX, -A, -O, -sV, -p-) and command syntax.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Practice Engine:</span>
+                            <div class="resource-links">
+                                <a href="masterguide_test.html" class="resource-pill">📝 PwnBox Master Test</a>
+                                <a href="../dashboard.html" class="resource-pill">📄 CEH Command Cheat Sheet</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 4: Full-Length Mock Exams -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Week 4</span>
+                            <span class="milestone-icon">⏱️</span>
+                        </div>
+                        <h3 class="milestone-title">Full-Length Mock Exams</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w3_1">
+                                <span>Take full-length timed practice exams (Boson ExSim, Exam-Labs, or EC-Council official practice tests).</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w3_2">
+                                <span>Benchmark Target: Achieve consistent scores of 80%+ across 3 consecutive practice exams before booking the test.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w3_3">
+                                <span>Post-Exam Analysis: Review every single wrong answer — understand why the correct answer is right and why yours was wrong.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p3_w3_4">
+                                <span>Register for the exam: Schedule your testing slot via EC-Council's ECC Exam portal or a Pearson VUE test center.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Official Exam Portals:</span>
+                            <div class="resource-links">
+                                <a href="https://www.pearsonvue.com/" target="_blank" rel="noopener" class="resource-pill">🏛️ Pearson VUE</a>
+                                <a href="masterguide_test.html" class="resource-pill">📝 Take Full Master Quiz</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 Milestone Checkpoint -->
+                <div class="phase-checkpoint">
+                    <div class="checkpoint-text">
+                        <span>🏆</span>
+                        <span>PHASE 3 MILESTONE: CEH Exam Cleared! You hold a globally accredited cybersecurity certification.</span>
+                    </div>
+                    <span class="checkpoint-badge">CEH CERTIFIED</span>
+                </div>
+            </section>
+
+            <!-- ════ PHASE 4: LAUNCH YOUR CAREER ════ -->
+            <section class="phase-block" data-phase="p4">
+                <div class="phase-header">
+                    <div class="phase-meta-left">
+                        <span class="phase-badge-pill badge-p4">PHASE 04</span>
+                        <h2 class="phase-title">Launch Your Career</h2>
+                        <p class="phase-goal">🎯 Primary Goal: Turn your skills, labs, and certification into real income, professional credentials, and a full-time cybersecurity role.</p>
+                    </div>
+                    <div class="phase-duration">Month 8 – 9+ (Ongoing)</div>
+                </div>
+
+                <div class="milestones-grid">
+                    <!-- Track 1: Build Your Portfolio -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Track 01</span>
+                            <span class="milestone-icon">📁</span>
+                        </div>
+                        <h3 class="milestone-title">Build Your Portfolio</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t1_1">
+                                <span>Document your TryHackMe, HackTheBox, and CTF progress with structured, professional write-ups.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t1_2">
+                                <span>Share beginner challenge-solving blogs and methodology breakdowns on Medium, Dev.to, or LinkedIn.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t1_3">
+                                <span>Curate a GitHub profile showcasing custom Python reconnaissance scripts, Bash automation tools, and cheat sheets.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Portfolio Outlets:</span>
+                            <div class="resource-links">
+                                <a href="https://github.com/" target="_blank" rel="noopener" class="resource-pill">💻 GitHub</a>
+                                <a href="https://medium.com/" target="_blank" rel="noopener" class="resource-pill">✍️ Medium Tech Blogs</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 2: Bug Bounty Hunting -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Track 02</span>
+                            <span class="milestone-icon">🐛</span>
+                        </div>
+                        <h3 class="milestone-title">Start Bug Bounty Hunting</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t2_1">
+                                <span>Create hacker accounts on HackerOne, Bugcrowd, and Intigriti.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t2_2">
+                                <span>Start with programs with beginner-friendly scope (Vulnerability Disclosure Programs / VDPs) for reputation points.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t2_3">
+                                <span>Focus on writing clean, professional vulnerability reports (reproduction steps, business impact, remediation) — quality over quantity.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Bug Bounty Platforms:</span>
+                            <div class="resource-links">
+                                <a href="https://www.hackerone.com/" target="_blank" rel="noopener" class="resource-pill">🛡️ HackerOne</a>
+                                <a href="https://www.bugcrowd.com/" target="_blank" rel="noopener" class="resource-pill">🎯 Bugcrowd</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 3: Job Placement -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Track 03</span>
+                            <span class="milestone-icon">💼</span>
+                        </div>
+                        <h3 class="milestone-title">Job Applications & Roles</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t3_1">
+                                <span>Target introductory security roles: SOC Analyst (Tier 1), Junior Penetration Tester, Security Analyst, Cybersecurity Intern.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t3_2">
+                                <span>Job Platforms: Apply consistently on LinkedIn, Naukri, Internshala, and Unstop.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t3_3">
+                                <span>Tailor resume: Prominently highlight CEH credential, hands-on lab accomplishments, GitHub scripts, and bug bounty reports.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t3_4">
+                                <span>Interview prep: Revisit the 5 phases of ethical hacking, OSI model packet flows, and OWASP Top 10 remediation.</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Career Hubs:</span>
+                            <div class="resource-links">
+                                <a href="https://www.linkedin.com/jobs/" target="_blank" rel="noopener" class="resource-pill">👔 LinkedIn Jobs</a>
+                                <a href="https://internshala.com/" target="_blank" rel="noopener" class="resource-pill">🎓 Internshala</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 4: Next-Level Certifications -->
+                    <div class="milestone-card">
+                        <div class="milestone-top">
+                            <span class="milestone-week">Track 04</span>
+                            <span class="milestone-icon">🎖️</span>
+                        </div>
+                        <h3 class="milestone-title">Continuous Certification</h3>
+                        <ul class="checklist-group">
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t4_1">
+                                <span>eJPT (eLearnSecurity Junior Penetration Tester) — excellent hands-on practical exam step immediately following CEH.</span>
+                            </li>
+                            <li class="checklist-item">
+                                <input type="checkbox" class="task-checkbox" data-task="p4_t4_2">
+                                <span>OSCP (OffSec Certified Professional) — The gold standard for penetration testers worldwide (aim for this 1–2 years in).</span>
+                            </li>
+                        </ul>
+                        <div class="milestone-resources">
+                            <span class="resource-label">Offensive Security Paths:</span>
+                            <div class="resource-links">
+                                <a href="https://www.offsec.com/courses/pen-200/" target="_blank" rel="noopener" class="resource-pill">🥋 OSCP (PEN-200)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 Milestone Checkpoint -->
+                <div class="phase-checkpoint">
+                    <div class="checkpoint-text">
+                        <span>🏆</span>
+                        <span>PHASE 4 MILESTONE: First professional cybersecurity job offer signed or first bug bounty reward received.</span>
+                    </div>
+                    <span class="checkpoint-badge">CAREER LAUNCHED</span>
+                </div>
+            </section>
+        </div>
+        </div> <!-- End phasesDetailView -->
+    </div> <!-- End roadmap-container -->
+
+    <!-- Tactical Footer -->
+    <footer class="roadmap-footer">
+        <div class="footer-inner">
+            <div>
+                <span>PWNBOX CYBER COMMAND // </span>
+                <span style="font-weight: 700; color: var(--text-main);">ROADMAP INTELLIGENCE MATRIX v3.4</span>
+            </div>
+            <div>
+                <span>Consistency beats intensity. 1–2 hours daily clears this roadmap.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/theme.js"></script>
+    <script src="../js/roadmap.js"></script>
+</body>
+
+</html>
