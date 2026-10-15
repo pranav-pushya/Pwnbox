@@ -1,7 +1,10 @@
 // ==========================================
 // API Key loaded from js/config.js
 // ==========================================
-const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
+const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || 
+                 (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "") || 
+                 localStorage.getItem('pwnbox_groq_api_key') || 
+                 "";
 // ==========================================
 
         // localStorage key is module-specific so progress doesn't bleed between modules
@@ -226,7 +229,7 @@ Be brutally honest, avoid fluff, and never give vague answers.`;
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
+                        'Authorization': `Bearer ${(typeof window !== "undefined" && window.GROQ_API_KEY) || localStorage.getItem('pwnbox_groq_api_key') || apiKey || ""}`
                     },
                     body: JSON.stringify({
                         model: "openai/gpt-oss-20b",

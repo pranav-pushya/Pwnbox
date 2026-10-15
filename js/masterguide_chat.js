@@ -161,7 +161,10 @@ Guide Summary & Notes: "${bodyText}"`
         addChatBubble(text, 'user');
         input.value = '';
 
-        const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
+        const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || 
+                     (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "") || 
+                     localStorage.getItem('pwnbox_groq_api_key') || 
+                     "";
 
         if (!apiKey) {
             setTimeout(() => {

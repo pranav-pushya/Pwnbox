@@ -1,7 +1,10 @@
 // ==========================================
 // API Key loaded from js/config.js
 // ==========================================
-const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
+const apiKey = (typeof window !== "undefined" && window.GROQ_API_KEY) || 
+                 (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "") || 
+                 localStorage.getItem('pwnbox_groq_api_key') || 
+                 "";
 // ==========================================
 
         const MODULE_KEY = 'module_webapp_completed';
@@ -256,7 +259,7 @@ Be direct, no fluff, never vague. If a user asks for help attacking a live websi
                 showTypingIndicator(loadingId);
                 const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(typeof window !== "undefined" && window.GROQ_API_KEY) || localStorage.getItem('pwnbox_groq_api_key') || apiKey || ""}` },
                     body: JSON.stringify({
                         model: "openai/gpt-oss-20b",
                         messages: [{ role: "system", content: systemPrompt }, { role: "user", content: msg }]
