@@ -148,6 +148,8 @@ header {
     border-radius: 50%;
     text-align: center;
     line-height: 32px;
+    cursor: default;
+    user-select: none;
 }
 
 .logo-text {

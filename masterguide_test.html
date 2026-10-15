@@ -26,7 +26,7 @@
 
     <!-- ══ STICKY NAVIGATION HEADER ══ -->
     <header class="test-header">
-        <a href="index.html" class="logo-group">
+        <a href="dashboard.html" class="logo-group">
             <div class="logo-badge">🛡️</div>
             <div class="logo-text-wrap">
                 <h1>PwnBox Master Exam</h1>
@@ -36,7 +36,7 @@
         <div class="header-nav-actions">
             <button onclick="toggleTheme()" class="nav-action-btn theme-btn" id="themeToggleBtn">🌓 Theme</button>
             <a href="masterguide_ch1.html" class="nav-action-btn guide-btn">📚 Master Guide</a>
-            <a href="index.html" class="nav-action-btn main-btn">🔙 Main</a>
+            <a href="dashboard.html" class="nav-action-btn main-btn">🔙 Main</a>
         </div>
     </header>
 
@@ -122,6 +122,12 @@
             <button class="btn-start-exam" id="startExamBtn">
                 <span>🚀 Launch Knowledge Exam</span>
             </button>
+
+            <!-- Recent Assessment History -->
+            <div class="recent-history-section">
+                <h4>📜 Recent Assessment History</h4>
+                <div class="history-chips-list" id="historyChipsList"></div>
+            </div>
         </section>
 
 

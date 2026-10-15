@@ -121,8 +121,24 @@ function updateDashboardStats() {
                 { defaultCount: 8, customKey: 'enumeration_custom_tools', deletedKey: 'enumeration_deleted_default_indices', catKey: 'enumeration_custom_categories' },
                 { defaultCount: 5, customKey: 'vuln_custom_tools', deletedKey: 'vuln_deleted_default_indices', catKey: 'vuln_custom_categories' },
                 { defaultCount: 6, customKey: 'sys_custom_tools', deletedKey: 'sys_deleted_default_indices', catKey: 'sys_custom_categories' },
-                { defaultCount: 6, customKey: 'webapp_custom_tools', deletedKey: 'webapp_deleted_default_indices', catKey: 'webapp_custom_categories' }
+                { defaultCount: 6, customKey: 'webapp_custom_tools', deletedKey: 'webapp_deleted_default_indices', catKey: 'webapp_custom_categories' },
+                { defaultCount: 24, customKey: 'osint_custom_tools', deletedKey: 'osint_deleted_default_indices', catKey: 'osint_custom_categories' }
             ];
+
+            const osintCard = document.getElementById('moduleOsint');
+            const osintBadge = document.getElementById('osintBadge');
+            if (osintCard && osintBadge) {
+                const isOsintCompleted = localStorage.getItem('module_osint_completed') === 'true';
+                if (isOsintCompleted) {
+                    osintCard.className = "module-card active completed";
+                    osintBadge.className = "module-badge badge-completed";
+                    osintBadge.innerText = "Completed ✓";
+                } else {
+                    osintCard.className = "module-card active";
+                    osintBadge.className = "module-badge badge-active";
+                    osintBadge.innerText = "Bonus";
+                }
+            }
 
             let totalTools = 0;
             let totalCustomTools = 0;
@@ -304,6 +320,13 @@ function updateDashboardStats() {
             localStorage.removeItem('webapp_quiz_q3');
             localStorage.removeItem('webapp_quiz_completed');
 
+            // OSINT & Threat Intel
+            localStorage.removeItem('module_osint_completed');
+            localStorage.removeItem('osint_custom_tools');
+            localStorage.removeItem('osint_edited_default_tools');
+            localStorage.removeItem('osint_deleted_default_indices');
+            localStorage.removeItem('osint_custom_categories');
+
             // Hide dropdown
             document.getElementById('profileDropdown').classList.remove('active');
             
@@ -421,3 +444,24 @@ function updateDashboardStats() {
             updateDashboardStats();
             window.addEventListener('resize', updateDashboardStats);
         });
+
+// Master Guide Secret Door (Double-click / Double-tap handler)
+let logoDoorClicks = 0;
+let logoDoorTimer = null;
+
+function navigateToMasterGuide() {
+    window.location.href = 'masterguide_ch1.html';
+}
+
+function handleLogoDoorClick() {
+    logoDoorClicks++;
+    if (logoDoorClicks === 1) {
+        logoDoorTimer = setTimeout(() => {
+            logoDoorClicks = 0;
+        }, 400);
+    } else if (logoDoorClicks >= 2) {
+        clearTimeout(logoDoorTimer);
+        logoDoorClicks = 0;
+        navigateToMasterGuide();
+    }
+}

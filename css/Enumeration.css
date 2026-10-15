@@ -45,7 +45,7 @@
         .sidebar {
             width: 280px;
             background: var(--bg-panel);
-                        -webkit-            border-right: var(--border-width) solid var(--border-dim);
+                        border-right: var(--border-width) solid var(--border-dim);
             display: flex;
             flex-direction: column;
         }
@@ -137,7 +137,7 @@
 
         .card {
             background: var(--bg-panel);
-                        -webkit-            border: var(--border-width) solid var(--border-dim);
+                        border: var(--border-width) solid var(--border-dim);
             border-radius: 0;
             padding: 25px;
             box-shadow: 6px 6px 0 var(--border-dim);
@@ -182,7 +182,7 @@
         .chat-panel {
             flex: 1.2;
             background: var(--bg-panel);
-                        -webkit-            display: flex;
+                        display: flex;
             flex-direction: column;
             border-left: 1px solid rgba(255, 255, 255, 0.05);
         }

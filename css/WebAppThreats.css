@@ -58,7 +58,7 @@
         .sidebar {
             width: 280px;
             background: var(--bg-panel);
-                        -webkit-            border-right: var(--border-width) solid var(--border-dim);
+                        border-right: var(--border-width) solid var(--border-dim);
             display: flex;
             flex-direction: column;
         }
@@ -150,7 +150,7 @@
 
         .card {
             background: var(--bg-panel);
-                        -webkit-            border: var(--border-width) solid var(--border-dim);
+                        border: var(--border-width) solid var(--border-dim);
             border-radius: 0;
             padding: 25px;
             box-shadow: 6px 6px 0 var(--border-dim);
@@ -205,8 +205,8 @@
             display: flex;
             flex-direction: column;
             background: var(--bg-panel);
-                        -webkit-        }
-
+        }
+        
         .chat-header {
             padding: 15px 20px;
             border-bottom: var(--border-width) solid var(--border-dim);
@@ -281,7 +281,7 @@
             padding: 15px 20px;
             border-top: var(--border-width) solid var(--border-dim);
             background: var(--bg-panel);
-                        -webkit-            display: flex;
+                        display: flex;
             gap: 10px;
             align-items: center;
         }
@@ -540,7 +540,7 @@
             width: 100%;
             height: 100%;
             background: var(--bg-panel);
-                        -webkit-            display: none;
+                        display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
@@ -556,7 +556,7 @@
             width: 500px;
             max-width: 90%;
             background: var(--bg-panel);
-                        -webkit-            border: var(--border-width) solid var(--border-dim);
+                        border: var(--border-width) solid var(--border-dim);
             border-radius: 0;
             padding: 25px;
             box-shadow: 6px 6px 0 var(--border-dim);
