@@ -95,7 +95,7 @@ foot/
 - **"Breach the Mainframe" Mini-Game:** A reflex-based 5-second rapid decryption trial challenging operators to decode target memory ciphers against a live ticking clock.
 - **Real-Time Global Threat Radar:** A continuous 360° sweeping radar array with real-time simulated attack telemetry and an interactive EMP countermeasure blast.
 - **Agent Dossier & ID Badge Workshop:** In-browser tactical badge customizer enabling recruits to set callsigns and avatars, authenticated with the architect's seal and synced to the dashboard.
-- **Keyboard Easter Eggs:** Built-in listener supporting the Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`) and typing `hack`, `matrix`, or `pranav` to trigger the classified architect override console.
+- **Interactive Terminal Feedback:** Advanced keyboard listeners and tactile Web Audio feedback embedded across interactive command consoles.
 
 ### 2. 🛡️ The 7-Stage Cyber Kill Chain Laboratories
 Hands-on interactive terminals simulating authentic CLI execution, error handling, and output parsing without requiring local virtual machines:
@@ -111,7 +111,7 @@ Hands-on interactive terminals simulating authentic CLI execution, error handlin
 Over 100 meticulously documented concepts divided into structured operational domains:
 - **Rich Term Cards:** Severity tagging, visual threat meters, block-label definitions, and defense countermeasure lists.
 - **Real-World Breaches & Analogies:** Translates complex technical exploits into accessible layman analogies and historical case studies (e.g., SolarWinds, Stuxnet, Capital One).
-- **Secret Master Guide Gateway:** A hidden double-click portal bound to the PwnBox logo shield (`.logo-icon`) allows instant covert navigation into the master guide.
+- **Clandestine Gateways Hint:** Classified Easter egg gateways are concealed throughout the academy command structure. In particular, recruits whisper of an elite secret gateway that unlocks exclusive **VIP Cyber Themes**, accessible only via a mysterious **triple-click**...
 
 ### 4. 📝 Master Test Examination Engine (`masterguide_test.html`)
 - **Customizable Exam Parameters:** Select any chapter (Ch 1–10 or Full Exam), filter by difficulty (*Easy / Medium / Hard*), and choose question limits (*10 / 25 / All*).
@@ -123,21 +123,43 @@ Over 100 meticulously documented concepts divided into structured operational do
 - **Bilingual Tutor:** Delivers concise, Hinglish/English answers tailored to beginners.
 - **Centralized Security:** API configuration is maintained in a single secure configuration file (`js/config.js`), eliminating scattered hardcoded credentials.
 
-### 6. 🏆 Gamified Agent Dossier & Clearance Tracking
-- **3D Flipping ID Card:** Hover or click to flip the agent identity card, reveal personal clearance levels, and edit your codename alias.
-- **Clearance Progression:** Earn tactical badges and rank up from *Apprentice* to *Specialist* up to *Elite Shadow Operator*.
-- **Local Storage Persistence:** Progress, unlocked modules, custom-added tools, and test results are saved locally in the browser.
+### 6. ⌨️ Universal Keyboard Command Palette & Quick Navigation
+- **Universal Shortcuts Modal (`Ctrl + /`):** Instant-access command palette featuring fuzzy search across all academy hotkeys and modules.
+- **Single-Letter Shortcuts:** Navigate anywhere with zero latency:
+  - `D` &rarr; Tactical Dashboard
+  - `H` &rarr; Home Portal
+  - `T` &rarr; Instant Dark / Light Theme Toggle
+  - `N` &rarr; Operative Notes & Payloads
+  - `M` &rarr; Master Guide
+  - `R` &rarr; Career Roadmap
+  - `I` &rarr; Important Info & Tool Matrix
+  - `C` &rarr; CEH Command Cheat Sheet Drawer *(Dashboard Only)*
+  - `S` &rarr; Mission Settings & Security Modal
+- **Universal Popup Scroll Isolation:** Background website scroll is automatically locked whenever cursor is hovering over any popup or modal dialog, completely eliminating scroll-chaining leaks.
 
-### 7. 📄 Tactical CEH Command Cheat Sheet
-A quick-access sliding drawer containing categorized, battle-tested terminal syntax (Nmap, Gobuster, Nikto, Hydra, SQLMap, John the Ripper) with one-click clipboard copying.
+### 7. ⚙️ Dedicated Mission Settings & Account Security Modal
+A standalone cyberpunk control deck accessible from the `⚙️` navbar icon or pressing `S` / `s`:
+- **Password Management:** 1-click dispatch of secure password reset links to registered operative emails.
+- **Linked OAuth Providers:** Connect and disconnect Google Matrix and GitHub Developer accounts.
+- **Profile Customization:** Modify agent alias/callsign and update primary email credentials.
+- **Leaderboard Privacy:** Toggle between **Public Operative Profile** and **Stealth / Anonymous Mode** to mask telemetry from public leaderboards.
+- **Permanent Account Termination:** Irreversible danger zone to purge Firebase accounts, credentials, and curriculum progress.
 
-### 8. 🗺️ 9-Month Ethical Hacking & CEH Career Roadmap (`masterguide/roadmap.html`)
+### 8. 📝 Operative Notes Vault (`notes.html`)
+- **In-Stream Code Blocks:** Seamlessly embed syntax-highlighted code blocks directly into operative study notes.
+- **Firebase Cloud Synchronization:** Synchronize notes across devices when logged into Google or email credentials.
+- **Instant Search & Categorization:** Filter notes by tag, search by payload keyword, and export records locally.
+
+### 9. 📄 Tactical CEH Command Cheat Sheet
+A quick-access sliding drawer containing categorized, battle-tested terminal syntax (Nmap, Gobuster, Nikto, Hydra, SQLMap, John the Ripper) with one-click clipboard copying, summoned with `C` or `c` on the dashboard.
+
+### 10. 🗺️ 9-Month Ethical Hacking & CEH Career Roadmap (`masterguide/roadmap.html`)
 - **4-Phase Interactive Overview Grid:** Clean Bauhaus cards summarizing Phase 1 (Foundation), Phase 2 (Learn to Hack), Phase 3 (CEH Exam Sprint), and Phase 4 (Career Launch & Mastery).
 - **Deep-Dive Milestone Drilldown:** Clicking any phase opens granular weekly milestones, practical labs, and resource hubs.
 - **Interactive Checklist with Audio & Confetti:** Progress tracking saved to `localStorage`, live percentage cockpit, procedural Web Audio blip feedback, and celebratory confetti bursts.
 - **Instant Phase Switcher:** Filter tabs to switch between phases without clutter.
 
-### 9. 💡 Field Intelligence & CEH Blueprint Compendium (`masterguide/imp_info.html`)
+### 11. 💡 Field Intelligence & CEH Blueprint Compendium (`masterguide/imp_info.html`)
 - **Uncluttered Tabbed Navigation:** 6 segmented modules (*Disciplines & Skills, 5 Phases & Arsenal, Virtual Attack Lab, CEH Exam Blueprint, Careers & Myths, AI Multiplier*).
 - **Tactical Arsenal Cards:** Interactive tool cards replacing cluttered tables with category filters and 1-click syntax clipboard copying.
 - **Live Search CEH Exam Blueprint:** 20 exam domains organized into 4 weightage clusters with instant keyword filtering.

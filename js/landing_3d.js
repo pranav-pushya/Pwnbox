@@ -35,7 +35,7 @@
 
     // --- SOUND SYNTHESIZER (ZERO-LATENCY WEB AUDIO API) ---
     let audioCtx = null;
-    let sfxEnabled = true;
+    let sfxEnabled = false;
 
     function initAudio() {
         if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {

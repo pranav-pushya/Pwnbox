@@ -97,13 +97,13 @@
  *        4. Equation Group & TAO: Hard drive firmware rootkits & FOXACID quantum insertion.
  * 
  * -----------------------------------------------------------------------------------------
- *  [GATEWAY 05] ⌨️ CLANDESTINE CHEAT SHEET TERMINAL (CTRL + C ON DASHBOARD)
+ *  [GATEWAY 05] ⌨️ CLANDESTINE CHEAT SHEET TERMINAL (C OR c ON DASHBOARD ONLY)
  * -----------------------------------------------------------------------------------------
  *  - Location: dashboard.html
  *  - Trigger Mechanism:
  *      * The Cheat Sheet button has been permanently removed from the top navigation bar.
- *      * It can ONLY be summoned by pressing the universal hacker keystroke: [CTRL + C]
- *        (or [CMD + C] on macOS) anywhere on the dashboard while not typing into an input field.
+ *      * It can ONLY be summoned by pressing single keystroke: [C] or [c]
+ *        anywhere on the dashboard while not typing into an input field.
  *      * Summons the slide-out quick-reference drawer containing 80+ essential pentesting,
  *        nmap, hydra, metasploit, sqlmap, and reverse-shell commands with 1-click clipboard copy.
  * 
@@ -577,4 +577,24 @@
 @keyframes godmodeDotPulse {
     from { transform: scale(0.8); opacity: 0.7; }
     to { transform: scale(1.3); opacity: 1; }
+}
+
+/* ======================================================== */
+/* UNIVERSAL POPUP & MODAL SCROLL ISOLATION                 */
+/* Prevents background website scroll chaining on popups   */
+/* ======================================================== */
+.modal, .modal-box, .modal-card, .modal-content, .modal-dialog,
+.pwn-popup-box, .pwn-popup-overlay, .pwn-popup-body,
+.pwn-shortcuts-box, .pwn-shortcuts-overlay, .pwn-shortcuts-list-feed,
+.pwn-settings-box, .pwn-settings-overlay, .pwn-settings-body,
+.drawer-overlay, .cheat-drawer, #cheatDrawer, .drawer-content,
+.auth-modal, .auth-modal-card,
+.profile-dropdown, .id-card-wrapper, .id-card-inner, .id-card-front, .id-card-back,
+.reset-modal-overlay, .reset-modal-box, .reset-modal,
+.secret-vault-modal, .secret-vault-card, .declassified-body-container,
+.secret-modal, .secret-modal-box,
+.challenge-modal, .lab-modal,
+dialog, [role="dialog"], [role="alertdialog"],
+[class*="popup"], [class*="modal"] {
+    overscroll-behavior: contain !important;
 }

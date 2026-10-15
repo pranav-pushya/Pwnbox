@@ -287,6 +287,22 @@ function updateDashboardStats() {
             dropdown.classList.toggle('active');
         }
 
+        function openSettingsModalTrigger(e) {
+            if (e) e.stopPropagation();
+            if (typeof window.openSettingsModal === 'function') {
+                window.openSettingsModal();
+            }
+        }
+        window.openSettingsCard = openSettingsModalTrigger;
+
+        if (window.location.search.includes('settings=1')) {
+            setTimeout(() => {
+                if (typeof window.openSettingsModal === 'function') {
+                    window.openSettingsModal();
+                }
+            }, 250);
+        }
+
         function resetAllProgress(e) {
             if (e) e.stopPropagation();
             document.getElementById('resetModalOverlay').classList.add('active');
@@ -403,19 +419,14 @@ function updateDashboardStats() {
             }
         }
 
-        // --- SECRET GATEWAY: CHEAT SHEET VIA CTRL + C KEYSTROKE ---
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
-                const activeTag = document.activeElement ? document.activeElement.tagName : '';
-                const hasSelection = window.getSelection() && window.getSelection().toString().trim().length > 0;
-                // If user is inside an input/textarea or actively highlighting text to copy, don't hijack
-                if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || hasSelection) {
-                    return;
-                }
-                e.preventDefault();
+        // Expose toggleCheatSheetDrawer globally for C / c shortcut (Dashboard only)
+        window.toggleCheatSheetDrawer = toggleCheatSheetDrawer;
+
+        if (window.location.search.includes('cheatsheet=1')) {
+            setTimeout(() => {
                 toggleCheatSheetDrawer();
-            }
-        });
+            }, 250);
+        }
 
         function copyCheatCommand(text, btn) {
             navigator.clipboard.writeText(text).then(() => {

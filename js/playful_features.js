@@ -471,7 +471,7 @@
     let radarCtx = null;
     let radarAngle = 0;
     let threats = [];
-    let radarSonarEnabled = true;
+    let radarSonarEnabled = false;
     let activeFilter = 'all';
     let hoveredThreat = null;
     let laserBeamEffect = null;

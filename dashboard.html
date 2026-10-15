@@ -43,9 +43,9 @@
             <a href="index.html" style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">🏠 Home</a>
             <button onclick="toggleTheme()" class="theme-nav-btn"
                 style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-            <a href="notes.html" style="background: rgba(147, 51, 234, 0.12); border: 1px solid rgba(147, 51, 234, 0.4); color: #c084fc; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Tactical Operative Notes & Payloads (Press 'N')">📝 Notes [N]</a>
+            <a href="notes.html" style="background: rgba(147, 51, 234, 0.12); border: 1px solid rgba(147, 51, 234, 0.4); color: #c084fc; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Tactical Operative Notes & Payloads (Press 'N')">📝 Notes</a>
             <a href="masterguide/roadmap.html" style="background: rgba(42, 157, 143, 0.12); border: 1px solid rgba(42, 157, 143, 0.4); color: #2a9d8f; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px;">🗺️ Roadmap</a>
-            <button onclick="openAuthModal()" id="authNavBtn" style="background: rgba(242, 169, 0, 0.12); border: 1px solid rgba(242, 169, 0, 0.4); color: #f2a900; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">🔐 Login</button>
+            <button onclick="openSettingsModal(event)" class="theme-nav-btn" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; padding: 6px 10px; cursor: pointer; border-radius: 4px;" title="Operative Settings (Press 'S')">⚙️</button>
             <div class="user-profile" onclick="toggleProfileDropdown(event)">
                 <div class="user-avatar" id="headerAvatar">?</div>
                 <div class="user-info">
@@ -59,7 +59,6 @@
                         <div class="id-card-header">
                             <div class="barcode">|||||||||||||||</div>
                             <h4>PWNBOX AGENT ID</h4>
-                            <button type="button" class="card-flip-btn" onclick="flipIdCard(event)" title="Flip to Settings">⚙️ SETTINGS</button>
                         </div>
                         <div class="id-card-body">
                             <div class="id-avatar-large" id="largeAvatar">?</div>
