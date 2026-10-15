@@ -1,11 +1,12 @@
 # 🛡️ PWNBOX // CYBER COMMAND ACADEMY
+
 ### *Advanced Offensive & Defensive Cybersecurity Simulation Platform*
 
-[![Platform](https://img.shields.io/badge/Platform-Web%20Simulator-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/)
-[![Engine](https://img.shields.io/badge/3D%20Engine-Three.js%20r128-005A9C?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
-[![AI Backend](https://img.shields.io/badge/AI%20Mentor-Groq%20Cloud%20LLM-D9291C?style=for-the-badge&logo=fastapi&logoColor=white)](https://groq.com/)
-[![Design System](https://img.shields.io/badge/Design-Brutalist%20Bauhaus-F2A900?style=for-the-badge&logo=artstation&logoColor=black)](https://en.wikipedia.org/wiki/Bauhaus)
-[![Architecture](https://img.shields.io/badge/Architecture-Vanilla%20ES6%2B-10b981?style=for-the-badge&logo=javascript&logoColor=white)](https://developer.mozilla.org/)
+[![Platform](<https://img.shields.io/badge/Platform-Web%20Simulator-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://github.com/)
+[![Engine](<https://img.shields.io/badge/3D%20Engine-Three.js%20r128-005A9C?style=for-the-badge&logo=three.js&logoColor=white>)](https://threejs.org/)
+[![AI Backend](<https://img.shields.io/badge/AI%20Mentor-Groq%20Cloud%20LLM-D9291C?style=for-the-badge&logo=fastapi&logoColor=white>)](https://groq.com/)
+[![Design System](<https://img.shields.io/badge/Design-Brutalist%20Bauhaus-F2A900?style=for-the-badge&logo=artstation&logoColor=black>)](https://en.wikipedia.org/wiki/Bauhaus)
+[![Architecture](<https://img.shields.io/badge/Architecture-Vanilla%20ES6%2B-10b981?style=for-the-badge&logo=javascript&logoColor=white>)](https://developer.mozilla.org/)
 
 ---
 
@@ -28,7 +29,7 @@ foot/
 ├── 404.html                     # Tactical Sector 404 Bauhaus Error & Recovery Router
 ├── README.md                    # Project Documentation & Architecture
 │
-├── 📂 assets/                   # Vector Brand Icons & Favicons
+├── 📂 assets/                   # Vector Brand Icons & FaPvicons
 │   ├── favicon-main.svg         # Tactical shield dashboard favicon
 │   └── favicon-guide.svg        # Encyclopedic master guide favicon
 │
@@ -88,6 +89,7 @@ foot/
 ## 🚀 Key Functional Capabilities
 
 ### 1. 🌐 Holographic 3D Cyber Core & Interactive Operations Deck (`index.html`)
+
 - **Full-Screen 3D Command Deck:** Built on Three.js (r128) featuring a polyhedral geodesic core, tri-axial orbital gyroscope defense rings, and 7 interactive satellite drones representing each attack phase.
 - **Full 360° Draggability:** Manipulate the hologram with mouse or touch controls using smooth inertial damping, scroll-to-zoom, and pan.
 - **Red, Blue & Green Matrix Rain:** A custom HTML5 2D canvas cascading stream of digital glyphs across the background in high-contrast primary colors.
@@ -98,7 +100,9 @@ foot/
 - **Interactive Terminal Feedback:** Advanced keyboard listeners and tactile Web Audio feedback embedded across interactive command consoles.
 
 ### 2. 🛡️ The 7-Stage Cyber Kill Chain Laboratories
+
 Hands-on interactive terminals simulating authentic CLI execution, error handling, and output parsing without requiring local virtual machines:
+
 1. **Reconnaissance & Footprinting (22+ Tools):** WHOIS, DNS reconnaissance, Google Dorking, harvester techniques.
 2. **Network Scanning (15+ Tools):** Nmap SYN/UDP/ACK scans, Hping3 packet crafting, banner grabbing.
 3. **Service Enumeration (8+ Tools):** SMB, NetBIOS, SNMP, and LDAP user/share discovery.
@@ -108,22 +112,26 @@ Hands-on interactive terminals simulating authentic CLI execution, error handlin
 7. **OSINT Intelligence (12+ Tools):** Geolocation analysis, username scraping, metadata extraction, breach correlation.
 
 ### 3. 📖 10-Chapter Master Guide ("Zero to Cyber")
+
 Over 100 meticulously documented concepts divided into structured operational domains:
+
 - **Rich Term Cards:** Severity tagging, visual threat meters, block-label definitions, and defense countermeasure lists.
 - **Real-World Breaches & Analogies:** Translates complex technical exploits into accessible layman analogies and historical case studies (e.g., SolarWinds, Stuxnet, Capital One).
-- **Clandestine Gateways Hint:** Classified Easter egg gateways are concealed throughout the academy command structure. In particular, recruits whisper of an elite secret gateway that unlocks exclusive **VIP Cyber Themes**, accessible only via a mysterious **triple-click**...
 
 ### 4. 📝 Master Test Examination Engine (`masterguide_test.html`)
+
 - **Customizable Exam Parameters:** Select any chapter (Ch 1–10 or Full Exam), filter by difficulty (*Easy / Medium / Hard*), and choose question limits (*10 / 25 / All*).
 - **Hinglish Feedback:** Provides bilingual, easy-to-understand post-answer explanations for all questions.
 - **Score Analytics:** Visual score percentage bars, breakdown by question type/difficulty, review of missed questions, and persistent local examination history.
 
 ### 5. 🤖 Unified AI Doubt Mentor
+
 - **Context-Aware Assistance:** Integrated Groq Cloud API chat assistant available directly within the laboratories and master guide chapters.
 - **Bilingual Tutor:** Delivers concise, Hinglish/English answers tailored to beginners.
 - **Centralized Security:** API configuration is maintained in a single secure configuration file (`js/config.js`), eliminating scattered hardcoded credentials.
 
 ### 6. ⌨️ Universal Keyboard Command Palette & Quick Navigation
+
 - **Universal Shortcuts Modal (`Ctrl + /`):** Instant-access command palette featuring fuzzy search across all academy hotkeys and modules.
 - **Single-Letter Shortcuts:** Navigate anywhere with zero latency:
   - `D` &rarr; Tactical Dashboard
@@ -138,7 +146,9 @@ Over 100 meticulously documented concepts divided into structured operational do
 - **Universal Popup Scroll Isolation:** Background website scroll is automatically locked whenever cursor is hovering over any popup or modal dialog, completely eliminating scroll-chaining leaks.
 
 ### 7. ⚙️ Dedicated Mission Settings & Account Security Modal
+
 A standalone cyberpunk control deck accessible from the `⚙️` navbar icon or pressing `S` / `s`:
+
 - **Password Management:** 1-click dispatch of secure password reset links to registered operative emails.
 - **Linked OAuth Providers:** Connect and disconnect Google Matrix and GitHub Developer accounts.
 - **Profile Customization:** Modify agent alias/callsign and update primary email credentials.
@@ -146,37 +156,44 @@ A standalone cyberpunk control deck accessible from the `⚙️` navbar icon or 
 - **Permanent Account Termination:** Irreversible danger zone to purge Firebase accounts, credentials, and curriculum progress.
 
 ### 8. 📝 Operative Notes Vault (`notes.html`)
+
 - **In-Stream Code Blocks:** Seamlessly embed syntax-highlighted code blocks directly into operative study notes.
 - **Firebase Cloud Synchronization:** Synchronize notes across devices when logged into Google or email credentials.
 - **Instant Search & Categorization:** Filter notes by tag, search by payload keyword, and export records locally.
 
 ### 9. 📄 Tactical CEH Command Cheat Sheet
+
 A quick-access sliding drawer containing categorized, battle-tested terminal syntax (Nmap, Gobuster, Nikto, Hydra, SQLMap, John the Ripper) with one-click clipboard copying, summoned with `C` or `c` on the dashboard.
 
 ### 10. 🗺️ 9-Month Ethical Hacking & CEH Career Roadmap (`masterguide/roadmap.html`)
+
 - **4-Phase Interactive Overview Grid:** Clean Bauhaus cards summarizing Phase 1 (Foundation), Phase 2 (Learn to Hack), Phase 3 (CEH Exam Sprint), and Phase 4 (Career Launch & Mastery).
 - **Deep-Dive Milestone Drilldown:** Clicking any phase opens granular weekly milestones, practical labs, and resource hubs.
 - **Interactive Checklist with Audio & Confetti:** Progress tracking saved to `localStorage`, live percentage cockpit, procedural Web Audio blip feedback, and celebratory confetti bursts.
 - **Instant Phase Switcher:** Filter tabs to switch between phases without clutter.
 
 ### 11. 💡 Field Intelligence & CEH Blueprint Compendium (`masterguide/imp_info.html`)
+
 - **Uncluttered Tabbed Navigation:** 6 segmented modules (*Disciplines & Skills, 5 Phases & Arsenal, Virtual Attack Lab, CEH Exam Blueprint, Careers & Myths, AI Multiplier*).
 - **Tactical Arsenal Cards:** Interactive tool cards replacing cluttered tables with category filters and 1-click syntax clipboard copying.
 - **Live Search CEH Exam Blueprint:** 20 exam domains organized into 4 weightage clusters with instant keyword filtering.
 - **Virtual Lab Sandbox Architecture:** Isolated multi-VM topology (Kali, Metasploitable, OWASP Juice Shop, Windows Eval) with Host-Only and NAT network rules.
 
+
+**Clandestine Gateways Hint:** Classified Easter egg gateways are concealed throughout the academy command structure. In particular, recruits whisper of an elite secret gateway that unlocks exclusive **VIP Cyber Themes**, accessible only via a mysterious **triple-click**...(triple click also works to unlock other secret gateways!!)
+
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend Core** | Semantic HTML5, CSS3 Variables, Vanilla JavaScript (ES6+ Modules) |
-| **3D Graphics** | [Three.js (r128)](https://threejs.org/) + `OrbitControls` |
-| **Audio** | HTML5 Web Audio API (Zero-latency procedural sound synthesizer) |
-| **AI LLM Engine** | [Groq Cloud](https://groq.com/) Chat Completions (`openai/gpt-oss-20b`) |
+| Layer                   | Technologies                                                                       |
+| :---------------------- | :--------------------------------------------------------------------------------- |
+| **Frontend Core** | Semantic HTML5, CSS3 Variables, Vanilla JavaScript (ES6+ Modules)                  |
+| **3D Graphics**   | [Three.js (r128)](https://threejs.org/) + `OrbitControls`                         |
+| **Audio**         | HTML5 Web Audio API (Zero-latency procedural sound synthesizer)                    |
+| **AI LLM Engine** | [Groq Cloud](https://groq.com/) Chat Completions (`openai/gpt-oss-20b`)           |
 | **Design System** | Brutalist Neo-Bauhaus (Bold borders, primary color accents, Space Mono typography) |
-| **Data Storage** | Client-side `localStorage` & JSON question datasets |
+| **Data Storage**  | Client-side `localStorage` & JSON question datasets                              |
 
 ---
 
@@ -185,10 +202,13 @@ A quick-access sliding drawer containing categorized, battle-tested terminal syn
 Because PwnBox Academy is built on pure web standards without external build dependencies or database overhead, it can be run instantly on any machine or web host:
 
 ### Option A: Direct File Execution
+
 Simply double-click or open `index.html` in any modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, Brave, Safari).
 
 ### Option B: Local HTTP Server
+
 For optimal module loading and WebGL shader support:
+
 ```bash
 # Using Python 3:
 python -m http.server 8080
@@ -196,13 +216,14 @@ python -m http.server 8080
 # Using Node.js:
 npx serve .
 ```
+
 Navigate to `http://localhost:8080` in your browser.
 
 ---
 
 ## 🔑 AI Mentor Configuration
 
-To enable the AI Doubt Mentor, add your Groq API key in [`js/config.js`](file:///d:/CSE%20AI%20ML/CS/foot/js/config.js):
+To enable the AI Doubt Mentor, add your Groq API key in [`js/config.js`](<file:///d:/CSE%20AI%20ML/CS/foot/js/config.js>):
 
 ```javascript
 // Replace with your own Groq key before deploying. Do not commit a real key to a public repository.
@@ -219,15 +240,15 @@ export default GROQ_CONFIG;
 
 ## ⚠️ Tactical Legal & Ethical Notice
 
-> **IMPORTANT DISCLAIMER**  
-> This platform and all included materials are strictly intended for **educational, academic research, and authorized defensive training purposes only**.  
-> Unauthorized scanning, reconnaissance, penetration testing, or exploitation of computer systems, networks, or applications without prior explicit written authorization from the system owner is illegal under international cyber law (including the Computer Fraud and Abuse Act and Indian IT Act 2000).  
+> **IMPORTANT DISCLAIMER**
+> This platform and all included materials are strictly intended for **educational, academic research, and authorized defensive training purposes only**.
+> Unauthorized scanning, reconnaissance, penetration testing, or exploitation of computer systems, networks, or applications without prior explicit written authorization from the system owner is illegal under international cyber law (including the Computer Fraud and Abuse Act and Indian IT Act 2000).
 > The creators assume no liability for misuse of the tools, techniques, or information provided within this project. **Always hack ethically and defend responsibly.**
 
 ---
 
 ## 🔒 Copyright & Intellectual Property
 
-**Proprietary and Confidential.**  
-Designed & Developed by **Pranav Pushya**.  
+**Proprietary and Confidential.**
+Designed & Developed by **Pranav Pushya**.
 © 2026 Pranav Pushya. All Rights Reserved.
