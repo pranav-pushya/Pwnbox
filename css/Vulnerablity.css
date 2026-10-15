@@ -23,6 +23,7 @@
         }
 
         body {
+    zoom: 0.9;
             background-image: radial-gradient(var(--grid-dot) 2px, transparent 2px);
             background-size: 30px 30px;
             background-color: var(--bg-base);

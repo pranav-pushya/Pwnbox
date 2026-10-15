@@ -42,6 +42,7 @@ html {
 }
 
 body {
+    zoom: 0.9;
     background-color: var(--bg-base);
     color: var(--text-main);
     font-family: 'Work Sans', sans-serif;
