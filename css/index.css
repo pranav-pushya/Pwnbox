@@ -792,6 +792,48 @@ footer.site-footer {
     --grid-dot: #333333;
 }
 
+[data-theme="matrix"] {
+    --bg-base: #020804;
+    --bg-panel: #051208;
+    --bg-chat: #051208;
+    --text-main: #00ff66;
+    --text-muted: #22c55e;
+    --border-color: #00ff66;
+    --border-dim: #00ff66;
+    --bauhaus-red: #00ff66;
+    --bauhaus-blue: #15803d;
+    --bauhaus-yellow: #86efac;
+    --grid-dot: #003311;
+}
+
+[data-theme="cyberpunk"] {
+    --bg-base: #0b0514;
+    --bg-panel: #140924;
+    --bg-chat: #140924;
+    --text-main: #00f0ff;
+    --text-muted: #c084fc;
+    --border-color: #ffe600;
+    --border-dim: #ffe600;
+    --bauhaus-red: #ff0055;
+    --bauhaus-blue: #00f0ff;
+    --bauhaus-yellow: #ffe600;
+    --grid-dot: #2e1065;
+}
+
+[data-theme="synthwave"] {
+    --bg-base: #0d061a;
+    --bg-panel: #180c2e;
+    --bg-chat: #180c2e;
+    --text-main: #ff71ce;
+    --text-muted: #b983ff;
+    --border-color: #ff007f;
+    --border-dim: #ff007f;
+    --bauhaus-red: #ff007f;
+    --bauhaus-blue: #01cdfe;
+    --bauhaus-yellow: #05ffa1;
+    --grid-dot: #3b0764;
+}
+
 .profile-container .theme-btn {
     background: var(--text-main);
     color: var(--bg-base);

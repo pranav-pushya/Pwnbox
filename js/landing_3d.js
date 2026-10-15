@@ -401,11 +401,52 @@
         mouse.y = p.y;
     });
 
+    let coreClickCount = 0;
+    let coreClickTimer = null;
+
+    function handleCoreClick() {
+        coreClickCount++;
+        playTone(700 + coreClickCount * 200, 'triangle', 0.08, 0.08);
+
+        if (coreClickCount === 1) {
+            coreClickTimer = setTimeout(() => { coreClickCount = 0; }, 750);
+        } else if (coreClickCount >= 3) {
+            clearTimeout(coreClickTimer);
+            coreClickCount = 0;
+            triggerHyperdriveCollapse();
+        }
+    }
+
+    function triggerHyperdriveCollapse() {
+        // Trigger hyperdrive warp animation
+        isSurge = true;
+        playSurgeSound();
+        if (hudStatus) hudStatus.textContent = "⚡ HYPERDRIVE COLLAPSE // DECLASSIFYING ARCHIVE...";
+
+        // Flash point lights
+        pointLightCyan.intensity = 10.0;
+        pointLightRed.intensity = 9.0;
+
+        setTimeout(() => {
+            pointLightCyan.intensity = 3.2;
+            pointLightRed.intensity = 2.8;
+            isSurge = false;
+            openDeclassifiedModal();
+        }, 650);
+    }
+
     container.addEventListener('pointerup', (e) => {
         const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
-        if (dist < 6 && hoveredNode) {
-            playClickSound();
-            selectNode(hoveredNode);
+        if (dist < 6) {
+            if (hoveredNode) {
+                playClickSound();
+                selectNode(hoveredNode);
+            } else {
+                const coreHits = raycaster.intersectObjects([innerCore, shieldMesh, plasmaMesh]);
+                if (coreHits.length > 0) {
+                    handleCoreClick();
+                }
+            }
         }
         isPointerDown = false;
     });
@@ -726,6 +767,150 @@
 
         renderer.render(scene, camera);
     }
+
+    // --- SECRET GATEWAY 4: DECLASSIFIED ARCHIVE MODAL LOGIC ---
+    const DECLASSIFIED_CASES = {
+        stuxnet: {
+            title: "OPERATION OLYMPIC GAMES // STUXNET",
+            tag: "TARGET: SIEMENS S7-300 ICS/SCADA // AIR-GAPPED IRAN NATANZ",
+            agency: "ORIGIN: US / ISRAEL CYBER COMMAND // DISCOVERED: 2010",
+            summary: "The world's first true military-grade cyberweapon designed to cause physical destruction. It crossed an air-gapped facility via infected contractor USB thumb drives and silently sabotaged nuclear centrifuges while replaying normal telemetry to monitoring gauges.",
+            zerodays: [
+                "CVE-2010-2568: Windows Shell LNK icon vulnerability (arbitrary code execution without clicking)",
+                "CVE-2010-2729: Windows Print Spooler remote code execution across network shares",
+                "CVE-2010-3338 & CVE-2010-2743: Two unpatched Win32k Kernel Privilege Escalation zero-days",
+                "Stolen Realtek & JMicron digital certificates to sign malicious kernel rootkits"
+            ],
+            killchain: [
+                "1. Initial Ingress: Contractor USB drives plugged into isolated SCADA engineering stations.",
+                "2. Lateral Propagation: Exploited Print Spooler and SMB shares to map the plant subnets.",
+                "3. PLC Fingerprinting: Searched memory for specific Siemens Step-7 project files matching Natanz centrifuge cascade arrays.",
+                "4. Physical Sabotage: Modified rotor speeds from 1,064 Hz to 1,410 Hz (rotor shatter), then dropped to 2 Hz, causing physical aluminum tube rupture."
+            ],
+            codeSnippet: "; STUXNET PLC INJECTION HOOK (S7-300 DB89)\nL     DB89.DBD 0        ; Read current rotor frequency\nL     1410              ; Overclock target frequency (Hz)\n>=D                     ; Compare threshold\nJC    M_CORRUPT_ROTOR   ; Trigger harmonic resonance destruction\nBEU                     ; Return clean signal to WinCC SCADA GUI"
+        },
+        eternalblue: {
+            title: "OPERATION ETERNALBLUE & WANNACRY",
+            tag: "TARGET: MICROSOFT WINDOWS SMBv1 (srv.sys) // CVE-2017-0144",
+            agency: "ORIGIN: NSA TAO // LEAKED BY SHADOW BROKERS (2017)",
+            summary: "A catastrophic kernel remote code execution exploit targeting the legacy Windows Server Message Block v1 (SMBv1) protocol. Stolen from the NSA and deployed in WannaCry, encrypting over 300,000 systems in 150 countries within 24 hours.",
+            zerodays: [
+                "CVE-2017-0144: Mathematical integer wrap in srv!SrvOs2FeaListToNt",
+                "Buffer Overflow in Non-Paged Pool memory buffer when converting OS/2 FEA structs",
+                "DoublePulsar Ring-0 Kernel Backdoor injection hook directly into SMB Dispatch Table"
+            ],
+            killchain: [
+                "1. Network Scan: Probed global IPv4 space for exposed Port 445 (SMB).",
+                "2. Kernel Pool Grooming: Sent crafted SMB_COM_TRANSACTION2 secondary requests to groom non-paged kernel pool.",
+                "3. Shellcode Execution: Overwrote kernel function pointer to execute DoublePulsar in Ring-0.",
+                "4. Worm Propagation: Injected WannaCry ransomware payload into lsass.exe process space."
+            ],
+            codeSnippet: "// EternalBlue SrvOs2FeaListToNt Integer Overflow\nULONG cbList; // 32-bit list size\nUSHORT cbFea; // 16-bit FEA struct size\ncbList = pOs2Fea->cbList; // If 0x10000, wraps around into 0x0000\n// Non-paged pool buffer allocated too small, subsequent memcpy causes kernel overflow"
+        },
+        solarwinds: {
+            title: "OPERATION SUNBURST // SOLARWINDS",
+            tag: "TARGET: ORION IT MANAGEMENT PLATFORM // SUPPLY CHAIN COMPILATION",
+            agency: "ORIGIN: APT29 (COZY BEAR) / RUSSIAN SVR // DISCOVERED: 2020",
+            summary: "The most sophisticated software supply chain incursion in history. Attackers compromised SolarWinds' internal build servers, injecting stealth backdoor logic directly into legitimate software updates signed with valid corporate certificates.",
+            zerodays: [
+                "Zero-Day CI/CD Build Pipeline Infiltration (MSBuild process tampering)",
+                "Steganographic DGA (Domain Generation Algorithm) DNS C2 communications",
+                "Dormant 14-day execution delay to evade dynamic sandbox analysis"
+            ],
+            killchain: [
+                "1. Build Server Hook: Injected source code during MSBuild compilation of SolarWinds.Orion.Core.BusinessLayer.dll.",
+                "2. Valid Signing: Software signed with authentic Symantec digital certificate and pushed to 18,000 enterprise customers.",
+                "3. Sleeper Phase: Beacon slept silently for 14 days to defeat automated threat sandboxes.",
+                "4. DNS C2 Tunnel: Encoded host IP and domain names into DNS query subdomains (e.g. *.avsvmcloud.com)."
+            ],
+            codeSnippet: "// SUNBURST Backdoor Delay Execution Check\nif ((DateTime.UtcNow - Process.GetCurrentProcess().StartTime.ToUniversalTime()).TotalDays < 14.0) {\n    return; // Sleep completely silent to bypass sandbox analysis\n}\n// Compute target domain MD5 and generate DNS beacon query\nstring dgaQuery = ConvertToBase32(EncryptHostData(domainName)) + \".avsvmcloud.com\";"
+        },
+        equation: {
+            title: "THE EQUATION GROUP ARSENAL",
+            tag: "TARGET: HARD DRIVE CONTROLLER FIRMWARE & HARDENED NETWORKS",
+            agency: "ORIGIN: TAO / EQUATION GROUP // LEAKED: 2016-2017",
+            summary: "Regarded as the most elite cyber espionage group in history. Developed firmware implants capable of surviving complete operating system reinstalls and military disk wipes.",
+            zerodays: [
+                "Hard Drive Controller Firmware Flashing (Western Digital, Seagate, Hitachi, Toshiba)",
+                "FuzzBunch Framework: Modular weaponized exploit delivery engine",
+                "EternalRomance & EternalSynergy: Advanced SMB arbitration race condition exploits"
+            ],
+            killchain: [
+                "1. Reconnaissance: Exploit target perimeter gateway (Fortinet, Cisco ASA, Juniper).",
+                "2. Firmware Compromise: Flash custom ROM firmware into ATA/SCSI hard drive microcontrollers.",
+                "3. Undetectable Persistence: Backdoor resided inside the drive's private memory chips outside OS visibility.",
+                "4. Covert Exfiltration: Stored stolen data in hidden sector tracks unreadable by standard forensic tools."
+            ],
+            codeSnippet: "; EQUATION HDD FIRMWARE IMPLANT FLASH ROUTINE\nMOV  DX, 0x1F7      ; IDE Command Register\nMOV  AL, 0x8C       ; Vendor Secret Unlock Opcode\nOUT  DX, AL         ; Enter Hard Drive Factory Test Mode\nCALL WRITE_ROM_SECTOR ; Overwrite controller flash ROM with persistent agent"
+        }
+    };
+
+    function openDeclassifiedModal() {
+        const modal = document.getElementById('declassifiedArchiveModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            switchDeclassifiedCase('stuxnet');
+            playTone(880, 'triangle', 0.15, 0.1);
+        }
+    }
+
+    function closeDeclassifiedModal() {
+        const modal = document.getElementById('declassifiedArchiveModal');
+        if (modal) modal.style.display = 'none';
+        playClickSound();
+    }
+
+    function switchDeclassifiedCase(caseId) {
+        const c = DECLASSIFIED_CASES[caseId] || DECLASSIFIED_CASES.stuxnet;
+        const container = document.getElementById('declassifiedContent');
+        if (!container) return;
+
+        // Active tab styling
+        ['stuxnet', 'eternalblue', 'solarwinds', 'equation'].forEach(id => {
+            const btn = document.getElementById('caseBtn_' + id);
+            if (btn) btn.classList.toggle('active', id === caseId);
+        });
+
+        playClickSound();
+
+        container.innerHTML = `
+            <div style="margin-bottom: 16px;">
+                <div style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #d9291c; font-weight: 800;">${c.agency}</div>
+                <h3 style="font-size: 1.4rem; font-weight: 900; color: #f1f5f9; margin: 4px 0 6px 0;">${c.title}</h3>
+                <div style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--bauhaus-yellow); font-weight: 700;">${c.tag}</div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; margin-bottom: 14px;">
+                <h5 style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: #38bdf8; margin-bottom: 6px;">// INTELLIGENCE BRIEFING:</h5>
+                <p style="font-size: 0.85rem; line-height: 1.55; color: #cbd5e1;">${c.summary}</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div style="background: rgba(217, 41, 28, 0.05); border: 1px solid rgba(217, 41, 28, 0.3); padding: 12px;">
+                    <h5 style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #ef4444; margin-bottom: 8px;">// ZERO-DAYS & MECHANICS:</h5>
+                    <ul style="font-size: 0.75rem; color: #cbd5e1; list-style: disc; padding-left: 18px; line-height: 1.5;">
+                        ${c.zerodays.map(z => `<li>${z}</li>`).join('')}
+                    </ul>
+                </div>
+                <div style="background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.3); padding: 12px;">
+                    <h5 style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #00f0ff; margin-bottom: 8px;">// EXECUTION KILL-CHAIN:</h5>
+                    <ul style="font-size: 0.75rem; color: #cbd5e1; list-style: none; line-height: 1.5;">
+                        ${c.killchain.map(k => `<li>${k}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: #020611; border: 1px solid rgba(0, 240, 255, 0.4); padding: 12px; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #00ffaa; overflow-x: auto;">
+                <div style="color: #64748b; font-size: 0.68rem; margin-bottom: 6px;">// DECOMPILED WEAPON BYTECODE REVERSE-ENGINEERED:</div>
+                <pre style="margin: 0; line-height: 1.45;">${c.codeSnippet}</pre>
+            </div>
+        `;
+    }
+
+    // Expose to window for HTML buttons
+    window.openDeclassifiedModal = openDeclassifiedModal;
+    window.closeDeclassifiedModal = closeDeclassifiedModal;
+    window.switchDeclassifiedCase = switchDeclassifiedCase;
 
     animate();
 })();

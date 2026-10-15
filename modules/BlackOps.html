@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-08: Black Ops & C2 Evasion - PwnBox</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+    
+    <link rel="stylesheet" href="../css/SystemHacking.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="stylesheet" href="../css/resizer.css">
+    <script src="../js/ui_popups.js"></script>
+    <style>
+        :root {
+            --accent-primary: #9333ea;
+        }
+        .local-badge {
+            background: #9333ea !important;
+            color: #ffffff !important;
+            border: 2px solid #000000 !important;
+            box-shadow: 2px 2px 0 #000000 !important;
+        }
+        .stealth-glow {
+            animation: stealthPulse 2s infinite alternate;
+        }
+        @keyframes stealthPulse {
+            from { box-shadow: 0 0 5px rgba(147, 51, 234, 0.4); }
+            to { box-shadow: 0 0 16px rgba(147, 51, 234, 0.9); }
+        }
+    </style>
+</head>
+
+<body class="tab-tools">
+
+    <div class="sidebar">
+        <div class="header">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+            <a href="../dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>M-08 Black Ops</h2>
+            <div style="font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #9333ea; font-weight: 800; margin-bottom: 8px;">★ CLASSIFIED RED TEAM ARSENAL</div>
+            <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
+        </div>
+        <div class="tool-list" id="toolList"></div>
+        <div class="sidebar-footer">
+            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
+        </div>
+    </div>
+    <div class="resizer-v" id="sidebarResizer"></div>
+    <div class="workspace">
+        <div class="content-split">
+            <div class="details-panel" id="detailsPanel">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 20vh;">
+                    <div style="font-size: 3rem; margin-bottom: 12px;">🕵️‍♂️</div>
+                    <h3>CLASSIFIED OPERATOR ARSENAL: MODULE 08</h3>
+                    <p style="margin-top: 8px; font-size: 0.9rem;">Select an evasion framework from the sidebar to inspect command telemetry, sleep masks, and AMSI patch sequences.</p>
+                </div>
+            </div>
+            <div class="resizer-v" id="panelResizer"></div>
+            <div class="chat-panel">
+                <div class="chat-header" style="flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="status-container">
+                            <div class="status-dot online" id="statusDot"></div>
+                            Black Ops AI Mentor
+                        </div>
+                        <div class="local-badge stealth-glow">MODULE 08: SECRET</div>
+                    </div>
+                    <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                        <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 Red Team AI</button>
+                        <button class="panel-tab" onclick="switchPanelTab('terminal')">💻 C2 Console</button>
+                        <button class="panel-tab" onclick="switchPanelTab('quiz')">📝 Stealth Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Chat Tab Content -->
+                <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
+                    <div class="chat-history" id="chatHistory">
+                        <div class="msg bot">Classified Operations Mentor Initialized. Try asking: "How does AmsiScanBuffer memory patching bypass Windows Defender in memory?"</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask about Cobalt Strike, AMSI evasion, LOLBins, LSASS dumps..." onkeypress="handleEnter(event)">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+
+                <!-- Terminal Tab Content -->
+                <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #c084fc; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
+                        <div style="color: #a855f7; font-weight: bold;">PWNBOX BLACK OPS C2 SANDBOX v4.2</div>
+                        <div style="color: #6b7280; margin-bottom: 10px;">Type 'help' to inspect stealth commands: beacon, amsi-patch, lolbins, dump-lsass.</div>
+                    </div>
+                    <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        <span style="color: #c084fc; margin-right: 8px; font-weight: bold; font-size: 0.85rem;">operator@blackops:~#</span>
+                        <input type="text" id="terminalInput" onkeypress="handleTerminalEnter(event)" style="flex-grow: 1; background: transparent; border: none; outline: none; color: #f8fafc; font-family: 'Space Mono', monospace; font-size: 0.8rem;" placeholder="run stealth command...">
+                    </div>
+                </div>
+
+                <!-- Quiz Tab Content -->
+                <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
+                    <h3 style="font-size: 1rem; color: #a855f7; margin-bottom: 8px;">📝 Module 08: Black Ops Mastery Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Validate your understanding of C2 beaconing, memory obfuscation, and Living-off-the-Land exploitation.</p>
+                    
+                    <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Question 1 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. What is the primary purpose of a C2 "Sleep Mask"?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'B')"> A) Turning off the target monitor</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'B')"> B) Encrypting beacon memory in RAM during sleep intervals to defeat memory scanners</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'B')"> C) Terminating the beacon process permanently</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. Which Windows binary is commonly abused as a LOLBin to download remote payloads?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'A')"> A) certutil.exe -urlcache -f</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'A')"> B) calc.exe</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'A')"> C) notepad.exe</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. How does in-memory AMSI patching neutralize Windows Antimalware?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'C')"> A) Deleting defender registry keys</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'C')"> B) Disconnecting the Ethernet cable</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'C')"> C) Overwriting AmsiScanBuffer bytes so it returns AMSI_RESULT_CLEAN</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Custom Stealth Tool Modal -->
+    <div class="modal-overlay" id="addToolModal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 style="color: #a855f7; font-family: 'Space Mono', monospace; font-size: 1.1rem;">➕ Add Custom Stealth Tool</h3>
+                <button class="close-modal" onclick="closeAddToolModal()">&times;</button>
+            </div>
+            <form id="addToolForm" onsubmit="event.preventDefault(); saveCustomTool();">
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label for="customToolName" style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #94a3b8; margin-bottom: 4px;">Tool Name</label>
+                    <input type="text" id="customToolName" placeholder="e.g. Havoc C2, Sliver, SharpHound" required style="width: 100%; padding: 8px 12px; background: var(--bg-base); border: 2px solid var(--border-dim); color: var(--text-main); font-family: 'Space Mono', monospace; font-size: 0.8rem; box-sizing: border-box;">
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label for="customToolCategory" style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #94a3b8; margin-bottom: 4px;">Category</label>
+                    <select id="customToolCategory" required style="width: 100%; padding: 8px 12px; background: var(--bg-base); border: 2px solid var(--border-dim); color: var(--text-main); font-family: 'Space Mono', monospace; font-size: 0.8rem; box-sizing: border-box;">
+                        <option value="CommandControl">🎮 Command & Control</option>
+                        <option value="DefenseEvasion">🛡️ Defense Evasion</option>
+                        <option value="CredentialTheft">🔑 Credential Theft</option>
+                        <option value="ActiveDirectory">🌐 Active Directory</option>
+                        <option value="Pivoting">🔀 Pivoting & Tunneling</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label for="customToolDesc" style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #94a3b8; margin-bottom: 4px;">Architectural Overview / Summary</label>
+                    <textarea id="customToolDesc" rows="3" placeholder="Brief technical summary..." required style="width: 100%; padding: 8px 12px; background: var(--bg-base); border: 2px solid var(--border-dim); color: var(--text-main); font-family: 'Space Mono', monospace; font-size: 0.8rem; box-sizing: border-box;"></textarea>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label for="customToolSyntax" style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #94a3b8; margin-bottom: 4px;">Tactical Command Invocation</label>
+                    <textarea id="customToolSyntax" rows="2" placeholder="Command syntax / payload invocation..." required style="width: 100%; padding: 8px 12px; background: var(--bg-base); border: 2px solid var(--border-dim); color: var(--text-main); font-family: 'Space Mono', monospace; font-size: 0.8rem; box-sizing: border-box;"></textarea>
+                </div>
+                <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" class="btn" onclick="closeAddToolModal()" style="padding: 8px 16px; background: transparent; border: 2px solid var(--border-dim); color: var(--text-main); cursor: pointer; font-family: 'Space Mono', monospace;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="padding: 8px 16px; background: #9333ea; border: 2px solid var(--border-dim); color: #fff; cursor: pointer; font-family: 'Space Mono', monospace; font-weight: 700;">Save Stealth Tool</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/BlackOps.js?v=4.0"></script>
+    <script src="../js/resizer.js"></script>
+</body>
+
+</html>

@@ -1888,3 +1888,499 @@ main {
         font-size: 0.62rem;
     }
 }
+
+/* ======================================================== */
+/* SECRET GATEWAYS, MODALS, PINPAD, DARKNET & GODMODE CSS  */
+/* ======================================================== */
+
+.secret-vault-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(3, 6, 12, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.secret-vault-card {
+    background: #090e17;
+    border: 2px solid #334155;
+    box-shadow: 10px 10px 0 #000, 0 0 35px rgba(0, 0, 0, 0.8);
+    width: 100%;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    animation: vaultModalIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+@keyframes vaultModalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.secret-vault-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: rgba(0, 0, 0, 0.55);
+    border-bottom: 2px solid #334155;
+}
+
+.secret-vault-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    font-family: 'Space Mono', monospace;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.15s, transform 0.15s;
+}
+
+.secret-vault-close:hover {
+    color: #ef4444;
+    transform: scale(1.15);
+}
+
+/* --- PINPAD STYLES --- */
+.pinpad-display {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.7rem;
+    letter-spacing: 10px;
+    background: #03060c;
+    padding: 12px 28px;
+    border: 2px solid #f59e0b;
+    color: #f59e0b;
+    min-width: 220px;
+    text-align: center;
+    box-shadow: inset 0 0 15px rgba(245, 158, 11, 0.2), 0 0 15px rgba(245, 158, 11, 0.15);
+}
+
+.pinpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 72px);
+    gap: 10px;
+}
+
+.btn-pin {
+    height: 54px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 800;
+    background: #0d1524;
+    color: #f1f5f9;
+    border: 2px solid #334155;
+    box-shadow: 3px 3px 0 #000;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.btn-pin:hover {
+    background: #1e293b;
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.btn-pin:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+.btn-pin.danger {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.5);
+}
+.btn-pin.danger:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+}
+
+.btn-pin.submit {
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.5);
+    font-size: 0.85rem;
+}
+.btn-pin.submit:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: #10b981;
+}
+
+/* --- VAULT TABS --- */
+.vault-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 10px 16px 0 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+}
+
+.vault-tab-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 10px 16px;
+    background: transparent;
+    color: #94a3b8;
+    border: 1px solid transparent;
+    border-bottom: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.vault-tab-btn:hover {
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.vault-tab-btn.active {
+    color: #ffffff;
+    background: #090e17;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid #f59e0b;
+}
+
+.vault-tab-content {
+    padding: 18px 20px;
+    overflow-y: auto;
+    max-height: calc(92vh - 120px);
+}
+
+/* --- RED TEAM PAYLOADS --- */
+.payload-config-bar {
+    display: flex;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 14px;
+}
+
+.payload-input {
+    background: #03060c;
+    border: 1px solid #334155;
+    color: #38bdf8;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.payload-input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.3);
+}
+
+.payloads-scroll-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.payload-card {
+    background: #040811;
+    border: 1px solid #1e293b;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.15s;
+}
+
+.payload-card:hover {
+    border-color: #38bdf8;
+}
+
+.payload-code-box {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    background: #010307;
+    border: 1px solid #0f172a;
+    padding: 8px 10px;
+    color: #22c55e;
+    word-break: break-all;
+    white-space: pre-wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-copy-payload {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    background: #1e293b;
+    color: #38bdf8;
+    border: 1px solid #334155;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s;
+}
+
+.btn-copy-payload:hover {
+    background: #38bdf8;
+    color: #000;
+}
+
+/* --- TOR DARKNET TERMINAL --- */
+.darknet-cli-container {
+    background: #02050b;
+    border: 1px solid #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.darknet-cli-header {
+    padding: 8px 12px;
+    background: rgba(16, 185, 129, 0.08);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.darknet-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    display: inline-block;
+}
+
+.darknet-cli-body {
+    flex: 1;
+    padding: 12px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    overflow-y: auto;
+    background: #010408;
+}
+
+.darknet-cli-input-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-top: 1px solid #10b981;
+    background: #03060c;
+}
+
+.darknet-cli-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #10b981;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+}
+
+/* --- RETRO WARGAMES ARCADE TERMINAL --- */
+.wargames-terminal {
+    background: #060400;
+    border: 2px solid #f59e0b;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.wargames-header {
+    padding: 8px 14px;
+    background: rgba(245, 158, 11, 0.12);
+    border-bottom: 1px solid #f59e0b;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #f59e0b;
+}
+
+.wargames-body {
+    flex: 1;
+    padding: 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    overflow-y: auto;
+    line-height: 1.45;
+    color: #f59e0b;
+    background: #040200;
+}
+
+/* --- SECRET GODMODE THEMES BUTTONS --- */
+.btn-secret-theme {
+    background: #080d19;
+    border: 2px solid #334155;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: #f1f5f9;
+    font-family: 'Space Mono', monospace;
+    transition: all 0.15s;
+    box-shadow: 3px 3px 0 #000;
+}
+
+.btn-secret-theme:hover {
+    border-color: #ffe600;
+    background: #111a2e;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 #ffe600;
+}
+
+.btn-action-cyan {
+    background: #0284c7;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 800;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    padding: 9px 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s;
+}
+
+.btn-action-cyan:hover {
+    background: #0369a1;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 #000;
+}
+
+/* --- HOLOGRAPHIC PRISMATIC RAINBOW BADGE --- */
+@keyframes rainbowGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.rainbow-badge-active {
+    background: linear-gradient(135deg, #ff0055, #a855f7, #06b6d4, #10b981, #facc15, #ff0055) !important;
+    background-size: 400% 400% !important;
+    animation: rainbowGradient 4s ease infinite !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+/* --- DECLASSIFIED ARCHIVE STYLES --- */
+.declassified-body-container {
+    padding: 18px 20px;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+.declassified-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.declassified-meta-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+}
+
+.declassified-meta-item span {
+    color: #64748b;
+    display: block;
+    font-size: 0.62rem;
+}
+
+.declassified-meta-item b {
+    color: #f1f5f9;
+}
+
+.declassified-section {
+    border-left: 3px solid #d9291c;
+    padding-left: 12px;
+    margin-top: 12px;
+}
+
+.declassified-quote {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    color: #fca5a5;
+    background: rgba(217, 41, 28, 0.08);
+    padding: 8px 12px;
+    border: 1px dashed rgba(217, 41, 28, 0.4);
+    margin-top: 8px;
+    line-height: 1.45;
+}
+
+/* ======================================================== */
+/* 3 SECRET THEMES (MATRIX, CYBERPUNK, SYNTHWAVE)           */
+/* ======================================================== */
+
+[data-theme="matrix"] {
+    --bg-base: #030804;
+    --bg-panel: #061108;
+    --border-color: #00ff66;
+    --text-main: #00ff66;
+    --text-muted: #1f8a42;
+    --bauhaus-blue: #008f39;
+    --bauhaus-red: #00ff66;
+    --bauhaus-yellow: #50ff88;
+    --box-shadow: 4px 4px 0 #00ff66;
+}
+
+[data-theme="cyberpunk"] {
+    --bg-base: #0c0517;
+    --bg-panel: #150a26;
+    --border-color: #ffe600;
+    --text-main: #00f0ff;
+    --text-muted: #a78bfa;
+    --bauhaus-blue: #00f0ff;
+    --bauhaus-red: #ff0055;
+    --bauhaus-yellow: #ffe600;
+    --box-shadow: 4px 4px 0 #ffe600;
+}
+
+[data-theme="synthwave"] {
+    --bg-base: #0e071c;
+    --bg-panel: #1b0f34;
+    --border-color: #ff007f;
+    --text-main: #ff71ce;
+    --text-muted: #b983ff;
+    --bauhaus-blue: #01cdfe;
+    --bauhaus-red: #ff007f;
+    --bauhaus-yellow: #05ffa1;
+    --box-shadow: 4px 4px 0 #ff007f;
+}
+

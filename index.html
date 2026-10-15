@@ -20,6 +20,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/landing.css?v=4.0">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
     <!-- Firebase SDK v10 Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
@@ -477,7 +478,7 @@
             <div class="footer-bottom">
                 <div>
                     <span>PWNBOX CYBER COMMAND // </span>
-                    <span class="footer-version-tag">SYSTEM BUILD v3.4.0 // AGENT MATRIX</span>
+                    <span class="footer-version-tag" id="footerVersionTrigger" style="cursor: pointer; user-select: none;" title="System Integrity Verification (Triple-click for Cipher Lock)">SYSTEM BUILD v3.4.0 // AGENT MATRIX</span>
                 </div>
                 <div>
                     <span>Engineered for Security Analysts, Ethical Hackers & Defense Cadets.</span>
@@ -547,9 +548,274 @@
                     📝 REGISTER
                 </button>
             </div>
+        </div>
+    </div>
 
-            <!-- Status Console Output -->
-            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
+    <!-- ======================================================== -->
+    <!-- SECRET GATEWAY 2: AIR-GAPPED CIPHER PINPAD & VAULT       -->
+    <!-- (Unlocked via Version Tag v3.4.0)                        -->
+    <!-- ======================================================== -->
+    <div class="secret-vault-modal" id="airgapPinpadModal" style="display: none;">
+        <div class="secret-vault-card" style="max-width: 780px;">
+            <div class="secret-vault-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #f59e0b; font-size: 1.2rem;">🔢</span>
+                    <div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #f59e0b;">PWNBOX AIR-GAPPED CIPHER VAULT</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">SECURE ISOLATION // HARDWARE AUTH REQUIRED</div>
+                    </div>
+                </div>
+                <button class="secret-vault-close" onclick="closeAirgapModal()">&times;</button>
+            </div>
+
+            <!-- PIN PAD SCREEN -->
+            <div id="pinpadView" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 0;">
+                <div style="font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #94a3b8; text-align: center;">
+                    ENTER 4-DIGIT SECURITY OVERRIDE PIN<br/>
+                    <span style="font-size: 0.68rem; color: #64748b;">(Hint: 1337 for Payloads, 0000 for Tor Darknet)</span>
+                </div>
+                <div class="pinpad-display" id="pinDisplay">[ _ _ _ _ ]</div>
+                <div class="pinpad-grid">
+                    <button class="btn-pin" onclick="enterPinDigit('1')">1</button>
+                    <button class="btn-pin" onclick="enterPinDigit('2')">2</button>
+                    <button class="btn-pin" onclick="enterPinDigit('3')">3</button>
+                    <button class="btn-pin" onclick="enterPinDigit('4')">4</button>
+                    <button class="btn-pin" onclick="enterPinDigit('5')">5</button>
+                    <button class="btn-pin" onclick="enterPinDigit('6')">6</button>
+                    <button class="btn-pin" onclick="enterPinDigit('7')">7</button>
+                    <button class="btn-pin" onclick="enterPinDigit('8')">8</button>
+                    <button class="btn-pin" onclick="enterPinDigit('9')">9</button>
+                    <button class="btn-pin danger" onclick="clearPin()">CLR</button>
+                    <button class="btn-pin" onclick="enterPinDigit('0')">0</button>
+                    <button class="btn-pin submit" onclick="submitPin()">ENTER</button>
+                </div>
+                <div id="pinFeedback" style="font-family: 'Space Mono', monospace; font-size: 0.72rem; min-height: 20px; color: #f59e0b;"></div>
+            </div>
+
+            <!-- UNLOCKED VAULT CONTENT -->
+            <div id="pinpadVaultView" style="display: none; flex-direction: column; gap: 14px;">
+                <div class="vault-tabs">
+                    <button class="vault-tab-btn active" id="tabBtnPayloads" onclick="switchVaultTab('payloads')">⚡ RED TEAM PAYLOADS</button>
+                    <button class="vault-tab-btn" id="tabBtnDarknet" onclick="switchVaultTab('darknet')">🧅 TOR DARKNET TERMINAL</button>
+                </div>
+
+                <!-- SUB-TAB 1: RED TEAM INSTANT PAYLOAD GENERATOR & EXPLOIT FACTORY -->
+                <div id="vaultPayloadsTab" class="vault-tab-content">
+                    <div class="payload-config-bar" style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%;">
+                            <div style="flex: 1; min-width: 160px;">
+                                <label style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">LHOST (ATTACKER IP / DOMAIN)</label>
+                                <input type="text" id="payloadLhost" value="10.10.14.5" oninput="updateLivePayloads()" class="payload-input" placeholder="e.g. 10.10.14.5">
+                            </div>
+                            <div style="width: 110px;">
+                                <label style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">LPORT</label>
+                                <input type="text" id="payloadLport" value="4444" oninput="updateLivePayloads()" class="payload-input" placeholder="4444">
+                            </div>
+                            <div style="width: 180px;">
+                                <label style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">ENCODING / WRAPPER</label>
+                                <select id="payloadEncoding" onchange="updateLivePayloads()" class="payload-input" style="cursor: pointer;">
+                                    <option value="raw">RAW (PLAINTEXT)</option>
+                                    <option value="b64">BASE64 ENCODED</option>
+                                    <option value="url">URL ENCODED</option>
+                                    <option value="ps_b64">POWERSHELL UTF-16</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category filter buttons -->
+                    <div class="payload-filter-bar" id="payloadFilterGroup">
+                        <button class="payload-filter-btn active" data-cat="all" onclick="filterPayloadCategory('all', this)">ALL PAYLOADS</button>
+                        <button class="payload-filter-btn" data-cat="linux" onclick="filterPayloadCategory('linux', this)">🐧 LINUX / BASH</button>
+                        <button class="payload-filter-btn" data-cat="windows" onclick="filterPayloadCategory('windows', this)">🪟 WINDOWS / PS</button>
+                        <button class="payload-filter-btn" data-cat="stager" onclick="filterPayloadCategory('stager', this)">🛡️ AMSI & STAGERS</button>
+                        <button class="payload-filter-btn" data-cat="web" onclick="filterPayloadCategory('web', this)">🌐 WEB SHELLS</button>
+                        <button class="payload-filter-btn" data-cat="msf" onclick="filterPayloadCategory('msf', this)">💣 MSFVENOM BUILDER</button>
+                        <button class="payload-filter-btn" data-cat="listener" onclick="filterPayloadCategory('listener', this)">🎧 CATCH LISTENERS</button>
+                    </div>
+
+                    <!-- Tools bar (Search & Counter) -->
+                    <div class="payload-tools-bar">
+                        <div class="payload-search-box">
+                            <span class="payload-search-icon">🔍</span>
+                            <input type="text" id="payloadSearchInput" class="payload-search-input" placeholder="Filter payloads by keyword (e.g. bash, certutil, socat, amsi, msfvenom)..." oninput="updateLivePayloads()">
+                        </div>
+                        <div class="payload-counter-pill" id="payloadCounterPill">Showing: 20 Payloads</div>
+                    </div>
+
+                    <div class="payloads-scroll-list" id="payloadsList" style="max-height: 440px; display: flex; flex-direction: column; gap: 8px;">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 2: UNDERGROUND TOR DARKNET CLI -->
+                <div id="vaultDarknetTab" class="vault-tab-content" style="display: none;">
+                    <div class="darknet-cli-container" style="height: 480px;">
+                        <!-- Tor Circuit Bar -->
+                        <div class="darknet-circuit-header">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="darknet-dot"></span>
+                                <span style="color: #00ff66; font-weight: 800;">TOR HIDDEN SERVICE v3</span>
+                                <span style="color: #64748b;">|</span>
+                                <span style="color: #86efac; font-size: 0.65rem;">pwnbox7x9k2v6m3q8h.onion:443</span>
+                            </div>
+                            <div class="darknet-hops-strip">
+                                <span class="darknet-hop-node">ENTRY [DE]</span> &rarr;
+                                <span class="darknet-hop-node">RELAY [IS]</span> &rarr;
+                                <span class="darknet-hop-node">RENDEZVOUS [NL]</span>
+                                <span style="color: #4ade80; margin-left: 6px;">[184ms]</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Command Shortcuts Bar -->
+                        <div class="darknet-quick-actions-bar">
+                            <span style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #64748b; align-self: center; margin-right: 4px;">QUICK:</span>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('market')">🛒 0-DAY MARKET</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('neofetch')">🧅 NEOFETCH</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('irc')">💬 LIVE IRC CHAT</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('leaks')">🗂️ LEAKED DBs</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('crack 5d41402abc4b2a76b9719d911017c592')">🔓 CRACK HASH</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('circuits')">🌐 CIRCUITS</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('decrypt')">⚡ DECRYPT FLAG</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('help')">❓ HELP</button>
+                        </div>
+
+                        <!-- Terminal Output Screen -->
+                        <div class="darknet-cli-body darknet-terminal-screen" id="darknetOutput">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <!-- Terminal Input Bar -->
+                        <div class="darknet-cli-input-bar">
+                            <span style="color: #00ff66; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">onion@pwnbox:~#</span>
+                            <input type="text" id="darknetInput" class="darknet-cli-input" placeholder="Type a command (try 'market', 'neofetch', 'irc', 'crack', 'help')..." onkeypress="handleDarknetKey(event)" autocomplete="off">
+                            <button onclick="executeDarknetCmd(document.getElementById('darknetInput').value); document.getElementById('darknetInput').value='';" style="background: #00ff66; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- SECRET GATEWAY 3: ARCHITECT GODMODE & RETRO WARGAMES     -->
+    <!-- (Unlocked via Breach Minigame Overclock Cipher)           -->
+    <!-- ======================================================== -->
+    <div class="secret-vault-modal" id="architectGodModeModal" style="display: none;">
+        <div class="secret-vault-card" style="max-width: 820px;">
+            <div class="secret-vault-header" style="border-bottom-color: #ffe600;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #ffe600; font-size: 1.2rem;">⚡</span>
+                    <div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #ffe600;">OVERCLOCK CIPHER DETECTED // ARCHITECT GODMODE</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">ROOT CLEARANCE VERIFIED // PRANAV PUSHYA ARCHITECTURE</div>
+                    </div>
+                </div>
+                <button class="secret-vault-close" onclick="closeGodModeModal()">&times;</button>
+            </div>
+
+            <div class="vault-tabs">
+                <button class="vault-tab-btn active" id="tabBtnGodmode" onclick="switchGodModeTab('godmode')">👑 GODMODE & VIP THEMES</button>
+                <button class="vault-tab-btn" id="tabBtnArcade" onclick="switchGodModeTab('arcade')">🎮 RETRO "WARGAMES" ARCADE</button>
+            </div>
+
+            <!-- SUB-TAB 1: GODMODE THEMES & AUDIO -->
+            <div id="godmodeTab" class="vault-tab-content" style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <h4 style="font-family: 'Space Mono', monospace; font-size: 0.82rem; color: #f1f5f9; margin-bottom: 8px;">UNLISTED SECRET VIP THEMES:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                        <button class="btn-secret-theme" onclick="applySecretTheme('matrix')">
+                            <span style="font-size: 1.2rem;">🟢</span>
+                            <b>1999 MATRIX</b>
+                            <span style="font-size: 0.65rem; color: #94a3b8;">Phosphor Monochrome</span>
+                        </button>
+                        <button class="btn-secret-theme" onclick="applySecretTheme('cyberpunk')">
+                            <span style="font-size: 1.2rem;">🟡</span>
+                            <b>NIGHT CITY</b>
+                            <span style="font-size: 0.65rem; color: #94a3b8;">Cyberpunk Neon 2077</span>
+                        </button>
+                        <button class="btn-secret-theme" onclick="applySecretTheme('synthwave')">
+                            <span style="font-size: 1.2rem;">🟣</span>
+                            <b>SYNTHWAVE '84</b>
+                            <span style="font-size: 0.65rem; color: #94a3b8;">Neon Sunset Vaporwave</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <!-- Rainbow Badge Trigger -->
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">🌈 RAINBOW HOLOGRAPHIC ID STAMP</div>
+                        <p style="font-size: 0.72rem; color: #94a3b8;">Stamps an animated prismatic holographic ROOT ARCHITECT credential badge on your Dossier ID card.</p>
+                        <button class="btn-action-cyan" onclick="toggleRainbowGodmodeBadge()" id="btnRainbowBadgeToggle">ACTIVATE HOLOGRAPHIC BADGE</button>
+                    </div>
+
+                    <!-- Ambient Cyber Audio -->
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">🎵 CYBER SYNTH AMBIENT DECK</div>
+                        <p style="font-size: 0.72rem; color: #94a3b8;">Procedural generative retro cyberpunk drone synthesizer using the Web Audio API.</p>
+                        <button class="btn-action-cyan" onclick="toggleAmbientAudio()" id="btnAmbientAudioToggle">▶ PLAY SYNTH DRONE</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 2: RETRO WARGAMES TEXT ARCADE -->
+            <div id="arcadeTab" class="vault-tab-content" style="display: none;">
+                <div class="wargames-terminal">
+                    <div class="wargames-header">
+                        <span>NORAD W.O.P.R. MAINFRAME // DEFENSE SIMULATION</span>
+                        <span id="wargamesStagePill" style="color: #f59e0b;">STAGE: 1/3 (PROBING)</span>
+                    </div>
+                    <div class="wargames-body" id="wargamesOutput">
+                        <div style="color: #f59e0b; font-family: monospace; line-height: 1.2;">
+   ______  __ __  ____   ___ ___   ____  ____  
+  |      ||  |  ||    \ |   |   | /    ||    \ 
+  |      ||  |  ||  o  )| _   _ ||  o  ||  D  )
+  |_|  |_||  _  ||     ||  \_/  ||     ||    / 
+    |  |  |  |  ||  O  ||   |   ||  _  ||    \ 
+    |  |  |  |  ||     ||   |   ||  |  ||  .  \
+    |__|  |__|__||_____||___|___||__|__||__|\_|
+                        </div>
+                        <div style="color: #f59e0b; margin-top: 8px;">[W.O.P.R.] GREETINGS PROFESSOR FALKEN. SHALL WE PLAY A GAME?</div>
+                        <div style="color: #94a3b8; font-size: 0.75rem;">Type 'help' to view available tactical commands. (probe, bypass, inject).</div>
+                    </div>
+                    <div class="darknet-cli-input-bar" style="border-top-color: #f59e0b;">
+                        <span style="color: #f59e0b; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">falken@wopr:~#</span>
+                        <input type="text" id="wargamesInput" class="darknet-cli-input" style="color: #f59e0b;" placeholder="enter tactical command..." onkeypress="handleWargamesKey(event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- SECRET GATEWAY 4: CLASSIFIED CYBER DECLASSIFIED ARCHIVE  -->
+    <!-- (Unlocked via 3D Quantum Core Triple-Click)               -->
+    <!-- ======================================================== -->
+    <div class="secret-vault-modal" id="declassifiedArchiveModal" style="display: none;">
+        <div class="secret-vault-card" style="max-width: 860px;">
+            <div class="secret-vault-header" style="border-bottom-color: #d9291c;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #d9291c; font-size: 1.2rem;">🗄️</span>
+                    <div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #d9291c;">TOP SECRET // CLASSIFIED CYBER DECLASSIFIED ARCHIVE</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">SPECIAL ACCESS PROGRAM (SAP) // EYES ONLY INTEL</div>
+                    </div>
+                </div>
+                <button class="secret-vault-close" onclick="closeDeclassifiedModal()">&times;</button>
+            </div>
+
+            <!-- Case Studies Selector Tabs -->
+            <div class="vault-tabs">
+                <button class="vault-tab-btn active" id="caseBtn_stuxnet" onclick="switchDeclassifiedCase('stuxnet')">1. STUXNET (OLYMPIC GAMES)</button>
+                <button class="vault-tab-btn" id="caseBtn_eternalblue" onclick="switchDeclassifiedCase('eternalblue')">2. ETERNALBLUE & WANNACRY</button>
+                <button class="vault-tab-btn" id="caseBtn_solarwinds" onclick="switchDeclassifiedCase('solarwinds')">3. SOLARWINDS (SUNBURST)</button>
+                <button class="vault-tab-btn" id="caseBtn_equation" onclick="switchDeclassifiedCase('equation')">4. EQUATION GROUP</button>
+            </div>
+
+            <div class="declassified-body-container" id="declassifiedContent">
+                <!-- Injected by JS -->
+            </div>
         </div>
     </div>
     <script src="js/ui_popups.js"></script>

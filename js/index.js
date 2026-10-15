@@ -202,7 +202,46 @@ function updateDashboardStats() {
                 "Operator (Privilege Escalator)",
                 "Elite Agent (Full Methodologist)"
             ];
-            userRank.innerText = rankNames[completedCount];
+            
+            const isGodMode = localStorage.getItem('pwnbox_godmode_badge') === 'true';
+            const dropdownRank = document.getElementById('dropdownRank');
+
+            if (isGodMode) {
+                userRank.innerHTML = '<span class="godmode-rank-badge">👑 ROOT ARCHITECT</span>';
+                if (dropdownRank) {
+                    dropdownRank.innerHTML = '<span class="godmode-rank-badge">👑 ROOT ARCHITECT (GODMODE)</span>';
+                }
+                const profileCard = document.querySelector('.id-card-inner');
+                if (profileCard) profileCard.classList.add('godmode-hologram-active');
+            } else {
+                userRank.innerText = rankNames[completedCount];
+                if (dropdownRank) {
+                    dropdownRank.innerText = userRank.innerText;
+                }
+                const profileCard = document.querySelector('.id-card-inner');
+                if (profileCard) profileCard.classList.remove('godmode-hologram-active');
+            }
+
+            // GodMode Perk: Grant Bypass Launch on locked curriculum modules
+            if (isGodMode) {
+                const moduleUrlMap = {
+                    'moduleScanning': 'modules/Scanning.html',
+                    'moduleEnumeration': 'modules/Enumeration.html',
+                    'moduleVulnAnalysis': 'modules/Vulnerablity.html',
+                    'moduleSystemHacking': 'modules/SystemHacking.html',
+                    'moduleWebApp': 'modules/WebAppThreats.html'
+                };
+                modules.forEach(m => {
+                    if (!m.isCompleted) {
+                        const card = document.getElementById(m.cardId);
+                        const actions = document.getElementById(m.actionsId);
+                        const url = moduleUrlMap[m.cardId];
+                        if (card && actions && url && !card.classList.contains('active')) {
+                            actions.innerHTML = `<span class="module-meta" style="color: #facc15;">👑 GodMode Bypass</span><a href="${url}" class="btn-launch" style="background: linear-gradient(135deg, #facc15, #f59e0b); color: #000; font-weight: 800; border: 2px solid #000; box-shadow: 2px 2px 0 #000;">⚡ Bypass Launch ↗</a>`;
+                        }
+                    }
+                });
+            }
 
             // Update Agent ID Card Details
             const nextMissionTitles = [
@@ -216,11 +255,11 @@ function updateDashboardStats() {
             ];
             const nextMissionText = document.getElementById('nextMissionText');
             if (nextMissionText) {
-                nextMissionText.innerText = nextMissionTitles[completedCount] || "All Objectives Completed!";
+                nextMissionText.innerText = isGodMode ? "👑 All Operations Cleared (GodMode)" : (nextMissionTitles[completedCount] || "All Objectives Completed!");
             }
             const nextMissionProgress = document.getElementById('nextMissionProgress');
             if (nextMissionProgress) {
-                if (completedCount >= 7) nextMissionProgress.style.width = '100%';
+                if (completedCount >= 7 || isGodMode) nextMissionProgress.style.width = '100%';
                 else nextMissionProgress.style.width = '15%'; // Just a small stub to show it's active
             }
 
@@ -240,12 +279,6 @@ function updateDashboardStats() {
                     roadmapLine.setAttribute('d', `M 50,60 L ${50 + completedSequence * segmentWidth},60`);
                 }
             }, 100);
-
-            // Sync dropdown rank badge
-            const dropdownRank = document.getElementById('dropdownRank');
-            if (dropdownRank) {
-                dropdownRank.innerText = userRank.innerText;
-            }
         }
 
         function toggleProfileDropdown(e) {
@@ -337,20 +370,27 @@ function updateDashboardStats() {
             localStorage.removeItem('osint_deleted_default_indices');
             localStorage.removeItem('osint_custom_categories');
 
+            // Module 08: Black Ops (Re-Lock & Reset)
+            localStorage.removeItem('pwnbox_m08_unlocked');
+            localStorage.removeItem('module_blackops_completed');
+            localStorage.removeItem('blackops_custom_tools');
+
             // Hide dropdown
             document.getElementById('profileDropdown').classList.remove('active');
             
             // Hide modal
             closeResetModal();
 
-            // Refresh dashboard stats
+            // Refresh dashboard stats & lock Module 08
             updateDashboardStats();
+            updateModule08State();
         }
 
         function toggleCheatSheetDrawer(e) {
             if (e) e.stopPropagation();
             const overlay = document.getElementById('drawerOverlay');
             const drawer = document.getElementById('cheatDrawer');
+            if (!drawer || !overlay) return;
             
             if (drawer.classList.contains('active')) {
                 drawer.classList.remove('active');
@@ -362,6 +402,20 @@ function updateDashboardStats() {
                 document.body.style.overflow = 'hidden';
             }
         }
+
+        // --- SECRET GATEWAY: CHEAT SHEET VIA CTRL + C KEYSTROKE ---
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                const hasSelection = window.getSelection() && window.getSelection().toString().trim().length > 0;
+                // If user is inside an input/textarea or actively highlighting text to copy, don't hijack
+                if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || hasSelection) {
+                    return;
+                }
+                e.preventDefault();
+                toggleCheatSheetDrawer();
+            }
+        });
 
         function copyCheatCommand(text, btn) {
             navigator.clipboard.writeText(text).then(() => {
@@ -462,6 +516,7 @@ function updateDashboardStats() {
         window.addEventListener('load', () => {
             loadProfile();
             updateDashboardStats();
+            updateModule08State();
             window.addEventListener('resize', updateDashboardStats);
         });
 
@@ -485,3 +540,107 @@ function handleLogoDoorClick() {
         navigateToMasterGuide();
     }
 }
+
+// --- SECRET GATEWAY 1: MODULE 08 BLACK OPS UNLOCK (STRICTLY SKULL 3X CLICK) ---
+let skullTriggerClicks = 0;
+let skullTriggerTimer = null;
+
+function unlockModule08(shouldScroll = true) {
+    localStorage.setItem('pwnbox_m08_unlocked', 'true');
+    updateModule08State();
+    const card = document.getElementById('moduleBlackOps');
+    if (card && shouldScroll) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.style.transition = 'all 0.4s ease';
+        card.style.boxShadow = '0 0 35px #9333ea, 6px 6px 0 #9333ea';
+        card.style.borderColor = '#c084fc';
+        setTimeout(() => {
+            card.style.boxShadow = '';
+            card.style.borderColor = '';
+        }, 2500);
+    }
+}
+
+function updateModule08State() {
+    const card = document.getElementById('moduleBlackOps');
+    if (!card) return;
+
+    const isUnlocked = localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+    const isCompleted = localStorage.getItem('module_blackops_completed') === 'true';
+
+    if (isUnlocked) {
+        card.style.display = 'flex';
+        card.className = "module-card active" + (isCompleted ? " completed" : "");
+        const badge = document.getElementById('blackOpsBadge');
+        const title = document.getElementById('blackOpsTitle');
+        const desc = document.getElementById('blackOpsDesc');
+        const actions = document.getElementById('blackOpsActions');
+
+        if (badge) {
+            badge.style.background = isCompleted ? "#10b981" : "#9333ea";
+            badge.textContent = isCompleted ? "COMPLETED ✓" : "SECRET UNLOCKED";
+        }
+        if (title) title.textContent = "Black Ops & C2 Evasion";
+        if (desc) desc.textContent = "Classified Red Team adversary simulation: Cobalt Strike & Havoc C2 beaconing, memory AMSI bypasses, LOLBins, and Kerberos lateral movement.";
+        if (actions) {
+            actions.innerHTML = `<span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span><a href="modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;">Launch Module ↗</a>`;
+        }
+    } else {
+        // Must NOT be visible at all until skull is pressed 3 times
+        card.style.display = 'none';
+    }
+}
+
+function checkDashboardGodModeHUD() {
+    if (localStorage.getItem('pwnbox_godmode_badge') === 'true') {
+        let hud = document.getElementById('godmodeFloatingHud');
+        if (!hud) {
+            hud = document.createElement('div');
+            hud.id = 'godmodeFloatingHud';
+            hud.className = 'godmode-hud-indicator';
+            hud.innerHTML = `
+                <span class="godmode-pulse-dot"></span>
+                <span>👑 ROOT ARCHITECT // GODMODE ACTIVE</span>
+            `;
+            hud.title = "Security Clearance: OMEGA-0 (Unrestricted Bypass Active)";
+            hud.addEventListener('click', () => {
+                if (window.showCustomAlert) {
+                    window.showCustomAlert(
+                        "👑 ROOT ARCHITECT CLEARANCE",
+                        "Architect GodMode is active across the academy. All curriculum tracks have bypass authorization, and your operative rank is elevated to Root Architect.",
+                        "success"
+                    );
+                }
+            });
+            document.body.appendChild(hud);
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateModule08State();
+    checkDashboardGodModeHUD();
+    const skullTrigger = document.getElementById('secretM08Trigger');
+    if (skullTrigger) {
+        skullTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            skullTriggerClicks++;
+            skullTrigger.style.transform = 'scale(1.35)';
+            skullTrigger.style.color = '#ef4444';
+            skullTrigger.style.opacity = '1';
+            setTimeout(() => {
+                skullTrigger.style.transform = 'scale(1)';
+                skullTrigger.style.color = '';
+                skullTrigger.style.opacity = '0.4';
+            }, 250);
+
+            if (skullTriggerClicks === 1) {
+                skullTriggerTimer = setTimeout(() => { skullTriggerClicks = 0; }, 1000);
+            } else if (skullTriggerClicks >= 3) {
+                clearTimeout(skullTriggerTimer);
+                skullTriggerClicks = 0;
+                unlockModule08(true);
+            }
+        });
+    }
+});

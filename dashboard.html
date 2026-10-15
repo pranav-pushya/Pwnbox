@@ -11,6 +11,7 @@
 
     <script src="js/auth_guard.js"></script>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -43,10 +44,6 @@
             <button onclick="toggleTheme()" class="theme-nav-btn"
                 style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
             <a href="masterguide/roadmap.html" style="background: rgba(42, 157, 143, 0.12); border: 1px solid rgba(42, 157, 143, 0.4); color: #2a9d8f; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px;">🗺️ Roadmap</a>
-            <button onclick="toggleCheatSheetDrawer(event)"
-                style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 0 0 5px rgba(16,185,129,0.2);">
-                📄 Cheat Sheet
-            </button>
             <button onclick="openAuthModal()" id="authNavBtn" style="background: rgba(242, 169, 0, 0.12); border: 1px solid rgba(242, 169, 0, 0.4); color: #f2a900; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">🔐 Login</button>
             <div class="user-profile" onclick="toggleProfileDropdown(event)">
                 <div class="user-avatar" id="headerAvatar">?</div>
@@ -145,7 +142,7 @@
             </div>
         </div>
 
-        <h2 class="section-title">🛡️ Training Curriculum Tracks</h2>
+        <h2 class="section-title">🛡️ Training Curriculum Tracks <span id="secretM08Trigger" title="Classified Vector Bypass" style="cursor: pointer; opacity: 0.4; font-size: 1.15rem; user-select: none; transition: all 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.4'">💀</span></h2>
 
         <div class="modules-grid">
             <!-- Module 1 -->
@@ -264,6 +261,22 @@
                 <div class="card-bottom">
                     <span class="module-meta">🛰️ 24 Tools Loaded</span>
                     <a href="modules/OSINT.html" class="btn-launch">Launch Module ↗</a>
+                </div>
+            </div>
+
+            <!-- Secret Module 08: Black Ops & C2 Evasion (Completely hidden until Skull 3x trigger) -->
+            <div class="module-card secret-m08-card" id="moduleBlackOps" style="display: none;">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge" id="blackOpsBadge" style="background: #9333ea; color: #fff;">SECRET UNLOCKED</span>
+                        <span class="module-num" style="color: #9333ea;">MODULE 08</span>
+                    </div>
+                    <h3 class="module-title" id="blackOpsTitle">Black Ops & C2 Evasion</h3>
+                    <p class="module-desc" id="blackOpsDesc">Classified Red Team adversary simulation: Cobalt Strike & Havoc C2 beaconing, memory AMSI bypasses, LOLBins, and Kerberos lateral movement.</p>
+                </div>
+                <div class="card-bottom" id="blackOpsActions">
+                    <span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span>
+                    <a href="modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;">Launch Module ↗</a>
                 </div>
             </div>
         </div>
