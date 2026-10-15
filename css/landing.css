@@ -629,3 +629,741 @@ main {
         font-size: 0.72rem;
     }
 }
+
+
+/* --- PRANAV PUSHYA SIGNATURE STAMP (RECOMMENDED RED RUBBER STAMP) --- */
+.pranav-stamp-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 14px;
+    margin-bottom: 8px;
+}
+
+.pranav-signature-stamp {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border: 3px double #D9291C;
+    background: rgba(217, 41, 28, 0.05);
+    color: #D9291C;
+    transform: rotate(-3deg);
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 0 0 2px rgba(217, 41, 28, 0.15), inset 0 0 10px rgba(217, 41, 28, 0.1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+}
+
+.pranav-signature-stamp:hover {
+    transform: rotate(0deg) scale(1.05);
+    background: rgba(217, 41, 28, 0.12);
+    box-shadow: 0 0 15px rgba(217, 41, 28, 0.35), inset 0 0 14px rgba(217, 41, 28, 0.2);
+}
+
+.pranav-signature-stamp.stamp-slam {
+    animation: stampSlamEffect 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes stampSlamEffect {
+    0% { transform: scale(1.6) rotate(-10deg); opacity: 0.6; }
+    70% { transform: scale(0.92) rotate(-2deg); }
+    100% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+}
+
+.stamp-tag-top {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.9;
+}
+
+.stamp-author-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.25;
+    margin: 3px 0;
+    text-shadow: 0 0 2px rgba(217, 41, 28, 0.4);
+}
+
+.stamp-tag-bottom {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.ink-drop {
+    position: fixed;
+    border-radius: 50%;
+    background: #D9291C;
+    pointer-events: none;
+    z-index: 99999;
+    animation: inkBurst 0.6s ease-out forwards;
+}
+
+@keyframes inkBurst {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* --- PLAYFUL SECTION GRID --- */
+.playful-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 25px;
+}
+
+/* --- 1. "BREACH THE MAINFRAME" MINI-GAME --- */
+.breach-game-card {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.breach-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 12px;
+}
+
+.breach-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.breach-timer-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--bauhaus-red);
+    background: var(--bg-base);
+    border: 2px solid var(--border-color);
+    padding: 4px 10px;
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+.breach-timer-track {
+    width: 100%;
+    height: 10px;
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.breach-timer-bar {
+    width: 100%;
+    height: 100%;
+    background: var(--bauhaus-yellow);
+    transition: width 0.05s linear;
+}
+
+.breach-target-display {
+    background: #090d16;
+    border: 2px solid var(--border-color);
+    padding: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.target-cipher-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #00f0ff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.target-cipher-code.pulse-cipher {
+    animation: cipherPulse 0.4s ease infinite alternate;
+}
+
+@keyframes cipherPulse {
+    from { transform: scale(1); text-shadow: 0 0 8px rgba(0, 240, 255, 0.4); }
+    to { transform: scale(1.08); text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); }
+}
+
+.breach-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.breach-node-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 800;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-base);
+    color: var(--text-main);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.breach-node-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--border-color);
+    border-color: var(--bauhaus-blue);
+}
+
+.breach-node-btn.node-correct {
+    background: #10b981 !important;
+    color: #ffffff !important;
+}
+
+.breach-node-btn.node-wrong {
+    background: var(--bauhaus-red) !important;
+    color: #ffffff !important;
+    animation: shakeWrong 0.25s ease-in-out;
+}
+
+@keyframes shakeWrong {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+.breach-status-msg {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.84rem;
+    font-weight: 700;
+    min-height: 24px;
+    line-height: 1.4;
+}
+
+.btn-start-breach {
+    background: var(--bauhaus-red);
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 800;
+    padding: 12px 20px;
+    border: 2px solid var(--border-color);
+    box-shadow: 4px 4px 0 var(--border-color);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s;
+}
+
+.btn-start-breach:hover {
+    background: #b52217;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--border-color);
+}
+
+/* --- 2. REAL-TIME THREAT RADAR & INTERCEPTOR --- */
+.threat-radar-card {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.radar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 12px;
+}
+
+.radar-score-pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 800;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #10b981;
+    padding: 4px 10px;
+}
+
+.radar-viewport-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #070a12;
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    position: relative;
+}
+
+.radar-flash-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 240, 255, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.radar-flash-overlay.emp-active {
+    animation: empFlash 0.5s ease-out;
+}
+
+@keyframes empFlash {
+    0% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+.radar-ticker-container {
+    background: #090d16;
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 110px;
+    overflow-y: hidden;
+}
+
+.ticker-log-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    line-height: 1.35;
+    animation: tickerSlideIn 0.25s ease-out;
+}
+
+@keyframes tickerSlideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ticker-status {
+    font-weight: 800;
+    color: #10b981;
+}
+
+.ticker-type {
+    color: #f1f5f9;
+    font-weight: 700;
+}
+
+.ticker-ip {
+    color: var(--bauhaus-yellow);
+}
+
+.btn-fire-emp {
+    background: #005A9C;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 800;
+    padding: 10px 18px;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.15s;
+}
+
+.btn-fire-emp:hover {
+    background: #00467a;
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--border-color);
+}
+
+/* --- 5. AGENT DOSSIER / ID BADGE GENERATOR --- */
+.agent-generator-section {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 32px 30px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.generator-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.gen-controls-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.gen-input-group label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.gen-text-input {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-base);
+    color: var(--text-main);
+    box-shadow: 2px 2px 0 var(--border-color);
+    outline: none;
+}
+
+.gen-avatar-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gen-avatar-opt {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-content: center;
+    font-size: 1.4rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-base);
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border-color);
+    transition: all 0.15s;
+}
+
+.gen-avatar-opt:hover, .gen-avatar-opt.active {
+    background: var(--bauhaus-yellow);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-color);
+}
+
+.btn-save-dossier {
+    background: #10b981;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 800;
+    padding: 12px 18px;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    margin-top: 6px;
+}
+
+.btn-save-dossier:hover {
+    background: #059669;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--border-color);
+}
+
+/* Tactical Badge Preview Card */
+.preview-badge-card {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 3px solid var(--border-color);
+    box-shadow: 6px 6px 0 var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+}
+
+.badge-barcode {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #64748b;
+}
+
+.badge-corp-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #00f0ff;
+}
+
+.badge-body {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.badge-avatar-frame {
+    width: 68px;
+    height: 68px;
+    border: 2px solid #00f0ff;
+    background: #1e293b;
+    display: grid;
+    place-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.badge-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.badge-callsign-lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.64rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.badge-callsign-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.badge-rank-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--bauhaus-yellow);
+}
+
+/* Stamped watermark across preview card */
+.badge-stamp-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    border: 2px dashed #D9291C;
+    color: #D9291C;
+    padding: 4px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    transform: rotate(-8deg);
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+/* --- SECRET ARCHITECT MODAL (EASTER EGG) --- */
+.secret-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.secret-modal-card {
+    background: #0a0f1d;
+    color: #f1f5f9;
+    border: 3px solid var(--bauhaus-red);
+    box-shadow: 10px 10px 0 var(--bauhaus-red);
+    max-width: 580px;
+    width: 100%;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: modalDropIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalDropIn {
+    from { opacity: 0; transform: translateY(-40px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.secret-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px dashed var(--bauhaus-red);
+    padding-bottom: 10px;
+}
+
+.secret-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--bauhaus-red);
+}
+
+.secret-close-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.secret-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #00f0ff;
+}
+
+.secret-sub {
+    font-size: 0.95rem;
+    color: #94a3b8;
+}
+
+.secret-code-block {
+    background: #020617;
+    border: 1px solid #1e293b;
+    padding: 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: #10b981;
+    line-height: 1.6;
+}
+
+.secret-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.btn-secret-action {
+    background: var(--bg-base);
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 10px 16px;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.btn-secret-action.red {
+    background: var(--bauhaus-red);
+    color: #ffffff;
+    border-color: var(--bauhaus-red);
+}
+
+/* Responsive tweaks for playful features */
+@media (max-width: 900px) {
+    .playful-showcase-grid, .generator-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- BAUHAUS CYBER LOADER --- */
+.bauhaus-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-base);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+    background-image: radial-gradient(var(--grid-dot) 2px, transparent 2px);
+    background-size: 30px 30px;
+}
+.bauhaus-loader.hide {
+    transform: translateY(-100%);
+}
+.loader-box {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+.loader-block {
+    width: 45px;
+    height: 45px;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: 4px 4px 0 var(--border-color);
+    animation: bounceBlock 0.9s infinite alternate ease-in-out;
+}
+.loader-block.red { background: var(--bauhaus-red); animation-delay: 0s; }
+.loader-block.blue { background: var(--bauhaus-blue); animation-delay: 0.3s; }
+.loader-block.yellow { background: var(--bauhaus-yellow); animation-delay: 0.6s; }
+
+@keyframes bounceBlock {
+    0% { transform: translateY(0); box-shadow: 4px 4px 0 var(--border-color); }
+    100% { transform: translateY(-25px); box-shadow: 12px 29px 0 var(--border-color); }
+}
+.loader-text {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--text-main);
+    letter-spacing: 6px;
+    text-shadow: 3px 3px 0 var(--border-color);
+}
+
+.pranav-stamp-container.footer-stamp {
+    justify-content: center;
+    margin: 10px 0 5px 0;
+}

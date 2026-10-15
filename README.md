@@ -25,6 +25,7 @@ The project follows a clean, decoupled client-side architecture with zero extern
 foot/
 ├── dashboard.html               # Main Agent Training Dashboard & Progress Hub
 ├── index.html                   # Cyber Command Landing Page & 3D Matrix Gateway
+├── 404.html                     # Tactical Sector 404 Bauhaus Error & Recovery Router
 ├── README.md                    # Project Documentation & Architecture
 │
 ├── 📂 assets/                   # Vector Brand Icons & Favicons
@@ -43,11 +44,16 @@ foot/
 ├── 📂 masterguide/              # Master Guide Knowledge Base & Certification Engine
 │   ├── cybersecurity_masterguide.html  # Master Guide Central Hub
 │   ├── masterguide_ch1.html – ch10.html # 10 Deep-Dive Chapters (100+ Documented Terms)
-│   └── masterguide_test.html           # Comprehensive MCQ Examination Engine
+│   ├── masterguide_test.html           # Comprehensive MCQ Examination Engine
+│   ├── roadmap.html                    # 9-Month Interactive CEH & Ethical Hacking Career Roadmap
+│   └── imp_info.html                   # Important Info: 20-Domain Blueprint, Lab Sandboxing & Arsenal
 │
 ├── 📂 css/                      # Modular Bauhaus Design System & Themes
 │   ├── landing.css              # Landing page layout & 3D HUD canvas styling
+│   ├── 404.css                  # Custom Bauhaus Cyber Command 404 cockpit styling
 │   ├── index.css                # Dashboard styling, 3D ID cards, cheat drawer
+│   ├── roadmap.css              # Career roadmap layout, progress cockpit & animations
+│   ├── imp_info.css             # Field compendium styling, tabbed views & arsenal cards
 │   ├── masterguide_test.css     # Examination engine layout & score analytics
 │   ├── masterguide_chat.css     # AI doubt sidebar & chat message styling
 │   ├── resizer.css              # Split-pane draggable laboratory panes
@@ -60,6 +66,7 @@ foot/
 │   ├── OrbitControls.js         # Camera manipulation & 360° inertia drag controls
 │   ├── three.min.js             # Bundled Three.js (r128) WebGL engine (offline-ready)
 │   ├── index.js                 # Dashboard progression, stats sync, agent ID card
+│   ├── roadmap.js               # Interactive roadmap controller, local storage & Web Audio SFX
 │   ├── masterguide_test.js      # Quiz exam controller, scoring & local history
 │   ├── masterguide_chat.js      # On-demand AI doubt chat handler (Hinglish/English)
 │   ├── theme.js                 # Global instant dark/light mode toggle
@@ -80,11 +87,15 @@ foot/
 
 ## 🚀 Key Functional Capabilities
 
-### 1. 🌐 Holographic 3D Cyber Core & RGB Matrix Rain (`index.html`)
+### 1. 🌐 Holographic 3D Cyber Core & Interactive Operations Deck (`index.html`)
 - **Full-Screen 3D Command Deck:** Built on Three.js (r128) featuring a polyhedral geodesic core, tri-axial orbital gyroscope defense rings, and 7 interactive satellite drones representing each attack phase.
 - **Full 360° Draggability:** Manipulate the hologram with mouse or touch controls using smooth inertial damping, scroll-to-zoom, and pan.
 - **Red, Blue & Green Matrix Rain:** A custom HTML5 2D canvas cascading stream of digital glyphs across the background in high-contrast primary colors.
-- **Instant Execution:** Clicking any satellite or vector pill immediately executes and navigates directly to the designated training phase without intrusive confirmation dialogs.
+- **Pranav Pushya Official Signature Stamp:** A tactile military-classified red ink rubber stamp featuring mechanical chunk/thud Web Audio synthesis and ink splatter physics.
+- **"Breach the Mainframe" Mini-Game:** A reflex-based 5-second rapid decryption trial challenging operators to decode target memory ciphers against a live ticking clock.
+- **Real-Time Global Threat Radar:** A continuous 360° sweeping radar array with real-time simulated attack telemetry and an interactive EMP countermeasure blast.
+- **Agent Dossier & ID Badge Workshop:** In-browser tactical badge customizer enabling recruits to set callsigns and avatars, authenticated with the architect's seal and synced to the dashboard.
+- **Keyboard Easter Eggs:** Built-in listener supporting the Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`) and typing `hack`, `matrix`, or `pranav` to trigger the classified architect override console.
 
 ### 2. 🛡️ The 7-Stage Cyber Kill Chain Laboratories
 Hands-on interactive terminals simulating authentic CLI execution, error handling, and output parsing without requiring local virtual machines:
@@ -119,6 +130,18 @@ Over 100 meticulously documented concepts divided into structured operational do
 
 ### 7. 📄 Tactical CEH Command Cheat Sheet
 A quick-access sliding drawer containing categorized, battle-tested terminal syntax (Nmap, Gobuster, Nikto, Hydra, SQLMap, John the Ripper) with one-click clipboard copying.
+
+### 8. 🗺️ 9-Month Ethical Hacking & CEH Career Roadmap (`masterguide/roadmap.html`)
+- **4-Phase Interactive Overview Grid:** Clean Bauhaus cards summarizing Phase 1 (Foundation), Phase 2 (Learn to Hack), Phase 3 (CEH Exam Sprint), and Phase 4 (Career Launch & Mastery).
+- **Deep-Dive Milestone Drilldown:** Clicking any phase opens granular weekly milestones, practical labs, and resource hubs.
+- **Interactive Checklist with Audio & Confetti:** Progress tracking saved to `localStorage`, live percentage cockpit, procedural Web Audio blip feedback, and celebratory confetti bursts.
+- **Instant Phase Switcher:** Filter tabs to switch between phases without clutter.
+
+### 9. 💡 Field Intelligence & CEH Blueprint Compendium (`masterguide/imp_info.html`)
+- **Uncluttered Tabbed Navigation:** 6 segmented modules (*Disciplines & Skills, 5 Phases & Arsenal, Virtual Attack Lab, CEH Exam Blueprint, Careers & Myths, AI Multiplier*).
+- **Tactical Arsenal Cards:** Interactive tool cards replacing cluttered tables with category filters and 1-click syntax clipboard copying.
+- **Live Search CEH Exam Blueprint:** 20 exam domains organized into 4 weightage clusters with instant keyword filtering.
+- **Virtual Lab Sandbox Architecture:** Isolated multi-VM topology (Kali, Metasploitable, OWASP Juice Shop, Windows Eval) with Host-Only and NAT network rules.
 
 ---
 

@@ -17,16 +17,6 @@
 </head>
 
 <body>
-    <!-- Bauhaus Loader -->
-    <div id="bauhaus-loader" class="bauhaus-loader">
-        <div class="loader-box">
-            <div class="loader-block red"></div>
-            <div class="loader-block blue"></div>
-            <div class="loader-block yellow"></div>
-        </div>
-        <div class="loader-text">INITIALIZING...</div>
-    </div>
-
     <!-- Custom Reset Confirmation Modal -->
     <div class="reset-modal-overlay" id="resetModalOverlay">
         <div class="reset-modal-box">
@@ -39,20 +29,6 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const loader = document.getElementById('bauhaus-loader');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-                loader.classList.add('hide');
-                document.body.style.overflow = '';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 800);
-            }, 3000);
-        });
-    </script>
-
     <header>
         <div class="logo">
             <span class="logo-icon" onclick="handleLogoDoorClick()" ondblclick="navigateToMasterGuide()" role="button" tabindex="0">🛡️</span>
@@ -319,6 +295,10 @@
                         <div class="node-dot"></div>
                         <div class="node-label">06. Web Apps</div>
                     </div>
+                    <div class="node" id="node7" onclick="window.location.href='modules/OSINT.html'">
+                        <div class="node-dot"></div>
+                        <div class="node-label">07. OSINT</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -334,9 +314,7 @@
             <div class="footer-divider"></div>
             <div class="footer-bottom">
                 <p class="copyright">© 2026 All Rights Reserved.</p>
-                <div class="watermark">
-                    Designed & Developed by <span class="highlight">Pranav Pushya</span>
-                </div>
+                
             </div>
         </div>
     </footer>

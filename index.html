@@ -23,6 +23,30 @@
 </head>
 
 <body>
+    <!-- Bauhaus Cyber Loader -->
+    <div id="bauhaus-loader" class="bauhaus-loader">
+        <div class="loader-box">
+            <div class="loader-block red"></div>
+            <div class="loader-block blue"></div>
+            <div class="loader-block yellow"></div>
+        </div>
+        <div class="loader-text">PWNBOX INITIALIZING...</div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loader = document.getElementById('bauhaus-loader');
+            if (loader) {
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    loader.classList.add('hide');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 800);
+                }, 2200);
+            }
+        });
+    </script>
     <!-- Fullscreen Red / Blue / Green Matrix Rain Canvas -->
     <canvas id="matrix-rain-canvas"></canvas>
 
@@ -35,11 +59,12 @@
             <div class="hero-top-deck">
                 <div class="hero-header-tag">
                     <span class="status-dot"></span>
-                    <span>Tactical Cyber Warfare Simulator // v3.4</span>
+                    <span>PWNBOX Tactical Cyber Warfare Simulator // v3.4</span>
                 </div>
 
+
                 <h1 class="hero-title">
-                    OPERATIONAL<br>
+                    PWNBOX //<br>
                     <span class="accent-red">CYBER COMMAND</span><br>
                     ACADEMY
                 </h1>
@@ -63,8 +88,12 @@
                         <div class="stat-label">Guide Chapters</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num">100+</div>
-                        <div class="stat-label">Exam Questions</div>
+                        <div class="stat-num">04</div>
+                        <div class="stat-label">Roadmap Phases</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">20</div>
+                        <div class="stat-label">CEH Domains</div>
                     </div>
                 </div>
             </div>
@@ -111,6 +140,71 @@
                         <li><button class="btn-vector-pill" data-id="6">M-06 WebSec</button></li>
                         <li><button class="btn-vector-pill" data-id="7">M-07 OSINT</button></li>
                     </ul>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Playful Cyber Operations Deck: Breach Minigame & Live Threat Radar -->
+        <section class="section-wrapper" id="cyber-ops">
+            <div class="section-header">
+                <span class="section-tag">// 02 TACTICAL ENGAGEMENT // LIVE CYBER EXERCISES</span>
+                <h2 class="section-title">ACTIVE CYBER DEFENSE & SIMULATION RANGE</h2>
+                <p class="section-desc">Test your reflex decryption skills in the 5-second mainframe breach trial or monitor and intercept simulated real-time global cyber threats.</p>
+            </div>
+
+            <div class="playful-showcase-grid">
+                <!-- Widget 1: Breach the Mainframe Mini-Game -->
+                <div class="breach-game-card">
+                    <div class="breach-header">
+                        <div class="breach-title">
+                            <span>⚡</span>
+                            <span>BREACH THE MAINFRAME</span>
+                        </div>
+                        <div class="breach-timer-badge" id="breachTimerText">05.00s</div>
+                    </div>
+
+                    <div class="breach-timer-track">
+                        <div class="breach-timer-bar" id="breachTimerBar"></div>
+                    </div>
+
+                    <div class="breach-target-display">
+                        <span style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #94a3b8; font-weight: 700;">REQUIRED TARGET MEMORY HASH:</span>
+                        <div class="target-cipher-code" id="breachTargetCode">0x??</div>
+                    </div>
+
+                    <div class="breach-options-grid" id="breachOptions">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div class="breach-status-msg" id="breachStatus">PRESS INITIATE TO COMMENCE 5-SECOND INFILTRATION TRIAL</div>
+
+                    <button class="btn-start-breach" id="btnStartBreach">⚡ INITIATE BREACH PROTOCOL</button>
+                </div>
+
+                <!-- Widget 2: Real-Time Global Cyber Threat Radar -->
+                <div class="threat-radar-card">
+                    <div class="radar-header">
+                        <div class="breach-title">
+                            <span>📡</span>
+                            <span>GLOBAL THREAT RADAR</span>
+                        </div>
+                        <div class="radar-score-pill">DEFLECTED: <span id="threatInterceptCount">42</span></div>
+                    </div>
+
+                    <div class="radar-viewport-wrap">
+                        <div class="radar-flash-overlay" id="radarFlashOverlay"></div>
+                        <canvas id="threatRadarCanvas"></canvas>
+                    </div>
+
+                    <div class="radar-ticker-container" id="radarTickerLogs">
+                        <!-- Live pings populated by JS -->
+                    </div>
+
+                    <button class="btn-fire-emp" id="btnFireEmp">
+                        <span>🛡️</span>
+                        <span>FIRE EMP COUNTERMEASURE</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -179,6 +273,88 @@
                         <span>🏆 Persistent Local Storage</span>
                     </div>
                 </div>
+
+                <!-- Feature 5: 9-Month Career Roadmap -->
+                <div class="feature-card" style="--card-accent: #2a9d8f;">
+                    <div>
+                        <div class="feature-icon-box">🗺️</div>
+                        <h3 class="feature-title">9-Month Career Roadmap</h3>
+                        <p class="feature-text">
+                            A battle-tested 4-phase trajectory from fundamental networking to CEH certification and Bug Bounty hunting. Live interactive checklist tracking with celebratory audio feedback.
+                        </p>
+                    </div>
+                    <div class="feature-footer-tag">
+                        <span>🎯 4 Structured Phases</span>
+                    </div>
+                </div>
+
+                <!-- Feature 6: Field Intelligence & Blueprint -->
+                <div class="feature-card" style="--card-accent: #e76f51;">
+                    <div>
+                        <div class="feature-icon-box">💡</div>
+                        <h3 class="feature-title">Field Intelligence & Blueprint</h3>
+                        <p class="feature-text">
+                            Comprehensive compendium covering the 7 branches of cybersecurity, 5 core skills, 20 CEH exam domains with weightages, virtualized attack lab setup, and AI security multipliers.
+                        </p>
+                    </div>
+                    <div class="feature-footer-tag">
+                        <span>📜 20-Domain Curriculum</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Agent Dossier & Classified ID Badge Generator -->
+        <section class="section-wrapper" id="agent-generator">
+            <div class="section-header">
+                <span class="section-tag">// 03 OPERATIVE ONBOARDING // DOSSIER WORKSHOP</span>
+                <h2 class="section-title">COMMISSION YOUR AGENT CREDENTIALS</h2>
+                <p class="section-desc">Customize your operative identity badge, stamped and authorized by Lead Architect Pranav Pushya, and sync it to your PwnBox Dashboard.</p>
+            </div>
+
+            <div class="agent-generator-section">
+                <div class="generator-layout">
+                    <!-- Inputs -->
+                    <div class="gen-controls-col">
+                        <div class="gen-input-group">
+                            <label for="genAgentAlias">AGENT CODENAME / CALLSIGN:</label>
+                            <input type="text" id="genAgentAlias" class="gen-text-input" placeholder="e.g. CYBER_GHOST" maxlength="16" value="CADET_OPERATOR">
+                        </div>
+
+                        <div class="gen-input-group">
+                            <label>SELECT TACTICAL AVATAR:</label>
+                            <div class="gen-avatar-list">
+                                <button class="gen-avatar-opt active" data-avatar="👾">👾</button>
+                                <button class="gen-avatar-opt" data-avatar="🕵️">🕵️</button>
+                                <button class="gen-avatar-opt" data-avatar="💀">💀</button>
+                                <button class="gen-avatar-opt" data-avatar="🛡️">🛡️</button>
+                                <button class="gen-avatar-opt" data-avatar="⚡">⚡</button>
+                            </div>
+                        </div>
+
+                        <button class="btn-save-dossier" id="btnSaveAgentDossier">💾 SAVE TO DASHBOARD DOSSIER</button>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="preview-badge-card">
+                        <div class="badge-top-row">
+                            <span class="badge-barcode">||| | |||| | |||</span>
+                            <span class="badge-corp-title">PWNBOX CYBER COMMAND</span>
+                        </div>
+                        <div class="badge-body">
+                            <div class="badge-avatar-frame" id="previewAgentAvatar">👾</div>
+                            <div class="badge-info-details">
+                                <span class="badge-callsign-lbl">OPERATIVE CALLSIGN</span>
+                                <span class="badge-callsign-val" id="previewAgentAlias">CADET_OPERATOR</span>
+                                <span class="badge-rank-val">CLEARANCE: LEVEL 1 APPRENTICE</span>
+                            </div>
+                        </div>
+                        <div class="badge-stamp-overlay">
+                            ★ VERIFIED BY PRANAV PUSHYA ★
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -186,12 +362,22 @@
         <section class="dashboard-cta-banner">
             <div class="dashboard-cta-content">
                 <h2>READY TO COMMENCE MISSION?</h2>
-                <p>Launch the interactive PwnBox Dashboard to configure your Agent ID, monitor real-time completion analytics, and access interactive terminal sandboxes.</p>
+                <p>Launch the interactive PwnBox Dashboard, explore the 9-Month Career Roadmap, or inspect our deep Field Intelligence Compendium.</p>
             </div>
-            <a href="dashboard.html" class="btn-cta-white">
-                <span>⚡ Open PwnBox Dashboard</span>
-                <span>→</span>
-            </a>
+            <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+                <a href="dashboard.html" class="btn-cta-white">
+                    <span>⚡ Launch Dashboard</span>
+                    <span>→</span>
+                </a>
+                <a href="masterguide/roadmap.html" class="btn-cta-white" style="background: #2a9d8f; color: #ffffff;">
+                    <span>🗺️ Career Roadmap</span>
+                    <span>→</span>
+                </a>
+                <a href="masterguide/imp_info.html" class="btn-cta-white" style="background: #e76f51; color: #ffffff;">
+                    <span>💡 Field Intelligence</span>
+                    <span>→</span>
+                </a>
+            </div>
         </section>
     </main>
 
@@ -208,6 +394,15 @@
                 </p>
             </div>
 
+
+            <!-- Pranav Pushya Official Signature Stamp -->
+            <div class="pranav-stamp-container footer-stamp">
+                <div class="pranav-signature-stamp" id="pranavStamp" title="Click to verify digital ink stamp">
+                    <span class="stamp-tag-top">★ TOP SECRET // LEVEL 5 SECURITY CLEARANCE ★</span>
+                    <span class="stamp-author-name">PRANAV PUSHYA</span>
+                    <span class="stamp-tag-bottom">AUTHENTICATED SYSTEM ARCHITECT &bull; #0xPRANAV-2026</span>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <div>
                     <span>PWNBOX CYBER COMMAND // </span>
@@ -238,6 +433,8 @@
 
     <!-- 3D Holographic Cyber Core Matrix Animation -->
     <script src="js/landing_3d.js"></script>
+    <!-- Playful Features & Pranav Pushya Signature Stamp Engine -->
+    <script src="js/playful_features.js"></script>
 </body>
 
 </html>

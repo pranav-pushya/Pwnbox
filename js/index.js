@@ -59,6 +59,16 @@ function updateDashboardStats() {
                     url: 'modules/WebAppThreats.html',
                     toolsText: '🌐 6+ Tools Loaded',
                     nodeId: 'node6'
+                },
+                {
+                    key: 'osint',
+                    completedKey: 'module_osint_completed',
+                    cardId: 'moduleOsint',
+                    badgeId: 'osintBadge',
+                    actionsId: null,
+                    url: 'modules/OSINT.html',
+                    toolsText: '🛰️ 24 Tools Loaded',
+                    nodeId: 'node7'
                 }
             ];
 
@@ -178,10 +188,10 @@ function updateDashboardStats() {
             const userRank = document.getElementById('userRank');
             const roadmapLine = document.getElementById('roadmapProgressLine');
 
-            completedCountEl.innerText = `${completedCount} / 6`;
-            const pct = Math.round((completedCount / 6) * 100);
+            completedCountEl.innerText = `${completedCount} / 7`;
+            const pct = Math.round((completedCount / 7) * 100);
             progressText.innerText = `${pct}% Done`;
-            progressFill.style.width = `${8.33 + (completedCount / 6) * 91.67}%`;
+            progressFill.style.width = `${Math.min(100, Math.round((completedCount / 7) * 100))}%`;
 
             const rankNames = [
                 "Apprentice",
@@ -210,7 +220,7 @@ function updateDashboardStats() {
             }
             const nextMissionProgress = document.getElementById('nextMissionProgress');
             if (nextMissionProgress) {
-                if (completedCount >= 6) nextMissionProgress.style.width = '100%';
+                if (completedCount >= 7) nextMissionProgress.style.width = '100%';
                 else nextMissionProgress.style.width = '15%'; // Just a small stub to show it's active
             }
 
@@ -218,7 +228,7 @@ function updateDashboardStats() {
                 const bgLine = document.getElementById('roadmapBgLine');
                 if (bgLine) {
                     const bgWidth = bgLine.getBoundingClientRect().width;
-                    const segmentWidth = bgWidth / 5;
+                    const segmentWidth = bgWidth / 6;
                     let completedSequence = 0;
                     for (let i = 0; i < modules.length; i++) {
                         if (modules[i].isCompleted) {
