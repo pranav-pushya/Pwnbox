@@ -4,12 +4,12 @@
  * 
  * Features:
  * - Full Screen Zoomed 3D Matrix View
- * - Instant Node Click Execution (No alerts or confirms)
+ * - Interactive Drone Inspection & Smooth Camera Navigation
+ * - Surge Power Overdrive Mode (Energy acceleration & light bursts)
+ * - Tactical X-Ray CAD Wireframe Mode
+ * - Architecture Disassembly / Radial Expand View
+ * - Real-Time Photon Data Packets flowing along laser conduits
  * - Full 360-degree Draggable OrbitControls (Drag, Zoom, Pan)
- * - Giant Geodesic Cyber Core with Pulsing Energy Matrix
- * - Tri-Axial Orbital Gyroscope Rings with Segmented Radars
- * - 7 Interactive Orbital Attack Vector Drones (Modules 1-7)
- * - Inertial Damping & Smooth Camera Transitions
  * - Real-Time HUD Telemetry + Web Audio API Sound Synthesizer
  */
 
@@ -24,13 +24,13 @@
 
     // --- MODULES METADATA FOR 3D NODES ---
     const ATTACK_VECTORS = [
-        { id: 1, code: 'M-01', name: 'Footprinting & Recon', icon: '🌐', tools: '22+ Tools', url: 'modules/Footprinting.html', color: 0x00f0ff, desc: 'Passive & active domain intelligence, DNS footprinting, whois reconnaissance.' },
-        { id: 2, code: 'M-02', name: 'Network Scanning', icon: '📡', tools: '15+ Tools', url: 'modules/Scanning.html', color: 0x22c55e, desc: 'Host discovery, stealth SYN scans, OS fingerprinting with Nmap & Hping3.' },
-        { id: 3, code: 'M-03', name: 'Service Enumeration', icon: '🔍', tools: '8+ Tools', url: 'modules/Enumeration.html', color: 0xeab308, desc: 'SMB, SNMP, LDAP, NetBIOS user & share extraction.' },
-        { id: 4, code: 'M-04', name: 'Vulnerability Analysis', icon: '🛡️', tools: '5+ Tools', url: 'modules/Vulnerablity.html', color: 0xf97316, desc: 'CVE vulnerability assessment, CVSS scoring, Nikto & Nessus logic.' },
-        { id: 5, code: 'M-05', name: 'System Exploitation', icon: '💻', tools: '6+ Tools', url: 'modules/SystemHacking.html', color: 0xd9291c, desc: 'Password cracking, payload generation, privilege escalation vectors.' },
-        { id: 6, code: 'M-06', name: 'Web App Threats', icon: '🕸️', tools: '6+ Tools', url: 'modules/WebAppThreats.html', color: 0xa855f7, desc: 'OWASP Top 10, SQL Injection, XSS, SSRF & authentication bypasses.' },
-        { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'modules/OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.' }
+        { id: 1, code: 'M-01', name: 'Footprinting & Recon', icon: '🌐', tools: '22+ Tools', url: 'modules/Footprinting.html', color: 0x00f0ff, desc: 'Passive & active domain intelligence, DNS footprinting, whois reconnaissance.', cve: 'CVE-2023-3824', port: 'PORT 53/UDP, 443/TCP' },
+        { id: 2, code: 'M-02', name: 'Network Scanning', icon: '📡', tools: '15+ Tools', url: 'modules/Scanning.html', color: 0x22c55e, desc: 'Host discovery, stealth SYN scans, OS fingerprinting with Nmap & Hping3.', cve: 'CVE-2023-44487', port: 'ALL PORTS (1-65535)' },
+        { id: 3, code: 'M-03', name: 'Service Enumeration', icon: '🔍', tools: '8+ Tools', url: 'modules/Enumeration.html', color: 0xeab308, desc: 'SMB, SNMP, LDAP, NetBIOS user & share extraction.', cve: 'CVE-2020-1472', port: 'PORT 445/139 (SMB)' },
+        { id: 4, code: 'M-04', name: 'Vulnerability Analysis', icon: '🛡️', tools: '5+ Tools', url: 'modules/Vulnerablity.html', color: 0xf97316, desc: 'CVE vulnerability assessment, CVSS scoring, Nikto & Nessus logic.', cve: 'CVSS 9.8 CRITICAL', port: 'VULN SCAN ENGINE' },
+        { id: 5, code: 'M-05', name: 'System Exploitation', icon: '💻', tools: '6+ Tools', url: 'modules/SystemHacking.html', color: 0xd9291c, desc: 'Password cracking, payload generation, privilege escalation vectors.', cve: 'CVE-2021-4034 (PwnKit)', port: 'ROOT PRIVILEGE / UID 0' },
+        { id: 6, code: 'M-06', name: 'Web App Threats', icon: '🕸️', tools: '6+ Tools', url: 'modules/WebAppThreats.html', color: 0xa855f7, desc: 'OWASP Top 10, SQL Injection, XSS, SSRF & authentication bypasses.', cve: 'CVE-2024-38812 (RCE)', port: 'PORT 80/443 (HTTP/S)' },
+        { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'modules/OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.', cve: 'IDENTITY LEAK INTEL', port: 'DEEP & DARK WEB' }
     ];
 
     // --- SOUND SYNTHESIZER (ZERO-LATENCY WEB AUDIO API) ---
@@ -68,22 +68,60 @@
     }
 
     function playHoverSound() {
-        playTone(920, 'sine', 0.05, 0.04);
+        playTone(920, 'sine', 0.04, 0.03);
     }
 
     function playClickSound() {
-        playTone(1320, 'triangle', 0.1, 0.08);
-        setTimeout(() => playTone(1840, 'sine', 0.12, 0.06), 35);
+        playTone(1320, 'triangle', 0.09, 0.07);
+        setTimeout(() => playTone(1840, 'sine', 0.1, 0.05), 30);
+    }
+
+    function playSurgeSound() {
+        if (!sfxEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1400, audioCtx.currentTime + 0.35);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.4);
+        } catch (e) {}
+    }
+
+    function playExpandSound() {
+        if (!sfxEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        } catch (e) {}
     }
 
     // --- THREE.JS SCENE SETUP ---
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x060913, 0.012);
 
-    // Camera setup - dynamically adapted so it is not over-zoomed on mobile screens
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
     const isMobileInitial = window.innerWidth <= 768;
-    camera.position.set(0, isMobileInitial ? 1.0 : 1.6, isMobileInitial ? 24.0 : 14.5);
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const defaultCamPos = new THREE.Vector3(0, isMobileInitial ? 1.0 : 1.6, isMobileInitial ? 24.0 : 14.5);
+    camera.position.copy(defaultCamPos);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -91,7 +129,7 @@
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // --- FULL 360-DEGREE DRAGGABLE ORBITCONTROLS ---
+    // OrbitControls
     let controls = null;
     if (typeof THREE.OrbitControls !== 'undefined') {
         controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -100,13 +138,13 @@
         controls.rotateSpeed = 0.85;
         controls.enableZoom = !isMobileInitial;
         controls.minDistance = 4;
-        controls.maxDistance = 40;
+        controls.maxDistance = 45;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.9;
         controls.enablePan = false;
     }
 
-    // --- LIGHTS ---
+    // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
@@ -180,18 +218,20 @@
     ringsGroup.add(ring2);
     ringsGroup.add(ring3);
 
-    // 5. 7 Interactive Orbital Attack Vector Drones
+    // 5. 7 Interactive Orbital Attack Vector Drones + Traveling Packets
     const nodeMeshes = [];
     const beamsGroup = new THREE.Group();
     masterGroup.add(beamsGroup);
 
-    const orbitRadius = 9.4;
+    const packetMeshes = [];
+    const baseOrbitRadius = 9.4;
+    let currentOrbitRadius = baseOrbitRadius;
     const nodeCount = ATTACK_VECTORS.length;
 
     ATTACK_VECTORS.forEach((vector, i) => {
         const angle = (i / nodeCount) * Math.PI * 2;
-        const x = Math.cos(angle) * orbitRadius;
-        const z = Math.sin(angle) * orbitRadius;
+        const x = Math.cos(angle) * baseOrbitRadius;
+        const z = Math.sin(angle) * baseOrbitRadius;
         const y = Math.sin(angle * 2) * 2.0;
 
         const nodeGroup = new THREE.Group();
@@ -237,28 +277,43 @@
         const beamLine = new THREE.Line(lineGeo, lineMat);
         beamsGroup.add(beamLine);
 
+        // Traveling Photon Energy Packet
+        const packetGeo = new THREE.SphereGeometry(0.18, 8, 8);
+        const packetMat = new THREE.MeshBasicMaterial({ color: vector.color });
+        const packetMesh = new THREE.Mesh(packetGeo, packetMat);
+        beamsGroup.add(packetMesh);
+        packetMeshes.push({
+            mesh: packetMesh,
+            vectorIndex: i,
+            angle: angle,
+            baseY: y
+        });
+
         // Metadata
         nodeGroup.userData = {
             ...vector,
+            baseAngle: angle,
+            baseY: y,
             targetScale: 1.0,
             beamLine: beamLine,
             haloMesh: haloMesh,
-            beaconMesh: beaconMesh
+            beaconMesh: beaconMesh,
+            solidMesh: solidMesh
         };
 
         masterGroup.add(nodeGroup);
         nodeMeshes.push(nodeGroup);
     });
 
-    // 6. Cyberspace Floating Data Particles (1,600 Points)
-    const particleCount = 1600;
+    // 6. Cyberspace Floating Data Particles (1,800 Points)
+    const particleCount = 1800;
     const particleGeo = new THREE.BufferGeometry();
     const particlePos = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-        particlePos[i] = (Math.random() - 0.5) * 70;
-        particlePos[i + 1] = (Math.random() - 0.5) * 50;
-        particlePos[i + 2] = (Math.random() - 0.5) * 70;
+        particlePos[i] = (Math.random() - 0.5) * 75;
+        particlePos[i + 1] = (Math.random() - 0.5) * 55;
+        particlePos[i + 2] = (Math.random() - 0.5) * 75;
     }
     particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
 
@@ -276,14 +331,20 @@
     gridHelper.position.y = -9.0;
     scene.add(gridHelper);
 
-    // --- RAYCASTING & DRAG-DETECTION ---
+    // --- STATE VARIABLES ---
+    let isSurge = false;
+    let isWireframe = false;
+    let isExploded = false;
+    let focusedNode = null;
+    let targetCameraPos = defaultCamPos.clone();
+    let targetLookAt = new THREE.Vector3(0, 0, 0);
+
+    // Raycasting & pointer detection
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2(-999, -999);
-
     let isPointerDown = false;
     let pointerDownPos = { x: 0, y: 0 };
     let hoveredNode = null;
-    let activeNode = null;
 
     // HUD Elements
     const hudNodeName = document.getElementById('hudNodeName');
@@ -294,14 +355,25 @@
         if (!hudNodeName) return;
         if (vectorData) {
             hudNodeName.textContent = `${vectorData.code}: ${vectorData.name}`;
-            hudNodeMeta.textContent = `STATUS: ARMED // ${vectorData.tools} // CLICK TO LAUNCH LAB`;
+            hudNodeMeta.innerHTML = `<span style="color: #22c55e; font-weight: 700;">${vectorData.port}</span> // <span style="color: #eab308;">${vectorData.tools}</span> // ${vectorData.cve} <br/><button id="btnHudLaunch" class="btn-hud-launch">⚡ LAUNCH MODULE LAB &rarr;</button>`;
             hudNodeName.style.color = '#' + vectorData.color.toString(16).padStart(6, '0');
-            if (hudStatus) hudStatus.textContent = `VECTOR LOCKED: ${vectorData.code}`;
+            if (hudStatus) hudStatus.textContent = `TARGET LOCKED: ${vectorData.code}`;
+
+            const launchBtn = document.getElementById('btnHudLaunch');
+            if (launchBtn) {
+                launchBtn.addEventListener('click', (ev) => {
+                    ev.stopPropagation();
+                    playClickSound();
+                    window.location.href = vectorData.url;
+                });
+            }
         } else {
             hudNodeName.textContent = 'SYSTEM: QUANTUM DEFENSE MATRIX';
-            hudNodeMeta.textContent = 'DRAG ANYWHERE TO ROTATE 360° // SCROLL TO ZOOM // CLICK NODES';
+            hudNodeMeta.textContent = 'DRAG ANYWHERE TO ROTATE 360° // SCROLL TO ZOOM // CLICK NODES TO INSPECT';
             hudNodeName.style.color = '#38bdf8';
-            if (hudStatus) hudStatus.textContent = 'QUANTUM CORE: ARMED';
+            if (hudStatus) {
+                hudStatus.textContent = isSurge ? 'QUANTUM OVERDRIVE: SURGE ACTIVE' : 'QUANTUM CORE: ARMED';
+            }
         }
     }
 
@@ -331,7 +403,6 @@
 
     container.addEventListener('pointerup', (e) => {
         const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
-        // Only trigger click if the pointer moved less than 6px (distinguishes drag from click!)
         if (dist < 6 && hoveredNode) {
             playClickSound();
             selectNode(hoveredNode);
@@ -339,11 +410,17 @@
         isPointerDown = false;
     });
 
-    // Node selection: INSTANT EXECUTION (NO ALERTS!)
+    // Node Selection & Camera Focus
     function selectNode(nodeGroup) {
-        activeNode = nodeGroup;
         const data = nodeGroup.userData;
 
+        // If clicking same node twice, direct launch!
+        if (focusedNode === nodeGroup) {
+            window.location.href = data.url;
+            return;
+        }
+
+        focusedNode = nodeGroup;
         updateTelemetryHUD(data);
 
         // Highlight vector buttons
@@ -356,24 +433,40 @@
         });
 
         // Tactile scale punch
-        nodeGroup.scale.set(2.0, 2.0, 2.0);
+        nodeGroup.scale.set(1.8, 1.8, 1.8);
 
-        // Immediate direct execution — NO ALERTS!
-        setTimeout(() => {
-            window.location.href = data.url;
-        }, 80);
+        // Focus camera towards target drone
+        if (controls) {
+            controls.autoRotate = false;
+            const btnAutoRotate = document.getElementById('btnAutoRotate');
+            if (btnAutoRotate) {
+                btnAutoRotate.classList.remove('active');
+                btnAutoRotate.textContent = '⏸️ SPIN: OFF';
+            }
+        }
+
+        const nodeWorldPos = new THREE.Vector3();
+        nodeGroup.getWorldPosition(nodeWorldPos);
+        targetLookAt.copy(nodeWorldPos);
+
+        // Position camera slightly offset from the drone for a dramatic cinematic view
+        const offsetDir = nodeWorldPos.clone().normalize();
+        targetCameraPos.copy(nodeWorldPos).add(offsetDir.multiplyScalar(6.0)).add(new THREE.Vector3(0, 1.5, 0));
     }
 
     // --- HUD BUTTON ACTIONS ---
+    // 1. Reset View
     const btnReset = document.getElementById('btnResetView');
     if (btnReset) {
         btnReset.addEventListener('click', () => {
             playClickSound();
+            focusedNode = null;
+            targetLookAt.set(0, 0, 0);
+            targetCameraPos.copy(defaultCamPos);
             if (controls) {
                 controls.reset();
                 controls.autoRotate = true;
             }
-            camera.position.set(0, 1.6, 14.5);
             updateTelemetryHUD(null);
             document.querySelectorAll('.btn-vector-pill').forEach(b => b.classList.remove('active'));
             const btnAutoRotate = document.getElementById('btnAutoRotate');
@@ -384,6 +477,7 @@
         });
     }
 
+    // 2. Auto-Rotate Spin
     const btnAutoRotate = document.getElementById('btnAutoRotate');
     if (btnAutoRotate) {
         btnAutoRotate.addEventListener('click', () => {
@@ -396,6 +490,56 @@
         });
     }
 
+    // 3. Quantum Surge Overdrive Mode
+    const btnSurge = document.getElementById('btnSurge');
+    if (btnSurge) {
+        btnSurge.addEventListener('click', () => {
+            isSurge = !isSurge;
+            playSurgeSound();
+            btnSurge.classList.toggle('active', isSurge);
+            btnSurge.textContent = isSurge ? '⚡ SURGE: ACTIVE' : '⚡ SURGE';
+
+            if (isSurge) {
+                pointLightCyan.intensity = 6.0;
+                pointLightRed.intensity = 5.5;
+                if (hudStatus) hudStatus.textContent = 'QUANTUM OVERDRIVE: SURGE ACTIVE';
+            } else {
+                pointLightCyan.intensity = 3.2;
+                pointLightRed.intensity = 2.8;
+                if (hudStatus) hudStatus.textContent = 'QUANTUM CORE: ARMED';
+            }
+        });
+    }
+
+    // 4. Tactical Wireframe X-Ray Mode
+    const btnWireframe = document.getElementById('btnWireframe');
+    if (btnWireframe) {
+        btnWireframe.addEventListener('click', () => {
+            isWireframe = !isWireframe;
+            playClickSound();
+            btnWireframe.classList.toggle('active', isWireframe);
+            btnWireframe.textContent = isWireframe ? '📐 X-RAY: ON' : '📐 X-RAY';
+
+            // Apply wireframe styling to core objects
+            plasmaMesh.material.wireframe = isWireframe;
+            plasmaMesh.material.color.setHex(isWireframe ? 0x00ffaa : 0xffffff);
+            shieldMesh.material.color.setHex(isWireframe ? 0x00ffaa : 0x005a9c);
+            shieldMesh.material.opacity = isWireframe ? 0.95 : 0.8;
+        });
+    }
+
+    // 5. Expand / Disassemble Architecture View
+    const btnExplode = document.getElementById('btnExplode');
+    if (btnExplode) {
+        btnExplode.addEventListener('click', () => {
+            isExploded = !isExploded;
+            playExpandSound();
+            btnExplode.classList.toggle('active', isExploded);
+            btnExplode.textContent = isExploded ? '💥 COMPACT' : '💥 EXPAND';
+        });
+    }
+
+    // 6. Sound Effects Toggle
     const btnSfx = document.getElementById('btnSfx');
     if (btnSfx) {
         btnSfx.addEventListener('click', () => {
@@ -406,7 +550,7 @@
         });
     }
 
-    // Vector Pills Selection: INSTANT EXECUTION (NO ALERTS)
+    // Vector Pills Selection
     document.querySelectorAll('.btn-vector-pill').forEach(btn => {
         btn.addEventListener('click', () => {
             const id = parseInt(btn.getAttribute('data-id'), 10);
@@ -425,8 +569,10 @@
         const height = container.clientHeight;
         camera.aspect = width / height;
         const isMobile = window.innerWidth <= 768;
-        camera.position.z = isMobile ? 24.0 : 14.5;
-        camera.position.y = isMobile ? 1.0 : 1.6;
+        defaultCamPos.set(0, isMobile ? 1.0 : 1.6, isMobile ? 24.0 : 14.5);
+        if (!focusedNode) {
+            targetCameraPos.copy(defaultCamPos);
+        }
         if (controls) {
             controls.enableZoom = !isMobile;
         }
@@ -459,7 +605,17 @@
     function animate() {
         requestAnimationFrame(animate);
 
+        const delta = clock.getDelta();
         const elapsedTime = clock.getElapsedTime();
+        const speedMult = isSurge ? 3.5 : 1.0;
+
+        // Smooth Camera & Target Lerp if focused
+        if (focusedNode) {
+            camera.position.lerp(targetCameraPos, 0.05);
+            if (controls) {
+                controls.target.lerp(targetLookAt, 0.08);
+            }
+        }
 
         // Update OrbitControls
         if (controls) {
@@ -467,21 +623,34 @@
         }
 
         // Animate Rings
-        ring1.rotation.x = elapsedTime * 0.35;
-        ring1.rotation.y = elapsedTime * 0.25;
-        ring2.rotation.y = -elapsedTime * 0.45;
-        ring2.rotation.z = elapsedTime * 0.2;
-        ring3.rotation.z = elapsedTime * 0.3;
-        ring3.rotation.x = -elapsedTime * 0.35;
+        ring1.rotation.x = elapsedTime * 0.35 * speedMult;
+        ring1.rotation.y = elapsedTime * 0.25 * speedMult;
+        ring2.rotation.y = -elapsedTime * 0.45 * speedMult;
+        ring2.rotation.z = elapsedTime * 0.2 * speedMult;
+        ring3.rotation.z = elapsedTime * 0.3 * speedMult;
+        ring3.rotation.x = -elapsedTime * 0.35 * speedMult;
+
+        // Disassemble / Explode Lerp
+        const targetRadius = isExploded ? baseOrbitRadius * 1.55 : baseOrbitRadius;
+        currentOrbitRadius += (targetRadius - currentOrbitRadius) * 0.08;
+
+        const targetShieldScale = isExploded ? 1.6 : 1.0;
+        shieldMesh.scale.lerp(new THREE.Vector3(targetShieldScale, targetShieldScale, targetShieldScale), 0.08);
+
+        const targetRingScale = isExploded ? 1.35 : 1.0;
+        ringsGroup.scale.lerp(new THREE.Vector3(targetRingScale, targetRingScale, targetRingScale), 0.08);
 
         // Pulse Core
-        const coreScale = 1.0 + Math.sin(elapsedTime * 2.5) * 0.06;
+        const pulseAmp = isSurge ? 0.16 : 0.06;
+        const pulseSpeed = isSurge ? 6.0 : 2.5;
+        const coreScale = 1.0 + Math.sin(elapsedTime * pulseSpeed) * pulseAmp;
         innerCore.scale.set(coreScale, coreScale, coreScale);
-        plasmaMesh.rotation.y = elapsedTime * 1.2;
-        plasmaMesh.rotation.x = elapsedTime * 0.8;
+
+        plasmaMesh.rotation.y = elapsedTime * 1.2 * speedMult;
+        plasmaMesh.rotation.x = elapsedTime * 0.8 * speedMult;
 
         // Particle floating drift
-        particleField.rotation.y = -elapsedTime * 0.02;
+        particleField.rotation.y = -elapsedTime * (isSurge ? 0.08 : 0.02);
 
         // Raycasting for Nodes Hover
         raycaster.setFromCamera(mouse, camera);
@@ -501,7 +670,9 @@
                 currentHover.userData.targetScale = 1.45;
                 currentHover.userData.haloMesh.material.opacity = 1.0;
                 currentHover.userData.beamLine.material.opacity = 0.9;
-                updateTelemetryHUD(currentHover.userData);
+                if (!focusedNode) {
+                    updateTelemetryHUD(currentHover.userData);
+                }
                 playHoverSound();
             } else {
                 container.style.cursor = 'grab';
@@ -510,21 +681,47 @@
                     hoveredNode.userData.haloMesh.material.opacity = 0.6;
                     hoveredNode.userData.beamLine.material.opacity = 0.45;
                 }
-                if (!activeNode) updateTelemetryHUD(null);
+                if (!focusedNode) updateTelemetryHUD(null);
             }
             hoveredNode = currentHover;
         }
 
-        // Smoothly animate node scales & satellite spinning
-        nodeMeshes.forEach((node) => {
+        // Smoothly animate node positions, scales & satellite spinning
+        nodeMeshes.forEach((node, i) => {
+            const angle = node.userData.baseAngle;
+            const x = Math.cos(angle) * currentOrbitRadius;
+            const z = Math.sin(angle) * currentOrbitRadius;
+            const y = node.userData.baseY;
+
+            node.position.set(x, y, z);
+
+            // Update Laser Line
+            const positions = node.userData.beamLine.geometry.attributes.position.array;
+            positions[3] = x;
+            positions[4] = y;
+            positions[5] = z;
+            node.userData.beamLine.geometry.attributes.position.needsUpdate = true;
+
+            // Animated Traveling Photon Packets along Laser
+            const pkt = packetMeshes[i];
+            if (pkt) {
+                const packetProgress = (elapsedTime * (isSurge ? 1.8 : 0.7) + i * 0.14) % 1.0;
+                pkt.mesh.position.set(
+                    x * packetProgress,
+                    y * packetProgress,
+                    z * packetProgress
+                );
+            }
+
+            // Scale Lerp
             const curScale = node.scale.x;
             const target = node.userData.targetScale;
             const newScale = curScale + (target - curScale) * 0.15;
             node.scale.set(newScale, newScale, newScale);
 
-            node.userData.beaconMesh.rotation.x += 0.02;
-            node.userData.beaconMesh.rotation.y += 0.03;
-            node.userData.haloMesh.rotation.z = elapsedTime * 0.8;
+            node.userData.beaconMesh.rotation.x += 0.02 * speedMult;
+            node.userData.beaconMesh.rotation.y += 0.03 * speedMult;
+            node.userData.haloMesh.rotation.z = elapsedTime * 0.8 * speedMult;
         });
 
         renderer.render(scene, camera);

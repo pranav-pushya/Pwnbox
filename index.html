@@ -19,7 +19,7 @@
     </script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/landing.css?v=4.0">
     <!-- Firebase SDK v10 Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
@@ -119,6 +119,9 @@
                     <div class="hud-controls">
                         <button id="btnResetView" class="btn-hud-control" title="Reset View Orientation">⟳ RESET</button>
                         <button id="btnAutoRotate" class="btn-hud-control active" title="Toggle Auto-Spin">🌀 SPIN: ON</button>
+                        <button id="btnSurge" class="btn-hud-control" title="Toggle Quantum Surge Overcharge">⚡ SURGE</button>
+                        <button id="btnWireframe" class="btn-hud-control" title="Toggle Tactical X-Ray Wireframe">📐 X-RAY</button>
+                        <button id="btnExplode" class="btn-hud-control" title="Disassemble Architecture View">💥 EXPAND</button>
                         <button id="btnSfx" class="btn-hud-control active" title="Toggle Tactical Audio Feedback">🔊 SFX: ON</button>
                     </div>
                 </div>
@@ -155,66 +158,124 @@
         </section>
 
         
-        <!-- Playful Cyber Operations Deck: Breach Minigame & Live Threat Radar -->
+        <!-- Playful Cyber Operations Deck: Authentic Hex Breach Protocol & Military SOC Threat Radar -->
         <section class="section-wrapper" id="cyber-ops">
             <div class="section-header">
                 <span class="section-tag">// 02 TACTICAL ENGAGEMENT // LIVE CYBER EXERCISES</span>
                 <h2 class="section-title">ACTIVE CYBER DEFENSE & SIMULATION RANGE</h2>
-                <p class="section-desc">Test your reflex decryption skills in the 5-second mainframe breach trial or monitor and intercept simulated real-time global cyber threats.</p>
+                <p class="section-desc">Experience authentic memory buffer decryption in the Cyberpunk-grade Breach Protocol, or monitor and neutralize simulated real-time global APT attacks on the military SOC radar.</p>
             </div>
 
             <div class="playful-showcase-grid">
-                <!-- Widget 1: Breach the Mainframe Mini-Game -->
+                <!-- Widget 1: Authentic Memory Buffer Breach Protocol -->
                 <div class="breach-game-card">
                     <div class="breach-header">
                         <div class="breach-title">
-                            <span>⚡</span>
-                            <span>BREACH THE MAINFRAME</span>
+                            <span class="breach-glow-icon">⚡</span>
+                            <div>
+                                <div style="font-weight: 900; letter-spacing: 0.5px;">KERNEL BREACH PROTOCOL</div>
+                                <div style="font-size: 0.65rem; color: #64748b; font-weight: 600;">CYBERPUNK MEMORY BUFFER INJECTION</div>
+                            </div>
                         </div>
-                        <div class="breach-timer-badge" id="breachTimerText">05.00s</div>
+                        <div class="breach-timer-badge" id="breachTimerText">15.00s</div>
                     </div>
 
                     <div class="breach-timer-track">
                         <div class="breach-timer-bar" id="breachTimerBar"></div>
                     </div>
 
-                    <div class="breach-target-display">
-                        <span style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #94a3b8; font-weight: 700;">REQUIRED TARGET MEMORY HASH:</span>
-                        <div class="target-cipher-code" id="breachTargetCode">0x??</div>
+                    <!-- Target Buffer & Player Buffer Status -->
+                    <div class="breach-sequence-deck">
+                        <div class="sequence-box">
+                            <div class="sequence-label">TARGET INJECTION SEQUENCE:</div>
+                            <div class="sequence-chips" id="breachTargetSequence">
+                                <span class="seq-chip">--</span>
+                                <span class="seq-chip">--</span>
+                                <span class="seq-chip">--</span>
+                            </div>
+                        </div>
+                        <div class="sequence-box player-buffer-box">
+                            <div class="sequence-label">MEMORY BUFFER [<span id="bufferSlotsUsed">0</span>/4]:</div>
+                            <div class="buffer-slots" id="breachUserBuffer">
+                                <span class="buf-slot empty">_</span>
+                                <span class="buf-slot empty">_</span>
+                                <span class="buf-slot empty">_</span>
+                                <span class="buf-slot empty">_</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="breach-options-grid" id="breachOptions">
-                        <!-- Populated by JS -->
+                    <!-- 5x5 Hex Memory Code Matrix -->
+                    <div class="matrix-wrapper">
+                        <div class="matrix-crosshair-status" id="matrixAxisGuide">AXIS: ROW 1 ACTIVE [HORIZONTAL]</div>
+                        <div class="breach-matrix-grid" id="breachMatrixGrid">
+                            <!-- Populated with authentic 5x5 hex grid by JS -->
+                        </div>
                     </div>
 
-                    <div class="breach-status-msg" id="breachStatus">PRESS INITIATE TO COMMENCE 5-SECOND INFILTRATION TRIAL</div>
+                    <!-- Live Terminal Output -->
+                    <div class="breach-terminal-log" id="breachTerminalLog">
+                        <div class="term-line info">> PWNBOX KERNEL INFILTRATOR v4.2 ARMED.</div>
+                        <div class="term-line muted">> Select code hex in highlighted ROW, then switch to COLUMN.</div>
+                    </div>
 
-                    <button class="btn-start-breach" id="btnStartBreach">⚡ INITIATE BREACH PROTOCOL</button>
+                    <div class="breach-controls-bar">
+                        <button class="btn-start-breach" id="btnStartBreach">⚡ INITIALIZE BREACH SEQUENCE</button>
+                        <div class="breach-status-pill" id="breachStatus">STATUS: STANDBY</div>
+                    </div>
                 </div>
 
-                <!-- Widget 2: Real-Time Global Cyber Threat Radar -->
+                <!-- Widget 2: SOC Military Global Threat Radar -->
                 <div class="threat-radar-card">
                     <div class="radar-header">
                         <div class="breach-title">
-                            <span>📡</span>
-                            <span>GLOBAL THREAT RADAR</span>
+                            <span class="breach-glow-icon">📡</span>
+                            <div>
+                                <div style="font-weight: 900; letter-spacing: 0.5px;">SOC GLOBAL THREAT RADAR</div>
+                                <div style="font-size: 0.65rem; color: #64748b; font-weight: 600;">ACTIVE MILITARY-GRADE INTERCEPT MATRIX</div>
+                            </div>
                         </div>
-                        <div class="radar-score-pill">DEFLECTED: <span id="threatInterceptCount">42</span></div>
+                        <div class="radar-telemetry-stats">
+                            <div class="radar-defcon-pill">DEFCON 2</div>
+                            <div class="radar-score-pill">DEFLECTED: <span id="threatInterceptCount">42</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Filter & Audio controls -->
+                    <div class="radar-toolbar">
+                        <div class="radar-mode-group">
+                            <button class="radar-mode-btn active" data-filter="all">ALL APTs</button>
+                            <button class="radar-mode-btn" data-filter="c2">C2 & BOTNETS</button>
+                            <button class="radar-mode-btn" data-filter="cve">CVE EXPLOITS</button>
+                        </div>
+                        <button class="radar-audio-btn active" id="btnRadarSonar" title="Toggle Radar Sonar Audio">🔊 SONAR: ON</button>
                     </div>
 
                     <div class="radar-viewport-wrap">
                         <div class="radar-flash-overlay" id="radarFlashOverlay"></div>
                         <canvas id="threatRadarCanvas"></canvas>
+                        
+                        <!-- Tactical Reticle Lock-On Display -->
+                        <div class="radar-lockon-card" id="radarLockonCard">
+                            <div class="lockon-header">
+                                <span class="lockon-pulse"></span>
+                                <span id="lockonIp">TARGET: 185.220.101.5</span>
+                            </div>
+                            <div class="lockon-details" id="lockonDetails">SECTOR: TOKYO // PORT: 445 // TYPE: ZERO-DAY RCE</div>
+                        </div>
                     </div>
 
                     <div class="radar-ticker-container" id="radarTickerLogs">
-                        <!-- Live pings populated by JS -->
+                        <!-- Live high-density cyber pings populated by JS -->
                     </div>
 
-                    <button class="btn-fire-emp" id="btnFireEmp">
-                        <span>🛡️</span>
-                        <span>FIRE EMP COUNTERMEASURE</span>
-                    </button>
+                    <div class="radar-bottom-controls">
+                        <button class="btn-fire-emp" id="btnFireEmp">
+                            <span>🛡️</span>
+                            <span>TRIGGER EMP NEUTRALIZATION PULSE</span>
+                        </button>
+                        <span class="radar-instruction font-mono">// CLICK ANY BLIP TO MANUALLY INTERCEPT</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -442,9 +503,9 @@
     <script src="js/theme.js"></script>
 
     <!-- 3D Holographic Cyber Core Matrix Animation -->
-    <script src="js/landing_3d.js"></script>
+    <script src="js/landing_3d.js?v=4.0"></script>
     <!-- Playful Features & Pranav Pushya Signature Stamp Engine -->
-    <script src="js/playful_features.js"></script>
+    <script src="js/playful_features.js?v=4.0"></script>
     <!-- Firebase Authentication Modal -->
     <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none;">
         <div class="reset-modal-box" style="max-width: 440px; text-align: left; padding: 24px;">
