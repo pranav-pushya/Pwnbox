@@ -994,6 +994,9 @@ body {
 }
 
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
     .info-nav {
         padding: 10px 16px;
     }
@@ -1013,4 +1016,33 @@ body {
         width: 100%;
         justify-content: center;
     }
+    .arsenal-grid,
+    .ceh-categories-grid,
+    .ceh-domains-grid,
+    .cert-tiers-grid,
+    .career-paths-grid,
+    .myths-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .tool-arsenal-card, .ceh-category-card, .myth-card, .career-card {
+        padding: 16px 14px;
+    }
+    .info-nav-actions {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .info-nav-btn {
+        padding: 6px 10px;
+        font-size: 0.72rem;
+    }
 }
+
+@media (max-width: 380px) {
+    .brand-title {
+        font-size: 0.82rem;
+    }
+    .info-hero h1 {
+        font-size: 1.35rem;
+    }
+}
+

@@ -916,6 +916,9 @@ body.results-active .test-hero {
 
 /* ── Responsive Rules ── */
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
     .test-header {
         padding: 12px 16px;
         flex-direction: column;

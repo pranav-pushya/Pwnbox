@@ -32,7 +32,6 @@
         </a>
         <div class="nav-actions">
             <a href="index.html" class="nav-btn">🏠 Base Camp</a>
-            <a href="dashboard.html" class="nav-btn">⚡ Dashboard</a>
             <button onclick="toggleTheme()" class="nav-btn theme-toggle-btn">🌓 Theme</button>
         </div>
     </header>
@@ -91,39 +90,15 @@
 
         <!-- Interactive Sector Probe Button -->
         <section class="probe-section">
-            <button class="btn-probe" onclick="runDiagnosticProbe()">
-                <span>📡 RUN SECTOR DIAGNOSTIC PROBE</span>
-            </button>
+            <div class="probe-btn-group">
+                <button class="btn-probe" onclick="runDiagnosticProbe()">
+                    <span>📡 RUN SECTOR DIAGNOSTIC PROBE</span>
+                </button>
+                <a href="index.html" class="btn-probe btn-home">
+                    <span>🏠 RETURN TO BASE CAMP</span>
+                </a>
+            </div>
             <div id="probe-output"></div>
-        </section>
-
-        <!-- Tactical Return Grid (All Key Pages) -->
-        <section class="action-grid">
-            <a href="index.html" class="action-card-btn action-card-primary">
-                <div class="action-card-icon">🏠</div>
-                <div class="action-card-label">BASE CAMP (HOME)</div>
-                <div class="action-card-desc">Return to the 3D cyber core terminal and overview academy deck.</div>
-            </a>
-            <a href="dashboard.html" class="action-card-btn">
-                <div class="action-card-icon">🛡️</div>
-                <div class="action-card-label">OPERATIONS DASHBOARD</div>
-                <div class="action-card-desc">Access 7 hands-on cyber defense modules and 50+ practical tools.</div>
-            </a>
-            <a href="masterguide/roadmap.html" class="action-card-btn">
-                <div class="action-card-icon">🗺️</div>
-                <div class="action-card-label">CAREER ROADMAP</div>
-                <div class="action-card-desc">Follow the 9-month phased curriculum from Fundamentals to Mastery.</div>
-            </a>
-            <a href="masterguide/cybersecurity_masterguide.html" class="action-card-btn">
-                <div class="action-card-icon">📖</div>
-                <div class="action-card-label">MASTER GUIDE</div>
-                <div class="action-card-desc">10 deep operational chapters covering theory and real-world execution.</div>
-            </a>
-            <a href="masterguide/imp_info.html" class="action-card-btn">
-                <div class="action-card-icon">💡</div>
-                <div class="action-card-label">FIELD INTELLIGENCE</div>
-                <div class="action-card-desc">Tool arsenal, complete 20 CEH v13 domains & isolated lab topologies.</div>
-            </a>
         </section>
     </main>
 

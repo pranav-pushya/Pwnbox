@@ -36,6 +36,17 @@
     box-shadow: 2px 2px 0 var(--border-dim, #0a0a0a);
 }
 
+@media (max-width: 600px) {
+    .doubt-chat-toggle {
+        bottom: 12px;
+        right: 12px;
+        padding: 6px 10px;
+        font-size: 0.72rem;
+        border-width: 2px;
+        box-shadow: 2px 2px 0 var(--border-dim, #0a0a0a);
+    }
+}
+
 .doubt-chat-toggle .chat-icon {
     font-size: 1.1rem;
 }

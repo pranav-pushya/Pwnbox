@@ -244,7 +244,7 @@ header {
 .id-card-inner {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 480px;
     text-align: left;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
@@ -263,6 +263,8 @@ header {
     box-shadow: 8px 8px 0 var(--border-color);
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 .id-card-back {
     transform: rotateY(180deg);
@@ -299,15 +301,16 @@ header {
 .id-rank { font-size: 0.9rem; font-weight: 700; color: var(--bauhaus-blue); text-transform: uppercase; }
 /* Card Footer */
 .id-card-footer {
-    padding: 15px 20px;
+    padding: 10px 16px;
     border-top: var(--border-width) solid var(--border-color);
     background: rgba(0,0,0,0.03);
+    flex-shrink: 0;
 }
 .id-next-mission { font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }
 .mission-bar-bg { width: 100%; height: 10px; border: 2px solid var(--border-color); background: var(--bg-panel); }
 .mission-bar-fill { height: 100%; background: var(--bauhaus-yellow); width: 0%; transition: width 0.3s; }
 /* Settings (Back) */
-.settings-body { flex-direction: column; align-items: stretch; gap: 10px; }
+.settings-body { flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 16px; flex: 1; overflow-y: auto; }
 .bauhaus-input {
     width: 100%; padding: 8px; border: 2px solid var(--border-color); background: var(--bg-panel); color: var(--text-main);
     font-family: 'Space Mono', monospace; font-weight: 700; outline: none;
@@ -322,7 +325,8 @@ header {
 .btn-save-profile:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--border-color); }
 .btn-reset {
     background: var(--bauhaus-red); color: white; border: var(--border-width) solid var(--border-color); width: 100%;
-    padding: 10px; font-weight: 800; text-transform: uppercase; cursor: pointer; box-shadow: 4px 4px 0 var(--border-color);
+    padding: 8px 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; box-shadow: 3px 3px 0 var(--border-color);
+    font-family: 'Space Mono', monospace; font-size: 0.8rem; box-sizing: border-box; margin: 0;
 }
 .btn-reset:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--border-color); }
 
@@ -831,11 +835,14 @@ footer.site-footer {
 }
 
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
     header {
         flex-direction: column;
         align-items: stretch;
-        gap: 12px;
-        padding: 15px;
+        gap: 8px;
+        padding: 10px 12px;
     }
 
     .logo {
@@ -843,29 +850,37 @@ footer.site-footer {
     }
 
     .logo-text {
-        font-size: 1.4rem;
+        font-size: 1.15rem;
     }
 
     .profile-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 6px;
+        padding: 4px 0 6px 0;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
         width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 8px;
+    }
+
+    .profile-container::-webkit-scrollbar {
+        display: none;
     }
 
     .profile-container a, .profile-container button {
-        font-size: 0.75rem;
-        padding: 8px 10px;
-        flex: 1 1 calc(50% - 10px);
-        min-width: 130px;
-        justify-content: center;
-        text-align: center;
-        box-sizing: border-box;
+        flex: 0 0 auto;
+        min-width: unset;
+        font-size: 0.72rem;
+        padding: 6px 10px;
+        white-space: nowrap;
+        border-width: 1.5px;
     }
 
     .user-profile {
-        width: 100%;
-        justify-content: center;
+        flex: 0 0 auto;
+        padding: 4px 8px;
         box-sizing: border-box;
     }
 
@@ -881,88 +896,88 @@ footer.site-footer {
     }
 
     main {
-        padding: 0 12px;
-        margin: 15px auto;
+        padding: 0 10px;
+        margin: 12px auto;
     }
 
     .welcome-panel {
         flex-direction: column;
         align-items: stretch;
-        padding: 20px 16px;
-        margin-bottom: 25px;
-        box-shadow: 6px 6px 0 var(--border-color);
-        gap: 16px;
+        padding: 14px 12px;
+        margin-bottom: 18px;
+        box-shadow: 3px 3px 0 var(--border-color);
+        gap: 12px;
     }
 
     .welcome-text h1 {
-        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        font-size: 1.35rem;
         letter-spacing: -0.5px;
     }
 
     .welcome-text p {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
         line-height: 1.4;
     }
 
     .welcome-progress {
         min-width: 0 !important;
         width: 100% !important;
-        padding: 16px !important;
+        padding: 12px !important;
         box-sizing: border-box !important;
     }
 
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        margin-bottom: 30px;
+        gap: 8px;
+        margin-bottom: 20px;
     }
 
     .stat-card {
-        padding: 20px 12px;
-        box-shadow: 5px 5px 0 var(--border-color);
+        padding: 12px 10px;
+        box-shadow: 3px 3px 0 var(--border-color);
     }
 
     .stat-val {
-        font-size: 2.4rem;
+        font-size: 1.8rem;
     }
 
     .stat-lbl {
-        font-size: 0.75rem;
+        font-size: 0.68rem;
     }
 
     .section-title {
-        font-size: 1.8rem;
-        margin-bottom: 25px;
+        font-size: 1.35rem;
+        margin-bottom: 16px;
     }
 
     .modules-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
-        margin-bottom: 50px;
+        gap: 16px;
+        margin-bottom: 30px;
     }
 
     .module-card {
-        padding: 20px;
-        box-shadow: 6px 6px 0 var(--border-color);
+        padding: 14px 12px;
+        box-shadow: 4px 4px 0 var(--border-color);
     }
 
     .module-card:hover {
         transform: none;
-        box-shadow: 6px 6px 0 var(--border-color);
+        box-shadow: 4px 4px 0 var(--border-color);
     }
 
     .module-num {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
     }
 
     .module-title {
-        font-size: 1.35rem;
+        font-size: 1.15rem;
     }
 
     .card-bottom {
         flex-direction: column;
         align-items: stretch;
-        gap: 15px;
+        gap: 10px;
     }
 
     .btn-launch, .btn-locked {
@@ -1074,6 +1089,10 @@ footer.site-footer {
 }
 
 @media (max-width: 480px) {
+    html {
+        font-size: 13.5px;
+    }
+
     .stats-grid {
         grid-template-columns: 1fr;
     }

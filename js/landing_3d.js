@@ -80,9 +80,10 @@
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x060913, 0.012);
 
-    // Zoomed-in Camera setup so model covers the full screen
+    // Camera setup - dynamically adapted so it is not over-zoomed on mobile screens
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 1.6, 14.5);
+    const isMobileInitial = window.innerWidth <= 768;
+    camera.position.set(0, isMobileInitial ? 1.0 : 1.6, isMobileInitial ? 24.0 : 14.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -97,12 +98,12 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.06;
         controls.rotateSpeed = 0.85;
-        controls.enableZoom = true;
+        controls.enableZoom = !isMobileInitial;
         controls.minDistance = 4;
         controls.maxDistance = 40;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.9;
-        controls.enablePan = true;
+        controls.enablePan = false;
     }
 
     // --- LIGHTS ---
@@ -423,6 +424,12 @@
         const width = container.clientWidth;
         const height = container.clientHeight;
         camera.aspect = width / height;
+        const isMobile = window.innerWidth <= 768;
+        camera.position.z = isMobile ? 24.0 : 14.5;
+        camera.position.y = isMobile ? 1.0 : 1.6;
+        if (controls) {
+            controls.enableZoom = !isMobile;
+        }
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
     }

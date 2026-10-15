@@ -9,11 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Mono&display=swap"
         rel="stylesheet">
 
+    <script src="js/auth_guard.js"></script>
     <link rel="stylesheet" href="css/index.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
+    <!-- Firebase SDK v10 Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -44,6 +48,7 @@
                 style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 0 0 5px rgba(16,185,129,0.2);">
                 📄 Cheat Sheet
             </button>
+            <button onclick="openAuthModal()" id="authNavBtn" style="background: rgba(242, 169, 0, 0.12); border: 1px solid rgba(242, 169, 0, 0.4); color: #f2a900; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">🔐 Login</button>
             <div class="user-profile" onclick="toggleProfileDropdown(event)">
                 <div class="user-avatar" id="headerAvatar">?</div>
                 <div class="user-info">
@@ -91,6 +96,8 @@
                                 <span onclick="selectAvatar('🕵️', this)">🕵️</span>
                                 <span onclick="selectAvatar('💀', this)">💀</span>
                             </div>
+                            <button class="btn-save-profile" id="idCardAuthBtn" onclick="openAuthModal()" style="margin-top: 10px; background: var(--bauhaus-yellow); color: #000;">🔐 FIREBASE AUTH</button>
+                            <div id="authStatusBadge" style="font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-top: 6px; text-align: center;"></div>
                             <button class="btn-save-profile" onclick="saveProfile(event)">SAVE CHANGES</button>
                         </div>
                         <div class="id-card-footer">
@@ -524,6 +531,55 @@
     </div>
     <script src="js/index.js"></script>
     <script src="js/theme.js"></script>
+
+    <!-- Firebase Authentication Modal -->
+    <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none;">
+        <div class="reset-modal-box" style="max-width: 440px; text-align: left; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
+                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE AUTHENTICATION</h3>
+                <button onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
+            </div>
+            
+            <!-- Google 1-Click Button -->
+            <button onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
+                <span style="font-size: 1.1rem;">🔴</span>
+                <span>SIGN IN WITH GOOGLE</span>
+            </button>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                <span>// OR EMAIL CREDENTIALS //</span>
+                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+            </div>
+
+            <!-- Email & Password Form -->
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                <div>
+                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                    <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="agent@pwnbox.internal" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                </div>
+                <div>
+                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE</label>
+                    <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                <button onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" style="padding: 10px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                    ⚡ SIGN IN
+                </button>
+                <button onclick="registerWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value, 'CADET_' + Math.floor(Math.random()*9000+1000))" style="padding: 10px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                    📝 REGISTER
+                </button>
+            </div>
+
+            <!-- Status Console Output -->
+            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
+
+        </div>
+    </div>
+    <script src="js/firebase_auth.js"></script>
 </body>
 
 </html>

@@ -754,17 +754,50 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
     .roadmap-nav {
-        padding: 10px 16px;
+        padding: 8px 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    .nav-brand {
+        justify-content: center;
     }
     .brand-title {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
+    }
+    .roadmap-nav-actions {
+        display: flex;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 6px;
+        padding-bottom: 3px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+    .roadmap-nav-actions::-webkit-scrollbar {
+        display: none;
+    }
+    .roadmap-nav-btn {
+        flex: 0 0 auto;
+        padding: 5px 8px;
+        font-size: 0.72rem;
+        white-space: nowrap;
     }
     .roadmap-container {
-        padding: 20px 16px 40px 16px;
+        padding: 12px 10px 30px 10px;
     }
     .roadmap-hero {
-        padding: 22px 18px;
+        padding: 14px 12px;
+        gap: 8px;
+    }
+    .golden-box {
+        padding: 10px 12px !important;
+        font-size: 0.75rem !important;
     }
     .milestones-grid {
         grid-template-columns: 1fr;
@@ -929,4 +962,78 @@ body {
     font-weight: 800;
     color: var(--text-muted);
 }
+
+@media (max-width: 600px) {
+    html {
+        font-size: 13.5px;
+    }
+    .phases-overview-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .phase-overview-card {
+        padding: 16px 14px;
+        gap: 12px;
+        box-shadow: 3px 3px 0 var(--border-color);
+    }
+    .phase-card-title {
+        font-size: 1.1rem;
+    }
+    .phase-card-desc {
+        font-size: 0.82rem;
+    }
+    .roadmap-hero {
+        padding: 14px 12px;
+        gap: 10px;
+    }
+    .roadmap-hero h1 {
+        font-size: 1.45rem;
+    }
+    .roadmap-hero p {
+        font-size: 0.82rem;
+    }
+    .golden-principle-box {
+        padding: 8px 10px !important;
+        font-size: 0.72rem !important;
+        gap: 8px;
+    }
+    .progress-cockpit {
+        padding: 12px 14px !important;
+        gap: 10px;
+        box-shadow: 2px 2px 0 var(--border-color) !important;
+    }
+    .cockpit-title {
+        font-size: 0.75rem;
+    }
+    .cockpit-meta {
+        font-size: 0.95rem;
+    }
+    .progress-track {
+        height: 12px;
+    }
+    .cockpit-footer {
+        font-size: 0.7rem;
+    }
+    .btn-reset-tasks {
+        padding: 4px 8px;
+        font-size: 0.68rem;
+    }
+    .btn-open-phase {
+        padding: 7px 12px;
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .brand-title {
+        font-size: 0.82rem;
+    }
+    .roadmap-hero h1 {
+        font-size: 1.35rem;
+    }
+    .phase-card-title {
+        font-size: 1rem;
+    }
+}
+
 

@@ -47,6 +47,7 @@ body {
     background-image: radial-gradient(var(--grid-dot) 2px, transparent 2px);
     background-size: 30px 30px;
     transition: background-color 0.25s ease, color 0.25s ease;
+    overflow-x: hidden;
 }
 
 /* --- NAVIGATION HEADER --- */
@@ -61,17 +62,19 @@ body {
     top: 0;
     z-index: 100;
     box-shadow: var(--box-shadow);
+    gap: 12px;
 }
 
 .nav-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-family: 'Space Mono', monospace;
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-main);
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .brand-icon {
@@ -92,12 +95,14 @@ body {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .nav-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 8px 14px;
     font-family: 'Space Mono', monospace;
@@ -110,6 +115,7 @@ body {
     box-shadow: 3px 3px 0 var(--border-color);
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
 }
 
 .nav-btn:hover {
@@ -126,7 +132,7 @@ body {
 /* --- MAIN 404 COCKPIT --- */
 .container-404 {
     flex: 1;
-    max-width: 1000px;
+    max-width: 900px;
     width: 100%;
     margin: 40px auto;
     padding: 0 20px;
@@ -134,7 +140,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 28px;
+    gap: 26px;
 }
 
 /* STATUS PILL */
@@ -152,6 +158,9 @@ body {
     box-shadow: 3px 3px 0 var(--bauhaus-red);
     letter-spacing: 1.5px;
     text-transform: uppercase;
+    max-width: 100%;
+    text-align: center;
+    line-height: 1.3;
 }
 
 .status-dot {
@@ -159,6 +168,7 @@ body {
     height: 10px;
     background: var(--bauhaus-red);
     border-radius: 50%;
+    flex-shrink: 0;
     animation: blink 1s infinite alternate;
 }
 
@@ -173,8 +183,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin: 10px 0;
+    margin: 6px 0;
     user-select: none;
+    max-width: 100%;
 }
 
 .bauhaus-num-card {
@@ -189,11 +200,12 @@ body {
     font-size: 5rem;
     font-weight: 900;
     position: relative;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .bauhaus-num-card:hover {
     transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 8px 8px 0 var(--border-color);
 }
 
 .card-red {
@@ -222,11 +234,12 @@ body {
 
 /* TITLE & SUBTITLE */
 .error-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
     font-weight: 900;
     line-height: 1.15;
     letter-spacing: -0.5px;
     text-transform: uppercase;
+    word-break: break-word;
 }
 
 .error-title .highlight-red {
@@ -259,11 +272,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .terminal-dots {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 .terminal-dot {
@@ -285,7 +301,7 @@ body {
 }
 
 .terminal-body {
-    padding: 18px 20px;
+    padding: 16px 18px;
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
     line-height: 1.65;
@@ -293,6 +309,8 @@ body {
 
 .terminal-row {
     margin-bottom: 6px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .term-prompt {
@@ -309,73 +327,29 @@ body {
     color: #4ade80;
 }
 
-/* ACTION BUTTONS GRID */
-.action-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-    width: 100%;
-}
-
-.action-card-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 18px;
-    background: var(--bg-panel);
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0 var(--border-color);
-    text-decoration: none;
-    color: var(--text-main);
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    cursor: pointer;
-    text-align: left;
-}
-
-.action-card-btn:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0 var(--border-color);
-    background: var(--bg-card);
-}
-
-.action-card-icon {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-}
-
-.action-card-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.92rem;
-    font-weight: 800;
-    margin-bottom: 4px;
-}
-
-.action-card-desc {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
-.action-card-primary {
-    border-color: var(--bauhaus-red);
-    box-shadow: 4px 4px 0 var(--bauhaus-red);
-}
-
-.action-card-primary:hover {
-    box-shadow: 7px 7px 0 var(--bauhaus-red);
-}
-
-/* DIAGNOSTIC CONSOLE BUTTON & LOG */
+/* DIAGNOSTIC CONSOLE BUTTONS & LOG */
 .probe-section {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+}
+
+.probe-btn-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
 }
 
 .btn-probe {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     background: var(--bg-panel);
     color: var(--text-main);
     border: 2px solid var(--border-color);
@@ -383,9 +357,11 @@ body {
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
     font-weight: 800;
-    padding: 10px 22px;
+    padding: 12px 22px;
     cursor: pointer;
+    text-decoration: none;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-height: 44px; /* Touch target accessibility */
 }
 
 .btn-probe:hover {
@@ -393,9 +369,14 @@ body {
     box-shadow: 6px 6px 0 var(--border-color);
 }
 
+.btn-probe.btn-home {
+    background: var(--bauhaus-red);
+    color: #ffffff;
+}
+
 #probe-output {
     width: 100%;
-    max-height: 140px;
+    max-height: 160px;
     overflow-y: auto;
     background: #020617;
     border: 2px dashed #334155;
@@ -405,28 +386,181 @@ body {
     color: #a7f3d0;
     text-align: left;
     display: none;
-    line-height: 1.5;
+    line-height: 1.55;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 /* FOOTER */
 .page-footer {
     background: var(--bg-panel);
     border-top: var(--border-width) solid var(--border-color);
-    padding: 24px;
+    padding: 22px 20px;
     text-align: center;
     font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     margin-top: auto;
+    line-height: 1.5;
 }
 
-@media (max-width: 600px) {
-    .bauhaus-num-card {
-        width: 85px;
-        height: 100px;
-        font-size: 3.5rem;
+/* =========================================
+   RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+   ========================================= */
+
+/* Tablets & Small Laptops (<= 768px) */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
     }
-    .action-grid {
-        grid-template-columns: 1fr;
+    .container-404 {
+        margin: 28px auto;
+        gap: 22px;
+        padding: 0 16px;
+    }
+
+    .bauhaus-num-card {
+        width: 100px;
+        height: 115px;
+        font-size: 4rem;
+    }
+
+    .error-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* Standard Mobile Devices (<= 600px) */
+@media (max-width: 600px) {
+    html {
+        font-size: 13.5px;
+    }
+    .nav-header {
+        padding: 12px 14px;
+    }
+
+    .nav-brand {
+        font-size: 1rem;
+        gap: 8px;
+    }
+
+    .brand-icon {
+        font-size: 1.3rem;
+    }
+
+    .brand-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .status-pill {
+        font-size: 0.72rem;
+        padding: 6px 12px;
+        letter-spacing: 0.8px;
+    }
+
+    .bauhaus-404-hero {
+        gap: 12px;
+    }
+
+    .bauhaus-num-card {
+        width: 82px;
+        height: 98px;
+        font-size: 3.2rem;
+        border-width: 3px;
+        box-shadow: 4px 4px 0 var(--border-color);
+    }
+
+    .num-sub-tag {
+        font-size: 0.55rem;
+        bottom: 4px;
+        letter-spacing: 1px;
+    }
+
+    .error-title {
+        font-size: 1.55rem;
+    }
+
+    .error-description {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    .tactical-terminal {
+        border-width: 2px;
+    }
+
+    .terminal-body {
+        padding: 12px 14px;
+        font-size: 0.78rem;
+    }
+
+    .probe-btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-probe {
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 12px 14px;
+    }
+
+    .page-footer {
+        padding: 18px 14px;
+        font-size: 0.72rem;
+    }
+}
+
+/* Compact Mobile Screens (<= 380px, e.g. iPhone SE, Galaxy Fold cover) */
+@media (max-width: 380px) {
+    .nav-header {
+        padding: 10px 10px;
+    }
+
+    .brand-badge {
+        display: none; /* Hide badge on extremely narrow widths to prevent horizontal push */
+    }
+
+    .nav-actions {
+        gap: 6px;
+    }
+
+    .nav-btn {
+        padding: 5px 8px;
+        font-size: 0.7rem;
+    }
+
+    .status-pill {
+        font-size: 0.65rem;
+        padding: 5px 8px;
+    }
+
+    .bauhaus-404-hero {
+        gap: 8px;
+    }
+
+    .bauhaus-num-card {
+        width: 68px;
+        height: 84px;
+        font-size: 2.6rem;
+    }
+
+    .error-title {
+        font-size: 1.35rem;
+    }
+
+    .terminal-topbar {
+        font-size: 0.65rem;
+    }
+
+    .terminal-body {
+        font-size: 0.72rem;
+        padding: 10px 10px;
     }
 }

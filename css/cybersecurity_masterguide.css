@@ -591,10 +591,51 @@
   .analogy-box p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
 
   @media(max-width:768px){
+    html { font-size: 14px; }
     .layout{grid-template-columns:1fr;}
-    .sidebar{position:relative;height:auto;}
-    .main{padding:20px;}
-    .hero{padding:50px 20px 40px;}
+    .hero{padding:24px 14px 20px;}
+    .hero h1{font-size:2rem;letter-spacing:-0.5px;}
+    .hero p{font-size:0.85rem;}
+    .hero-stats{gap:10px;margin-top:14px;flex-wrap:wrap;}
+    .hero-stat-item{padding:5px 10px;}
+    .hero-stat-num{font-size:1.4rem;}
+    
+    /* Sleek scrollable sidebar index so 100 links never push chapter content down */
+    .sidebar{
+      position:relative;
+      height:auto;
+      max-height:220px;
+      overflow-y:auto;
+      border-right:none;
+      border-bottom:var(--border-width) solid var(--border-dim);
+      padding:10px 14px;
+      scrollbar-width:thin;
+    }
+    .search-bar{padding:0 0 10px 0;}
+    .search-bar > div{
+      display:flex;
+      overflow-x:auto;
+      gap:6px;
+      white-space:nowrap;
+      scrollbar-width:none;
+      padding-bottom:4px;
+    }
+    .search-bar > div::-webkit-scrollbar{display:none;}
+    .search-input{padding:8px 12px;font-size:0.8rem;}
+
+    .main{padding:14px 10px;}
+    .chapter{margin-bottom:35px;}
+    .chapter-header{gap:10px;margin-bottom:14px;}
+    .chapter-icon{width:36px;height:36px;font-size:18px;}
+    .chapter-title-block h2{font-size:1.35rem;}
+    .chapter-title-block p{font-size:0.82rem;}
+    .term-card{margin-bottom:12px;border-width:2px;box-shadow:3px 3px 0 var(--border-dim);}
+    .term-header{padding:10px 12px;}
+    .term-name{font-size:0.98rem;}
+    .term-tagline{font-size:0.75rem;}
+    .term-body{padding:12px 10px;}
+    .content-grid{grid-template-columns:1fr;gap:8px;}
+    .block{padding:10px;}
   }
 [data-theme="dark"] {
     --bg-base: #111111;

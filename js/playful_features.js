@@ -502,7 +502,7 @@
         if (!inputName || !previewName || !previewAvatar) return;
 
         // Load existing alias if stored
-        const savedAlias = localStorage.getItem('pwnbox_agent_alias');
+        const savedAlias = localStorage.getItem('agentAlias') || localStorage.getItem('pwnbox_agent_alias') || localStorage.getItem('pwnbox_user_name');
         if (savedAlias) {
             inputName.value = savedAlias;
             previewName.textContent = savedAlias.toUpperCase();
@@ -538,6 +538,7 @@
                 localStorage.setItem('pwnbox_agent_alias', alias);
                 localStorage.setItem('pwnbox_agent_avatar', avatar);
                 localStorage.setItem('userAlias', alias);
+                localStorage.setItem('agentAlias', alias);
 
                 btnSave.textContent = '✓ DOSSIER SAVED!';
                 btnSave.style.background = '#10b981';

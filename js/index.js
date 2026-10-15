@@ -378,7 +378,7 @@ function updateDashboardStats() {
         }
 
         let currentAvatar = localStorage.getItem('agentAvatar') || 'INITIAL';
-        let currentAlias = localStorage.getItem('agentAlias') || '';
+        let currentAlias = localStorage.getItem('agentAlias') || localStorage.getItem('pwnbox_user_name') || localStorage.getItem('pwnbox_agent_alias') || '';
 
         function getDisplayAvatar() {
             if (currentAvatar === 'INITIAL') {
@@ -397,7 +397,15 @@ function updateDashboardStats() {
                 document.getElementById('largeAvatar').innerText = displayAvatar;
                 document.getElementById('headerName').innerText = displayAlias;
                 document.getElementById('profileNameDisplay').innerText = displayAlias;
-                document.getElementById('editAliasInput').value = currentAlias;
+                const dropdownNameEl = document.getElementById('dropdownName');
+                if (dropdownNameEl) dropdownNameEl.innerText = displayAlias;
+                document.getElementById('editAliasInput').value = currentAlias || displayAlias;
+
+                const photo = localStorage.getItem('pwnbox_user_photo');
+                if (photo && currentAvatar === 'INITIAL') {
+                    avatarEl.innerHTML = `<img src="${photo}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" alt="Avatar">`;
+                    document.getElementById('largeAvatar').innerHTML = `<img src="${photo}" style="width:100%;height:100%;border-radius:4px;object-fit:cover;" alt="Avatar">`;
+                }
 
                 const initialChoice = document.getElementById('initialAvatarChoice');
                 if (initialChoice) {
@@ -428,6 +436,8 @@ function updateDashboardStats() {
             e.stopPropagation();
             currentAlias = document.getElementById('editAliasInput').value.trim();
             localStorage.setItem('agentAlias', currentAlias);
+            localStorage.setItem('pwnbox_agent_alias', currentAlias);
+            localStorage.setItem('userAlias', currentAlias);
             localStorage.setItem('agentAvatar', currentAvatar);
             loadProfile();
             document.getElementById('profileDropdown').classList.remove('active');

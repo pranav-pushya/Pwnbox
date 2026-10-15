@@ -20,6 +20,9 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/landing.css">
+    <!-- Firebase SDK v10 Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -52,6 +55,21 @@
 
 
     <!-- Main Content Container -->
+        <!-- Top Tactical Navigation Bar -->
+    <header class="home-top-bar">
+        <div class="home-top-bar-inner">
+            <a href="index.html" class="home-brand">
+                <span class="home-brand-dot"></span>
+                <span class="home-brand-text">PWNBOX // CYBER COMMAND</span>
+            </a>
+            <div class="home-nav-actions">
+                <button class="home-theme-btn" onclick="toggleTheme()" title="Toggle Matrix Theme">🌓 THEME</button>
+                <button class="home-auth-btn" id="homeAuthBtn" onclick="openAuthModal()">🔐 OPERATIVE LOGIN</button>
+                <a href="dashboard.html" class="home-dash-btn" id="homeDashBtn" style="display: none;">⚡ DASHBOARD &rarr;</a>
+            </div>
+        </div>
+    </header>
+
     <main>
         <!-- Hero Section with Headline, Stats & Full-Screen Zoomed 3D Interactive Cyber Core Model -->
         <section class="hero-section" id="matrix-3d">
@@ -435,6 +453,54 @@
     <script src="js/landing_3d.js"></script>
     <!-- Playful Features & Pranav Pushya Signature Stamp Engine -->
     <script src="js/playful_features.js"></script>
+    <!-- Firebase Authentication Modal -->
+    <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none;">
+        <div class="reset-modal-box" style="max-width: 440px; text-align: left; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
+                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE AUTHENTICATION</h3>
+                <button onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
+            </div>
+            
+            <!-- Google 1-Click Button -->
+            <button onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
+                <span style="font-size: 1.1rem;">🔴</span>
+                <span>SIGN IN WITH GOOGLE</span>
+            </button>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                <span>// OR EMAIL CREDENTIALS //</span>
+                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+            </div>
+
+            <!-- Email & Password Form -->
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                <div>
+                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                    <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="agent@pwnbox.internal" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                </div>
+                <div>
+                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE</label>
+                    <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                <button onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" style="padding: 10px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                    ⚡ SIGN IN
+                </button>
+                <button onclick="registerWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value, 'CADET_' + Math.floor(Math.random()*9000+1000))" style="padding: 10px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                    📝 REGISTER
+                </button>
+            </div>
+
+            <!-- Status Console Output -->
+            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
+        </div>
+    </div>
+    <script src="js/firebase_auth.js"></script>
+
 </body>
 
 </html>
