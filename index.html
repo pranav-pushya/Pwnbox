@@ -514,6 +514,22 @@
                 <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE AUTHENTICATION</h3>
                 <button onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
             </div>
+
+            <!-- Localhost Dev Helper Banner -->
+            <div id="localDevBanner" style="display: none; margin-bottom: 16px; padding: 12px; background: rgba(147, 51, 234, 0.12); border: 2px dashed #9333ea; font-family: 'Space Mono', monospace;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: #a855f7;">🛠️ LOCALHOST DEV ENVIRONMENT DETECTED</span>
+                </div>
+                <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                    Testing locally? Bypass Google OAuth popup restrictions for instant operative clearance:
+                </div>
+                <button onclick="bypassLocalAuth()" style="width: 100%; padding: 8px; background: #9333ea; color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; cursor: pointer;">
+                    ⚡ 1-CLICK LOCAL DEV BYPASS (INSTANT ACCESS)
+                </button>
+                <button id="authSwitchToLocalhostBtn" style="display: none; width: 100%; margin-top: 8px; padding: 8px; background: #f59e0b; color: #000; border: 2px solid #000; box-shadow: 2px 2px 0 #000; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
+                    🔄 Switch from 127.0.0.1 to localhost
+                </button>
+            </div>
             
             <!-- Google 1-Click Button -->
             <button onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
@@ -548,6 +564,9 @@
                     📝 REGISTER
                 </button>
             </div>
+
+            <!-- Status Console Output -->
+            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
         </div>
     </div>
 
