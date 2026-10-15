@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" class="notes-html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox // Operative Notes & Payload Vault</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization (Prevents FOUT) -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/landing.css?v=4.0">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link rel="stylesheet" href="css/notes.css?v=2.0">
+
+    <!-- Firebase SDK v10 Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body class="notes-body">
+
+    <div class="notes-app-container">
+
+        <!-- Top Header Navigation -->
+        <header class="notes-top-header">
+            <div class="notes-header-left">
+                <a href="dashboard.html" class="notes-nav-btn" title="Back to Dashboard">
+                    <span>⬅️</span>
+                    <span>DASHBOARD</span>
+                </a>
+                <a href="index.html" class="notes-nav-btn" title="Return to Portal">
+                    <span>🏠</span>
+                    <span>HOME</span>
+                </a>
+                <div class="notes-header-logo">
+                    <span style="font-size: 1.4rem;">📝</span>
+                    <span class="notes-header-title">PWNBOX // OPERATIVE NOTES</span>
+                    <span class="notes-header-tag">INLINE VAULT</span>
+                </div>
+            </div>
+
+            <div class="notes-header-actions">
+                <div class="notes-sync-badge" id="notesSyncBadge">
+                    <span>🔄</span>
+                    <span>INITIALIZING CLOUD SYNC...</span>
+                </div>
+                <button onclick="toggleTheme()" class="notes-nav-btn" title="Toggle Theme (or press 'T')">
+                    <span>🌓</span>
+                    <span>THEME [T]</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Two-Panel Workspace -->
+        <div class="notes-workspace">
+
+            <!-- Left Sidebar (Notes List & Navigation) -->
+            <aside class="notes-sidebar" id="notesSidebar">
+                <div class="notes-sidebar-header">
+                    <button class="notes-new-btn" onclick="window.PwnNotes.createNewNote()">
+                        <span>➕</span>
+                        <span>NEW TACTICAL NOTE</span>
+                    </button>
+                    <div class="notes-search-box">
+                        <input type="text" class="notes-search-input" id="notesSearchInput" placeholder="Search notes, tags, payloads...">
+                        <button class="notes-search-clear" id="notesSearchClear">&times;</button>
+                    </div>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="notes-filter-bar">
+                    <button class="notes-filter-pill active" data-category="all">ALL</button>
+                    <button class="notes-filter-pill" data-category="exploits">💥 EXPLOITS</button>
+                    <button class="notes-filter-pill" data-category="recon">🔍 RECON</button>
+                    <button class="notes-filter-pill" data-category="commands">⚡ COMMANDS</button>
+                    <button class="notes-filter-pill" data-category="credentials">🔑 CREDENTIALS</button>
+                    <button class="notes-filter-pill" data-category="web">🕸️ WEB</button>
+                    <button class="notes-filter-pill" data-category="general">📝 GENERAL</button>
+                </div>
+
+                <!-- Notes Feed -->
+                <div class="notes-list" id="notesListFeed">
+                    <!-- Populated dynamically by notes.js -->
+                </div>
+
+                <!-- Sidebar Footer -->
+                <div class="notes-sidebar-footer">
+                    <div>
+                        <span>NOTES: </span>
+                        <strong id="notesCountBadge" style="color: #9333ea;">0</strong>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="editor-btn" style="padding: 4px 8px; font-size: 0.65rem;" onclick="window.PwnNotes.exportAllNotesBackup()" title="Download complete JSON backup of all notes">
+                            📤 BACKUP JSON
+                        </button>
+                        <button class="editor-btn" style="padding: 4px 8px; font-size: 0.65rem;" onclick="window.PwnNotes.importNotesTrigger()" title="Restore notes from JSON file">
+                            📥 IMPORT
+                        </button>
+                        <input type="file" id="notesImportFileInput" accept=".json" style="display: none;" onchange="window.PwnNotes.handleImportFile(this.files[0])">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Main Panel (Note Editor & In-Stream Code Blocks) -->
+            <main class="notes-editor-panel">
+
+                <!-- Empty State (When no note selected) -->
+                <div class="editor-empty-state" id="editorEmptyState" style="display: none;">
+                    <div class="editor-empty-icon">📝</div>
+                    <div class="editor-empty-title">NO TACTICAL NOTE SELECTED</div>
+                    <div class="editor-empty-desc">
+                        Select an existing note from the roster on the left or create a brand new payload dossier.
+                    </div>
+                    <button class="notes-new-btn" style="max-width: 240px;" onclick="window.PwnNotes.createNewNote()">
+                        <span>➕</span>
+                        <span>CREATE FIRST NOTE</span>
+                    </button>
+                </div>
+
+                <!-- Note Editor Active View -->
+                <div id="noteEditorWrapper" style="display: flex; flex-direction: column; height: 100%; min-height: 0;">
+                    
+                    <!-- Editor Top Action Toolbar -->
+                    <div class="editor-toolbar">
+                        <div class="editor-toolbar-left">
+                            <button class="editor-btn btn-save" onclick="window.PwnNotes.manualSave()" title="Save Note (Ctrl+S)">
+                                <span>💾</span>
+                                <span>SAVE [Ctrl+S]</span>
+                            </button>
+                            <button class="editor-btn" id="noteViewToggleBtn" onclick="window.PwnNotes.toggleViewMode()" title="Toggle between Raw Editor and Interactive Terminal Preview">
+                                <span>👁️</span>
+                                <span>PREVIEW</span>
+                            </button>
+                            <span class="editor-save-indicator" id="editorSaveIndicator"></span>
+                        </div>
+
+                        <div class="editor-toolbar-right">
+                            <button class="editor-btn" id="notePinToggleBtn" onclick="window.PwnNotes.togglePinActiveNote()" title="Pin to top">
+                                <span>📍</span>
+                                <span>PIN NOTE</span>
+                            </button>
+                            <button class="editor-btn" onclick="window.PwnNotes.duplicateActiveNote()" title="Clone this note">
+                                <span>📋</span>
+                                <span>CLONE</span>
+                            </button>
+                            <button class="editor-btn" onclick="window.PwnNotes.exportActiveMarkdown()" title="Download as Markdown file">
+                                <span>📥</span>
+                                <span>EXPORT .MD</span>
+                            </button>
+                            <button class="editor-btn btn-delete" onclick="window.PwnNotes.deleteActiveNote()" title="Purge this note">
+                                <span>🗑️</span>
+                                <span>DELETE</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- In-Stream Code Block & Markdown Insert Toolbar -->
+                    <div class="instream-code-toolbar" id="instreamCodeToolbar">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <label style="font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; color: #9333ea;">⚡ CODE BLOCK:</label>
+                            <select class="instream-lang-select" id="instreamLangSelect">
+                                <option value="bash">Bash / Shell</option>
+                                <option value="python">Python</option>
+                                <option value="powershell">PowerShell</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="c">C / C++</option>
+                                <option value="sql">SQL</option>
+                                <option value="php">PHP</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="assembly">Assembly / Hex</option>
+                                <option value="text">Plain Text</option>
+                            </select>
+                            <button class="instream-tool-btn" style="background: #9333ea; color: #fff; border-color: #9333ea; font-weight: 800;" onclick="window.PwnNotes.insertCodeBlockAtCursor()" title="Insert code block at current typing position">
+                                <span>➕</span>
+                                <span>INSERT CODE BLOCK</span>
+                            </button>
+                        </div>
+
+                        <div style="width: 1px; height: 18px; background: var(--border-color); opacity: 0.4; margin: 0 4px;"></div>
+
+                        <!-- Quick Formatting Snippets -->
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <button class="instream-tool-btn" onclick="window.PwnNotes.insertMarkdownSnippet('bold')" title="Insert bold text">
+                                <span>𝗕</span>
+                                <span>Bold</span>
+                            </button>
+                            <button class="instream-tool-btn" onclick="window.PwnNotes.insertMarkdownSnippet('inlineCode')" title="Insert inline command / code">
+                                <span>&lt;/&gt;</span>
+                                <span>Inline Code</span>
+                            </button>
+                            <button class="instream-tool-btn" onclick="window.PwnNotes.insertMarkdownSnippet('heading')" title="Insert section header">
+                                <span>#</span>
+                                <span>Header</span>
+                            </button>
+                            <button class="instream-tool-btn" onclick="window.PwnNotes.insertMarkdownSnippet('task')" title="Insert checklist item">
+                                <span>☑</span>
+                                <span>Task</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scrollable Note Canvas -->
+                    <div class="editor-body">
+                        
+                        <!-- Note Title -->
+                        <input type="text" class="note-title-input" id="noteTitleInput" placeholder="Enter Note Title...">
+
+                        <!-- Note Metadata Row -->
+                        <div class="note-meta-row">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <label style="font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">CATEGORY:</label>
+                                <select class="note-category-select" id="noteCategorySelect">
+                                    <option value="Exploits">💥 Exploitation & Payloads</option>
+                                    <option value="Recon">🔍 Reconnaissance & Scanning</option>
+                                    <option value="Commands">⚡ Terminal Commands & Cheatsheet</option>
+                                    <option value="Credentials">🔑 Credentials & Passwords</option>
+                                    <option value="Web">🕸️ Web App Security</option>
+                                    <option value="General">📝 General Notes & Intelligence</option>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; min-width: 200px;">
+                                <label style="font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">TAGS:</label>
+                                <input type="text" class="note-tags-input" id="noteTagsInput" placeholder="comma-separated tags (e.g. nmap, sqli, linux, smb)..." style="flex: 1;">
+                            </div>
+                        </div>
+
+                        <!-- Main Note Body Container (Full-Height In-Stream Editor) -->
+                        <div class="editor-text-container">
+                            <textarea class="note-content-textarea" id="noteContentTextarea" spellcheck="false" placeholder="Write tactical procedures, methodology notes, or click 'INSERT CODE BLOCK' above to embed code snippets anywhere in your notes..."></textarea>
+                            
+                            <!-- Interactive Rendered View (Hacker Terminal Blocks with 1-Click Copy) -->
+                            <div class="note-rendered-view" id="noteRenderedView"></div>
+                        </div>
+
+                    </div>
+
+                    <!-- Footer Status Bar (Pinned to bottom) -->
+                    <div class="notes-status-bar">
+                        <span id="editorStatsDisplay">0 Words | 0 Chars | 0 Code Block(s)</span>
+                        <span>PWNBOX ARCHITECT ENGINE // v3.4.0</span>
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- Firebase Authentication Modal (For Guest to Sign In) -->
+    <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none;">
+        <div class="reset-modal-box" style="max-width: 440px; text-align: left; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
+                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE AUTHENTICATION</h3>
+                <button onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
+            </div>
+
+            <!-- Localhost Dev Helper Banner -->
+            <div id="localDevBanner" style="display: none; margin-bottom: 16px; padding: 12px; background: rgba(147, 51, 234, 0.12); border: 2px dashed #9333ea; font-family: 'Space Mono', monospace;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: #a855f7;">🛠️ LOCALHOST DEV ENVIRONMENT DETECTED</span>
+                </div>
+                <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                    Testing locally? Bypass Google OAuth popup restrictions for instant operative clearance:
+                </div>
+                <button onclick="bypassLocalAuth()" style="width: 100%; padding: 8px; background: #9333ea; color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; cursor: pointer;">
+                    ⚡ 1-CLICK LOCAL DEV BYPASS (INSTANT ACCESS)
+                </button>
+                <button id="authSwitchToLocalhostBtn" style="display: none; width: 100%; margin-top: 8px; padding: 8px; background: #f59e0b; color: #000; border: 2px solid #000; box-shadow: 2px 2px 0 #000; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
+                    🔄 Switch from 127.0.0.1 to localhost
+                </button>
+            </div>
+            
+            <!-- Google 1-Click Button -->
+            <button onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
+                <span style="font-size: 1.1rem;">🔴</span>
+                <span>SIGN IN WITH GOOGLE</span>
+            </button>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                <span>// OR EMAIL CREDENTIALS //</span>
+                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+            </div>
+
+            <!-- Email & Password Form -->
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                <div>
+                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                    <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="agent@pwnbox.internal" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                </div>
+                <div>
+                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE</label>
+                    <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                <button onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" style="padding: 10px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                    ⚡ SIGN IN
+                </button>
+                <button onclick="registerWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value, 'CADET_' + Math.floor(Math.random()*9000+1000))" style="padding: 10px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                    📝 REGISTER
+                </button>
+            </div>
+
+            <!-- Status Console Output -->
+            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
+        </div>
+    </div>
+
+    <!-- UI Scripts -->
+    <script src="js/ui_popups.js"></script>
+    <script src="js/firebase_auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/notes.js"></script>
+
+</body>
+
+</html>
