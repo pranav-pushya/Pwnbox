@@ -4,10 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CyberSec Master Guide — Sawt's Zero to Hero</title>
-    <link rel="icon" type="image/svg+xml" href="favicon-guide.svg">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
 
-    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
-  <link rel="stylesheet" href="css/masterguide_chat.css">
+    <link rel="stylesheet" href="../css/cybersecurity_masterguide.css">
+  <link rel="stylesheet" href="../css/masterguide_chat.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -37,7 +37,7 @@
             <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
       <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
       <button onclick="window.location.href='masterguide_test.html?chapter=10'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
-      <button onclick="window.location.href='dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🔙 Main</button>
+      <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🔙 Main</button>
     </div>
     <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
@@ -252,9 +252,9 @@ $ sudo cat /etc/shadow
 <button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 
-    <script src="js/cybersecurity_masterguide.js"></script>
-    <script src="js/theme.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/masterguide_chat.js"></script>
+    <script src="../js/cybersecurity_masterguide.js"></script>
+    <script src="../js/theme.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/masterguide_chat.js"></script>
     </body>
 </html>

@@ -4,10 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CyberSec Master Guide — Sawt's Zero to Hero</title>
-    <link rel="icon" type="image/svg+xml" href="favicon-guide.svg">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
 
-    <link rel="stylesheet" href="css/cybersecurity_masterguide.css">
-  <link rel="stylesheet" href="css/masterguide_chat.css">
+    <link rel="stylesheet" href="../css/cybersecurity_masterguide.css">
+  <link rel="stylesheet" href="../css/masterguide_chat.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -36,8 +36,8 @@
   <div class="search-bar">
             <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
       <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="window.location.href='masterguide_test.html?chapter=4'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
-      <button onclick="window.location.href='dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🔙 Main</button>
+      <button onclick="window.location.href='masterguide_test.html?chapter=9'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
+      <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🔙 Main</button>
     </div>
     <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
@@ -80,166 +80,143 @@
 <main class="main">
 
 <!-- ████ CHAPTER 1: CORE THREATS ████ -->
-<section class="chapter ch-blue" id="ch4">
+<section class="chapter ch-indigo" id="ch9">
   <div class="chapter-header">
-    <div class="chapter-icon">🔐</div>
+    <div class="chapter-icon">⚡</div>
     <div class="chapter-title-block">
-      <h2>Encryption & Protocols</h2>
-      <p>Data ko scramble karna taaki sirf sahi log padhein — internet ki neev</p>
+      <h2>Operations & Response</h2>
+      <p>Day-to-day security operations — jab attack hota hai, kya karte hain</p>
     </div>
   </div>
 
-  <div class="term-card" id="encryption">
+  <div class="term-card" id="ir">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔐</div><div><div class="term-name">Encryption</div><div class="term-tagline">Data ko unreadable banana — sirf key se padhein</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🚨</div><div><div class="term-name">Incident Response</div><div class="term-tagline">Security incident handle karna — structured process</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Plaintext ko ciphertext mein convert karna using an algorithm aur key. Bina key ke — garbage. Key ke saath — original data. Two types: Symmetric (same key) aur Asymmetric (public/private key pair).</p></div>
-        <div class="block"><div class="block-label">Types</div><p><strong>Symmetric:</strong> AES — same key encrypt aur decrypt karne ke liye. Fast.<br/><strong>Asymmetric:</strong> RSA — public key se encrypt, private key se decrypt. Slower but more secure.</p></div>
-      </div>
-      <div class="code-block"><span class="comment">// Simple Caesar cipher (not real encryption, just concept):</span>
-Plaintext:  <span class="string">HELLO</span>
-Key:        +3
-Ciphertext: <span class="bad">KHOOR</span>
-
-<span class="comment">// Real AES-256 looks like this (128 chars of gibberish):</span>
-<span class="bad">a3f8e9c7b2d1f4e8c9b3a2d1f4e8c9b3a2d1f4e8...</span></div>
-      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Tumhara diary mein secret language likhna — sirf tumhe pata hai "cat = 7, dog = 9". Key yaad ho to padhlo, nahi to gibberish. Encryption exactly aise, par mathematically unbreakable.</p></div>
-    </div>
-  </div>
-
-  <div class="term-card" id="e2ee">
-    <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">💬</div><div><div class="term-name">End-to-End Encryption (E2EE)</div><div class="term-tagline">Sirf sender aur receiver padh sakte — beech mein koi nahi</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
-    </div>
-    <div class="term-body">
-      <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Message sirf sender ke device pe encrypt hota hai aur sirf receiver ke device pe decrypt hota hai. Server bhi nahi padh sakta — even WhatsApp apne messages nahi padh sakta.</p></div>
-        <div class="block"><div class="block-label">Apps using E2EE</div><p>WhatsApp (Signal Protocol), Signal, iMessage (when blue), Telegram (Secret Chats only — normal chats E2EE nahi hain!). Regular email E2EE nahi hai.</p></div>
-      </div>
-      <div class="flow-diagram">
-        <div class="flow-label">// E2EE Message Flow</div>
-        <div class="flow-nodes">
-          <div class="flow-node attacker"><div class="flow-node-icon">👤</div><div class="flow-node-text">Alice<br/>Encrypts</div></div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-node"><div class="flow-node-icon">🔒</div><div class="flow-node-text">Encrypted<br/>(Server sees 🔒)</div></div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-node victim"><div class="flow-node-icon">👤</div><div class="flow-node-text">Bob<br/>Decrypts</div></div>
-        </div>
+        <div class="block"><div class="block-label">IR Phases (NIST)</div><p>1. <strong>Preparation:</strong> Plan banaao pehle<br/>2. <strong>Detection & Analysis:</strong> Incident identify karo<br/>3. <strong>Containment:</strong> Spread rokko<br/>4. <strong>Eradication:</strong> Root cause remove karo<br/>5. <strong>Recovery:</strong> Normal operations restore<br/>6. <strong>Lessons Learned:</strong> Post-mortem</p></div>
+        <div class="block"><div class="block-label">Who does it</div><p>IR Team = CSIRT (Computer Security Incident Response Team). SOC analysts detect karte hain, IR team respond karta hai, executives communicate karte hain. Playbooks pre-defined hote hain.</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="aes">
+  <div class="term-card" id="soc">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔢</div><div><div class="term-name">AES</div><div class="term-tagline">Advanced Encryption Standard — industry gold standard symmetric encryption</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🖥️</div><div><div class="term-name">SOC</div><div class="term-tagline">Security Operations Center — 24/7 security monitoring command center</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>US government approved symmetric encryption algorithm. AES-128, AES-192, AES-256 (key size). AES-256 is unbreakable with today's computers — even supercomputer billions of years lagenge.</p></div>
-        <div class="block"><div class="block-label">Used everywhere</div><p>Wi-Fi (WPA2), HTTPS, file encryption, banking, WhatsApp messages, disk encryption (BitLocker, FileVault). Tum daily AES use karte ho without knowing.</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Dedicated team aur facility jo 24/7/365 organization ki security monitor karti hai. SIEM se alerts aate hain, analysts investigate karte hain, incidents respond karte hain. Tier 1-2-3 analysts.</p></div>
+        <div class="block"><div class="block-label">Careers</div><p>SOC Analyst — cybersecurity mein most common entry point. Tier 1: alert triage. Tier 2: investigation. Tier 3: threat hunting, advanced analysis. Well paid career path.</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="pki">
+  <div class="term-card" id="hygiene">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🏛️</div><div><div class="term-name">PKI</div><div class="term-tagline">Public Key Infrastructure — trust management system</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🧼</div><div><div class="term-name">Cyber Hygiene</div><div class="term-tagline">Basic security habits — daily practice</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Public key pairs, digital certificates, Certificate Authorities (CA) ka poora framework. Identity verify karta hai online — kaisa pata chale ki google.com actually Google hai aur fake site nahi?</p></div>
-        <div class="block"><div class="block-label">Components</div><p><strong>CA (Certificate Authority):</strong> Trusted issuer (DigiCert, Let's Encrypt)<br/><strong>Digital Certificate:</strong> Identity proof<br/><strong>CRL:</strong> Revoked certificates ki list</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Regular security practices jo risk significantly reduce karte hain — just like physical hygiene. 80% of attacks patching aur basic hygiene se prevent ho sakte the.</p></div>
+        <div class="block"><div class="block-label">Essentials</div><p>✅ Strong unique passwords + manager<br/>✅ MFA everywhere<br/>✅ Software updates promptly<br/>✅ Regular backups<br/>✅ Phishing awareness<br/>✅ Least privilege<br/>✅ Encrypt sensitive data</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="digicert">
+  <div class="term-card" id="coc">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">📜</div><div><div class="term-name">Digital Certificate</div><div class="term-tagline">Online ID card — identity prove karta hai</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">⛓️</div><div><div class="term-name">Chain of Custody</div><div class="term-tagline">Evidence ki integrity track karna — court ke liye</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Electronic document jo ek entity ki identity prove karta hai aur unki public key contain karta hai. CA (Certificate Authority) issue karta hai. Browser ka padlock icon yahi hai.</p></div>
-        <div class="block"><div class="block-label">Contains</div><p>Owner name, public key, issuing CA, validity dates, domain name, CA's digital signature (tamper proof).</p></div>
-      </div>
-      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Passport jaisa. Government (CA) ne issue kiya, tumhara photo aur details hain (public key), expiry date hai, aur tamper-proof features hain. Bank ne passport dekha → trust kiya.</p></div>
-    </div>
-  </div>
-
-  <div class="term-card" id="digisig">
-    <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">✍️</div><div><div class="term-name">Digital Signature</div><div class="term-tagline">Authenticity prove karna — tamper detect karna</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
-    </div>
-    <div class="term-body">
-      <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Apni private key se document ko "sign" karna. Koi bhi tumhari public key se verify kar sakta hai ki document tumne hi sign kiya aur modify nahi hua. Non-repudiation provide karta hai.</p></div>
-        <div class="block"><div class="block-label">Process</div><p>1. Document ka hash generate karo<br/>2. Private key se hash encrypt karo (= signature)<br/>3. Receiver: same hash generate karo, public key se signature decrypt karo, match karo</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Documentation jo track karta hai evidence kahan hai, kisne handle kiya, kab, aur kaise. Criminal cases mein agar chain break ho to evidence inadmissible ho sakta hai court mein.</p></div>
+        <div class="block"><div class="block-label">Digital forensics mein</div><p>Disk image lena → hash verify → sealed storage → transport log → analysis. Har step documented. Original kabhi touch nahi — sirf forensic copy pe kaam karo.</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="ssl">
+  <div class="term-card" id="uem">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔓</div><div><div class="term-name">SSL</div><div class="term-tagline">Secure Sockets Layer — now deprecated, replaced by TLS</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">📱</div><div><div class="term-name">UEM</div><div class="term-tagline">Unified Endpoint Management — all devices ek jagah manage</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Secure communication protocol jo browser aur server ke beech encrypted connection establish karta hai. Ab technically deprecated hai — TLS use hota hai, par "SSL" term abhi bhi common hai.</p></div>
-        <div class="block"><div class="block-label">History</div><p>SSL 2.0 (1995) → SSL 3.0 → TLS 1.0 → TLS 1.1 → TLS 1.2 → TLS 1.3 (current). SSL 3.0 mein POODLE vulnerability thi isliye abandon kiya gaya.</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Organization ke saare devices (laptops, phones, tablets) ek platform se manage karna — policies enforce karo, software deploy karo, remote wipe karo agar device lost ho.</p></div>
+        <div class="block"><div class="block-label">Why important</div><p>BYOD (Bring Your Own Device) era mein employees apne phones pe corporate email use karte hain. UEM security policies enforce karta hai without fully controlling personal devices.</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="tls">
+  <div class="term-card" id="backup">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🛡️</div><div><div class="term-name">TLS</div><div class="term-tagline">Transport Layer Security — SSL ka successor, internet ki backbone</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">💾</div><div><div class="term-name">Backup</div><div class="term-tagline">Data ki copy — last line of defense against ransomware</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Current secure communication protocol. Jab tum HTTPS use karte ho, actually TLS run ho raha hai. Encryption, authentication, integrity — teeno provide karta hai.</p></div>
-        <div class="block"><div class="block-label">TLS Handshake</div><p>1. Client: "Hello, I support TLS 1.3"<br/>2. Server: "OK, here's my certificate"<br/>3. Key exchange<br/>4. Encrypted communication begins</p></div>
+        <div class="block"><div class="block-label">3-2-1 Rule</div><p><strong>3</strong> copies of data<br/><strong>2</strong> different storage media types<br/><strong>1</strong> offsite/offline copy<br/><br/>Offline backup = ransomware encrypt nahi kar sakta. Cloud backup alag account mein — not same credentials.</p></div>
+        <div class="block"><div class="block-label">Test karo!</div><p>Backup hai par restore nahi kiya kabhi? Useless. Regular restore tests mandatory. Many organizations discover backup broken hai tab jab actual disaster ho.</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="https">
+  <div class="term-card" id="keymgmt">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔒</div><div><div class="term-name">HTTPS</div><div class="term-tagline">HTTP + TLS — secure website communication</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🗝️</div><div><div class="term-name">Encryption Key Management</div><div class="term-tagline">Keys protect karna — bina key ke encryption useless</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>HTTP (web protocol) + TLS (encryption) = HTTPS. Browser ka padlock icon = HTTPS. Data encrypted hai transit mein — MITM attacker garbled text hi dekhega.</p></div>
-        <div class="block"><div class="block-label">Misconception</div><p>HTTPS = secure site NAHI. Sirf matlab hai connection encrypted hai. Fake phishing sites bhi HTTPS use karti hain. Padlock ≠ trustworthy website.</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Encryption keys ka lifecycle manage karna — generation, distribution, storage, rotation, destruction. Keys data ke saath same jagah store nahi karni (sabse common mistake).</p></div>
+        <div class="block"><div class="block-label">HSM</div><p>Hardware Security Module — dedicated hardware jo keys physically protect karta hai. Banks, governments use karte hain. Keys kabhi HSM se bahar nahi jaate.</p></div>
       </div>
     </div>
   </div>
 
-  <div class="term-card" id="ssh">
+  <div class="term-card" id="cloudsec">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">⌨️</div><div><div class="term-name">SSH</div><div class="term-tagline">Secure Shell — encrypted remote server access</div></div></div>
-      <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">☁️</div><div><div class="term-name">Cloud Security</div><div class="term-tagline">Cloud environments secure karna — shared responsibility</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Remote server ko securely access karna command line se. Web developers, system admins daily use karte hain. Telnet (unencrypted predecessor) ko replace kiya 1995 mein.</p></div>
-        <div class="block"><div class="block-label">SSH Keys</div><p>Password ke alawa SSH keys use kar sakte ho — more secure. Public key server pe, private key tumhare paas. Brute force practically impossible.</p></div>
+        <div class="block"><div class="block-label">Shared Responsibility</div><p>AWS/Azure/GCP → cloud infrastructure secure karte hain. Customer → data, access, application, configuration secure karna customer ki responsibility. Misconfigured S3 bucket = customer ka fault.</p></div>
+        <div class="block"><div class="block-label">Common misconfigs</div><p>Public S3 buckets, weak IAM roles, no encryption at rest, default security groups allowing all traffic, exposed credentials in code repositories (GitHub).</p></div>
       </div>
-      <div class="code-block"><span class="comment">// Connecting to a server via SSH:</span>
-<span class="keyword">ssh</span> username@192.168.1.100
+      <div class="real-example"><div class="real-example-label">📰 Real World</div><p><strong>Capital One (2019):</strong> Misconfigured AWS WAF se 100 million credit applications exposed. $190M settlement. Ex-Amazon employee ne exploit kiya. Misconfiguration, not AWS's fault.</p></div>
+    </div>
+  </div>
 
-<span class="comment">// With a specific key file:</span>
-<span class="keyword">ssh</span> -i ~/.ssh/id_rsa username@server.com</div>
+  <div class="term-card" id="emailsec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">📧</div><div><div class="term-name">Email Security</div><div class="term-tagline">Email sabse common attack vector — protect karna zaroori</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Technologies</div><p><strong>SPF:</strong> Authorized mail servers list<br/><strong>DKIM:</strong> Email digital signature<br/><strong>DMARC:</strong> Policy for SPF/DKIM failures<br/><strong>Secure Email Gateway:</strong> Spam/malware filter<br/><strong>Sandboxing:</strong> Attachments isolate karo</p></div>
+        <div class="block"><div class="block-label">Why critical</div><p>91% of cyberattacks start from phishing email. Email sabse exploited vector hai. SPF+DKIM+DMARC configure karo apne domain pe — email spoofing prevent karta hai.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term-card" id="physec">
+    <div class="term-header" onclick="toggle(this)">
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(99,102,241,0.1)">🏢</div><div><div class="term-name">Physical Security</div><div class="term-tagline">Cyber security sirf digital nahi — physical access bhi</div></div></div>
+      <span class="term-badge badge-ops">Ops</span><span class="expand-btn">▾</span>
+    </div>
+    <div class="term-body">
+      <div class="content-grid">
+        <div class="block"><div class="block-label">Why matters</div><p>Best firewall bhi useless hai agar attacker physically server room mein ghus jaaye. Lock pick, RFID clone, tailgating — physical attacks real hain. Server rooms biometric access chahiye.</p></div>
+        <div class="block"><div class="block-label">Controls</div><p>Keycards, biometrics, CCTV, guards, mantrap (double door airlock), cable locks on laptops, screen locks, clean desk policy, no USB drives policy, visitor logs.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -259,9 +236,9 @@ Ciphertext: <span class="bad">KHOOR</span>
 <button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 
-    <script src="js/cybersecurity_masterguide.js"></script>
-    <script src="js/theme.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/masterguide_chat.js"></script>
+    <script src="../js/cybersecurity_masterguide.js"></script>
+    <script src="../js/theme.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/masterguide_chat.js"></script>
     </body>
 </html>

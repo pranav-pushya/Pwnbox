@@ -6,7 +6,7 @@ function updateDashboardStats() {
                     cardId: 'moduleFootprinting',
                     badgeId: 'footprintingBadge',
                     actionsId: null,
-                    url: 'Footprinting.html',
+                    url: 'modules/Footprinting.html',
                     toolsText: '🌐 22+ Tools Loaded',
                     nodeId: 'node1'
                 },
@@ -16,7 +16,7 @@ function updateDashboardStats() {
                     cardId: 'moduleScanning',
                     badgeId: 'scanningBadge',
                     actionsId: 'scanningActions',
-                    url: 'Scanning.html',
+                    url: 'modules/Scanning.html',
                     toolsText: '🌐 15+ Tools Loaded',
                     nodeId: 'node2'
                 },
@@ -26,7 +26,7 @@ function updateDashboardStats() {
                     cardId: 'moduleEnumeration',
                     badgeId: 'enumerationBadge',
                     actionsId: 'enumerationActions',
-                    url: 'Enumeration.html',
+                    url: 'modules/Enumeration.html',
                     toolsText: '🌐 8+ Tools Loaded',
                     nodeId: 'node3'
                 },
@@ -36,7 +36,7 @@ function updateDashboardStats() {
                     cardId: 'moduleVulnAnalysis',
                     badgeId: 'vulnAnalysisBadge',
                     actionsId: 'vulnAnalysisActions',
-                    url: 'Vulnerablity.html',
+                    url: 'modules/Vulnerablity.html',
                     toolsText: '🌐 5+ Tools Loaded',
                     nodeId: 'node4'
                 },
@@ -46,7 +46,7 @@ function updateDashboardStats() {
                     cardId: 'moduleSystemHacking',
                     badgeId: 'systemHackingBadge',
                     actionsId: 'systemHackingActions',
-                    url: 'SystemHacking.html',
+                    url: 'modules/SystemHacking.html',
                     toolsText: '🌐 6+ Tools Loaded',
                     nodeId: 'node5'
                 },
@@ -56,7 +56,7 @@ function updateDashboardStats() {
                     cardId: 'moduleWebApp',
                     badgeId: 'webAppBadge',
                     actionsId: 'webAppActions',
-                    url: 'WebAppThreats.html',
+                    url: 'modules/WebAppThreats.html',
                     toolsText: '🌐 6+ Tools Loaded',
                     nodeId: 'node6'
                 }
@@ -450,7 +450,7 @@ let logoDoorClicks = 0;
 let logoDoorTimer = null;
 
 function navigateToMasterGuide() {
-    window.location.href = 'masterguide_ch1.html';
+    window.location.href = 'masterguide/masterguide_ch1.html';
 }
 
 function handleLogoDoorClick() {

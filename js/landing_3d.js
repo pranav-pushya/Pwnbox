@@ -24,13 +24,13 @@
 
     // --- MODULES METADATA FOR 3D NODES ---
     const ATTACK_VECTORS = [
-        { id: 1, code: 'M-01', name: 'Footprinting & Recon', icon: '🌐', tools: '22+ Tools', url: 'Footprinting.html', color: 0x00f0ff, desc: 'Passive & active domain intelligence, DNS footprinting, whois reconnaissance.' },
-        { id: 2, code: 'M-02', name: 'Network Scanning', icon: '📡', tools: '15+ Tools', url: 'Scanning.html', color: 0x22c55e, desc: 'Host discovery, stealth SYN scans, OS fingerprinting with Nmap & Hping3.' },
-        { id: 3, code: 'M-03', name: 'Service Enumeration', icon: '🔍', tools: '8+ Tools', url: 'Enumeration.html', color: 0xeab308, desc: 'SMB, SNMP, LDAP, NetBIOS user & share extraction.' },
-        { id: 4, code: 'M-04', name: 'Vulnerability Analysis', icon: '🛡️', tools: '5+ Tools', url: 'Vulnerablity.html', color: 0xf97316, desc: 'CVE vulnerability assessment, CVSS scoring, Nikto & Nessus logic.' },
-        { id: 5, code: 'M-05', name: 'System Exploitation', icon: '💻', tools: '6+ Tools', url: 'SystemHacking.html', color: 0xd9291c, desc: 'Password cracking, payload generation, privilege escalation vectors.' },
-        { id: 6, code: 'M-06', name: 'Web App Threats', icon: '🕸️', tools: '6+ Tools', url: 'WebAppThreats.html', color: 0xa855f7, desc: 'OWASP Top 10, SQL Injection, XSS, SSRF & authentication bypasses.' },
-        { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.' }
+        { id: 1, code: 'M-01', name: 'Footprinting & Recon', icon: '🌐', tools: '22+ Tools', url: 'modules/Footprinting.html', color: 0x00f0ff, desc: 'Passive & active domain intelligence, DNS footprinting, whois reconnaissance.' },
+        { id: 2, code: 'M-02', name: 'Network Scanning', icon: '📡', tools: '15+ Tools', url: 'modules/Scanning.html', color: 0x22c55e, desc: 'Host discovery, stealth SYN scans, OS fingerprinting with Nmap & Hping3.' },
+        { id: 3, code: 'M-03', name: 'Service Enumeration', icon: '🔍', tools: '8+ Tools', url: 'modules/Enumeration.html', color: 0xeab308, desc: 'SMB, SNMP, LDAP, NetBIOS user & share extraction.' },
+        { id: 4, code: 'M-04', name: 'Vulnerability Analysis', icon: '🛡️', tools: '5+ Tools', url: 'modules/Vulnerablity.html', color: 0xf97316, desc: 'CVE vulnerability assessment, CVSS scoring, Nikto & Nessus logic.' },
+        { id: 5, code: 'M-05', name: 'System Exploitation', icon: '💻', tools: '6+ Tools', url: 'modules/SystemHacking.html', color: 0xd9291c, desc: 'Password cracking, payload generation, privilege escalation vectors.' },
+        { id: 6, code: 'M-06', name: 'Web App Threats', icon: '🕸️', tools: '6+ Tools', url: 'modules/WebAppThreats.html', color: 0xa855f7, desc: 'OWASP Top 10, SQL Injection, XSS, SSRF & authentication bypasses.' },
+        { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'modules/OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.' }
     ];
 
     // --- SOUND SYNTHESIZER (ZERO-LATENCY WEB AUDIO API) ---

@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Hacking - PwnBox</title>
-    <link rel="icon" type="image/svg+xml" href="favicon-main.svg">
+    <title>Vulnerability Analysis - PwnBox</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
     
-    <link rel="stylesheet" href="css/SystemHacking.css">
+    <link rel="stylesheet" href="../css/Vulnerablity.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
-    <link rel="stylesheet" href="css/resizer.css">
+    <link rel="stylesheet" href="../css/resizer.css">
 </head>
 
 <body class="tab-tools">
@@ -20,13 +20,14 @@
     <div class="sidebar">
         <div class="header">
             <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
-            <a href="dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
-            <h2>System Hacking</h2>
+            <a href="../dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>Vulnerability Analysis</h2>
             <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
         </div>
         <div class="tool-list" id="toolList"></div>
         <div class="sidebar-footer">
-            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
+            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module
+                Completed</button>
         </div>
     </div>
     <div class="resizer-v" id="sidebarResizer"></div>
@@ -43,9 +44,9 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <div class="status-container">
                             <div class="status-dot online" id="statusDot"></div>
-                            System Hacking Assistant
+                            Vulnerability Assistant
                         </div>
-                        <div class="local-badge">MODULE 05</div>
+                        <div class="local-badge">MODULE 04</div>
                     </div>
                     <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
                         <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 Assistant</button>
@@ -57,10 +58,10 @@
                 <!-- Chat Tab Content -->
                 <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
                     <div class="chat-history" id="chatHistory">
-                        <div class="msg bot">System Initialized. Try asking: "What is the difference between privilege escalation and lateral movement?"</div>
+                        <div class="msg bot">System Initialized. Try asking: "What is a CVE and how does CVSS scoring work?"</div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="chatInput" placeholder="Ask about privesc, persistence, hashes, backdoors..." onkeypress="handleEnter(event)">
+                        <input type="text" id="chatInput" placeholder="Ask about CVEs, CVSS, exploits, vuln scanning..." onkeypress="handleEnter(event)">
                         <button class="btn btn-primary" onclick="sendMessage()">Send</button>
                     </div>
                 </div>
@@ -68,7 +69,7 @@
                 <!-- Terminal Tab Content -->
                 <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
                     <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #58a6ff; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
-                        <div style="color: #8b949e;">Cyber-X System Hacking Sandbox v1.0.0</div>
+                        <div style="color: #8b949e;">Cyber-X Vulnerability Analysis Sandbox v1.0.0</div>
                         <div style="color: #8b949e; margin-bottom: 10px;">Type 'help' to view available commands.</div>
                     </div>
                     <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
@@ -79,44 +80,44 @@
 
                 <!-- Quiz Tab Content -->
                 <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
-                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">📝 Module 05 Quiz</h3>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Test your understanding of privilege escalation, Metasploit, password attacks, and hashcat parameters.</p>
+                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">📝 Module 04 Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Test your understanding of vulnerability indicators, CVSS scoring, and modern vulnerability scanning tools.</p>
                     
                     <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
                         <!-- Question 1 -->
                         <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. What is the main purpose of privilege escalation?</h4>
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. What is the primary difference between a CVE and a CVSS score?</h4>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'B')"> A) Scanning ports silently</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'B')"> B) Elevating access from a low-privilege user to root/SYSTEM</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'B')"> C) Deleting web page log files</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'A')"> A) CVE details the vulnerability; CVSS scores its severity</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'A')"> B) CVE is paid, CVSS is free</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'A')"> C) CVE works only on Windows, CVSS on Linux</label>
                             </div>
                         </div>
 
                         <!-- Question 2 -->
                         <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. In Hashcat, what does the '-m 1000' parameter specify?</h4>
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. Which tool uses YAML-based templates to scan for newly disclosed vulnerabilities at high speed?</h4>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'A')"> A) NTLM (Windows Hash) hash type</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'A')"> B) SHA-256 hash type</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'A')"> C) MD5 hash type</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'C')"> A) Nessus</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'C')"> B) Nikto</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'C')"> C) Nuclei</label>
                             </div>
                         </div>
 
                         <!-- Question 3 -->
                         <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. Which Metasploit module is commonly used to automate privilege escalation check on Windows?</h4>
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. Which Nessus scan type is recommended for a standard, non-credentialed network audit?</h4>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'C')"> A) exploit/windows/smb/ms17_010_eternalblue</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'C')"> B) auxiliary/scanner/portscan/tcp</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'C')"> C) post/multi/recon/local_exploit_suggester</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'B')"> A) Advanced Dynamic Agent Scan</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'B')"> B) Basic Network Scan</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'B')"> C) Web Application Audit</label>
                             </div>
                         </div>
                     </div>
                     
                     <div id="quizCompletionMsg" style="display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-primary); border-radius: 8px; padding: 12px; margin-top: 15px; text-align: center;">
                         <h4 style="color: var(--accent-primary); margin-bottom: 4px; font-size: 0.9rem;">🎉 Quiz Passed!</h4>
-                        <p style="font-size: 0.7rem; color: var(--text-muted);">You scored 3/3 on the system hacking check!</p>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">You scored 3/3 on the vulnerability analysis check!</p>
                     </div>
                 </div>
             </div>
@@ -124,9 +125,12 @@
     </div>
 
     <div class="mobile-nav">
-        <button class="nav-tab active" onclick="switchMobileTab('tools')"><span class="tab-icon">📁</span><span class="tab-label">Tools</span></button>
-        <button class="nav-tab" onclick="switchMobileTab('details')"><span class="tab-icon">📄</span><span class="tab-label">Details</span></button>
-        <button class="nav-tab" onclick="switchMobileTab('chat')"><span class="tab-icon">💬</span><span class="tab-label">Assistant</span></button>
+        <button class="nav-tab active" onclick="switchMobileTab('tools')"><span class="tab-icon">📁</span><span
+                class="tab-label">Tools</span></button>
+        <button class="nav-tab" onclick="switchMobileTab('details')"><span class="tab-icon">📄</span><span
+                class="tab-label">Details</span></button>
+        <button class="nav-tab" onclick="switchMobileTab('chat')"><span class="tab-icon">💬</span><span
+                class="tab-label">Assistant</span></button>
     </div>
 
     <div class="modal-overlay" id="addToolModal">
@@ -138,24 +142,27 @@
             <form id="addToolForm" onsubmit="submitNewTool(event)">
                 <div class="form-group">
                     <label for="toolName">Tool Name</label>
-                    <input type="text" id="toolName" placeholder="e.g., LinPEAS" required>
+                    <input type="text" id="toolName" placeholder="e.g., Nuclei" required>
                 </div>
                 <div class="form-group">
                     <label for="toolLink">Tool Link (URL)</label>
-                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/peass-ng/PEASS-ng" required>
+                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/projectdiscovery/nuclei"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="toolCategory">Category</label>
                     <div style="display: flex; gap: 8px;">
                         <select id="toolCategory" required style="flex-grow: 1;">
-                            <option value="PrivEsc">⬆️ Privilege Escalation</option>
-                            <option value="PasswordAttack">🔑 Password Attacks</option>
-                            <option value="Persistence">🔒 Persistence & Backdoors</option>
-                            <option value="CoverTracks">🧹 Covering Tracks</option>
+                            <option value="VulnScanner">🛡️ General Vuln Scanners</option>
+                            <option value="WebVuln">🌐 Web App Vuln Scanners</option>
+                            <option value="CVEDB">📋 CVE & Vuln Databases</option>
+                            <option value="ExploitFramework">💥 Exploit Frameworks</option>
                         </select>
-                        <button type="button" class="btn" onclick="showNewCategoryForm()" style="padding: 10px; white-space: nowrap; font-size: 0.85rem;">➕ New</button>
+                        <button type="button" class="btn" onclick="showNewCategoryForm()"
+                            style="padding: 10px; white-space: nowrap; font-size: 0.85rem;">➕ New</button>
                     </div>
-                    <div id="newCategoryGroup" style="display:none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px dashed var(--border-dim); margin-top: 10px;">
+                    <div id="newCategoryGroup"
+                        style="display:none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px dashed var(--border-dim); margin-top: 10px;">
                         <div style="margin-bottom: 8px;">
                             <label for="newCategoryName" style="margin-bottom: 4px;">Category Name</label>
                             <input type="text" id="newCategoryName" placeholder="e.g., LDAP" style="width:100%;">
@@ -165,8 +172,10 @@
                             <input type="text" id="newCategoryIcon" placeholder="e.g., 🔑" style="width:100%;">
                         </div>
                         <div style="display:flex; gap:8px; justify-content:flex-end;">
-                            <button type="button" class="btn" onclick="cancelNewCategory()" style="font-size:0.8rem; padding:6px 12px;">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="saveNewCategory()" style="font-size:0.8rem; padding:6px 12px;">Save</button>
+                            <button type="button" class="btn" onclick="cancelNewCategory()"
+                                style="font-size:0.8rem; padding:6px 12px;">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="saveNewCategory()"
+                                style="font-size:0.8rem; padding:6px 12px;">Save</button>
                         </div>
                     </div>
                 </div>
@@ -180,7 +189,8 @@
                 </div>
                 <div class="form-group">
                     <label for="toolUseful">Why Hackers Care</label>
-                    <textarea id="toolUseful" placeholder="Security value or attacker perspective..." required></textarea>
+                    <textarea id="toolUseful" placeholder="Security value or attacker perspective..."
+                        required></textarea>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn" onclick="closeAddToolModal()">Cancel</button>
@@ -191,9 +201,10 @@
     </div>
 
     
-    <script src="js/config.js"></script>
-    <script src="js/SystemHacking.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/resizer.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/Vulnerablity.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/resizer.js"></script>
 </body>
+
 </html>

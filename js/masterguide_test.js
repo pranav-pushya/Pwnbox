@@ -125,9 +125,9 @@
         // 2. Fetch over HTTP
         let url = '';
         if (chapter === 'all') {
-            url = 'quiz-data/masterguide_quiz_all.json';
+            url = (window.location.pathname.includes('/masterguide/') ? '../quiz-data/' : 'quiz-data/') + 'masterguide_quiz_all.json';
         } else {
-            url = `quiz-data/masterguide_quiz_ch${chapter}.json`;
+            url = `${window.location.pathname.includes('/masterguide/') ? '../quiz-data/' : 'quiz-data/'}masterguide_quiz_ch${chapter}.json`;
         }
 
         const res = await fetch(url);

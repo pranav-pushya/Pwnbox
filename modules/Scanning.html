@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footprinting and Reconnaissance Techniques</title>
-    <link rel="icon" type="image/svg+xml" href="favicon-main.svg">
+    <title>Scanning Networks - PwnBox</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
     
-    <link rel="stylesheet" href="css/Footprinting.css">
+    <link rel="stylesheet" href="../css/Scanning.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
-    <link rel="stylesheet" href="css/resizer.css">
+    <link rel="stylesheet" href="../css/resizer.css">
 </head>
 
 <body class="tab-tools">
@@ -20,8 +20,8 @@
     <div class="sidebar">
         <div class="header">
             <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
-            <a href="dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
-            <h2>Footprinting and Reconnaissance Techniques</h2>
+            <a href="../dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>Scanning Networks</h2>
             <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
         </div>
         <div class="tool-list" id="toolList"></div>
@@ -43,25 +43,24 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <div class="status-container">
                             <div class="status-dot online" id="statusDot"></div>
-                            Recon Playground
+                            Scanning Assistant
                         </div>
-                        <div class="local-badge">MODULE 01</div>
+                        <div class="local-badge">MODULE 02</div>
                     </div>
                     <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
                         <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 Assistant</button>
                         <button class="panel-tab" onclick="switchPanelTab('terminal')">💻 CLI Terminal</button>
-                        <button class="panel-tab" onclick="switchPanelTab('ctf')">🚩 CTF Quest</button>
+                        <button class="panel-tab" onclick="switchPanelTab('quiz')">📝 Knowledge Quiz</button>
                     </div>
                 </div>
 
                 <!-- Chat Tab Content -->
                 <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
                     <div class="chat-history" id="chatHistory">
-                        <div class="msg bot">System Initialized. Don't know where to start? Ask me:
-                            "Explain how to find hidden subdomains."</div>
+                        <div class="msg bot">System Initialized. Don't know where to start? Ask me: "What is the difference between TCP and UDP scanning?"</div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="chatInput" placeholder="Ask any beginner question here..."
+                        <input type="text" id="chatInput" placeholder="Ask about scanning, ports, or network concepts..."
                             onkeypress="handleEnter(event)">
                         <button class="btn btn-primary" onclick="sendMessage()">Send</button>
                     </div>
@@ -70,7 +69,7 @@
                 <!-- Terminal Tab Content -->
                 <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
                     <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #58a6ff; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
-                        <div style="color: #8b949e;">Cyber-X Recon Sandbox v1.0.0</div>
+                        <div style="color: #8b949e;">Cyber-X Network Scanning Sandbox v1.0.0</div>
                         <div style="color: #8b949e; margin-bottom: 10px;">Type 'help' to view available commands.</div>
                     </div>
                     <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
@@ -79,49 +78,46 @@
                     </div>
                 </div>
 
-                <!-- CTF Tab Content -->
-                <div id="ctfTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
-                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">🚩 Recon CTF Challenge</h3>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">Use the <strong>CLI Terminal tab</strong> to query targets, discover secret answers, and submit them below.</p>
+                <!-- Quiz Tab Content -->
+                <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
+                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">📝 Module 02 Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Test your knowledge of network scanning methodologies and port status indicators.</p>
                     
-                    <div class="ctf-list" style="display: flex; flex-direction: column; gap: 12px;">
-                        <!-- Challenge 1 -->
-                        <div class="ctf-card" id="ctfCard1" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; transition: border-color 0.2s;">
-                            <h4 style="font-size: 0.85rem; margin-bottom: 5px; color: var(--text-main);">1. DNS Lookup Challenge</h4>
-                            <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.3;">Find the mail server hostname for the target <code>flagcompany.org</code>. Run <code>nslookup flagcompany.org</code> in the CLI Terminal.</p>
-                            <div style="display: flex; gap: 6px;">
-                                <input type="text" id="ctfInput1" placeholder="e.g., mail.example.com" style="flex-grow: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 6px 10px; color: white; font-size: 0.78rem; outline: none;">
-                                <button class="btn btn-primary" onclick="submitCtfFlag(1)" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 4px; white-space: nowrap;">Submit</button>
+                    <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Question 1 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. Which flag performs a stealthy SYN scan in Nmap?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'B')"> A) -sT (Connect Scan)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'B')"> B) -sS (SYN Stealth Scan)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'B')"> C) -sU (UDP Scan)</label>
                             </div>
-                            <div class="ctf-status" id="ctfStatus1" style="font-size: 0.7rem; margin-top: 5px; font-weight: 600;"></div>
                         </div>
 
-                        <!-- Challenge 2 -->
-                        <div class="ctf-card" id="ctfCard2" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; transition: border-color 0.2s;">
-                            <h4 style="font-size: 0.85rem; margin-bottom: 5px; color: var(--text-main);">2. Image Metadata Challenge</h4>
-                            <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.3;">Extract camera model information from <code>confidential.jpg</code>. Run <code>exiftool confidential.jpg</code> in the CLI Terminal.</p>
-                            <div style="display: flex; gap: 6px;">
-                                <input type="text" id="ctfInput2" placeholder="e.g., Camera Model" style="flex-grow: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 6px 10px; color: white; font-size: 0.78rem; outline: none;">
-                                <button class="btn btn-primary" onclick="submitCtfFlag(2)" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 4px; white-space: nowrap;">Submit</button>
+                        <!-- Question 2 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. What is the standard port number for Secure Web (HTTPS)?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'C')"> A) 80</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'C')"> B) 22</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'C')"> C) 443</label>
                             </div>
-                            <div class="ctf-status" id="ctfStatus2" style="font-size: 0.7rem; margin-top: 5px; font-weight: 600;"></div>
                         </div>
 
-                        <!-- Challenge 3 -->
-                        <div class="ctf-card" id="ctfCard3" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; transition: border-color 0.2s;">
-                            <h4 style="font-size: 0.85rem; margin-bottom: 5px; color: var(--text-main);">3. Directory Scrape Challenge</h4>
-                            <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.3;">Scan target web servers. Find the secret backup zip path. Run <code>gobuster target.com</code> in the CLI Terminal.</p>
-                            <div style="display: flex; gap: 6px;">
-                                <input type="text" id="ctfInput3" placeholder="e.g., /path.zip" style="flex-grow: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 6px 10px; color: white; font-size: 0.78rem; outline: none;">
-                                <button class="btn btn-primary" onclick="submitCtfFlag(3)" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 4px; white-space: nowrap;">Submit</button>
+                        <!-- Question 3 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. Which scan technique is used to discover active hosts in a network segment?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'A')"> A) Ping Sweep</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'A')"> B) Xmas Scan</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'A')"> C) FIN Scan</label>
                             </div>
-                            <div class="ctf-status" id="ctfStatus3" style="font-size: 0.7rem; margin-top: 5px; font-weight: 600;"></div>
                         </div>
                     </div>
                     
-                    <div id="ctfCompletionMsg" style="display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-primary); border-radius: 8px; padding: 12px; margin-top: 15px; text-align: center;">
-                        <h4 style="color: var(--accent-primary); margin-bottom: 4px; font-size: 0.9rem;">👑 Recon Master Achieved!</h4>
-                        <p style="font-size: 0.7rem; color: var(--text-muted);">You successfully analyzed files, DNS records, and web structures to discover all flags!</p>
+                    <div id="quizCompletionMsg" style="display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-primary); border-radius: 8px; padding: 12px; margin-top: 15px; text-align: center;">
+                        <h4 style="color: var(--accent-primary); margin-bottom: 4px; font-size: 0.9rem;">🎉 Quiz Passed!</h4>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">You scored 3/3 on the network scanning basics check!</p>
                     </div>
                 </div>
             </div>
@@ -143,7 +139,7 @@
         </button>
     </div>
 
-    <!-- Add Tool Modal -->
+    <!-- Add / Edit Tool Modal -->
     <div class="modal-overlay" id="addToolModal">
         <div class="modal-card">
             <div class="modal-header">
@@ -153,22 +149,22 @@
             <form id="addToolForm" onsubmit="submitNewTool(event)">
                 <div class="form-group">
                     <label for="toolName">Tool Name</label>
-                    <input type="text" id="toolName" placeholder="e.g., Gobuster" required>
+                    <input type="text" id="toolName" placeholder="e.g., Masscan" required>
                 </div>
                 <div class="form-group">
                     <label for="toolLink">Tool Link (URL)</label>
-                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/OJ/gobuster" required>
+                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/robertdavidgraham/masscan" required>
                 </div>
                 <div class="form-group">
                     <label for="toolCategory">Category</label>
                     <div style="display: flex; gap: 8px;">
                         <select id="toolCategory" required style="flex-grow: 1;">
-                            <option value="OSINT">🔍 OSINT & Scrapers</option>
-                            <option value="Network">🌐 Network & Domain</option>
-                            <option value="Scanning">⚙️ Scanning & Frameworks</option>
-                            <option value="Forensics">🖼️ Forensics & Metadata</option>
+                            <option value="PortScan">🔌 Port Scanners</option>
+                            <option value="NetworkMapper">🗺️ Network Mappers</option>
+                            <option value="VulnScanner">⚠️ Vulnerability Scanners</option>
+                            <option value="TrafficAnalysis">📡 Traffic Analysis</option>
                         </select>
-                        <button type="button" class="btn" onclick="showNewCategoryForm()" style="padding: 10px; white-space: nowrap; font-size: 0.85rem;">➕ New Category</button>
+                        <button type="button" class="btn" onclick="showNewCategoryForm()" style="padding: 10px; white-space: nowrap; font-size: 0.85rem;">➕ New</button>
                     </div>
                     <div id="newCategoryGroup" style="display: none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px dashed var(--border-dim); margin-top: 10px;">
                         <div style="margin-bottom: 8px;">
@@ -191,7 +187,7 @@
                 </div>
                 <div class="form-group">
                     <label for="toolUse">How to Use It</label>
-                    <textarea id="toolUse" placeholder="Provide step-by-step instructions or CLI command examples..." required></textarea>
+                    <textarea id="toolUse" placeholder="Step-by-step instructions or CLI command examples..." required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="toolUseful">Why Hackers Care About This</label>
@@ -206,10 +202,10 @@
     </div>
 
     
-    <script src="js/config.js"></script>
-    <script src="js/Footprinting.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/resizer.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/Scanning.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/resizer.js"></script>
 </body>
 
 </html>

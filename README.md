@@ -22,10 +22,16 @@ Designed & Developed by **Pranav Pushya**.
 The project follows a clean, decoupled client-side architecture with zero external package manager overhead.
 
 ```text
-├── index.html                   # Cyber Command Landing Page & 3D Matrix Gateway
+foot/
 ├── dashboard.html               # Main Agent Training Dashboard & Progress Hub
+├── index.html                   # Cyber Command Landing Page & 3D Matrix Gateway
+├── README.md                    # Project Documentation & Architecture
 │
-├── 📂 Core Training Modules (The 7-Stage Cyber Kill Chain)
+├── 📂 assets/                   # Vector Brand Icons & Favicons
+│   ├── favicon-main.svg         # Tactical shield dashboard favicon
+│   └── favicon-guide.svg        # Encyclopedic master guide favicon
+│
+├── 📂 modules/                  # The 7-Stage Cyber Kill Chain Interactive Laboratories
 │   ├── Footprinting.html        # Module 01: Passive & Active Reconnaissance (22+ Tools)
 │   ├── Scanning.html            # Module 02: Network Probing & Host Discovery (15+ Tools)
 │   ├── Enumeration.html         # Module 03: Service, Protocol & User Mining (8+ Tools)
@@ -34,7 +40,7 @@ The project follows a clean, decoupled client-side architecture with zero extern
 │   ├── WebAppThreats.html       # Module 06: OWASP Top 10 & Web Attack Vectors (6+ Tools)
 │   └── OSINT.html               # Module 07: Open-Source Intelligence & Threat Intel (12+ Tools)
 │
-├── 📂 Master Guide & Knowledge Base ("Zero to Cyber")
+├── 📂 masterguide/              # Master Guide Knowledge Base & Certification Engine
 │   ├── cybersecurity_masterguide.html  # Master Guide Central Hub
 │   ├── masterguide_ch1.html – ch10.html # 10 Deep-Dive Chapters (100+ Documented Terms)
 │   └── masterguide_test.html           # Comprehensive MCQ Examination Engine
@@ -64,14 +70,10 @@ The project follows a clean, decoupled client-side architecture with zero extern
 │   ├── masterguide_quiz_all.json              # Aggregated 100+ master exam dataset
 │   └── quiz_data.js                           # Browser & Node isomorphic quiz bundle
 │
-├── 📂 scripts/                  # Automated Maintenance & Codebase Utilities
-│   ├── add_back_btn.py          # Bulk navigation routing script
-│   ├── add_favicons.py          # Favicon injection utility
-│   └── add_resizers.py          # Multi-pane lab DOM injector
-│
-└── 📂 assets/
-    ├── favicon-main.svg         # Tactical shield dashboard favicon
-    └── favicon-guide.svg        # Encyclopedic master guide favicon
+└── 📂 scripts/                  # Automated Maintenance & Codebase Utilities
+    ├── add_back_btn.py          # Bulk navigation routing script
+    ├── add_favicons.py          # Favicon injection utility
+    └── add_resizers.py          # Multi-pane lab DOM injector
 ```
 
 ---

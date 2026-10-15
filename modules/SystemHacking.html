@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enumeration & Mapping - PwnBox</title>
-    <link rel="icon" type="image/svg+xml" href="favicon-main.svg">
+    <title>System Hacking - PwnBox</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
     
-    <link rel="stylesheet" href="css/Enumeration.css">
+    <link rel="stylesheet" href="../css/SystemHacking.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
-    <link rel="stylesheet" href="css/resizer.css">
+    <link rel="stylesheet" href="../css/resizer.css">
 </head>
 
 <body class="tab-tools">
@@ -20,8 +20,8 @@
     <div class="sidebar">
         <div class="header">
             <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
-            <a href="dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
-            <h2>Enumeration & Mapping</h2>
+            <a href="../dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>System Hacking</h2>
             <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
         </div>
         <div class="tool-list" id="toolList"></div>
@@ -43,9 +43,9 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <div class="status-container">
                             <div class="status-dot online" id="statusDot"></div>
-                            Enumeration Assistant
+                            System Hacking Assistant
                         </div>
-                        <div class="local-badge">MODULE 03</div>
+                        <div class="local-badge">MODULE 05</div>
                     </div>
                     <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
                         <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 Assistant</button>
@@ -57,11 +57,10 @@
                 <!-- Chat Tab Content -->
                 <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
                     <div class="chat-history" id="chatHistory">
-                        <div class="msg bot">System Initialized. Don't know where to start? Ask me: "What is SNMP enumeration and why is it dangerous?"</div>
+                        <div class="msg bot">System Initialized. Try asking: "What is the difference between privilege escalation and lateral movement?"</div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="chatInput" placeholder="Ask about NetBIOS, Samba, SNMP, or LDAP..."
-                            onkeypress="handleEnter(event)">
+                        <input type="text" id="chatInput" placeholder="Ask about privesc, persistence, hashes, backdoors..." onkeypress="handleEnter(event)">
                         <button class="btn btn-primary" onclick="sendMessage()">Send</button>
                     </div>
                 </div>
@@ -69,7 +68,7 @@
                 <!-- Terminal Tab Content -->
                 <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
                     <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #58a6ff; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
-                        <div style="color: #8b949e;">Cyber-X Enumeration Sandbox v1.0.0</div>
+                        <div style="color: #8b949e;">Cyber-X System Hacking Sandbox v1.0.0</div>
                         <div style="color: #8b949e; margin-bottom: 10px;">Type 'help' to view available commands.</div>
                     </div>
                     <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
@@ -80,68 +79,57 @@
 
                 <!-- Quiz Tab Content -->
                 <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
-                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">📝 Module 03 Quiz</h3>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Test your understanding of LDAP configurations, SNMP strings, and SMB/Samba tools.</p>
+                    <h3 style="font-size: 1rem; color: var(--accent-primary); margin-bottom: 8px;">📝 Module 05 Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Test your understanding of privilege escalation, Metasploit, password attacks, and hashcat parameters.</p>
                     
                     <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
                         <!-- Question 1 -->
                         <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. Which tool queries NetBIOS name tables over TCP/IP?</h4>
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. What is the main purpose of privilege escalation?</h4>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'A')"> A) nbtstat</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'A')"> B) snmpwalk</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'A')"> C) ldapsearch</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'B')"> A) Scanning ports silently</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'B')"> B) Elevating access from a low-privilege user to root/SYSTEM</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'B')"> C) Deleting web page log files</label>
                             </div>
                         </div>
 
                         <!-- Question 2 -->
                         <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. What is the standard port for LDAP directory queries?</h4>
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. In Hashcat, what does the '-m 1000' parameter specify?</h4>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'B')"> A) 445 (SMB)</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'B')"> B) 389 (LDAP)</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'B')"> C) 161 (SNMP)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'A')"> A) NTLM (Windows Hash) hash type</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'A')"> B) SHA-256 hash type</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'A')"> C) MD5 hash type</label>
                             </div>
                         </div>
 
                         <!-- Question 3 -->
                         <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. Which enum4linux flag runs a full user and share dump?</h4>
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. Which Metasploit module is commonly used to automate privilege escalation check on Windows?</h4>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'A')"> A) -a (Simple/All flags)</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'A')"> B) -v (Verbose)</label>
-                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'A')"> C) -u (User only)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'C')"> A) exploit/windows/smb/ms17_010_eternalblue</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'C')"> B) auxiliary/scanner/portscan/tcp</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'C')"> C) post/multi/recon/local_exploit_suggester</label>
                             </div>
                         </div>
                     </div>
                     
                     <div id="quizCompletionMsg" style="display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-primary); border-radius: 8px; padding: 12px; margin-top: 15px; text-align: center;">
                         <h4 style="color: var(--accent-primary); margin-bottom: 4px; font-size: 0.9rem;">🎉 Quiz Passed!</h4>
-                        <p style="font-size: 0.7rem; color: var(--text-muted);">You scored 3/3 on the enumeration and mapping check!</p>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">You scored 3/3 on the system hacking check!</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Mobile Navigation Bar -->
-    <div class="mobile-nav-bar">
-        <a class="nav-tab active" onclick="switchMobileTab('tools')">
-            <span class="tab-icon">🔌</span>
-            <span class="tab-label">Tools</span>
-        </a>
-        <a class="nav-tab" onclick="switchMobileTab('details')">
-            <span class="tab-icon">📄</span>
-            <span class="tab-label">Info</span>
-        </a>
-        <a class="nav-tab" onclick="switchMobileTab('chat')">
-            <span class="tab-icon">💬</span>
-            <span class="tab-label">Playground</span>
-        </a>
+    <div class="mobile-nav">
+        <button class="nav-tab active" onclick="switchMobileTab('tools')"><span class="tab-icon">📁</span><span class="tab-label">Tools</span></button>
+        <button class="nav-tab" onclick="switchMobileTab('details')"><span class="tab-icon">📄</span><span class="tab-label">Details</span></button>
+        <button class="nav-tab" onclick="switchMobileTab('chat')"><span class="tab-icon">💬</span><span class="tab-label">Assistant</span></button>
     </div>
 
-    <!-- Add/Edit Tool Modal -->
-    <div class="modal" id="addToolModal">
+    <div class="modal-overlay" id="addToolModal">
         <div class="modal-card">
             <div class="modal-header">
                 <h3>Add Custom Tool</h3>
@@ -150,49 +138,49 @@
             <form id="addToolForm" onsubmit="submitNewTool(event)">
                 <div class="form-group">
                     <label for="toolName">Tool Name</label>
-                    <input type="text" id="toolName" placeholder="e.g., SNMPwalk" required>
+                    <input type="text" id="toolName" placeholder="e.g., LinPEAS" required>
                 </div>
                 <div class="form-group">
                     <label for="toolLink">Tool Link (URL)</label>
-                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/net-snmp/net-snmp" required>
+                    <input type="url" id="toolLink" placeholder="e.g., https://github.com/peass-ng/PEASS-ng" required>
                 </div>
                 <div class="form-group">
                     <label for="toolCategory">Category</label>
                     <div style="display: flex; gap: 8px;">
                         <select id="toolCategory" required style="flex-grow: 1;">
-                            <option value="NetBIOS">🔌 NetBIOS & Samba</option>
-                            <option value="SNMP">📡 SNMP Enumeration</option>
-                            <option value="LDAP">🔑 LDAP Directory Services</option>
-                            <option value="SystemInfo">🖥️ System & Users Info</option>
+                            <option value="PrivEsc">⬆️ Privilege Escalation</option>
+                            <option value="PasswordAttack">🔑 Password Attacks</option>
+                            <option value="Persistence">🔒 Persistence & Backdoors</option>
+                            <option value="CoverTracks">🧹 Covering Tracks</option>
                         </select>
                         <button type="button" class="btn" onclick="showNewCategoryForm()" style="padding: 10px; white-space: nowrap; font-size: 0.85rem;">➕ New</button>
                     </div>
-                    <div id="newCategoryGroup" style="display: none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px dashed var(--border-dim); margin-top: 10px;">
+                    <div id="newCategoryGroup" style="display:none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px dashed var(--border-dim); margin-top: 10px;">
                         <div style="margin-bottom: 8px;">
-                            <label for="newCategoryName" style="margin-bottom: 4px;">New Category Name</label>
-                            <input type="text" id="newCategoryName" placeholder="e.g., DNS Enum" style="width: 100%;">
+                            <label for="newCategoryName" style="margin-bottom: 4px;">Category Name</label>
+                            <input type="text" id="newCategoryName" placeholder="e.g., LDAP" style="width:100%;">
                         </div>
                         <div style="margin-bottom: 12px;">
                             <label for="newCategoryIcon" style="margin-bottom: 4px;">Category Icon (Emoji)</label>
-                            <input type="text" id="newCategoryIcon" placeholder="e.g., 🏷️" style="width: 100%;">
+                            <input type="text" id="newCategoryIcon" placeholder="e.g., 🔑" style="width:100%;">
                         </div>
-                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                            <button type="button" class="btn" onclick="cancelNewCategory()" style="font-size: 0.8rem; padding: 6px 12px;">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="saveNewCategory()" style="font-size: 0.8rem; padding: 6px 12px;">Save Category</button>
+                        <div style="display:flex; gap:8px; justify-content:flex-end;">
+                            <button type="button" class="btn" onclick="cancelNewCategory()" style="font-size:0.8rem; padding:6px 12px;">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="saveNewCategory()" style="font-size:0.8rem; padding:6px 12px;">Save</button>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="toolBrief">Simple Explanation (What is it?)</label>
-                    <textarea id="toolBrief" placeholder="Explain what the tool does in simple terms..." required></textarea>
+                    <label for="toolBrief">Simple Explanation</label>
+                    <textarea id="toolBrief" placeholder="What does this tool do in simple terms?" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="toolUse">How to Use It</label>
-                    <textarea id="toolUse" placeholder="Step-by-step instructions or CLI command examples..." required></textarea>
+                    <textarea id="toolUse" placeholder="Step-by-step or CLI examples..." required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="toolUseful">Why Hackers Care About This</label>
-                    <textarea id="toolUseful" placeholder="Explain the security value or hacker perspective..." required></textarea>
+                    <label for="toolUseful">Why Hackers Care</label>
+                    <textarea id="toolUseful" placeholder="Security value or attacker perspective..." required></textarea>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn" onclick="closeAddToolModal()">Cancel</button>
@@ -203,10 +191,9 @@
     </div>
 
     
-    <script src="js/config.js"></script>
-    <script src="js/Enumeration.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/resizer.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/SystemHacking.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/resizer.js"></script>
 </body>
-
 </html>
