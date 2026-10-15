@@ -870,10 +870,12 @@ footer.site-footer {
     }
 
     .profile-container a, .profile-container button {
-        flex: 0 0 auto;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        max-width: fit-content !important;
         min-width: unset;
         font-size: 0.72rem;
-        padding: 6px 10px;
+        padding: 5px 10px;
         white-space: nowrap;
         border-width: 1.5px;
     }
@@ -1102,7 +1104,11 @@ footer.site-footer {
     }
 
     .profile-container a, .profile-container button {
-        width: 100%;
+        width: auto !important;
+        max-width: fit-content !important;
+        flex: 0 0 auto !important;
+        padding: 5px 10px;
+        font-size: 0.72rem;
     }
 }
 
