@@ -74,14 +74,9 @@ foot/
 │   └── [Module].js              # Per-module terminal simulators & interactive labs
 │
 ├── 📂 quiz-data/                # Examination Question Banks & Unified Bundle
-│   ├── masterguide_quiz_ch1.json – ch10.json  # Chapter-specific structured MCQs
-│   ├── masterguide_quiz_all.json              # Aggregated 100+ master exam dataset
-│   └── quiz_data.js                           # Browser & Node isomorphic quiz bundle
-│
-└── 📂 scripts/                  # Automated Maintenance & Codebase Utilities
-    ├── add_back_btn.py          # Bulk navigation routing script
-    ├── add_favicons.py          # Favicon injection utility
-    └── add_resizers.py          # Multi-pane lab DOM injector
+    ├── masterguide_quiz_ch1.json – ch10.json  # Chapter-specific structured MCQs
+    ├── masterguide_quiz_all.json              # Aggregated 100+ master exam dataset
+    └── quiz_data.js                           # Browser & Node isomorphic quiz bundle
 ```
 
 ---
