@@ -312,7 +312,7 @@
         if (!resetBtn) return;
 
         resetBtn.addEventListener('click', () => {
-            if (window.confirm('Reset all roadmap objective checkboxes? Your progress will be cleared.')) {
+            const doReset = () => {
                 localStorage.removeItem(STORAGE_KEY);
                 document.querySelectorAll('.task-checkbox').forEach(cb => {
                     cb.checked = false;
@@ -320,6 +320,22 @@
                     if (parent) parent.classList.remove('checked');
                 });
                 updateProgress(true);
+                if (typeof window.tacticalToast === 'function') {
+                    window.tacticalToast("Roadmap progression reset.", "info");
+                }
+            };
+
+            if (typeof window.tacticalConfirm === 'function') {
+                window.tacticalConfirm({
+                    title: "RESET ROADMAP CHECKLIST",
+                    message: "Are you sure you want to reset all roadmap objectives? Your checked checkboxes will be cleared.",
+                    confirmText: "⚠️ RESET ALL",
+                    cancelText: "CANCEL",
+                    type: "danger",
+                    onConfirm: doReset
+                });
+            } else {
+                doReset();
             }
         });
     }

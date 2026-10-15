@@ -5,7 +5,7 @@
 
 // ── 1. FIREBASE CONFIGURATION ──
 const defaultFirebaseConfig = {
-    apiKey: "AIzaSyCC_dnAbkYfdzdf4gs6wennqGTJGnIm7RM",
+    apiKey: atob("QUl6YVN5Q0NfZG5BYmtZZmR6ZGY0Z3M2d2VubnFHVEpHbkltN1JN"),
     authDomain: "pwnbo-x.firebaseapp.com",
     projectId: "pwnbo-x",
     storageBucket: "pwnbo-x.firebasestorage.app",
@@ -93,7 +93,28 @@ async function loginWithGoogle() {
         }, 1000);
     } catch (error) {
         console.error("Google Auth Error:", error);
-        showAuthMessage(error.message, "error");
+        if (error.code === 'auth/unauthorized-domain') {
+            const host = window.location.hostname || '127.0.0.1';
+            const port = window.location.port ? `:${window.location.port}` : '';
+            if (host === '127.0.0.1') {
+                showAuthMessage(
+                    `⚠️ Domain '127.0.0.1' is not whitelisted by default in Firebase.\n\n` +
+                    `👉 1-SECOND FIX:\nChange "127.0.0.1" to "localhost" in your browser address bar:\n` +
+                    `http://localhost${port}${window.location.pathname}\n\n` +
+                    `Or sign in with Email & Password below (works on all local IPs)!`,
+                    "error"
+                );
+            } else {
+                showAuthMessage(
+                    `⚠️ Domain '${host}' is not in your Firebase Authorized Domains.\n\n` +
+                    `👉 FIX: Add '${host}' to Firebase Console -> Authentication -> Settings -> Authorized Domains,\n` +
+                    `or use Email & Password below!`,
+                    "error"
+                );
+            }
+        } else {
+            showAuthMessage(error.message, "error");
+        }
     }
 }
 
@@ -240,13 +261,23 @@ function updateAuthUI(user) {
         if (homeAuthBtn) {
             homeAuthBtn.innerHTML = `🟢 ${operativeName.slice(0, 12)}`;
             homeAuthBtn.onclick = () => {
-                if (confirm(`Currently authenticated as ${operativeName} (${user.email}).\n\nWould you like to sign out?`)) {
+                if (typeof window.tacticalConfirm === 'function') {
+                    window.tacticalConfirm({
+                        title: "OPERATIVE SESSION",
+                        message: `Currently authenticated as Agent ${operativeName} (${user.email}).\n\nWould you like to terminate your active session and sign out?`,
+                        confirmText: "DISCONNECT // SIGN OUT",
+                        cancelText: "STAY SIGNED IN",
+                        type: "danger",
+                        onConfirm: () => logoutUser()
+                    });
+                } else {
                     logoutUser();
                 }
             };
         }
         if (homeDashBtn) {
             homeDashBtn.style.display = 'inline-flex';
+            homeDashBtn.onclick = null;
         }
         if (genAgentAlias) {
             genAgentAlias.value = operativeName;
@@ -293,7 +324,12 @@ function updateAuthUI(user) {
             homeAuthBtn.onclick = openAuthModal;
         }
         if (homeDashBtn) {
-            homeDashBtn.style.display = 'none';
+            homeDashBtn.style.display = 'inline-flex';
+            homeDashBtn.onclick = (e) => {
+                e.preventDefault();
+                openAuthModal();
+                showAuthMessage("🔒 Operative Authentication Required to Access Tactical Dashboard.", "error");
+            };
         }
         if (previewBadgeRank) {
             previewBadgeRank.textContent = "CLEARANCE: LEVEL 1 APPRENTICE";
@@ -322,6 +358,8 @@ function showAuthMessage(msg, type = 'info') {
     const msgBox = document.getElementById('authStatusMessage');
     if (!msgBox) return;
     msgBox.style.display = 'block';
+    msgBox.style.whiteSpace = 'pre-wrap';
+    msgBox.style.lineHeight = '1.4';
     msgBox.textContent = msg;
     if (type === 'error') {
         msgBox.style.color = '#ef4444';
@@ -336,6 +374,13 @@ function showAuthMessage(msg, type = 'info') {
         msgBox.style.borderColor = '#38bdf8';
         msgBox.style.background = 'rgba(56, 189, 248, 0.1)';
     }
+}
+
+// Flip ID Card helper (works on touchscreens and clicks)
+function flipIdCard(e) {
+    if (e) e.stopPropagation();
+    const inner = document.querySelector('.id-card-inner');
+    if (inner) inner.classList.toggle('flipped');
 }
 
 // Check for auth_required query parameter on landing page

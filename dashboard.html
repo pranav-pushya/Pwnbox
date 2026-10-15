@@ -62,6 +62,7 @@
                         <div class="id-card-header">
                             <div class="barcode">|||||||||||||||</div>
                             <h4>PWNBOX AGENT ID</h4>
+                            <button type="button" class="card-flip-btn" onclick="flipIdCard(event)" title="Flip to Settings">⚙️ SETTINGS</button>
                         </div>
                         <div class="id-card-body">
                             <div class="id-avatar-large" id="largeAvatar">?</div>
@@ -83,6 +84,7 @@
                     <div class="id-card-back">
                         <div class="id-card-header">
                             <h4>OPERATIVE SETTINGS</h4>
+                            <button type="button" class="card-flip-btn" onclick="flipIdCard(event)" title="Flip to ID Badge">🪪 ID CARD</button>
                         </div>
                         <div class="id-card-body settings-body" onclick="event.stopPropagation()">
                             <label class="id-label">EDIT ALIAS</label>
@@ -579,6 +581,7 @@
 
         </div>
     </div>
+    <script src="js/ui_popups.js"></script>
     <script src="js/firebase_auth.js"></script>
 </body>
 

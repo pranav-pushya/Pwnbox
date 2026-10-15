@@ -1107,3 +1107,29 @@ footer.site-footer {
 }
 
 
+
+/* Touchscreen Card Flip Support */
+.card-flip-btn {
+    background: var(--bg-panel);
+    color: var(--text-main);
+    border: 1.5px solid var(--border-color);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border-color);
+    transition: transform 0.1s;
+    user-select: none;
+}
+.card-flip-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+.card-flip-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--border-color);
+}
+.id-card-inner.flipped {
+    transform: rotateY(180deg);
+}

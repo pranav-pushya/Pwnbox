@@ -444,7 +444,18 @@ Be brutally honest, avoid fluff, and never give vague answers.`;
         function confirmDeleteTool(index) {
             const tool = tools[index];
             const rawName = tool.name.includes('.') ? tool.name.split('.')[1].trim() : tool.name.trim();
-            if (confirm(`Are you sure you want to delete "${rawName}"?`)) deleteTool(index);
+            if (typeof window.tacticalConfirm === 'function') {
+        window.tacticalConfirm({
+            title: "DELETE CUSTOM TOOL",
+            message: `Are you sure you want to delete "${rawName}" from your active tool arsenal?`,
+            confirmText: "🗑️ DELETE TOOL",
+            cancelText: "CANCEL",
+            type: "danger",
+            onConfirm: () => deleteTool(index)
+        });
+    } else {
+        deleteTool(index);
+    }
         }
 
         function deleteTool(index) {

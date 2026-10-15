@@ -196,7 +196,15 @@
     function startExam() {
         const pool = getFilteredQuestions();
         if (!pool || pool.length === 0) {
-            alert("No questions match your filter settings. Please adjust filters.");
+            if (typeof window.tacticalAlert === 'function') {
+                window.tacticalAlert({
+                    title: "FILTER CRITERIA EMPTY",
+                    message: "No questions match your current domain filter settings. Please adjust your filters to include questions.",
+                    type: "warning"
+                });
+            } else {
+                alert("No questions match your filter settings. Please adjust filters.");
+            }
             return;
         }
 

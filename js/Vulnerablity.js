@@ -398,7 +398,18 @@ Be direct, no fluff, never vague.`;
 
         function confirmDeleteTool(index) {
             const rawName = tools[index].name.includes('.') ? tools[index].name.split('.')[1].trim() : tools[index].name.trim();
-            if (confirm(`Delete "${rawName}"?`)) deleteTool(index);
+            if (typeof window.tacticalConfirm === 'function') {
+        window.tacticalConfirm({
+            title: "DELETE CUSTOM TOOL",
+            message: `Are you sure you want to delete "${rawName}" from your active tool arsenal?`,
+            confirmText: "🗑️ DELETE TOOL",
+            cancelText: "CANCEL",
+            type: "danger",
+            onConfirm: () => deleteTool(index)
+        });
+    } else {
+        deleteTool(index);
+    }
         }
 
         function deleteTool(index) {

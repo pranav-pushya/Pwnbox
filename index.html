@@ -55,20 +55,12 @@
 
 
     <!-- Main Content Container -->
-        <!-- Top Tactical Navigation Bar -->
-    <header class="home-top-bar">
-        <div class="home-top-bar-inner">
-            <a href="index.html" class="home-brand">
-                <span class="home-brand-dot"></span>
-                <span class="home-brand-text">PWNBOX // CYBER COMMAND</span>
-            </a>
-            <div class="home-nav-actions">
-                <button class="home-theme-btn" onclick="toggleTheme()" title="Toggle Matrix Theme">🌓 THEME</button>
-                <button class="home-auth-btn" id="homeAuthBtn" onclick="openAuthModal()">🔐 OPERATIVE LOGIN</button>
-                <a href="dashboard.html" class="home-dash-btn" id="homeDashBtn" style="display: none;">⚡ DASHBOARD &rarr;</a>
-            </div>
-        </div>
-    </header>
+    <!-- Floating Top-Right 3-Button Controls -->
+    <div class="top-right-actions">
+        <button class="action-btn-top theme" onclick="toggleTheme()" title="Toggle Matrix Theme">🌓 THEME</button>
+        <button class="action-btn-top auth" id="homeAuthBtn" onclick="openAuthModal()" title="Operative Login / Session">🔐 OPERATIVE LOGIN</button>
+        <a href="dashboard.html" class="action-btn-top dash" id="homeDashBtn" title="Launch Tactical Dashboard">⚡ DASHBOARD &rarr;</a>
+    </div>
 
     <main>
         <!-- Hero Section with Headline, Stats & Full-Screen Zoomed 3D Interactive Cyber Core Model -->
@@ -499,6 +491,7 @@
             <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
         </div>
     </div>
+    <script src="js/ui_popups.js"></script>
     <script src="js/firebase_auth.js"></script>
 
 </body>

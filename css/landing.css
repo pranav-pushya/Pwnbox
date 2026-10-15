@@ -1525,58 +1525,23 @@ main {
 }
 
 
-/* --- TOP NAVIGATION BAR & LOGIN BUTTON --- */
-.home-top-bar {
-    position: sticky;
-    top: 0;
-    z-index: 9990;
-    background: var(--bg-base);
-    border-bottom: var(--border-width) solid var(--border-color);
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
-}
-.home-top-bar-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 10px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-}
-.home-brand {
+/* --- FLOATING TOP-RIGHT 3-BUTTON ACTION CLUSTER --- */
+.top-right-actions {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
-    text-decoration: none;
-    color: var(--text-main);
+    z-index: 9999;
+}
+
+.action-btn-top {
     font-family: 'Space Mono', monospace;
     font-weight: 800;
-    font-size: 0.95rem;
-    letter-spacing: -0.5px;
-}
-.home-brand-dot {
-    width: 10px;
-    height: 10px;
-    background: var(--bauhaus-red);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--bauhaus-red);
-    animation: blinkDot 1.5s infinite;
-}
-@keyframes blinkDot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.85); }
-}
-.home-nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.home-theme-btn, .home-auth-btn, .home-dash-btn {
-    font-family: 'Space Mono', monospace;
-    font-weight: 800;
-    font-size: 0.76rem;
-    padding: 7px 14px;
-    border: 2px solid var(--border-color);
+    font-size: 0.78rem;
+    padding: 8px 14px;
+    border: var(--border-width, 2.5px) solid var(--border-color);
     cursor: pointer;
     text-transform: uppercase;
     text-decoration: none;
@@ -1586,24 +1551,31 @@ main {
     align-items: center;
     gap: 6px;
     white-space: nowrap;
-}
-.home-theme-btn {
     background: var(--bg-panel);
     color: var(--text-main);
 }
-.home-auth-btn {
+
+.action-btn-top.theme {
+    background: var(--bg-panel);
+    color: var(--text-main);
+}
+
+.action-btn-top.auth {
     background: var(--bauhaus-yellow);
     color: #000000;
 }
-.home-dash-btn {
+
+.action-btn-top.dash {
     background: var(--bauhaus-blue);
     color: #ffffff;
 }
-.home-theme-btn:hover, .home-auth-btn:hover, .home-dash-btn:hover {
+
+.action-btn-top:hover {
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px 0 var(--border-color);
 }
-.home-theme-btn:active, .home-auth-btn:active, .home-dash-btn:active {
+
+.action-btn-top:active {
     transform: translate(2px, 2px);
     box-shadow: 1px 1px 0 var(--border-color);
 }
@@ -1633,8 +1605,33 @@ main {
     box-sizing: border-box;
 }
 
+/* Responsive tweaks for the 3 top right buttons */
 @media (max-width: 600px) {
-    .home-brand-text { display: none; }
-    .home-top-bar-inner { padding: 8px 12px; }
-    .home-theme-btn, .home-auth-btn, .home-dash-btn { padding: 6px 10px; font-size: 0.72rem; }
+    .top-right-actions {
+        top: 12px;
+        right: 12px;
+        gap: 6px;
+    }
+    .action-btn-top {
+        padding: 6px 9px;
+        font-size: 0.68rem;
+        box-shadow: 2px 2px 0 var(--border-color);
+    }
+    .reset-modal-box {
+        padding: 18px 14px !important;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 380px) {
+    .top-right-actions {
+        top: 8px;
+        right: 8px;
+        gap: 4px;
+    }
+    .action-btn-top {
+        padding: 5px 7px;
+        font-size: 0.62rem;
+    }
 }
