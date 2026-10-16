@@ -28,12 +28,17 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html {
+    min-height: 100%;
+    background: var(--bg-deep, var(--bg-base, #111111));
+  }
+
   body {
     zoom: 0.9;
     background: var(--bg-deep);
     color: var(--text-primary);
     font-family: var(--body);
-    min-height: 100vh;
+    min-height: 111.111111vh; min-height: calc(100vh / 0.9);
     overflow-x: hidden;
   }
 
@@ -128,13 +133,14 @@
   .sidebar {
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 111.111111vh;
+    height: calc(100vh / 0.9);
     overflow-y: auto;
     background: var(--bg-panel);
     border-right: var(--border-width) solid var(--border-dim);
     padding: 24px 0;
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--scrollbar-thumb, var(--accent-blue, #3b82f6)) var(--scrollbar-track, transparent);
   }
   .sidebar-title {
     font-family: var(--mono);
@@ -516,9 +522,23 @@
   .badge-emerging { color: #2dd4bf; border-color: rgba(45,212,191,0.4); background: rgba(45,212,191,0.07); }
 
   /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb, var(--accent-blue, #3b82f6)) var(--scrollbar-track, transparent);
+  }
+  ::-webkit-scrollbar { width: 7px; height: 7px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track, transparent); }
+  ::-webkit-scrollbar-thumb { 
+    background: var(--scrollbar-thumb, var(--accent-blue, #3b82f6)); 
+    border-radius: 3px; 
+    border: 1px solid var(--scrollbar-border, rgba(255, 255, 255, 0.12));
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover { 
+    background: var(--scrollbar-thumb-hover, #60a5fa); 
+    box-shadow: 0 0 8px var(--scrollbar-glow, rgba(59, 130, 246, 0.6));
+  }
+  ::-webkit-scrollbar-corner { background: var(--scrollbar-track, transparent); }
 
   /* ── SEARCH ── */
   .search-bar {

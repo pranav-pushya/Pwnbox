@@ -598,3 +598,80 @@ dialog, [role="dialog"], [role="alertdialog"],
 [class*="popup"], [class*="modal"] {
     overscroll-behavior: contain !important;
 }
+
+/* ======================================================== */
+/* UNIVERSAL THEME-AWARE SCROLLBAR SYSTEM                   */
+/* Automatically adapts scrollbar & scroll wheel colors     */
+/* to Light, Dark, Matrix, Cyberpunk, and Synthwave themes  */
+/* ======================================================== */
+:root {
+    --scrollbar-track: rgba(0, 0, 0, 0.05);
+    --scrollbar-thumb: var(--accent-primary, #D9291C);
+    --scrollbar-thumb-hover: #b01b10;
+    --scrollbar-border: rgba(0, 0, 0, 0.12);
+    --scrollbar-glow: rgba(217, 41, 28, 0.35);
+}
+
+[data-theme="dark"] {
+    --scrollbar-track: rgba(0, 0, 0, 0.4);
+    --scrollbar-thumb: var(--accent-primary, #D9291C);
+    --scrollbar-thumb-hover: #ff4d40;
+    --scrollbar-border: rgba(255, 255, 255, 0.12);
+    --scrollbar-glow: rgba(217, 41, 28, 0.45);
+}
+
+[data-theme="matrix"] {
+    --scrollbar-track: #050d08;
+    --scrollbar-thumb: #00ff66;
+    --scrollbar-thumb-hover: #33ff88;
+    --scrollbar-border: rgba(0, 255, 102, 0.35);
+    --scrollbar-glow: rgba(0, 255, 102, 0.6);
+}
+
+[data-theme="cyberpunk"] {
+    --scrollbar-track: #0c0814;
+    --scrollbar-thumb: #00f0ff;
+    --scrollbar-thumb-hover: #ffe600;
+    --scrollbar-border: rgba(255, 0, 127, 0.4);
+    --scrollbar-glow: rgba(0, 240, 255, 0.6);
+}
+
+[data-theme="synthwave"] {
+    --scrollbar-track: #120726;
+    --scrollbar-thumb: #ff71ce;
+    --scrollbar-thumb-hover: #01cdfe;
+    --scrollbar-border: rgba(1, 205, 254, 0.4);
+    --scrollbar-glow: rgba(255, 113, 206, 0.6);
+}
+
+/* Universal scrollbar application */
+html, body, * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    border: 1px solid var(--scrollbar-border, transparent);
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    box-shadow: 0 0 10px var(--scrollbar-glow, var(--scrollbar-thumb-hover));
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
+}
+

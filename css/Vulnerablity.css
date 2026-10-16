@@ -21,6 +21,8 @@
             padding: 0;
             font-family: 'Work Sans', sans-serif;
         }
+html { height: 100%; margin: 0; padding: 0; background-color: var(--bg-base); overflow: hidden; }
+
 
         body {
     zoom: 0.9;
@@ -29,32 +31,28 @@
             background-color: var(--bg-base);
             color: var(--text-main);
             display: flex;
-            height: 100vh;
+            height: 111.111111vh; height: calc(100vh / 0.9); min-height: calc(100vh / 0.9); max-height: calc(100vh / 0.9);
             overflow: hidden;
         }
 
         * {
             scrollbar-width: thin;
-            scrollbar-color: rgba(16, 185, 129, 0.3) transparent;
+            scrollbar-color: var(--scrollbar-thumb, var(--accent-primary, #D9291C)) var(--scrollbar-track, transparent);
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track, transparent); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--scrollbar-thumb, var(--accent-primary, #D9291C)); 
+            border-radius: 3px; 
+            border: 1px solid var(--scrollbar-border, rgba(255, 255, 255, 0.12));
+            transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
+        ::-webkit-scrollbar-thumb:hover { 
+            background: var(--scrollbar-thumb-hover, var(--accent-primary, #D9291C)); 
+            box-shadow: 0 0 8px var(--scrollbar-glow, rgba(217, 41, 28, 0.45));
         }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(16, 185, 129, 0.3);
-            border-radius: 0;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-primary);
-        }
+        ::-webkit-scrollbar-corner { background: var(--scrollbar-track, transparent); }
 
         .sidebar {
             width: 280px;
