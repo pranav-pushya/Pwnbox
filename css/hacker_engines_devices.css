@@ -842,3 +842,212 @@
     transform: translateY(0);
     opacity: 1;
 }
+
+/* ==========================================================================
+   FULLSCREEN 3D MODEL VIEWER & THEME MESH LAB
+   ========================================================================== */
+.viewer-3d-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #050811;
+    z-index: 200000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.viewer-3d-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.viewer-3d-canvas-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    z-index: 1;
+}
+
+.viewer-3d-canvas-wrap:active {
+    cursor: grabbing;
+}
+
+/* Top HUD Bar */
+.viewer-3d-hud-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 10;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(5, 8, 17, 0.85) 0%, transparent 100%);
+}
+
+.viewer-3d-title-group {
+    pointer-events: auto;
+}
+
+.viewer-3d-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #00ffcc;
+    background: rgba(0, 255, 204, 0.12);
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.viewer-3d-device-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 0 15px rgba(0, 200, 215, 0.6);
+    letter-spacing: -0.5px;
+}
+
+.viewer-3d-device-vendor {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: #00c8d7;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Small Cross Close Button at Top Right */
+.viewer-3d-close-btn {
+    pointer-events: auto;
+    width: 44px;
+    height: 44px;
+    background: rgba(10, 16, 32, 0.88);
+    border: 2px solid #00c8d7;
+    color: #00c8d7;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 0 16px rgba(0, 200, 215, 0.25);
+    transition: all 0.2s ease;
+}
+
+.viewer-3d-close-btn:hover {
+    background: #ff3344;
+    border-color: #ff3344;
+    color: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(255, 51, 68, 0.6);
+}
+
+.viewer-3d-close-btn:active {
+    transform: scale(0.96);
+}
+
+/* Bottom HUD Bar */
+.viewer-3d-hud-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(5, 8, 17, 0.9) 0%, transparent 100%);
+}
+
+.viewer-3d-hints {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    pointer-events: auto;
+}
+
+.hint-pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #a0aec0;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(160, 174, 192, 0.25);
+    padding: 6px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    letter-spacing: 0.5px;
+}
+
+#viewer3DAutoRotateStatus {
+    color: #00ffcc;
+    border-color: rgba(0, 255, 204, 0.4);
+    background: rgba(0, 255, 204, 0.08);
+}
+
+.viewer-3d-actions {
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.btn-viewer-hud {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1.5px solid #00c8d7;
+    color: #00c8d7;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: all 0.2s ease;
+}
+
+.btn-viewer-hud:hover {
+    background: #00c8d7;
+    color: #050811;
+    box-shadow: 0 0 16px rgba(0, 200, 215, 0.45);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .viewer-3d-hud-header {
+        padding: 16px 20px;
+    }
+    .viewer-3d-hud-footer {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    .viewer-3d-device-name {
+        font-size: 1.4rem;
+    }
+}
