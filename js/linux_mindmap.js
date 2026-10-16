@@ -768,21 +768,81 @@ function setupViewSwitcher() {
 
     const btnFullscreen = document.getElementById('btnToggleFullscreen');
     if (btnFullscreen) {
-        btnFullscreen.addEventListener('click', () => {
+        btnFullscreen.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             toggleFullscreenMindmap();
+        });
+    }
+
+    const closeFullscreenBtn = document.getElementById('mindmapFullscreenClose');
+    if (closeFullscreenBtn) {
+        closeFullscreenBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFullscreenMindmap(false);
         });
     }
 }
 
-function toggleFullscreenMindmap(forceState) {
+let _fsLock = false;
+
+async function toggleFullscreenMindmap(forceState) {
+    if (_fsLock) return;
+    _fsLock = true;
+    setTimeout(() => { _fsLock = false; }, 260);
+
     const wrap = document.getElementById('mindmapWrap');
     if (!wrap) return;
 
-    const isCurrentlyFullscreen = wrap.classList.contains('is-fullscreen');
+    const isCurrentlyFullscreen = wrap.classList.contains('is-fullscreen') || Boolean(document.fullscreenElement || document.webkitFullscreenElement);
     const willBeFullscreen = typeof forceState === 'boolean' ? forceState : !isCurrentlyFullscreen;
 
-    wrap.classList.toggle('is-fullscreen', willBeFullscreen);
-    document.body.classList.toggle('mindmap-fullscreen-active', willBeFullscreen);
+    if (willBeFullscreen) {
+        // Switch back to Mind Map tab if user clicked fullscreen from grid view
+        if (wrap.style.display === 'none') {
+            wrap.style.display = 'block';
+            const btnMindMap = document.getElementById('btnViewMindMap');
+            const btnGrid = document.getElementById('btnViewGrid');
+            const gridView = document.getElementById('linuxGridView');
+            if (btnMindMap) btnMindMap.classList.add('active');
+            if (btnGrid) btnGrid.classList.remove('active');
+            if (gridView) gridView.classList.remove('active');
+        }
+
+        wrap.classList.add('is-fullscreen');
+        document.body.classList.add('mindmap-fullscreen-active');
+
+        // Optional standard browser fullscreen
+        try {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (wrap.requestFullscreen) {
+                    await wrap.requestFullscreen();
+                } else if (wrap.webkitRequestFullscreen) {
+                    await wrap.webkitRequestFullscreen();
+                } else if (wrap.msRequestFullscreen) {
+                    await wrap.msRequestFullscreen();
+                }
+            }
+        } catch (e) {
+            // CSS fullscreen already active and handles viewport filling reliably
+        }
+    } else {
+        wrap.classList.remove('is-fullscreen');
+        document.body.classList.remove('mindmap-fullscreen-active');
+
+        try {
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    await document.webkitExitFullscreen();
+                }
+            }
+        } catch (e) {
+            // Silent catch
+        }
+    }
 
     const btnFullscreen = document.getElementById('btnToggleFullscreen');
     if (btnFullscreen) {
@@ -794,10 +854,36 @@ function toggleFullscreenMindmap(forceState) {
 
     setTimeout(() => {
         if (window.fitToScreen) window.fitToScreen();
-    }, 100);
+    }, 60);
+    setTimeout(() => {
+        if (window.fitToScreen) window.fitToScreen();
+    }, 250);
 }
 window.toggleFullscreenMindmap = toggleFullscreenMindmap;
 window.closeLinuxFullscreen = () => toggleFullscreenMindmap(false);
+
+// Listen to native browser fullscreen changes (e.g. Esc key pressed in native mode)
+document.addEventListener('fullscreenchange', handleNativeFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleNativeFullscreenChange);
+
+function handleNativeFullscreenChange() {
+    const isNativeFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+    const wrap = document.getElementById('mindmapWrap');
+    if (!wrap) return;
+
+    if (!isNativeFs && wrap.classList.contains('is-fullscreen')) {
+        wrap.classList.remove('is-fullscreen');
+        document.body.classList.remove('mindmap-fullscreen-active');
+        const btnFullscreen = document.getElementById('btnToggleFullscreen');
+        if (btnFullscreen) {
+            btnFullscreen.textContent = '⛶ Fullscreen';
+            btnFullscreen.classList.remove('active');
+        }
+        setTimeout(() => {
+            if (window.fitToScreen) window.fitToScreen();
+        }, 100);
+    }
+}
 
 // ==========================================================================
 // COPY COMMAND TO CLIPBOARD & TOAST NOTIFICATION
@@ -855,7 +941,7 @@ function setupTerminalSimulator() {
             const wrap = document.getElementById('mindmapWrap');
             if (termModal && termModal.classList.contains('active')) {
                 closeTerminalSimulator();
-            } else if (wrap && wrap.classList.contains('is-fullscreen')) {
+            } else if (wrap && (wrap.classList.contains('is-fullscreen') || Boolean(document.fullscreenElement))) {
                 toggleFullscreenMindmap(false);
             }
         }
