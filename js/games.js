@@ -766,3 +766,314 @@ function updatePdHUD() {
         accEl.style.color = accuracy >= 80 ? 'var(--accent-green)' : (accuracy >= 50 ? 'var(--accent-yellow)' : 'var(--accent-red)');
     }
 }
+
+
+// ── 6. GAME 3: SQLi LOCKSMITH IMPLEMENTATION ──
+const SqliLocksmith = {
+    stage: 1,
+    score: 0,
+    activeSlotIndex: 0,
+    slotValues: [],
+
+    stages: [
+        {
+            stage: 1,
+            title: 'CHAMBER #01: AUTHENTICATION BYPASS',
+            sub: 'Neutralize the password verification check to log in as administrator.',
+            queryHtml: `
+                <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> users 
+                <span class="sql-keyword">WHERE</span> username = '<span class="sqli-slot" id="sqliSlot0" onclick="selectSqliSlot(0)">[ CLICK TO SELECT ]</span>' 
+                <span class="sql-keyword">AND</span> password = '<span class="sqli-slot" id="sqliSlot1" onclick="selectSqliSlot(1)">[ CLICK TO SELECT ]</span>' 
+                <span class="sql-keyword">LIMIT</span> 1;
+            `,
+            numSlots: 2,
+            tokens: ["admin' --", "' OR 1=1 --", "admin", "password123", "' OR '1'='1", "' AND 1=2 --"],
+            validate: (slots) => {
+                const s0 = slots[0] || '';
+                const s1 = slots[1] || '';
+                if (s0 === "admin' --" || s0 === "' OR 1=1 --") {
+                    return { ok: true, explanation: "SUCCESS! The `' --` characters terminated the query early and converted the password requirement into a comment. The database authenticated the record immediately!" };
+                }
+                if (s0 === "admin" && s1 === "' OR '1'='1") {
+                    return { ok: true, explanation: "SUCCESS! The password condition evaluated to `'' OR '1'='1'`, which is universally truthy!" };
+                }
+                return { ok: false, explanation: "Query failed: The credentials did not evaluate to a true WHERE clause. Try using `' --` to comment out the password check." };
+            }
+        },
+        {
+            stage: 2,
+            title: 'CHAMBER #02: NUMERIC INJECTION (NO QUOTES)',
+            sub: 'Integer parameters lack quotes. Exploit the unquoted where clause to dump unauthorized records.',
+            queryHtml: `
+                <span class="sql-keyword">SELECT</span> balance, owner <span class="sql-keyword">FROM</span> accounts 
+                <span class="sql-keyword">WHERE</span> account_id = <span class="sqli-slot" id="sqliSlot0" onclick="selectSqliSlot(0)">[ CLICK TO SELECT ]</span>;
+            `,
+            numSlots: 1,
+            tokens: ["1 OR 1=1", "1042", "0 OR id > 0", "' OR 1=1 --", "DROP TABLE accounts"],
+            validate: (slots) => {
+                const s0 = slots[0] || '';
+                if (s0 === "1 OR 1=1" || s0 === "0 OR id > 0") {
+                    return { ok: true, explanation: "SUCCESS! Because the numeric column is unquoted, no single quote was needed. `OR 1=1` returned all bank account rows!" };
+                }
+                return { ok: false, explanation: "Failed! Adding quotes here causes a SQL syntax error because the backend query expected a bare integer." };
+            }
+        },
+        {
+            stage: 3,
+            title: 'CHAMBER #03: UNION DATA EXFILTRATION',
+            sub: 'Append your own secondary query to extract confidential password hashes from another table.',
+            queryHtml: `
+                <span class="sql-keyword">SELECT</span> title, body <span class="sql-keyword">FROM</span> articles 
+                <span class="sql-keyword">WHERE</span> id = -1 
+                <span class="sql-keyword">UNION SELECT</span> <span class="sqli-slot" id="sqliSlot0" onclick="selectSqliSlot(0)">[ CLICK TO SELECT ]</span>, <span class="sqli-slot" id="sqliSlot1" onclick="selectSqliSlot(1)">[ CLICK TO SELECT ]</span> 
+                <span class="sql-keyword">FROM</span> vault_secrets;
+            `,
+            numSlots: 2,
+            tokens: ["admin_user", "password_hash", "1", "'public'", "secret_token", "table_name"],
+            validate: (slots) => {
+                const s0 = slots[0] || '';
+                const s1 = slots[1] || '';
+                if ((s0 === "admin_user" || s0 === "secret_token") && (s1 === "password_hash" || s1 === "1")) {
+                    return { ok: true, explanation: "SUCCESS! The column counts matched (2 columns), and the UNION operator injected sensitive credential columns directly into the result set!" };
+                }
+                return { ok: false, explanation: "Select columns that correspond to sensitive user credentials and match the 2-column result shape." };
+            }
+        },
+        {
+            stage: 4,
+            title: 'CHAMBER #04: MULTI-LINE COMMENT EVASION',
+            sub: 'Bypass a restrictive web application filter using inline multi-line comments.',
+            queryHtml: `
+                <span class="sql-keyword">SELECT</span> role <span class="sql-keyword">FROM</span> staff 
+                <span class="sql-keyword">WHERE</span> dept = '<span class="sqli-slot" id="sqliSlot0" onclick="selectSqliSlot(0)">[ CLICK TO SELECT ]</span>' 
+                <span class="sql-keyword">LIMIT</span> 1;
+            `,
+            numSlots: 1,
+            tokens: ["IT'/**/OR/**/'1'='1", "Sales' #", "DEV' --", "' OR 1=1 --"],
+            validate: (slots) => {
+                const s0 = slots[0] || '';
+                if (s0 === "IT'/**/OR/**/'1'='1" || s0 === "Sales' #") {
+                    return { ok: true, explanation: "SUCCESS! Inline comment sequences `/**/` circumvent space-filtering WAF rules while preserving valid SQL grammar!" };
+                }
+                return { ok: false, explanation: "The WAF blocked standard spaces. Use inline comment evasion syntax `/**/` to bypass space inspection filters." };
+            }
+        },
+        {
+            stage: 5,
+            title: 'CHAMBER #05: DEFENSE MODE (PARAMETERIZATION)',
+            sub: 'Switch to defense! Neutralize SQL injection forever by replacing raw concatenation with parameterized placeholders.',
+            queryHtml: `
+                db.execute(<span class="sql-string">"SELECT * FROM users WHERE user = <span class="sqli-slot" id="sqliSlot0" onclick="selectSqliSlot(0)">[ CLICK TO SELECT ]</span> AND pass = <span class="sqli-slot" id="sqliSlot1" onclick="selectSqliSlot(1)">[ CLICK TO SELECT ]</span>"</span>, [req.user, req.pass]);
+            `,
+            numSlots: 2,
+            tokens: ["?", "$1", "\" + req.user + \"", "' OR 1=1", "sanitize(req.user)"],
+            validate: (slots) => {
+                const s0 = slots[0] || '';
+                const s1 = slots[1] || '';
+                if (s0 === "?" && s1 === "?") {
+                    return { ok: true, explanation: "VAULT SECURED! Parameterized queries (Prepared Statements with `?`) separate the SQL code grammar from the user input data. Attacks like `' OR 1=1` are treated purely as literal string values!" };
+                }
+                return { ok: false, explanation: "Select the parameterized query placeholders (`?`) for both fields to enforce strict separation of code and untrusted data." };
+            }
+        }
+    ]
+};
+
+function initSqliLocksmith() {
+    SqliLocksmith.stage = 1;
+    SqliLocksmith.score = 0;
+    loadSqliStage(1);
+    updateSqliHUD();
+}
+
+function loadSqliStage(stageNum) {
+    SqliLocksmith.stage = stageNum;
+    const stageData = SqliLocksmith.stages[stageNum - 1];
+    SqliLocksmith.slotValues = new Array(stageData.numSlots).fill(null);
+    SqliLocksmith.activeSlotIndex = 0;
+
+    // Vault UI Reset
+    const door = document.getElementById('sqliVaultDoor');
+    const lockIcon = document.getElementById('sqliLockIcon');
+    const nextBtn = document.getElementById('sqliNextBtn');
+    const statusVal = document.getElementById('sqliStatusVal');
+
+    if (door) door.className = 'sqli-vault-door';
+    if (lockIcon) {
+        lockIcon.textContent = '🔒';
+        lockIcon.className = 'sqli-lock-icon';
+    }
+    if (statusVal) {
+        statusVal.textContent = 'LOCKED';
+        statusVal.style.color = 'var(--accent-red)';
+    }
+    if (nextBtn) nextBtn.style.display = 'none';
+
+    // Titles
+    document.getElementById('sqliVaultTitle').textContent = stageData.title;
+    document.getElementById('sqliVaultSub').textContent = stageData.sub;
+
+    // Render Query Box
+    const queryBox = document.getElementById('sqliQueryBox');
+    if (queryBox) {
+        queryBox.innerHTML = stageData.queryHtml;
+    }
+
+    // Render Tokens
+    const tokensContainer = document.getElementById('sqliTokensContainer');
+    if (tokensContainer) {
+        tokensContainer.innerHTML = '';
+        stageData.tokens.forEach(tok => {
+            const btn = document.createElement('button');
+            btn.className = 'sqli-token-pill';
+            btn.textContent = tok;
+            btn.onclick = () => insertSqliToken(tok);
+            tokensContainer.appendChild(btn);
+        });
+    }
+
+    // Reset evaluator
+    const evalFeed = document.getElementById('sqliEvalFeed');
+    if (evalFeed) {
+        evalFeed.innerHTML = `
+            <div class="sqli-eval-pill">
+                <strong>OBJECTIVE:</strong> ${stageData.sub} Click a slot above and choose a token below.
+            </div>
+        `;
+    }
+
+    updateSqliSlotVisuals();
+    updateSqliHUD();
+}
+
+function selectSqliSlot(idx) {
+    CyberAudio.blip();
+    SqliLocksmith.activeSlotIndex = idx;
+    updateSqliSlotVisuals();
+}
+
+function updateSqliSlotVisuals() {
+    const stageData = SqliLocksmith.stages[SqliLocksmith.stage - 1];
+    for (let i = 0; i < stageData.numSlots; i++) {
+        const slotEl = document.getElementById(`sqliSlot${i}`);
+        if (slotEl) {
+            const val = SqliLocksmith.slotValues[i];
+            slotEl.textContent = val || `[ SLOT ${i + 1} ]`;
+            if (val) {
+                slotEl.classList.add('filled');
+            } else {
+                slotEl.classList.remove('filled');
+            }
+            if (i === SqliLocksmith.activeSlotIndex) {
+                slotEl.style.borderColor = 'var(--accent-yellow)';
+                slotEl.style.boxShadow = '0 0 8px var(--accent-yellow)';
+            } else {
+                slotEl.style.borderColor = '';
+                slotEl.style.boxShadow = '';
+            }
+        }
+    }
+}
+
+function insertSqliToken(tokenStr) {
+    CyberAudio.blip();
+    const stageData = SqliLocksmith.stages[SqliLocksmith.stage - 1];
+    SqliLocksmith.slotValues[SqliLocksmith.activeSlotIndex] = tokenStr;
+
+    // Automatically advance active slot to next empty slot if available
+    for (let i = 0; i < stageData.numSlots; i++) {
+        if (!SqliLocksmith.slotValues[i]) {
+            SqliLocksmith.activeSlotIndex = i;
+            break;
+        }
+    }
+
+    updateSqliSlotVisuals();
+}
+
+function resetSqliSlots() {
+    CyberAudio.blip();
+    const stageData = SqliLocksmith.stages[SqliLocksmith.stage - 1];
+    SqliLocksmith.slotValues = new Array(stageData.numSlots).fill(null);
+    SqliLocksmith.activeSlotIndex = 0;
+    updateSqliSlotVisuals();
+}
+
+function testSqliPayload() {
+    const stageData = SqliLocksmith.stages[SqliLocksmith.stage - 1];
+    const result = stageData.validate(SqliLocksmith.slotValues);
+
+    const evalFeed = document.getElementById('sqliEvalFeed');
+    const door = document.getElementById('sqliVaultDoor');
+    const lockIcon = document.getElementById('sqliLockIcon');
+    const statusVal = document.getElementById('sqliStatusVal');
+    const nextBtn = document.getElementById('sqliNextBtn');
+
+    if (result.ok) {
+        CyberAudio.success();
+        SqliLocksmith.score++;
+        addArcadeXp(40);
+
+        if (door) door.classList.add('unlocked');
+        if (lockIcon) {
+            lockIcon.textContent = '🔓';
+            lockIcon.classList.add('unlocked');
+        }
+        if (statusVal) {
+            statusVal.textContent = 'UNLOCKED / BYPASSED';
+            statusVal.style.color = 'var(--accent-green)';
+        }
+
+        if (evalFeed) {
+            evalFeed.innerHTML = `
+                <div class="sqli-eval-pill" style="border-left-color: var(--accent-green); background: rgba(34, 197, 94, 0.1);">
+                    <strong style="color: var(--accent-green);">[QUERY POPPED!]</strong><br>
+                    ${result.explanation}
+                </div>
+            `;
+        }
+
+        if (nextBtn) nextBtn.style.display = 'inline-block';
+    } else {
+        CyberAudio.fail();
+        if (evalFeed) {
+            evalFeed.innerHTML = `
+                <div class="sqli-eval-pill" style="border-left-color: var(--accent-red); background: rgba(239, 68, 68, 0.1);">
+                    <strong style="color: var(--accent-red);">[QUERY REJECTED / SYNTAX ERROR]</strong><br>
+                    ${result.explanation}
+                </div>
+            `;
+        }
+    }
+    updateSqliHUD();
+}
+
+function nextSqliStage() {
+    CyberAudio.blip();
+    if (SqliLocksmith.stage < SqliLocksmith.stages.length) {
+        loadSqliStage(SqliLocksmith.stage + 1);
+    } else {
+        // Completed all stages
+        const evalFeed = document.getElementById('sqliEvalFeed');
+        if (evalFeed) {
+            evalFeed.innerHTML = `
+                <div class="sqli-eval-pill" style="border-left-color: var(--accent-green); background: rgba(34, 197, 94, 0.15);">
+                    <strong style="color: var(--accent-green);">🏆 MASTER VAULT BREAKER & DEFENDER!</strong><br>
+                    You completed all 5 SQL injection chambers including full Parameterized Query defense. Outstanding comprehension of OWASP Top 10 Injection!
+                </div>
+            `;
+        }
+        const nextBtn = document.getElementById('sqliNextBtn');
+        if (nextBtn) {
+            nextBtn.textContent = '↺ REPLAY VAULTS';
+            nextBtn.onclick = () => initSqliLocksmith();
+        }
+    }
+}
+
+function updateSqliHUD() {
+    const stageVal = document.getElementById('sqliStageVal');
+    const scoreVal = document.getElementById('sqliScoreVal');
+    if (stageVal) stageVal.textContent = `${SqliLocksmith.stage} / ${SqliLocksmith.stages.length}`;
+    if (scoreVal) scoreVal.textContent = SqliLocksmith.score;
+}
