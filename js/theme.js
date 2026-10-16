@@ -60,7 +60,7 @@ function isCurrentPage(target) {
         case 'games':
             return path.endsWith('/games.html') || path.endsWith('/games');
         case 'masterguide':
-            return path.endsWith('/cybersecurity_masterguide.html');
+            return path.endsWith('/cybersecurity_masterguide.html') || path.includes('/masterguide_ch');
         case 'roadmap':
             return path.endsWith('/roadmap.html');
         case 'imp':
