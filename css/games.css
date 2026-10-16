@@ -1379,3 +1379,85 @@ body.games-body {
 .ransom-process-row:hover {
     background: rgba(0, 240, 255, 0.08);
 }
+
+/* ==========================================================================
+   GAME 7: ENTROPY CLASH SPECIFIC STYLES
+   ========================================================================== */
+.entropy-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .entropy-stage {
+        grid-template-columns: 1fr;
+    }
+}
+
+.entropy-side-panel {
+    background: var(--bg-panel);
+    border: 3px solid var(--border-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.entropy-side-title {
+    font-size: 1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.entropy-input-box {
+    width: 100%;
+    padding: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 2px solid var(--border-color);
+    background: var(--bg-base);
+    color: var(--text-main);
+}
+
+.entropy-tug-bar {
+    width: 100%;
+    height: 24px;
+    background: #ef4444;
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.entropy-tug-fill {
+    height: 100%;
+    background: #10b981;
+    width: 50%;
+    transition: width 0.3s ease;
+}
+
+.entropy-cracker-terminal {
+    background: #020617;
+    border: 2px solid #1e293b;
+    padding: 14px;
+    font-size: 0.75rem;
+    color: #38bdf8;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.entropy-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+}

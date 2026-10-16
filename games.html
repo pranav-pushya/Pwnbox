@@ -702,7 +702,124 @@
                 </p>
             </div>
         </section>
-        <section class="game-instance-container" id="game-entropy-clash"></section>
+        <!-- ================================================================= -->
+        <!-- GAME 7: ENTROPY CLASH                                             -->
+        <!-- ================================================================= -->
+        <section class="game-instance-container" id="game-entropy-clash">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🔏</span> ENTROPY CLASH: PASSWORD TUG-OF-WAR <span class="game-badge badge-crypto">CRYPTOGRAPHY / AUTH</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Pit your password designs against an enterprise Hashcat 100 GH/s GPU cracking rig. Discover why length and key-stretching beat complexity!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Entropy Score</span>
+                        <span class="stat-val" id="entropyBitsVal" style="color: var(--accent-green);">0 bits</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Time to Crack</span>
+                        <span class="stat-val" id="entropyCrackTimeVal" style="color: var(--accent-cyan);">Instant</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Tug-of-War</span>
+                        <span class="stat-val" id="entropyTugVal" style="color: var(--accent-yellow);">Tie (50%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entropy-stage">
+                <!-- Left: Defender / Password Lab -->
+                <div class="entropy-side-panel">
+                    <div class="entropy-side-title">
+                        <span>🛡️</span> DEFENDER WORKBENCH: CRAFT SECURITY STRING
+                    </div>
+
+                    <div>
+                        <label style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px;">INPUT PASSPHRASE / PASSWORD:</label>
+                        <input type="text" id="entropyInput" class="entropy-input-box" placeholder="Type password or passphrase here..." value="password123" oninput="calculateEntropyLive()">
+                    </div>
+
+                    <!-- Presets -->
+                    <div>
+                        <span style="font-size: 0.68rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 6px;">QUICK SAMPLE PRESETS:</span>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('password123')">password123</button>
+                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('P@ssw0rd!')">P@ssw0rd!</button>
+                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('Tr0ub4dor&3')">Tr0ub4dor&3</button>
+                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('correct horse battery staple')">correct horse battery staple</button>
+                        </div>
+                    </div>
+
+                    <!-- Hash Algorithm Selector -->
+                    <div>
+                        <label style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px;">STORED HASHING ALGORITHM:</label>
+                        <select id="entropyHashAlgo" class="entropy-input-box" style="font-size: 0.8rem; padding: 8px;" onchange="calculateEntropyLive()">
+                            <option value="md5">MD5 (Unsalted, Fast GPU Brute-Force)</option>
+                            <option value="sha256">SHA-256 (Standard Unsalted)</option>
+                            <option value="bcrypt" selected>Bcrypt (Salted + Work Factor 12, Key Stretching)</option>
+                            <option value="argon2">Argon2id (Memory-Hard Standard)</option>
+                        </select>
+                    </div>
+
+                    <!-- Character Pool Breakdown -->
+                    <div style="font-size: 0.72rem; color: var(--text-muted); background: var(--bg-base); padding: 10px; border: 1px solid var(--border-color);" id="entropyPoolMetrics">
+                        LENGTH: 11 &bull; POOL SIZE: 26 &bull; ENTROPY: 51.7 BITS
+                    </div>
+                </div>
+
+                <!-- Right: Cracker Rig Simulation -->
+                <div class="entropy-side-panel">
+                    <div class="entropy-side-title">
+                        <span>⚡</span> CRACKER CLUSTER: HASHCAT 8x RTX 4090 (100 GH/s)
+                    </div>
+
+                    <!-- Visual Tug of War -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 800;">
+                            <span style="color: var(--accent-green);">DEFENDER ADVANTAGE</span>
+                            <span style="color: var(--accent-red);">HACKER ADVANTAGE</span>
+                        </div>
+                        <div class="entropy-tug-bar">
+                            <div class="entropy-tug-fill" id="entropyTugFill"></div>
+                        </div>
+                    </div>
+
+                    <div class="entropy-cracker-terminal" id="entropyCrackerTerm">
+                        <div>
+                            <div class="entropy-metric-row">
+                                <span>ATTACK DICTIONARY:</span>
+                                <span id="entropyDictStatus" style="color: var(--accent-red); font-weight: 800;">HIT: rockyou.txt</span>
+                            </div>
+                            <div class="entropy-metric-row">
+                                <span>POSSIBLE COMBINATIONS:</span>
+                                <span id="entropyCombosVal">2.08 x 10^15</span>
+                            </div>
+                            <div class="entropy-metric-row">
+                                <span>EFFECTIVE CRACK SPEED:</span>
+                                <span id="entropyEffectiveSpeedVal">100,000,000,000 H/s</span>
+                            </div>
+                            <div class="entropy-metric-row">
+                                <span>ESTIMATED TIME TO CRACK:</span>
+                                <span id="entropyTimeVal" style="color: var(--accent-cyan); font-weight: 800;">0.0001 SECONDS</span>
+                            </div>
+                        </div>
+                        <div id="entropyVerdictBox" style="padding: 8px; background: rgba(239, 68, 68, 0.2); border: 1px solid var(--accent-red); font-size: 0.72rem; margin-top: 10px;">
+                            <strong>STATUS:</strong> Trivial dictionary match. Any offline hash leak results in immediate plaintext recovery.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: PASSWORD ENTROPY, DICTIONARIES & SLOW HASHING</h4>
+                <p>
+                    Adding a single uppercase letter or symbol to a dictionary word (e.g. <code>P@ssw0rd!</code>) does NOT defeat modern mask attacks in Hashcat. Passwords derive true cryptographic strength from <strong>Length</strong> (a 4-word passphrase like <code>correct horse battery staple</code> provides over 77 bits of entropy, taking billions of years to exhaust). Furthermore, using <strong>Slow Key-Stretching Hash Functions</strong> like <strong>Bcrypt</strong> or <strong>Argon2id</strong> forces GPUs to spend milliseconds per guess instead of nanoseconds, neutralizing brute-force clusters.
+                </p>
+            </div>
+        </section>
         <section class="game-instance-container" id="game-cipher-relic"></section>
 
     </main>

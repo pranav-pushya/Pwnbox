@@ -1765,3 +1765,144 @@ function updateRansomHUD() {
         healthEl.style.color = RansomPanic.health > 50 ? 'var(--accent-green)' : 'var(--accent-red)';
     }
 }
+
+
+// ── 10. GAME 7: ENTROPY CLASH IMPLEMENTATION ──
+const EntropyClash = {
+    knownDict: ['password', '123456', 'password123', 'admin', 'welcome', 'p@ssw0rd!', 'qwerty', 'iloveyou', 'sunshine', 'princess'],
+    speeds: {
+        md5: 100000000000,     // 100 GH/s
+        sha256: 40000000000,   // 40 GH/s
+        bcrypt: 10000,         // 10 kH/s (Key-stretching slows GPU)
+        argon2: 1000           // 1 kH/s (Memory hard)
+    }
+};
+
+function initEntropyClash() {
+    calculateEntropyLive();
+}
+
+function setEntropyPreset(str) {
+    CyberAudio.blip();
+    const input = document.getElementById('entropyInput');
+    if (input) {
+        input.value = str;
+        calculateEntropyLive();
+    }
+}
+
+function calculateEntropyLive() {
+    const input = document.getElementById('entropyInput');
+    const algoSelect = document.getElementById('entropyHashAlgo');
+    if (!input || !algoSelect) return;
+
+    const val = input.value || '';
+    const algo = algoSelect.value || 'bcrypt';
+    const speed = EntropyClash.speeds[algo];
+
+    // Character pool calculation
+    let pool = 0;
+    if (/[a-z]/.test(val)) pool += 26;
+    if (/[A-Z]/.test(val)) pool += 26;
+    if (/[0-9]/.test(val)) pool += 10;
+    if (/[^a-zA-Z0-9\s]/.test(val)) pool += 33;
+    if (/\s/.test(val)) pool += 1;
+    if (pool === 0) pool = 1;
+
+    const len = val.length;
+    let entropyBits = 0;
+    if (len > 0) {
+        entropyBits = Math.round(len * (Math.log(pool) / Math.log(2)));
+    }
+
+    // Check rockyou dictionary
+    const lower = val.toLowerCase();
+    const isDictHit = EntropyClash.knownDict.some(d => d === lower || lower.startsWith(d));
+
+    // Time to crack in seconds
+    const combinations = Math.pow(pool, len);
+    let secondsToCrack = combinations / (speed * 2); // 50% search space average
+
+    if (isDictHit && algo !== 'argon2') {
+        secondsToCrack = 0.0001; // Instant dictionary match
+    }
+
+    // Display formatted time
+    const timeFormatted = formatCrackTime(secondsToCrack, isDictHit);
+
+    // Update UI elements
+    const bitsEl = document.getElementById('entropyBitsVal');
+    const crackTimeEl = document.getElementById('entropyCrackTimeVal');
+    const tugVal = document.getElementById('entropyTugVal');
+    const tugFill = document.getElementById('entropyTugFill');
+    const poolMetrics = document.getElementById('entropyPoolMetrics');
+    const dictStatus = document.getElementById('entropyDictStatus');
+    const combosVal = document.getElementById('entropyCombosVal');
+    const speedVal = document.getElementById('entropyEffectiveSpeedVal');
+    const timeVal = document.getElementById('entropyTimeVal');
+    const verdictBox = document.getElementById('entropyVerdictBox');
+
+    if (bitsEl) bitsEl.textContent = `${entropyBits} bits`;
+    if (crackTimeEl) crackTimeEl.textContent = timeFormatted;
+
+    // Tug of War percentage (Defender = 0 to 100%)
+    let defenderPct = Math.min(100, Math.max(5, Math.round((entropyBits / 85) * 100)));
+    if (isDictHit && algo === 'md5') defenderPct = 5;
+    if (algo === 'bcrypt' || algo === 'argon2') defenderPct = Math.min(100, defenderPct + 30);
+
+    if (tugFill) tugFill.style.width = `${defenderPct}%`;
+    if (tugVal) {
+        tugVal.textContent = defenderPct >= 75 ? `Defender Winning (${defenderPct}%)` : (defenderPct <= 35 ? `Cracker Dominating (${100 - defenderPct}%)` : `Contested (${defenderPct}%)`);
+        tugVal.style.color = defenderPct >= 75 ? 'var(--accent-green)' : (defenderPct <= 35 ? 'var(--accent-red)' : 'var(--accent-yellow)');
+    }
+
+    if (poolMetrics) {
+        poolMetrics.innerHTML = `LENGTH: <strong>${len}</strong> &bull; POOL SIZE: <strong>${pool}</strong> &bull; ENTROPY: <strong>${entropyBits} BITS</strong>`;
+    }
+
+    if (dictStatus) {
+        dictStatus.textContent = isDictHit ? 'MATCH: rockyou.txt (Instant)' : 'NO MATCH: Bruteforce Required';
+        dictStatus.style.color = isDictHit ? 'var(--accent-red)' : 'var(--accent-green)';
+    }
+
+    if (combosVal) {
+        combosVal.textContent = combinations > 1e12 ? combinations.toExponential(2) : Math.round(combinations).toLocaleString();
+    }
+
+    if (speedVal) {
+        speedVal.textContent = `${speed.toLocaleString()} H/s (${algo.toUpperCase()})`;
+    }
+
+    if (timeVal) {
+        timeVal.textContent = timeFormatted.toUpperCase();
+    }
+
+    if (verdictBox) {
+        if (defenderPct >= 80) {
+            verdictBox.style.background = 'rgba(34, 197, 94, 0.2)';
+            verdictBox.style.borderColor = 'var(--accent-green)';
+            verdictBox.innerHTML = `<strong>VAULT FORTIFIED:</strong> Offline cracking will require generational timeframes. Outstanding passphrase entropy!`;
+        } else if (defenderPct <= 35) {
+            verdictBox.style.background = 'rgba(239, 68, 68, 0.2)';
+            verdictBox.style.borderColor = 'var(--accent-red)';
+            verdictBox.innerHTML = `<strong>CRACKED TRIVIALLY:</strong> GPU cluster cracks this in seconds. Increase length or use a multi-word passphrase.`;
+        } else {
+            verdictBox.style.background = 'rgba(245, 158, 11, 0.2)';
+            verdictBox.style.borderColor = 'var(--accent-yellow)';
+            verdictBox.innerHTML = `<strong>MODERATE RESISTANCE:</strong> Vulnerable to targeted mask attacks or distributed cloud rigs. Add more words or switch to Argon2.`;
+        }
+    }
+}
+
+function formatCrackTime(seconds, isDictHit) {
+    if (isDictHit && seconds < 1) return '0.0001 seconds (Instant)';
+    if (seconds < 1) return '< 1 second';
+    if (seconds < 60) return `${Math.round(seconds)} seconds`;
+    if (seconds < 3600) return `${Math.round(seconds / 60)} minutes`;
+    if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
+    if (seconds < 31536000) return `${Math.round(seconds / 86400)} days`;
+    if (seconds < 31536000 * 1000) return `${Math.round(seconds / 31536000)} years`;
+    if (seconds < 31536000 * 1e6) return `${(seconds / (31536000 * 1e3)).toFixed(1)} Thousand Years`;
+    if (seconds < 31536000 * 1e9) return `${(seconds / (31536000 * 1e6)).toFixed(1)} Million Years`;
+    return `${(seconds / (31536000 * 1e9)).toFixed(1)} Billion Years (Heat death of universe)`;
+}
