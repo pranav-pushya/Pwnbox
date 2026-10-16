@@ -5,7 +5,7 @@
     <script src="../js/auth_guard.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Dorking & Search Recon // PwnBox Academy</title>
+    <title>Google Dorking Cheatsheet // PwnBox Academy</title>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
 
     <!-- Fonts -->
@@ -22,6 +22,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/imp_info.css">
+    <link rel="stylesheet" href="../css/google_dorking.css">
     <script src="../js/theme.js"></script>
     <script src="../js/ui_popups.js"></script>
 </head>
@@ -35,10 +36,6 @@
         </a>
 
         <div class="nav-actions">
-            <a href="imp_info.html" class="nav-btn" title="Important Info & CEH Compendium">💡 Important Info</a>
-            <a href="career_paths.html" class="nav-btn" title="Cybersecurity Career Paths">🧭 Career Paths</a>
-            <a href="ports.html" class="nav-btn" title="Critical Ports & Protocols">🔌 Ports</a>
-            <a href="http_codes.html" class="nav-btn" title="HTTP Status Codes Compendium">🌐 HTTP Codes</a>
             <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
             <a href="google_dorking.html" class="nav-btn active" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
             <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
@@ -50,24 +47,1036 @@
     <main class="info-container" style="max-width: 1400px; margin: 0 auto; padding: 32px 24px; width: 100%;">
 
         <!-- Hero Header -->
-        <section class="info-hero" style="margin-bottom: 28px;">
-            <span class="hero-tag">// ADVANCED SEARCH OPERATORS & OSINT RECONNAISSANCE</span>
-            <h1 class="hero-title">GOOGLE DORKING & ADVANCED SEARCH RECON</h1>
+        <section class="info-hero" style="margin-bottom: 24px;">
+            <span class="hero-tag">// SLIDE 11 INTEL // RECON • DISCOVER • GATHER • ANALYZE</span>
+            <h1 class="hero-title">GOOGLE DORKING CHEATSHEET</h1>
             <p class="hero-desc">
-                Exploiting Google search operators (`filetype:`, `site:`, `inurl:`, `intitle:`, `cache:`, `index of/`) to discover sensitive credentials, exposed databases, leaked configuration files, and unindexed web directories.
+                <strong>Find what others can't.</strong> Master the art of Google Hacking Database (GHDB) queries to passively uncover exposed configuration files, open directory backups, hardcoded API secrets, database dumps, and hidden admin portals without touching the target server.
             </p>
         </section>
 
-        <!-- Placeholder Content Workspace -->
-        <div style="background: var(--bg-card); border: 2px dashed var(--border-color); padding: 60px 24px; text-align: center; box-shadow: var(--box-shadow); border-radius: 2px;">
-            <div style="font-size: 3.5rem; margin-bottom: 14px;">🔎</div>
-            <h2 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; font-family: 'Space Mono', monospace; text-transform: uppercase;">Awaiting Intel Briefing</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; line-height: 1.6;">
-                This page has been created and integrated into the Important Info hub navigation. Ready for your Google Dorking commands, queries, and operators.
-            </p>
+        <!-- Banner & Quick Stats -->
+        <div class="dork-header-banner">
+            <div>
+                <span class="dork-motto-badge">⚡ PASSIVE OSINT WEAPONRY</span>
+                <p style="margin: 8px 0 0 0; font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">
+                    Structured directly from Cyber Mind Space Field Cheatsheet (Slide 11).
+                </p>
+            </div>
+            <div class="dork-stats-strip">
+                <div class="dork-stat-chip">
+                    <span class="stat-label">Active Dorks</span>
+                    <span class="stat-val" id="visibleDorkCount">38</span>
+                </div>
+                <div class="dork-stat-chip">
+                    <span class="stat-label">Core Classes</span>
+                    <span class="stat-val">6 + Bonus</span>
+                </div>
+                <div class="dork-stat-chip">
+                    <span class="stat-label">Target Scoping</span>
+                    <span class="stat-val">Zero-Trace</span>
+                </div>
+            </div>
         </div>
 
+        <!-- Interactive Dork Builder Cockpit -->
+        <div class="dork-builder-cockpit">
+            <div class="cockpit-title">
+                <span>🛠️ INTERACTIVE DORK BUILDER & LAUNCHER</span>
+            </div>
+            <div class="builder-controls-grid">
+                <div class="builder-input-group">
+                    <label class="builder-label" for="targetDomainInput">Target Domain or Scope</label>
+                    <input type="text" id="targetDomainInput" class="builder-input" value="example.com" placeholder="e.g. target.com, sub.domain.org">
+                </div>
+                <div class="builder-input-group">
+                    <label class="builder-label" for="dorkPresetSelect">Select Pre-Engineered Dork Vector</label>
+                    <select id="dorkPresetSelect" class="builder-select">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+                <div class="builder-input-group" style="justify-content: flex-end;">
+                    <div class="builder-action-btns">
+                        <button id="builderCopyBtn" class="btn-builder btn-builder-copy" title="Copy generated query">📋 Copy</button>
+                        <button id="builderLaunchBtn" class="btn-builder btn-builder-launch" title="Launch live search in Google">🚀 Google ↗</button>
+                    </div>
+                </div>
+            </div>
+            <div class="builder-output-box">
+                <span style="font-size: 0.8rem; text-transform: uppercase; color: #8b949e;">Live Query:</span>
+                <span id="builderOutputCode" class="builder-output-code">site:example.com filetype:pdf intext:confidential</span>
+            </div>
+        </div>
+
+        <!-- Toolbar: Search and Filter Pills -->
+        <div class="dork-toolbar">
+            <div class="dork-search-wrapper">
+                <span class="search-icon-prefix">🔎</span>
+                <input type="text" id="dorkSearchInput" class="dork-search-input" placeholder="Search dorks by operator (e.g. inurl, filetype, sql), use case, or keyword...">
+            </div>
+
+            <div class="dork-category-pills">
+                <button class="cat-pill active" data-category="all">⚡ All Dorks</button>
+                <button class="cat-pill" data-category="basic">1. Basic Dorks</button>
+                <button class="cat-pill" data-category="file_discovery">2. File Discovery</button>
+                <button class="cat-pill" data-category="sensitive">3. Sensitive Info</button>
+                <button class="cat-pill" data-category="advanced">4. Advanced Operators</button>
+                <button class="cat-pill" data-category="user_tech">5. User & Tech (OSINT)</button>
+                <button class="cat-pill" data-category="combinations">★ Bonus Combinations</button>
+                <button class="cat-pill" data-category="best_practices">6. Best Practices & Ethics</button>
+            </div>
+        </div>
+
+        <!-- ================= SECTION 1: BASIC GOOGLE DORKS ================= -->
+        <section class="dork-section-group" data-sec-cat="basic">
+            <div class="dork-section-header">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge">01</span>
+                    <h2 class="section-heading-text">Basic Google Dorks</h2>
+                </div>
+                <span class="section-tip-badge">💡 Tip: Combine operators for better & targeted results</span>
+            </div>
+
+            <div class="dorks-grid">
+                <!-- Card 1.1 -->
+                <div class="dork-card" data-cat="basic">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 90, 156, 0.1); color: #005A9C;">Domain Scope</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:example.com</span>
+                        </div>
+                        <div class="dork-what-finds">All indexed pages of a website</div>
+                        <div class="dork-hinglish-triage">
+                            Target website ke sabhi indexed URLs dekhne ke liye use hota hai. Target organization ka complete attack surface map karne ka first step.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:example.com')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:example.com')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1.2 -->
+                <div class="dork-card" data-cat="basic">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.1); color: #D9291C;">URL Path</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:admin</span>
+                        </div>
+                        <div class="dork-what-finds">Pages with "admin" in URL</div>
+                        <div class="dork-hinglish-triage">
+                            URL structure me "admin" word dhoondta hai. Administrative control panels, dashboards aur hidden management gateways target karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:admin')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:admin')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:admin')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1.3 -->
+                <div class="dork-card" data-cat="basic">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(242, 169, 0, 0.1); color: #b45309;">Page Title</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intitle:login</span>
+                        </div>
+                        <div class="dork-what-finds">Pages with "login" in title</div>
+                        <div class="dork-hinglish-triage">
+                            Webpage ke HTML <code>&lt;title&gt;</code> tag me "login" search karta hai. Auth portals, employee SSO gates aur user sign-in forms locate karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intitle:login')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intitle:login')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intitle:login')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1.4 -->
+                <div class="dork-card" data-cat="basic">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(5, 150, 105, 0.1); color: #059669;">Body Content</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intext:confidential</span>
+                        </div>
+                        <div class="dork-what-finds">Pages containing specific text</div>
+                        <div class="dork-hinglish-triage">
+                            Page body content ke andar exact word search karta hai. Internal memos, classified policies aur non-public data leaks capture karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intext:confidential')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intext:confidential')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intext:confidential')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1.5 -->
+                <div class="dork-card" data-cat="basic">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">File Extension</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:pdf</span>
+                        </div>
+                        <div class="dork-what-finds">PDF files</div>
+                        <div class="dork-hinglish-triage">
+                            Direct Adobe Acrobat PDF files scan karta hai. Target company ke financial audit reports, whitepapers aur leaked internal guides filter karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com filetype:pdf')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:pdf')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:pdf')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1.6 -->
+                <div class="dork-card" data-cat="basic">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 200, 215, 0.1); color: #00838f;">Word Documents</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:doc OR filetype:docx</span>
+                        </div>
+                        <div class="dork-what-finds">Word documents</div>
+                        <div class="dork-hinglish-triage">
+                            Microsoft Word files dhoondta hai. Draft agreements, internal SOPs aur confidential employee contracts dhoondne ke liye critical dork.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com (filetype:doc OR filetype:docx)')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:doc OR filetype:docx')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:doc OR filetype:docx')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: FILE DISCOVERY DORKS ================= -->
+        <section class="dork-section-group" data-sec-cat="file_discovery">
+            <div class="dork-section-header">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge">02</span>
+                    <h2 class="section-heading-text">File Discovery Dorks</h2>
+                </div>
+                <span class="section-tip-badge">💡 Tip: Use site: with filetype for accurate results</span>
+            </div>
+
+            <div class="dorks-grid">
+                <!-- Card 2.1 -->
+                <div class="dork-card" data-cat="file_discovery">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 90, 156, 0.1); color: #005A9C;">Target PDF</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:pdf site:example.com</span>
+                        </div>
+                        <div class="dork-what-finds">PDF files from a specific site</div>
+                        <div class="dork-hinglish-triage">
+                            Target domain ke saare indexed PDF documents filter karta hai. Target ki internal compliance, customer invoices aur policies dhoondne me effective.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('filetype:pdf site:example.com')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:pdf site:example.com')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:pdf site:example.com')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2.2 -->
+                <div class="dork-card" data-cat="file_discovery">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(5, 150, 105, 0.1); color: #059669;">Spreadsheets</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:xls OR filetype:xlsx</span>
+                        </div>
+                        <div class="dork-what-finds">Excel spreadsheets</div>
+                        <div class="dork-hinglish-triage">
+                            Excel sheets capture karta hai. Finance balances, salary lists, vendor records aur customer databases aksar `.xlsx` me accidently leak ho jaate hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com (filetype:xls OR filetype:xlsx)')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:xls OR filetype:xlsx')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:xls OR filetype:xlsx')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2.3 -->
+                <div class="dork-card" data-cat="file_discovery">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.1); color: #D9291C;">Presentations</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:ppt OR filetype:pptx</span>
+                        </div>
+                        <div class="dork-what-finds">PowerPoint presentations</div>
+                        <div class="dork-hinglish-triage">
+                            PowerPoint pitch decks aur technical blueprints filter karta hai. Internal server architectures aur roadmap diagrams reveal karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com (filetype:ppt OR filetype:pptx)')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:ppt OR filetype:pptx')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:ppt OR filetype:pptx')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2.4 -->
+                <div class="dork-card" data-cat="file_discovery">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(242, 169, 0, 0.1); color: #b45309;">Plain Text</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:txt</span>
+                        </div>
+                        <div class="dork-what-finds">Text files</div>
+                        <div class="dork-hinglish-triage">
+                            Developers ke raw notes, <code>robots.txt</code>, public keys, temporary bash scripts aur server logs aksar `.txt` format me expose rehte hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com filetype:txt')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:txt')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:txt')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2.5 -->
+                <div class="dork-card" data-cat="file_discovery">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">Server Logs</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:log</span>
+                        </div>
+                        <div class="dork-what-finds">Log files</div>
+                        <div class="dork-hinglish-triage">
+                            Server debug logs, Apache access logs, crash stack traces aur user request IP addresses expose karne ke liye top-tier dork.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com filetype:log')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:log')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:log')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2.6 -->
+                <div class="dork-card" data-cat="file_discovery">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.1); color: #D9291C;">Database Dumps</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">filetype:sql</span>
+                        </div>
+                        <div class="dork-what-finds">SQL files (databases dumps)</div>
+                        <div class="dork-hinglish-triage">
+                            Database backups aur dump files (e.g. <code>dump.sql</code>, <code>backup.sql</code>). Inme complete tables, hashed/plaintext passwords aur user PII hota hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com filetype:sql')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('filetype:sql')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('filetype:sql')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: SENSITIVE INFORMATION DORKS ================= -->
+        <section class="dork-section-group" data-sec-cat="sensitive">
+            <div class="dork-section-header">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge" style="background: var(--bauhaus-red);">03</span>
+                    <h2 class="section-heading-text">Sensitive Information Dorks</h2>
+                </div>
+                <span class="section-tip-badge" style="color: var(--bauhaus-red); border-color: var(--bauhaus-red); background: rgba(217,41,28,0.1);">⚠️ Tip: Always handle sensitive data responsibly</span>
+            </div>
+
+            <div class="dorks-grid">
+                <!-- Card 3.1 -->
+                <div class="dork-card" data-cat="sensitive">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.15); color: #D9291C;">Credentials</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intext:"password" filetype:txt</span>
+                        </div>
+                        <div class="dork-what-finds">Text files with passwords</div>
+                        <div class="dork-hinglish-triage">
+                            Admin notes, temporary scratch files ya test credentials jo `.txt` format me server par accidentally chhoot gaye hon, unhe pinpoint karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intext:\"password\" filetype:txt')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intext:\"password\" filetype:txt')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intext:\"password\" filetype:txt')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3.2 -->
+                <div class="dork-card" data-cat="sensitive">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.15); color: #D9291C;">API Tokens</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intext:"api key" filetype:txt</span>
+                        </div>
+                        <div class="dork-what-finds">API keys in text files</div>
+                        <div class="dork-hinglish-triage">
+                            Exposed OpenAI, Stripe, AWS, SendGrid aur Google Cloud API keys search karta hai jo unauthorized cloud spending aur data extraction allow kar sakti hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intext:\"api key\" filetype:txt')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intext:\"api key\" filetype:txt')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intext:\"api key\" filetype:txt')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3.3 -->
+                <div class="dork-card" data-cat="sensitive">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(242, 169, 0, 0.15); color: #b45309;">Confidential Docs</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intext:"confidential" filetype:pdf</span>
+                        </div>
+                        <div class="dork-what-finds">Confidential documents</div>
+                        <div class="dork-hinglish-triage">
+                            NDAs, board meeting minutes, upcoming mergers, security audit findings aur proprietary IP reports uncover karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intext:\"confidential\" filetype:pdf')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intext:\"confidential\" filetype:pdf')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intext:\"confidential\" filetype:pdf')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3.4 -->
+                <div class="dork-card" data-cat="sensitive">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 90, 156, 0.15); color: #005A9C;">Access Anomalies</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intext:"access denied"</span>
+                        </div>
+                        <div class="dork-what-finds">Pages showing access issues</div>
+                        <div class="dork-hinglish-triage">
+                            WAF blocks, 403 Forbidden endpoints ya poorly configured access control mechanisms ko trace karta hai jahan authorization bypass testing possible hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intext:\"access denied\"')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intext:\"access denied\"')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intext:\"access denied\"')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3.5 -->
+                <div class="dork-card" data-cat="sensitive">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(147, 51, 234, 0.15); color: #9333ea;">Open Directory</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">"index of" / "backup"</span>
+                        </div>
+                        <div class="dork-what-finds">Backup or directory listings</div>
+                        <div class="dork-hinglish-triage">
+                            Web server ki misconfigured directory indexation (Apache/Nginx mod_autoindex) jisme <code>backup/</code>, <code>old/</code>, ya <code>.tar.gz</code> folders direct browseable ho jate hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com \"index of\" / \"backup\"')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('\"index of\" / \"backup\"')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('\"index of\" / \"backup\"')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3.6 -->
+                <div class="dork-card" data-cat="sensitive">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.15); color: #D9291C;">Source Config</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:config filetype:php</span>
+                        </div>
+                        <div class="dork-what-finds">Config files (PHP)</div>
+                        <div class="dork-hinglish-triage">
+                            PHP web applications ke configuration files (e.g. <code>config.inc.php</code>, <code>db_config.php</code>) jahan database host, username aur password secrets hote hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:config filetype:php')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:config filetype:php')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:config filetype:php')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: ADVANCED OPERATOR DORKS ================= -->
+        <section class="dork-section-group" data-sec-cat="advanced">
+            <div class="dork-section-header">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge" style="background: var(--bauhaus-blue);">04</span>
+                    <h2 class="section-heading-text">Advanced Operator Dorks</h2>
+                </div>
+                <span class="section-tip-badge">💡 Tip: Combine operators like a pro to narrow results</span>
+            </div>
+
+            <div class="dorks-grid">
+                <!-- Card 4.1 -->
+                <div class="dork-card" data-cat="advanced">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 90, 156, 0.1); color: #005A9C;">Subdomain Recon</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:example.com -www</span>
+                        </div>
+                        <div class="dork-what-finds">Results from specific site excluding www</div>
+                        <div class="dork-hinglish-triage">
+                            Target website ke main <code>www</code> host ko exclude karke hidden subdomains, dev portals, test environments (e.g. <code>dev.example.com</code>, <code>vpn.example.com</code>) discover karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com -www')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:example.com -www')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:example.com -www')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4.2 -->
+                <div class="dork-card" data-cat="advanced">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.1); color: #D9291C;">SQLi Vector</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:php?id=</span>
+                        </div>
+                        <div class="dork-what-finds">Pages with id parameter</div>
+                        <div class="dork-hinglish-triage">
+                            URL me dynamic numeric/string ID parameters dhoondta hai. Bug bounty hunters iska use SQL Injection (SQLi) aur Insecure Direct Object Reference (IDOR) parameters test karne ke liye karte hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:php?id=')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:php?id=')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:php?id=')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4.3 -->
+                <div class="dork-card" data-cat="advanced">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(242, 169, 0, 0.1); color: #b45309;">LFI / RFI / SSRF</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:"?page="</span>
+                        </div>
+                        <div class="dork-what-finds">Pages with page parameter</div>
+                        <div class="dork-hinglish-triage">
+                            Dynamic page include parameters search karta hai. Local File Inclusion (LFI), Remote File Inclusion (RFI) aur Server-Side Request Forgery (SSRF) attack surface pinpoint karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:\"?page=\"')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:\"?page=\"')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:\"?page=\"')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4.4 -->
+                <div class="dork-card" data-cat="advanced">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(5, 150, 105, 0.1); color: #059669;">Directory Traversal</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intitle:"index of"</span>
+                        </div>
+                        <div class="dork-what-finds">Directory listing pages</div>
+                        <div class="dork-hinglish-triage">
+                            Web servers jahan default <code>index.html</code> missing hai aur server directory tree public kar deta hai. Isme uploaded media, source scripts aur internal zips milte hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intitle:\"index of\"')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intitle:\"index of\"')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intitle:\"index of\"')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4.5 -->
+                <div class="dork-card" data-cat="advanced">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">Entity Correlation</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">related:example.com</span>
+                        </div>
+                        <div class="dork-what-finds">Websites related to a domain</div>
+                        <div class="dork-hinglish-triage">
+                            Google ke algorithm ke mutabiq target organization ke similar ya partner websites detect karta hai. Subsidiary aur third-party vendor supply chain audit ke liye useful.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('related:example.com')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('related:example.com')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('related:example.com')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4.6 -->
+                <div class="dork-card" data-cat="advanced">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 200, 215, 0.1); color: #00838f;">Historical Snapshot</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">cache:example.com</span>
+                        </div>
+                        <div class="dork-what-finds">Cached version of a site</div>
+                        <div class="dork-hinglish-triage">
+                            Google ke crawler ka saved cache snapshot open karta hai. Deleted pages, defaced websites, ya recently removed sensitive information dekhne ke liye perfect.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('cache:example.com')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('cache:example.com')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('cache:example.com')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5: USER & TECHNOLOGY DORKS ================= -->
+        <section class="dork-section-group" data-sec-cat="user_tech">
+            <div class="dork-section-header">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge" style="background: var(--cyber-green);">05</span>
+                    <h2 class="section-heading-text">User & Technology Dorks</h2>
+                </div>
+                <span class="section-tip-badge">💡 Tip: Great for OSINT & technology reconnaissance</span>
+            </div>
+
+            <div class="dorks-grid">
+                <!-- Card 5.1 -->
+                <div class="dork-card" data-cat="user_tech">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 90, 156, 0.1); color: #005A9C;">Personnel OSINT</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:linkedin.com/in</span>
+                        </div>
+                        <div class="dork-what-finds">LinkedIn user profiles</div>
+                        <div class="dork-hinglish-triage">
+                            Target company ke employees, SOC analysts, software engineers aur C-suite executives ke public profiles extract karta hai social engineering profiling ke liye.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:linkedin.com/in \"Target Company\"')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:linkedin.com/in')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:linkedin.com/in')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5.2 -->
+                <div class="dork-card" data-cat="user_tech">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.1); color: #D9291C;">Dev Recon</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:github.com "email"</span>
+                        </div>
+                        <div class="dork-what-finds">Emails in GitHub repositories</div>
+                        <div class="dork-hinglish-triage">
+                            Developers ke public commit logs aur repositories me corporate email IDs (@company.com) search karta hai targeted spear phishing defense audits ke liye.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:github.com \"@example.com\"')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:github.com \"email\"')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:github.com \"email\"')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5.3 -->
+                <div class="dork-card" data-cat="user_tech">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(0, 200, 215, 0.1); color: #00838f;">WordPress Assets</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:wp-content</span>
+                        </div>
+                        <div class="dork-what-finds">WordPress related files</div>
+                        <div class="dork-hinglish-triage">
+                            WordPress themes, vulnerable third-party plugins, aur upload directories (<code>wp-content/plugins/</code>, <code>wp-content/uploads/</code>) ko inspect karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:wp-content')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:wp-content')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:wp-content')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5.4 -->
+                <div class="dork-card" data-cat="user_tech">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(217, 41, 28, 0.1); color: #D9291C;">WP Auth</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:wp-login.php</span>
+                        </div>
+                        <div class="dork-what-finds">WordPress login pages</div>
+                        <div class="dork-hinglish-triage">
+                            WordPress admin login form locate karta hai jahan attackers default credentials aur brute-force attack vectors attempt karte hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:wp-login.php')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:wp-login.php')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:wp-login.php')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5.5 -->
+                <div class="dork-card" data-cat="user_tech">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(242, 169, 0, 0.1); color: #b45309;">Joomla CMS</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:joomla</span>
+                        </div>
+                        <div class="dork-what-finds">Joomla powered sites</div>
+                        <div class="dork-hinglish-triage">
+                            Joomla CMS architecture search karta hai. Joomla administrator login endpoints (<code>/administrator/</code>) aur components detect karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:joomla')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:joomla')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:joomla')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5.6 -->
+                <div class="dork-card" data-cat="user_tech">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">Database UI</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:phpmyadmin</span>
+                        </div>
+                        <div class="dork-what-finds">phpMyAdmin login pages</div>
+                        <div class="dork-hinglish-triage">
+                            Web-based MySQL administration interface exposure. Agar publicly accessible ho to attackers default root credentials test karke direct database takeover kar sakte hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:phpmyadmin')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:phpmyadmin')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:phpmyadmin')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION ★: BONUS POWERFUL COMBINATIONS ================= -->
+        <section class="dork-section-group" data-sec-cat="combinations">
+            <div class="dork-section-header" style="background: #000; color: #fff;">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge" style="background: #F2A900; color: #000;">★</span>
+                    <h2 class="section-heading-text" style="color: #F2A900;">Bonus: Powerful Combinations</h2>
+                </div>
+                <span class="section-tip-badge" style="background: #222; color: #00ffcc; border-color: #00ffcc;">🎯 Pro Recon Combinations</span>
+            </div>
+
+            <div class="dorks-grid">
+                <!-- Combo 1 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Confidential PDFs</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:example.com filetype:pdf intext:confidential</span>
+                        </div>
+                        <div class="dork-what-finds">Confidential PDFs from a site</div>
+                        <div class="dork-hinglish-triage">
+                            Domain, filetype aur content keyword ka powerful mix. Target organization ke internal confidential documents specifically extract karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com filetype:pdf intext:confidential')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:example.com filetype:pdf intext:confidential')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:example.com filetype:pdf intext:confidential')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 2 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Admin Logins</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:admin intitle:login</span>
+                        </div>
+                        <div class="dork-what-finds">Admin login pages</div>
+                        <div class="dork-hinglish-triage">
+                            URL aur Title dono me verification karta hai jisse false positives eliminate ho jate hain aur 100% accurate administrative gateways filter hote hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:admin intitle:login')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:admin intitle:login')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:admin intitle:login')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 3 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Financial Excel</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:example.com filetype:xls intext:budget</span>
+                        </div>
+                        <div class="dork-what-finds">Budget spreadsheets</div>
+                        <div class="dork-hinglish-triage">
+                            Target company ke internal department budgets, expenses, vendor bills aur payroll spreadsheets directly target karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com filetype:xls intext:budget')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:example.com filetype:xls intext:budget')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:example.com filetype:xls intext:budget')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 4 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Password Leaks</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">inurl:config filetype:php intext:password</span>
+                        </div>
+                        <div class="dork-what-finds">Config files with passwords</div>
+                        <div class="dork-hinglish-triage">
+                            Aisi PHP configuration files jinka execution server par fail ho gaya aur unka raw text source code expose ho gaya jisme DB passwords leak ho gaye.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com inurl:config filetype:php intext:password')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('inurl:config filetype:php intext:password')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('inurl:config filetype:php intext:password')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 5 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Multi-Doc Audit</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:example.com (filetype:pdf OR filetype:docx)</span>
+                        </div>
+                        <div class="dork-what-finds">PDFs or Word docs</div>
+                        <div class="dork-hinglish-triage">
+                            Parenthesis boolean logic use karke ek hi scan me target site ke sabhi document formats (PDF aur DOCX) ko aggregate karke display karta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com (filetype:pdf OR filetype:docx)')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:example.com (filetype:pdf OR filetype:docx)')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:example.com (filetype:pdf OR filetype:docx)')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 6 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Backup Directories</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">intitle:"index of" (backup OR old)</span>
+                        </div>
+                        <div class="dork-what-finds">Backup directories</div>
+                        <div class="dork-hinglish-triage">
+                            Exposed directory listings jinke naam me <code>backup</code> ya <code>old</code> hai. Inme aksar unpatched code versions aur database snapshots hote hain.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com intitle:\"index of\" (backup OR old)')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('intitle:\"index of\" (backup OR old)')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('intitle:\"index of\" (backup OR old)')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 7 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">WP Admin Triage</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">site:example.com -inurl:logout inurl:wp-admin</span>
+                        </div>
+                        <div class="dork-what-finds">WP admin pages (no logout)</div>
+                        <div class="dork-hinglish-triage">
+                            WordPress ke <code>/wp-admin/</code> pages filter karta hai lekin logout endpoints ko subtract (-) kar deta hai taaki useless redirection links na aayein.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('site:example.com -inurl:logout inurl:wp-admin')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('site:example.com -inurl:logout inurl:wp-admin')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('site:example.com -inurl:logout inurl:wp-admin')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 8 -->
+                <div class="dork-card" data-cat="combinations">
+                    <div class="dork-card-top">
+                        <span class="dork-tag" style="background: #000; color: #00ffcc; border-color: #00ffcc;">Related Infrastructure</span>
+                        <div class="dork-syntax-box">
+                            <span class="dork-syntax-text">related:example.com -www</span>
+                        </div>
+                        <div class="dork-what-finds">Related sites (exclude www)</div>
+                        <div class="dork-hinglish-triage">
+                            Target company se related sub-brands aur associated portals search karta hai jabki main WWW domain ko result set se baahar nikaal deta hai.
+                        </div>
+                    </div>
+                    <div class="dork-card-footer">
+                        <button class="btn-card-action btn-load-builder" onclick="loadIntoBuilder('related:example.com -www')">⚙️ Builder</button>
+                        <div class="dork-action-group">
+                            <button class="btn-card-action" onclick="copyDork('related:example.com -www')">📋 Copy</button>
+                            <button class="btn-card-action" onclick="launchDork('related:example.com -www')">🚀 Run ↗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 6: USEFUL TIPS & BEST PRACTICES ================= -->
+        <section class="dork-section-group" data-sec-cat="best_practices">
+            <div class="dork-section-header">
+                <div class="section-title-wrap">
+                    <span class="section-num-badge" style="background: var(--border-color); color: var(--bg-panel);">06</span>
+                    <h2 class="section-heading-text">Useful Tips & Best Practices (Ethical Code)</h2>
+                </div>
+                <span class="section-tip-badge" style="background: rgba(0,0,0,0.05); color: var(--text-main); border-color: var(--border-color);">🛡️ Official Cyber Mind Space Protocol</span>
+            </div>
+
+            <div class="best-practices-grid">
+                <div class="practice-card">
+                    <div class="practice-card-title">
+                        <span>🎯 BE SPECIFIC</span>
+                    </div>
+                    <p class="practice-card-desc">
+                        Use precise keywords and multiple chained operators for accurate results and lower noise. Broad terms flood your query with irrelevant public articles.
+                    </p>
+                </div>
+
+                <div class="practice-card" style="border-left-color: var(--bauhaus-red);">
+                    <div class="practice-card-title">
+                        <span>⚖️ STAY ETHICAL</span>
+                    </div>
+                    <p class="practice-card-desc">
+                        Use Google Dorking strictly for authorized security assessments, responsible bug bounties, and educational defense. Unauthorized exploitation of leaked secrets is illegal under international law.
+                    </p>
+                </div>
+
+                <div class="practice-card" style="border-left-color: var(--bauhaus-blue);">
+                    <div class="practice-card-title">
+                        <span>🔀 COMBINE OPERATORS</span>
+                    </div>
+                    <p class="practice-card-desc">
+                        Combine multiple operators (e.g., <code>site:</code> + <code>filetype:</code> + <code>intext:</code> + <code>-inurl:</code>) to refine your search from 50,000 messy hits down to 5 critical target endpoints.
+                    </p>
+                </div>
+
+                <div class="practice-card" style="border-left-color: var(--bauhaus-yellow);">
+                    <div class="practice-card-title">
+                        <span>🔍 VERIFY RESULTS</span>
+                    </div>
+                    <p class="practice-card-desc">
+                        Always verify information against current scope before taking action. Google cache might show historical artifacts that have already been remediated or rotated.
+                    </p>
+                </div>
+
+                <div class="practice-card" style="border-left-color: var(--cyber-green);">
+                    <div class="practice-card-title">
+                        <span>🛡️ RESPECT PRIVACY</span>
+                    </div>
+                    <p class="practice-card-desc">
+                        Do not misuse, download, exfiltrate, or share sensitive PII, healthcare records, or private credentials uncovered during reconnaissance. Report discovered exposures immediately via responsible disclosure.
+                    </p>
+                </div>
+
+                <div class="practice-card" style="border-left-color: #000; background: var(--bg-panel);">
+                    <div class="practice-card-title" style="color: var(--bauhaus-red);">
+                        <span>💡 KNOWLEDGE IS POWER</span>
+                    </div>
+                    <p class="practice-card-desc" style="font-weight: 600;">
+                        "Knowledge is power. Use it responsibly. Hack the planet ethically." — Keep learning, maintain defensive integrity, and always protect digital infrastructure.
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <!-- Fixed Floating Toast Notification -->
+    <div id="dorkToast">DORK COPIED TO CLIPBOARD</div>
+
+    <!-- Scripts -->
+    <script src="../js/google_dorking.js"></script>
 </body>
 
 </html>
