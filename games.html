@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox // Tactical Cyber Mini-Games & Arcade</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization (Prevents FOUT) -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link rel="stylesheet" href="css/games.css?v=1.0">
+</head>
+
+<body class="games-body">
+
+    <!-- Top Header Navigation -->
+    <header class="games-top-header">
+        <div class="games-header-left">
+            <a href="dashboard.html" class="games-nav-btn" title="Back to Dashboard (Press 'D')">
+                <span>⬅️</span>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="index.html" class="games-nav-btn" title="Return to Portal (Press 'H')">
+                <span>🏠</span>
+                <span>HOME</span>
+            </a>
+            <div class="games-header-logo">
+                <span style="font-size: 1.4rem;">🎮</span>
+                <span class="games-header-title">PWNBOX ARCADE</span>
+                <span class="games-header-tag">SIMS & LABS</span>
+            </div>
+        </div>
+
+        <div class="games-header-right">
+            <div class="arcade-xp-pill" id="globalArcadeXp">
+                <span>⚡</span>
+                <span id="totalXpDisplay">TOTAL XP: 0</span>
+            </div>
+            <a href="notes.html" class="games-nav-btn" title="Notes & Payloads (Press 'N')">
+                <span>📝</span>
+                <span>NOTES</span>
+            </a>
+            <a href="masterguide/roadmap.html" class="games-nav-btn" title="Career Roadmap (Press 'R')">
+                <span>🗺️</span>
+                <span>ROADMAP</span>
+            </a>
+            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme (Press 'T')">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="games-hero-section">
+        <div class="games-hero-text">
+            <h1><span>🛡️</span> TACTICAL CYBER MINI-GAMES</h1>
+            <p>
+                Hands-on, arcade simulations engineered to train your muscle memory in defense, protocol analysis, social engineering, web exploits, and cryptography. Select a module below to begin deployment.
+            </p>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">SHORTCUT: [G] ANYWHERE</div>
+        </div>
+    </section>
+
+    <!-- Game Tabs Selector -->
+    <nav class="games-hub-tabs" id="arcadeTabContainer">
+        <button class="game-tab-btn active" data-target="game-packet-gatekeeper" onclick="switchGame('game-packet-gatekeeper')">
+            <span>🚦</span> 1. Packet Gatekeeper
+        </button>
+        <button class="game-tab-btn" data-target="game-phish-detective" onclick="switchGame('game-phish-detective')">
+            <span>🎣</span> 2. Phish Detective
+        </button>
+        <button class="game-tab-btn" data-target="game-sqli-locksmith" onclick="switchGame('game-sqli-locksmith')">
+            <span>🔓</span> 3. SQLi Locksmith
+        </button>
+        <button class="game-tab-btn" data-target="game-cidr-block" onclick="switchGame('game-cidr-block')">
+            <span>🧱</span> 4. CIDR Block
+        </button>
+        <button class="game-tab-btn" data-target="game-privesc-tower" onclick="switchGame('game-privesc-tower')">
+            <span>🏰</span> 5. PrivEsc: Floor by Floor
+        </button>
+        <button class="game-tab-btn" data-target="game-ransom-panic" onclick="switchGame('game-ransom-panic')">
+            <span>⏱️</span> 6. Ransomware Panic Room
+        </button>
+        <button class="game-tab-btn" data-target="game-entropy-clash" onclick="switchGame('game-entropy-clash')">
+            <span>🔏</span> 7. Entropy Clash
+        </button>
+        <button class="game-tab-btn" data-target="game-cipher-relic" onclick="switchGame('game-cipher-relic')">
+            <span>🕵️</span> 8. Cipher Relic
+        </button>
+    </nav>
+
+    <!-- Main Game Arena -->
+    <main class="games-arena-wrapper">
+
+        <!-- ================================================================= -->
+        <!-- GAME 1: PACKET GATEKEEPER                                         -->
+        <!-- ================================================================= -->
+        <section class="game-instance-container active" id="game-packet-gatekeeper">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🚦</span> PACKET GATEKEEPER <span class="game-badge badge-defense">DEFENSE / NETWORK</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Inspect incoming protocol traffic, enforce perimeter firewall rules, and drop malicious or insecure packets!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Firewall Health</span>
+                        <span class="stat-val" id="pgHealthVal" style="color: var(--accent-green);">100%</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Packets Filtered</span>
+                        <span class="stat-val" id="pgScoreVal">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Streak Multiplier</span>
+                        <span class="stat-val" id="pgStreakVal" style="color: var(--accent-yellow);">1x</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Security Level</span>
+                        <span class="stat-val" id="pgLevelVal" style="color: var(--accent-cyan);">1 / 5</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-stage">
+                <!-- Inspection Chamber -->
+                <div class="pg-conveyor-chamber" id="pgChamber">
+                    <div class="pg-status-banner">
+                        <span id="pgRuleDirective">DIRECTIVE: Allow standard HTTPS (443) & DNS (53) | Drop plaintext Telnet (23) & Insecure SMB (445)</span>
+                        <span id="pgPacketTimer">TTL: 7.0s</span>
+                    </div>
+
+                    <div class="pg-packet-chute">
+                        <div class="pg-packet-card" id="pgPacketCard">
+                            <div class="pg-packet-header">
+                                <span id="pgPktId">PACKET #1042</span>
+                                <span id="pgPktTime">SRC CLASSIFICATION: EXTERNAL</span>
+                            </div>
+                            <div class="pg-packet-grid">
+                                <div>
+                                    <span class="pg-meta-label">SOURCE IP</span>
+                                    <span class="pg-meta-val" id="pgSrcIp">198.51.100.24</span>
+                                </div>
+                                <div>
+                                    <span class="pg-meta-label">DESTINATION PORT</span>
+                                    <span class="pg-meta-val" id="pgDestPort">443 (HTTPS)</span>
+                                </div>
+                                <div>
+                                    <span class="pg-meta-label">PROTOCOL & FLAGS</span>
+                                    <div class="pg-packet-flags" id="pgFlagsContainer">
+                                        <span class="flag-chip active-flag">TCP</span>
+                                        <span class="flag-chip">SYN</span>
+                                        <span class="flag-chip active-flag">ACK</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="pg-meta-label">CHECKSUM / ENCRYPTION</span>
+                                    <span class="pg-meta-val" id="pgEncryption">TLS 1.3 ENCRYPTED</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="pg-meta-label">RAW PAYLOAD INSPECTION</span>
+                                <div class="pg-packet-payload" id="pgPayload">
+                                    [TLS Handshake: CipherSuite TLS_AES_256_GCM_SHA384 ClientHello]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tactical Action Controls -->
+                    <div class="pg-controls-bar">
+                        <button class="pg-btn pg-btn-allow" onclick="handlePgAction('allow')">
+                            <span>✅ FORWARD (ALLOW)</span>
+                            <span class="key-hint">[Press A or Left Arrow]</span>
+                        </button>
+                        <button class="pg-btn pg-btn-quarantine" onclick="handlePgAction('quarantine')">
+                            <span>⚠️ SANDBOX (INSPECT)</span>
+                            <span class="key-hint">[Press S or Down Arrow]</span>
+                        </button>
+                        <button class="pg-btn pg-btn-drop" onclick="handlePgAction('drop')">
+                            <span>🛑 DROP (BLOCK)</span>
+                            <span class="key-hint">[Press D or Right Arrow]</span>
+                        </button>
+                    </div>
+
+                    <!-- Game Over / Victory Modal (Hidden by default) -->
+                    <div class="pg-overlay-modal" id="pgModal" style="display: none;">
+                        <h3 id="pgModalTitle">FIREWALL BREACH DETECTED</h3>
+                        <p id="pgModalMsg">Malicious packets compromised the internal gateway. Review the audit log below to learn what bypassed your rules.</p>
+                        <button class="btn-restart" onclick="initPacketGatekeeper()">⚡ REBOOT GATEWAY</button>
+                    </div>
+                </div>
+
+                <!-- Audit Log & Threat Feed -->
+                <div class="pg-console-panel">
+                    <div class="pg-console-title">
+                        <span>📋 FIREWALL AUDIT TRAIL</span>
+                        <span id="pgRuleSummary">RULE: STRICT FILTER</span>
+                    </div>
+                    <div class="pg-log-feed" id="pgLogFeed">
+                        <div class="log-entry">
+                            <strong>SYSTEM READY:</strong> Packet Gatekeeper IDS initialized. Inspection engine running on eth0.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: PERIMETER PACKET FILTERING & PROTOCOL SECURITY</h4>
+                <p>
+                    Firewalls and Intrusion Prevention Systems (IPS) evaluate packet headers and state tables in microseconds. Ports like <strong>23 (Telnet)</strong> transmit passwords in unencrypted plaintext, whereas <strong>443 (HTTPS)</strong> encapsulates data in TLS sessions. High-volume <strong>SYN</strong> packets without corresponding <strong>ACKs</strong> indicate SYN Flood DoS attacks, while malformed SQL/Script fragments targeting web servers must be caught by deep packet inspection (DPI) before reaching production databases.
+                </p>
+            </div>
+        </section>
+
+        <!-- Placeholders for Games 2 through 8 (will be populated one by one) -->
+        <section class="game-instance-container" id="game-phish-detective"></section>
+        <section class="game-instance-container" id="game-sqli-locksmith"></section>
+        <section class="game-instance-container" id="game-cidr-block"></section>
+        <section class="game-instance-container" id="game-privesc-tower"></section>
+        <section class="game-instance-container" id="game-ransom-panic"></section>
+        <section class="game-instance-container" id="game-entropy-clash"></section>
+        <section class="game-instance-container" id="game-cipher-relic"></section>
+
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="js/ui_popups.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/games.js"></script>
+</body>
+
+</html>

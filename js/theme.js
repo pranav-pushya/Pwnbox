@@ -26,6 +26,8 @@ function getPwnboxPath(target) {
             return (inModules || inMasterguide) ? '../index.html' : 'index.html';
         case 'notes':
             return (inModules || inMasterguide) ? '../notes.html' : 'notes.html';
+        case 'games':
+            return (inModules || inMasterguide) ? '../games.html' : 'games.html';
         case 'masterguide':
             if (inMasterguide) return 'cybersecurity_masterguide.html';
             if (inModules) return '../masterguide/cybersecurity_masterguide.html';
@@ -52,6 +54,8 @@ function isCurrentPage(target) {
             return path.endsWith('/index.html') || path.endsWith('/') || path === '';
         case 'notes':
             return path.endsWith('/notes.html') || path.endsWith('/notes');
+        case 'games':
+            return path.endsWith('/games.html') || path.endsWith('/games');
         case 'masterguide':
             return path.endsWith('/cybersecurity_masterguide.html');
         case 'roadmap':
@@ -96,6 +100,14 @@ const PWNBOX_SHORTCUTS = [
         desc: 'Switch between Dark and Light cyber themes',
         category: 'Interface',
         action: () => toggleTheme()
+    },
+    {
+        key: 'G',
+        badge: 'G',
+        title: 'Cyber Mini-Games',
+        desc: 'Interactive Tactical Security Simulations & Arcade',
+        category: 'Play',
+        target: 'games'
     },
     {
         key: 'N',
@@ -1242,6 +1254,9 @@ document.addEventListener('keydown', function (e) {
             break;
         case 't': // T or t for Theme
             toggleTheme();
+            break;
+        case 'g': // G or g for Cyber Games
+            navigateTo('games');
             break;
         case 'n': // N or n for Notes
             navigateTo('notes');
