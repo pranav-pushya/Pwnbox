@@ -1077,3 +1077,264 @@ function updateSqliHUD() {
     if (stageVal) stageVal.textContent = `${SqliLocksmith.stage} / ${SqliLocksmith.stages.length}`;
     if (scoreVal) scoreVal.textContent = SqliLocksmith.score;
 }
+
+
+// ── 7. GAME 4: CIDR BLOCK IMPLEMENTATION ──
+const CidrGame = {
+    parentBase: '192.168.1',
+    parentTotalIps: 256,
+    currentOffset: 0,
+    ticketIndex: 0,
+    selectedPrefix: 26,
+    committedSubnets: [],
+
+    tickets: [
+        {
+            dept: 'ENGINEERING WORKSTATIONS',
+            needed: 55,
+            icon: '💻',
+            optimalPrefix: 26,
+            desc: 'High-compute workstation pool requiring <strong>55 usable host IPs</strong>.'
+        },
+        {
+            dept: 'CORPORATE VOIP PHONES',
+            needed: 100,
+            icon: '📞',
+            optimalPrefix: 25,
+            desc: 'Unified communications voice VLAN requiring <strong>100 usable host IPs</strong>.'
+        },
+        {
+            dept: 'DEVOPS CI/CD RUNNERS',
+            needed: 25,
+            icon: '⚙️',
+            optimalPrefix: 27,
+            desc: 'Isolated automation runner segment requiring <strong>25 usable host IPs</strong>.'
+        },
+        {
+            dept: 'ROUTER POINT-TO-POINT LINK',
+            needed: 2,
+            icon: '🌐',
+            optimalPrefix: 30,
+            desc: 'Serial inter-router uplink between core switch and ISP requiring exactly <strong>2 usable IPs</strong>.'
+        }
+    ],
+
+    prefixDetails: {
+        25: { total: 128, usable: 126, mask: '255.255.255.128' },
+        26: { total: 64, usable: 62, mask: '255.255.255.192' },
+        27: { total: 32, usable: 30, mask: '255.255.255.224' },
+        28: { total: 16, usable: 14, mask: '255.255.255.240' },
+        29: { total: 8, usable: 6, mask: '255.255.255.248' },
+        30: { total: 4, usable: 2, mask: '255.255.255.252' }
+    }
+};
+
+function initCidrBlock() {
+    CidrGame.currentOffset = 0;
+    CidrGame.ticketIndex = 0;
+    CidrGame.selectedPrefix = 26;
+    CidrGame.committedSubnets = [];
+
+    renderCidrMap();
+    renderCidrTicket();
+    renderCidrTable();
+    updateCidrHUD();
+}
+
+function renderCidrMap() {
+    const bar = document.getElementById('cidrMapBar');
+    if (!bar) return;
+    bar.innerHTML = '';
+
+    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
+
+    // Render committed subnets
+    CidrGame.committedSubnets.forEach((sub, idx) => {
+        const widthPct = (sub.total / CidrGame.parentTotalIps) * 100;
+        const slice = document.createElement('div');
+        slice.className = 'cidr-block-slice';
+        slice.style.width = `${widthPct}%`;
+        slice.style.background = colors[idx % colors.length];
+        slice.title = `${sub.dept}: ${sub.cidr} (${sub.total} IPs)`;
+        slice.innerHTML = `<span>${sub.cidr}</span><span style="font-size:0.55rem;opacity:0.85;">${sub.dept.split(' ')[0]}</span>`;
+        bar.appendChild(slice);
+    });
+
+    // Render free space
+    const remainingIps = CidrGame.parentTotalIps - CidrGame.currentOffset;
+    if (remainingIps > 0) {
+        const freePct = (remainingIps / CidrGame.parentTotalIps) * 100;
+        const freeSlice = document.createElement('div');
+        freeSlice.className = 'cidr-block-slice slice-free';
+        freeSlice.style.width = `${freePct}%`;
+        freeSlice.innerHTML = `<span>FREE: ${remainingIps} IPs</span>`;
+        bar.appendChild(freeSlice);
+    }
+}
+
+function renderCidrTicket() {
+    const ticketBox = document.getElementById('cidrTicketBox');
+    if (!ticketBox) return;
+
+    if (CidrGame.ticketIndex >= CidrGame.tickets.length) {
+        ticketBox.innerHTML = `
+            <div style="text-align: center; padding: 20px;">
+                <div style="font-size: 2.2rem; margin-bottom: 8px;">🏆</div>
+                <h3 style="font-size: 1.2rem; color: var(--accent-green); margin-bottom: 6px;">SUBNET ALLOCATION MISSION COMPLETE</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">
+                    All department subnets have been mapped and committed into the core routing table without IP overlap or excessive wastage.
+                </p>
+                <button class="pg-btn pg-btn-allow" style="padding: 10px 20px; font-size: 0.8rem; margin: 0 auto;" onclick="initCidrBlock()">
+                    <span>↺ RESET NETWORK POOL</span>
+                </button>
+            </div>
+        `;
+        return;
+    }
+
+    const t = CidrGame.tickets[CidrGame.ticketIndex];
+    document.getElementById('cidrDeptTitle').textContent = t.dept;
+    document.getElementById('cidrDeptDesc').innerHTML = `${t.desc} Select the most optimal CIDR prefix below:`;
+
+    const optionsContainer = document.getElementById('cidrPrefixOptions');
+    if (optionsContainer) {
+        optionsContainer.innerHTML = '';
+        [25, 26, 27, 28, 29, 30].forEach(p => {
+            const info = CidrGame.prefixDetails[p];
+            const btn = document.createElement('button');
+            btn.className = `cidr-opt-btn ${p === CidrGame.selectedPrefix ? 'active' : ''}`;
+            btn.onclick = () => selectCidrPrefix(p);
+            btn.innerHTML = `
+                <div><strong>/${p}</strong></div>
+                <div style="font-size: 0.65rem; opacity: 0.85;">${info.usable} Usable Hosts</div>
+                <div style="font-size: 0.6rem; color: var(--text-muted);">${info.total} Total IPs</div>
+            `;
+            optionsContainer.appendChild(btn);
+        });
+    }
+}
+
+function selectCidrPrefix(prefix) {
+    CyberAudio.blip();
+    CidrGame.selectedPrefix = prefix;
+    document.querySelectorAll('.cidr-opt-btn').forEach(btn => {
+        if (btn.textContent.includes(`/${prefix}`)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+function commitSubnetAllocation() {
+    if (CidrGame.ticketIndex >= CidrGame.tickets.length) return;
+    const t = CidrGame.tickets[CidrGame.ticketIndex];
+    const prefixInfo = CidrGame.prefixDetails[CidrGame.selectedPrefix];
+
+    // Check if prefix can accommodate needed hosts
+    if (prefixInfo.usable < t.needed) {
+        CyberAudio.fail();
+        alert(`ALLOCATION ERROR: /${CidrGame.selectedPrefix} only provides ${prefixInfo.usable} usable hosts, but ${t.dept} needs at least ${t.needed}! Choose a larger prefix.`);
+        return;
+    }
+
+    // Check if over-allocated too wastefully
+    if (CidrGame.selectedPrefix < t.optimalPrefix) {
+        CyberAudio.alert();
+        alert(`OVER-ALLOCATION WARNING: /${CidrGame.selectedPrefix} provides ${prefixInfo.usable} hosts for a request of only ${t.needed}! This wastes excessive address space. An optimal prefix exists!`);
+        return;
+    }
+
+    // Check if remaining pool has enough space
+    if (CidrGame.currentOffset + prefixInfo.total > CidrGame.parentTotalIps) {
+        CyberAudio.fail();
+        alert(`EXHAUSTION ERROR: Not enough contiguous IP addresses left in 192.168.1.0/24 to fit ${prefixInfo.total} addresses!`);
+        return;
+    }
+
+    // Subnet boundary alignment check (must be aligned to multiple of total)
+    if (CidrGame.currentOffset % prefixInfo.total !== 0) {
+        // Find next aligned boundary
+        const alignedOffset = Math.ceil(CidrGame.currentOffset / prefixInfo.total) * prefixInfo.total;
+        if (alignedOffset + prefixInfo.total > CidrGame.parentTotalIps) {
+            CyberAudio.fail();
+            alert(`BOUNDARY ALIGNMENT ERROR: Subnet size ${prefixInfo.total} must start at an address multiple of ${prefixInfo.total}!`);
+            return;
+        }
+        CidrGame.currentOffset = alignedOffset;
+    }
+
+    // Successful allocation
+    CyberAudio.success();
+    const netId = `${CidrGame.parentBase}.${CidrGame.currentOffset}`;
+    const broadcastId = `${CidrGame.parentBase}.${CidrGame.currentOffset + prefixInfo.total - 1}`;
+    const firstUsable = `${CidrGame.parentBase}.${CidrGame.currentOffset + 1}`;
+    const lastUsable = `${CidrGame.parentBase}.${CidrGame.currentOffset + prefixInfo.total - 2}`;
+
+    CidrGame.committedSubnets.push({
+        dept: t.dept,
+        cidr: `${netId}/${CidrGame.selectedPrefix}`,
+        mask: prefixInfo.mask,
+        range: `${firstUsable} - ${lastUsable}`,
+        broadcast: broadcastId,
+        total: prefixInfo.total,
+        usable: prefixInfo.usable
+    });
+
+    CidrGame.currentOffset += prefixInfo.total;
+    CidrGame.ticketIndex++;
+    addArcadeXp(40);
+
+    renderCidrMap();
+    renderCidrTicket();
+    renderCidrTable();
+    updateCidrHUD();
+}
+
+function renderCidrTable() {
+    const feed = document.getElementById('cidrTableFeed');
+    if (!feed) return;
+    if (CidrGame.committedSubnets.length === 0) {
+        feed.innerHTML = `
+            <div class="cidr-card-item" style="color: var(--text-muted); text-align: center; padding: 20px;">
+                No subnets committed yet. Fulfill department requests on the left to carve out routing segments.
+            </div>
+        `;
+        return;
+    }
+
+    feed.innerHTML = '';
+    CidrGame.committedSubnets.forEach((sub, idx) => {
+        const item = document.createElement('div');
+        item.className = 'cidr-card-item';
+        item.innerHTML = `
+            <div style="display: flex; justify-content: space-between; font-weight: 800;">
+                <span style="color: var(--accent-cyan);">#${idx + 1} ${sub.dept}</span>
+                <span style="color: var(--accent-green);">${sub.cidr}</span>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);">
+                MASK: ${sub.mask} &bull; BROADCAST: ${sub.broadcast}
+            </div>
+            <div style="font-size: 0.65rem; color: #94a3b8;">
+                USABLE RANGE: ${sub.range} (${sub.usable} hosts)
+            </div>
+        `;
+        feed.appendChild(item);
+    });
+
+    const countEl = document.getElementById('cidrSubnetCount');
+    if (countEl) countEl.textContent = `${CidrGame.committedSubnets.length} SUBNET(S)`;
+}
+
+function updateCidrHUD() {
+    const freeIps = CidrGame.parentTotalIps - CidrGame.currentOffset;
+    const usagePct = Math.round((CidrGame.currentOffset / CidrGame.parentTotalIps) * 100);
+
+    const freeEl = document.getElementById('cidrFreeIpVal');
+    const compEl = document.getElementById('cidrCompleteVal');
+    const badgeEl = document.getElementById('cidrUsageBadge');
+
+    if (freeEl) freeEl.textContent = `${freeIps} / 256`;
+    if (compEl) compEl.textContent = `${CidrGame.ticketIndex} / ${CidrGame.tickets.length}`;
+    if (badgeEl) badgeEl.textContent = `${usagePct}% UTILIZED`;
+}
