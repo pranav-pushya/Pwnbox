@@ -30,7 +30,8 @@
         { id: 4, code: 'M-04', name: 'Vulnerability Analysis', icon: '🛡️', tools: '5+ Tools', url: 'modules/Vulnerablity.html', color: 0xf97316, desc: 'CVE vulnerability assessment, CVSS scoring, Nikto & Nessus logic.', cve: 'CVSS 9.8 CRITICAL', port: 'VULN SCAN ENGINE' },
         { id: 5, code: 'M-05', name: 'System Exploitation', icon: '💻', tools: '6+ Tools', url: 'modules/SystemHacking.html', color: 0xd9291c, desc: 'Password cracking, payload generation, privilege escalation vectors.', cve: 'CVE-2021-4034 (PwnKit)', port: 'ROOT PRIVILEGE / UID 0' },
         { id: 6, code: 'M-06', name: 'Web App Threats', icon: '🕸️', tools: '6+ Tools', url: 'modules/WebAppThreats.html', color: 0xa855f7, desc: 'OWASP Top 10, SQL Injection, XSS, SSRF & authentication bypasses.', cve: 'CVE-2024-38812 (RCE)', port: 'PORT 80/443 (HTTP/S)' },
-        { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'modules/OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.', cve: 'IDENTITY LEAK INTEL', port: 'DEEP & DARK WEB' }
+        { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'modules/OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.', cve: 'IDENTITY LEAK INTEL', port: 'DEEP & DARK WEB' },
+        { id: 8, code: 'M-08', name: 'Black Ops & C2 Evasion', icon: '⚡', tools: '8+ Tools', url: 'modules/BlackOps.html', color: 0x9333ea, desc: 'Covert command & control, EDR evasion, in-memory execution & defense bypass.', cve: 'MITRE ATT&CK T1059', port: 'COVERT C2 MESH' }
     ];
 
     // --- SOUND SYNTHESIZER (ZERO-LATENCY WEB AUDIO API) ---

@@ -12,7 +12,7 @@
 
 ## ⚡ Executive Summary
 
-**PwnBox Academy** is a high-performance, in-browser tactical cybersecurity training academy engineered to bridge theoretical knowledge and practical ethical hacking. Built upon a high-contrast **Neo-Bauhaus design system** paired with an **immersive 3D holographic command matrix**, the platform equips recruits, penetration testers, and defense analysts with interactive kill-chain laboratories, an encyclopedic 10-chapter master guide, a customizable MCQ examination engine, and an on-demand AI doubt assistant.
+**PwnBox Academy** is a high-performance, in-browser tactical cybersecurity training academy engineered to bridge theoretical knowledge and practical ethical hacking. Built upon a high-contrast **Neo-Bauhaus design system** paired with an **immersive 3D holographic command matrix**, the platform equips recruits, penetration testers, and defense analysts with 8 interactive kill-chain and black ops laboratories, an encyclopedic 10-chapter master guide with single-chapter accordion navigation, 8 standalone tactical cyber mini-games, 10 physical hardware hacking engines with 3D rotatable models, an edge-to-edge interactive Linux mind map, a customizable MCQ examination engine, universal theme-aware scrollbars, and an on-demand AI doubt assistant.
 
 Designed & Developed by **Pranav Pushya**.
 
@@ -38,8 +38,8 @@ foot/
 │   ├── http_codes.html          # Complete HTTP Status Codes Compendium across 5 Classes
 │   ├── general.html             # General Cyber Intel: Windows Shortcuts, Domain TLDs & 1969-2026 OS Chronicles
 │   ├── google_dorking.html      # Google Dorking Intelligence, GHDB Operators & Interactive Builder
-│   ├── hacker_engines_devices.html # Top 10 Physical Hacking Devices & 32 Specialized Search Engines
-│   └── linux.html               # Linux Terminal Mastery, Core Commands & Hardening
+│   ├── hacker_engines_devices.html # Top 10 Physical Hacking Devices (3D Models) & 32 Specialized Search Engines
+│   └── linux.html               # Linux Terminal Mastery, Core Commands & Slide 13 Interactive Mind Map
 │
 ├── 📂 games/                    # Standalone Interactive Cyber Mini-Game Simulations
 │   ├── packet_gatekeeper.html   # Game 01: Firewall, Protocol & DPI Defense Arcade
@@ -51,26 +51,29 @@ foot/
 │   ├── entropy_clash.html       # Game 07: Password Entropy & 100 GH/s Hashcat Tug-of-War
 │   └── cipher_relic.html        # Game 08: Caesar, Vigenère & Symmetric XOR Stream Gates
 │
-├── 📂 assets/                   # Vector Brand Icons & Favicons
+├── 📂 assets/                   # Vector Brand Icons, Favicons & Hardware Renders
 │   ├── favicon-main.svg         # Tactical shield dashboard favicon
-│   └── favicon-guide.svg        # Encyclopedic master guide favicon
+│   ├── favicon-guide.svg        # Encyclopedic master guide favicon
+│   └── devices/                 # Photorealistic hardware device renders for 3D inspection
 │
-├── 📂 modules/                  # The 7-Stage Cyber Kill Chain Interactive Laboratories
+├── 📂 modules/                  # The 8-Stage Cyber Kill Chain & Black Ops Laboratories
 │   ├── Footprinting.html        # Module 01: Passive & Active Reconnaissance (22+ Tools)
 │   ├── Scanning.html            # Module 02: Network Probing & Host Discovery (15+ Tools)
 │   ├── Enumeration.html         # Module 03: Service, Protocol & User Mining (8+ Tools)
 │   ├── Vulnerablity.html        # Module 04: Vulnerability Assessment & CVSS Auditing (5+ Tools)
 │   ├── SystemHacking.html       # Module 05: System Exploitation & Privilege Escalation (6+ Tools)
 │   ├── WebAppThreats.html       # Module 06: OWASP Top 10 & Web Attack Vectors (6+ Tools)
-│   └── OSINT.html               # Module 07: Open-Source Intelligence & Threat Intel (12+ Tools)
+│   ├── OSINT.html               # Module 07: Open-Source Intelligence & Threat Intel (12+ Tools)
+│   └── BlackOps.html            # Module 08: Black Ops, C2 Beacons & EDR Evasion (8+ Tools)
 │
 ├── 📂 masterguide/              # Master Guide Knowledge Base & Certification Engine
-│   ├── cybersecurity_masterguide.html  # Master Guide Central Hub
+│   ├── cybersecurity_masterguide.html  # Master Guide Central Hub (Single-Chapter Accordion & Pagination)
 │   ├── masterguide_ch1.html – ch10.html # 10 Deep-Dive Chapters (100+ Documented Terms)
 │   ├── masterguide_test.html           # Comprehensive MCQ Examination Engine
 │   └── roadmap.html                    # 9-Month Interactive CEH & Ethical Hacking Career Roadmap
 │
 ├── 📂 css/                      # Modular Bauhaus Design System & Themes
+│   ├── style.css                # Global Theme-Aware Scrollbar Engine & Universal Utilities
 │   ├── landing.css              # Landing page layout & 3D HUD canvas styling
 │   ├── 404.css                  # Custom Bauhaus Cyber Command 404 cockpit styling
 │   ├── index.css                # Dashboard styling, 3D ID cards, cheat drawer
@@ -80,6 +83,8 @@ foot/
 │   ├── ports.css                # Ports matrix styling, transport badges & copy controls
 │   ├── http_codes.css           # HTTP status code taxonomy & triage card styles
 │   ├── general.css              # General compendium, timeline, and GPU draggable dialog modals
+│   ├── linux_mindmap.css        # Slide 13 Linux Mind Map & Edge-to-Edge Fullscreen HUD Styles
+│   ├── cybersecurity_masterguide.css # Single-Chapter Accordion Navigation & Pagination Layout
 │   ├── masterguide_test.css     # Examination engine layout & score analytics
 │   ├── masterguide_chat.css     # AI doubt sidebar & chat message styling
 │   ├── resizer.css              # Split-pane draggable laboratory panes
@@ -87,21 +92,23 @@ foot/
 │
 ├── 📂 js/                       # Core Logic, 3D Shaders & AI Integration
 │   ├── config.js                # Centralized Groq API configuration & shared keys
-│   ├── landing_3d.js            # Three.js 3D Quantum Holographic Core & OrbitControls
+│   ├── landing_3d.js            # Three.js 3D Quantum Holographic Core & OrbitControls (8 Active Vectors)
 │   ├── matrix_rain.js           # Fullscreen Red/Blue/Green cascading digital rain
 │   ├── OrbitControls.js         # Camera manipulation & 360° inertia drag controls
 │   ├── three.min.js             # Bundled Three.js (r128) WebGL engine (offline-ready)
 │   ├── index.js                 # Dashboard progression, stats sync, agent ID card
 │   ├── roadmap.js               # Interactive roadmap controller, local storage & Web Audio SFX
+│   ├── linux_mindmap.js         # Slide 13 Interactive Mind Map Engine & Fullscreen Sync Controller
+│   ├── cybersecurity_masterguide.js # Single-Chapter Navigation, Search & Dynamic Pagination Engine
 │   ├── masterguide_test.js      # Quiz exam controller, scoring & local history
 │   ├── masterguide_chat.js      # On-demand AI doubt chat handler (Hinglish/English)
-│   ├── theme.js                 # Global instant dark/light mode toggle
+│   ├── theme.js                 # Global instant 5-theme controller (Light/Dark/Matrix/Cyberpunk/Synthwave)
 │   └── [Module].js              # Per-module terminal simulators & interactive labs
 │
 ├── 📂 quiz-data/                # Examination Question Banks & Unified Bundle
-    ├── masterguide_quiz_ch1.json – ch10.json  # Chapter-specific structured MCQs
-    ├── masterguide_quiz_all.json              # Aggregated 100+ master exam dataset
-    └── quiz_data.js                           # Browser & Node isomorphic quiz bundle
+│   ├── masterguide_quiz_ch1.json – ch10.json  # Chapter-specific structured MCQs
+│   ├── masterguide_quiz_all.json              # Aggregated 100+ master exam dataset
+│   └── quiz_data.js                           # Browser & Node isomorphic quiz bundle
 ```
 
 ---
@@ -110,7 +117,7 @@ foot/
 
 ### 1. 🌐 Holographic 3D Cyber Core & Interactive Operations Deck (`index.html`)
 
-- **Full-Screen 3D Command Deck:** Built on Three.js (r128) featuring a polyhedral geodesic core, tri-axial orbital gyroscope defense rings, and 7 interactive satellite drones representing each attack phase.
+- **Full-Screen 3D Command Deck:** Built on Three.js (r128) featuring a polyhedral geodesic core, tri-axial orbital gyroscope defense rings, and 8 interactive satellite drones representing each attack and defense vector (M-01 to M-08).
 - **Full 360° Draggability:** Manipulate the hologram with mouse or touch controls using smooth inertial damping, scroll-to-zoom, and pan.
 - **Red, Blue & Green Matrix Rain:** A custom HTML5 2D canvas cascading stream of digital glyphs across the background in high-contrast primary colors.
 - **Pranav Pushya Official Signature Stamp:** A tactile military-classified red ink rubber stamp featuring mechanical chunk/thud Web Audio synthesis and ink splatter physics.
@@ -119,7 +126,7 @@ foot/
 - **Agent Dossier & ID Badge Workshop:** In-browser tactical badge customizer enabling recruits to set callsigns and avatars, authenticated with the architect's seal and synced to the dashboard.
 - **Interactive Terminal Feedback:** Advanced keyboard listeners and tactile Web Audio feedback embedded across interactive command consoles.
 
-### 2. 🛡️ The 7-Stage Cyber Kill Chain Laboratories
+### 2. 🛡️ The 8-Stage Cyber Kill Chain & Black Ops Laboratories
 
 Hands-on interactive terminals simulating authentic CLI execution, error handling, and output parsing without requiring local virtual machines:
 
@@ -130,13 +137,19 @@ Hands-on interactive terminals simulating authentic CLI execution, error handlin
 5. **System Exploitation (6+ Tools):** Password hash cracking, MSFvenom payloads, privilege escalation.
 6. **Web Application Threats (6+ Tools):** OWASP Top 10, SQLi, XSS, SSRF, CSRF, and broken authentication.
 7. **OSINT Intelligence (12+ Tools):** Geolocation analysis, username scraping, metadata extraction, breach correlation.
+8. **Black Ops & C2 Evasion (8+ Tools):** Command & Control (C2) beaconing, Cobalt Strike / Sliver simulation, EDR evasion, API unhooking, AMSI bypasses, process hollowing, and in-memory execution.
 
-### 3. 📖 10-Chapter Master Guide ("Zero to Cyber")
+### 3. 📖 10-Chapter Master Guide ("Zero to Cyber") (`masterguide/cybersecurity_masterguide.html`)
 
-Over 100 meticulously documented concepts divided into structured operational domains:
+An encyclopedic knowledge base covering 100+ meticulously documented concepts, delivered through an intuitive **Single-Chapter-at-a-Time Architecture**:
 
-- **Rich Term Cards:** Severity tagging, visual threat meters, block-label definitions, and defense countermeasure lists.
-- **Real-World Breaches & Analogies:** Translates complex technical exploits into accessible layman analogies and historical case studies (e.g., SolarWinds, Stuxnet, Capital One).
+- **Single Chapter Viewport:** Rather than overwhelming operatives with all 10 chapters simultaneously, PwnBox isolates the active chapter in the viewport, ensuring fast render times, distraction-free reading, and focused mastery.
+- **Dynamic Accordion Sidebar Navigation:** Collapsible operational clusters (Foundations, Defensive Security, Offensive Kill Chain, Modern Operations) allow instant switching between chapters with live active state indicators.
+- **Responsive Chapter Pagination:** Dedicated `← Previous Chapter` and `Next Chapter →` bottom navigation docks with automatic end-of-guide routing to the Examination Engine.
+- **Live Reading Progress Engine:** Pin-point progress indicator tracking operative reading depth through the active chapter in real time.
+- **Instant Search & Topic Filter:** High-speed fuzzy search bar in the sidebar that instantly locates terms, attacks, and protocols across all 10 chapters.
+- **Rich Term Cards & Threat Meters:** Block-label definitions, severity metrics (Low to Critical), visual CVSS meters, and defense countermeasures.
+- **Real-World Breaches & Analogies:** Translates complex technical exploits into accessible layman analogies and historical case studies (e.g., SolarWinds, Stuxnet, Capital One, WannaCry).
 
 ### 4. 📝 Master Test Examination Engine (`masterguide_test.html`)
 
@@ -228,15 +241,53 @@ A quick-access sliding drawer containing categorized, battle-tested terminal syn
 
 - Advanced Google hacking database (GHDB) operators, passive footprinting syntax, and targeted filetype/index query matrices.
 
-### 17. 📡 Hacker Search Engines & Physical Hardware Devices (`imp_info/hacker_engines_devices.html`)
+### 17. 📡 Hacker Search Engines & 10 Physical Hardware Devices (`imp_info/hacker_engines_devices.html`)
 
-- Specialized reconnaissance engines (Shodan, Censys, ZoomEye, FOFA) and tactical hardware devices (Flipper Zero, Hak5 WiFi Pineapple, Rubber Ducky, Proxmark3).
+- **32 Specialized Reconnaissance Engines:** Categorized index across IoT scanners (Shodan, Censys, ZoomEye, FOFA), attack surface monitors, threat intelligence platforms, and dark web indexes.
+- **Top 10 Physical Hardware Hacking Devices with Interactive 3D Model Inspection:**
+  1. **Hak5 WiFi Pineapple:** Dual-band wireless pentesting platform with automated rogue AP, evil twin attacks, PineAP suite, and real-time deauthentication tracking.
+  2. **Flipper Zero:** Portable multi-tool for Sub-GHz transceiver analysis, RFID/NFC sniffing and emulation, infrared remote control, BadUSB keystroke injection, and iButton keys.
+  3. **Hak5 USB Rubber Ducky:** Keystroke injection HID device powered by DuckyScript 3.0, featuring flow control, payload triggers, and fast keystroke delivery.
+  4. **Hak5 Bash Bunny:** Multi-vector USB attack platform emulating Gigabit Ethernet, serial console, and mass storage with an intuitive 3-position attack payload switch.
+  5. **Hak5 LAN Turtle:** Covert network implant disguised as a USB Ethernet adapter, executing automated man-in-the-middle (MITM) attacks and covert remote SSH tunneling.
+  6. **O.MG Cable:** Covert implant stealthily integrated inside a standard braided USB cable, equipped with embedded Wi-Fi C2, live payload execution, and self-destruct security wiping.
+  7. **Hak5 Packet Squirrel:** Pocket-sized Ethernet packet tap providing stealthy inline packet capture, remote OpenVPN tunneling, and automated network payload execution.
+  8. **Proxmark3 RDV4:** The premier RFID/NFC research instrument capable of sniffing, reading, cloning, and emulating both low-frequency (125 kHz) and high-frequency (13.56 MHz) transponders.
+  9. **Kali NetHunter:** Mobile penetration testing platform running on Android, enabling 802.11 wireless frame injection, BadUSB, and HID keyboard attack delivery on the move.
+  10. **Evil Portal:** Modular captive portal credential harvesting framework operating in tandem with rogue wireless access points to harvest user credentials and tokens.
+- **Interactive 3D Hardware Model Viewport:** Operatives can inspect each physical device inside an interactive 3D model modal, featuring smooth 360° mouse/touch rotation, zoom, tilt, and tactical HUD wireframe telemetry.
 
-### 18. 🐧 Linux Terminal Mastery & Hardening (`imp_info/linux.html`)
+### 18. 🐧 Linux Terminal Mastery & Slide 13 Interactive Mind Map (`imp_info/linux.html`)
 
-- Essential command-line workflows, file system hierarchy, permissions/ACLs, process management, and core administrative hardening.
+- **Core Administrative Hardening:** Essential CLI workflows, Linux filesystem hierarchy, permissions/ACLs, process management, and firewall hardening.
+- **Slide 13 Linux Interactive Mind Map Architecture:**
+  - A comprehensive interactive visual knowledge graph organized around the central Tux Linux core, structuring command-line mastery across 6 operational branches:
+    1. **Basic Operations:** File and directory navigation (`pwd`, `ls`, `cd`, `cat`, `touch`, `cp`, `mv`, `rm`, `echo`).
+    2. **System Management:** Hardware and process monitoring (`top`, `htop`, `ps`, `kill`, `systemctl`, `journalctl`, `df`, `free`, `uname`).
+    3. **Networking:** Socket and interface triage (`ip`, `ifconfig`, `ping`, `traceroute`, `netstat`, `ss`, `curl`, `wget`, `ssh`).
+    4. **Security & Permissions:** Access control and firewalls (`chmod`, `chown`, `chgrp`, `sudo`, `passwd`, `ufw`, `iptables`, `fail2ban`).
+    5. **Storage & Filesystem:** Partitioning and archive management (`mount`, `umount`, `fdisk`, `mkfs`, `lsblk`, `tar`, `gzip`, `rsync`).
+    6. **Advanced Administration & Automation:** Text stream processing and scheduling (`cron`, `crontab`, `find`, `grep`, `awk`, `sed`, `xargs`, `bash scripts`).
+- **Edge-to-Edge Fullscreen Inspection Mode:** Clickable fullscreen mode expanding the mind map to cover the entire screen with an unobstructed viewport, floating HUD controls, centered Tux emblem, top-right red cross close button (`✕`), and instantaneous `Escape` key synchronization.
 
+### 19. 🎮 Tactical Cyber Mini-Games & Arcade Operations Hub (`games.html` & `games/`)
 
+An interactive gamified cyber warfare suite comprising 8 standalone operational simulators:
+
+1. **Packet Gatekeeper (`games/packet_gatekeeper.html`):** Real-time firewall rule-setting, port filtering, and Deep Packet Inspection (DPI) arcade defending subnets against incoming malicious packet floods.
+2. **Phish Detective (`games/phish_detective.html`):** SOC inbox triage simulator training analysts to detect spoofed headers, SPF/DKIM verification failures, credential-harvesting links, and macro droppers.
+3. **SQLi Locksmith (`games/sqli_locksmith.html`):** Interactive SQL query injection puzzle demonstrating `OR 1=1` auth bypasses, `UNION SELECT` column matching, and parameterized query remediation.
+4. **CIDR Block (`games/cidr_block.html`):** Visual VLSM network subnetting game testing calculations of prefix lengths (`/24` to `/30`), network IDs, broadcast addresses, and usable host ranges.
+5. **PrivEsc Tower (`games/privesc_tower.html`):** Linux host privilege escalation challenge navigating misconfigured SUID binaries, root cron tasks, sudo privileges, and GTFOBins exploits.
+6. **Ransom Panic (`games/ransom_panic.html`):** High-tempo incident response simulation requiring operatives to isolate infected hosts, sever lateral movement conduits, and deploy sinkholes against C2 domains.
+7. **Entropy Clash (`games/entropy_clash.html`):** Dynamic tug-of-war password security simulator pitting character set entropy against simulated 100 GH/s GPU hashcat cracking rigs.
+8. **Cipher Relic (`games/cipher_relic.html`):** Cryptographic decryption trial requiring operatives to break Caesar rotation ciphers, Vigenère keyword matrices, and symmetric XOR stream ciphers.
+
+### 20. 🎨 Universal Theme-Aware Scrollbar & Responsive Layout Engine
+
+- **Universal Dynamic Scrollbars:** A dedicated scrollbar engine implemented in `css/style.css` using theme variables (`--scrollbar-track`, `--scrollbar-thumb`, `--scrollbar-thumb-hover`, `--scrollbar-border`).
+- **5-Theme Adaptability:** Automatically synchronizes scrollbar coloration with the active theme (Light Neo-Bauhaus, Dark Cyber Command, Phosphor Matrix 1999, Night City Cyberpunk, and Synthwave '84).
+- **Zero-Glitch Viewport Geometry:** Fully resolves empty white strips and padding overflow issues across scaled and high-DPI displays.
 
 **Clandestine Gateways Hint:** Classified Easter egg gateways are concealed throughout the academy command structure. In particular, recruits whisper of an elite secret gateway that unlocks exclusive **VIP Cyber Themes**, accessible only via a mysterious **triple-click**...(triple click also works to unlock other secret gateways!!)
 

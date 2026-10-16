@@ -10,7 +10,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Theme Initialization (Prevents FOUT) -->
     <script>
@@ -59,8 +61,10 @@
     <!-- Floating Top-Right 3-Button Controls -->
     <div class="top-right-actions">
         <button class="action-btn-top theme" onclick="toggleTheme()" title="Toggle Matrix Theme">🌓 THEME</button>
-        <button class="action-btn-top auth" id="homeAuthBtn" onclick="openAuthModal()" title="Operative Login / Session">🔐 OPERATIVE LOGIN</button>
-        <a href="dashboard.html" class="action-btn-top dash" id="homeDashBtn" title="Launch Tactical Dashboard">⚡ DASHBOARD &rarr;</a>
+        <button class="action-btn-top auth" id="homeAuthBtn" onclick="openAuthModal()"
+            title="Operative Login / Session">🔐 OPERATIVE LOGIN</button>
+        <a href="dashboard.html" class="action-btn-top dash" id="homeDashBtn" title="Launch Tactical Dashboard">⚡
+            DASHBOARD &rarr;</a>
     </div>
 
     <main>
@@ -81,17 +85,19 @@
                 </h1>
 
                 <p class="hero-subtitle">
-                    Master real-world offensive reconnaissance, automated vulnerability scanning, system exploitation, and cyber defense across 7 battle-tested training tracks and 50+ practical in-browser security tools.
+                    Master real-world offensive reconnaissance, automated vulnerability scanning, system exploitation,
+                    and cyber defense across 8 battle-tested training tracks, 60+ practical in-browser security tools, 8
+                    tactical cyber games, and an interactive 10-chapter master guide.
                 </p>
 
                 <!-- Live Statistics Counter -->
                 <div class="hero-stats-bar">
                     <div class="stat-item">
-                        <div class="stat-num">07</div>
+                        <div class="stat-num">08</div>
                         <div class="stat-label">Training Modules</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num">50+</div>
+                        <div class="stat-num">60+</div>
                         <div class="stat-label">Practical Tools</div>
                     </div>
                     <div class="stat-item">
@@ -99,8 +105,8 @@
                         <div class="stat-label">Guide Chapters</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num">04</div>
-                        <div class="stat-label">Roadmap Phases</div>
+                        <div class="stat-num">08</div>
+                        <div class="stat-label">Cyber Games</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-num">20</div>
@@ -118,12 +124,18 @@
                         <span id="hudStatus">QUANTUM CORE: ARMED</span>
                     </div>
                     <div class="hud-controls">
-                        <button id="btnResetView" class="btn-hud-control" title="Reset View Orientation">⟳ RESET</button>
-                        <button id="btnAutoRotate" class="btn-hud-control active" title="Toggle Auto-Spin">🌀 SPIN: ON</button>
-                        <button id="btnSurge" class="btn-hud-control" title="Toggle Quantum Surge Overcharge">⚡ SURGE</button>
-                        <button id="btnWireframe" class="btn-hud-control" title="Toggle Tactical X-Ray Wireframe">📐 X-RAY</button>
-                        <button id="btnExplode" class="btn-hud-control" title="Disassemble Architecture View">💥 EXPAND</button>
-                        <button id="btnSfx" class="btn-hud-control" title="Toggle Tactical Audio Feedback">🔇 SFX: OFF</button>
+                        <button id="btnResetView" class="btn-hud-control" title="Reset View Orientation">⟳
+                            RESET</button>
+                        <button id="btnAutoRotate" class="btn-hud-control active" title="Toggle Auto-Spin">🌀 SPIN:
+                            ON</button>
+                        <button id="btnSurge" class="btn-hud-control" title="Toggle Quantum Surge Overcharge">⚡
+                            SURGE</button>
+                        <button id="btnWireframe" class="btn-hud-control" title="Toggle Tactical X-Ray Wireframe">📐
+                            X-RAY</button>
+                        <button id="btnExplode" class="btn-hud-control" title="Disassemble Architecture View">💥
+                            EXPAND</button>
+                        <button id="btnSfx" class="btn-hud-control" title="Toggle Tactical Audio Feedback">🔇 SFX:
+                            OFF</button>
                     </div>
                 </div>
 
@@ -144,7 +156,8 @@
 
                 <!-- Vector Target Quick-Select Bar -->
                 <div class="canvas-bottom-bar">
-                    <span class="font-mono" style="font-size: 0.68rem; color: #64748b; font-weight: 700;">ACTIVE VECTORS:</span>
+                    <span class="font-mono" style="font-size: 0.68rem; color: #64748b; font-weight: 700;">ACTIVE
+                        VECTORS:</span>
                     <ul class="vector-select-list">
                         <li><button class="btn-vector-pill" data-id="1">M-01 Recon</button></li>
                         <li><button class="btn-vector-pill" data-id="2">M-02 Scan</button></li>
@@ -153,18 +166,21 @@
                         <li><button class="btn-vector-pill" data-id="5">M-05 Exploit</button></li>
                         <li><button class="btn-vector-pill" data-id="6">M-06 WebSec</button></li>
                         <li><button class="btn-vector-pill" data-id="7">M-07 OSINT</button></li>
+                        <li><button class="btn-vector-pill" data-id="8">M-08 C2 Ops</button></li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        
+
         <!-- Playful Cyber Operations Deck: Authentic Hex Breach Protocol & Military SOC Threat Radar -->
         <section class="section-wrapper" id="cyber-ops">
             <div class="section-header">
                 <span class="section-tag">// 02 TACTICAL ENGAGEMENT // LIVE CYBER EXERCISES</span>
                 <h2 class="section-title">ACTIVE CYBER DEFENSE & SIMULATION RANGE</h2>
-                <p class="section-desc">Experience authentic memory buffer decryption in the Cyberpunk-grade Breach Protocol, or monitor and neutralize simulated real-time global APT attacks on the military SOC radar.</p>
+                <p class="section-desc">Experience authentic memory buffer decryption in the Cyberpunk-grade Breach
+                    Protocol, or monitor and neutralize simulated real-time global APT attacks on the military SOC
+                    radar.</p>
             </div>
 
             <div class="playful-showcase-grid">
@@ -175,7 +191,8 @@
                             <span class="breach-glow-icon">⚡</span>
                             <div>
                                 <div style="font-weight: 900; letter-spacing: 0.5px;">KERNEL BREACH PROTOCOL</div>
-                                <div style="font-size: 0.65rem; color: #64748b; font-weight: 600;">CYBERPUNK MEMORY BUFFER INJECTION</div>
+                                <div style="font-size: 0.65rem; color: #64748b; font-weight: 600;">CYBERPUNK MEMORY
+                                    BUFFER INJECTION</div>
                             </div>
                         </div>
                         <div class="breach-timer-badge" id="breachTimerText">15.00s</div>
@@ -233,7 +250,8 @@
                             <span class="breach-glow-icon">📡</span>
                             <div>
                                 <div style="font-weight: 900; letter-spacing: 0.5px;">SOC GLOBAL THREAT RADAR</div>
-                                <div style="font-size: 0.65rem; color: #64748b; font-weight: 600;">ACTIVE MILITARY-GRADE INTERCEPT MATRIX</div>
+                                <div style="font-size: 0.65rem; color: #64748b; font-weight: 600;">ACTIVE MILITARY-GRADE
+                                    INTERCEPT MATRIX</div>
                             </div>
                         </div>
                         <div class="radar-telemetry-stats">
@@ -249,20 +267,22 @@
                             <button class="radar-mode-btn" data-filter="c2">C2 & BOTNETS</button>
                             <button class="radar-mode-btn" data-filter="cve">CVE EXPLOITS</button>
                         </div>
-                        <button class="radar-audio-btn" id="btnRadarSonar" title="Toggle Radar Sonar Audio">🔇 SONAR: OFF</button>
+                        <button class="radar-audio-btn" id="btnRadarSonar" title="Toggle Radar Sonar Audio">🔇 SONAR:
+                            OFF</button>
                     </div>
 
                     <div class="radar-viewport-wrap">
                         <div class="radar-flash-overlay" id="radarFlashOverlay"></div>
                         <canvas id="threatRadarCanvas"></canvas>
-                        
+
                         <!-- Tactical Reticle Lock-On Display -->
                         <div class="radar-lockon-card" id="radarLockonCard">
                             <div class="lockon-header">
                                 <span class="lockon-pulse"></span>
                                 <span id="lockonIp">TARGET: 185.220.101.5</span>
                             </div>
-                            <div class="lockon-details" id="lockonDetails">SECTOR: TOKYO // PORT: 445 // TYPE: ZERO-DAY RCE</div>
+                            <div class="lockon-details" id="lockonDetails">SECTOR: TOKYO // PORT: 445 // TYPE: ZERO-DAY
+                                RCE</div>
                         </div>
                     </div>
 
@@ -286,7 +306,8 @@
             <div class="section-header">
                 <span class="section-tag">// 01 CORE CAPABILITIES // SYSTEM ARCHITECTURE</span>
                 <h2 class="section-title">BUILT FOR REAL-WORLD CYBER OPERATORS</h2>
-                <p class="section-desc">Experience offensive and defensive cybersecurity through immersive simulations designed for practical mastery, not passive reading.</p>
+                <p class="section-desc">Experience offensive and defensive cybersecurity through immersive simulations
+                    designed for practical mastery, not passive reading.</p>
             </div>
 
             <div class="features-grid">
@@ -296,21 +317,95 @@
                         <div class="feature-icon-box">🛠️</div>
                         <h3 class="feature-title">Hands-on Tool Labs</h3>
                         <p class="feature-text">
-                            Live simulations of industry-standard toolsets: Nmap, Gobuster, Nikto, Metasploit, Hydra, and more. Experience real command execution, terminal output, and attack vectors without risk.
+                            Live simulations of industry-standard toolsets across 8 modules: Nmap, Gobuster, Nikto,
+                            Metasploit, Hydra, C2 Beaconing, and more. Experience real command execution, terminal
+                            output, and attack vectors without risk.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
-                        <span>⚡ 50+ Tool Simulations</span>
+                        <span>⚡ 60+ Tool Simulations (M-01 to M-08)</span>
                     </div>
                 </div>
 
-                <!-- Feature 2: AI Doubt Mentor -->
+                <!-- Feature 2: Tactical Cyber Arcade -->
+                <div class="feature-card" style="--card-accent: #ec4899;">
+                    <div>
+                        <div class="feature-icon-box">🎮</div>
+                        <h3 class="feature-title">Tactical Cyber Arcade</h3>
+                        <p class="feature-text">
+                            Master offensive and defensive mechanics through 8 interactive simulation games: Packet
+                            Gatekeeper (firewall & DPI), Phish Detective, SQLi Locksmith, CIDR Block, PrivEsc Tower,
+                            Ransom Panic, Entropy Clash, and Cipher Relic.
+                        </p>
+                    </div>
+                    <div class="feature-footer-tag">
+                        <a href="games.html" style="color: inherit; text-decoration: none; font-weight: 700;">🎮 Launch
+                            8 Arcade Games &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Slide 13 Linux Mind Map -->
+                <div class="feature-card" style="--card-accent: #00f0ff;">
+                    <div>
+                        <div class="feature-icon-box">🐧</div>
+                        <h3 class="feature-title">Linux Mind Map</h3>
+                        <p class="feature-text">
+                            A full interactive visual mind map of Linux terminal mastery across 6 core operational
+                            branches (Basic Ops, System Mgmt, Networking, Security, Storage, Admin) with edge-to-edge
+                            fullscreen inspection mode and Tux HUD.
+                        </p>
+                    </div>
+                    <div class="feature-footer-tag">
+                        <a href="imp_info/linux.html"
+                            style="color: inherit; text-decoration: none; font-weight: 700;">🐧 Explore Linux Mind Map
+                            &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Feature 4: 10 Physical Hardware Labs -->
+                <div class="feature-card" style="--card-accent: #f59e0b;">
+                    <div>
+                        <div class="feature-icon-box">📡</div>
+                        <h3 class="feature-title">3D Hardware Hacking Labs</h3>
+                        <p class="feature-text">
+                            Inspect 10 physical hardware hacking devices—Hak5 WiFi Pineapple, Flipper Zero, USB Rubber
+                            Ducky, Bash Bunny, O.MG Cable, Proxmark3 RDV4, and more—with photorealistic 3D rotatable
+                            models and payload specs.
+                        </p>
+                    </div>
+                    <div class="feature-footer-tag">
+                        <a href="imp_info/hacker_engines_devices.html"
+                            style="color: inherit; text-decoration: none; font-weight: 700;">🔍 Inspect 10 Hardware
+                            Models &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Feature 5: Single-Chapter Master Guide -->
+                <div class="feature-card" style="--card-accent: #8b5cf6;">
+                    <div>
+                        <div class="feature-icon-box">📖</div>
+                        <h3 class="feature-title">Single-Chapter Master Guide</h3>
+                        <p class="feature-text">
+                            Encyclopedic "Zero-to-Cyber" knowledge base delivered with single-chapter-at-a-time
+                            accordion navigation, responsive pagination, reading progress indicator, and a live MCQ test
+                            engine.
+                        </p>
+                    </div>
+                    <div class="feature-footer-tag">
+                        <a href="masterguide/cybersecurity_masterguide.html"
+                            style="color: inherit; text-decoration: none; font-weight: 700;">📖 Master Guide Hub
+                            &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Feature 6: AI Doubt Mentor -->
                 <div class="feature-card" style="--card-accent: var(--cyber-cyan);">
                     <div>
                         <div class="feature-icon-box">🤖</div>
                         <h3 class="feature-title">AI Doubt Mentor</h3>
                         <p class="feature-text">
-                            Instant contextual AI guidance in Hinglish and English. Get step-by-step breakdowns of complex exploits, command flags, and remediation strategies directly within your workspace.
+                            Instant contextual AI guidance in Hinglish and English. Get step-by-step breakdowns of
+                            complex exploits, command flags, and remediation strategies directly within your workspace.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
@@ -318,13 +413,14 @@
                     </div>
                 </div>
 
-                <!-- Feature 3: Field Cheatsheets -->
+                <!-- Feature 7: Field Cheatsheets -->
                 <div class="feature-card" style="--card-accent: var(--bauhaus-yellow);">
                     <div>
                         <div class="feature-icon-box">📜</div>
                         <h3 class="feature-title">Field Cheatsheets</h3>
                         <p class="feature-text">
-                            Instant-access tactical cheat sheets for rapid reference. Quick-copy syntax, filter flags, and payloads for live penetration testing and CTF competitions.
+                            Instant-access tactical cheat sheets for rapid reference. Quick-copy syntax, filter flags,
+                            and payloads for live penetration testing and CTF competitions.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
@@ -332,13 +428,14 @@
                     </div>
                 </div>
 
-                <!-- Feature 4: Gamified Clearance -->
+                <!-- Feature 8: Gamified Clearance -->
                 <div class="feature-card" style="--card-accent: var(--cyber-green);">
                     <div>
                         <div class="feature-icon-box">🎖️</div>
                         <h3 class="feature-title">Gamified Clearance</h3>
                         <p class="feature-text">
-                            Level up from Apprentice to Shadow Operator. Track your progression across all security domains, unlock clearance badges, and maintain your personal agent dossier locally.
+                            Level up from Apprentice to Shadow Operator. Track your progression across all security
+                            domains, unlock clearance badges, and maintain your personal agent dossier locally.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
@@ -346,43 +443,50 @@
                     </div>
                 </div>
 
-                <!-- Feature 5: 9-Month Career Roadmap -->
+                <!-- Feature 9: 9-Month Career Roadmap -->
                 <div class="feature-card" style="--card-accent: #2a9d8f;">
                     <div>
                         <div class="feature-icon-box">🗺️</div>
                         <h3 class="feature-title">9-Month Career Roadmap</h3>
                         <p class="feature-text">
-                            A battle-tested 4-phase trajectory from fundamental networking to CEH certification and Bug Bounty hunting. Live interactive checklist tracking with celebratory audio feedback.
+                            A battle-tested 4-phase trajectory from fundamental networking to CEH certification and Bug
+                            Bounty hunting. Live interactive checklist tracking with celebratory audio feedback.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
-                        <span>🎯 4 Structured Phases</span>
+                        <a href="masterguide/roadmap.html"
+                            style="color: inherit; text-decoration: none; font-weight: 700;">🎯 4 Structured Phases
+                            &rarr;</a>
                     </div>
                 </div>
 
-                <!-- Feature 6: Field Intelligence & Blueprint -->
+                <!-- Feature 10: Field Intelligence & Blueprint -->
                 <div class="feature-card" style="--card-accent: #e76f51;">
                     <div>
                         <div class="feature-icon-box">💡</div>
                         <h3 class="feature-title">Field Intelligence & Blueprint</h3>
                         <p class="feature-text">
-                            Comprehensive compendium covering the 7 branches of cybersecurity, 5 core skills, 20 CEH exam domains with weightages, virtualized attack lab setup, and AI security multipliers.
+                            Comprehensive compendium covering the 7 branches of cybersecurity, 5 core skills, 20 CEH
+                            exam domains with weightages, virtualized attack lab setup, and AI security multipliers.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
-                        <span>📜 20-Domain Curriculum</span>
+                        <a href="imp_info/imp_info.html"
+                            style="color: inherit; text-decoration: none; font-weight: 700;">📜 20-Domain Curriculum
+                            &rarr;</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        
+
         <!-- Agent Dossier & Classified ID Badge Generator -->
         <section class="section-wrapper" id="agent-generator">
             <div class="section-header">
                 <span class="section-tag">// 03 OPERATIVE ONBOARDING // DOSSIER WORKSHOP</span>
                 <h2 class="section-title">COMMISSION YOUR AGENT CREDENTIALS</h2>
-                <p class="section-desc">Customize your operative identity badge, stamped and authorized by Lead Architect Pranav Pushya, and sync it to your PwnBox Dashboard.</p>
+                <p class="section-desc">Customize your operative identity badge, stamped and authorized by Lead
+                    Architect Pranav Pushya, and sync it to your PwnBox Dashboard.</p>
             </div>
 
             <div class="agent-generator-section">
@@ -391,7 +495,8 @@
                     <div class="gen-controls-col">
                         <div class="gen-input-group">
                             <label for="genAgentAlias">AGENT CODENAME / CALLSIGN:</label>
-                            <input type="text" id="genAgentAlias" class="gen-text-input" placeholder="e.g. CYBER_GHOST" maxlength="16" value="CADET_OPERATOR">
+                            <input type="text" id="genAgentAlias" class="gen-text-input" placeholder="e.g. CYBER_GHOST"
+                                maxlength="16" value="CADET_OPERATOR">
                         </div>
 
                         <div class="gen-input-group">
@@ -434,15 +539,29 @@
         <section class="dashboard-cta-banner">
             <div class="dashboard-cta-content">
                 <h2>READY TO COMMENCE MISSION?</h2>
-                <p>Launch the interactive PwnBox Dashboard, explore the 9-Month Career Roadmap, or inspect our deep Field Intelligence Compendium.</p>
+                <p>Launch the interactive PwnBox Dashboard, test your skills in the 8 Tactical Cyber Games, explore the
+                    10-Chapter Master Guide, or inspect the 9-Month Career Roadmap.</p>
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 14px;">
                 <a href="dashboard.html" class="btn-cta-white">
                     <span>⚡ Launch Dashboard</span>
                     <span>→</span>
                 </a>
+                <a href="games.html" class="btn-cta-white" style="background: #ec4899; color: #ffffff;">
+                    <span>🎮 Cyber Games Arcade</span>
+                    <span>→</span>
+                </a>
+                <a href="masterguide/cybersecurity_masterguide.html" class="btn-cta-white"
+                    style="background: #8b5cf6; color: #ffffff;">
+                    <span>📖 10-Ch Master Guide</span>
+                    <span>→</span>
+                </a>
                 <a href="masterguide/roadmap.html" class="btn-cta-white" style="background: #2a9d8f; color: #ffffff;">
                     <span>🗺️ Career Roadmap</span>
+                    <span>→</span>
+                </a>
+                <a href="imp_info/linux.html" class="btn-cta-white" style="background: #0284c7; color: #ffffff;">
+                    <span>🐧 Linux Mind Map</span>
                     <span>→</span>
                 </a>
                 <a href="imp_info/imp_info.html" class="btn-cta-white" style="background: #e76f51; color: #ffffff;">
@@ -462,7 +581,10 @@
                     <span>TACTICAL LEGAL & ETHICAL NOTICE</span>
                 </div>
                 <p class="disclaimer-text">
-                    For educational and defensive authorization purposes only. PwnBox simulates real-world attack surfaces to train the next generation of cybersecurity defenders. Unauthorized access, scanning, or exploitation of computer systems without explicit written consent is illegal under international cyber law. Always operate within authorized boundaries.
+                    For educational and defensive authorization purposes only. PwnBox simulates real-world attack
+                    surfaces to train the next generation of cybersecurity defenders. Unauthorized access, scanning, or
+                    exploitation of computer systems without explicit written consent is illegal under international
+                    cyber law. Always operate within authorized boundaries.
                 </p>
             </div>
 
@@ -478,7 +600,10 @@
             <div class="footer-bottom">
                 <div>
                     <span>PWNBOX CYBER COMMAND // </span>
-                    <span class="footer-version-tag" id="footerVersionTrigger" style="cursor: pointer; user-select: none;" title="System Integrity Verification (Triple-click for Cipher Lock)">SYSTEM BUILD v3.4.0 // AGENT MATRIX</span>
+                    <span class="footer-version-tag" id="footerVersionTrigger"
+                        style="cursor: pointer; user-select: none;"
+                        title="System Integrity Verification (Triple-click for Cipher Lock)">SYSTEM BUILD v3.4.0 //
+                        AGENT MATRIX</span>
                 </div>
                 <div>
                     <span>Engineered for Security Analysts, Ethical Hackers & Defense Cadets.</span>
@@ -510,34 +635,43 @@
     <!-- Firebase Authentication Modal -->
     <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none;">
         <div class="reset-modal-box" style="max-width: 440px; text-align: left; padding: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
-                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE AUTHENTICATION</h3>
-                <button onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
+                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE
+                    AUTHENTICATION</h3>
+                <button onclick="closeAuthModal()"
+                    style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
             </div>
 
             <!-- Localhost Dev Helper Banner -->
-            <div id="localDevBanner" style="display: none; margin-bottom: 16px; padding: 12px; background: rgba(147, 51, 234, 0.12); border: 2px dashed #9333ea; font-family: 'Space Mono', monospace;">
+            <div id="localDevBanner"
+                style="display: none; margin-bottom: 16px; padding: 12px; background: rgba(147, 51, 234, 0.12); border: 2px dashed #9333ea; font-family: 'Space Mono', monospace;">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 0.75rem; font-weight: 800; color: #a855f7;">🛠️ LOCALHOST DEV ENVIRONMENT DETECTED</span>
+                    <span style="font-size: 0.75rem; font-weight: 800; color: #a855f7;">🛠️ LOCALHOST DEV ENVIRONMENT
+                        DETECTED</span>
                 </div>
                 <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
                     Testing locally? Bypass Google OAuth popup restrictions for instant operative clearance:
                 </div>
-                <button onclick="bypassLocalAuth()" style="width: 100%; padding: 8px; background: #9333ea; color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; cursor: pointer;">
+                <button onclick="bypassLocalAuth()"
+                    style="width: 100%; padding: 8px; background: #9333ea; color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; cursor: pointer;">
                     ⚡ 1-CLICK LOCAL DEV BYPASS (INSTANT ACCESS)
                 </button>
-                <button id="authSwitchToLocalhostBtn" style="display: none; width: 100%; margin-top: 8px; padding: 8px; background: #f59e0b; color: #000; border: 2px solid #000; box-shadow: 2px 2px 0 #000; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
+                <button id="authSwitchToLocalhostBtn"
+                    style="display: none; width: 100%; margin-top: 8px; padding: 8px; background: #f59e0b; color: #000; border: 2px solid #000; box-shadow: 2px 2px 0 #000; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
                     🔄 Switch from 127.0.0.1 to localhost
                 </button>
             </div>
-            
+
             <!-- Google 1-Click Button -->
-            <button onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
+            <button onclick="loginWithGoogle()"
+                style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
                 <span style="font-size: 1.1rem;">🔴</span>
                 <span>SIGN IN WITH GOOGLE</span>
             </button>
 
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+            <div
+                style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
                 <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
                 <span>// OR EMAIL CREDENTIALS //</span>
                 <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
@@ -546,27 +680,39 @@
             <!-- Email & Password Form -->
             <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
                 <div>
-                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
-                    <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="agent@pwnbox.internal" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                    <label
+                        style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE
+                        EMAIL</label>
+                    <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="agent@pwnbox.internal"
+                        style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
                 </div>
                 <div>
-                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE</label>
-                    <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                    <label
+                        style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY
+                        PASSPHRASE</label>
+                    <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••"
+                        style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
-                <button onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" style="padding: 10px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                <button
+                    onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)"
+                    style="padding: 10px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
                     ⚡ SIGN IN
                 </button>
-                <button onclick="registerWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value, 'CADET_' + Math.floor(Math.random()*9000+1000))" style="padding: 10px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                <button
+                    onclick="registerWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value, 'CADET_' + Math.floor(Math.random()*9000+1000))"
+                    style="padding: 10px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
                     📝 REGISTER
                 </button>
             </div>
 
             <!-- Status Console Output -->
-            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
+            <div id="authStatusMessage"
+                style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;">
+            </div>
         </div>
     </div>
 
@@ -580,18 +726,24 @@
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span style="color: #f59e0b; font-size: 1.2rem;">🔢</span>
                     <div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #f59e0b;">PWNBOX AIR-GAPPED CIPHER VAULT</div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">SECURE ISOLATION // HARDWARE AUTH REQUIRED</div>
+                        <div
+                            style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #f59e0b;">
+                            PWNBOX AIR-GAPPED CIPHER VAULT</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">SECURE
+                            ISOLATION // HARDWARE AUTH REQUIRED</div>
                     </div>
                 </div>
                 <button class="secret-vault-close" onclick="closeAirgapModal()">&times;</button>
             </div>
 
             <!-- PIN PAD SCREEN -->
-            <div id="pinpadView" style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 0;">
-                <div style="font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #94a3b8; text-align: center;">
-                    ENTER 4-DIGIT SECURITY OVERRIDE PIN<br/>
-                    <span style="font-size: 0.68rem; color: #64748b;">(Hint: 1337 for Payloads, 0000 for Tor Darknet)</span>
+            <div id="pinpadView"
+                style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 0;">
+                <div
+                    style="font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #94a3b8; text-align: center;">
+                    ENTER 4-DIGIT SECURITY OVERRIDE PIN<br />
+                    <span style="font-size: 0.68rem; color: #64748b;">(Hint: 1337 for Payloads, 0000 for Tor
+                        Darknet)</span>
                 </div>
                 <div class="pinpad-display" id="pinDisplay">[ _ _ _ _ ]</div>
                 <div class="pinpad-grid">
@@ -608,14 +760,18 @@
                     <button class="btn-pin" onclick="enterPinDigit('0')">0</button>
                     <button class="btn-pin submit" onclick="submitPin()">ENTER</button>
                 </div>
-                <div id="pinFeedback" style="font-family: 'Space Mono', monospace; font-size: 0.72rem; min-height: 20px; color: #f59e0b;"></div>
+                <div id="pinFeedback"
+                    style="font-family: 'Space Mono', monospace; font-size: 0.72rem; min-height: 20px; color: #f59e0b;">
+                </div>
             </div>
 
             <!-- UNLOCKED VAULT CONTENT -->
             <div id="pinpadVaultView" style="display: none; flex-direction: column; gap: 14px;">
                 <div class="vault-tabs">
-                    <button class="vault-tab-btn active" id="tabBtnPayloads" onclick="switchVaultTab('payloads')">⚡ RED TEAM PAYLOADS</button>
-                    <button class="vault-tab-btn" id="tabBtnDarknet" onclick="switchVaultTab('darknet')">🧅 TOR DARKNET TERMINAL</button>
+                    <button class="vault-tab-btn active" id="tabBtnPayloads" onclick="switchVaultTab('payloads')">⚡ RED
+                        TEAM PAYLOADS</button>
+                    <button class="vault-tab-btn" id="tabBtnDarknet" onclick="switchVaultTab('darknet')">🧅 TOR DARKNET
+                        TERMINAL</button>
                 </div>
 
                 <!-- SUB-TAB 1: RED TEAM INSTANT PAYLOAD GENERATOR & EXPLOIT FACTORY -->
@@ -623,16 +779,24 @@
                     <div class="payload-config-bar" style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%;">
                             <div style="flex: 1; min-width: 160px;">
-                                <label style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">LHOST (ATTACKER IP / DOMAIN)</label>
-                                <input type="text" id="payloadLhost" value="10.10.14.5" oninput="updateLivePayloads()" class="payload-input" placeholder="e.g. 10.10.14.5">
+                                <label
+                                    style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">LHOST
+                                    (ATTACKER IP / DOMAIN)</label>
+                                <input type="text" id="payloadLhost" value="10.10.14.5" oninput="updateLivePayloads()"
+                                    class="payload-input" placeholder="e.g. 10.10.14.5">
                             </div>
                             <div style="width: 110px;">
-                                <label style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">LPORT</label>
-                                <input type="text" id="payloadLport" value="4444" oninput="updateLivePayloads()" class="payload-input" placeholder="4444">
+                                <label
+                                    style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">LPORT</label>
+                                <input type="text" id="payloadLport" value="4444" oninput="updateLivePayloads()"
+                                    class="payload-input" placeholder="4444">
                             </div>
                             <div style="width: 180px;">
-                                <label style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">ENCODING / WRAPPER</label>
-                                <select id="payloadEncoding" onchange="updateLivePayloads()" class="payload-input" style="cursor: pointer;">
+                                <label
+                                    style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; font-weight: 700;">ENCODING
+                                    / WRAPPER</label>
+                                <select id="payloadEncoding" onchange="updateLivePayloads()" class="payload-input"
+                                    style="cursor: pointer;">
                                     <option value="raw">RAW (PLAINTEXT)</option>
                                     <option value="b64">BASE64 ENCODED</option>
                                     <option value="url">URL ENCODED</option>
@@ -644,25 +808,35 @@
 
                     <!-- Category filter buttons -->
                     <div class="payload-filter-bar" id="payloadFilterGroup">
-                        <button class="payload-filter-btn active" data-cat="all" onclick="filterPayloadCategory('all', this)">ALL PAYLOADS</button>
-                        <button class="payload-filter-btn" data-cat="linux" onclick="filterPayloadCategory('linux', this)">🐧 LINUX / BASH</button>
-                        <button class="payload-filter-btn" data-cat="windows" onclick="filterPayloadCategory('windows', this)">🪟 WINDOWS / PS</button>
-                        <button class="payload-filter-btn" data-cat="stager" onclick="filterPayloadCategory('stager', this)">🛡️ AMSI & STAGERS</button>
-                        <button class="payload-filter-btn" data-cat="web" onclick="filterPayloadCategory('web', this)">🌐 WEB SHELLS</button>
-                        <button class="payload-filter-btn" data-cat="msf" onclick="filterPayloadCategory('msf', this)">💣 MSFVENOM BUILDER</button>
-                        <button class="payload-filter-btn" data-cat="listener" onclick="filterPayloadCategory('listener', this)">🎧 CATCH LISTENERS</button>
+                        <button class="payload-filter-btn active" data-cat="all"
+                            onclick="filterPayloadCategory('all', this)">ALL PAYLOADS</button>
+                        <button class="payload-filter-btn" data-cat="linux"
+                            onclick="filterPayloadCategory('linux', this)">🐧 LINUX / BASH</button>
+                        <button class="payload-filter-btn" data-cat="windows"
+                            onclick="filterPayloadCategory('windows', this)">🪟 WINDOWS / PS</button>
+                        <button class="payload-filter-btn" data-cat="stager"
+                            onclick="filterPayloadCategory('stager', this)">🛡️ AMSI & STAGERS</button>
+                        <button class="payload-filter-btn" data-cat="web"
+                            onclick="filterPayloadCategory('web', this)">🌐 WEB SHELLS</button>
+                        <button class="payload-filter-btn" data-cat="msf"
+                            onclick="filterPayloadCategory('msf', this)">💣 MSFVENOM BUILDER</button>
+                        <button class="payload-filter-btn" data-cat="listener"
+                            onclick="filterPayloadCategory('listener', this)">🎧 CATCH LISTENERS</button>
                     </div>
 
                     <!-- Tools bar (Search & Counter) -->
                     <div class="payload-tools-bar">
                         <div class="payload-search-box">
                             <span class="payload-search-icon">🔍</span>
-                            <input type="text" id="payloadSearchInput" class="payload-search-input" placeholder="Filter payloads by keyword (e.g. bash, certutil, socat, amsi, msfvenom)..." oninput="updateLivePayloads()">
+                            <input type="text" id="payloadSearchInput" class="payload-search-input"
+                                placeholder="Filter payloads by keyword (e.g. bash, certutil, socat, amsi, msfvenom)..."
+                                oninput="updateLivePayloads()">
                         </div>
                         <div class="payload-counter-pill" id="payloadCounterPill">Showing: 20 Payloads</div>
                     </div>
 
-                    <div class="payloads-scroll-list" id="payloadsList" style="max-height: 440px; display: flex; flex-direction: column; gap: 8px;">
+                    <div class="payloads-scroll-list" id="payloadsList"
+                        style="max-height: 440px; display: flex; flex-direction: column; gap: 8px;">
                         <!-- Populated dynamically by JS -->
                     </div>
                 </div>
@@ -688,14 +862,23 @@
 
                         <!-- Quick Command Shortcuts Bar -->
                         <div class="darknet-quick-actions-bar">
-                            <span style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #64748b; align-self: center; margin-right: 4px;">QUICK:</span>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('market')">🛒 0-DAY MARKET</button>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('neofetch')">🧅 NEOFETCH</button>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('irc')">💬 LIVE IRC CHAT</button>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('leaks')">🗂️ LEAKED DBs</button>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('crack 5d41402abc4b2a76b9719d911017c592')">🔓 CRACK HASH</button>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('circuits')">🌐 CIRCUITS</button>
-                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('decrypt')">⚡ DECRYPT FLAG</button>
+                            <span
+                                style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #64748b; align-self: center; margin-right: 4px;">QUICK:</span>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('market')">🛒 0-DAY
+                                MARKET</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('neofetch')">🧅
+                                NEOFETCH</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('irc')">💬 LIVE IRC
+                                CHAT</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('leaks')">🗂️ LEAKED
+                                DBs</button>
+                            <button class="darknet-quick-pill"
+                                onclick="runDarknetShortcut('crack 5d41402abc4b2a76b9719d911017c592')">🔓 CRACK
+                                HASH</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('circuits')">🌐
+                                CIRCUITS</button>
+                            <button class="darknet-quick-pill" onclick="runDarknetShortcut('decrypt')">⚡ DECRYPT
+                                FLAG</button>
                             <button class="darknet-quick-pill" onclick="runDarknetShortcut('help')">❓ HELP</button>
                         </div>
 
@@ -706,9 +889,14 @@
 
                         <!-- Terminal Input Bar -->
                         <div class="darknet-cli-input-bar">
-                            <span style="color: #00ff66; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">onion@pwnbox:~#</span>
-                            <input type="text" id="darknetInput" class="darknet-cli-input" placeholder="Type a command (try 'market', 'neofetch', 'irc', 'crack', 'help')..." onkeypress="handleDarknetKey(event)" autocomplete="off">
-                            <button onclick="executeDarknetCmd(document.getElementById('darknetInput').value); document.getElementById('darknetInput').value='';" style="background: #00ff66; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
+                            <span
+                                style="color: #00ff66; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">onion@pwnbox:~#</span>
+                            <input type="text" id="darknetInput" class="darknet-cli-input"
+                                placeholder="Type a command (try 'market', 'neofetch', 'irc', 'crack', 'help')..."
+                                onkeypress="handleDarknetKey(event)" autocomplete="off">
+                            <button
+                                onclick="executeDarknetCmd(document.getElementById('darknetInput').value); document.getElementById('darknetInput').value='';"
+                                style="background: #00ff66; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
                         </div>
                     </div>
                 </div>
@@ -726,22 +914,29 @@
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span style="color: #ffe600; font-size: 1.2rem;">⚡</span>
                     <div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #ffe600;">OVERCLOCK CIPHER DETECTED // ARCHITECT GODMODE</div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">ROOT CLEARANCE VERIFIED // PRANAV PUSHYA ARCHITECTURE</div>
+                        <div
+                            style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #ffe600;">
+                            OVERCLOCK CIPHER DETECTED // ARCHITECT GODMODE</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">ROOT
+                            CLEARANCE VERIFIED // PRANAV PUSHYA ARCHITECTURE</div>
                     </div>
                 </div>
                 <button class="secret-vault-close" onclick="closeGodModeModal()">&times;</button>
             </div>
 
             <div class="vault-tabs">
-                <button class="vault-tab-btn active" id="tabBtnGodmode" onclick="switchGodModeTab('godmode')">👑 GODMODE & VIP THEMES</button>
-                <button class="vault-tab-btn" id="tabBtnArcade" onclick="switchGodModeTab('arcade')">🎮 RETRO "WARGAMES" ARCADE</button>
+                <button class="vault-tab-btn active" id="tabBtnGodmode" onclick="switchGodModeTab('godmode')">👑 GODMODE
+                    & VIP THEMES</button>
+                <button class="vault-tab-btn" id="tabBtnArcade" onclick="switchGodModeTab('arcade')">🎮 RETRO "WARGAMES"
+                    ARCADE</button>
             </div>
 
             <!-- SUB-TAB 1: GODMODE THEMES & AUDIO -->
             <div id="godmodeTab" class="vault-tab-content" style="display: flex; flex-direction: column; gap: 16px;">
                 <div>
-                    <h4 style="font-family: 'Space Mono', monospace; font-size: 0.82rem; color: #f1f5f9; margin-bottom: 8px;">UNLISTED SECRET VIP THEMES:</h4>
+                    <h4
+                        style="font-family: 'Space Mono', monospace; font-size: 0.82rem; color: #f1f5f9; margin-bottom: 8px;">
+                        UNLISTED SECRET VIP THEMES:</h4>
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                         <button class="btn-secret-theme" onclick="applySecretTheme('matrix')">
                             <span style="font-size: 1.2rem;">🟢</span>
@@ -763,17 +958,27 @@
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                     <!-- Rainbow Badge Trigger -->
-                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">🌈 RAINBOW HOLOGRAPHIC ID STAMP</div>
-                        <p style="font-size: 0.72rem; color: #94a3b8;">Stamps an animated prismatic holographic ROOT ARCHITECT credential badge on your Dossier ID card.</p>
-                        <button class="btn-action-cyan" onclick="toggleRainbowGodmodeBadge()" id="btnRainbowBadgeToggle">ACTIVATE HOLOGRAPHIC BADGE</button>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+                        <div
+                            style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">
+                            🌈 RAINBOW HOLOGRAPHIC ID STAMP</div>
+                        <p style="font-size: 0.72rem; color: #94a3b8;">Stamps an animated prismatic holographic ROOT
+                            ARCHITECT credential badge on your Dossier ID card.</p>
+                        <button class="btn-action-cyan" onclick="toggleRainbowGodmodeBadge()"
+                            id="btnRainbowBadgeToggle">ACTIVATE HOLOGRAPHIC BADGE</button>
                     </div>
 
                     <!-- Ambient Cyber Audio -->
-                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">🎵 CYBER SYNTH AMBIENT DECK</div>
-                        <p style="font-size: 0.72rem; color: #94a3b8;">Procedural generative retro cyberpunk drone synthesizer using the Web Audio API.</p>
-                        <button class="btn-action-cyan" onclick="toggleAmbientAudio()" id="btnAmbientAudioToggle">▶ PLAY SYNTH DRONE</button>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+                        <div
+                            style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">
+                            🎵 CYBER SYNTH AMBIENT DECK</div>
+                        <p style="font-size: 0.72rem; color: #94a3b8;">Procedural generative retro cyberpunk drone
+                            synthesizer using the Web Audio API.</p>
+                        <button class="btn-action-cyan" onclick="toggleAmbientAudio()" id="btnAmbientAudioToggle">▶ PLAY
+                            SYNTH DRONE</button>
                     </div>
                 </div>
             </div>
@@ -787,20 +992,24 @@
                     </div>
                     <div class="wargames-body" id="wargamesOutput">
                         <div style="color: #f59e0b; font-family: monospace; line-height: 1.2;">
-   ______  __ __  ____   ___ ___   ____  ____  
-  |      ||  |  ||    \ |   |   | /    ||    \ 
-  |      ||  |  ||  o  )| _   _ ||  o  ||  D  )
-  |_|  |_||  _  ||     ||  \_/  ||     ||    / 
-    |  |  |  |  ||  O  ||   |   ||  _  ||    \ 
-    |  |  |  |  ||     ||   |   ||  |  ||  .  \
-    |__|  |__|__||_____||___|___||__|__||__|\_|
+                            ______ __ __ ____ ___ ___ ____ ____
+                            | || | || \ | | | / || \
+                            | || | || o )| _ _ || o || D )
+                            |_| |_|| _ || || \_/ || || /
+                            | | | | || O || | || _ || \
+                            | | | | || || | || | || . \
+                            |__| |__|__||_____||___|___||__|__||__|\_|
                         </div>
-                        <div style="color: #f59e0b; margin-top: 8px;">[W.O.P.R.] GREETINGS PROFESSOR FALKEN. SHALL WE PLAY A GAME?</div>
-                        <div style="color: #94a3b8; font-size: 0.75rem;">Type 'help' to view available tactical commands. (probe, bypass, inject).</div>
+                        <div style="color: #f59e0b; margin-top: 8px;">[W.O.P.R.] GREETINGS PROFESSOR FALKEN. SHALL WE
+                            PLAY A GAME?</div>
+                        <div style="color: #94a3b8; font-size: 0.75rem;">Type 'help' to view available tactical
+                            commands. (probe, bypass, inject).</div>
                     </div>
                     <div class="darknet-cli-input-bar" style="border-top-color: #f59e0b;">
-                        <span style="color: #f59e0b; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">falken@wopr:~#</span>
-                        <input type="text" id="wargamesInput" class="darknet-cli-input" style="color: #f59e0b;" placeholder="enter tactical command..." onkeypress="handleWargamesKey(event)">
+                        <span
+                            style="color: #f59e0b; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">falken@wopr:~#</span>
+                        <input type="text" id="wargamesInput" class="darknet-cli-input" style="color: #f59e0b;"
+                            placeholder="enter tactical command..." onkeypress="handleWargamesKey(event)">
                     </div>
                 </div>
             </div>
@@ -817,8 +1026,11 @@
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span style="color: #d9291c; font-size: 1.2rem;">🗄️</span>
                     <div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #d9291c;">TOP SECRET // CLASSIFIED CYBER DECLASSIFIED ARCHIVE</div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">SPECIAL ACCESS PROGRAM (SAP) // EYES ONLY INTEL</div>
+                        <div
+                            style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #d9291c;">
+                            TOP SECRET // CLASSIFIED CYBER DECLASSIFIED ARCHIVE</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">SPECIAL
+                            ACCESS PROGRAM (SAP) // EYES ONLY INTEL</div>
                     </div>
                 </div>
                 <button class="secret-vault-close" onclick="closeDeclassifiedModal()">&times;</button>
@@ -826,10 +1038,14 @@
 
             <!-- Case Studies Selector Tabs -->
             <div class="vault-tabs">
-                <button class="vault-tab-btn active" id="caseBtn_stuxnet" onclick="switchDeclassifiedCase('stuxnet')">1. STUXNET (OLYMPIC GAMES)</button>
-                <button class="vault-tab-btn" id="caseBtn_eternalblue" onclick="switchDeclassifiedCase('eternalblue')">2. ETERNALBLUE & WANNACRY</button>
-                <button class="vault-tab-btn" id="caseBtn_solarwinds" onclick="switchDeclassifiedCase('solarwinds')">3. SOLARWINDS (SUNBURST)</button>
-                <button class="vault-tab-btn" id="caseBtn_equation" onclick="switchDeclassifiedCase('equation')">4. EQUATION GROUP</button>
+                <button class="vault-tab-btn active" id="caseBtn_stuxnet" onclick="switchDeclassifiedCase('stuxnet')">1.
+                    STUXNET (OLYMPIC GAMES)</button>
+                <button class="vault-tab-btn" id="caseBtn_eternalblue"
+                    onclick="switchDeclassifiedCase('eternalblue')">2. ETERNALBLUE & WANNACRY</button>
+                <button class="vault-tab-btn" id="caseBtn_solarwinds" onclick="switchDeclassifiedCase('solarwinds')">3.
+                    SOLARWINDS (SUNBURST)</button>
+                <button class="vault-tab-btn" id="caseBtn_equation" onclick="switchDeclassifiedCase('equation')">4.
+                    EQUATION GROUP</button>
             </div>
 
             <div class="declassified-body-container" id="declassifiedContent">

@@ -11,7 +11,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Theme Initialization -->
     <script>
@@ -36,9 +38,11 @@
         </a>
 
         <div class="nav-actions">
-            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
+            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️
+                General</a>
             <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
-            <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
+            <a href="hacker_engines_devices.html" class="nav-btn"
+                title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
             <a href="linux.html" class="nav-btn active" title="Linux Commands & Hardening">🐧 Linux</a>
         </div>
     </header>
@@ -49,13 +53,15 @@
         <!-- Hero Header -->
         <section class="linux-hero-header">
             <div class="linux-hero-title-group">
-                <span class="linux-hero-tag">// BYTEBYTEGO ARCHITECTURE // SLIDE 13</span>
+                <span class="linux-hero-tag">// BYTEBYTEGO ARCHITECTURE //</span>
                 <h1 class="linux-hero-title">
                     <span class="linux-hero-title-bar"></span>
                     MOST USED LINUX COMMANDS
                 </h1>
                 <p class="linux-hero-desc">
-                    Comprehensive interactive mind map and command hierarchy: 70 essential terminal commands classified across 12 operational subsystems. Click any command pill to copy to clipboard or test in the live terminal simulator. Click <strong>Fullscreen</strong> for edge-to-edge inspection.
+                    Comprehensive interactive mind map and command hierarchy: 70 essential terminal commands classified
+                    across 12 operational subsystems. Click any command pill to copy to clipboard or test in the live
+                    terminal simulator. Click <strong>Fullscreen</strong> for edge-to-edge inspection.
                 </p>
             </div>
 
@@ -78,7 +84,9 @@
                 <!-- Live Search Box -->
                 <div class="search-box-wrap">
                     <span class="search-input-icon">🔍</span>
-                    <input type="text" id="linuxSearchInput" class="linux-search-input" placeholder="Search commands, flags, descriptions (e.g. grep, port, tar, whoami)..." autocomplete="off" spellcheck="false">
+                    <input type="text" id="linuxSearchInput" class="linux-search-input"
+                        placeholder="Search commands, flags, descriptions (e.g. grep, port, tar, whoami)..."
+                        autocomplete="off" spellcheck="false">
                     <button class="search-clear-btn" id="searchClearBtn" title="Clear Search">✕</button>
                 </div>
 
@@ -86,8 +94,10 @@
                 <div class="toolbar-actions">
                     <button class="btn-cyber active" id="btnViewMindMap" title="Mind Map View">🗺️ Mind Map</button>
                     <button class="btn-cyber" id="btnViewGrid" title="Switch to Grid View">📊 Grid View</button>
-                    <button class="btn-cyber" id="btnToggleFullscreen" title="Open Edge-to-Edge Fullscreen Mode">⛶ Fullscreen</button>
-                    <button class="btn-cyber" id="btnExportCheatSheet" title="Copy Full Markdown Cheat Sheet">📋 Export All</button>
+                    <button class="btn-cyber" id="btnToggleFullscreen" title="Open Edge-to-Edge Fullscreen Mode">⛶
+                        Fullscreen</button>
+                    <button class="btn-cyber" id="btnExportCheatSheet" title="Copy Full Markdown Cheat Sheet">📋 Export
+                        All</button>
                 </div>
             </div>
 
@@ -102,7 +112,8 @@
              ========================================================================== -->
         <div class="mindmap-viewport-wrapper" id="mindmapWrap">
             <!-- Red Cross Close Button: Active when in Fullscreen Mode -->
-            <button class="mindmap-fullscreen-close" id="mindmapFullscreenClose" onclick="toggleFullscreenMindmap(false)" title="Exit Fullscreen (ESC)">✕</button>
+            <button class="mindmap-fullscreen-close" id="mindmapFullscreenClose"
+                onclick="toggleFullscreenMindmap(false)" title="Exit Fullscreen (ESC)">✕</button>
 
             <!-- Background Matrix Grid -->
             <div class="mindmap-canvas-bg-grid"></div>
@@ -154,7 +165,8 @@
     <!-- ==========================================================================
          INTERACTIVE LIVE TERMINAL SANDBOX MODAL
          ========================================================================== -->
-    <div class="terminal-sandbox-modal" id="terminalModal" role="dialog" aria-modal="true" aria-label="Terminal Simulator">
+    <div class="terminal-sandbox-modal" id="terminalModal" role="dialog" aria-modal="true"
+        aria-label="Terminal Simulator">
         <div class="terminal-window">
             <div class="terminal-header">
                 <div class="terminal-dots">
@@ -175,9 +187,14 @@
 
             <div class="terminal-screen" id="terminalOutputScreen"></div>
 
-            <div style="background:#090d16; padding: 10px 20px; border-top: 1px solid #1a2538; display: flex; align-items: center; gap: 8px;">
-                <span style="color:#00ff66; font-family:'Space Mono', monospace; font-size:0.85rem; font-weight:bold;">analyst@pwnbox:~$</span>
-                <input type="text" id="terminalCliInput" style="flex:1; background:none; border:none; color:#f1f5f9; font-family:'Space Mono', monospace; font-size:0.88rem; outline:none;" placeholder="Type a command (ls, whoami, uname -a, clear) and press Enter..." autocomplete="off" spellcheck="false">
+            <div
+                style="background:#090d16; padding: 10px 20px; border-top: 1px solid #1a2538; display: flex; align-items: center; gap: 8px;">
+                <span
+                    style="color:#00ff66; font-family:'Space Mono', monospace; font-size:0.85rem; font-weight:bold;">analyst@pwnbox:~$</span>
+                <input type="text" id="terminalCliInput"
+                    style="flex:1; background:none; border:none; color:#f1f5f9; font-family:'Space Mono', monospace; font-size:0.88rem; outline:none;"
+                    placeholder="Type a command (ls, whoami, uname -a, clear) and press Enter..." autocomplete="off"
+                    spellcheck="false">
             </div>
 
             <div class="terminal-footer-actions">
