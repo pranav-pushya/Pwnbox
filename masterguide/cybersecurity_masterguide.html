@@ -4,7 +4,7 @@
     <script src="../js/auth_guard.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CyberSec Master Guide — Sawt's Zero to Hero</title>
+<title>CyberSec Master Guide — PwnBox Cyber Command</title>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
 
     <link rel="stylesheet" href="../css/cybersecurity_masterguide.css">
@@ -14,9 +14,43 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
+    <script src="../js/theme.js"></script>
     <script src="../js/ui_popups.js"></script>
 </head>
 <body>
+
+<!-- ══ TOP STICKY NAVIGATION BAR ══ -->
+<header class="masterguide-nav">
+  <a href="../index.html" class="nav-brand" title="PwnBox Cyber Command Academy">
+    <div class="brand-badge">🛡️</div>
+    <div class="brand-text">
+      <span class="brand-title">PWNBOX // MASTER GUIDE</span>
+      <span class="brand-sub">// ZERO TO CYBER &bull; 100 TERMS &bull; 10 CHAPTERS</span>
+    </div>
+  </a>
+
+  <div class="nav-actions">
+    <button onclick="toggleTheme()" class="nav-btn btn-theme" title="Toggle Theme (T)">
+      <span class="btn-icon">🌓</span>
+      <span>THEME</span>
+    </button>
+    <a href="roadmap.html" class="nav-btn btn-roadmap" title="Career Roadmap (R)">
+      <span class="btn-icon">🗺️</span>
+      <span>ROADMAP</span>
+    </a>
+    <a href="masterguide_test.html" class="nav-btn btn-quiz" title="Master Quiz Examination">
+      <span class="btn-icon">📝</span>
+      <span>MASTER QUIZ</span>
+    </a>
+    <a href="../dashboard.html" class="nav-btn btn-main" title="Return to Dashboard (D)">
+      <span class="btn-icon">⬅️</span>
+      <div class="btn-back-label">
+        <span class="btn-back-sub">BACK</span>
+        <span>MAIN</span>
+      </div>
+    </a>
+  </div>
+</header>
 
 <!-- ══ HERO ══ -->
 <div class="hero">
@@ -37,15 +71,9 @@
 <!-- ── SIDEBAR ── -->
 <nav class="sidebar">
   <div class="search-bar">
-            <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
-      <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🗺️ Roadmap</button>
-      <button onclick="window.location.href='masterguide_test.html'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
-      <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🔙 Main</button>
-    </div>
-    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+    <input class="search-input" placeholder="🔍 search 100 terms & chapters..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
-  <div class="sidebar-title">// Chapters</div>
+  <div class="sidebar-title">// Chapters Directory</div>
 
   <div class="nav-section" id="nav-content">
     <div class="nav-chapter-group expanded" data-ch="ch1">
@@ -1829,7 +1857,6 @@ $ sudo cat /etc/shadow
 
 
     <script src="../js/cybersecurity_masterguide.js"></script>
-    <script src="../js/theme.js"></script>
   <script src="../js/config.js?v=3.5"></script>
   <script src="../js/masterguide_chat.js"></script>
     </body>

@@ -42,6 +42,148 @@
     overflow-x: hidden;
   }
 
+  /* ── TOP STICKY NAVIGATION BAR ── */
+  .masterguide-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--bg-panel);
+    border-bottom: var(--border-width) solid var(--border-dim);
+    padding: 12px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .masterguide-nav .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: transform 0.15s ease;
+  }
+
+  .masterguide-nav .nav-brand:hover {
+    transform: translateY(-1px);
+  }
+
+  .masterguide-nav .brand-badge {
+    background: var(--bauhaus-red, #D9291C);
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.25rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-dim);
+    box-shadow: 2px 2px 0 var(--border-dim);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .masterguide-nav .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .masterguide-nav .brand-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .masterguide-nav .brand-sub {
+    font-size: 0.68rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  .masterguide-nav .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .masterguide-nav .nav-btn {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid var(--border-dim);
+    box-shadow: 3px 3px 0 var(--border-dim);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    user-select: none;
+  }
+
+  .masterguide-nav .nav-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-dim);
+  }
+
+  .masterguide-nav .nav-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--border-dim);
+  }
+
+  .masterguide-nav .btn-theme {
+    background: var(--bg-panel);
+    color: var(--text-primary);
+  }
+
+  .masterguide-nav .btn-roadmap {
+    background: #2a9d8f;
+    color: #ffffff;
+  }
+
+  .masterguide-nav .btn-quiz {
+    background: #005A9C;
+    color: #ffffff;
+  }
+
+  .masterguide-nav .btn-main {
+    background: #D9291C;
+    color: #ffffff;
+  }
+
+  .masterguide-nav .btn-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .masterguide-nav .btn-back-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+  }
+
+  .masterguide-nav .btn-back-sub {
+    font-size: 0.55rem;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
   /* ── HERO ── */
   .hero {
     position: relative;
@@ -132,9 +274,8 @@
   }
   .sidebar {
     position: sticky;
-    top: 0;
-    height: 111.111111vh;
-    height: calc(100vh / 0.9);
+    top: 64px;
+    height: calc(100vh / 0.9 - 64px);
     overflow-y: auto;
     background: var(--bg-panel);
     border-right: var(--border-width) solid var(--border-dim);
@@ -763,17 +904,32 @@
       padding:10px 14px;
       scrollbar-width:thin;
     }
-    .search-bar{padding:0 0 10px 0;}
-    .search-bar > div{
-      display:flex;
-      overflow-x:auto;
-      gap:6px;
-      white-space:nowrap;
-      scrollbar-width:none;
-      padding-bottom:4px;
+    .masterguide-nav {
+      padding: 10px 14px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    .search-bar > div::-webkit-scrollbar{display:none;}
-    .search-input{padding:8px 12px;font-size:0.8rem;}
+    .masterguide-nav .brand-title {
+      font-size: 0.88rem;
+    }
+    .masterguide-nav .brand-sub {
+      display: none;
+    }
+    .masterguide-nav .nav-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .masterguide-nav .nav-btn {
+      font-size: 0.65rem;
+      padding: 6px 4px;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+    }
+    .search-bar { padding: 10px 14px; }
+    .search-input { padding: 8px 12px; font-size: 0.82rem; }
 
     .main{padding:14px 10px;}
     .chapter{margin-bottom:35px;}
