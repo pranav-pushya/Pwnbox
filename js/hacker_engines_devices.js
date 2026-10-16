@@ -451,22 +451,26 @@ function initOrUpdate3DScene(imgSrc, name) {
         viewer3D.textureLoader = new THREE.TextureLoader();
 
         // Atmospheric Studio Lighting for metallic cyber hardware
-        const ambLight = new THREE.AmbientLight(0xffffff, 0.95);
+        const ambLight = new THREE.AmbientLight(0xffffff, 1.15);
         viewer3D.scene.add(ambLight);
 
-        const dirLightKey = new THREE.DirectionalLight(0xffffff, 1.4);
-        dirLightKey.position.set(5, 7, 6);
+        const dirLightKey = new THREE.DirectionalLight(0xffffff, 1.2);
+        dirLightKey.position.set(4, 6, 8);
         viewer3D.scene.add(dirLightKey);
 
-        const dirLightFill = new THREE.DirectionalLight(0x00c8d7, 1.2);
-        dirLightFill.position.set(-6, -2, -4);
+        const dirLightFill = new THREE.DirectionalLight(0x00c8d7, 0.85);
+        dirLightFill.position.set(-6, -3, 6);
         viewer3D.scene.add(dirLightFill);
 
-        const dirLightRim = new THREE.DirectionalLight(0x005A9C, 1.0);
-        dirLightRim.position.set(0, 6, -6);
+        const dirLightBack = new THREE.DirectionalLight(0xffffff, 1.0);
+        dirLightBack.position.set(0, 5, -8);
+        viewer3D.scene.add(dirLightBack);
+
+        const dirLightRim = new THREE.DirectionalLight(0x005A9C, 0.75);
+        dirLightRim.position.set(0, -6, -6);
         viewer3D.scene.add(dirLightRim);
 
-        const pointLight = new THREE.PointLight(0x00ffcc, 1.1, 25);
+        const pointLight = new THREE.PointLight(0x00ffcc, 1.0, 25);
         pointLight.position.set(0, 0, 4.5);
         viewer3D.scene.add(pointLight);
 
@@ -548,547 +552,34 @@ function setupBackgroundMeshes() {
 }
 
 // ==========================================================================
-// BESPOKE PROCEDURAL 3D HARDWARE MODEL GENERATORS (NO FLAT PLATES)
+// EXACT 3D HARDWARE SILHOUETTE REPLICA GENERATORS (NO FLAT PLATES)
 // ==========================================================================
-function getHardwareMaterials() {
-    return {
-        metalChrome: new THREE.MeshStandardMaterial({
-            color: 0xd8dde4,
-            metalness: 0.95,
-            roughness: 0.18
-        }),
-        metalGold: new THREE.MeshStandardMaterial({
-            color: 0xd4af37,
-            metalness: 0.9,
-            roughness: 0.25
-        }),
-        plasticDark: new THREE.MeshStandardMaterial({
-            color: 0x141822,
-            roughness: 0.45,
-            metalness: 0.25
-        }),
-        plasticDarkMatte: new THREE.MeshStandardMaterial({
-            color: 0x0c0f16,
-            roughness: 0.75,
-            metalness: 0.15
-        }),
-        plasticWhite: new THREE.MeshStandardMaterial({
-            color: 0xf0f3f7,
-            roughness: 0.38,
-            metalness: 0.08
-        }),
-        plasticOrange: new THREE.MeshStandardMaterial({
-            color: 0xff6600,
-            roughness: 0.35,
-            metalness: 0.1,
-            emissive: 0x441800
-        })
-    };
-}
-
-// 1. WiFi Pineapple Tactical Router
-function buildPineapple3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.0, 0.7), mats.plasticDark);
-    group.add(body);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(3.56, 1.96), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.3, metalness: 0.2
-    }));
-    front.position.z = 0.355;
-    group.add(front);
-
-    const back = new THREE.Mesh(new THREE.PlaneGeometry(3.56, 1.96), mats.plasticDarkMatte);
-    back.rotation.y = Math.PI;
-    back.position.z = -0.355;
-    group.add(back);
-
-    // 4 Rear Rubber Feet
-    const footGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.06, 16);
-    const footMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.85 });
-    [[-1.4, -0.7], [1.4, -0.7], [-1.4, 0.7], [1.4, 0.7]].forEach(([fx, fy]) => {
-        const foot = new THREE.Mesh(footGeo, footMat);
-        foot.rotation.x = Math.PI / 2;
-        foot.position.set(fx, fy, -0.38);
-        group.add(foot);
-    });
-
-    // 3 Tactical Dipole Antennas
-    const antConfigs = [
-        { x: -1.15, angleZ: -0.16 },
-        { x: 0.0, angleZ: 0.0 },
-        { x: 1.15, angleZ: 0.16 }
-    ];
-    antConfigs.forEach(cfg => {
-        const antGroup = new THREE.Group();
-        antGroup.position.set(cfg.x, 1.0, 0);
-
-        const sma = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.22, 8), mats.metalGold);
-        sma.position.y = 0.11;
-        antGroup.add(sma);
-
-        const joint = new THREE.Mesh(new THREE.SphereGeometry(0.1, 12, 12), mats.plasticDark);
-        joint.position.y = 0.26;
-        antGroup.add(joint);
-
-        const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.05, 2.0, 16), mats.plasticDark);
-        mast.position.y = 1.25;
-        mast.rotation.z = cfg.angleZ;
-        antGroup.add(mast);
-
-        group.add(antGroup);
-    });
-
-    // Ethernet RJ45 socket on left flank
-    const rj45 = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.48, 0.48), mats.metalChrome);
-    rj45.position.set(-1.81, 0, 0);
-    group.add(rj45);
-
-    // USB Host Port on right flank
-    const usb = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.24, 0.48), mats.metalChrome);
-    usb.position.set(1.81, -0.2, 0);
-    group.add(usb);
-
-    // Status LEDs on front bottom
-    const ledColors = [0x00ff66, 0x00ffcc, 0x0088ff, 0xffaa00];
-    ledColors.forEach((color, i) => {
-        const led = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), new THREE.MeshBasicMaterial({ color }));
-        led.position.set(0.7 + i * 0.22, -0.7, 0.36);
-        group.add(led);
-    });
-}
-
-// 2. Kali NetHunter Pentest Smartphone
-function buildNetHunter3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(2.4, 4.8, 0.22), new THREE.MeshStandardMaterial({
-        color: 0x161a22, metalness: 0.88, roughness: 0.2
-    }));
-    group.add(body);
-
-    const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.34, 4.74), new THREE.MeshStandardMaterial({
-        map: tex, roughness: 0.15, metalness: 0.2
-    }));
-    screen.position.z = 0.115;
-    group.add(screen);
-
-    const glass = new THREE.Mesh(new THREE.PlaneGeometry(2.34, 4.74), new THREE.MeshPhysicalMaterial({
-        color: 0xffffff, transmission: 0.85, opacity: 0.15, transparent: true, roughness: 0.05, reflectivity: 0.9
-    }));
-    glass.position.z = 0.12;
-    group.add(glass);
-
-    const camHole = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.02, 16), new THREE.MeshBasicMaterial({ color: 0x000000 }));
-    camHole.rotation.x = Math.PI / 2;
-    camHole.position.set(0, 2.15, 0.125);
-    group.add(camHole);
-
-    // Rear Camera Bump
-    const bump = new THREE.Mesh(new THREE.BoxGeometry(0.75, 1.3, 0.08), new THREE.MeshStandardMaterial({
-        color: 0x0d1117, metalness: 0.9, roughness: 0.15
-    }));
-    bump.position.set(-0.65, 1.55, -0.15);
-    group.add(bump);
-
-    [-0.32, 0.32].forEach(offY => {
-        const lensRim = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.04, 24), mats.metalChrome);
-        lensRim.rotation.x = -Math.PI / 2;
-        lensRim.position.set(-0.65, 1.55 + offY, -0.2);
-        group.add(lensRim);
-
-        const lensGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.05, 24), new THREE.MeshBasicMaterial({ color: 0x00c8d7 }));
-        lensGlass.rotation.x = -Math.PI / 2;
-        lensGlass.position.set(-0.65, 1.55 + offY, -0.21);
-        group.add(lensGlass);
-    });
-
-    // Side Buttons & USB-C
-    const pwrBtn = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.35, 0.08), mats.metalChrome);
-    pwrBtn.position.set(1.22, 0.8, 0);
-    group.add(pwrBtn);
-
-    const volBtn = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.7, 0.08), mats.metalChrome);
-    volBtn.position.set(1.22, 1.5, 0);
-    group.add(volBtn);
-
-    const usbc = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.06, 0.1), mats.metalChrome);
-    usbc.position.set(0, -2.41, 0);
-    group.add(usbc);
-}
-
-// 3. USB Rubber Ducky Keystroke Injector
-function buildRubberDucky3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(1.3, 2.6, 0.48), mats.plasticDark);
-    body.position.set(0, -0.4, 0);
-    group.add(body);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(1.26, 2.56), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.35
-    }));
-    front.position.set(0, -0.4, 0.245);
-    group.add(front);
-
-    const back = new THREE.Mesh(new THREE.PlaneGeometry(1.26, 2.56), mats.plasticDarkMatte);
-    back.rotation.y = Math.PI;
-    back.position.set(0, -0.4, -0.245);
-    group.add(back);
-
-    // Protruding USB-A Plug
-    const plug = new THREE.Mesh(new THREE.BoxGeometry(0.86, 1.05, 0.38), mats.metalChrome);
-    plug.position.set(0, 1.45, 0);
-    group.add(plug);
-
-    const tongue = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.85, 0.12), new THREE.MeshStandardMaterial({ color: 0xf5f5f5 }));
-    tongue.position.set(0, 1.52, 0.08);
-    group.add(tongue);
-
-    for (let i = 0; i < 4; i++) {
-        const pin = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.4, 0.03), mats.metalGold);
-        pin.position.set(-0.24 + i * 0.16, 1.68, 0.14);
-        group.add(pin);
-    }
-
-    [-0.2, 0.2].forEach(hx => {
-        const hole = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 0.04), new THREE.MeshBasicMaterial({ color: 0x05070c }));
-        hole.position.set(hx, 1.55, 0.195);
-        group.add(hole);
-    });
-
-    const loop = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.07, 12, 24), mats.plasticDark);
-    loop.position.set(0, -1.75, 0);
-    group.add(loop);
-
-    const led = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 12), new THREE.MeshBasicMaterial({ color: 0x00ffcc }));
-    led.position.set(0, 0.55, 0.25);
-    group.add(led);
-
-    const sdSlot = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.5, 0.15), mats.metalGold);
-    sdSlot.position.set(0.66, -0.4, 0);
-    group.add(sdSlot);
-}
-
-// 4. Bash Bunny Multi-Vector Attack Platform
-function buildBashBunny3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(1.4, 3.0, 0.55), mats.plasticDark);
-    body.position.set(0, -0.4, 0);
-    group.add(body);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(1.36, 2.96), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.35
-    }));
-    front.position.set(0, -0.4, 0.28);
-    group.add(front);
-
-    const back = new THREE.Mesh(new THREE.PlaneGeometry(1.36, 2.96), mats.plasticDarkMatte);
-    back.rotation.y = Math.PI;
-    back.position.set(0, -0.4, -0.28);
-    group.add(back);
-
-    const plug = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.15, 0.4), mats.metalChrome);
-    plug.position.set(0, 1.65, 0);
-    group.add(plug);
-
-    const tongue = new THREE.Mesh(new THREE.BoxGeometry(0.78, 0.9, 0.12), new THREE.MeshStandardMaterial({ color: 0xf5f5f5 }));
-    tongue.position.set(0, 1.7, 0.08);
-    group.add(tongue);
-
-    for (let i = 0; i < 4; i++) {
-        const pin = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.45, 0.03), mats.metalGold);
-        pin.position.set(-0.24 + i * 0.16, 1.85, 0.14);
-        group.add(pin);
-    }
-
-    // 3-Position Payload Toggle Switch on Left Flank
-    const switchSlot = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.9, 0.24), new THREE.MeshBasicMaterial({ color: 0x05070c }));
-    switchSlot.position.set(-0.71, -0.2, 0);
-    group.add(switchSlot);
-
-    const switchToggle = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.24, 0.18), mats.metalChrome);
-    switchToggle.position.set(-0.77, -0.1, 0);
-    group.add(switchToggle);
-
-    const led = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.18, 6), new THREE.MeshBasicMaterial({ color: 0x00ff66 }));
-    led.rotation.x = Math.PI / 2;
-    led.position.set(0, 0.65, 0.29);
-    group.add(led);
-
-    const loop = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.08, 12, 24), mats.plasticDark);
-    loop.position.set(0, -1.95, 0);
-    group.add(loop);
-}
-
-// 5. Flipper Zero Multi-Tool
-function buildFlipperZero3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(3.6, 1.9, 0.78), mats.plasticWhite);
-    group.add(body);
-
-    // Orange Backlit Pixel LCD Screen on Left
-    const screenFrame = new THREE.Mesh(new THREE.BoxGeometry(1.65, 1.35, 0.04), new THREE.MeshStandardMaterial({ color: 0x111620, roughness: 0.5 }));
-    screenFrame.position.set(-0.75, 0.05, 0.4);
-    group.add(screenFrame);
-
-    const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.2), new THREE.MeshStandardMaterial({
-        color: 0xff6600, emissive: 0xff5500, emissiveIntensity: 0.85, roughness: 0.25
-    }));
-    screen.position.set(-0.75, 0.05, 0.425);
-    group.add(screen);
-
-    // Signature Orange 5-Way D-Pad on Right
-    const dpadGroup = new THREE.Group();
-    dpadGroup.position.set(0.9, 0.1, 0.41);
-
-    const dpadRing = new THREE.Mesh(new THREE.CylinderGeometry(0.52, 0.52, 0.08, 32), mats.plasticOrange);
-    dpadRing.rotation.x = Math.PI / 2;
-    dpadGroup.add(dpadRing);
-
-    const notchMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    [[0, 0.36], [0, -0.36], [-0.36, 0], [0.36, 0]].forEach(([nx, ny]) => {
-        const notch = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), notchMat);
-        notch.position.set(nx, ny, 0.05);
-        dpadGroup.add(notch);
-    });
-
-    const okBtn = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.12, 24), mats.plasticWhite);
-    okBtn.rotation.x = Math.PI / 2;
-    okBtn.position.z = 0.04;
-    dpadGroup.add(okBtn);
-    group.add(dpadGroup);
-
-    const backBtn = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.16, 0.08), mats.plasticOrange);
-    backBtn.position.set(0.9, -0.55, 0.41);
-    group.add(backBtn);
-
-    // 18-Pin GPIO Header on Top Edge
-    const gpioBar = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.14, 0.24), new THREE.MeshBasicMaterial({ color: 0x111111 }));
-    gpioBar.position.set(0, 0.96, 0);
-    group.add(gpioBar);
-    for (let i = 0; i < 18; i++) {
-        const pin = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.04, 0.06), mats.metalGold);
-        pin.position.set(-1.05 + i * 0.125, 1.03, 0);
-        group.add(pin);
-    }
-
-    const irLens = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.8, 0.35), new THREE.MeshPhysicalMaterial({ color: 0x1a001a, roughness: 0.1, transmission: 0.6 }));
-    irLens.position.set(1.81, 0, 0);
-    group.add(irLens);
-
-    const usbc = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.22, 0.45), mats.metalChrome);
-    usbc.position.set(-1.81, 0, 0);
-    group.add(usbc);
-}
-
-// 6. LAN Turtle Network Implant
-function buildLanTurtle3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(1.3, 2.9, 0.85), mats.plasticDark);
-    group.add(body);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(1.26, 2.86), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.35
-    }));
-    front.position.z = 0.43;
-    group.add(front);
-
-    const plug = new THREE.Mesh(new THREE.BoxGeometry(0.85, 1.0, 0.38), mats.metalChrome);
-    plug.position.set(0, 1.95, 0);
-    group.add(plug);
-
-    // Modular RJ45 Female Ethernet Socket
-    const rj45Shield = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.05, 0.8), mats.metalChrome);
-    rj45Shield.position.set(0, -1.95, 0);
-    group.add(rj45Shield);
-
-    const rj45Hole = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.65, 0.55), new THREE.MeshBasicMaterial({ color: 0x05070a }));
-    rj45Hole.position.set(0, -2.15, 0);
-    group.add(rj45Hole);
-
-    for (let i = 0; i < 8; i++) {
-        const pin = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.3, 0.03), mats.metalGold);
-        pin.position.set(-0.3 + i * 0.085, -2.1, 0.15);
-        group.add(pin);
-    }
-
-    const ledG = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.08, 0.04), new THREE.MeshBasicMaterial({ color: 0x00ff66 }));
-    ledG.position.set(-0.45, -1.55, 0.41);
-    group.add(ledG);
-    const ledA = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.08, 0.04), new THREE.MeshBasicMaterial({ color: 0xffaa00 }));
-    ledA.position.set(0.45, -1.55, 0.41);
-    group.add(ledA);
-}
-
-// 7. O.MG Covert Attack Cable
-function buildOmgCable3D(group, tex, mats) {
-    const head = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.48, 2.2), mats.plasticDark);
-    head.position.set(0, 0.8, 0);
-    group.add(head);
-
-    const tip = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.4, 0.9), mats.metalChrome);
-    tip.position.set(0, 0.8, 1.5);
-    group.add(tip);
-
-    const pcb = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.02, 1.6), new THREE.MeshStandardMaterial({ color: 0x0b2e1b, roughness: 0.3 }));
-    pcb.position.set(0, 1.05, 0);
-    group.add(pcb);
-
-    const soc = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.4), new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.2 }));
-    soc.position.set(0, 1.08, 0);
-    group.add(soc);
-
-    const led = new THREE.Mesh(new THREE.SphereGeometry(0.04, 12, 12), new THREE.MeshBasicMaterial({ color: 0x00c8d7 }));
-    led.position.set(0.2, 1.1, 0.5);
-    group.add(led);
-
-    // Braided Cable Coil
-    const curve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(0, 0.8, -1.1),
-        new THREE.Vector3(0, 0.5, -1.8),
-        new THREE.Vector3(-0.9, 0.0, -2.0),
-        new THREE.Vector3(-1.6, -0.6, -1.2),
-        new THREE.Vector3(-1.2, -1.2, 0.0),
-        new THREE.Vector3(0.0, -1.6, 1.0),
-        new THREE.Vector3(1.2, -1.4, 0.2),
-        new THREE.Vector3(1.4, -0.7, -1.0),
-        new THREE.Vector3(0.8, -0.2, -1.8)
-    ]);
-    const cableGeo = new THREE.TubeGeometry(curve, 72, 0.12, 12, false);
-    const cable = new THREE.Mesh(cableGeo, new THREE.MeshStandardMaterial({ color: 0x222834, roughness: 0.7 }));
-    group.add(cable);
-
-    const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.15, 0.5, 16), mats.plasticDark);
-    collar.rotation.x = Math.PI / 2;
-    collar.position.set(0, 0.8, -1.25);
-    group.add(collar);
-}
-
-// 8. Packet Squirrel Inline Tap
-function buildPacketSquirrel3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.4, 0.9), mats.plasticDark);
-    group.add(body);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(2.36, 2.36), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.35
-    }));
-    front.position.z = 0.455;
-    group.add(front);
-
-    // Dual Shielded RJ45 Sockets (Top & Bottom)
-    [1.55, -1.55].forEach(posY => {
-        const rj = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.8, 0.75), mats.metalChrome);
-        rj.position.set(0, posY, 0);
-        group.add(rj);
-
-        const hole = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.45, 0.6), new THREE.MeshBasicMaterial({ color: 0x05070a }));
-        hole.position.set(0, posY > 0 ? posY + 0.2 : posY - 0.2, 0);
-        group.add(hole);
-    });
-
-    const switchBase = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.8, 0.3), new THREE.MeshBasicMaterial({ color: 0xff3344 }));
-    switchBase.position.set(1.21, 0, 0);
-    group.add(switchBase);
-    for (let i = 0; i < 4; i++) {
-        const sw = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.1, 0.06), mats.plasticWhite);
-        sw.position.set(1.24, -0.3 + i * 0.2, 0);
-        group.add(sw);
-    }
-
-    const pushBtn = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.06, 16), mats.metalChrome);
-    pushBtn.rotation.z = Math.PI / 2;
-    pushBtn.position.set(-1.22, 0.4, 0);
-    group.add(pushBtn);
-
-    const led = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 12), new THREE.MeshBasicMaterial({ color: 0x00ffcc }));
-    led.position.set(-0.7, 0.7, 0.46);
-    group.add(led);
-}
-
-// 9. Proxmark3 RDV4 RFID/NFC Analysis Platform
-function buildProxmark33D(group, tex, mats) {
-    const pcb = new THREE.Mesh(new THREE.BoxGeometry(2.8, 4.2, 0.2), mats.plasticDark);
-    group.add(pcb);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(2.78, 4.18), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.3
-    }));
-    front.position.z = 0.105;
-    group.add(front);
-
-    // 13.56 MHz HF Concentric Gold Antenna Coils
-    for (let r = 0.6; r <= 1.0; r += 0.1) {
-        const coil = new THREE.Mesh(new THREE.TorusGeometry(r, 0.012, 8, 48), mats.metalGold);
-        coil.position.set(0, 1.1, 0.11);
-        group.add(coil);
-    }
-
-    // Acrylic Face Plate elevated on 4 Brass Standoffs
-    const acrylic = new THREE.Mesh(new THREE.BoxGeometry(2.78, 4.18, 0.05), new THREE.MeshPhysicalMaterial({
-        color: 0xffffff, transmission: 0.9, transparent: true, opacity: 0.25, roughness: 0.1
-    }));
-    acrylic.position.z = 0.35;
-    group.add(acrylic);
-
-    [[-1.2, -1.9], [1.2, -1.9], [-1.2, 1.9], [1.2, 1.9]].forEach(([sx, sy]) => {
-        const standoff = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.25, 6), mats.metalGold);
-        standoff.rotation.x = Math.PI / 2;
-        standoff.position.set(sx, sy, 0.23);
-        group.add(standoff);
-
-        const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.04, 16), mats.metalChrome);
-        screw.rotation.x = Math.PI / 2;
-        screw.position.set(sx, sy, 0.38);
-        group.add(screw);
-    });
-
-    const sma = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.5, 8), mats.metalGold);
-    sma.position.set(0, 2.35, 0);
-    group.add(sma);
-
-    const ledColors = [0xff3344, 0x00ff66, 0x0088ff, 0xffcc00];
-    ledColors.forEach((color, i) => {
-        const led = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.04), new THREE.MeshBasicMaterial({ color }));
-        led.position.set(-0.6 + i * 0.4, -0.3, 0.12);
-        group.add(led);
-    });
-}
-
-// 10. Evil Portal Rogue AP Appliance
-function buildEvilPortal3D(group, tex, mats) {
-    const body = new THREE.Mesh(new THREE.BoxGeometry(3.5, 2.3, 0.8), mats.plasticDark);
-    group.add(body);
-
-    const front = new THREE.Mesh(new THREE.PlaneGeometry(3.48, 2.28), new THREE.MeshStandardMaterial({
-        map: tex, transparent: true, alphaTest: 0.05, roughness: 0.3
-    }));
-    front.position.z = 0.405;
-    group.add(front);
-
-    // Dual High-Gain Omnidirectional External Antennas
-    [-1.35, 1.35].forEach((ax, idx) => {
-        const antGroup = new THREE.Group();
-        antGroup.position.set(ax, 1.15, 0);
-
-        const sma = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.22, 8), mats.metalGold);
-        sma.position.y = 0.11;
-        antGroup.add(sma);
-
-        const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.06, 2.3, 16), mats.plasticDark);
-        mast.position.y = 1.35;
-        mast.rotation.z = idx === 0 ? -0.22 : 0.22;
-        antGroup.add(mast);
-
-        group.add(antGroup);
-    });
-
-    // Captive Portal Readout Display
-    const oled = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 0.85), new THREE.MeshStandardMaterial({
-        color: 0x050b18, emissive: 0x00c8d7, emissiveIntensity: 0.25, roughness: 0.2
-    }));
-    oled.position.set(0, -0.4, 0.415);
-    group.add(oled);
-
-    const rj45A = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 0.08), mats.metalChrome);
-    rj45A.position.set(-0.8, 0, -0.42);
-    group.add(rj45A);
-
-    const rj45B = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 0.08), mats.metalChrome);
-    rj45B.position.set(0, 0, -0.42);
-    group.add(rj45B);
+const DEVICE_CONTOURS = {
+    "bash_bunny": [[902.0, 458.0], [895.0, 444.0], [877.0, 430.0], [790.0, 390.0], [741.0, 376.0], [682.0, 377.0], [254.0, 475.0], [244.0, 490.0], [240.0, 535.0], [115.0, 566.0], [117.0, 614.0], [184.0, 683.0], [317.0, 647.0], [334.0, 655.0], [377.0, 692.0], [398.0, 696.0], [855.0, 558.0], [889.0, 539.0], [897.0, 529.0], [903.0, 497.0]],
+    "evil_portal": [[138.0, 254.0], [220.0, 676.0], [218.0, 691.0], [228.0, 708.0], [290.0, 731.0], [323.0, 729.0], [345.0, 736.0], [481.0, 811.0], [537.0, 833.0], [617.0, 808.0], [715.0, 757.0], [951.0, 664.0], [953.0, 653.0], [942.0, 647.0], [662.0, 581.0], [583.0, 253.0], [561.0, 246.0], [169.0, 242.0]],
+    "flipper_zero": [[1023.0, 69.0], [929.0, 72.0], [746.0, 132.0], [386.0, 201.0], [269.0, 245.0], [158.0, 310.0], [97.0, 365.0], [71.0, 445.0], [75.0, 493.0], [115.0, 535.0], [99.0, 589.0], [109.0, 671.0], [196.0, 762.0], [241.0, 778.0], [915.0, 669.0], [942.0, 580.0], [912.0, 442.0], [819.0, 318.0], [784.0, 296.0], [208.0, 370.0], [174.0, 394.0], [116.0, 512.0], [90.0, 484.0], [100.0, 408.0], [141.0, 412.0], [232.0, 330.0], [357.0, 274.0], [549.0, 244.0], [818.0, 245.0], [839.0, 228.0], [979.0, 204.0], [1023.0, 182.0], [1023.0, 136.0], [915.0, 183.0], [677.0, 189.0], [945.0, 111.0], [1023.0, 110.0]],
+    "kali_nethunter": [[922.0, 274.0], [887.0, 254.0], [623.0, 196.0], [587.0, 195.0], [560.0, 210.0], [420.0, 345.0], [340.0, 324.0], [288.0, 328.0], [89.0, 426.0], [79.0, 451.0], [94.0, 485.0], [240.0, 532.0], [104.0, 670.0], [97.0, 696.0], [105.0, 719.0], [146.0, 744.0], [467.0, 835.0], [509.0, 818.0], [667.0, 635.0], [762.0, 678.0], [813.0, 684.0], [838.0, 675.0], [985.0, 566.0], [994.0, 528.0], [985.0, 510.0], [809.0, 465.0], [925.0, 323.0], [932.0, 298.0]],
+    "lan_turtle": [[927.0, 605.0], [820.0, 556.0], [790.0, 558.0], [780.0, 549.0], [793.0, 413.0], [840.0, 379.0], [846.0, 333.0], [831.0, 322.0], [712.0, 292.0], [649.0, 326.0], [549.0, 302.0], [524.0, 306.0], [336.0, 413.0], [207.0, 478.0], [196.0, 489.0], [189.0, 514.0], [188.0, 644.0], [197.0, 673.0], [210.0, 686.0], [445.0, 762.0], [501.0, 749.0], [563.0, 694.0], [615.0, 664.0], [676.0, 676.0], [713.0, 674.0], [817.0, 710.0], [884.0, 695.0], [901.0, 674.0], [920.0, 665.0]],
+    "omg_cable": [[174.0, 142.0], [152.0, 188.0], [145.0, 240.0], [105.0, 276.0], [78.0, 317.0], [59.0, 417.0], [67.0, 471.0], [56.0, 487.0], [81.0, 507.0], [109.0, 574.0], [155.0, 617.0], [178.0, 615.0], [180.0, 580.0], [196.0, 569.0], [355.0, 602.0], [440.0, 664.0], [533.0, 716.0], [716.0, 861.0], [748.0, 848.0], [748.0, 835.0], [763.0, 822.0], [803.0, 855.0], [830.0, 863.0], [911.0, 774.0], [1023.0, 804.0], [1023.0, 780.0], [897.0, 748.0], [851.0, 713.0], [859.0, 653.0], [938.0, 591.0], [962.0, 558.0], [973.0, 511.0], [949.0, 354.0], [914.0, 292.0], [875.0, 250.0], [643.0, 119.0], [509.0, 83.0], [375.0, 76.0], [300.0, 84.0], [215.0, 110.0]],
+    "packet_squirrel": [[896.0, 389.0], [884.0, 372.0], [860.0, 364.0], [808.0, 356.0], [760.0, 341.0], [720.0, 340.0], [652.0, 321.0], [572.0, 311.0], [540.0, 312.0], [399.0, 359.0], [157.0, 457.0], [149.0, 472.0], [153.0, 669.0], [167.0, 686.0], [507.0, 789.0], [546.0, 788.0], [878.0, 590.0], [893.0, 560.0]],
+    "proxmark3": [[831.0, 268.0], [776.0, 253.0], [319.0, 279.0], [231.0, 288.0], [203.0, 303.0], [196.0, 318.0], [199.0, 518.0], [183.0, 526.0], [174.0, 547.0], [202.0, 600.0], [207.0, 747.0], [249.0, 794.0], [274.0, 794.0], [262.0, 817.0], [260.0, 844.0], [276.0, 845.0], [293.0, 833.0], [285.0, 818.0], [290.0, 810.0], [274.0, 805.0], [276.0, 797.0], [299.0, 799.0], [420.0, 776.0], [566.0, 764.0], [567.0, 778.0], [584.0, 779.0], [588.0, 767.0], [583.0, 762.0], [605.0, 751.0], [738.0, 732.0], [766.0, 736.0], [822.0, 718.0], [838.0, 683.0], [839.0, 503.0], [871.0, 501.0], [875.0, 487.0], [868.0, 462.0], [841.0, 451.0], [842.0, 290.0]],
+    "usb_rubber_ducky": [[130.0, 411.0], [129.0, 527.0], [138.0, 576.0], [158.0, 603.0], [208.0, 630.0], [376.0, 638.0], [463.0, 650.0], [654.0, 664.0], [669.0, 669.0], [660.0, 684.0], [663.0, 707.0], [693.0, 694.0], [701.0, 673.0], [719.0, 667.0], [736.0, 649.0], [779.0, 652.0], [806.0, 642.0], [864.0, 641.0], [882.0, 637.0], [896.0, 625.0], [898.0, 449.0], [875.0, 442.0], [739.0, 435.0], [730.0, 406.0], [714.0, 400.0], [696.0, 383.0], [222.0, 353.0], [152.0, 380.0]],
+    "wifi_pineapple": [[135.0, 120.0], [133.0, 142.0], [273.0, 460.0], [271.0, 539.0], [202.0, 556.0], [177.0, 586.0], [183.0, 704.0], [218.0, 744.0], [628.0, 812.0], [667.0, 801.0], [715.0, 756.0], [772.0, 737.0], [819.0, 752.0], [889.0, 730.0], [922.0, 747.0], [954.0, 743.0], [960.0, 696.0], [876.0, 627.0], [874.0, 560.0], [853.0, 531.0], [651.0, 500.0], [803.0, 153.0], [792.0, 120.0], [760.0, 131.0], [595.0, 496.0], [539.0, 498.0], [534.0, 104.0], [519.0, 85.0], [500.0, 88.0], [490.0, 109.0], [485.0, 475.0], [333.0, 524.0], [322.0, 515.0], [321.0, 446.0], [160.0, 111.0]]
+};
+
+function getDeviceKey(name = '', imgSrc = '') {
+    const s = (name + ' ' + imgSrc).toLowerCase();
+    if (s.includes('pineapple')) return 'wifi_pineapple';
+    if (s.includes('nethunter')) return 'kali_nethunter';
+    if (s.includes('ducky')) return 'usb_rubber_ducky';
+    if (s.includes('bunny')) return 'bash_bunny';
+    if (s.includes('flipper')) return 'flipper_zero';
+    if (s.includes('turtle')) return 'lan_turtle';
+    if (s.includes('omg') || s.includes('cable')) return 'omg_cable';
+    if (s.includes('squirrel')) return 'packet_squirrel';
+    if (s.includes('proxmark')) return 'proxmark3';
+    if (s.includes('evil') || s.includes('portal')) return 'evil_portal';
+    return 'wifi_pineapple';
 }
 
 function build3DDeviceModel(imgSrc, name = '') {
@@ -1099,36 +590,90 @@ function build3DDeviceModel(imgSrc, name = '') {
 
     viewer3D.deviceGroup = new THREE.Group();
 
-    const tex = viewer3D.textureLoader.load(imgSrc);
-    tex.generateMipmaps = true;
-    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    const devKey = getDeviceKey(name, imgSrc);
+    const pts = DEVICE_CONTOURS[devKey] || DEVICE_CONTOURS['wifi_pineapple'];
 
-    const mats = getHardwareMaterials();
-    const n = (name || '').toLowerCase();
+    // 1. Build exact 2D shape following the hardware silhouette
+    const shape = new THREE.Shape();
+    const scale = 5.2 / 1024;
+    const cx = 512, cy = 512;
 
-    if (n.includes('pineapple')) {
-        buildPineapple3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('nethunter')) {
-        buildNetHunter3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('ducky')) {
-        buildRubberDucky3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('bunny')) {
-        buildBashBunny3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('flipper')) {
-        buildFlipperZero3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('turtle')) {
-        buildLanTurtle3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('omg') || n.includes('cable')) {
-        buildOmgCable3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('squirrel')) {
-        buildPacketSquirrel3D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('proxmark')) {
-        buildProxmark33D(viewer3D.deviceGroup, tex, mats);
-    } else if (n.includes('evil') || n.includes('portal')) {
-        buildEvilPortal3D(viewer3D.deviceGroup, tex, mats);
-    } else {
-        buildPineapple3D(viewer3D.deviceGroup, tex, mats);
+    shape.moveTo((pts[0][0] - cx) * scale, -(pts[0][1] - cy) * scale);
+    for (let i = 1; i < pts.length; i++) {
+        shape.lineTo((pts[i][0] - cx) * scale, -(pts[i][1] - cy) * scale);
     }
+    shape.closePath();
+
+    // 2. Extrude with smooth volumetric depth and beveled edges
+    const extrudeSettings = {
+        depth: 0.32,
+        bevelEnabled: true,
+        bevelSegments: 4,
+        steps: 1,
+        bevelSize: 0.035,
+        bevelThickness: 0.035
+    };
+
+    const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+
+    // 3. Map UV coordinates directly to the 1024x1024 image coordinate system
+    const pos = geom.attributes.position;
+    const uvs = geom.attributes.uv;
+
+    for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i);
+        const y = pos.getY(i);
+        const u = (x / scale + cx) / 1024;
+        const v = (y / scale + cy) / 1024;
+        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
+    }
+    uvs.needsUpdate = true;
+
+    // 4. Split face groups: Front face (index 0), Back face (index 1), Extrusion & Bevels (index 2)
+    const half = geom.groups[0].count / 2;
+    geom.groups = [
+        { start: half, count: half, materialIndex: 0 },
+        { start: 0, count: half, materialIndex: 1 },
+        { start: geom.groups[0].count, count: geom.groups[1].count, materialIndex: 2 }
+    ];
+
+    geom.center();
+    geom.computeVertexNormals();
+
+    // 5. High-Definition Materials
+    const frontTex = viewer3D.textureLoader.load(imgSrc);
+    frontTex.generateMipmaps = true;
+    frontTex.minFilter = THREE.LinearMipmapLinearFilter;
+    if (viewer3D.renderer && viewer3D.renderer.capabilities.getMaxAnisotropy) {
+        frontTex.anisotropy = viewer3D.renderer.capabilities.getMaxAnisotropy();
+    }
+
+    // Front: 100% exact replica of the photorealistic device image
+    const frontMat = new THREE.MeshStandardMaterial({
+        map: frontTex,
+        roughness: 0.28,
+        metalness: 0.18,
+        side: THREE.FrontSide
+    });
+
+    // Back: High-tech cyber PCB silkscreen
+    const pcbTex = createPCBTexture();
+    const backMat = new THREE.MeshStandardMaterial({
+        map: pcbTex,
+        roughness: 0.4,
+        metalness: 0.55,
+        side: THREE.FrontSide
+    });
+
+    // Sides & Bevel: Dark titanium tactical chassis
+    const sideMat = new THREE.MeshStandardMaterial({
+        color: 0x141a26,
+        roughness: 0.35,
+        metalness: 0.82
+    });
+
+    const deviceMesh = new THREE.Mesh(geom, [frontMat, backMat, sideMat]);
+    viewer3D.deviceGroup.add(deviceMesh);
 
     viewer3D.scene.add(viewer3D.deviceGroup);
 }
