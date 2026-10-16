@@ -22,6 +22,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/imp_info.css">
+    <link rel="stylesheet" href="../css/hacker_engines_devices.css">
     <script src="../js/theme.js"></script>
     <script src="../js/ui_popups.js"></script>
 </head>
@@ -35,10 +36,6 @@
         </a>
 
         <div class="nav-actions">
-            <a href="imp_info.html" class="nav-btn" title="Important Info & CEH Compendium">💡 Important Info</a>
-            <a href="career_paths.html" class="nav-btn" title="Cybersecurity Career Paths">🧭 Career Paths</a>
-            <a href="ports.html" class="nav-btn" title="Critical Ports & Protocols">🔌 Ports</a>
-            <a href="http_codes.html" class="nav-btn" title="HTTP Status Codes Compendium">🌐 HTTP Codes</a>
             <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
             <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
             <a href="hacker_engines_devices.html" class="nav-btn active" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
@@ -50,24 +47,1340 @@
     <main class="info-container" style="max-width: 1400px; margin: 0 auto; padding: 32px 24px; width: 100%;">
 
         <!-- Hero Header -->
-        <section class="info-hero" style="margin-bottom: 28px;">
-            <span class="hero-tag">// THREAT SURFACE ENGINES & HARDWARE IMPLANTS</span>
+        <section class="info-hero" style="margin-bottom: 24px;">
+            <span class="hero-tag">// SLIDE 9, 10 & 12 INTEL // RECON ENGINES & HARDWARE ARSENAL</span>
             <h1 class="hero-title">HACKER SEARCH ENGINES & TACTICAL HARDWARE DEVICES</h1>
             <p class="hero-desc">
-                Specialized cybersecurity intelligence engines (Shodan, Censys, FOFA, Hunter, GreyNoise, ZoomEye) and physical attack/audit hardware (Flipper Zero, Rubber Ducky, WiFi Pineapple, Hak5 LAN Turtle, Proxmark3).
+                <strong>Knowledge is Power. Hack the Planet (Ethically)!</strong> A unified classified compendium detailing the Top 10 Physical Penetration Testing Devices (Hak5, Flipper Zero, Proxmark3) alongside the 32 Essential Cybersecurity Search Engines for Internet-wide reconnaissance, exposed credentials, asset mapping, and threat intelligence.
             </p>
         </section>
 
-        <!-- Placeholder Content Workspace -->
-        <div style="background: var(--bg-card); border: 2px dashed var(--border-color); padding: 60px 24px; text-align: center; box-shadow: var(--box-shadow); border-radius: 2px;">
-            <div style="font-size: 3.5rem; margin-bottom: 14px;">📡</div>
-            <h2 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; font-family: 'Space Mono', monospace; text-transform: uppercase;">Awaiting Intel Briefing</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; line-height: 1.6;">
-                This page has been created and integrated into the Important Info hub navigation. Ready for your search engines and tactical devices data.
-            </p>
+        <!-- Banner & Quick Stats -->
+        <div class="engines-header-banner">
+            <div>
+                <span class="banner-motto">⚡ PHYSICAL & DIGITAL ATTACK SURFACE</span>
+                <p style="margin: 8px 0 0 0; font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">
+                    Classified intelligence extracted deeply from Field Slides 9, 10, and 12.
+                </p>
+            </div>
+            <div class="banner-stats-group">
+                <div class="banner-stat-box">
+                    <span class="stat-label">Physical Devices</span>
+                    <span class="stat-val">10 Tools</span>
+                </div>
+                <div class="banner-stat-box">
+                    <span class="stat-label">Search Engines</span>
+                    <span class="stat-val">32 Engines</span>
+                </div>
+                <div class="banner-stat-box">
+                    <span class="stat-label">Current View</span>
+                    <span class="stat-val" id="activeViewCount">10 Devices</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary View Mode Switcher Tabs -->
+        <div class="view-mode-tabs">
+            <button class="view-tab-btn active" data-tab="devices">
+                <span>🛠️ Top 10 Hacking Devices (Slide 9)</span>
+            </button>
+            <button class="view-tab-btn" data-tab="engines">
+                <span>🔍 32 Hacker Search Engines (Slides 10 & 12)</span>
+            </button>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="engines-toolbar">
+            <div class="engines-search-box">
+                <span class="search-icon-badge">🔎</span>
+                <input type="text" id="enginesSearchInput" class="engines-search-input" placeholder="Search devices by name, specs, protocol, or search engines by domain, category, use case...">
+            </div>
+
+            <!-- Dynamic category filter row -->
+            <div class="filter-pills-row" id="filterPillsRow">
+                <!-- Populated by JS based on active tab -->
+            </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB 1: TOP 10 HACKING DEVICES (Slide 9 Deep Dive)
+             =================================================================== -->
+        <div class="tab-content-panel active" id="devicesPanel">
+            <div class="devices-grid">
+
+                <!-- 1. WiFi Pineapple -->
+                <div class="device-card" data-cat="rf">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">01</span>
+                            <span class="device-category-chip" style="color: #005A9C;">Wireless & RF Pentesting</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">WiFi Pineapple</h2>
+                            <span class="device-vendor">// Hak5</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Powerful tool for Wi-Fi penetration testing. Intercept & analyze Wi-Fi traffic.
+                        </div>
+                        <p class="device-tech-intel">
+                            Dual-band (2.4GHz & 5GHz) tactical wireless audit platform. Employs the proprietary PineAP suite to automatically harvest client probe requests, launch Karma attacks, broadcast spoofed SSIDs, deauthenticate authenticated clients, and establish Man-in-the-Middle (MITM) control to capture WPA handshakes and harvest credentials.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Frequencies:</span> <span class="spec-val">2.4 GHz & 5.8 GHz (Dual Band)</span></div>
+                            <div class="spec-line"><span class="spec-key">Core Engine:</span> <span class="spec-val">OpenWrt Linux / PineAP Suite</span></div>
+                            <div class="spec-line"><span class="spec-key">Key Attack:</span> <span class="spec-val">Rogue AP, Karma, Deauth, SSL Strip</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Clients connect to fake Wi-Fi; attacker intercepts traffic, forces captive portals, captures NTLM/HTTP credentials.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Enforce 802.1X EAP-TLS enterprise Wi-Fi, enable WPA3 Protected Management Frames (PMF), forbid auto-connect to open SSIDs.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Desktop / Tactical Handheld</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('WiFi Pineapple - PineAP wireless interception platform')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 2. Kali NetHunter -->
+                <div class="device-card" data-cat="rf">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">02</span>
+                            <span class="device-category-chip" style="color: #9333ea;">Mobile OSINT & HID</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">Kali NetHunter</h2>
+                            <span class="device-vendor">// Offensive Security</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Turn your Android phone into a hacking tool. Pentesting on the go!
+                        </div>
+                        <p class="device-tech-intel">
+                            Open-source Android mobile penetration testing overlay with custom kernel support. Delivers 802.11 wireless frame injection, AP mode, one-click HID keyboard attacks (DuckHunter BadUSB), USB Ethernet emulation (MANA Evil AP network hijacking), and Software Defined Radio (SDR) RF sniffing right from a pocket smartphone.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Platform:</span> <span class="spec-val">Android (Custom Linux Kernel)</span></div>
+                            <div class="spec-line"><span class="spec-key">Capabilities:</span> <span class="spec-val">802.11 Injection, BadUSB, SDR, Bluetooth</span></div>
+                            <div class="spec-line"><span class="spec-key">Stealth Level:</span> <span class="spec-val">Maximum (Looks like standard smartphone)</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Walk into a facility unnoticed; connect via USB to inject HID payloads or passively sniff nearby RF/BLE/Wi-Fi traffic.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Enforce strict Mobile Device Management (MDM), block USB OTG on enterprise workstations, physical device bans in server rooms.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Mobile Android Smartphone</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('Kali NetHunter - Mobile Linux Pentesting OS')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 3. USB Rubber Ducky -->
+                <div class="device-card" data-cat="hid">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">03</span>
+                            <span class="device-category-chip" style="color: #F2A900;">Keystroke Injection (BadUSB)</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">USB Rubber Ducky</h2>
+                            <span class="device-vendor">// Hak5</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Looks like a USB drive, acts like a keyboard. Automate attacks easily.
+                        </div>
+                        <p class="device-tech-intel">
+                            The definitive Human Interface Device (HID) keystroke injection platform. Because operating systems inherently trust keyboards without requiring driver installation or privilege prompts, the Rubber Ducky executes DuckyScript 3.0 at over 1,000 words per minute to open terminals, disable defenses, exfiltrate credentials, and deploy reverse shells in under 5 seconds.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Interface:</span> <span class="spec-val">USB-A / USB-C HID Emulation</span></div>
+                            <div class="spec-line"><span class="spec-key">Language:</span> <span class="spec-val">DuckyScript 3.0 (Logic, Conditionals, Jitter)</span></div>
+                            <div class="spec-line"><span class="spec-key">Speed:</span> <span class="spec-val">1000+ words per minute injection</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Plugged into unattended laptop; immediately spawns PowerShell, downloads memory payload, exfiltrates Wi-Fi passwords to webhook.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">USB port allowlisting by Hardware VID/PID, physical USB port blocker locks, GPO restrictions on Command Prompt & PowerShell.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Standard USB Thumb Drive</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('USB Rubber Ducky - Hak5 HID Keystroke Injector')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 4. Bash Bunny -->
+                <div class="device-card" data-cat="hid">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">04</span>
+                            <span class="device-category-chip" style="color: #D9291C;">Multi-Vector Attack Platform</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">Bash Bunny</h2>
+                            <span class="device-vendor">// Hak5</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Next-gen USB device for penetration testing. Run payloads & bypass security.
+                        </div>
+                        <p class="device-tech-intel">
+                            A complete Debian Linux computer built inside a USB stick form factor. Features a physical 3-position toggle switch allowing operators to execute distinct multi-vector payloads. Emulates Gigabit USB Ethernet (RNDIS/ECM), keyboard HID, USB Mass Storage, and Serial adapters simultaneously to poison LLMNR/NBT-NS hashes (QuickCreds) in seconds.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Operating System:</span> <span class="spec-val">Full Debian Linux Under the Hood</span></div>
+                            <div class="spec-line"><span class="spec-key">Hardware Toggle:</span> <span class="spec-val">3-Position Switch (Payload 1, Payload 2, Arming)</span></div>
+                            <div class="spec-line"><span class="spec-key">Emulation:</span> <span class="spec-val">Gigabit Ethernet + HID + Flash Storage</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Pretends to be a fast Ethernet network card; Windows shifts default gateway, sends NTLMv2 challenge hashes; captures hashes instantly.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Disable LLMNR and NetBIOS-NS via GPO, block installation of unauthorized RNDIS/Ethernet USB drivers, require admin approval for new NICs.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Rugged USB Flash Drive</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('Bash Bunny - Multi-vector Linux USB Attack Device')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 5. Flipper Zero -->
+                <div class="device-card" data-cat="rfid rf">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">05</span>
+                            <span class="device-category-chip" style="color: #00c8d7;">Sub-GHz, RFID & BadUSB</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">Flipper Zero</h2>
+                            <span class="device-vendor">// Flipper Devices</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Multi-tool for pentesters and geeks. Sub-GHz, RFID, NFC, Infrared, GPIO.
+                        </div>
+                        <p class="device-tech-intel">
+                            The viral multi-protocol hardware swiss army knife. Integrates a 300-928 MHz Sub-GHz transceiver for capturing and replaying wireless signals (garage doors, barrier gates), 125 kHz RFID reader/writer (EM4100, HID Prox door badges), 13.56 MHz NFC (Mifare Classic card emulation), Infrared blaster, BadUSB keystroke injector, and hardware GPIO pins.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">RF Range:</span> <span class="spec-val">300 MHz - 928 MHz (CC1101 Transceiver)</span></div>
+                            <div class="spec-line"><span class="spec-key">RFID / NFC:</span> <span class="spec-val">125 kHz (LF) + 13.56 MHz (HF ISO-14443)</span></div>
+                            <div class="spec-line"><span class="spec-key">Hardware IO:</span> <span class="spec-val">Infrared TX/RX, 1-Wire, iButton, 18-Pin GPIO</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Clones building keycards with a touch; replays Sub-GHz barrier gate signals; plugs into unlocked PC to fire Ducky payloads.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Upgrade legacy RFID badges to cryptographic credentials (Mifare DESFire EV3); enforce rolling-code anti-replay for physical gates.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Handheld Gaming Toy Shell</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('Flipper Zero - Multi-Protocol Hardware Swiss Army Knife')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 6. LAN Turtle -->
+                <div class="device-card" data-cat="network">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">06</span>
+                            <span class="device-category-chip" style="color: #059669;">Covert Network Implant</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">LAN Turtle</h2>
+                            <span class="device-vendor">// Hak5</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Disguised as a mobile charger/adapter, steals data.
+                        </div>
+                        <p class="device-tech-intel">
+                            A covert systems administration and penetration testing implant disguised as a generic USB-to-Ethernet adapter. Houses a customized OpenWrt embedded Linux kernel. Connects between a host computer and the local network to quietly sniff traffic, execute DNS poisoning (DNS Spoofing), and establish a persistent Cloud C2 reverse shell over cellular/VPN.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Architecture:</span> <span class="spec-val">Embedded OpenWrt MIPS Linux</span></div>
+                            <div class="spec-line"><span class="spec-key">Disguise:</span> <span class="spec-val">USB 2.0 to 10/100 Fast Ethernet Dongle</span></div>
+                            <div class="spec-line"><span class="spec-key">Features:</span> <span class="spec-val">Automated MITM, DNS2Proxy, SSH Reverse Shell</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Plugged into the back of a workstation; secretly intercepts all LAN traffic and maintains persistent out-of-band backdoor access.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Network Access Control (802.1X NAC), 1-to-1 MAC port security on network switches, periodic physical audit of rear desktop I/O.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Innocent USB Dongle</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('LAN Turtle - Covert Hak5 Network Implant')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 7. O.MG Cable -->
+                <div class="device-card" data-cat="hid">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">07</span>
+                            <span class="device-category-chip" style="color: #D9291C;">Covert Cable Implant</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">O.MG Cable</h2>
+                            <span class="device-vendor">// Hak5 / MG</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Bad USB cable for remote access attacks. Remote access in seconds.
+                        </div>
+                        <p class="device-tech-intel">
+                            Looks and behaves exactly like an authentic OEM smartphone charging cable (Apple Lightning, USB-C, Micro-USB). Concealed inside the molded connector housing is a tiny 32-bit microcontroller, full Wi-Fi radio, and web server. An attacker up to 50 meters away connects via smartphone browser to trigger keystrokes, log input, or drop payloads wirelessly.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Form Factor:</span> <span class="spec-val">100% Indistinguishable Charging Cable</span></div>
+                            <div class="spec-line"><span class="spec-key">Remote Control:</span> <span class="spec-val">Concealed 802.11 b/g/n Wi-Fi AP + Web Server</span></div>
+                            <div class="spec-line"><span class="spec-key">Features:</span> <span class="spec-val">Air-gap bypass, keystroke logger, geolocation geofence</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Victim plugs cable in to charge phone; attacker connects via Wi-Fi from the parking lot and injects commands to install keylogger.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Use USB "data condoms" (power-only adapters), strict company ban on untrusted cables, implement endpoint USB behavioral telemetry.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Standard Braided Charging Cable</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('O.MG Cable - Covert Wi-Fi BadUSB Charging Cable')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 8. Packet Squirrel -->
+                <div class="device-card" data-cat="network">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">08</span>
+                            <span class="device-category-chip" style="color: #005A9C;">Hardware Ethernet Tap</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">Packet Squirrel</h2>
+                            <span class="device-vendor">// Hak5</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Capture & replay packets. Traffic analysis made easy.
+                        </div>
+                        <p class="device-tech-intel">
+                            Pocket-sized hardware Ethernet tap designed for inline packet analysis, automated network sniffing, and secure remote VPN tunneling. Powered by OpenWrt, it sits transparently between network cables. Flipping a 4-position physical switch automatically logs raw PCAP files directly to an attached USB thumb drive or initiates OpenVPN tunnels.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Network IO:</span> <span class="spec-val">Dual 10/100 Ethernet Ports (Transparent Bridge)</span></div>
+                            <div class="spec-line"><span class="spec-key">Automation:</span> <span class="spec-val">4-Way Push Switch Payload Selection</span></div>
+                            <div class="spec-line"><span class="spec-key">Storage:</span> <span class="spec-val">Direct USB Mass Storage PCAP Logging</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Installed inline between printer/VoIP phone and wall jack; captures all unencrypted VoIP audio streams and print job contents.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Enforce TLS 1.3 / SRTP encryption on internal network communications; enable Dynamic ARP Inspection (DAI) and IP Source Guard.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Micro Ethernet Inline Box</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('Packet Squirrel - Hak5 Ethernet Tap & Sniffer')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 9. Proxmark3 -->
+                <div class="device-card" data-cat="rfid">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">09</span>
+                            <span class="device-category-chip" style="color: #9333ea;">Professional RFID & NFC</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">Proxmark3</h2>
+                            <span class="device-vendor">// RRG / RFIDler</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            RFID hacking tool for professionals. Hack RFID like a pro.
+                        </div>
+                        <p class="device-tech-intel">
+                            The industry gold standard dedicated to RFID/NFC protocol exploration and physical access exploitation. Supports dual-frequency: Low Frequency (125 kHz: EM410x, Indala, HID Prox) and High Frequency (13.56 MHz: Mifare Classic, Ultralight, iCLASS). Can sniff radio exchanges between cards and readers, simulate badges, and crack crypto keys via Darkside and Nested algorithms.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Frequencies:</span> <span class="spec-val">125 kHz (LF) + 13.56 MHz (HF) Dual-Antenna</span></div>
+                            <div class="spec-line"><span class="spec-key">Cracking Engine:</span> <span class="spec-val">Darkside, Nested, Hardnested Cryptanalysis</span></div>
+                            <div class="spec-line"><span class="spec-key">Emulation:</span> <span class="spec-val">Tag Simulation, Reader Sniffing & Cloning</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Bumps into employee in hallway; reads card serial number; cracks weak Mifare keys; writes clone to rewritable T5577 card to enter facility.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Deprecate unencrypted 125 kHz RFID badges and Mifare Classic; migrate to AES-128 encrypted Mifare DESFire EV2/EV3 or HID Seos.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Compact PCB with High-Q Antennas</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('Proxmark3 - RFID & NFC Cryptanalysis & Cloning Tool')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+                <!-- 10. Evil Portal -->
+                <div class="device-card" data-cat="rf">
+                    <div>
+                        <div class="device-top-bar">
+                            <span class="device-num-badge">10</span>
+                            <span class="device-category-chip" style="color: #D9291C;">Captive Portal Attack Framework</span>
+                        </div>
+                        <div class="device-title-wrap">
+                            <h2 class="device-name">Evil Portal</h2>
+                            <span class="device-vendor">// Open Source / PineAP</span>
+                        </div>
+                        <div class="device-slide-summary">
+                            Captive portal attack framework. Create fake login pages.
+                        </div>
+                        <p class="device-tech-intel">
+                            A modular captive portal attack framework deployed on rogue access points (WiFi Pineapple, ESP8266 Deauther, ESP32, or Raspberry Pi). Forces victims joining the rogue network into a walled garden where all DNS traffic redirects to a realistic login page imitating airport Wi-Fi, hotel portals, Starbucks terms, or corporate Google/Microsoft SSO logins.
+                        </p>
+                        <div class="device-spec-box">
+                            <div class="spec-line"><span class="spec-key">Platform:</span> <span class="spec-val">WiFi Pineapple, ESP32, Linux AP Daemon</span></div>
+                            <div class="spec-line"><span class="spec-key">Mechanism:</span> <span class="spec-val">DNS Spoofing (Captive Portal RFC 7710/8908)</span></div>
+                            <div class="spec-line"><span class="spec-key">Payload:</span> <span class="spec-val">Cloned Google, Microsoft 365, WPA2 Passphrase Phish</span></div>
+                        </div>
+                        <div class="device-intel-grid">
+                            <div class="intel-column">
+                                <span class="intel-column-title attack-title">⚡ Attack Vector</span>
+                                <div class="intel-column-text">Sends deauth frames kicking users off coffee shop Wi-Fi; users reconnect to rogue twin; enter email password to regain internet.</div>
+                            </div>
+                            <div class="intel-column">
+                                <span class="intel-column-title defense-title">🛡️ Defense / Mitigation</span>
+                                <div class="intel-column-text">Never enter real credentials or passwords on public Wi-Fi splash pages; use cellular hotspots; require hardware security keys (FIDO2).</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card-footer">
+                        <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Software Framework on Microcontrollers</span>
+                        <button class="btn-engine-action" onclick="copyEngineText('Evil Portal - Captive Portal Phishing Framework')">📋 Copy Specs</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB 2: 32 HACKER SEARCH ENGINES (Slides 10 & 12 Consolidated)
+             =================================================================== -->
+        <div class="tab-content-panel" id="enginesPanel">
+            <div class="engines-grid">
+
+                <!-- 1. Shodan -->
+                <div class="engine-card" data-cat="iot">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">01</span>
+                                <h3 class="engine-name">Shodan</h3>
+                            </div>
+                            <span class="engine-cat-tag">IoT & Devices</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.shodan.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.shodan.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: IoT device search engine. Search internet-connected webcams, routers, servers & ICS systems.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Crawls the entire IPv4 space 24/7 collecting service banners. Find unpatched Apache, open SCADA/Modbus controllers, MQTT brokers, and default router logins. Use filters like <code>port:22 country:IN org:"ISP"</code>.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Raw IPv4 Banners & SCADA</span>
+                        <a href="https://www.shodan.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 2. Censys -->
+                <div class="engine-card" data-cat="iot dns">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">02</span>
+                                <h3 class="engine-name">Censys</h3>
+                            </div>
+                            <span class="engine-cat-tag">Asset Discovery</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://censys.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://censys.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Internet infrastructure and attack surface discovery platform.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Built by the team behind ZMap at the University of Michigan. Correlates TLS/SSL certificates with host IP addresses. Essential for discovering origin IP behind Cloudflare WAF by searching for the target's SSL certificate fingerprints.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: TLS Certificates & Origin IP</span>
+                        <a href="https://censys.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 3. ZoomEye -->
+                <div class="engine-card" data-cat="iot">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">03</span>
+                                <h3 class="engine-name">ZoomEye</h3>
+                            </div>
+                            <span class="engine-cat-tag">Cyberspace Devices</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.zoomeye.org</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.zoomeye.org')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Cyberspace search engine for network devices, industrial systems & web daemons.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Developed by Knownsec. Exceptional coverage of Asian and European cyberspace infrastructure, mapping web applications, camera streams, databases, and OS fingerprints with deep component version indexing.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Global & Asian Cyberspace Nodes</span>
+                        <a href="https://www.zoomeye.org" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 4. GreyNoise -->
+                <div class="engine-card" data-cat="threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">04</span>
+                                <h3 class="engine-name">GreyNoise</h3>
+                            </div>
+                            <span class="engine-cat-tag">Threat Intelligence</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.greynoise.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.greynoise.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Internet noise, mass scanners, benign worms & adversary threat intelligence.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Separates background internet scanning noise (Shodan, Censys, mass Mirai bots) from targeted zero-day attacks against your network. Identifies whether an IP hitting your firewall is "internet noise" or a persistent adversary.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: SOC Triage & Noise Filtering</span>
+                        <a href="https://www.greynoise.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 5. ONYPHE -->
+                <div class="engine-card" data-cat="threat iot">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">05</span>
+                                <h3 class="engine-name">ONYPHE</h3>
+                            </div>
+                            <span class="engine-cat-tag">Cyber Defense</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.onyphe.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.onyphe.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Cyber defense search engine and open-source attack surface discovery provider.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Specializes in passive cyber defense intelligence, mapping DNS, forward/reverse WHOIS, ports, SSL certificates, honeypot captures, and threat feeds into an integrated searchable asset index for security analysts.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Defensive Surface Correlator</span>
+                        <a href="https://www.onyphe.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 6. BinaryEdge -->
+                <div class="engine-card" data-cat="threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">06</span>
+                                <h3 class="engine-name">BinaryEdge</h3>
+                            </div>
+                            <span class="engine-cat-tag">Threat Intel Platform</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.binaryedge.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.binaryedge.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Threat intelligence data platform scanning the global internet surface.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Scans the entire internet measuring exposures, misconfigured open databases (Elasticsearch, MongoDB), exposed RDP endpoints, vulnerability risk metrics, and DNS threat feeds for enterprise external attack surface management.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Exposed Databases & Ports</span>
+                        <a href="https://www.binaryedge.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 7. FOFA -->
+                <div class="engine-card" data-cat="iot threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">07</span>
+                                <h3 class="engine-name">FOFA</h3>
+                            </div>
+                            <span class="engine-cat-tag">Cyberspace Mapping</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.fofa.info</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.fofa.info')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Cyberspace asset mapping engine with advanced query syntax.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Massive cyberspace search engine popular in bug bounties and Red Teaming. Exceptional for querying HTML title hashes, favicon mmh3 hashes, certificate subject names, and specific protocol banners to find hidden company portals.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Favicon MMH3 & Title Hashes</span>
+                        <a href="https://www.fofa.info" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 8. LeakIX -->
+                <div class="engine-card" data-cat="leaks">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">08</span>
+                                <h3 class="engine-name">LeakIX</h3>
+                            </div>
+                            <span class="engine-cat-tag">Information Leaks</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://leakix.net</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://leakix.net')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Information leaks search engine indexing exposed web services & misconfigurations.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> The premier search engine for unauthenticated database leaks, exposed <code>.env</code> files, public Git repositories (<code>.git/HEAD</code>), open Elasticsearch clusters, and unprotected Redis instances on the public internet.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Exposed .env & Open Databases</span>
+                        <a href="https://leakix.net" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 9. Criminal IP -->
+                <div class="engine-card" data-cat="threat iot">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">09</span>
+                                <h3 class="engine-name">Criminal IP</h3>
+                            </div>
+                            <span class="engine-cat-tag">Asset Inventory & Risk</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.criminalip.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.criminalip.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Cyber threat intelligence search engine for asset inventory and risk assessment.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Scans global IP addresses and domain reputations in real time. Analyzes malicious bots, phishing domains, open vulnerabilities, and compromised credentials with instant 5-tier risk severity ratings.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: 5-Tier IP Risk Severity Grading</span>
+                        <a href="https://www.criminalip.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 10. Netlas.io -->
+                <div class="engine-card" data-cat="threat iot">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">10</span>
+                                <h3 class="engine-name">Netlas.io</h3>
+                            </div>
+                            <span class="engine-cat-tag">Attack Surface Discovery</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://netlas.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://netlas.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Attack surface discovery and global IP/domain protocol reconnaissance platform.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Provides rich multi-protocol scanning across HTTP, FTP, SMTP, SSH, and RDP. Features powerful boolean search operators to discover IP perimeters, WHOIS records, SSL SAN certificates, and IoT peripherals.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Multi-Protocol WHOIS & Perimeters</span>
+                        <a href="https://netlas.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 11. DeHashed -->
+                <div class="engine-card" data-cat="leaks">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">11</span>
+                                <h3 class="engine-name">DeHashed</h3>
+                            </div>
+                            <span class="engine-cat-tag">Leaked Credentials</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.dehashed.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.dehashed.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Leaked credentials search engine indexing breached passwords & user accounts.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Search across billions of compromised data breach records by email, username, IP, name, phone, or password hash. Critical for enterprise credential stuffing defense audits and corporate credential exposure monitoring.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Breach Auditing & Credential Defense</span>
+                        <a href="https://www.dehashed.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 12. SecurityTrails -->
+                <div class="engine-card" data-cat="dns">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">12</span>
+                                <h3 class="engine-name">SecurityTrails</h3>
+                            </div>
+                            <span class="engine-cat-tag">DNS & Domains</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://securitytrails.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://securitytrails.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: DNS and domain data platform with historical A/MX/NS/SOA tracking.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Unmatched historical DNS database. Allows security analysts to see past IP addresses of a website before Cloudflare was enabled, revealing old origin servers, abandoned subdomains, and historical WHOIS owners.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Historical DNS & Subdomain Trees</span>
+                        <a href="https://securitytrails.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 13. DorkSearch -->
+                <div class="engine-card" data-cat="osint">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">13</span>
+                                <h3 class="engine-name">DorkSearch</h3>
+                            </div>
+                            <span class="engine-cat-tag">Google Dork Tool</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.dorksearch.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.dorksearch.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Fast Google Dorking search engine with pre-compiled GHDB vulnerability queries.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Automated Google Dorking interface. Offers 1-click execution for thousands of curated dork templates targeting exposed admin panels, open cameras, leaked cloud keys, SQL errors, and unauthenticated web interfaces.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Pre-Built GHDB Exploit Templates</span>
+                        <a href="https://www.dorksearch.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 14. Exploit-DB -->
+                <div class="engine-card" data-cat="malware">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">14</span>
+                                <h3 class="engine-name">Exploit-DB</h3>
+                            </div>
+                            <span class="engine-cat-tag">Exploit Archive</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.exploit-db.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.exploit-db.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Official Offensive Security exploit and vulnerability proof-of-concept archive.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> The ultimate CVE proof-of-concept (PoC) repository and home of the Google Hacking Database (GHDB). Maintained by OffSec, providing working Python, C, and Ruby exploit code for validated software vulnerabilities.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Verified PoC Scripts & GHDB</span>
+                        <a href="https://www.exploit-db.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 15. Pulsedive -->
+                <div class="engine-card" data-cat="threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">15</span>
+                                <h3 class="engine-name">Pulsedive</h3>
+                            </div>
+                            <span class="engine-cat-tag">Threat Intel Search</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://pulsedive.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://pulsedive.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Community-driven threat intelligence search engine & IOC aggregator.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Consolidates indicators of compromise (IOCs), malicious IPs, compromised domains, and threat actor feeds. Generates real-time risk scores with historical infrastructure graphs and threat attribution badges.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: IOC Aggregation & Risk Scoring</span>
+                        <a href="https://pulsedive.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 16. GrayhatWarfare -->
+                <div class="engine-card" data-cat="leaks">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">16</span>
+                                <h3 class="engine-name">GrayhatWarfare</h3>
+                            </div>
+                            <span class="engine-cat-tag">Public S3 Buckets</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://grayhatwarfare.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://grayhatwarfare.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Public S3 buckets and cloud storage file search engine.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Continuously indexes millions of publicly accessible AWS S3 buckets, Azure Blobs, and DigitalOcean Spaces. Find exposed customer backups, database exports, invoices, and source code archives by searching company keywords.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Cloud S3 Bucket Leak Hunter</span>
+                        <a href="https://grayhatwarfare.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 17. PolySwarm -->
+                <div class="engine-card" data-cat="malware threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">17</span>
+                                <h3 class="engine-name">PolySwarm</h3>
+                            </div>
+                            <span class="engine-cat-tag">Threat Marketplace</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://polyswarm.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://polyswarm.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Crowdsourced decentralized threat detection and malware marketplace.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> A multi-engine threat detection ecosystem where specialized cybersecurity companies compete with custom AI engines to detect emerging zero-day malware, suspicious payloads, and novel malicious files.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Multi-Engine Zero-Day Detection</span>
+                        <a href="https://polyswarm.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 18. URLScan -->
+                <div class="engine-card" data-cat="threat osint">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">18</span>
+                                <h3 class="engine-name">URLScan.io</h3>
+                            </div>
+                            <span class="engine-cat-tag">Website Analysis</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://urlscan.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://urlscan.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Website and URL scanning sandbox with DOM tree & network inspector.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Safely renders target websites in a secure browser sandbox. Records DOM elements, screenshot previews, outgoing HTTP requests, third-party JavaScript trackers, loaded certificates, and redirects to uncover hidden phishing sites.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Full Browser Sandbox & DOM Triage</span>
+                        <a href="https://urlscan.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 19. Vulners -->
+                <div class="engine-card" data-cat="malware threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">19</span>
+                                <h3 class="engine-name">Vulners</h3>
+                            </div>
+                            <span class="engine-cat-tag">Vuln Database</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://vulners.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://vulners.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Real-time vulnerability database and CVE correlation search engine.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> The Wikipedia of security vulnerabilities. Aggregates NVD CVEs, vendor advisories, bug bounty write-ups, and public Metasploit modules into a unified search index with CVSS v3.1 scoring and patch links.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: CVE Intelligence & Exploit Linking</span>
+                        <a href="https://vulners.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 20. Wayback Machine -->
+                <div class="engine-card" data-cat="osint">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">20</span>
+                                <h3 class="engine-name">Wayback Machine</h3>
+                            </div>
+                            <span class="engine-cat-tag">Web Archive</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://archive.org/web/</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://archive.org/web/')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Historical web page archive preserving internet snapshots since 1996.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Inspect historic versions of target websites to find deprecated API endpoints, old employee directories, forgotten staging portals, old copyright notices with legal entity names, and removed documentation.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Historical Snapshots & Old APIs</span>
+                        <a href="https://archive.org/web/" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 21. crt.sh -->
+                <div class="engine-card" data-cat="dns">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">21</span>
+                                <h3 class="engine-name">crt.sh</h3>
+                            </div>
+                            <span class="engine-cat-tag">Certificate Transparency</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://crt.sh</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://crt.sh')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Certificate Transparency log search engine for instantaneous subdomain discovery.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Every public SSL/TLS certificate issued must be logged to immutable CT logs. Searching <code>%.target.com</code> instantly reveals every subdomain ever granted an SSL cert, including internal staging and VPN endpoints.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: 100% Comprehensive Subdomain Recon</span>
+                        <a href="https://crt.sh" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 22. WiGLE -->
+                <div class="engine-card" data-cat="osint rf">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">22</span>
+                                <h3 class="engine-name">WiGLE.net</h3>
+                            </div>
+                            <span class="engine-cat-tag">Wireless Mapping</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://wigle.net</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://wigle.net')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Global wireless network mapping platform with GPS geotagged BSSIDs.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> World's largest crowdsourced database of wireless networks, cell towers, and Bluetooth devices. Query by SSID or MAC/BSSID to pinpoint the physical geographic GPS coordinates of an organization's wireless routers.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Physical Geolocation of Wi-Fi BSSIDs</span>
+                        <a href="https://wigle.net" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 23. PublicWWW -->
+                <div class="engine-card" data-cat="code">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">23</span>
+                                <h3 class="engine-name">PublicWWW</h3>
+                            </div>
+                            <span class="engine-cat-tag">Source Code Search</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://publicwww.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://publicwww.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Source code search engine indexing HTML, JavaScript, CSS & web page assets.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Search directly within the HTML, JS, and CSS source code of millions of websites. Find websites sharing identical Google Analytics IDs, unique JavaScript API keys, malicious web skimmers, or specific CMS widgets.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Analytics IDs & JS Code Footprints</span>
+                        <a href="https://publicwww.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 24. Hunter.io -->
+                <div class="engine-card" data-cat="osint">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">24</span>
+                                <h3 class="engine-name">Hunter.io</h3>
+                            </div>
+                            <span class="engine-cat-tag">Email Discovery</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://hunter.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://hunter.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Professional email address finder and corporate pattern discovery tool.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Scrapes the web to identify email address patterns for any domain (e.g. <code>{first}.{last}@target.com</code>). Lists verified employee emails with public sources, invaluable for authorized phishing tests and employee recon.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Corporate Email Patterns & OSINT</span>
+                        <a href="https://hunter.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 25. IntelX -->
+                <div class="engine-card" data-cat="leaks osint">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">25</span>
+                                <h3 class="engine-name">Intelligence X</h3>
+                            </div>
+                            <span class="engine-cat-tag">OSINT & Breaches</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://intelx.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://intelx.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: OSINT search engine indexing darknet leaks, paste sites & data breaches.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Archives raw historical data from paste sites, Tor hidden services, Telegram breach channels, and whois records. Preserves full raw records even after the original pastebin or onion leak site is taken down.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Tor Darknet, Pastes & Leaks</span>
+                        <a href="https://intelx.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 26. Grep.app -->
+                <div class="engine-card" data-cat="code">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">26</span>
+                                <h3 class="engine-name">Grep.app</h3>
+                            </div>
+                            <span class="engine-cat-tag">Code Search (GitHub)</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://grep.app</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://grep.app')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: High-speed code search engine across 500,000+ public GitHub repositories.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Blazing-fast regex code search across half a million git repositories. Perfect for finding how developers implement proprietary APIs, hardcoded secret tokens, dangerous functions (eval, exec), or vulnerable dependencies.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Regex Code Search Across GitHub</span>
+                        <a href="https://grep.app" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 27. Packet Storm -->
+                <div class="engine-card" data-cat="malware">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">27</span>
+                                <h3 class="engine-name">Packet Storm</h3>
+                            </div>
+                            <span class="engine-cat-tag">Security Tools & Exploits</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://packetstormsecurity.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://packetstormsecurity.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Comprehensive security tools, advisories, zero-day research & exploit repository.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Legendary cybersecurity clearinghouse active since 1998. Features daily security news, full-disclosure vulnerability advisories, custom whitepapers, penetration testing tools, and functional exploit scripts.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Zero-Day Feeds & Security Tools</span>
+                        <a href="https://packetstormsecurity.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 28. Searchcode -->
+                <div class="engine-card" data-cat="code">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">28</span>
+                                <h3 class="engine-name">Searchcode</h3>
+                            </div>
+                            <span class="engine-cat-tag">Source Code & API</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://searchcode.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://searchcode.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Comprehensive source code and API search engine across multiple code repositories.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Searches over 75 billion lines of code across GitHub, Bitbucket, GitLab, Google Code, and SourceForge. Filter by programming language to locate API documentation, cryptographic routines, and configuration files.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Multi-Host Code & API Parsing</span>
+                        <a href="https://searchcode.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 29. DNSDB -->
+                <div class="engine-card" data-cat="dns">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">29</span>
+                                <h3 class="engine-name">DNSDB</h3>
+                            </div>
+                            <span class="engine-cat-tag">Historical DNS Data</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.dnsdb.info</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.dnsdb.info')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Historical passive DNS data search engine by Farsight Security.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> The world's largest passive DNS database. Captures raw resolution queries from real internet recursors to reconstruct historical domain mappings, identify fast-flux botnets, and trace threat actor command-and-control servers.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Passive DNS & Botnet Tracking</span>
+                        <a href="https://www.dnsdb.info" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 30. FullHunt -->
+                <div class="engine-card" data-cat="threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">30</span>
+                                <h3 class="engine-name">FullHunt</h3>
+                            </div>
+                            <span class="engine-cat-tag">Asset Discovery</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://fullhunt.io</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://fullhunt.io')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 10 & 12: Modern attack surface discovery platform and corporate perimeter mapper.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Continuously monitors corporate perimeters for exposed assets, unpatched software, and security misconfigurations. Features automated asset discovery with rich API integration for threat intelligence automation.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Corporate Perimeter Monitoring</span>
+                        <a href="https://fullhunt.io" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 31. VirusTotal -->
+                <div class="engine-card" data-cat="malware threat">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">31</span>
+                                <h3 class="engine-name">VirusTotal</h3>
+                            </div>
+                            <span class="engine-cat-tag">Malware Analysis</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://www.virustotal.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://www.virustotal.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Malware analysis, file scanning & URL reputation engine with 70+ AV scanners.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> Scans files, hashes (MD5/SHA256), and URLs across 70+ major antivirus engines. Displays behavioral sandbox execution reports, network communications, dropped files, and community threat actor tags.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: 70+ AV Engine Correlation</span>
+                        <a href="https://www.virustotal.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+                <!-- 32. DNSDumpster -->
+                <div class="engine-card" data-cat="dns">
+                    <div>
+                        <div class="engine-card-header">
+                            <div class="engine-rank-title">
+                                <span class="engine-rank-badge">32</span>
+                                <h3 class="engine-name">DNSDumpster</h3>
+                            </div>
+                            <span class="engine-cat-tag">DNS Recon Tool</span>
+                        </div>
+                        <div class="engine-url-box">
+                            <span>https://dnsdumpster.com</span>
+                            <button class="btn-engine-action" onclick="copyEngineText('https://dnsdumpster.com')">📋</button>
+                        </div>
+                        <div class="engine-slide-desc">
+                            Slide 12: Free domain research tool discovering subdomains, MX records & network graphs.
+                        </div>
+                        <div class="engine-deep-recon">
+                            <strong>Deep Recon Triage:</strong> The go-to tool for fast passive DNS reconnaissance. Maps DNS records (A, MX, NS, TXT) and generates an interactive visual topology map showing IP subnet clustering and mail/DNS hosting providers.
+                        </div>
+                    </div>
+                    <div class="engine-card-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Focus: Visual Network Topology Mapping</span>
+                        <a href="https://dnsdumpster.com" target="_blank" rel="noopener noreferrer" class="btn-engine-action btn-visit-engine">Visit ↗</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </main>
+
+    <!-- Floating Toast Notification -->
+    <div id="enginesToast">COPIED TO CLIPBOARD</div>
+
+    <!-- Controller Scripts -->
+    <script src="../js/hacker_engines_devices.js"></script>
 </body>
 
 </html>
