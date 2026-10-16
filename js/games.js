@@ -510,3 +510,259 @@ window.addEventListener('DOMContentLoaded', () => {
     addArcadeXp(0);
     initPacketGatekeeper();
 });
+
+
+// ── 5. GAME 2: PHISH DETECTIVE IMPLEMENTATION ──
+const PhishDetective = {
+    currentIndex: 0,
+    investigated: 0,
+    score: 0,
+    strikes: 0,
+    answered: false,
+
+    cases: [
+        {
+            senderName: 'Elena Vance (CEO)',
+            rawFrom: 'elena.vance.ceo@mail-outlook-free.com [SPF: FAIL | DMARC: NONE]',
+            subject: 'URGENT: Confidential Client Request (Need you now)',
+            body: `
+                <p>Hello,</p>
+                <p>I am stuck in an offsite executive conference and our presentation is in 30 minutes. I need you to purchase <strong>5x $100 Apple Gift Cards</strong> immediately for the client representatives.</p>
+                <p>Scratch the backs and reply directly with the claim codes. <em>Do not call me — my mobile phone has zero signal here.</em></p>
+                <p>Keep this between us until the meeting concludes.</p>
+                <p>Best regards,<br><strong>Elena Vance</strong><br>Chief Executive Officer</p>
+            `,
+            hasLink: false,
+            hasAttachment: false,
+            correctVerdict: 'spear-phish',
+            explanation: 'WHALING / CEO FRAUD: Notice the public webmail address (mail-outlook-free.com) masquerading as the CEO, extreme urgency, insistence on secrecy, and unusual gift card purchase demands.'
+        },
+        {
+            senderName: 'PwnBox IT Security Team',
+            rawFrom: 'support@pwnb0x-internal.net [SPF: SOFTFAIL | TYPOSQUAT DOMAIN]',
+            subject: 'CRITICAL: Your Password Expires in 2 Hours',
+            body: `
+                <p>Operative,</p>
+                <p>Our identity servers detected that your single sign-on domain credentials will expire in <strong>2 hours</strong>.</p>
+                <p>To retain your existing password and prevent account suspension, verify your identity immediately:</p>
+                <p><span class="pd-interactive-link" data-real-url="http://194.26.29.5/identity/harvest.php">🔗 https://auth.pwnbox.internal/renew-sso-password</span></p>
+                <p>Failure to complete verification will result in immediate network revocation.</p>
+            `,
+            hasLink: true,
+            hasAttachment: false,
+            correctVerdict: 'phishing',
+            explanation: 'CREDENTIAL HARVESTING PHISH: The sender domain is typosquatted (pwnb0x with a zero). Hovering over the link reveals the actual destination points to an unencrypted external rogue IP (194.26.29.5).'
+        },
+        {
+            senderName: 'Corporate Communications',
+            rawFrom: 'internal-comms@pwnbox.internal [SPF: PASS | DKIM: VALID]',
+            subject: 'Town Hall & Q4 Strategic Roadmap Reminder',
+            body: `
+                <p>Team,</p>
+                <p>A quick reminder that our quarterly all-hands meeting is scheduled for this Thursday at 15:00 UTC on our internal conferencing bridge.</p>
+                <p>You can review the preliminary agenda and submit questions in advance on our company portal:</p>
+                <p><span class="pd-interactive-link" data-real-url="https://portal.pwnbox.internal/townhall-q4">🔗 https://portal.pwnbox.internal/townhall-q4</span></p>
+                <p>See you all there!</p>
+            `,
+            hasLink: true,
+            hasAttachment: false,
+            correctVerdict: 'legitimate',
+            explanation: 'LEGITIMATE: Verified internal domain, authentic SPF and DKIM cryptographic signatures, and the link destination matches the true internal company intranet.'
+        },
+        {
+            senderName: 'Apex Logistics Billing',
+            rawFrom: 'invoicing@apexlogistics-dispatch.co [EXTERNAL SENDER]',
+            subject: 'OVERDUE NOTICE: Invoice #INV-9921-FINAL',
+            body: `
+                <p>Attention Accounts Payable,</p>
+                <p>Your scheduled shipment #9921 is on hold due to outstanding storage fees. We have attached the itemized invoice below.</p>
+                <p>Please review and execute payment today to avoid inventory auctioning.</p>
+                <div class="pd-attachment-box" data-mime-info="Executable Binary (PE32 Windows GUI) | Hash: 0x9a8f4b...">
+                    <span>📎</span>
+                    <span>INVOICE_OVERDUE_9921.pdf.exe (418 KB)</span>
+                </div>
+            `,
+            hasLink: false,
+            hasAttachment: true,
+            correctVerdict: 'phishing',
+            explanation: 'MALWARE DROPPER: Employs a double file extension (.pdf.exe) hoping Windows default settings hide known extensions. Hovering over the attachment reveals the true MIME type is a PE32 executable binary.'
+        },
+        {
+            senderName: 'Talent & HR Recruitment',
+            rawFrom: 'compensation-hr@contractor-talent-review.org [EXTERNAL]',
+            subject: 'Confidential: FY26 Executive Bonus & Performance Distribution',
+            body: `
+                <p>Dear Colleague,</p>
+                <p>Attached is the confidential salary revision matrix for your department. Due to privacy protection, the workbook is encrypted with corporate rights management.</p>
+                <p><em>You must click "Enable Content / Enable Macros" at the top of MS Word when prompted to allow the macro to decrypt the table.</em></p>
+                <div class="pd-attachment-box" data-mime-info="VBA Macro Script Detected: AutoOpen() -> Powershell Download Cradle">
+                    <span>📎</span>
+                    <span>Executive_Bonus_Matrix.docm (280 KB)</span>
+                </div>
+            `,
+            hasLink: false,
+            hasAttachment: true,
+            correctVerdict: 'spear-phish',
+            explanation: 'WEAPONIZED MACRO / SPEAR PHISHING: Targeted bait specifically tailored to department compensation. Coerces the user into enabling VBA macros which execute a malicious PowerShell download cradle.'
+        },
+        {
+            senderName: 'SecOps Infrastructure Monitoring',
+            rawFrom: 'secops@pwnbox.internal [SPF: PASS | DKIM: VALID]',
+            subject: 'Scheduled Maintenance: Datacenter Core Switch Firmware Upgrade',
+            body: `
+                <p>All Operatives,</p>
+                <p>Datacenter spine switches in Region US-East will undergo scheduled firmware upgrades tonight between 01:00 - 02:00 UTC. Redundant paths will remain active, but minor packet jitter may occur.</p>
+                <p>Track live maintenance status here: <span class="pd-interactive-link" data-real-url="https://status.pwnbox.internal">🔗 https://status.pwnbox.internal</span></p>
+                <p>No action is needed on your workstations.</p>
+            `,
+            hasLink: true,
+            hasAttachment: false,
+            correctVerdict: 'legitimate',
+            explanation: 'LEGITIMATE: Typical informative SecOps maintenance advisory. Clean internal domain, verified SPF/DKIM, no coercive urgency, and standard status page link.'
+        }
+    ]
+};
+
+function initPhishDetective() {
+    PhishDetective.currentIndex = 0;
+    PhishDetective.investigated = 0;
+    PhishDetective.score = 0;
+    PhishDetective.strikes = 0;
+    PhishDetective.answered = false;
+
+    renderPdSidebar();
+    loadPdCase(0);
+    updatePdHUD();
+}
+
+function renderPdSidebar() {
+    const list = document.getElementById('pdEmailList');
+    if (!list) return;
+    list.innerHTML = '';
+
+    PhishDetective.cases.forEach((c, idx) => {
+        const item = document.createElement('div');
+        item.className = `pd-email-item ${idx === PhishDetective.currentIndex ? 'active' : ''}`;
+        item.onclick = () => {
+            if (!PhishDetective.answered && PhishDetective.currentIndex !== idx) {
+                loadPdCase(idx);
+            }
+        };
+        item.innerHTML = `
+            <div class="pd-email-sender">${c.senderName}</div>
+            <div class="pd-email-sub">${c.subject}</div>
+        `;
+        list.appendChild(item);
+    });
+
+    const badge = document.getElementById('pdInboxBadge');
+    if (badge) {
+        badge.textContent = `${PhishDetective.cases.length - PhishDetective.investigated} PENDING`;
+    }
+}
+
+function loadPdCase(idx) {
+    PhishDetective.currentIndex = idx;
+    PhishDetective.answered = false;
+    const c = PhishDetective.cases[idx];
+
+    // Meta bar
+    const fromEl = document.getElementById('pdFromField');
+    const subEl = document.getElementById('pdSubjectField');
+    const bodyEl = document.getElementById('pdMailBody');
+    const banner = document.getElementById('pdVerdictBanner');
+    const nextBtn = document.getElementById('pdNextBtn');
+
+    if (fromEl) {
+        fromEl.textContent = c.senderName;
+        fromEl.setAttribute('data-tooltip', `INSPECTION RESULT:\n${c.rawFrom}`);
+    }
+    if (subEl) subEl.textContent = c.subject;
+    if (bodyEl) bodyEl.innerHTML = c.body;
+
+    if (banner) {
+        banner.className = 'pd-verdict-banner';
+        banner.style.display = 'none';
+        banner.innerHTML = '';
+    }
+    if (nextBtn) nextBtn.style.display = 'none';
+
+    renderPdSidebar();
+}
+
+function handlePdVerdict(userChoice) {
+    if (PhishDetective.answered) return;
+    PhishDetective.answered = true;
+    PhishDetective.investigated++;
+
+    const c = PhishDetective.cases[PhishDetective.currentIndex];
+    const isCorrect = (userChoice === c.correctVerdict);
+    const banner = document.getElementById('pdVerdictBanner');
+    const nextBtn = document.getElementById('pdNextBtn');
+
+    if (isCorrect) {
+        CyberAudio.success();
+        PhishDetective.score += 150;
+        addArcadeXp(35);
+        if (banner) {
+            banner.className = 'pd-verdict-banner correct';
+            banner.innerHTML = `
+                <strong>✅ EXCELLENT TRIAGE (+150 PTS):</strong> You accurately identified this as <strong>${userChoice.toUpperCase()}</strong>.<br>
+                <span style="font-size: 0.74rem; opacity: 0.9;">${c.explanation}</span>
+            `;
+        }
+    } else {
+        CyberAudio.fail();
+        PhishDetective.strikes++;
+        if (banner) {
+            banner.className = 'pd-verdict-banner wrong';
+            banner.innerHTML = `
+                <strong>⚠️ TRIAGE MISTAKE!</strong> You marked this as <strong>${userChoice.toUpperCase()}</strong>, but it is actually <strong>${c.correctVerdict.toUpperCase()}</strong>.<br>
+                <span style="font-size: 0.74rem; opacity: 0.9;">${c.explanation}</span>
+            `;
+        }
+    }
+
+    if (nextBtn) nextBtn.style.display = 'inline-block';
+    updatePdHUD();
+}
+
+function nextPdEmail() {
+    CyberAudio.blip();
+    if (PhishDetective.currentIndex + 1 < PhishDetective.cases.length) {
+        loadPdCase(PhishDetective.currentIndex + 1);
+    } else {
+        // Complete Queue
+        const banner = document.getElementById('pdVerdictBanner');
+        if (banner) {
+            banner.className = 'pd-verdict-banner correct';
+            banner.style.display = 'block';
+            banner.innerHTML = `
+                <strong>🏆 INBOX TRIAGE COMPLETED!</strong><br>
+                Final Score: <strong>${PhishDetective.score} PTS</strong> with ${PhishDetective.strikes} strike(s). Excellent analysis of modern social engineering tactics!
+            `;
+        }
+        const nextBtn = document.getElementById('pdNextBtn');
+        if (nextBtn) {
+            nextBtn.textContent = '🔄 REPLAY INBOX';
+            nextBtn.onclick = () => initPhishDetective();
+        }
+    }
+}
+
+function updatePdHUD() {
+    const countEl = document.getElementById('pdCountVal');
+    const accEl = document.getElementById('pdAccuracyVal');
+    const scoreEl = document.getElementById('pdScoreVal');
+    const strikesEl = document.getElementById('pdStrikesVal');
+
+    if (countEl) countEl.textContent = `${PhishDetective.investigated} / ${PhishDetective.cases.length}`;
+    if (scoreEl) scoreEl.textContent = PhishDetective.score;
+    if (strikesEl) strikesEl.textContent = `${PhishDetective.strikes} / 3`;
+
+    if (accEl) {
+        const accuracy = PhishDetective.investigated === 0 ? 100 : Math.round(((PhishDetective.investigated - PhishDetective.strikes) / PhishDetective.investigated) * 100);
+        accEl.textContent = `${Math.max(0, accuracy)}%`;
+        accEl.style.color = accuracy >= 80 ? 'var(--accent-green)' : (accuracy >= 50 ? 'var(--accent-yellow)' : 'var(--accent-red)');
+    }
+}

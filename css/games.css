@@ -600,3 +600,237 @@ body.games-body {
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
 }
+
+/* ==========================================================================
+   GAME 2: PHISH DETECTIVE SPECIFIC STYLES
+   ========================================================================== */
+.pd-stage {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 960px) {
+    .pd-stage {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pd-inbox-sidebar {
+    background: var(--bg-base);
+    border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.pd-inbox-header {
+    padding: 12px;
+    background: var(--bg-panel);
+    border-bottom: 2px solid var(--border-color);
+    font-size: 0.78rem;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pd-email-list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 480px;
+}
+
+.pd-email-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+    background: var(--bg-panel);
+    transition: background 0.15s;
+    font-size: 0.72rem;
+}
+
+.pd-email-item:hover {
+    background: rgba(0, 240, 255, 0.08);
+}
+
+.pd-email-item.active {
+    background: rgba(16, 185, 129, 0.15);
+    border-left: 4px solid var(--accent-green);
+    font-weight: 700;
+}
+
+.pd-email-sender {
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 2px;
+}
+
+.pd-email-sub {
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* EMAIL VIEWER */
+.pd-viewer-box {
+    background: var(--bg-panel);
+    border: 3px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+}
+
+.pd-mail-meta-bar {
+    padding: 16px;
+    background: var(--bg-base);
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.78rem;
+}
+
+.pd-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pd-meta-tag {
+    font-weight: 800;
+    color: var(--text-muted);
+    width: 70px;
+    flex-shrink: 0;
+}
+
+.pd-inspectable {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 6px;
+    background: rgba(0, 102, 255, 0.08);
+    border: 1px dashed var(--accent-blue);
+    cursor: help;
+    font-weight: 700;
+    position: relative;
+    border-radius: 2px;
+}
+
+.pd-inspectable:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 6px;
+    background: #090d16;
+    color: #00f0ff;
+    border: 2px solid #00f0ff;
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    white-space: pre-wrap;
+    width: max-content;
+    max-width: 320px;
+    z-index: 1000;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+}
+
+.pd-mail-body {
+    padding: 20px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pd-interactive-link {
+    color: var(--accent-blue);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 2px;
+    background: rgba(0, 102, 255, 0.06);
+    display: inline-block;
+    position: relative;
+}
+
+.pd-interactive-link:hover::after {
+    content: "DESTINATION: " attr(data-real-url);
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 6px;
+    background: #000;
+    color: #fcee0a;
+    border: 1px solid #fcee0a;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.pd-attachment-box {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border: 2px dashed var(--border-color);
+    background: var(--bg-base);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: help;
+    font-size: 0.78rem;
+    position: relative;
+    max-width: 360px;
+}
+
+.pd-attachment-box:hover::after {
+    content: "MIME SCAN: " attr(data-mime-info);
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 6px;
+    background: #000;
+    color: #ff3344;
+    border: 1px solid #ff3344;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* ACTIONS BAR */
+.pd-actions-bar {
+    padding: 16px;
+    background: var(--bg-base);
+    border-top: 2px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pd-verdict-banner {
+    padding: 12px 16px;
+    border-top: 2px solid var(--border-color);
+    font-size: 0.8rem;
+    display: none;
+    line-height: 1.5;
+}
+
+.pd-verdict-banner.correct {
+    display: block;
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--accent-green);
+    color: var(--text-main);
+}
+
+.pd-verdict-banner.wrong {
+    display: block;
+    background: rgba(239, 68, 68, 0.15);
+    border-color: var(--accent-red);
+    color: var(--text-main);
+}
