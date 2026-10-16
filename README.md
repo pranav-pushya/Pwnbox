@@ -28,11 +28,6 @@ foot/
 ├── index.html                   # Cyber Command Landing Page & 3D Matrix Gateway
 ├── games.html                   # Tactical Cyber Mini-Games & Arcade Operations Hub
 ├── notes.html                   # Operative Notes & Tactical Payload Vault
-├── imp_info.html                # Important Info Direct Gateway Router (Redirects to imp_info/)
-├── career_paths.html            # Career Paths Direct Gateway Router (Redirects to imp_info/)
-├── ports.html                   # Critical Ports Direct Gateway Router (Redirects to imp_info/)
-├── http_codes.html              # HTTP Status Codes Direct Gateway Router (Redirects to imp_info/)
-├── general.html                 # General Cyber Intel Direct Gateway Router (Redirects to imp_info/)
 ├── 404.html                     # Tactical Sector 404 Bauhaus Error & Recovery Router
 ├── README.md                    # Project Documentation & Architecture
 │
@@ -73,12 +68,7 @@ foot/
 │   ├── cybersecurity_masterguide.html  # Master Guide Central Hub
 │   ├── masterguide_ch1.html – ch10.html # 10 Deep-Dive Chapters (100+ Documented Terms)
 │   ├── masterguide_test.html           # Comprehensive MCQ Examination Engine
-│   ├── roadmap.html                    # 9-Month Interactive CEH & Ethical Hacking Career Roadmap
-│   ├── imp_info.html                   # Compatibility Shim (Redirects to ../imp_info/imp_info.html)
-│   ├── career_paths.html               # Compatibility Shim (Redirects to ../imp_info/career_paths.html)
-│   ├── ports.html                      # Compatibility Shim (Redirects to ../imp_info/ports.html)
-│   ├── http_codes.html                 # Compatibility Shim (Redirects to ../imp_info/http_codes.html)
-│   └── general.html                    # Compatibility Shim (Redirects to ../imp_info/general.html)
+│   └── roadmap.html                    # 9-Month Interactive CEH & Ethical Hacking Career Roadmap
 │
 ├── 📂 css/                      # Modular Bauhaus Design System & Themes
 │   ├── landing.css              # Landing page layout & 3D HUD canvas styling

@@ -11,6 +11,18 @@
     ],
     "cleanUrls": true,
     "trailingSlash": false,
+    "redirects": [
+      { "source": "/imp_info", "destination": "/imp_info/imp_info", "type": 301 },
+      { "source": "/career_paths", "destination": "/imp_info/career_paths", "type": 301 },
+      { "source": "/ports", "destination": "/imp_info/ports", "type": 301 },
+      { "source": "/http_codes", "destination": "/imp_info/http_codes", "type": 301 },
+      { "source": "/general", "destination": "/imp_info/general", "type": 301 },
+      { "source": "/masterguide/imp_info", "destination": "/imp_info/imp_info", "type": 301 },
+      { "source": "/masterguide/career_paths", "destination": "/imp_info/career_paths", "type": 301 },
+      { "source": "/masterguide/ports", "destination": "/imp_info/ports", "type": 301 },
+      { "source": "/masterguide/http_codes", "destination": "/imp_info/http_codes", "type": 301 },
+      { "source": "/masterguide/general", "destination": "/imp_info/general", "type": 301 }
+    ],
     "headers": [
       {
         "source": "js/config.js",
