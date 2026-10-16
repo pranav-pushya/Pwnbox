@@ -2104,3 +2104,197 @@ function toggleKeyBit(idx) {
     CipherRelic.keyBits[idx] = CipherRelic.keyBits[idx] === 1 ? 0 : 1;
     renderXorBits();
 }
+
+
+// ── 12. UNIVERSAL GAME INTEL / HOW TO PLAY MODAL SYSTEM ──
+const GameIntel = {
+    'packet-gatekeeper': {
+        title: '🚦 PACKET GATEKEEPER',
+        badge: 'DEFENSE / NETWORK SECURITY',
+        whatIsThis: 'You are the Chief Perimeter Firewall & IDS Operator guarding PwnBox HQ. Live network protocol packets stream into your inspection chamber in real-time. You must evaluate packet headers, flags, and payloads to protect internal assets.',
+        howToPlay: `
+            <ul>
+                <li><strong>ALLOW [Key A / Left Arrow]:</strong> Forward trusted, encrypted packets (HTTPS 443, valid DNS 53, authorized SSH 22).</li>
+                <li><strong>DROP [Key D / Right Arrow]:</strong> Block insecure protocols (Telnet 23, public SMB 445, public RDP 3389), SYN flood DoS attempts, and web exploits (SQLi, XSS, Path Traversal).</li>
+                <li><strong>SANDBOX [Key S / Down Arrow]:</strong> Quarantine suspicious or anomalous packets (DNS Tunneling exfiltration, untrusted root certs) for isolated detonation.</li>
+                <li>Act before the <strong>TTL timer</strong> expires. Incorrect decisions damage firewall health!</li>
+            </ul>
+        `,
+        whatItTeaches: 'Demonstrates OSI Layer 3/4 & Layer 7 Deep Packet Inspection (DPI), why unencrypted cleartext protocols (Telnet) are hazardous, how TCP SYN floods exploit state tables, and how firewalls distinguish legitimate requests from active exploits.'
+    },
+    'phish-detective': {
+        title: '🎣 PHISH DETECTIVE: INBOX INSPECTOR',
+        badge: 'SOC TRIAGE / SOCIAL ENGINEERING',
+        whatIsThis: 'You are a Tier-1 SOC Incident Response Analyst triaging urgent employee-flagged emails. Attackers use deception, urgency, and lookalike domains to bypass human judgment.',
+        howToPlay: `
+            <ul>
+                <li><strong>Hover over FROM:</strong> Reveal the raw SMTP Return-Path and SPF/DKIM authentication status behind display names.</li>
+                <li><strong>Hover over Links:</strong> Preview the actual URL destination to spot spoofed redirects, external IPs, or typosquatted domains.</li>
+                <li><strong>Inspect Attachments:</strong> Unmask dangerous double extensions (e.g. <code>.pdf.exe</code>) and weaponized Office macros (<code>.docm</code>).</li>
+                <li><strong>Verdict:</strong> Choose between <em>[Legitimate]</em>, <em>[Phishing]</em>, or <em>[Spear Phish / Whaling]</em> based on evidence.</li>
+            </ul>
+        `,
+        whatItTeaches: 'Crucial email hygiene and anti-phishing defense: identifying typosquatting, IDN homograph attacks, CEO fraud/whaling coercion tactics, and weaponized attachment file formats.'
+    },
+    'sqli-locksmith': {
+        title: '🔓 SQLi LOCKSMITH: THE QUERY TUNER',
+        badge: 'WEB EXPLOITATION / OWASP TOP 10',
+        whatIsThis: 'An interactive database security lab where you stand before locked SQL vault doors. By analyzing vulnerable query structures, you learn how attackers manipulate backend logic and how to write impenetrable defenses.',
+        howToPlay: `
+            <ul>
+                <li>Inspect the backend SQL query displayed on the terminal screen.</li>
+                <li>Click an empty <strong>[ SLOT ]</strong> in the query to select it.</li>
+                <li>Click a <strong>Tactical Syntax Token</strong> below (e.g., <code>' OR 1=1 --</code>, <code>UNION SELECT</code>, <code>?</code>) to insert it.</li>
+                <li>Click <strong>EXECUTE QUERY</strong> to test your syntax against the database engine.</li>
+                <li>In Stage 5, switch to developer defense mode by slotting parameterized query placeholders (<code>?</code>) to neutralize injection permanently!</li>
+            </ul>
+        `,
+        whatItTeaches: 'How string concatenation causes SQL injection, how comment symbols (<code>--</code>, <code>#</code>) neutralize password checks, how UNION queries exfiltrate data from other tables, and why Prepared Statements (parameterization) are the ultimate defense.'
+    },
+    'cidr-block': {
+        title: '🧱 CIDR BLOCK: SUBNET ALLOCATOR',
+        badge: 'NETWORKING / VLSM PARTITIONING',
+        whatIsThis: 'You are the Principal Network Architect provisioning IPv4 address spaces for an enterprise. Departments submit host capacity requirements, and you must carve the parent network into non-overlapping subnets.',
+        howToPlay: `
+            <ul>
+                <li>Review the department request (e.g. "Workstations need 55 usable host IPs").</li>
+                <li>Select the optimal <strong>CIDR Prefix (/25, /26, /27, /30)</strong> that satisfies host demand without excessive address waste.</li>
+                <li>Remember the formula: <strong>Usable Hosts = 2^(32 - N) - 2</strong> (reserving Network ID and Broadcast ID).</li>
+                <li>Click <strong>ALLOCATE SUBNET BLOCK</strong> to lock it into the memory map and routing table.</li>
+            </ul>
+        `,
+        whatItTeaches: 'Classless Inter-Domain Routing (CIDR), Variable Length Subnet Masking (VLSM), calculating broadcast/network addresses, boundary alignment, and preventing IP exhaustion.'
+    },
+    'privesc-tower': {
+        title: '🏰 PRIVESC: FLOOR BY FLOOR',
+        badge: 'HOST EXPLOITATION / LINUX GTFOBINS',
+        whatIsThis: 'A host privilege escalation simulation where you start in the basement as restricted service daemon <code>www-data</code> and must climb the server elevator to the Rooftop Penthouse: <code>root (UID 0)</code>.',
+        howToPlay: `
+            <ul>
+                <li>Inspect the Linux terminal prompt and read the reconnaissance findings.</li>
+                <li>Use recon actions to uncover misconfigurations: audit SUID binaries, check <code>/etc/crontab</code>, and run <code>sudo -l</code>.</li>
+                <li>Select the lethal GTFOBins exploit command to pivot identities and unlock the next floor.</li>
+                <li>Avoid decoy or restricted commands that trigger permission denied errors!</li>
+            </ul>
+        `,
+        whatItTeaches: 'Common Linux Privilege Escalation vectors: abusing SUID bit binaries (e.g. <code>find -exec</code>), modifying world-writable root cron scripts, and escaping restricted shells via sudoers misconfigurations (Vim breakout).'
+    },
+    'ransom-panic': {
+        title: '⏱️ RANSOMWARE PANIC ROOM',
+        badge: 'INCIDENT RESPONSE / DFIR',
+        whatIsThis: 'A real-time emergency simulation of an active lateral ransomware encryption outbreak across enterprise workstations and backup servers.',
+        howToPlay: `
+            <ul>
+                <li><strong>Phase 1 (Containment):</strong> Inspect the network topology and immediately click the compromised host (Patient Zero) to isolate its network adapter before lateral SMB spread.</li>
+                <li><strong>Phase 2 (Eradication):</strong> Audit the live process tree on the compromised host and terminate the malicious parent process / LOLBin (e.g. <code>powershell.exe</code> or <code>vssadmin.exe</code>).</li>
+                <li><strong>Phase 3 (Reverse Engineering):</strong> Inspect memory strings to discover and sinkhole the unregistered kill-switch domain (WannaCry-style) to halt execution worldwide.</li>
+                <li>Complete all phases before the countdown timer reaches zero!</li>
+            </ul>
+        `,
+        whatItTeaches: 'NIST SP 800-61 Incident Response framework, network micro-segmentation for containment, identifying Living-Off-The-Land Binaries (LOLBins), and how security researchers neutralized WannaCry via domain sinkholing.'
+    },
+    'entropy-clash': {
+        title: '🔏 ENTROPY CLASH: PASSWORD TUG-OF-WAR',
+        badge: 'CRYPTOGRAPHY / AUTHENTICATION',
+        whatIsThis: 'A live interactive benchmark testing password constructions against an enterprise 8x RTX 4090 GPU cluster hashing at 100 Billion guesses per second.',
+        howToPlay: `
+            <ul>
+                <li>Type any passphrase or select quick sample presets (e.g., <code>P@ssw0rd!</code> vs <code>correct horse battery staple</code>).</li>
+                <li>Toggle between hashing algorithms: <strong>MD5</strong>, <strong>SHA-256</strong>, <strong>Bcrypt</strong>, and <strong>Argon2id</strong>.</li>
+                <li>Watch the real-time entropy score ($E = L \\times \\log_2 R$), search space combinations, and estimated time to crack.</li>
+                <li>Observe the Tug-of-War gauge shift from Hacker Advantage to Defender Fortification!</li>
+            </ul>
+        `,
+        whatItTeaches: 'Password entropy fundamentals: why length beats character complexity, why common dictionary words fall to mask attacks instantly, and how slow salted key-stretching functions (Bcrypt/Argon2) neutralize massive GPU clusters.'
+    },
+    'cipher-relic': {
+        title: '🕵️ CIPHER RELIC: THE CRYPTANALYST\'S DESK',
+        badge: 'CRYPTOGRAPHY / CODEBREAKING',
+        whatIsThis: 'A signals intelligence cryptanalysis station where you break historical and modern encryption schemes through hands-on device interaction.',
+        howToPlay: `
+            <ul>
+                <li><strong>Device 1 (Caesar Dial):</strong> Rotate the shift slider (ROT 0 to 25) to test Caesar offsets until readable English emerges.</li>
+                <li><strong>Device 2 (Vigenère Grid):</strong> Type the polyalphabetic keyword (e.g. <code>KEY</code>) to reverse the multi-shift encryption matrix.</li>
+                <li><strong>Device 3 (XOR Stream):</strong> Click binary bits (0/1) in the key stream to observe how <code>(Plaintext ⊕ Key) ⊕ Key = Plaintext</code>, proving perfect reversibility.</li>
+            </ul>
+        `,
+        whatItTeaches: 'Classical substitution ciphers, frequency analysis vulnerabilities, polyalphabetic evasion, and the foundational binary XOR logic gate powering all modern symmetric ciphers (AES, ChaCha20, One-Time Pads).'
+    }
+};
+
+function ensureGameIntelModal() {
+    let modal = document.getElementById('gameIntelOverlay');
+    if (modal) return modal;
+
+    modal = document.createElement('div');
+    modal.className = 'game-intel-overlay';
+    modal.id = 'gameIntelOverlay';
+    modal.innerHTML = `
+        <div class="game-intel-box" role="dialog" aria-modal="true">
+            <div class="game-intel-header">
+                <div class="game-intel-title-group">
+                    <h3 id="intelModalTitle"><span>ℹ️</span> MISSION INTEL BRIEFING</h3>
+                    <span class="game-badge badge-defense" id="intelModalBadge" style="margin-top:4px; display:inline-block;">INTEL</span>
+                </div>
+                <button class="game-intel-close" onclick="closeGameIntelModal()" title="Close (ESC)">✕</button>
+            </div>
+            <div class="game-intel-body">
+                <div class="intel-section">
+                    <h4><span>🛡️</span> WHAT IS THIS MISSION?</h4>
+                    <p id="intelModalWhat" style="color:var(--text-muted);"></p>
+                </div>
+                <div class="intel-section">
+                    <h4><span>🎮</span> HOW TO PLAY & CONTROLS</h4>
+                    <div id="intelModalHow" style="color:var(--text-muted);"></div>
+                </div>
+                <div class="intel-section" style="border-left: 5px solid var(--accent-blue);">
+                    <h4><span>💡</span> WHAT THIS TEACHES (CYBER LESSON)</h4>
+                    <p id="intelModalTeaches" style="color:var(--text-muted);"></p>
+                </div>
+            </div>
+            <div class="game-intel-footer">
+                <button class="pg-btn pg-btn-allow" style="padding: 8px 18px; font-size: 0.8rem;" onclick="closeGameIntelModal()">
+                    <span>GOT IT, COMMENCE MISSION ⚡</span>
+                </button>
+            </div>
+        </div>
+    `;
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeGameIntelModal();
+    });
+
+    document.body.appendChild(modal);
+    return modal;
+}
+
+function openGameIntelModal(gameKey) {
+    CyberAudio.blip();
+    const modal = ensureGameIntelModal();
+    const data = GameIntel[gameKey] || GameIntel['packet-gatekeeper'];
+
+    document.getElementById('intelModalTitle').innerHTML = data.title;
+    const badgeEl = document.getElementById('intelModalBadge');
+    if (badgeEl) badgeEl.textContent = data.badge;
+    document.getElementById('intelModalWhat').textContent = data.whatIsThis;
+    document.getElementById('intelModalHow').innerHTML = data.howToPlay;
+    document.getElementById('intelModalTeaches').textContent = data.whatItTeaches;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGameIntelModal() {
+    const modal = document.getElementById('gameIntelOverlay');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// ESC closes Intel Modal
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeGameIntelModal();
+    }
+});

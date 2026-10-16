@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PwnBox // Tactical Cyber Mini-Games & Arcade</title>
+    <title>PwnBox // Tactical Cyber Mini-Games & Arcade Hub</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
 
     <!-- Fonts -->
@@ -20,7 +20,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css?v=1.0">
-    <link rel="stylesheet" href="css/games.css?v=1.0">
+    <link rel="stylesheet" href="css/games.css?v=2.0">
 </head>
 
 <body class="games-body">
@@ -39,7 +39,7 @@
             <div class="games-header-logo">
                 <span style="font-size: 1.4rem;">🎮</span>
                 <span class="games-header-title">PWNBOX ARCADE</span>
-                <span class="games-header-tag">SIMS & LABS</span>
+                <span class="games-header-tag">8 SIMS & LABS</span>
             </div>
         </div>
 
@@ -66,897 +66,258 @@
     <!-- Hero Section -->
     <section class="games-hero-section">
         <div class="games-hero-text">
-            <h1><span>🛡️</span> TACTICAL CYBER MINI-GAMES</h1>
+            <h1><span>🛡️</span> TACTICAL CYBER MINI-GAMES MATRIX</h1>
             <p>
-                Hands-on, arcade simulations engineered to train your muscle memory in defense, protocol analysis, social engineering, web exploits, and cryptography. Select a module below to begin deployment.
+                8 dedicated standalone cybersecurity simulations engineered to build offensive and defensive instinct. Click <strong>[i]</strong> on any mission card for a complete briefing on what the game is, how to play, and the core cyber lessons.
             </p>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
-            <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">SHORTCUT: [G] ANYWHERE</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; background: var(--bg-base); padding: 6px 12px; border: 2px solid var(--border-color);">
+                GLOBAL SHORTCUT: [G] ANYWHERE
+            </div>
         </div>
     </section>
 
-    <!-- Game Tabs Selector -->
-    <nav class="games-hub-tabs" id="arcadeTabContainer">
-        <button class="game-tab-btn active" data-target="game-packet-gatekeeper" onclick="switchGame('game-packet-gatekeeper')">
-            <span>🚦</span> 1. Packet Gatekeeper
-        </button>
-        <button class="game-tab-btn" data-target="game-phish-detective" onclick="switchGame('game-phish-detective')">
-            <span>🎣</span> 2. Phish Detective
-        </button>
-        <button class="game-tab-btn" data-target="game-sqli-locksmith" onclick="switchGame('game-sqli-locksmith')">
-            <span>🔓</span> 3. SQLi Locksmith
-        </button>
-        <button class="game-tab-btn" data-target="game-cidr-block" onclick="switchGame('game-cidr-block')">
-            <span>🧱</span> 4. CIDR Block
-        </button>
-        <button class="game-tab-btn" data-target="game-privesc-tower" onclick="switchGame('game-privesc-tower')">
-            <span>🏰</span> 5. PrivEsc: Floor by Floor
-        </button>
-        <button class="game-tab-btn" data-target="game-ransom-panic" onclick="switchGame('game-ransom-panic')">
-            <span>⏱️</span> 6. Ransomware Panic Room
-        </button>
-        <button class="game-tab-btn" data-target="game-entropy-clash" onclick="switchGame('game-entropy-clash')">
-            <span>🔏</span> 7. Entropy Clash
-        </button>
-        <button class="game-tab-btn" data-target="game-cipher-relic" onclick="switchGame('game-cipher-relic')">
-            <span>🕵️</span> 8. Cipher Relic
-        </button>
-    </nav>
-
-    <!-- Main Game Arena -->
+    <!-- Games Hub Catalog Grid -->
     <main class="games-arena-wrapper">
+        <div class="games-catalog-grid">
 
-        <!-- ================================================================= -->
-        <!-- GAME 1: PACKET GATEKEEPER                                         -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container active" id="game-packet-gatekeeper">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🚦</span> PACKET GATEKEEPER <span class="game-badge badge-defense">DEFENSE / NETWORK</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Inspect incoming protocol traffic, enforce perimeter firewall rules, and drop malicious or insecure packets!
+            <!-- Card 1: Packet Gatekeeper -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🚦</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-defense">DEFENSE</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('packet-gatekeeper')" title="How to Play & Intel Briefing">ℹ️</button>
+                        </div>
+                    </div>
+                    <h3 class="card-title">Packet Gatekeeper</h3>
+                    <p class="card-desc">
+                        Manage perimeter firewall rules against streaming traffic. Inspect port numbers (80 vs 443, Telnet 23), TCP handshake flags (SYN Flood DoS), and DPI malicious payloads.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Firewall Health</span>
-                        <span class="stat-val" id="pgHealthVal" style="color: var(--accent-green);">100%</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>L3/L4/L7 &bull; FIREWALL &bull; DOS &bull; DPI</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Packets Filtered</span>
-                        <span class="stat-val" id="pgScoreVal">0</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Streak Multiplier</span>
-                        <span class="stat-val" id="pgStreakVal" style="color: var(--accent-yellow);">1x</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Security Level</span>
-                        <span class="stat-val" id="pgLevelVal" style="color: var(--accent-cyan);">1 / 5</span>
+                    <div class="card-actions-row">
+                        <a href="games/packet_gatekeeper.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="pg-stage">
-                <!-- Inspection Chamber -->
-                <div class="pg-conveyor-chamber" id="pgChamber">
-                    <div class="pg-status-banner">
-                        <span id="pgRuleDirective">DIRECTIVE: Allow standard HTTPS (443) & DNS (53) | Drop plaintext Telnet (23) & Insecure SMB (445)</span>
-                        <span id="pgPacketTimer">TTL: 7.0s</span>
-                    </div>
-
-                    <div class="pg-packet-chute">
-                        <div class="pg-packet-card" id="pgPacketCard">
-                            <div class="pg-packet-header">
-                                <span id="pgPktId">PACKET #1042</span>
-                                <span id="pgPktTime">SRC CLASSIFICATION: EXTERNAL</span>
-                            </div>
-                            <div class="pg-packet-grid">
-                                <div>
-                                    <span class="pg-meta-label">SOURCE IP</span>
-                                    <span class="pg-meta-val" id="pgSrcIp">198.51.100.24</span>
-                                </div>
-                                <div>
-                                    <span class="pg-meta-label">DESTINATION PORT</span>
-                                    <span class="pg-meta-val" id="pgDestPort">443 (HTTPS)</span>
-                                </div>
-                                <div>
-                                    <span class="pg-meta-label">PROTOCOL & FLAGS</span>
-                                    <div class="pg-packet-flags" id="pgFlagsContainer">
-                                        <span class="flag-chip active-flag">TCP</span>
-                                        <span class="flag-chip">SYN</span>
-                                        <span class="flag-chip active-flag">ACK</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span class="pg-meta-label">CHECKSUM / ENCRYPTION</span>
-                                    <span class="pg-meta-val" id="pgEncryption">TLS 1.3 ENCRYPTED</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="pg-meta-label">RAW PAYLOAD INSPECTION</span>
-                                <div class="pg-packet-payload" id="pgPayload">
-                                    [TLS Handshake: CipherSuite TLS_AES_256_GCM_SHA384 ClientHello]
-                                </div>
-                            </div>
+            <!-- Card 2: Phish Detective -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🎣</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-forensics">SOC TRIAGE</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('phish-detective')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <!-- Tactical Action Controls -->
-                    <div class="pg-controls-bar">
-                        <button class="pg-btn pg-btn-allow" onclick="handlePgAction('allow')">
-                            <span>✅ FORWARD (ALLOW)</span>
-                            <span class="key-hint">[Press A or Left Arrow]</span>
-                        </button>
-                        <button class="pg-btn pg-btn-quarantine" onclick="handlePgAction('quarantine')">
-                            <span>⚠️ SANDBOX (INSPECT)</span>
-                            <span class="key-hint">[Press S or Down Arrow]</span>
-                        </button>
-                        <button class="pg-btn pg-btn-drop" onclick="handlePgAction('drop')">
-                            <span>🛑 DROP (BLOCK)</span>
-                            <span class="key-hint">[Press D or Right Arrow]</span>
-                        </button>
-                    </div>
-
-                    <!-- Game Over / Victory Modal (Hidden by default) -->
-                    <div class="pg-overlay-modal" id="pgModal" style="display: none;">
-                        <h3 id="pgModalTitle">FIREWALL BREACH DETECTED</h3>
-                        <p id="pgModalMsg">Malicious packets compromised the internal gateway. Review the audit log below to learn what bypassed your rules.</p>
-                        <button class="btn-restart" onclick="initPacketGatekeeper()">⚡ REBOOT GATEWAY</button>
-                    </div>
-                </div>
-
-                <!-- Audit Log & Threat Feed -->
-                <div class="pg-console-panel">
-                    <div class="pg-console-title">
-                        <span>📋 FIREWALL AUDIT TRAIL</span>
-                        <span id="pgRuleSummary">RULE: STRICT FILTER</span>
-                    </div>
-                    <div class="pg-log-feed" id="pgLogFeed">
-                        <div class="log-entry">
-                            <strong>SYSTEM READY:</strong> Packet Gatekeeper IDS initialized. Inspection engine running on eth0.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: PERIMETER PACKET FILTERING & PROTOCOL SECURITY</h4>
-                <p>
-                    Firewalls and Intrusion Prevention Systems (IPS) evaluate packet headers and state tables in microseconds. Ports like <strong>23 (Telnet)</strong> transmit passwords in unencrypted plaintext, whereas <strong>443 (HTTPS)</strong> encapsulates data in TLS sessions. High-volume <strong>SYN</strong> packets without corresponding <strong>ACKs</strong> indicate SYN Flood DoS attacks, while malformed SQL/Script fragments targeting web servers must be caught by deep packet inspection (DPI) before reaching production databases.
-                </p>
-            </div>
-        </section>
-
-        <!-- ================================================================= -->
-        <!-- GAME 2: PHISH DETECTIVE                                           -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-phish-detective">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🎣</span> PHISH DETECTIVE: INBOX INSPECTOR <span class="game-badge badge-forensics">SOC / SOCIAL ENG</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Triage suspicious corporate communications. Hover over headers, links, and attachments to catch deceptive lures!
+                    <h3 class="card-title">Phish Detective</h3>
+                    <p class="card-desc">
+                        Investigate suspicious corporate inboxes. Hover over headers to reveal typosquatting (paypa1.com), inspect deceptive link targets, and unmask weaponized double-extension droppers (.pdf.exe).
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Investigated</span>
-                        <span class="stat-val" id="pdCountVal">0 / 6</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>SOCIAL ENG &bull; SPF/DKIM &bull; MALWARE DROPPERS</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Accuracy</span>
-                        <span class="stat-val" id="pdAccuracyVal" style="color: var(--accent-green);">100%</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">SOC Score</span>
-                        <span class="stat-val" id="pdScoreVal">0</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Strikes</span>
-                        <span class="stat-val" id="pdStrikesVal" style="color: var(--accent-red);">0 / 3</span>
+                    <div class="card-actions-row">
+                        <a href="games/phish_detective.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="pd-stage">
-                <!-- Inbox Sidebar -->
-                <aside class="pd-inbox-sidebar">
-                    <div class="pd-inbox-header">
-                        <span>📥 SOC SUSPICIOUS QUEUE</span>
-                        <span id="pdInboxBadge" style="background: var(--accent-red); color: #fff; padding: 2px 6px; font-size: 0.65rem;">6 PENDING</span>
-                    </div>
-                    <div class="pd-email-list" id="pdEmailList">
-                        <!-- Populated dynamically via JS -->
-                    </div>
-                </aside>
-
-                <!-- Email Inspector Body -->
-                <div class="pd-viewer-box">
-                    <div class="pd-mail-meta-bar" id="pdMetaBar">
-                        <div class="pd-meta-row">
-                            <span class="pd-meta-tag">FROM:</span>
-                            <span class="pd-inspectable" id="pdFromField" data-tooltip="Hover inspect: Raw SMTP Return-Path">...</span>
-                        </div>
-                        <div class="pd-meta-row">
-                            <span class="pd-meta-tag">TO:</span>
-                            <span style="font-weight: 700;">target.employee@pwnbox-corp.internal</span>
-                        </div>
-                        <div class="pd-meta-row">
-                            <span class="pd-meta-tag">SUBJECT:</span>
-                            <span id="pdSubjectField" style="font-weight: 800;">...</span>
+            <!-- Card 3: SQLi Locksmith -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🔓</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-web">WEB / OWASP</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('sqli-locksmith')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <div class="pd-mail-body" id="pdMailBody">
-                        <!-- Dynamic email body -->
-                    </div>
-
-                    <div class="pd-verdict-banner" id="pdVerdictBanner">
-                        <!-- Dynamic analysis result -->
-                    </div>
-
-                    <div class="pd-actions-bar">
-                        <button class="pg-btn pg-btn-allow" style="padding: 10px 18px; font-size: 0.78rem;" onclick="handlePdVerdict('legitimate')">
-                            <span>✅ VERIFIED LEGITIMATE</span>
-                        </button>
-                        <button class="pg-btn pg-btn-drop" style="padding: 10px 18px; font-size: 0.78rem;" onclick="handlePdVerdict('phishing')">
-                            <span>🎣 FLAG PHISHING</span>
-                        </button>
-                        <button class="pg-btn pg-btn-quarantine" style="padding: 10px 18px; font-size: 0.78rem;" onclick="handlePdVerdict('spear-phish')">
-                            <span>🎯 SPEAR PHISH / WHALING</span>
-                        </button>
-                        <button class="pg-btn" id="pdNextBtn" style="padding: 10px 18px; font-size: 0.78rem; display: none; background: var(--text-main); color: var(--bg-base);" onclick="nextPdEmail()">
-                            <span>NEXT CASE ➡️</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: EMAIL HYGIENE, TYPOSQUATTING & ATTACK VECTORS</h4>
-                <p>
-                    Over 90% of organizational breaches originate via phishing. Attackers employ <strong>Typosquatting</strong> (e.g. <code>m1crosoft.com</code> or <code>paypa1.com</code>), <strong>Display Name Spoofing</strong> (setting a trusted label with an untrusted email), <strong>Double Extensions</strong> (e.g. <code>invoice.pdf.exe</code>), and high-urgency psychological triggers to induce panic clicks. Examining raw headers, link target URIs, and attachment hashes is fundamental for SOC Tier-1 triage.
-                </p>
-            </div>
-        </section>
-        <!-- ================================================================= -->
-        <!-- GAME 3: SQLI LOCKSMITH                                            -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-sqli-locksmith">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🔓</span> SQLi LOCKSMITH: THE QUERY TUNER <span class="game-badge badge-web">WEB / OWASP TOP 10</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Analyze backend SQL query logic. Slot in tactical syntax payloads to break authentication, extract data, and practice defense!
+                    <h3 class="card-title">SQLi Locksmith</h3>
+                    <p class="card-desc">
+                        Tuner and pop locked database vault chambers. Slot in tactical syntax payloads (' OR 1=1 --, UNION SELECT) to bypass auth, then switch sides to write parameterized prepared statements.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Vault Status</span>
-                        <span class="stat-val" id="sqliStatusVal" style="color: var(--accent-red);">LOCKED</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>OWASP TOP 10 &bull; INJECTION &bull; PREPARED STATEMENTS</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Vault Stage</span>
-                        <span class="stat-val" id="sqliStageVal">1 / 5</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Bypasses</span>
-                        <span class="stat-val" id="sqliScoreVal" style="color: var(--accent-green);">0</span>
+                    <div class="card-actions-row">
+                        <a href="games/sqli_locksmith.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="sqli-vault-stage">
-                <!-- Vault & Query Area -->
-                <div class="sqli-door-chamber">
-                    <div class="sqli-vault-door" id="sqliVaultDoor">
-                        <div class="sqli-lock-icon" id="sqliLockIcon">🔒</div>
-                        <h3 id="sqliVaultTitle" style="color: #fff; font-size: 1.1rem; margin-bottom: 4px;">CHAMBER #01: AUTHENTICATION GATEWAY</h3>
-                        <p id="sqliVaultSub" style="font-size: 0.75rem; color: #94a3b8;">Arrange syntax tokens below to force the query WHERE clause to evaluate to TRUE.</p>
-                    </div>
-
-                    <!-- Interactive Query Terminal -->
-                    <div class="sqli-query-terminal" id="sqliQueryBox">
-                        <!-- Populated dynamically via JS with slots -->
-                    </div>
-
-                    <!-- Token Tray -->
-                    <div class="sqli-tray-box">
-                        <div class="sqli-tray-title">TACTICAL SYNTAX PAYLOADS (CLICK TO INSERT INTO ACTIVE SLOT):</div>
-                        <div class="sqli-tokens-grid" id="sqliTokensContainer">
-                            <!-- Populated dynamically via JS -->
+            <!-- Card 4: CIDR Block -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🧱</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-network">VLSM NETWORKING</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('cidr-block')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                        <button class="pg-btn pg-btn-drop" style="padding: 8px 16px; font-size: 0.75rem;" onclick="resetSqliSlots()">
-                            <span>RESET SLOTS ↺</span>
-                        </button>
-                        <button class="pg-btn pg-btn-allow" style="padding: 8px 16px; font-size: 0.75rem;" onclick="testSqliPayload()">
-                            <span>EXECUTE QUERY ⚡</span>
-                        </button>
-                        <button class="pg-btn" id="sqliNextBtn" style="padding: 8px 16px; font-size: 0.75rem; display: none; background: var(--text-main); color: var(--bg-base);" onclick="nextSqliStage()">
-                            <span>NEXT VAULT ➡️</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Query Logic & AST Breakdown -->
-                <div class="sqli-eval-panel">
-                    <div class="sqli-eval-header">
-                        <span>🧪 QUERY AST & LOGIC EVALUATOR</span>
-                    </div>
-                    <div class="sqli-eval-content" id="sqliEvalFeed">
-                        <div class="sqli-eval-pill">
-                            <strong>PARSER READY:</strong> Slot in syntax elements to observe Boolean logic and SQL parser state.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: SQL INJECTION MECHANICS & PARAMETERIZATION DEFENSE</h4>
-                <p>
-                    SQL Injection occurs when untrusted user input is directly concatenated into a dynamic SQL string. A single quote <code>'</code> prematurely closes the string literal, Boolean operators like <code>OR 1=1</code> force the record lookup condition to evaluate to true, and comment syntax like <code>--</code> or <code>#</code> truncates the remaining query (such as password checks). In modern defense, <strong>Prepared Statements / Parameterized Queries</strong> ensure input is treated strictly as data parameters rather than executable SQL command tokens.
-                </p>
-            </div>
-        </section>
-        <!-- ================================================================= -->
-        <!-- GAME 4: CIDR BLOCK                                                -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-cidr-block">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🧱</span> CIDR BLOCK: SUBNET ALLOCATOR <span class="game-badge badge-network">NETWORKING / VLSM</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Carve IP network pools into optimal subnets. Calculate masks, broadcast IDs, and prevent address exhaustion!
+                    <h3 class="card-title">CIDR Block</h3>
+                    <p class="card-desc">
+                        Carve enterprise IPv4 address pools into non-overlapping subnets. Fulfill departmental host requests with optimal /25, /26, /27, and /30 prefixes without wasting scarce address blocks.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Network Scope</span>
-                        <span class="stat-val" id="cidrScopeVal" style="color: var(--accent-cyan);">192.168.1.0/24</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>CIDR &bull; SUBNET MASKS &bull; BROADCAST &bull; IP PLANNING</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Available IPs</span>
-                        <span class="stat-val" id="cidrFreeIpVal">256 / 256</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Efficiency</span>
-                        <span class="stat-val" id="cidrEfficiencyVal" style="color: var(--accent-green);">100%</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Completed</span>
-                        <span class="stat-val" id="cidrCompleteVal">0 / 4</span>
+                    <div class="card-actions-row">
+                        <a href="games/cidr_block.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="cidr-stage">
-                <!-- Visual Partition Bar & Ticket -->
-                <div class="cidr-visual-board">
-                    <div class="cidr-pool-header">
-                        <div>
-                            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 800; display: block;">PARENT NETWORK ALLOCATION</span>
-                            <strong id="cidrParentDisplay" style="font-family: 'Space Mono', monospace;">192.168.1.0/24 (Subnet Mask: 255.255.255.0)</strong>
-                        </div>
-                        <span id="cidrUsageBadge" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 10px; font-size: 0.75rem; font-weight: 800;">0% UTILIZED</span>
-                    </div>
-
-                    <!-- Visual Segment Bar -->
-                    <div class="cidr-map-container">
-                        <div style="display: flex; justify-content: space-between; font-size: 0.68rem; color: #94a3b8;">
-                            <span>.0 (START)</span>
-                            <span>.64</span>
-                            <span>.128</span>
-                            <span>.192</span>
-                            <span>.255 (BROADCAST)</span>
-                        </div>
-                        <div class="cidr-map-bar" id="cidrMapBar">
-                            <!-- Slices rendered dynamically -->
+            <!-- Card 5: PrivEsc Tower -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🏰</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-defense">LINUX EXPLOIT</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('privesc-tower')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <!-- Current Department Request Ticket -->
-                    <div class="cidr-ticket-box" id="cidrTicketBox">
-                        <div class="cidr-ticket-dept" id="cidrDeptName">
-                            <span>🏢</span> <span id="cidrDeptTitle">ENGINEERING INFRASTRUCTURE CLUSTER</span>
-                        </div>
-                        <p style="font-size: 0.8rem; color: var(--text-main);" id="cidrDeptDesc">
-                            Requires capacity for at least <strong>55 usable host machines</strong>. Select the most efficient CIDR prefix that satisfies this host count without wasteful over-allocation:
-                        </p>
-
-                        <!-- CIDR Selector Buttons -->
-                        <div class="cidr-options-grid" id="cidrPrefixOptions">
-                            <!-- Dynamic prefix choices -->
-                        </div>
-
-                        <div style="display: flex; gap: 12px; margin-top: 14px; justify-content: flex-end;">
-                            <button class="pg-btn pg-btn-allow" style="padding: 10px 20px; font-size: 0.8rem;" onclick="commitSubnetAllocation()">
-                                <span>⚡ ALLOCATE SUBNET BLOCK</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Subnet Table Record -->
-                <div class="cidr-info-panel">
-                    <div class="pg-console-title">
-                        <span>📑 SUBNET ROUTING TABLE</span>
-                        <span id="cidrSubnetCount">0 SUBNETS</span>
-                    </div>
-                    <div class="cidr-table-feed" id="cidrTableFeed">
-                        <div class="cidr-card-item" style="color: var(--text-muted); text-align: center; padding: 20px;">
-                            No subnets committed yet. Fulfill department requests on the left to carve out routing segments.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: CIDR NOTATION, VLSM & SUBNET MASKS</h4>
-                <p>
-                    Classless Inter-Domain Routing (CIDR) and Variable Length Subnet Masking (VLSM) prevent global IPv4 address depletion. Every subnet loses exactly 2 addresses: the first address (<strong>Network ID</strong>, all host bits zero) and the last address (<strong>Broadcast ID</strong>, all host bits one). To compute usable hosts for a prefix <code>/N</code>, apply the formula <strong>Usable Hosts = 2^(32 - N) - 2</strong>. Over-provisioning leads to IP exhaustion, while under-provisioning halts departmental growth.
-                </p>
-            </div>
-        </section>
-        <!-- ================================================================= -->
-        <!-- GAME 5: PRIVESC FLOOR BY FLOOR                                    -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-privesc-tower">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🏰</span> PRIVESC: FLOOR BY FLOOR <span class="game-badge badge-defense">HOST EXPLOITATION / LINUX</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Ascend the corporate server tower from unprivileged www-data service daemon to UID 0 root god-mode!
+                    <h3 class="card-title">PrivEsc: Floor by Floor</h3>
+                    <p class="card-desc">
+                        Climb the Linux server elevator from low-privilege www-data (UID 33) to Root Penthouse (UID 0). Exploit SUID binaries, world-writable cron jobs, and GTFOBins sudoers shell escapes.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Current Clearance</span>
-                        <span class="stat-val" id="privescRankVal" style="color: var(--accent-yellow);">www-data</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>GTFOBINS &bull; SUID &bull; CRONTAB &bull; ROOT ESCALATION</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Tower Floor</span>
-                        <span class="stat-val" id="privescFloorVal">0 / 3</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Effective UID</span>
-                        <span class="stat-val" id="privescUidVal">33</span>
+                    <div class="card-actions-row">
+                        <a href="games/privesc_tower.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="privesc-stage">
-                <!-- Tower Elevator HUD -->
-                <aside class="privesc-tower-panel">
-                    <div style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">
-                        🏢 SERVER TOWER ELEVATOR
-                    </div>
-
-                    <!-- Floor 3 (Penthouse) -->
-                    <div class="privesc-floor-card" id="floorCard3">
-                        <div class="floor-icon-badge">👑</div>
-                        <div>
-                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 3: ROOT PENTHOUSE</div>
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=0(root) &bull; Full Kernel Control</div>
+            <!-- Card 6: Ransomware Panic Room -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">⏱️</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-forensics">DFIR / CSIRT</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('ransom-panic')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <!-- Floor 2 -->
-                    <div class="privesc-floor-card" id="floorCard2">
-                        <div class="floor-icon-badge">💻</div>
-                        <div>
-                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 2: DEVELOPER SUITE</div>
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=1001(developer) &bull; Sudoers</div>
-                        </div>
-                    </div>
-
-                    <!-- Floor 1 -->
-                    <div class="privesc-floor-card" id="floorCard1">
-                        <div class="floor-icon-badge">👤</div>
-                        <div>
-                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 1: LOCAL CADET</div>
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=1000(cadet) &bull; Shell Access</div>
-                        </div>
-                    </div>
-
-                    <!-- Floor 0 (Basement) -->
-                    <div class="privesc-floor-card active unlocked" id="floorCard0">
-                        <div class="floor-icon-badge">📦</div>
-                        <div>
-                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 0: SUB-BASEMENT</div>
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=33(www-data) &bull; Restricted Daemon</div>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- Interactive Terminal Box -->
-                <div class="privesc-terminal-box">
-                    <div class="privesc-term-header">
-                        <span id="privescTermPromptTitle">www-data@pwnbox-host:~$</span>
-                        <span>TTY /dev/pts/2 &bull; LINUX 6.8.0-GENERIC</span>
-                    </div>
-
-                    <div class="privesc-screen" id="privescScreen">
-                        <!-- Populated dynamically via JS -->
-                    </div>
-
-                    <!-- Recon & Exploit Action Buttons -->
-                    <div class="privesc-actions-bar" id="privescActionsContainer">
-                        <!-- Buttons rendered dynamically based on floor -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: LINUX PRIVILEGE ESCALATION VECTORS & GTFOBINS</h4>
-                <p>
-                    Initial access rarely yields administrative authority. Penetration testers leverage misconfigurations such as <strong>SUID binaries</strong> (programs that run with the file owner's permissions regardless of caller), <strong>Writable Cron Jobs</strong> executing as root, and loose <strong>sudoers rules (NOPASSWD)</strong> documented in the GTFOBins catalog. Securing systems requires enforcing the <em>Principle of Least Privilege</em>, regular auditing with tools like LinPEAS, and removing unnecessary SUID bits.
-                </p>
-            </div>
-        </section>
-        <!-- ================================================================= -->
-        <!-- GAME 6: RANSOMWARE PANIC ROOM                                     -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-ransom-panic">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>⏱️</span> RANSOMWARE PANIC ROOM <span class="game-badge badge-forensics">INCIDENT RESPONSE / DFIR</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Active lateral encryption outbreak! Isolate compromised subnet nodes, terminate LOLBin process trees, and trigger the sinkhole kill switch!
+                    <h3 class="card-title">Ransomware Panic Room</h3>
+                    <p class="card-desc">
+                        Race against a live encryption clock following NIST SP 800-61. Isolate compromised subnet nodes, kill malicious LOLBin process trees (vssadmin), and sinkhole the kill switch domain.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Containment Time</span>
-                        <span class="stat-val" id="ransomTimerVal" style="color: var(--accent-red);">45s</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>INCIDENT RESPONSE &bull; LOLBINS &bull; SINKHOLE &bull; NIST</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Network Integrity</span>
-                        <span class="stat-val" id="ransomHealthVal" style="color: var(--accent-green);">100%</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Phase</span>
-                        <span class="stat-val" id="ransomPhaseVal" style="color: var(--accent-yellow);">1: ISOLATE</span>
+                    <div class="card-actions-row">
+                        <a href="games/ransom_panic.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="ransom-stage">
-                <!-- Main IR Deck -->
-                <div class="ransom-main-deck">
-                    <div class="ransom-alert-strip">
-                        <span id="ransomAlertText">🚨 EMERGENCY: RANSOMWARE ENCRYPTION PROPAGATING FROM WORKSTATION-03!</span>
-                        <span style="font-size: 0.7rem; color: #fff;">PROTOCOL: NIST SP 800-61</span>
-                    </div>
-
-                    <!-- Phase 1: Network Topology Grid -->
-                    <div id="ransomPhase1Box">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: #fff; margin-bottom: 10px;">
-                            STEP 1: NETWORK CONTAINMENT &bull; CLICK COMPROMISED OR THREATENED HOSTS TO ISOLATE FROM LAN:
-                        </div>
-                        <div class="ransom-topo-grid" id="ransomTopologyGrid">
-                            <!-- Populated dynamically via JS -->
+            <!-- Card 7: Entropy Clash -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🔏</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-crypto">CRYPTOGRAPHY</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('entropy-clash')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <!-- Phase 2: Live Process Tree -->
-                    <div id="ransomPhase2Box" style="display: none;">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: #fff; margin-bottom: 10px;">
-                            STEP 2: ERADICATION &bull; ANALYZE PROCESS TREE & KILL THE MALICIOUS ENCRYPTION PID:
-                        </div>
-                        <table class="ransom-process-table">
-                            <thead>
-                                <tr>
-                                    <th>PID</th>
-                                    <th>PARENT</th>
-                                    <th>PROCESS IMAGE</th>
-                                    <th>COMMAND LINE ARGUMENTS</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ransomProcessTableBody">
-                                <!-- Populated dynamically via JS -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Phase 3: Binary String Dump & Kill Switch -->
-                    <div id="ransomPhase3Box" style="display: none;">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: #fff; margin-bottom: 10px;">
-                            STEP 3: REVERSE ENGINEERING &bull; IDENTIFY THE UNREGISTERED KILL-SWITCH SINKHOLE DOMAIN:
-                        </div>
-                        <div style="background: #020617; border: 1px solid #1e293b; padding: 14px; font-size: 0.75rem; color: #38bdf8; margin-bottom: 14px;" id="ransomStringsBox">
-                            <!-- Populated dynamically via JS -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Incident Commander Log Feed -->
-                <div class="pg-console-panel">
-                    <div class="pg-console-title">
-                        <span>🛡️ CSIRT INCIDENT LOG</span>
-                        <span style="color: var(--accent-red);">SEV-1 OUTBREAK</span>
-                    </div>
-                    <div class="pg-log-feed" id="ransomLogFeed">
-                        <div class="log-entry breach">
-                            <strong>[00:00:01] ALERT:</strong> Mass file renaming detected (.locked extension). Shadow copies under attack.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: CSIRT INCIDENT RESPONSE & RANSOMWARE KILL SWITCHES</h4>
-                <p>
-                    Effective Incident Response requires swift triage following the NIST SP 800-61 lifecycle: <strong>Containment</strong> halts lateral spread over SMB/RDP; <strong>Eradication</strong> strips malicious processes and LOLBins (like <code>vssadmin.exe delete shadows</code>); and <strong>Reverse Engineering</strong> uncovers operational flaws like the famous <em>WannaCry kill-switch domain</em> discovered by Marcus Hutchins, which suppressed worldwide execution once sinkholed.
-                </p>
-            </div>
-        </section>
-        <!-- ================================================================= -->
-        <!-- GAME 7: ENTROPY CLASH                                             -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-entropy-clash">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🔏</span> ENTROPY CLASH: PASSWORD TUG-OF-WAR <span class="game-badge badge-crypto">CRYPTOGRAPHY / AUTH</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Pit your password designs against an enterprise Hashcat 100 GH/s GPU cracking rig. Discover why length and key-stretching beat complexity!
+                    <h3 class="card-title">Entropy Clash</h3>
+                    <p class="card-desc">
+                        Test passphrases against an enterprise 100 GH/s Hashcat GPU rig. Learn why 4-word passphrases beat complex short passwords, and how Bcrypt/Argon2 key-stretching neutralizes brute-force attacks.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Entropy Score</span>
-                        <span class="stat-val" id="entropyBitsVal" style="color: var(--accent-green);">0 bits</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>PASSWORD ENTROPY &bull; BCRYPT &bull; ARGON2 &bull; HASHCAT</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Time to Crack</span>
-                        <span class="stat-val" id="entropyCrackTimeVal" style="color: var(--accent-cyan);">Instant</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Tug-of-War</span>
-                        <span class="stat-val" id="entropyTugVal" style="color: var(--accent-yellow);">Tie (50%)</span>
+                    <div class="card-actions-row">
+                        <a href="games/entropy_clash.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="entropy-stage">
-                <!-- Left: Defender / Password Lab -->
-                <div class="entropy-side-panel">
-                    <div class="entropy-side-title">
-                        <span>🛡️</span> DEFENDER WORKBENCH: CRAFT SECURITY STRING
-                    </div>
-
-                    <div>
-                        <label style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px;">INPUT PASSPHRASE / PASSWORD:</label>
-                        <input type="text" id="entropyInput" class="entropy-input-box" placeholder="Type password or passphrase here..." value="password123" oninput="calculateEntropyLive()">
-                    </div>
-
-                    <!-- Presets -->
-                    <div>
-                        <span style="font-size: 0.68rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 6px;">QUICK SAMPLE PRESETS:</span>
-                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('password123')">password123</button>
-                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('P@ssw0rd!')">P@ssw0rd!</button>
-                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('Tr0ub4dor&3')">Tr0ub4dor&3</button>
-                            <button class="pg-btn" style="padding: 4px 8px; font-size: 0.68rem; background: var(--bg-base); color: var(--text-main);" onclick="setEntropyPreset('correct horse battery staple')">correct horse battery staple</button>
+            <!-- Card 8: Cipher Relic -->
+            <div class="game-catalog-card">
+                <div>
+                    <div class="card-top-row">
+                        <span class="card-icon">🕵️</span>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <span class="game-badge badge-crypto">CODEBREAKING</span>
+                            <button class="card-info-btn" onclick="openGameIntelModal('cipher-relic')" title="How to Play & Intel Briefing">ℹ️</button>
                         </div>
                     </div>
-
-                    <!-- Hash Algorithm Selector -->
-                    <div>
-                        <label style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 4px;">STORED HASHING ALGORITHM:</label>
-                        <select id="entropyHashAlgo" class="entropy-input-box" style="font-size: 0.8rem; padding: 8px;" onchange="calculateEntropyLive()">
-                            <option value="md5">MD5 (Unsalted, Fast GPU Brute-Force)</option>
-                            <option value="sha256">SHA-256 (Standard Unsalted)</option>
-                            <option value="bcrypt" selected>Bcrypt (Salted + Work Factor 12, Key Stretching)</option>
-                            <option value="argon2">Argon2id (Memory-Hard Standard)</option>
-                        </select>
-                    </div>
-
-                    <!-- Character Pool Breakdown -->
-                    <div style="font-size: 0.72rem; color: var(--text-muted); background: var(--bg-base); padding: 10px; border: 1px solid var(--border-color);" id="entropyPoolMetrics">
-                        LENGTH: 11 &bull; POOL SIZE: 26 &bull; ENTROPY: 51.7 BITS
-                    </div>
-                </div>
-
-                <!-- Right: Cracker Rig Simulation -->
-                <div class="entropy-side-panel">
-                    <div class="entropy-side-title">
-                        <span>⚡</span> CRACKER CLUSTER: HASHCAT 8x RTX 4090 (100 GH/s)
-                    </div>
-
-                    <!-- Visual Tug of War -->
-                    <div>
-                        <div style="display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 800;">
-                            <span style="color: var(--accent-green);">DEFENDER ADVANTAGE</span>
-                            <span style="color: var(--accent-red);">HACKER ADVANTAGE</span>
-                        </div>
-                        <div class="entropy-tug-bar">
-                            <div class="entropy-tug-fill" id="entropyTugFill"></div>
-                        </div>
-                    </div>
-
-                    <div class="entropy-cracker-terminal" id="entropyCrackerTerm">
-                        <div>
-                            <div class="entropy-metric-row">
-                                <span>ATTACK DICTIONARY:</span>
-                                <span id="entropyDictStatus" style="color: var(--accent-red); font-weight: 800;">HIT: rockyou.txt</span>
-                            </div>
-                            <div class="entropy-metric-row">
-                                <span>POSSIBLE COMBINATIONS:</span>
-                                <span id="entropyCombosVal">2.08 x 10^15</span>
-                            </div>
-                            <div class="entropy-metric-row">
-                                <span>EFFECTIVE CRACK SPEED:</span>
-                                <span id="entropyEffectiveSpeedVal">100,000,000,000 H/s</span>
-                            </div>
-                            <div class="entropy-metric-row">
-                                <span>ESTIMATED TIME TO CRACK:</span>
-                                <span id="entropyTimeVal" style="color: var(--accent-cyan); font-weight: 800;">0.0001 SECONDS</span>
-                            </div>
-                        </div>
-                        <div id="entropyVerdictBox" style="padding: 8px; background: rgba(239, 68, 68, 0.2); border: 1px solid var(--accent-red); font-size: 0.72rem; margin-top: 10px;">
-                            <strong>STATUS:</strong> Trivial dictionary match. Any offline hash leak results in immediate plaintext recovery.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: PASSWORD ENTROPY, DICTIONARIES & SLOW HASHING</h4>
-                <p>
-                    Adding a single uppercase letter or symbol to a dictionary word (e.g. <code>P@ssw0rd!</code>) does NOT defeat modern mask attacks in Hashcat. Passwords derive true cryptographic strength from <strong>Length</strong> (a 4-word passphrase like <code>correct horse battery staple</code> provides over 77 bits of entropy, taking billions of years to exhaust). Furthermore, using <strong>Slow Key-Stretching Hash Functions</strong> like <strong>Bcrypt</strong> or <strong>Argon2id</strong> forces GPUs to spend milliseconds per guess instead of nanoseconds, neutralizing brute-force clusters.
-                </p>
-            </div>
-        </section>
-        <!-- ================================================================= -->
-        <!-- GAME 8: CIPHER RELIC                                              -->
-        <!-- ================================================================= -->
-        <section class="game-instance-container" id="game-cipher-relic">
-            <div class="game-header-bar">
-                <div class="game-title-group">
-                    <h2><span>🕵️</span> CIPHER RELIC: THE CRYPTANALYST'S DESK <span class="game-badge badge-crypto">CRYPTOGRAPHY / CODEBREAKING</span></h2>
-                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
-                        Decode intercepted tactical transmissions using interactive Caesar shift discs, Vigenère grids, and symmetric XOR stream gates!
+                    <h3 class="card-title">Cipher Relic</h3>
+                    <p class="card-desc">
+                        Decode tactical signals intelligence using a rotating Caesar dial, Vigenère polyalphabetic keyword matrix, and interactive symmetric XOR bitstreams proving (A ⊕ B) ⊕ B = A.
                     </p>
                 </div>
-                <div class="game-stats-hud">
-                    <div class="stat-box">
-                        <span class="stat-label">Active Device</span>
-                        <span class="stat-val" id="cipherDeviceName" style="color: var(--accent-cyan);">Caesar Dial</span>
+                <div>
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>TAGS:</span> <strong>CAESAR &bull; VIGENÈRE &bull; XOR STREAM &bull; ONE-TIME PAD</strong>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Shift Key</span>
-                        <span class="stat-val" id="cipherKeyVal" style="color: var(--accent-yellow);">ROT +3</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Ciphers Cracked</span>
-                        <span class="stat-val" id="cipherCrackedVal" style="color: var(--accent-green);">0 / 3</span>
+                    <div class="card-actions-row">
+                        <a href="games/cipher_relic.html" class="btn-play-game">
+                            <span>⚡ DEPLOY MISSION</span>
+                            <span>➡️</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="cipher-stage">
-                <!-- Device Workbench -->
-                <div class="cipher-desk-panel">
-                    <!-- Device Selector Tabs -->
-                    <div class="cipher-device-tabs">
-                        <button class="cipher-device-btn active" onclick="switchCipherDevice('caesar')">
-                            1. Caesar Dial
-                        </button>
-                        <button class="cipher-device-btn" onclick="switchCipherDevice('vigenere')">
-                            2. Vigenère Table
-                        </button>
-                        <button class="cipher-device-btn" onclick="switchCipherDevice('xor')">
-                            3. XOR Logic Gate
-                        </button>
-                    </div>
-
-                    <!-- CAESAR DIAL SUB-VIEW -->
-                    <div id="caesarView">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">INTERCEPTED CIPHERTEXT TRANSMISSION:</div>
-                        <div class="cipher-display-box" id="caesarCiphertext">
-                            KHOOR ZRUOG // WKH VHFUHW WRNHQ LV: FDHVDU_FRQTXHUHG
-                        </div>
-
-                        <div class="cipher-dial-control" style="margin-top: 14px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800;">
-                                <span>ROTATION OFFSET SLIDER:</span>
-                                <span id="caesarShiftDisplay" style="color: var(--accent-green);">ROT +0 (Shift: 0)</span>
-                            </div>
-                            <input type="range" min="0" max="25" value="0" class="cipher-slider" id="caesarSlider" oninput="updateCaesarShift(this.value)">
-                        </div>
-
-                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin: 14px 0 8px;">DECRYPTED PLAINTEXT PREVIEW:</div>
-                        <div class="cipher-display-box" id="caesarPlaintext" style="color: #22c55e;">
-                            <!-- Live decoded plaintext -->
-                        </div>
-                    </div>
-
-                    <!-- VIGENERE SUB-VIEW -->
-                    <div id="vigenereView" style="display: none;">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">POLYALPHABETIC CIPHERTEXT (REPEATING KEY):</div>
-                        <div class="cipher-display-box" id="vigenereCiphertext">
-                            RIJVS UZQVH // WKH VECUET TOKEM: VIGENERE_UNLOCKED
-                        </div>
-
-                        <div class="cipher-dial-control" style="margin-top: 14px;">
-                            <label style="font-size: 0.75rem; font-weight: 800; margin-bottom: 4px; display: block;">POLYALPHABETIC KEYWORD:</label>
-                            <input type="text" id="vigenereKeyInput" class="entropy-input-box" value="KEY" placeholder="Type key here..." oninput="updateVigenereKey(this.value)">
-                        </div>
-
-                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin: 14px 0 8px;">DECRYPTED PLAINTEXT PREVIEW:</div>
-                        <div class="cipher-display-box" id="vigenerePlaintext" style="color: #22c55e;">
-                            <!-- Decoded output -->
-                        </div>
-                    </div>
-
-                    <!-- XOR GATE SUB-VIEW -->
-                    <div id="xorView" style="display: none;">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">SYMMETRIC XOR BITSTREAM (ONE-TIME PAD PRINCIPLE):</div>
-                        <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 12px;">Click key bits to toggle between 0 and 1. Notice how A ⊕ B ⊕ B = A!</div>
-
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div class="xor-bits-row">
-                                <span style="width: 140px;">PLAINTEXT (P):</span>
-                                <div id="xorPlainRow" style="display: flex; gap: 6px;"></div>
-                            </div>
-                            <div class="xor-bits-row">
-                                <span style="width: 140px;">KEY STREAM (K):</span>
-                                <div id="xorKeyRow" style="display: flex; gap: 6px;"></div>
-                            </div>
-                            <div class="xor-bits-row">
-                                <span style="width: 140px; color: var(--accent-cyan);">CIPHERTEXT (P⊕K):</span>
-                                <div id="xorCipherRow" style="display: flex; gap: 6px;"></div>
-                            </div>
-                            <div class="xor-bits-row">
-                                <span style="width: 140px; color: var(--accent-green);">DECRYPT (C⊕K):</span>
-                                <div id="xorDecryptRow" style="display: flex; gap: 6px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Frequency Analysis & Cryptographic Intel -->
-                <div class="pg-console-panel">
-                    <div class="pg-console-title">
-                        <span>📊 FREQUENCY & CRYPTO INTEL</span>
-                        <span id="cipherStatusBadge" style="color: var(--accent-yellow);">ANALYZING</span>
-                    </div>
-                    <div class="pg-log-feed" id="cipherIntelFeed">
-                        <div class="log-entry">
-                            <strong>CAESAR SHIFT ANALYSIS:</strong> In English text, 'E' is the most frequent character (~12.7%), followed by 'T', 'A', and 'O'. Rotating the shift dial aligns the peak frequency bars!
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cyber Concept Briefing -->
-            <div class="cyber-briefing-box">
-                <h4><span>💡</span> WHAT THIS TEACHES: CLASSICAL CIPHERS, POLYALPHABETIC ATTACKS & XOR</h4>
-                <p>
-                    Monoalphabetic substitution ciphers (Caesar) preserve letter frequency distributions, making them vulnerable to single-minute frequency analysis. Polyalphabetic ciphers (Vigenère) disguise frequencies by applying multiple shifts across a key. In modern computing, symmetric cryptography (AES, ChaCha20, One-Time Pads) relies on the reversible mathematical purity of the <strong>XOR (⊕) logic gate</strong>, where <code>(P ⊕ K) ⊕ K = P</code>.
-                </p>
-            </div>
-        </section>
-
+        </div>
     </main>
 
     <!-- Global Scripts -->
     <script src="js/ui_popups.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/games.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            addArcadeXp(0);
+        });
+    </script>
 </body>
 
 </html>

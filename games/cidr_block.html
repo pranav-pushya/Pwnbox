@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox // CIDR Block (Subnet Allocator Lab)</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/games.css?v=1.0">
+</head>
+
+<body class="games-body">
+
+    <!-- Top Header Navigation -->
+    <header class="games-top-header">
+        <div class="games-header-left">
+            <a href="../games.html" class="games-nav-btn" title="Back to Games Hub (Press 'G')">
+                <span>⬅️</span>
+                <span>ARCADE HUB</span>
+            </a>
+            <a href="../dashboard.html" class="games-nav-btn" title="Dashboard (Press 'D')">
+                <span>📊</span>
+                <span>DASHBOARD</span>
+            </a>
+            <div class="games-header-logo">
+                <span style="font-size: 1.4rem;">🧱</span>
+                <span class="games-header-title">CIDR BLOCK</span>
+                <span class="games-header-tag">NETWORKING</span>
+            </div>
+        </div>
+
+        <div class="games-header-right">
+            <button onclick="openGameIntelModal('cidr-block')" class="games-nav-btn" style="background: rgba(0, 240, 255, 0.12); border-color: var(--accent-cyan); color: var(--accent-cyan);" title="Mission Briefing & How to Play">
+                <span>ℹ️</span>
+                <span>HOW TO PLAY & INTEL</span>
+            </button>
+            <div class="arcade-xp-pill" id="globalArcadeXp">
+                <span>⚡</span>
+                <span id="totalXpDisplay">TOTAL XP: 0</span>
+            </div>
+            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme (Press 'T')">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Arena -->
+    <main class="games-arena-wrapper">
+        <section class="game-instance-container active" id="game-cidr-block" style="display: block;">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🧱</span> CIDR BLOCK: SUBNET ALLOCATOR <span class="game-badge badge-network">NETWORKING / VLSM</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Carve IP network pools into optimal subnets. Calculate masks, broadcast IDs, and prevent address exhaustion!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Network Scope</span>
+                        <span class="stat-val" id="cidrScopeVal" style="color: var(--accent-cyan);">192.168.1.0/24</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Available IPs</span>
+                        <span class="stat-val" id="cidrFreeIpVal">256 / 256</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Efficiency</span>
+                        <span class="stat-val" id="cidrEfficiencyVal" style="color: var(--accent-green);">100%</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-val" id="cidrCompleteVal">0 / 4</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cidr-stage">
+                <!-- Visual Partition Bar & Ticket -->
+                <div class="cidr-visual-board">
+                    <div class="cidr-pool-header">
+                        <div>
+                            <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 800; display: block;">PARENT NETWORK ALLOCATION</span>
+                            <strong id="cidrParentDisplay" style="font-family: 'Space Mono', monospace;">192.168.1.0/24 (Subnet Mask: 255.255.255.0)</strong>
+                        </div>
+                        <span id="cidrUsageBadge" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 10px; font-size: 0.75rem; font-weight: 800;">0% UTILIZED</span>
+                    </div>
+
+                    <!-- Visual Segment Bar -->
+                    <div class="cidr-map-container">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.68rem; color: #94a3b8;">
+                            <span>.0 (START)</span>
+                            <span>.64</span>
+                            <span>.128</span>
+                            <span>.192</span>
+                            <span>.255 (BROADCAST)</span>
+                        </div>
+                        <div class="cidr-map-bar" id="cidrMapBar">
+                            <!-- Slices rendered dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Current Department Request Ticket -->
+                    <div class="cidr-ticket-box" id="cidrTicketBox">
+                        <div class="cidr-ticket-dept" id="cidrDeptName">
+                            <span>🏢</span> <span id="cidrDeptTitle">ENGINEERING INFRASTRUCTURE CLUSTER</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-main);" id="cidrDeptDesc">
+                            Requires capacity for at least <strong>55 usable host machines</strong>. Select the most efficient CIDR prefix that satisfies this host count without wasteful over-allocation:
+                        </p>
+
+                        <!-- CIDR Selector Buttons -->
+                        <div class="cidr-options-grid" id="cidrPrefixOptions">
+                            <!-- Dynamic prefix choices -->
+                        </div>
+
+                        <div style="display: flex; gap: 12px; margin-top: 14px; justify-content: flex-end;">
+                            <button class="pg-btn pg-btn-allow" style="padding: 10px 20px; font-size: 0.8rem;" onclick="commitSubnetAllocation()">
+                                <span>⚡ ALLOCATE SUBNET BLOCK</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subnet Table Record -->
+                <div class="cidr-info-panel">
+                    <div class="pg-console-title">
+                        <span>📑 SUBNET ROUTING TABLE</span>
+                        <span id="cidrSubnetCount">0 SUBNETS</span>
+                    </div>
+                    <div class="cidr-table-feed" id="cidrTableFeed">
+                        <div class="cidr-card-item" style="color: var(--text-muted); text-align: center; padding: 20px;">
+                            No subnets committed yet. Fulfill department requests on the left to carve out routing segments.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: CIDR NOTATION, VLSM & SUBNET MASKS</h4>
+                <p>
+                    Classless Inter-Domain Routing (CIDR) and Variable Length Subnet Masking (VLSM) prevent global IPv4 address depletion. Every subnet loses exactly 2 addresses: the first address (<strong>Network ID</strong>, all host bits zero) and the last address (<strong>Broadcast ID</strong>, all host bits one). To compute usable hosts for a prefix <code>/N</code>, apply the formula <strong>Usable Hosts = 2^(32 - N) - 2</strong>. Over-provisioning leads to IP exhaustion, while under-provisioning halts departmental growth.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="../js/ui_popups.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/games.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            initCidrBlock();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox // PrivEsc: Floor by Floor (Host Escalation Lab)</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/games.css?v=1.0">
+</head>
+
+<body class="games-body">
+
+    <!-- Top Header Navigation -->
+    <header class="games-top-header">
+        <div class="games-header-left">
+            <a href="../games.html" class="games-nav-btn" title="Back to Games Hub (Press 'G')">
+                <span>⬅️</span>
+                <span>ARCADE HUB</span>
+            </a>
+            <a href="../dashboard.html" class="games-nav-btn" title="Dashboard (Press 'D')">
+                <span>📊</span>
+                <span>DASHBOARD</span>
+            </a>
+            <div class="games-header-logo">
+                <span style="font-size: 1.4rem;">🏰</span>
+                <span class="games-header-title">PRIVESC TOWER</span>
+                <span class="games-header-tag">LINUX</span>
+            </div>
+        </div>
+
+        <div class="games-header-right">
+            <button onclick="openGameIntelModal('privesc-tower')" class="games-nav-btn" style="background: rgba(0, 240, 255, 0.12); border-color: var(--accent-cyan); color: var(--accent-cyan);" title="Mission Briefing & How to Play">
+                <span>ℹ️</span>
+                <span>HOW TO PLAY & INTEL</span>
+            </button>
+            <div class="arcade-xp-pill" id="globalArcadeXp">
+                <span>⚡</span>
+                <span id="totalXpDisplay">TOTAL XP: 0</span>
+            </div>
+            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme (Press 'T')">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Arena -->
+    <main class="games-arena-wrapper">
+        <section class="game-instance-container active" id="game-privesc-tower" style="display: block;">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🏰</span> PRIVESC: FLOOR BY FLOOR <span class="game-badge badge-defense">HOST EXPLOITATION / LINUX</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Ascend the corporate server tower from unprivileged www-data service daemon to UID 0 root god-mode!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Current Clearance</span>
+                        <span class="stat-val" id="privescRankVal" style="color: var(--accent-yellow);">www-data</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Tower Floor</span>
+                        <span class="stat-val" id="privescFloorVal">0 / 3</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Effective UID</span>
+                        <span class="stat-val" id="privescUidVal">33</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="privesc-stage">
+                <!-- Tower Elevator HUD -->
+                <aside class="privesc-tower-panel">
+                    <div style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">
+                        🏢 SERVER TOWER ELEVATOR
+                    </div>
+
+                    <!-- Floor 3 (Penthouse) -->
+                    <div class="privesc-floor-card" id="floorCard3">
+                        <div class="floor-icon-badge">👑</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 3: ROOT PENTHOUSE</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=0(root) &bull; Full Kernel Control</div>
+                        </div>
+                    </div>
+
+                    <!-- Floor 2 -->
+                    <div class="privesc-floor-card" id="floorCard2">
+                        <div class="floor-icon-badge">💻</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 2: DEVELOPER SUITE</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=1001(developer) &bull; Sudoers</div>
+                        </div>
+                    </div>
+
+                    <!-- Floor 1 -->
+                    <div class="privesc-floor-card" id="floorCard1">
+                        <div class="floor-icon-badge">👤</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 1: LOCAL CADET</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=1000(cadet) &bull; Shell Access</div>
+                        </div>
+                    </div>
+
+                    <!-- Floor 0 (Basement) -->
+                    <div class="privesc-floor-card active unlocked" id="floorCard0">
+                        <div class="floor-icon-badge">📦</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 0: SUB-BASEMENT</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=33(www-data) &bull; Restricted Daemon</div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Interactive Terminal Box -->
+                <div class="privesc-terminal-box">
+                    <div class="privesc-term-header">
+                        <span id="privescTermPromptTitle">www-data@pwnbox-host:~$</span>
+                        <span>TTY /dev/pts/2 &bull; LINUX 6.8.0-GENERIC</span>
+                    </div>
+
+                    <div class="privesc-screen" id="privescScreen">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+
+                    <!-- Recon & Exploit Action Buttons -->
+                    <div class="privesc-actions-bar" id="privescActionsContainer">
+                        <!-- Buttons rendered dynamically based on floor -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: LINUX PRIVILEGE ESCALATION VECTORS & GTFOBINS</h4>
+                <p>
+                    Initial access rarely yields administrative authority. Penetration testers leverage misconfigurations such as <strong>SUID binaries</strong> (programs that run with the file owner's permissions regardless of caller), <strong>Writable Cron Jobs</strong> executing as root, and loose <strong>sudoers rules (NOPASSWD)</strong> documented in the GTFOBins catalog. Securing systems requires enforcing the <em>Principle of Least Privilege</em>, regular auditing with tools like LinPEAS, and removing unnecessary SUID bits.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="../js/ui_popups.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/games.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            initPrivescTower();
+        });
+    </script>
+</body>
+
+</html>

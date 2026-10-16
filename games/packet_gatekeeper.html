@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox // Packet Gatekeeper (Firewall Defense Simulator)</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/games.css?v=1.0">
+</head>
+
+<body class="games-body">
+
+    <!-- Top Header Navigation -->
+    <header class="games-top-header">
+        <div class="games-header-left">
+            <a href="../games.html" class="games-nav-btn" title="Back to Games Hub (Press 'G')">
+                <span>⬅️</span>
+                <span>ARCADE HUB</span>
+            </a>
+            <a href="../dashboard.html" class="games-nav-btn" title="Dashboard (Press 'D')">
+                <span>📊</span>
+                <span>DASHBOARD</span>
+            </a>
+            <div class="games-header-logo">
+                <span style="font-size: 1.4rem;">🚦</span>
+                <span class="games-header-title">PACKET GATEKEEPER</span>
+                <span class="games-header-tag">DEFENSE</span>
+            </div>
+        </div>
+
+        <div class="games-header-right">
+            <button onclick="openGameIntelModal('packet-gatekeeper')" class="games-nav-btn" style="background: rgba(0, 240, 255, 0.12); border-color: var(--accent-cyan); color: var(--accent-cyan);" title="Mission Briefing & How to Play">
+                <span>ℹ️</span>
+                <span>HOW TO PLAY & INTEL</span>
+            </button>
+            <div class="arcade-xp-pill" id="globalArcadeXp">
+                <span>⚡</span>
+                <span id="totalXpDisplay">TOTAL XP: 0</span>
+            </div>
+            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme (Press 'T')">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Arena -->
+    <main class="games-arena-wrapper">
+        <section class="game-instance-container active" id="game-packet-gatekeeper" style="display: block;">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🚦</span> PACKET GATEKEEPER <span class="game-badge badge-defense">DEFENSE / NETWORK</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Inspect incoming protocol traffic, enforce perimeter firewall rules, and drop malicious or insecure packets!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Firewall Health</span>
+                        <span class="stat-val" id="pgHealthVal" style="color: var(--accent-green);">100%</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Packets Filtered</span>
+                        <span class="stat-val" id="pgScoreVal">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Streak Multiplier</span>
+                        <span class="stat-val" id="pgStreakVal" style="color: var(--accent-yellow);">1x</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Security Level</span>
+                        <span class="stat-val" id="pgLevelVal" style="color: var(--accent-cyan);">1 / 5</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pg-stage">
+                <!-- Inspection Chamber -->
+                <div class="pg-conveyor-chamber" id="pgChamber">
+                    <div class="pg-status-banner">
+                        <span id="pgRuleDirective">DIRECTIVE: Allow standard HTTPS (443) & DNS (53) | Drop plaintext Telnet (23) & Insecure SMB (445)</span>
+                        <span id="pgPacketTimer">TTL: 7.0s</span>
+                    </div>
+
+                    <div class="pg-packet-chute">
+                        <div class="pg-packet-card" id="pgPacketCard">
+                            <div class="pg-packet-header">
+                                <span id="pgPktId">PACKET #1042</span>
+                                <span id="pgPktTime">SRC CLASSIFICATION: EXTERNAL</span>
+                            </div>
+                            <div class="pg-packet-grid">
+                                <div>
+                                    <span class="pg-meta-label">SOURCE IP</span>
+                                    <span class="pg-meta-val" id="pgSrcIp">198.51.100.24</span>
+                                </div>
+                                <div>
+                                    <span class="pg-meta-label">DESTINATION PORT</span>
+                                    <span class="pg-meta-val" id="pgDestPort">443 (HTTPS)</span>
+                                </div>
+                                <div>
+                                    <span class="pg-meta-label">PROTOCOL & FLAGS</span>
+                                    <div class="pg-packet-flags" id="pgFlagsContainer">
+                                        <span class="flag-chip active-flag">TCP</span>
+                                        <span class="flag-chip">SYN</span>
+                                        <span class="flag-chip active-flag">ACK</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="pg-meta-label">CHECKSUM / ENCRYPTION</span>
+                                    <span class="pg-meta-val" id="pgEncryption">TLS 1.3 ENCRYPTED</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="pg-meta-label">RAW PAYLOAD INSPECTION</span>
+                                <div class="pg-packet-payload" id="pgPayload">
+                                    [TLS Handshake: CipherSuite TLS_AES_256_GCM_SHA384 ClientHello]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tactical Action Controls -->
+                    <div class="pg-controls-bar">
+                        <button class="pg-btn pg-btn-allow" onclick="handlePgAction('allow')">
+                            <span>✅ FORWARD (ALLOW)</span>
+                            <span class="key-hint">[Press A or Left Arrow]</span>
+                        </button>
+                        <button class="pg-btn pg-btn-quarantine" onclick="handlePgAction('quarantine')">
+                            <span>⚠️ SANDBOX (INSPECT)</span>
+                            <span class="key-hint">[Press S or Down Arrow]</span>
+                        </button>
+                        <button class="pg-btn pg-btn-drop" onclick="handlePgAction('drop')">
+                            <span>🛑 DROP (BLOCK)</span>
+                            <span class="key-hint">[Press D or Right Arrow]</span>
+                        </button>
+                    </div>
+
+                    <!-- Game Over / Victory Modal -->
+                    <div class="pg-overlay-modal" id="pgModal" style="display: none;">
+                        <h3 id="pgModalTitle">FIREWALL BREACH DETECTED</h3>
+                        <p id="pgModalMsg">Malicious packets compromised the internal gateway. Review the audit log below to learn what bypassed your rules.</p>
+                        <button class="btn-restart" onclick="initPacketGatekeeper()">⚡ REBOOT GATEWAY</button>
+                    </div>
+                </div>
+
+                <!-- Audit Log & Threat Feed -->
+                <div class="pg-console-panel">
+                    <div class="pg-console-title">
+                        <span>📋 FIREWALL AUDIT TRAIL</span>
+                        <span id="pgRuleSummary">RULE: STRICT FILTER</span>
+                    </div>
+                    <div class="pg-log-feed" id="pgLogFeed">
+                        <div class="log-entry">
+                            <strong>SYSTEM READY:</strong> Packet Gatekeeper IDS initialized. Inspection engine running on eth0.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: PERIMETER PACKET FILTERING & PROTOCOL SECURITY</h4>
+                <p>
+                    Firewalls and Intrusion Prevention Systems (IPS) evaluate packet headers and state tables in microseconds. Ports like <strong>23 (Telnet)</strong> transmit passwords in unencrypted plaintext, whereas <strong>443 (HTTPS)</strong> encapsulates data in TLS sessions. High-volume <strong>SYN</strong> packets without corresponding <strong>ACKs</strong> indicate SYN Flood DoS attacks, while malformed SQL/Script fragments targeting web servers must be caught by deep packet inspection (DPI) before reaching production databases.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="../js/ui_popups.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/games.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            initPacketGatekeeper();
+        });
+    </script>
+</body>
+
+</html>

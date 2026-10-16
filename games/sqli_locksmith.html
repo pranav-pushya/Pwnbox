@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwnBox // SQLi Locksmith (Query Tuner & Defense Lab)</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/games.css?v=1.0">
+</head>
+
+<body class="games-body">
+
+    <!-- Top Header Navigation -->
+    <header class="games-top-header">
+        <div class="games-header-left">
+            <a href="../games.html" class="games-nav-btn" title="Back to Games Hub (Press 'G')">
+                <span>⬅️</span>
+                <span>ARCADE HUB</span>
+            </a>
+            <a href="../dashboard.html" class="games-nav-btn" title="Dashboard (Press 'D')">
+                <span>📊</span>
+                <span>DASHBOARD</span>
+            </a>
+            <div class="games-header-logo">
+                <span style="font-size: 1.4rem;">🔓</span>
+                <span class="games-header-title">SQLi LOCKSMITH</span>
+                <span class="games-header-tag">WEB SEC</span>
+            </div>
+        </div>
+
+        <div class="games-header-right">
+            <button onclick="openGameIntelModal('sqli-locksmith')" class="games-nav-btn" style="background: rgba(0, 240, 255, 0.12); border-color: var(--accent-cyan); color: var(--accent-cyan);" title="Mission Briefing & How to Play">
+                <span>ℹ️</span>
+                <span>HOW TO PLAY & INTEL</span>
+            </button>
+            <div class="arcade-xp-pill" id="globalArcadeXp">
+                <span>⚡</span>
+                <span id="totalXpDisplay">TOTAL XP: 0</span>
+            </div>
+            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme (Press 'T')">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Arena -->
+    <main class="games-arena-wrapper">
+        <section class="game-instance-container active" id="game-sqli-locksmith" style="display: block;">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🔓</span> SQLi LOCKSMITH: THE QUERY TUNER <span class="game-badge badge-web">WEB / OWASP TOP 10</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Analyze backend SQL query logic. Slot in tactical syntax payloads to break authentication, extract data, and practice defense!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Vault Status</span>
+                        <span class="stat-val" id="sqliStatusVal" style="color: var(--accent-red);">LOCKED</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Vault Stage</span>
+                        <span class="stat-val" id="sqliStageVal">1 / 5</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Bypasses</span>
+                        <span class="stat-val" id="sqliScoreVal" style="color: var(--accent-green);">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sqli-vault-stage">
+                <!-- Vault & Query Area -->
+                <div class="sqli-door-chamber">
+                    <div class="sqli-vault-door" id="sqliVaultDoor">
+                        <div class="sqli-lock-icon" id="sqliLockIcon">🔒</div>
+                        <h3 id="sqliVaultTitle" style="color: #fff; font-size: 1.1rem; margin-bottom: 4px;">CHAMBER #01: AUTHENTICATION GATEWAY</h3>
+                        <p id="sqliVaultSub" style="font-size: 0.75rem; color: #94a3b8;">Arrange syntax tokens below to force the query WHERE clause to evaluate to TRUE.</p>
+                    </div>
+
+                    <!-- Interactive Query Terminal -->
+                    <div class="sqli-query-terminal" id="sqliQueryBox">
+                        <!-- Populated dynamically via JS with slots -->
+                    </div>
+
+                    <!-- Token Tray -->
+                    <div class="sqli-tray-box">
+                        <div class="sqli-tray-title">TACTICAL SYNTAX PAYLOADS (CLICK TO INSERT INTO ACTIVE SLOT):</div>
+                        <div class="sqli-tokens-grid" id="sqliTokensContainer">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button class="pg-btn pg-btn-drop" style="padding: 8px 16px; font-size: 0.75rem;" onclick="resetSqliSlots()">
+                            <span>RESET SLOTS ↺</span>
+                        </button>
+                        <button class="pg-btn pg-btn-allow" style="padding: 8px 16px; font-size: 0.75rem;" onclick="testSqliPayload()">
+                            <span>EXECUTE QUERY ⚡</span>
+                        </button>
+                        <button class="pg-btn" id="sqliNextBtn" style="padding: 8px 16px; font-size: 0.75rem; display: none; background: var(--text-main); color: var(--bg-base);" onclick="nextSqliStage()">
+                            <span>NEXT VAULT ➡️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Query Logic & AST Breakdown -->
+                <div class="sqli-eval-panel">
+                    <div class="sqli-eval-header">
+                        <span>🧪 QUERY AST & LOGIC EVALUATOR</span>
+                    </div>
+                    <div class="sqli-eval-content" id="sqliEvalFeed">
+                        <div class="sqli-eval-pill">
+                            <strong>PARSER READY:</strong> Slot in syntax elements to observe Boolean logic and SQL parser state.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: SQL INJECTION MECHANICS & PARAMETERIZATION DEFENSE</h4>
+                <p>
+                    SQL Injection occurs when untrusted user input is directly concatenated into a dynamic SQL string. A single quote <code>'</code> prematurely closes the string literal, Boolean operators like <code>OR 1=1</code> force the record lookup condition to evaluate to true, and comment syntax like <code>--</code> or <code>#</code> truncates the remaining query (such as password checks). In modern defense, <strong>Prepared Statements / Parameterized Queries</strong> ensure input is treated strictly as data parameters rather than executable SQL command tokens.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="../js/ui_popups.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/games.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            initSqliLocksmith();
+        });
+    </script>
+</body>
+
+</html>

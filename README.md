@@ -26,8 +26,20 @@ The project follows a clean, decoupled client-side architecture with zero extern
 foot/
 ├── dashboard.html               # Main Agent Training Dashboard & Progress Hub
 ├── index.html                   # Cyber Command Landing Page & 3D Matrix Gateway
+├── games.html                   # Tactical Cyber Mini-Games & Arcade Operations Hub
+├── notes.html                   # Operative Notes & Tactical Payload Vault
 ├── 404.html                     # Tactical Sector 404 Bauhaus Error & Recovery Router
 ├── README.md                    # Project Documentation & Architecture
+│
+├── 📂 games/                    # Standalone Interactive Cyber Mini-Game Simulations
+│   ├── packet_gatekeeper.html   # Game 01: Firewall, Protocol & DPI Defense Arcade
+│   ├── phish_detective.html     # Game 02: SOC Inbox Triage, SPF/DKIM & Malware Droppers
+│   ├── sqli_locksmith.html      # Game 03: SQL Injection Vault Breaker & Parameterization
+│   ├── cidr_block.html          # Game 04: VLSM Subnetting & Network Partitioning Puzzle
+│   ├── privesc_tower.html       # Game 05: Linux Host Privilege Escalation & GTFOBins
+│   ├── ransom_panic.html        # Game 06: DFIR CSIRT Outbreak & Kill Switch Sinkhole
+│   ├── entropy_clash.html       # Game 07: Password Entropy & 100 GH/s Hashcat Tug-of-War
+│   └── cipher_relic.html        # Game 08: Caesar, Vigenère & Symmetric XOR Stream Gates
 │
 ├── 📂 assets/                   # Vector Brand Icons & FaPvicons
 │   ├── favicon-main.svg         # Tactical shield dashboard favicon

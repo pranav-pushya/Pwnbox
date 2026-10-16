@@ -18,16 +18,17 @@ function getPwnboxPath(target) {
     const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
     const inModules = path.includes('/modules/');
     const inMasterguide = path.includes('/masterguide/');
+    const inGames = path.includes('/games/');
 
     switch (target) {
         case 'dashboard':
-            return (inModules || inMasterguide) ? '../dashboard.html' : 'dashboard.html';
+            return (inModules || inMasterguide || inGames) ? '../dashboard.html' : 'dashboard.html';
         case 'home':
-            return (inModules || inMasterguide) ? '../index.html' : 'index.html';
+            return (inModules || inMasterguide || inGames) ? '../index.html' : 'index.html';
         case 'notes':
-            return (inModules || inMasterguide) ? '../notes.html' : 'notes.html';
+            return (inModules || inMasterguide || inGames) ? '../notes.html' : 'notes.html';
         case 'games':
-            return (inModules || inMasterguide) ? '../games.html' : 'games.html';
+            return (inModules || inMasterguide || inGames) ? '../games.html' : 'games.html';
         case 'masterguide':
             if (inMasterguide) return 'cybersecurity_masterguide.html';
             if (inModules) return '../masterguide/cybersecurity_masterguide.html';
