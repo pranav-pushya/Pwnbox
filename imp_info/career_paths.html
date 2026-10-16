@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Career Paths // PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/imp_info.css">
+    <link rel="stylesheet" href="../css/career_paths.css">
+    <script src="../js/theme.js"></script>
+    <script src="../js/ui_popups.js"></script>
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="info-nav">
+        <a href="../index.html" class="nav-brand" title="Back to Home Portal">
+            <span class="brand-icon">🧭</span>
+            <span class="brand-title">PwnBox // Imp Info</span>
+        </a>
+
+        <div class="nav-actions">
+            <a href="imp_info.html" class="nav-btn" title="Important Info & CEH Compendium">💡 Important Info</a>
+            <a href="career_paths.html" class="nav-btn active" title="Cybersecurity Career Paths">🧭 Career Paths</a>
+            <a href="ports.html" class="nav-btn" title="Critical Ports & Protocols">🔌 Ports</a>
+            <a href="http_codes.html" class="nav-btn" title="HTTP Status Codes Compendium">🌐 HTTP Codes</a>
+            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
+            <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
+            <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
+            <a href="linux.html" class="nav-btn" title="Linux Commands & Hardening">🐧 Linux</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="career-container">
+
+        <!-- Hero Header -->
+        <section class="career-hero">
+            <span class="hero-tag">// SPECIALIZATION BLUEPRINT & ROLES COMPENDIUM</span>
+            <h1 class="hero-title">CYBERSECURITY CAREER PATHS</h1>
+            <p class="hero-desc">
+                An executive breakdown of core cybersecurity career trajectories. Explore each specialization by daily operational responsibilities, essential technical competencies, primary industry toolstacks, and gold-standard certifications.
+            </p>
+        </section>
+
+        <!-- Category Filter Pills -->
+        <nav class="career-filter-bar" aria-label="Role Filter">
+            <span class="filter-label">FILTER PATHS:</span>
+            <button class="career-filter-btn active" onclick="filterRoles('all', this)">⚡ All Roles (5)</button>
+            <button class="career-filter-btn" onclick="filterRoles('blue', this)">🛡️ Blue Team / Defense</button>
+            <button class="career-filter-btn" onclick="filterRoles('red', this)">💀 Red Team / Offensive</button>
+            <button class="career-filter-btn" onclick="filterRoles('engineer', this)">⚙️ Security Engineering</button>
+            <button class="career-filter-btn" onclick="filterRoles('leadership', this)">👔 Leadership & GRC</button>
+        </nav>
+
+        <!-- 5 Career Paths Grid -->
+        <section class="career-grid" id="careerGrid">
+
+            <!-- 1. Security Analyst -->
+            <article class="role-card card-analyst" data-category="blue">
+                <div class="role-card-header">
+                    <div class="role-header-top">
+                        <span class="role-badge">Defense & Triage</span>
+                        <div class="role-avatar">🛡️</div>
+                    </div>
+                    <h2 class="role-title">Security Analyst</h2>
+                    <p class="role-mission">Monitors and investigates security events across enterprise networks and digital assets.</p>
+                </div>
+
+                <div class="role-card-body">
+                    <div>
+                        <div class="role-section-title"><span>🎯</span> Required Skills</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Network Security</span>
+                            <span class="skill-tag">Threat Detection</span>
+                            <span class="skill-tag">SIEM Operations</span>
+                            <span class="skill-tag">Incident Analysis</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>🛠️</span> Primary Tools</div>
+                        <div class="tools-list">
+                            <span class="tool-tag">Splunk / QRadar</span>
+                            <span class="tool-tag">IDS/IPS (Snort/Suricata)</span>
+                            <span class="tool-tag">EDR (CrowdStrike)</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>📜</span> Target Certifications</div>
+                        <div class="certs-list">
+                            <span class="cert-tag">CompTIA Security+</span>
+                            <span class="cert-tag">CompTIA CySA+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-card-footer">
+                    <span>Focus: Perimeter & Host Telemetry</span>
+                    <span class="salary-tag">$75K – $110K / ₹6L – ₹14L</span>
+                </div>
+            </article>
+
+            <!-- 2. Penetration Tester -->
+            <article class="role-card card-pentest" data-category="red">
+                <div class="role-card-header">
+                    <div class="role-header-top">
+                        <span class="role-badge">Offensive & Ethical Hacking</span>
+                        <div class="role-avatar">💀</div>
+                    </div>
+                    <h2 class="role-title">Penetration Tester</h2>
+                    <p class="role-mission">Identifies exploitable vulnerabilities through simulated attacks against live networks, apps, and systems.</p>
+                </div>
+
+                <div class="role-card-body">
+                    <div>
+                        <div class="role-section-title"><span>🎯</span> Required Skills</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Ethical Hacking</span>
+                            <span class="skill-tag">Vulnerability Assessment</span>
+                            <span class="skill-tag">Web App Testing</span>
+                            <span class="skill-tag">Network Testing</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>🛠️</span> Primary Tools</div>
+                        <div class="tools-list">
+                            <span class="tool-tag">Kali Linux</span>
+                            <span class="tool-tag">Metasploit Framework</span>
+                            <span class="tool-tag">Burp Suite Professional</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>📜</span> Target Certifications</div>
+                        <div class="certs-list">
+                            <span class="cert-tag">OffSec OSCP</span>
+                            <span class="cert-tag">EC-Council CEH</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-card-footer">
+                    <span>Focus: Vulnerability Chaining & PoCs</span>
+                    <span class="salary-tag">$90K – $145K / ₹9L – ₹22L</span>
+                </div>
+            </article>
+
+            <!-- 3. Security Engineer -->
+            <article class="role-card card-engineer" data-category="engineer">
+                <div class="role-card-header">
+                    <div class="role-header-top">
+                        <span class="role-badge">Architecture & Infrastructure</span>
+                        <div class="role-avatar">⚙️</div>
+                    </div>
+                    <h2 class="role-title">Security Engineer</h2>
+                    <p class="role-mission">Designs and implements security infrastructure, policy enforcement rules, and automated defense controls.</p>
+                </div>
+
+                <div class="role-card-body">
+                    <div>
+                        <div class="role-section-title"><span>🎯</span> Required Skills</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Security Architecture</span>
+                            <span class="skill-tag">System Hardening</span>
+                            <span class="skill-tag">Vulnerability Management</span>
+                            <span class="skill-tag">DevSecOps & Automation</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>🛠️</span> Primary Tools</div>
+                        <div class="tools-list">
+                            <span class="tool-tag">Firewalls (Palo Alto)</span>
+                            <span class="tool-tag">SIEM Architectures</span>
+                            <span class="tool-tag">Enterprise EDR</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>📜</span> Target Certifications</div>
+                        <div class="certs-list">
+                            <span class="cert-tag">ISC² CISSP</span>
+                            <span class="cert-tag">ISC² CCSP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-card-footer">
+                    <span>Focus: Defense-in-Depth Engineering</span>
+                    <span class="salary-tag">$115K – $170K / ₹14L – ₹30L</span>
+                </div>
+            </article>
+
+            <!-- 4. SOC Analyst -->
+            <article class="role-card card-soc" data-category="blue">
+                <div class="role-card-header">
+                    <div class="role-header-top">
+                        <span class="role-badge">CSIRT & Alert Operations</span>
+                        <div class="role-avatar">🔍</div>
+                    </div>
+                    <h2 class="role-title">SOC Analyst</h2>
+                    <p class="role-mission">Monitors real-time alerts 24/7, hunts unknown intrusions, and coordinates rapid incident containment response.</p>
+                </div>
+
+                <div class="role-card-body">
+                    <div>
+                        <div class="role-section-title"><span>🎯</span> Required Skills</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Threat Intelligence</span>
+                            <span class="skill-tag">Log Analysis</span>
+                            <span class="skill-tag">Incident Response</span>
+                            <span class="skill-tag">Threat Hunting</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>🛠️</span> Primary Tools</div>
+                        <div class="tools-list">
+                            <span class="tool-tag">SIEM (Splunk / Wazuh)</span>
+                            <span class="tool-tag">SOAR Playbooks</span>
+                            <span class="tool-tag">EDR & Telemetry</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>📜</span> Target Certifications</div>
+                        <div class="certs-list">
+                            <span class="cert-tag">GIAC GCIH</span>
+                            <span class="cert-tag">CompTIA CySA+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-card-footer">
+                    <span>Focus: 24/7 Threat Hunting & Containment</span>
+                    <span class="salary-tag">$70K – $125K / ₹6L – ₹16L</span>
+                </div>
+            </article>
+
+            <!-- 5. Cybersecurity Manager -->
+            <article class="role-card card-manager" data-category="leadership">
+                <div class="role-card-header">
+                    <div class="role-header-top">
+                        <span class="role-badge">Governance & Strategy</span>
+                        <div class="role-avatar">👔</div>
+                    </div>
+                    <h2 class="role-title">Cybersecurity Manager</h2>
+                    <p class="role-mission">Leads enterprise cybersecurity strategy, risk tolerance frameworks, regulatory compliance, and cross-functional teams.</p>
+                </div>
+
+                <div class="role-card-body">
+                    <div>
+                        <div class="role-section-title"><span>🎯</span> Required Skills</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Risk Management</span>
+                            <span class="skill-tag">Governance & Compliance</span>
+                            <span class="skill-tag">Policy Development</span>
+                            <span class="skill-tag">Executive Leadership</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>🛠️</span> Primary Tools</div>
+                        <div class="tools-list">
+                            <span class="tool-tag">GRC Platforms (OneTrust)</span>
+                            <span class="tool-tag">IAM Solutions (Okta/CyberArk)</span>
+                            <span class="tool-tag">Risk & Audit Dashboards</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="role-section-title"><span>📜</span> Target Certifications</div>
+                        <div class="certs-list">
+                            <span class="cert-tag">ISC² CISSP</span>
+                            <span class="cert-tag">ISACA CISM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role-card-footer">
+                    <span>Focus: Strategy, Audit & Risk Alignment</span>
+                    <span class="salary-tag">$140K – $220K+ / ₹25L – ₹60L+</span>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Interactive Comparison Matrix -->
+        <section class="comparison-section">
+            <div class="comp-header">
+                <h2 class="comp-title">📊 Side-by-Side Path Matrix</h2>
+                <p class="comp-desc">Quick comparative analysis of daily scope, operational mindset, and barrier to entry across all 5 career tracks.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="career-table">
+                    <thead>
+                        <tr>
+                            <th>Career Track</th>
+                            <th>Primary Mindset</th>
+                            <th>Typical Day-to-Day</th>
+                            <th>Entry Barrier</th>
+                            <th>Recommended Next Step</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Security Analyst</strong></td>
+                            <td>Investigative & Defensive</td>
+                            <td>Triage SIEM alert queues, analyze phishing tickets, trace suspicious IPs.</td>
+                            <td>Beginner to Intermediate</td>
+                            <td>CompTIA Security+ ➔ CySA+ ➔ OverTheWire Bandit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Penetration Tester</strong></td>
+                            <td>Adversarial & Offensive</td>
+                            <td>Run reconnaissance scripts, test web endpoints for SQLi/XSS, draft POC exploit reports.</td>
+                            <td>Intermediate to High</td>
+                            <td>PortSwigger Web Academy ➔ HackTheBox ➔ OSCP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Security Engineer</strong></td>
+                            <td>Architectural & Resilient</td>
+                            <td>Configure next-gen firewall rules, automate patch compliance, architect VPC boundaries.</td>
+                            <td>Intermediate to Advanced</td>
+                            <td>Linux System Admin ➔ AWS/Cloud Security ➔ CCSP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SOC Analyst</strong></td>
+                            <td>Tactical & CSIRT Response</td>
+                            <td>Inspect raw PCAPs, execute triage playbooks, isolate infected endpoints during outbreaks.</td>
+                            <td>Beginner to Intermediate</td>
+                            <td>TryHackMe SOC Level 1 ➔ Wazuh Lab ➔ GCIH</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cybersecurity Manager</strong></td>
+                            <td>Strategic & Governance</td>
+                            <td>Audit compliance against ISO 27001/NIST, brief C-suite on risk, manage incident budgets.</td>
+                            <td>Advanced to Executive</td>
+                            <td>Technical Experience (5+ yrs) ➔ CISSP ➔ CISM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function filterRoles(category, btn) {
+            document.querySelectorAll('.career-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.role-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

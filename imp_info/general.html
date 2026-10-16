@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Cyber Intel Vault // PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/imp_info.css">
+    <link rel="stylesheet" href="../css/general.css?v=2.2">
+    <script src="../js/theme.js"></script>
+    <script src="../js/ui_popups.js"></script>
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="info-nav">
+        <a href="../index.html" class="nav-brand" title="Back to Home Portal">
+            <span class="brand-icon">⚙️</span>
+            <span class="brand-title">PwnBox // Imp Info</span>
+        </a>
+
+        <div class="nav-actions">
+            <a href="imp_info.html" class="nav-btn" title="Important Info & CEH Compendium">💡 Important Info</a>
+            <a href="career_paths.html" class="nav-btn" title="Cybersecurity Career Paths">🧭 Career Paths</a>
+            <a href="ports.html" class="nav-btn" title="Critical Ports & Protocols">🔌 Ports</a>
+            <a href="http_codes.html" class="nav-btn" title="HTTP Status Codes Compendium">🌐 HTTP Codes</a>
+            <a href="general.html" class="nav-btn active" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
+            <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
+            <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
+            <a href="linux.html" class="nav-btn" title="Linux Commands & Hardening">🐧 Linux</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="general-container">
+
+        <!-- Hero Header -->
+        <section class="general-hero">
+            <span class="hero-tag">// CORE SYSTEMS, DOMAIN INFRASTRUCTURE & OS CHRONICLES</span>
+            <h1 class="hero-title">GENERAL CYBER INTELLIGENCE COMPENDIUM</h1>
+            <p class="hero-desc">
+                An authoritative multi-domain reference bridging Windows System Hardening & Administrative Shortcuts (Slide 4 Extended), Global Top-Level Domain (TLD) & DNS Architecture (Slide 6 Extended), and the Chronological Operating Systems Deep-Dive from 1969 UNIX to 2026 AI-Native Zero-Trust Kernels (Slide 8 Extended).
+            </p>
+        </section>
+
+        <!-- Segmented In-Page Tab Navigation -->
+        <nav class="general-tabs-bar" aria-label="Section Selection">
+            <span class="tabs-lbl">EXPLORE INTEL:</span>
+            <button class="tab-pill-btn active" data-section="shortcuts" onclick="switchSection('shortcuts', this)">🪟 Windows Shortcuts</button>
+            <button class="tab-pill-btn" data-section="domains" onclick="switchSection('domains', this)">🌐 Domain TLDs</button>
+            <button class="tab-pill-btn" data-section="os" onclick="switchSection('os', this)">⏳ OS Timeline: 1969–2026</button>
+        </nav>
+
+        <!-- ════════════ SECTION 1: WINDOWS SHORTCUTS & RUN COMMANDS ════════════ -->
+        <section class="general-section" id="sec-shortcuts">
+            <div class="section-head-bar">
+                <div class="sec-title-box">
+                    <h2>🪟 Windows Security Shortcuts & Admin Commands</h2>
+                    <p>Essential hotkeys, Control Panel applets (.cpl), and Microsoft Management Consoles (.msc) for fast incident triage, host hardening, and forensic auditing.</p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <span class="sec-counter-badge" id="shortcutsCounterBadge">25 Tools Documented</span>
+                    <button class="tab-pill-btn" onclick="openAddShortcutModal()" style="background: var(--bauhaus-yellow); color: #000; font-weight: 800; cursor: pointer;">➕ Add Custom Shortcut</button>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid" id="shortcutsGrid">
+
+                <!-- 1. Win + L -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + L</span>
+                        <span class="shortcut-type-tag">Hotkey</span>
+                    </div>
+                    <div class="shortcut-target">Lock Workstation Instantly</div>
+                    <p class="shortcut-hinglish">Desk chhodte waqt ek second mein screen lock karta hai taaki koi unauthorized physical access ya shoulder surfing na kar sake.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('Win+L', this)">📋 Copy Shortcut</button>
+                </div>
+
+                <!-- 2. Ctrl + Alt + Del -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Ctrl + Alt + Del</span>
+                        <span class="shortcut-type-tag">Hardware Interrupt</span>
+                    </div>
+                    <div class="shortcut-target">Windows Secure Attention Screen</div>
+                    <p class="shortcut-hinglish">Hardware-level secure attention sequence jo fake login screens (phishing software) ko bypass karke genuine OS menu kholta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('Ctrl+Alt+Del', this)">📋 Copy Shortcut</button>
+                </div>
+
+                <!-- 3. Win + I -> Privacy -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + I ➔ Privacy</span>
+                        <span class="shortcut-type-tag">GUI Settings</span>
+                    </div>
+                    <div class="shortcut-target">Privacy & Security Hub</div>
+                    <p class="shortcut-hinglish">Windows Defender, camera/microphone permissions aur telemetry diagnostics configure karne ka central hub.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('Win+I', this)">📋 Copy Shortcut</button>
+                </div>
+
+                <!-- 4. firewall.cpl -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ firewall.cpl</span>
+                        <span class="shortcut-type-tag">Applet (.cpl)</span>
+                    </div>
+                    <div class="shortcut-target">Windows Defender Firewall</div>
+                    <p class="shortcut-hinglish">Private aur Public profiles par inbound connections aur unauthorized network filtering switch karne ka direct applet.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('firewall.cpl', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 5. wf.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ wf.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Advanced Firewall with Security</div>
+                    <p class="shortcut-hinglish">Custom ports (e.g. blocking 445 SMB ya 3389 RDP) aur specific inbound/outbound executable rules block karne ka advanced manager.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('wf.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 6. secpol.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ secpol.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Local Security Policy</div>
+                    <p class="shortcut-hinglish">Account lockout threshold (brute-force defense), password complexity aur Windows audit logging policies set karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('secpol.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 7. gpedit.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ gpedit.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Local Group Policy Editor</div>
+                    <p class="shortcut-hinglish">Operating system ke core behaviors (telemetry, Windows Update, USB removable storage restriction) ko lockdown karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('gpedit.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 8. lusrmgr.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ lusrmgr.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Local Users & Groups Manager</div>
+                    <p class="shortcut-hinglish">Local user accounts, backdoor administrator accounts aur guest privileges audit karne ke liye use hota hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('lusrmgr.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 9. bitlocker.cpl -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ bitlocker.cpl</span>
+                        <span class="shortcut-type-tag">Applet (.cpl)</span>
+                    </div>
+                    <div class="shortcut-target">BitLocker Drive Encryption</div>
+                    <p class="shortcut-hinglish">Full volume disk encryption enable karke physical disk theft ya offline forensic extraction se data protect karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('bitlocker.cpl', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 10. mrt -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ mrt</span>
+                        <span class="shortcut-type-tag">Built-in Scanner</span>
+                    </div>
+                    <div class="shortcut-target">Malicious Software Removal Tool</div>
+                    <p class="shortcut-hinglish">Microsoft ka built-in emergency malware scanner jo common prevalent rootkits aur trojans ko detect karke wipe out karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('mrt', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 11. Ctrl + Shift + Esc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Ctrl + Shift + Esc</span>
+                        <span class="shortcut-type-tag">Direct Hotkey</span>
+                    </div>
+                    <div class="shortcut-target">Direct Task Manager</div>
+                    <p class="shortcut-hinglish">Bina kisi intermediary screen ke direct Task Manager kholta hai suspicious background processes aur CPU spikes kill karne ke liye.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('Ctrl+Shift+Esc', this)">📋 Copy Shortcut</button>
+                </div>
+
+                <!-- 12. eventvwr.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ eventvwr.msc</span>
+                        <span class="shortcut-type-tag">Forensic Console</span>
+                    </div>
+                    <div class="shortcut-target">Windows Event Viewer</div>
+                    <p class="shortcut-hinglish">Failed login attempts (Event ID 4625), privilege escalation aur system audit logs forensic investigation ke liye check karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('eventvwr.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 13. resmon -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ resmon</span>
+                        <span class="shortcut-type-tag">Diagnostic Tool</span>
+                    </div>
+                    <div class="shortcut-target">Resource Monitor (Deep Telemetry)</div>
+                    <p class="shortcut-hinglish">Kaunsa process active internet IPs se connected hai aur kaunsi disk files continuously read/write kar raha hai (ransomware detector).</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('resmon', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 14. regedit -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ regedit</span>
+                        <span class="shortcut-type-tag">Registry Editor</span>
+                    </div>
+                    <div class="shortcut-target">Windows Registry Editor</div>
+                    <p class="shortcut-hinglish">Malware persistence keys (Run / RunOnce), SAM database settings aur Windows internal configurations audit karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('regedit', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 15. services.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ services.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Windows Services Management</div>
+                    <p class="shortcut-hinglish">System background services ko monitor karta hai; unquoted service paths aur malicious persistence services inspect karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('services.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 16. ncpa.cpl -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ ncpa.cpl</span>
+                        <span class="shortcut-type-tag">Applet (.cpl)</span>
+                    </div>
+                    <div class="shortcut-target">Network Connections & Adapters</div>
+                    <p class="shortcut-hinglish">Network adapters, rogue VPN interfaces, aur custom DNS settings verify karne ke liye direct access deta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('ncpa.cpl', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 17. certlm.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ certlm.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Certificates - Local Computer</div>
+                    <p class="shortcut-hinglish">Machine level par installed Root Certification Authorities audit karta hai taaki rogue SSL inspection certs pakde ja sakein.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('certlm.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 18. compmgmt.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ compmgmt.msc</span>
+                        <span class="shortcut-type-tag">Master MMC</span>
+                    </div>
+                    <div class="shortcut-target">Computer Management Console</div>
+                    <p class="shortcut-hinglish">Disk management, device drivers, shared folders aur event logs ka unified central management dashboard hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('compmgmt.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 19. msconfig -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ msconfig</span>
+                        <span class="shortcut-type-tag">Boot Diagnostic</span>
+                    </div>
+                    <div class="shortcut-target">System Configuration Utility</div>
+                    <p class="shortcut-hinglish">Safe Mode boot configuration aur non-Microsoft services ko disable karke clean diagnostic environment setup karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('msconfig', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 20. netplwiz -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ netplwiz</span>
+                        <span class="shortcut-type-tag">User Auth Tool</span>
+                    </div>
+                    <div class="shortcut-target">Advanced User Accounts Control</div>
+                    <p class="shortcut-hinglish">Automatic passwordless logon disable karta hai aur administrator group membership permissions audit karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('netplwiz', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 21. Win + X + A -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + X + A</span>
+                        <span class="shortcut-type-tag">Admin Terminal</span>
+                    </div>
+                    <div class="shortcut-target">Elevated Terminal / PowerShell (Admin)</div>
+                    <p class="shortcut-hinglish">Quick Access menu se seedha Administrator PowerShell terminal open karta hai bina start menu search kiye.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('Win+X+A', this)">📋 Copy Shortcut</button>
+                </div>
+
+                <!-- 22. Win + Shift + S -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + Shift + S</span>
+                        <span class="shortcut-type-tag">Forensic Evidence</span>
+                    </div>
+                    <div class="shortcut-target">Snipping Tool & Screen Capture</div>
+                    <p class="shortcut-hinglish">Incident triage ke waqt malicious popups, ransom notes ya terminal outputs ka instant rectangular screenshot capture karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('Win+Shift+S', this)">📋 Copy Shortcut</button>
+                </div>
+
+                <!-- 23. devmgmt.msc -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ devmgmt.msc</span>
+                        <span class="shortcut-type-tag">Console (.msc)</span>
+                    </div>
+                    <div class="shortcut-target">Device Manager</div>
+                    <p class="shortcut-hinglish">BadUSB (Rubber Ducky) ya rogue hardware network adapters plugged hone par hardware devices inspect karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('devmgmt.msc', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 24. sysdm.cpl -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ sysdm.cpl</span>
+                        <span class="shortcut-type-tag">Applet (.cpl)</span>
+                    </div>
+                    <div class="shortcut-target">System Properties & RDP Toggle</div>
+                    <p class="shortcut-hinglish">Computer domain join status, environment PATH variables aur Remote Desktop (RDP) allow/deny settings manage karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('sysdm.cpl', this)">📋 Copy Run Command</button>
+                </div>
+
+                <!-- 25. perfmon -->
+                <div class="shortcut-card">
+                    <div class="shortcut-header">
+                        <span class="shortcut-combo">Win + R ➔ perfmon</span>
+                        <span class="shortcut-type-tag">Diagnostic Tool</span>
+                    </div>
+                    <div class="shortcut-target">Performance & Reliability Monitor</div>
+                    <p class="shortcut-hinglish">Application crashes, hardware errors aur cryptomining malware dwara generate kiye gaye persistent load patterns track karta hai.</p>
+                    <button class="shortcut-copy-btn" onclick="copySnippet('perfmon', this)">📋 Copy Run Command</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ════════════ SECTION 2: DOMAIN TLDS & DNS ARCHITECTURE ════════════ -->
+        <section class="general-section" id="sec-domains">
+            <div class="section-head-bar">
+                <div class="sec-title-box">
+                    <h2>🌐 Types of Domain Names (TLDs) & DNS Reconnaissance</h2>
+                    <p>Understanding Top-Level Domains (gTLD, ccTLD, sTLD, New gTLD, and Restricted/High-Risk TLDs) is vital for brand protection, anti-phishing triage, and external attack surface management.</p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <span class="sec-counter-badge" id="tldsCounterBadge">25 TLD Categories</span>
+                    <button class="tab-pill-btn" onclick="openAddTldModal()" style="background: var(--cyber-cyan); color: #000; font-weight: 800; cursor: pointer;">➕ Add Custom TLD</button>
+                </div>
+            </div>
+
+            <div class="tlds-grid" id="tldsGrid">
+
+                <!-- .com -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.com</span>
+                        <span class="tld-cat-tag tag-gtld">Generic TLD</span>
+                    </div>
+                    <h3 class="tld-title">Commercial Businesses</h3>
+                    <p class="tld-desc">World's most recognized and populated domain extension for businesses, tech platforms, and online enterprises.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Typosquatting (e.g. `goog1e.com`) and brand impersonation attacks target .com heavily.</div>
+                </div>
+
+                <!-- .org -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.org</span>
+                        <span class="tld-cat-tag tag-gtld">Generic TLD</span>
+                    </div>
+                    <h3 class="tld-title">Organizations & Non-Profits</h3>
+                    <p class="tld-desc">Commonly trusted domain extension for NGOs, research institutions, charity bodies, and open-source foundations.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> High innate reputation; attackers buy dropped .org domains for high-deliverability phishing.</div>
+                </div>
+
+                <!-- .net -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.net</span>
+                        <span class="tld-cat-tag tag-gtld">Generic TLD</span>
+                    </div>
+                    <h3 class="tld-title">Network Infrastructure</h3>
+                    <p class="tld-desc">Originally designated for Internet Service Providers (ISPs) and network operators; now widely adopted by tech services.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Frequently used for internal telemetry routes, DNS nameservers, and CDN edge endpoints.</div>
+                </div>
+
+                <!-- .edu -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.edu</span>
+                        <span class="tld-cat-tag tag-stld">Sponsored TLD</span>
+                    </div>
+                    <h3 class="tld-title">Higher Education (Strictly Restricted)</h3>
+                    <p class="tld-desc">Restricted exclusively to accredited postsecondary universities, colleges, and educational institutions.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Elite trust score; compromised student/faculty credentials sell for high prices on darknet forums.</div>
+                </div>
+
+                <!-- .gov -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.gov</span>
+                        <span class="tld-cat-tag tag-stld">Sponsored TLD</span>
+                    </div>
+                    <h3 class="tld-title">Government Agencies (Restricted)</h3>
+                    <p class="tld-desc">Reserved strictly for verified official federal, state, and local government departments and municipal bodies.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Enforces DNSSEC and mandatory MFA; targeted by state-sponsored Advanced Persistent Threats (APTs).</div>
+                </div>
+
+                <!-- .mil -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.mil</span>
+                        <span class="tld-cat-tag tag-stld">Sponsored TLD</span>
+                    </div>
+                    <h3 class="tld-title">Military (US DoD Restricted)</h3>
+                    <p class="tld-desc">Exclusively dedicated to the United States Department of Defense, armed services, and military branches.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> High security classification; protected under defense cyber command zero-trust perimeters.</div>
+                </div>
+
+                <!-- .int -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.int</span>
+                        <span class="tld-cat-tag tag-stld">Sponsored TLD</span>
+                    </div>
+                    <h3 class="tld-title">International Treaty Organizations</h3>
+                    <p class="tld-desc">Strictly reserved for intergovernmental treaty-based international organizations (e.g., United Nations, NATO, Interpol).</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> High diplomatic espionage interest; cyber warfare defense targets.</div>
+                </div>
+
+                <!-- .app -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.app</span>
+                        <span class="tld-cat-tag tag-new">Modern Tech TLD</span>
+                    </div>
+                    <h3 class="tld-title">Mobile & Software Applications</h3>
+                    <p class="tld-desc">Google Registry operated extension specifically built for mobile applications, web apps, and developer SaaS.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Strict HSTS preloaded; browsers refuse unencrypted HTTP connections by default.</div>
+                </div>
+
+                <!-- .dev -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.dev</span>
+                        <span class="tld-cat-tag tag-new">Modern Tech TLD</span>
+                    </div>
+                    <h3 class="tld-title">Developers & Technology Projects</h3>
+                    <p class="tld-desc">Tailored for software engineers, programming portfolios, API documentation, and modern open-source toolkits.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Built-in HTTPS enforcement; eliminates SSL stripping and plaintext eavesdropping risks.</div>
+                </div>
+
+                <!-- .tech -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.tech</span>
+                        <span class="tld-cat-tag tag-new">Modern Tech TLD</span>
+                    </div>
+                    <h3 class="tld-title">Technology Startups & SaaS</h3>
+                    <p class="tld-desc">Popular alternative to .com among emerging artificial intelligence startups, developers, and tech ecosystems.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Rapid adoption in shadow IT setups; SOCs monitor for newly registered domains (NRDs).</div>
+                </div>
+
+                <!-- .io -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.io</span>
+                        <span class="tld-cat-tag tag-cctld">ccTLD / Tech Standard</span>
+                    </div>
+                    <h3 class="tld-title">Input/Output Tech Platforms</h3>
+                    <p class="tld-desc">Originally British Indian Ocean Territory ccTLD, but universally adopted by software engineers as slang for Input/Output.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Highly targeted in software supply-chain poisoning and npm/pip package hijacking.</div>
+                </div>
+
+                <!-- .ai -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.ai</span>
+                        <span class="tld-cat-tag tag-cctld">ccTLD / AI Goldrush</span>
+                    </div>
+                    <h3 class="tld-title">Artificial Intelligence & LLMs</h3>
+                    <p class="tld-desc">Officially Anguilla's ccTLD, now the premier domain globally for generative AI, ML frameworks, and LLM providers.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Skyrocketing domain valuation; target of AI model poisoning and impersonation phishing.</div>
+                </div>
+
+                <!-- .in -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.in</span>
+                        <span class="tld-cat-tag tag-cctld">Country Code TLD</span>
+                    </div>
+                    <h3 class="tld-title">India Country-Code Domain</h3>
+                    <p class="tld-desc">National ccTLD administered by NIXI (National Internet Exchange of India) for Indian businesses, citizens, and institutions.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Protected under IT Act Section 43/66; monitored for banking and financial phishing spoofing.</div>
+                </div>
+
+                <!-- .co -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.co</span>
+                        <span class="tld-cat-tag tag-cctld">ccTLD / Alternative</span>
+                    </div>
+                    <h3 class="tld-title">Company & Startup Branding</h3>
+                    <p class="tld-desc">Colombia ccTLD widely repurposed worldwide as a sleek abbreviation for 'Company' or 'Corporation'.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Common typosquatting target when users accidentally omit the 'm' from `.com`.</div>
+                </div>
+
+                <!-- .info -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.info</span>
+                        <span class="tld-cat-tag tag-gtld">Generic TLD</span>
+                    </div>
+                    <h3 class="tld-title">Informational & Documentation Portals</h3>
+                    <p class="tld-desc">Designed for informational sites, knowledge bases, public encyclopedias, and community wikis.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Cheap registration costs historically led to high abuse rates in mass spam campaigns.</div>
+                </div>
+
+                <!-- .biz -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.biz</span>
+                        <span class="tld-cat-tag tag-gtld">Generic TLD</span>
+                    </div>
+                    <h3 class="tld-title">Commercial & Small Business</h3>
+                    <p class="tld-desc">Created specifically for business use cases as an alternative to overcrowded .com registrations.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Frequently scanned in B2B corporate credential-harvesting campaigns.</div>
+                </div>
+
+                <!-- .infra -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.infra</span>
+                        <span class="tld-cat-tag tag-new">Infrastructure TLD</span>
+                    </div>
+                    <h3 class="tld-title">Civil & Digital Infrastructure</h3>
+                    <p class="tld-desc">Utilized by large-scale infrastructure operators, cloud utility providers, and telecommunications consortiums.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Critical national infrastructure (CNI) reconnaissance vector.</div>
+                </div>
+
+                <!-- .jobs -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.jobs</span>
+                        <span class="tld-cat-tag tag-stld">Sponsored TLD</span>
+                    </div>
+                    <h3 class="tld-title">Recruitment & Hiring Portals</h3>
+                    <p class="tld-desc">Sponsored domain for HR departments, corporate hiring portals, and accredited job boards.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Malicious actors spoof job boards to deliver malware droppers disguised as PDF resumes.</div>
+                </div>
+
+                <!-- .coop -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.coop</span>
+                        <span class="tld-cat-tag tag-stld">Sponsored TLD</span>
+                    </div>
+                    <h3 class="tld-title">Cooperative Organizations</h3>
+                    <p class="tld-desc">Restricted to cooperatives, credit unions, and mutual-benefit organizations owned by their members.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Financial credit union fraud and phishing targeting localized member accounts.</div>
+                </div>
+
+                <!-- .security -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.security</span>
+                        <span class="tld-cat-tag tag-new">Modern Tech TLD</span>
+                    </div>
+                    <h3 class="tld-title">Cybersecurity Brands & Labs</h3>
+                    <p class="tld-desc">Dedicated to physical and digital security vendors, threat researchers, and advisory bodies.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Threat intelligence feeds and security incident disclosure centers.</div>
+                </div>
+
+                <!-- .cloud -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.cloud</span>
+                        <span class="tld-cat-tag tag-new">Modern Tech TLD</span>
+                    </div>
+                    <h3 class="tld-title">Cloud Infrastructure & SaaS</h3>
+                    <p class="tld-desc">Built for cloud hosting services, SaaS architectures, serverless platforms, and API gateways.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Subdomain takeover vulnerabilities on misconfigured CNAME records.</div>
+                </div>
+
+                <!-- .onion -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.onion</span>
+                        <span class="tld-cat-tag tag-cyber">Darknet / Special TLD</span>
+                    </div>
+                    <h3 class="tld-title">Tor Onion Hidden Services</h3>
+                    <p class="tld-desc">RFC 7686 special-use domain routed entirely within the Tor overlay network using end-to-end onion routing cryptography.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Host of darknet marketplaces, ransomware extortion leak sites, and whistleblower portals.</div>
+                </div>
+
+                <!-- .local -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.local</span>
+                        <span class="tld-cat-tag tag-cyber">Internal / Private</span>
+                    </div>
+                    <h3 class="tld-title">mDNS Multicast Local Resolution</h3>
+                    <p class="tld-desc">Reserved for link-local zero-configuration networking (Bonjour, mDNS) on isolated local subnets.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> LLMNR/NBT-NS Poisoning attacks (Responder tool) harvest domain hashes on .local broadcasts.</div>
+                </div>
+
+                <!-- .internal -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.internal</span>
+                        <span class="tld-cat-tag tag-cyber">Reserved Private</span>
+                    </div>
+                    <h3 class="tld-title">ICANN Private Network Standard</h3>
+                    <p class="tld-desc">Formally designated by ICANN for strictly private corporate networks to prevent internal DNS query leakage to public root servers.</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Prevents DNS collision attacks and internal corporate IP disclosure.</div>
+                </div>
+
+                <!-- .zip & .mov -->
+                <div class="tld-card">
+                    <div class="tld-top-row">
+                        <span class="tld-ext-badge">.zip / .mov</span>
+                        <span class="tld-cat-tag tag-cyber">High Risk / Scrutiny</span>
+                    </div>
+                    <h3 class="tld-title">File-Extension Phishing Vectors</h3>
+                    <p class="tld-desc">New gTLDs released by Google that match common file extensions (ZIP archive, QuickTime movie).</p>
+                    <div class="tld-sec-context"><strong>Cyber Focus:</strong> Attackers craft URLs resembling download links (e.g. `invoice.zip`) to deliver malware droppers.</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ════════════ SECTION 3: OS TIMELINE DEEP DIVE (1969 - 2026) ════════════ -->
+        <section class="general-section" id="sec-os">
+            <div class="section-head-bar">
+                <div class="sec-title-box">
+                    <h2>⏳ Operating Systems Timeline: Deep Dive (1969 – 2026)</h2>
+                    <p>Chronological evolution of system architecture, security primitives, memory protection models, microkernels, and 2026 AI-native zero-trust operating platforms.</p>
+                </div>
+                <span class="sec-counter-badge">22 Historical Milestones</span>
+            </div>
+
+            <div class="timeline-wrapper">
+
+                <!-- 1969: UNIX -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1969</span>
+                            <span class="event-paradigm">Time-Sharing / Monolithic</span>
+                        </div>
+                        <h3 class="event-os-name">🖥️ UNIX (AT&T Bell Labs)</h3>
+                        <p class="event-desc">Created by Ken Thompson and Dennis Ritchie at Bell Labs. Introduced the foundational paradigm: "Everything is a file", hierarchical directories, pipelines, and the multi-user POSIX standard.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Introduced Unix user permission bits (`rwxrwxrwx`) for Owner, Group, and Others. Foundation for all modern Linux and BSD platforms.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1973: BSD -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1973</span>
+                            <span class="event-paradigm">Networking Foundation</span>
+                        </div>
+                        <h3 class="event-os-name">🌐 BSD (Berkeley Software Distribution)</h3>
+                        <p class="event-desc">University of California, Berkeley developed BSD, implementing the world's first industrial TCP/IP networking stack and the standard Berkeley Sockets API that still powers the modern internet.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Standardized internet socket protocols; evolved directly into Darwin (macOS/iOS kernel) and security-hardened OpenBSD.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1981: MS-DOS -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1981</span>
+                            <span class="event-paradigm">16-Bit CLI / Real Mode</span>
+                        </div>
+                        <h3 class="event-os-name">💾 MS-DOS (Microsoft)</h3>
+                        <p class="event-desc">Microsoft released Disk Operating System 1.0 for the IBM PC. A single-tasking, single-user system that operated directly on x86 real-mode memory with command-line interactions.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Zero access controls, no memory protection; any executable had unrestricted raw access to hardware, BIOS, and sector storage.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1984: Mac OS -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1984</span>
+                            <span class="event-paradigm">Commercial GUI Pioneer</span>
+                        </div>
+                        <h3 class="event-os-name">🍎 Macintosh System 1 (Classic Mac OS)</h3>
+                        <p class="event-desc">Apple launched the original Macintosh with System 1. Brought windows, icons, mouse pointers, and desktop graphical metaphors into mainstream consumer computing.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Cooperative multitasking with flat memory address space; lacked user permission boundaries.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1985: Windows 1.0 -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1985</span>
+                            <span class="event-paradigm">16-Bit Graphical Shell</span>
+                        </div>
+                        <h3 class="event-os-name">🪟 Windows 1.0</h3>
+                        <p class="event-desc">Microsoft's first graphical operating environment running on top of MS-DOS, featuring tiled windows, clipboard integration, and basic multitasking.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Relied on MS-DOS underlying file handling with no authentication or process sandboxing.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1991: Linux Kernel -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1991</span>
+                            <span class="event-paradigm">GPL Open Source / Monolithic</span>
+                        </div>
+                        <h3 class="event-os-name">🐧 Linux Kernel 0.01 (Linus Torvalds)</h3>
+                        <p class="event-desc">Linus Torvalds released the Linux kernel as an open-source Minix alternative. Licensed under GNU GPL, it became the software foundation powering 90%+ of global servers, supercomputers, and cloud platforms.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Multi-user privilege separation, protected memory mode (Ring 0 vs Ring 3), and kernel-level access controls.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1993: Debian -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1993</span>
+                            <span class="event-paradigm">Package Ecosystem</span>
+                        </div>
+                        <h3 class="event-os-name">📦 Debian GNU/Linux (Ian Murdock)</h3>
+                        <p class="event-desc">Established one of the earliest universal Linux distributions. Pioneered the `dpkg` and `apt` package manager systems and uncompromising open-source governance.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Cryptographic package verification and repository integrity; direct ancestor of Ubuntu and Kali Linux.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1993: Windows NT -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1993</span>
+                            <span class="event-paradigm">Enterprise Preemptive NT</span>
+                        </div>
+                        <h3 class="event-os-name">🏢 Windows NT 3.1 (Dave Cutler)</h3>
+                        <p class="event-desc">Engineered from scratch by DEC architect Dave Cutler. True 32-bit preemptive multitasking, hardware abstraction layer (HAL), and NTFS filesystem with Access Control Lists (ACLs).</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            NTFS permissions, Security Accounts Manager (SAM), Security Identifiers (SIDs); direct codebase ancestor of Windows 10/11.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1994: Red Hat -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1994</span>
+                            <span class="event-paradigm">Enterprise Commercial Linux</span>
+                        </div>
+                        <h3 class="event-os-name">🎩 Red Hat Linux</h3>
+                        <p class="event-desc">Pioneered enterprise commercial support for Linux with the RPM package format. Evolved into Red Hat Enterprise Linux (RHEL), the standard OS for enterprise Fortune 500 datacenters.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Co-engineered SELinux (Security-Enhanced Linux) with the NSA, introducing Mandatory Access Control (MAC).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1995: Windows 95 -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1995</span>
+                            <span class="event-paradigm">Consumer 32-Bit Hybrid</span>
+                        </div>
+                        <h3 class="event-os-name">🪟 Windows 95</h3>
+                        <p class="event-desc">Introduced the iconic Start Menu, Taskbar, Windows Explorer, and Plug and Play. Integrated TCP/IP stack and internet connectivity directly into consumer PCs.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Transitional 16/32-bit architecture without memory isolation; vulnerable to WinNuke denial-of-service and macro viruses.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1996: OpenBSD -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">1996</span>
+                            <span class="event-paradigm">Security-First Engineering</span>
+                        </div>
+                        <h3 class="event-os-name">🐡 OpenBSD (Theo de Raadt)</h3>
+                        <p class="event-desc">Forked with an obsessive focus on proactive security audits and cryptographic correctness. Famous for creating OpenSSH, which powers secure terminal connections across the globe.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Pioneered W^X (Write XOR Execute), ASLR, `pledge()`, and `unveil()` system call restrictions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2001: Windows XP -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2001</span>
+                            <span class="event-paradigm">Unified NT Consumer/Pro</span>
+                        </div>
+                        <h3 class="event-os-name">🪟 Windows XP</h3>
+                        <p class="event-desc">Merged the consumer Windows 9x line with the rock-solid enterprise Windows NT kernel. Following the Blaster and Sasser worm crises, Service Pack 2 (2004) completely overhauled Windows security.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            SP2 introduced Windows Firewall by default, Data Execution Prevention (DEP / NX bit), and Windows Security Center.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2007: iOS -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2007</span>
+                            <span class="event-paradigm">Mobile Multi-Touch Sandboxing</span>
+                        </div>
+                        <h3 class="event-os-name">📱 Apple iOS (iPhone OS 1.0)</h3>
+                        <p class="event-desc">Built upon Darwin Unix/Mach kernel. Revolutionized mobile computing by abandoning traditional file trees for consumers, requiring all third-party apps to run in strict isolated sandboxes.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Mandatory cryptographically verified code signing, Secure Enclave co-processor, and Data Protection API encryption.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2008: Android -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2008</span>
+                            <span class="event-paradigm">Linux-Kernel Mobile Virtualization</span>
+                        </div>
+                        <h3 class="event-os-name">🤖 Android OS (Google)</h3>
+                        <p class="event-desc">Google acquired Android Inc. to release an open mobile operating system based on the Linux kernel and Dalvik/ART virtual machine runtime. Now the dominant mobile OS globally.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Every app is assigned a unique Linux UID sandbox; enforced SELinux policies prevent apps from accessing system files.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2011: ChromeOS -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2011</span>
+                            <span class="event-paradigm">Cloud-Centric / Immutable Root</span>
+                        </div>
+                        <h3 class="event-os-name">🌐 Google ChromeOS</h3>
+                        <p class="event-desc">Lightweight, cloud-first operating system designed around the Chrome browser runtime. Users store documents in the cloud with near-instant boot times.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Cryptographic Verified Boot, immutable read-only system root partition, and hardware TPM storage; impervious to traditional persistence malware.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2013: Kali Linux -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2013</span>
+                            <span class="event-paradigm">Offensive Cyber Distribution</span>
+                        </div>
+                        <h3 class="event-os-name">🐉 Kali Linux (OffSec)</h3>
+                        <p class="event-desc">OffSec rebuilt the legendary BackTrack Linux upon Debian standards to create the gold-standard operating system for ethical hacking, penetration testing, and digital forensics.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Pre-bundled with 600+ offensive tools (Nmap, Metasploit, Burp, Wireshark, Hashcat) and custom wireless kernel injection drivers.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2019: HarmonyOS -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2019</span>
+                            <span class="event-paradigm">Distributed Microkernel</span>
+                        </div>
+                        <h3 class="event-os-name">⚡ HarmonyOS 1.0 (Huawei)</h3>
+                        <p class="event-desc">Following US tech embargoes, Huawei announced its distributed microkernel OS designed for smartphones, wearables, smart TVs, and IoT automobiles sharing unified virtual bus connectivity.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Microkernel architecture isolates drivers from core services; EAL 5+ security certification for kernel integrity.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2021: Windows 11 -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2021</span>
+                            <span class="event-paradigm">Hardware-Enforced Baseline</span>
+                        </div>
+                        <h3 class="event-os-name">🪟 Windows 11</h3>
+                        <p class="event-desc">Mandated hardware security baselines: TPM 2.0, UEFI Secure Boot, and CPU-level virtualization support. Introduced modern UI with rounded geometry and enhanced WSL 2.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Virtualization-Based Security (VBS), Hypervisor-Protected Code Integrity (HVCI), and Smart App Control blocking untrusted binaries.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2024: HarmonyOS NEXT -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2024</span>
+                            <span class="event-paradigm">Pure Microkernel / Independence</span>
+                        </div>
+                        <h3 class="event-os-name">🇨🇳 HarmonyOS NEXT</h3>
+                        <p class="event-desc">Complete severing of the Android Linux subsystem and AOSP codebase. Pure independent HongMeng microkernel with dedicated HarmonyOS hap package ecosystem.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Native microkernel IPC verification, zero legacy Android attack surface, and StarShield security architecture.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025: Windows 11 24H2 & AI PCs -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2025</span>
+                            <span class="event-paradigm">Rust in Kernel & Pluton</span>
+                        </div>
+                        <h3 class="event-os-name">🧠 Windows 11 AI PC Generation (2025)</h3>
+                        <p class="event-desc">Microsoft integrated NPU (Neural Processing Unit) acceleration directly into OS scheduling. Began rewriting critical core components of the Windows NT kernel in memory-safe Rust.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Microsoft Pluton crypto-processor built directly into the CPU die; eliminates bus-sniffing attacks between CPU and external TPM chips.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025-2026: Apple Intelligence & Private Cloud Compute -->
+                <div class="timeline-event">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2025–2026</span>
+                            <span class="event-paradigm">Verifiable Enclave OS</span>
+                        </div>
+                        <h3 class="event-os-name">🍏 Apple Private Cloud Compute & iOS 18/19</h3>
+                        <p class="event-desc">Apple launched Private Cloud Compute (PCC) OS running custom silicon server nodes for generative AI. Extends the Secure Enclave model from the iPhone to cloud datacenters.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ Security Primitive</span>
+                            Zero data retention, no administrative root access for Apple engineers, and cryptographically attested public security transparency logs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2026: Current Era: Zero-Trust Immutable & Memory-Safe OS -->
+                <div class="timeline-event latest-2026">
+                    <div class="timeline-card">
+                        <div class="timeline-top">
+                            <span class="event-year">2026 CURRENT ERA</span>
+                            <span class="event-paradigm" style="background: rgba(0,255,102,0.1); color: var(--text-main); font-weight: 800;">Hardware MTE & Immutable Kernels</span>
+                        </div>
+                        <h3 class="event-os-name">🛡️ Android 16, Linux 6.x+ Rust & Immutable Zero-Trust OS</h3>
+                        <p class="event-desc">The modern 2026 operating system landscape is defined by the elimination of memory safety bugs. Cloud infrastructure runs immutable ephemeral kernels (Talos, Flatcar) where root filesystems are read-only and SSH is deprecated in favor of cryptographically signed declarative APIs.</p>
+                        <div class="event-sec-note">
+                            <span class="sec-note-lbl">🛡️ 2026 Security Breakthroughs</span>
+                            • <strong>Hardware Memory Tagging (MTE):</strong> Android 15/16 and ARMv9 CPUs tag pointer allocations in hardware, instantly killing use-after-free and buffer overflow exploits.<br>
+                            • <strong>Rust in the Linux Kernel:</strong> High-risk drivers and network modules rewritten in Rust to eradicate memory corruption vulnerabilities.<br>
+                            • <strong>Post-Quantum Cryptography (PQC):</strong> ML-KEM and ML-DSA algorithms integrated into OS TLS negotiation to resist quantum computer decryption.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Add Custom Shortcut Modal (Floating & Draggable) -->
+        <div class="shortcut-modal-backdrop" id="addShortcutModal">
+            <div class="shortcut-modal-box" id="shortcutModalBox" role="dialog" aria-labelledby="modalTitle">
+                <div class="modal-header" id="modalDragHandle" title="Click and drag to move anywhere on screen">
+                    <div class="modal-drag-indicator">
+                        <span class="modal-drag-icon">⠿</span>
+                        <h3 class="modal-title" id="modalTitle">➕ Add Custom Shortcut</h3>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="modal-drag-hint">Drag Me</span>
+                        <button type="button" class="modal-close-btn" onclick="closeAddShortcutModal()" aria-label="Close Modal">&times;</button>
+                    </div>
+                </div>
+                <form id="addShortcutForm" onsubmit="handleSaveShortcut(event)">
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customCombo">Shortcut / Key Combo *</label>
+                        <input class="modal-input" id="customCombo" type="text" placeholder="e.g. Win + R ➔ msconfig or Ctrl + Shift + Esc" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customCopyCmd">Quick Copy Command / Text *</label>
+                        <input class="modal-input" id="customCopyCmd" type="text" placeholder="e.g. msconfig or taskmgr" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTag">Shortcut Category / Tag *</label>
+                        <input class="modal-input" id="customTag" type="text" placeholder="e.g. Run Utility (.exe), Hotkey, MMC (.msc), or Applet (.cpl)" value="Custom Run" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTarget">Target / What It Opens *</label>
+                        <input class="modal-input" id="customTarget" type="text" placeholder="e.g. System Configuration & Boot Services" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customHinglish">Hinglish Explanation *</label>
+                        <textarea class="modal-textarea" id="customHinglish" rows="3" placeholder="Explain what it does in 1-2 lines of Hinglish (e.g. Startup programs aur boot options test karne ke liye use hota hai)..." required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-modal-cancel" onclick="closeAddShortcutModal()">Cancel</button>
+                        <button type="submit" class="btn-modal-save">💾 Save Shortcut</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Custom TLD Modal (Floating & Draggable) -->
+        <div class="shortcut-modal-backdrop" id="addTldModal">
+            <div class="shortcut-modal-box" id="tldModalBox" role="dialog" aria-labelledby="tldModalTitle">
+                <div class="modal-header" id="tldModalDragHandle" title="Click and drag to move anywhere on screen">
+                    <div class="modal-drag-indicator">
+                        <span class="modal-drag-icon">⠿</span>
+                        <h3 class="modal-title" id="tldModalTitle">➕ Add Custom TLD Extension</h3>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="modal-drag-hint">Drag Me</span>
+                        <button type="button" class="modal-close-btn" onclick="closeAddTldModal()" aria-label="Close Modal">&times;</button>
+                    </div>
+                </div>
+                <form id="addTldForm" onsubmit="handleSaveTld(event)">
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTldExt">Domain Extension (e.g. .xyz, .crypto, .security) *</label>
+                        <input class="modal-input" id="customTldExt" type="text" placeholder="e.g. .xyz" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTldCategory">TLD Classification Category *</label>
+                        <select class="modal-input" id="customTldCategory" required style="cursor: pointer;">
+                            <option value="tag-gtld|Generic TLD">Generic TLD (gTLD)</option>
+                            <option value="tag-cctld|Country Code TLD">Country Code TLD (ccTLD)</option>
+                            <option value="tag-stld|Sponsored TLD">Sponsored TLD (sTLD)</option>
+                            <option value="tag-new|Modern Tech TLD" selected>Modern Tech / New gTLD</option>
+                            <option value="tag-cyber|High Risk / Scrutiny">High Risk / Scrutiny / Special</option>
+                        </select>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTldTitle">TLD Title / Purpose *</label>
+                        <input class="modal-input" id="customTldTitle" type="text" placeholder="e.g. Web3 Innovation & Modern Startups" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTldDesc">Description / Overview *</label>
+                        <textarea class="modal-textarea" id="customTldDesc" rows="2" placeholder="Describe the extension's target industry or registry standard..." required></textarea>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-label" for="customTldCyber">Cybersecurity Focus / Threat Intelligence *</label>
+                        <textarea class="modal-textarea" id="customTldCyber" rows="2" placeholder="e.g. Typosquatting, brand impersonation risks, or bulletproof hosting vector..." required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-modal-cancel" onclick="closeAddTldModal()">Cancel</button>
+                        <button type="submit" class="btn-modal-save" style="background: var(--cyber-cyan); color: #000;">💾 Save TLD</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Section Switching (without 'All Sections')
+        function switchSection(secId, btn, shouldScroll = true) {
+            document.querySelectorAll('.tab-pill-btn[data-section]').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const sections = {
+                'shortcuts': 'sec-shortcuts',
+                'domains': 'sec-domains',
+                'os': 'sec-os'
+            };
+
+            Object.entries(sections).forEach(([key, id]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.style.display = (key === secId) ? 'block' : 'none';
+                }
+            });
+
+            if (shouldScroll) {
+                const activeEl = document.getElementById(sections[secId]);
+                if (activeEl) {
+                    activeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        // Copy Snippet functionality
+        function copySnippet(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = '✅ Copied!';
+                btn.style.background = '#22c55e';
+                btn.style.color = '#000';
+                setTimeout(() => {
+                    btn.innerText = orig;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 1800);
+            });
+        }
+
+        // ════════════ REUSABLE ULTRA-SMOOTH HARDWARE-ACCELERATED MODAL DRAGGING ════════════
+        function setupDraggableModal(boxId, handleId) {
+            const box = document.getElementById(boxId);
+            const handle = document.getElementById(handleId);
+            if (!box || !handle) return null;
+
+            let hasDragged = false;
+            let isDragging = false;
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let initialX = 0;
+            let initialY = 0;
+            let currentX = 0;
+            let currentY = 0;
+            let activePointerId = null;
+            let rafId = null;
+
+            function updatePos(x, y) {
+                currentX = x;
+                currentY = y;
+                box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            }
+
+            function clamp(x, y) {
+                const boxWidth = box.offsetWidth || 500;
+                // Unrestricted dragging: Allow moving anywhere across the entire website screen!
+                const minX = -boxWidth + 80;
+                const maxX = window.innerWidth - 80;
+                const minY = 0;
+                const maxY = window.innerHeight - 50;
+                return {
+                    x: Math.max(minX, Math.min(x, maxX)),
+                    y: Math.max(minY, Math.min(y, maxY))
+                };
+            }
+
+            function center() {
+                const boxWidth = box.offsetWidth || 500;
+                const boxHeight = box.offsetHeight || 520;
+                const left = Math.max(16, Math.round((window.innerWidth - boxWidth) / 2));
+                const top = Math.max(16, Math.round((window.innerHeight - boxHeight) / 2));
+                updatePos(left, top);
+            }
+
+            function onPointerDown(e) {
+                if (e.target.closest('input, textarea, button, select, label, a')) return;
+                if (e.button !== undefined && e.button !== 0) return;
+
+                isDragging = true;
+                hasDragged = true;
+                box.classList.add('is-dragging');
+
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                initialX = currentX;
+                initialY = currentY;
+
+                if (e.pointerId !== undefined && e.target.setPointerCapture) {
+                    try {
+                        e.target.setPointerCapture(e.pointerId);
+                        activePointerId = e.pointerId;
+                    } catch (err) {}
+                }
+
+                document.body.style.userSelect = 'none';
+
+                window.addEventListener('pointermove', onPointerMove, { passive: false });
+                window.addEventListener('pointerup', onPointerUp);
+                window.addEventListener('pointercancel', onPointerUp);
+            }
+
+            function onPointerMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+                const clamped = clamp(initialX + deltaX, initialY + deltaY);
+
+                if (!rafId) {
+                    rafId = requestAnimationFrame(() => {
+                        updatePos(clamped.x, clamped.y);
+                        rafId = null;
+                    });
+                }
+            }
+
+            function onPointerUp(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                box.classList.remove('is-dragging');
+                document.body.style.userSelect = '';
+
+                if (activePointerId !== null && e && e.target && e.target.releasePointerCapture) {
+                    try {
+                        e.target.releasePointerCapture(activePointerId);
+                    } catch (err) {}
+                    activePointerId = null;
+                }
+
+                window.removeEventListener('pointermove', onPointerMove);
+                window.removeEventListener('pointerup', onPointerUp);
+                window.removeEventListener('pointercancel', onPointerUp);
+            }
+
+            handle.addEventListener('pointerdown', onPointerDown);
+            box.addEventListener('pointerdown', onPointerDown);
+
+            window.addEventListener('resize', () => {
+                const parentModal = box.closest('.shortcut-modal-backdrop');
+                if (parentModal?.classList.contains('active')) {
+                    const clamped = clamp(currentX, currentY);
+                    updatePos(clamped.x, clamped.y);
+                }
+            });
+
+            return {
+                open: function(focusInputId) {
+                    const parentModal = box.closest('.shortcut-modal-backdrop');
+                    if (parentModal) {
+                        parentModal.classList.add('active');
+                        if (!hasDragged) {
+                            setTimeout(center, 20);
+                        } else {
+                            const clamped = clamp(currentX, currentY);
+                            updatePos(clamped.x, clamped.y);
+                        }
+                        if (focusInputId) {
+                            setTimeout(() => {
+                                const el = document.getElementById(focusInputId);
+                                if (el) el.focus();
+                            }, 80);
+                        }
+                    }
+                },
+                close: function() {
+                    const parentModal = box.closest('.shortcut-modal-backdrop');
+                    if (parentModal) parentModal.classList.remove('active');
+                }
+            };
+        }
+
+        let shortcutModalCtrl = null;
+        let tldModalCtrl = null;
+
+        function initDraggableModals() {
+            shortcutModalCtrl = setupDraggableModal('shortcutModalBox', 'modalDragHandle');
+            tldModalCtrl = setupDraggableModal('tldModalBox', 'tldModalDragHandle');
+        }
+
+        // Shortcut Modal triggers
+        function openAddShortcutModal() {
+            if (shortcutModalCtrl) shortcutModalCtrl.open('customCombo');
+        }
+        function closeAddShortcutModal() {
+            if (shortcutModalCtrl) shortcutModalCtrl.close();
+        }
+
+        // TLD Modal triggers
+        function openAddTldModal() {
+            if (tldModalCtrl) tldModalCtrl.open('customTldExt');
+        }
+        function closeAddTldModal() {
+            if (tldModalCtrl) tldModalCtrl.close();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAddShortcutModal();
+                closeAddTldModal();
+            }
+        });
+
+        // HTML Escaping Helper
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // ════════════ 1. CUSTOM WINDOWS SHORTCUTS ════════════
+        function getStoredCustomShortcuts() {
+            try {
+                const raw = localStorage.getItem('pwnbox_custom_shortcuts');
+                return raw ? JSON.parse(raw) : [];
+            } catch (err) {
+                console.error('Failed to parse custom shortcuts', err);
+                return [];
+            }
+        }
+
+        function renderShortcutCard(s) {
+            const grid = document.getElementById('shortcutsGrid');
+            if (!grid) return;
+
+            const card = document.createElement('div');
+            card.className = 'shortcut-card custom-shortcut-card';
+            card.setAttribute('data-custom-id', s.id);
+
+            const escapedCopy = escapeHtml(s.copyCmd).replace(/'/g, "\\'");
+
+            card.innerHTML = `
+                <div class="shortcut-header">
+                    <span class="shortcut-combo">${escapeHtml(s.combo)}</span>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <span class="shortcut-type-tag" style="background: rgba(242, 169, 0, 0.15); border-color: var(--bauhaus-yellow);">${escapeHtml(s.tag)}</span>
+                        <button type="button" onclick="deleteCustomShortcut('${s.id}')" title="Delete custom shortcut" style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.85rem; padding: 2px 6px; line-height: 1; color: var(--bauhaus-red);" aria-label="Delete shortcut">🗑️</button>
+                    </div>
+                </div>
+                <div class="shortcut-target">${escapeHtml(s.target)}</div>
+                <p class="shortcut-hinglish">${escapeHtml(s.hinglish)}</p>
+                <button class="shortcut-copy-btn" onclick="copySnippet('${escapedCopy}', this)">📋 Copy Shortcut</button>
+            `;
+
+            grid.appendChild(card);
+        }
+
+        function handleSaveShortcut(e) {
+            e.preventDefault();
+            const combo = document.getElementById('customCombo').value.trim();
+            const copyCmd = document.getElementById('customCopyCmd').value.trim();
+            const tag = document.getElementById('customTag').value.trim() || 'Custom Run';
+            const target = document.getElementById('customTarget').value.trim();
+            const hinglish = document.getElementById('customHinglish').value.trim();
+
+            if (!combo || !copyCmd || !target || !hinglish) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const shortcutObj = {
+                id: 'cust_' + Date.now(),
+                combo,
+                copyCmd,
+                tag,
+                target,
+                hinglish,
+                createdAt: Date.now()
+            };
+
+            const saved = getStoredCustomShortcuts();
+            saved.push(shortcutObj);
+            localStorage.setItem('pwnbox_custom_shortcuts', JSON.stringify(saved));
+
+            renderShortcutCard(shortcutObj);
+            updateShortcutsCount();
+            closeAddShortcutModal();
+            document.getElementById('addShortcutForm').reset();
+            document.getElementById('customTag').value = 'Custom Run';
+
+            const newCard = document.querySelector(`[data-custom-id="${shortcutObj.id}"]`);
+            if (newCard) {
+                newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                newCard.style.outline = '3px solid var(--bauhaus-yellow)';
+                setTimeout(() => {
+                    newCard.style.outline = '';
+                }, 2000);
+            }
+        }
+
+        function deleteCustomShortcut(id) {
+            if (!confirm('Are you sure you want to remove this custom shortcut?')) return;
+
+            let saved = getStoredCustomShortcuts();
+            saved = saved.filter(item => item.id !== id);
+            localStorage.setItem('pwnbox_custom_shortcuts', JSON.stringify(saved));
+
+            const card = document.querySelector(`[data-custom-id="${id}"]`);
+            if (card) card.remove();
+            updateShortcutsCount();
+        }
+
+        function updateShortcutsCount() {
+            const badge = document.getElementById('shortcutsCounterBadge');
+            if (!badge) return;
+            const baseCount = 25;
+            const customCount = getStoredCustomShortcuts().length;
+            const total = baseCount + customCount;
+            badge.innerText = `${total} Tools Documented` + (customCount > 0 ? ` (${customCount} Custom)` : '');
+        }
+
+        function loadCustomShortcuts() {
+            const saved = getStoredCustomShortcuts();
+            saved.forEach(s => renderShortcutCard(s));
+            updateShortcutsCount();
+        }
+
+        // ════════════ 2. CUSTOM DOMAIN TLDS ════════════
+        function getStoredCustomTlds() {
+            try {
+                const raw = localStorage.getItem('pwnbox_custom_tlds');
+                return raw ? JSON.parse(raw) : [];
+            } catch (err) {
+                console.error('Failed to parse custom TLDs', err);
+                return [];
+            }
+        }
+
+        function renderTldCard(t) {
+            const grid = document.getElementById('tldsGrid');
+            if (!grid) return;
+
+            const card = document.createElement('div');
+            card.className = 'tld-card custom-tld-card';
+            card.setAttribute('data-custom-tld-id', t.id);
+
+            let extFormatted = t.ext.trim();
+            if (!extFormatted.startsWith('.')) {
+                extFormatted = '.' + extFormatted;
+            }
+
+            card.innerHTML = `
+                <div class="tld-top-row">
+                    <span class="tld-ext-badge" style="background: var(--cyber-cyan); color: #000;">${escapeHtml(extFormatted)}</span>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <span class="tld-cat-tag ${escapeHtml(t.tagClass || 'tag-new')}">${escapeHtml(t.categoryName || 'Custom TLD')}</span>
+                        <button type="button" onclick="deleteCustomTld('${t.id}')" title="Delete custom TLD" style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.85rem; padding: 2px 6px; line-height: 1; color: var(--bauhaus-red);" aria-label="Delete TLD">🗑️</button>
+                    </div>
+                </div>
+                <h3 class="tld-title">${escapeHtml(t.title)}</h3>
+                <p class="tld-desc">${escapeHtml(t.desc)}</p>
+                <div class="tld-sec-context"><strong>Cyber Focus:</strong> ${escapeHtml(t.cyber)}</div>
+            `;
+
+            grid.appendChild(card);
+        }
+
+        function handleSaveTld(e) {
+            e.preventDefault();
+            const ext = document.getElementById('customTldExt').value.trim();
+            const catVal = document.getElementById('customTldCategory').value.trim();
+            const title = document.getElementById('customTldTitle').value.trim();
+            const desc = document.getElementById('customTldDesc').value.trim();
+            const cyber = document.getElementById('customTldCyber').value.trim();
+
+            if (!ext || !title || !desc || !cyber) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const [tagClass, categoryName] = catVal.split('|');
+
+            let extClean = ext;
+            if (!extClean.startsWith('.')) extClean = '.' + extClean;
+
+            const tldObj = {
+                id: 'tld_' + Date.now(),
+                ext: extClean,
+                tagClass: tagClass || 'tag-new',
+                categoryName: categoryName || 'Custom TLD',
+                title,
+                desc,
+                cyber,
+                createdAt: Date.now()
+            };
+
+            const saved = getStoredCustomTlds();
+            saved.push(tldObj);
+            localStorage.setItem('pwnbox_custom_tlds', JSON.stringify(saved));
+
+            renderTldCard(tldObj);
+            updateTldsCount();
+            closeAddTldModal();
+            document.getElementById('addTldForm').reset();
+            document.getElementById('customTldCategory').value = 'tag-new|Modern Tech TLD';
+
+            const newCard = document.querySelector(`[data-custom-tld-id="${tldObj.id}"]`);
+            if (newCard) {
+                newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                newCard.style.outline = '3px solid var(--cyber-cyan)';
+                setTimeout(() => {
+                    newCard.style.outline = '';
+                }, 2000);
+            }
+        }
+
+        function deleteCustomTld(id) {
+            if (!confirm('Are you sure you want to remove this custom TLD?')) return;
+
+            let saved = getStoredCustomTlds();
+            saved = saved.filter(item => item.id !== id);
+            localStorage.setItem('pwnbox_custom_tlds', JSON.stringify(saved));
+
+            const card = document.querySelector(`[data-custom-tld-id="${id}"]`);
+            if (card) card.remove();
+            updateTldsCount();
+        }
+
+        function updateTldsCount() {
+            const badge = document.getElementById('tldsCounterBadge');
+            if (!badge) return;
+            const baseCount = 25;
+            const customCount = getStoredCustomTlds().length;
+            const total = baseCount + customCount;
+            badge.innerText = `${total} TLD Categories` + (customCount > 0 ? ` (${customCount} Custom)` : '');
+        }
+
+        function loadCustomTlds() {
+            const saved = getStoredCustomTlds();
+            saved.forEach(t => renderTldCard(t));
+            updateTldsCount();
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCustomShortcuts();
+            loadCustomTlds();
+            initDraggableModals();
+            const defaultBtn = document.querySelector('.tab-pill-btn[data-section="shortcuts"]');
+            switchSection('shortcuts', defaultBtn, false);
+        });
+    </script>
+</body>
+
+</html>

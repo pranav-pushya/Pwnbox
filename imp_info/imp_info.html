@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity & CEH Deep Intelligence — Important Info // PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/imp_info.css?v=2.7">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/theme.js"></script>
+    <script src="../js/ui_popups.js"></script>
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="info-nav">
+        <a href="../index.html" class="nav-brand" title="Back to Home Portal">
+            <span class="brand-icon">💡</span>
+            <span class="brand-title">PwnBox // Imp Info</span>
+        </a>
+
+        <div class="nav-actions">
+            <a href="imp_info.html" class="nav-btn active" title="Important Info & CEH Compendium">💡 Important Info</a>
+            <a href="career_paths.html" class="nav-btn" title="Cybersecurity Career Paths">🧭 Career Paths</a>
+            <a href="ports.html" class="nav-btn" title="Critical Ports & Protocols">🔌 Ports</a>
+            <a href="http_codes.html" class="nav-btn" title="HTTP Status Codes Compendium">🌐 HTTP Codes</a>
+            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
+            <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
+            <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
+            <a href="linux.html" class="nav-btn" title="Linux Commands & Hardening">🐧 Linux</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="info-container">
+
+        <!-- Hero Header -->
+        <section class="info-hero">
+            <span class="hero-tag">// CERTIFIED ETHICAL HACKER & CYBER DEFENSE FIELD COMPENDIUM</span>
+            <h1 class="hero-title">CRITICAL CYBERSECURITY INTELLIGENCE</h1>
+            <p class="hero-subtitle">
+                A structured distillation of the 20-page Cybersecurity & CEH curriculum. Select any topic module below to explore deep operational concepts without cognitive overload or visual clutter.
+            </p>
+        </section>
+
+        <!-- Topic Tabs Controller Bar (Uncluttered Segmented Navigation) -->
+        <nav class="topic-tabs-bar" aria-label="Topic Selection">
+            <span class="tabs-label">EXPLORE:</span>
+            <button class="topic-tab-btn active" data-tab="disciplines" onclick="switchTopicTab('disciplines')">🏛️ 1. Disciplines & Skills</button>
+            <button class="topic-tab-btn" data-tab="phases" onclick="switchTopicTab('phases')">🎯 2. 5 Phases & Arsenal</button>
+            <button class="topic-tab-btn" data-tab="lab" onclick="switchTopicTab('lab')">🧪 3. Virtual Attack Lab</button>
+            <button class="topic-tab-btn" data-tab="ceh" onclick="switchTopicTab('ceh')">📜 4. CEH Exam Blueprint</button>
+            <button class="topic-tab-btn" data-tab="careers" onclick="switchTopicTab('careers')">💼 5. Careers & Myths</button>
+            <button class="topic-tab-btn" data-tab="ai" onclick="switchTopicTab('ai')">🤖 6. AI Multiplier</button>
+            <button class="topic-tab-btn" data-tab="all" onclick="switchTopicTab('all')" style="margin-left: auto;">📑 View All</button>
+        </nav>
+
+        <!-- ════════════ PANEL 1: DISCIPLINES & SKILLS ════════════ -->
+        <div id="panel-disciplines" class="topic-panel">
+            <!-- 7 Branches -->
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <div>
+                        <h2 class="section-title">The 7 Core Branches of Cybersecurity</h2>
+                        <p class="section-intro">
+                            Cybersecurity is an interconnected ecosystem of defensive, offensive, cloud, and governance specializations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="branches-grid">
+                    <div class="branch-card">
+                        <span class="branch-icon">🌐</span>
+                        <h3 class="branch-name">1. Network Security</h3>
+                        <p class="branch-desc">Defending perimeters, transport pipes, and internal traffic between interconnected devices. Prevents eavesdropping and unauthorized pivoting.</p>
+                        <div class="branch-tags">
+                            <span class="tag">Firewalls</span>
+                            <span class="tag">IDS/IPS</span>
+                            <span class="tag">Wireshark</span>
+                            <span class="tag">Zero-Trust</span>
+                        </div>
+                    </div>
+
+                    <div class="branch-card">
+                        <span class="branch-icon">💻</span>
+                        <h3 class="branch-name">2. Application Security (AppSec)</h3>
+                        <p class="branch-desc">Securing web apps, mobile binaries, APIs, and microservices throughout the SDLC. Eliminates business logic flaws and OWASP Top 10 exploits.</p>
+                        <div class="branch-tags">
+                            <span class="tag">OWASP Top 10</span>
+                            <span class="tag">Burp Suite</span>
+                            <span class="tag">SAST/DAST</span>
+                            <span class="tag">API Security</span>
+                        </div>
+                    </div>
+
+                    <div class="branch-card">
+                        <span class="branch-icon">☁️</span>
+                        <h3 class="branch-name">3. Cloud Security</h3>
+                        <p class="branch-desc">Protecting modern cloud infrastructure, serverless compute, and container orchestrations across AWS, Azure, and GCP.</p>
+                        <div class="branch-tags">
+                            <span class="tag">AWS IAM</span>
+                            <span class="tag">S3 Hardening</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">CSPM</span>
+                        </div>
+                    </div>
+
+                    <div class="branch-card">
+                        <span class="branch-icon">🖥️</span>
+                        <h3 class="branch-name">4. Endpoint Security</h3>
+                        <p class="branch-desc">Hardening laptops, workstations, and servers against compromise, ransomware encryption, and malicious persistence hooks.</p>
+                        <div class="branch-tags">
+                            <span class="tag">CrowdStrike EDR</span>
+                            <span class="tag">BitLocker</span>
+                            <span class="tag">Patch Triage</span>
+                            <span class="tag">Host Firewalls</span>
+                        </div>
+                    </div>
+
+                    <div class="branch-card">
+                        <span class="branch-icon">🔑</span>
+                        <h3 class="branch-name">5. Identity & Access Management (IAM)</h3>
+                        <p class="branch-desc">Ensuring only verified identities access authorized enterprise resources at the appropriate privilege tier. The modern zero-trust perimeter.</p>
+                        <div class="branch-tags">
+                            <span class="tag">Active Directory</span>
+                            <span class="tag">Hardware MFA</span>
+                            <span class="tag">Least Privilege</span>
+                            <span class="tag">OAuth 2.0</span>
+                        </div>
+                    </div>
+
+                    <div class="branch-card">
+                        <span class="branch-icon">🚨</span>
+                        <h3 class="branch-name">6. Incident Response & SOC (Blue Team)</h3>
+                        <p class="branch-desc">24/7 Security Operations Center monitoring, telemetry analysis, threat hunting, digital forensics, and neutralizing ongoing intrusions.</p>
+                        <div class="branch-tags">
+                            <span class="tag">Splunk SIEM</span>
+                            <span class="tag">Wazuh</span>
+                            <span class="tag">MITRE ATT&CK</span>
+                            <span class="tag">Forensics</span>
+                        </div>
+                    </div>
+
+                    <div class="branch-card" style="border-color: var(--bauhaus-red);">
+                        <span class="branch-icon">⚔️</span>
+                        <h3 class="branch-name">7. Offensive Security & Red Teaming</h3>
+                        <p class="branch-desc">Ethically simulating realistic threat actors to uncover zero-days, exploit misconfigurations, and test organizational defense under authorization.</p>
+                        <div class="branch-tags">
+                            <span class="tag">Pen Testing</span>
+                            <span class="tag">Metasploit</span>
+                            <span class="tag">Social Engineering</span>
+                            <span class="tag">C2 Implants</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5 Core Skills -->
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <div>
+                        <h2 class="section-title">The 5 Indispensable Technical Skills</h2>
+                        <p class="section-intro">
+                            Before launching automated offensive scanners, you must master the fundamental technical plumbing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-badge">SKILL 01</span>
+                            <h3 class="skill-title">Networking & Protocol Anatomy</h3>
+                        </div>
+                        <div class="skill-body">
+                            <p>Everything in cybersecurity travels over packets. Master protocol handshakes and headers:</p>
+                            <ul class="detail-list">
+                                <li><strong>TCP 3-Way Handshake:</strong> SYN &rarr; SYN-ACK &rarr; ACK. Stealth SYN scans (<code>-sS</code>) never send the final ACK.</li>
+                                <li><strong>OSI 7-Layer Model:</strong> Physical (L1), Data Link [MAC/ARP] (L2), Network [IP] (L3), Transport [TCP/UDP] (L4), Application (L7).</li>
+                                <li><a href="ports.html" class="skill-ports-btn" title="Open Networking Protocols & Ports Reference Vault">Critical Ports ➔</a> 21 (FTP), 22 (SSH), 53 (DNS), 80 (HTTP), 443 (HTTPS), 445 (SMB), 3389 (RDP).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-badge">SKILL 02</span>
+                            <h3 class="skill-title">Linux CLI & Operating System Mastery</h3>
+                        </div>
+                        <div class="skill-body">
+                            <p>Over 90% of cloud servers and security platforms run Linux kernels:</p>
+                            <ul class="detail-list">
+                                <li><strong>File Hierarchy:</strong> <code>/etc</code> (configs/hashes), <code>/var/log</code> (logs), <code>/tmp</code> (writable execution staging).</li>
+                                <li><strong>Permissions & SUID:</strong> User/Group/Others (R=4, W=2, X=1). SUID binaries (<code>chmod u+s</code>) allow privilege escalation.</li>
+                                <li><strong>Pipeline Processing:</strong> Chaining <code>grep</code>, <code>awk</code>, <code>sed</code>, <code>sort</code>, <code>uniq</code> to process mass scan outputs.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-badge">SKILL 03</span>
+                            <h3 class="skill-title">Scripting & Automation (Python & Bash)</h3>
+                        </div>
+                        <div class="skill-body">
+                            <p>Transition from a tool user to a tool builder by automating custom workflows:</p>
+                            <ul class="detail-list">
+                                <li><strong>Python for Hackers:</strong> Automating HTTP fuzzing with <code>requests</code>, raw socket connections, and <code>Scapy</code> packet crafting.</li>
+                                <li><strong>Bash Pipeline Scripts:</strong> Writing loops to automate subdomain enumeration and sequential port audits.</li>
+                                <li><strong>Regex Power:</strong> Rapidly extracting secrets, tokens, and IP ranges from JavaScript source maps.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-badge">SKILL 04</span>
+                            <h3 class="skill-title">Web Architecture & OWASP Top 10</h3>
+                        </div>
+                        <div class="skill-body">
+                            <p>The vast majority of breaches occur through public-facing web applications:</p>
+                            <ul class="detail-list">
+                                <li><a href="http_codes.html" class="skill-ports-btn skill-http-btn" title="Open HTTP Status Codes Reference Vault">HTTP Protocol ➔</a> Request headers, response codes (1XX–5XX), Session cookies vs JWT tokens.</li>
+                                <li><strong>Critical Injections:</strong> SQL Injection (SQLi), Command Injection, Server-Side Template Injection (SSTI).</li>
+                                <li><strong>Access Control Flaws:</strong> IDOR (Insecure Direct Object References), BOLA, and SSRF targeting metadata services.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-badge">SKILL 05</span>
+                            <h3 class="skill-title">Virtualization & Sandboxing</h3>
+                        </div>
+                        <div class="skill-body">
+                            <p>Practice exploits safely without endangering host operating systems or production networks:</p>
+                            <ul class="detail-list">
+                                <li><strong>Type-2 Hypervisors:</strong> VirtualBox and VMware Workstation Pro.</li>
+                                <li><strong>Network Isolation:</strong> Host-Only and NAT Network modes prevent traffic leakage to home Wi-Fi.</li>
+                                <li><strong>Snapshot Rollbacks:</strong> Reverting to clean baseline states in 5 seconds after running destructive malware.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ════════════ PANEL 2: 5 PHASES & ARSENAL ════════════ -->
+        <div id="panel-phases" class="topic-panel" style="display: none;">
+            <!-- 5 Phases -->
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <div>
+                        <h2 class="section-title">The 5 Phases of Ethical Hacking</h2>
+                        <p class="section-intro">
+                            Standardized by EC-Council, NIST, and PTES, professional penetration tests follow a structured 5-step methodology.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="phases-pipeline">
+                    <div class="phase-step-card">
+                        <span class="step-num">PHASE 01</span>
+                        <h3 class="step-title">Reconnaissance (Footprinting)</h3>
+                        <p class="step-desc">Gathering maximum intelligence regarding the target organization before sending intrusive probes. Divided into Passive (OSINT) and Active Recon.</p>
+                        <div class="step-tactics">
+                            <strong>Key Tactics:</strong> WHOIS lookups, DNS record harvesting (MX, TXT, SPF), Google Dorking (<code>site:target.com filetype:env</code>), and Shodan IoT reconnaissance.
+                        </div>
+                    </div>
+
+                    <div class="phase-step-card">
+                        <span class="step-num">PHASE 02</span>
+                        <h3 class="step-title">Scanning & Enumeration</h3>
+                        <p class="step-desc">Actively probing target hosts and networks to discover live devices, open ports, running daemon versions, and operating system fingerprints.</p>
+                        <div class="step-tactics">
+                            <strong>Key Tactics:</strong> Nmap SYN stealth scans (<code>-sS</code>), service banner grabbing (<code>-sV</code>), default NSE vulnerability scripts (<code>-sC</code>), and web directory fuzzing.
+                        </div>
+                    </div>
+
+                    <div class="phase-step-card">
+                        <span class="step-num">PHASE 03</span>
+                        <h3 class="step-title">Gaining Access (Exploitation)</h3>
+                        <p class="step-desc">The definitive breach phase. Weaponizing discovered vulnerabilities, weak credentials, or configuration oversights to achieve remote code execution (RCE).</p>
+                        <div class="step-tactics">
+                            <strong>Key Tactics:</strong> Metasploit modules, SQL injection database extraction, password cracking with Hydra, web shell injection, and buffer overflow exploits.
+                        </div>
+                    </div>
+
+                    <div class="phase-step-card">
+                        <span class="step-num">PHASE 04</span>
+                        <h3 class="step-title">Maintaining Access (Persistence)</h3>
+                        <p class="step-desc">Ensuring continued reliable command-and-control access even if the target machine reboots or the entry-point vulnerability is patched.</p>
+                        <div class="step-tactics">
+                            <strong>Key Tactics:</strong> Injecting SSH authorized keys, staging persistent cron jobs, Windows registry Run keys, and encrypted Netcat reverse shells.
+                        </div>
+                    </div>
+
+                    <div class="phase-step-card">
+                        <span class="step-num">PHASE 05</span>
+                        <h3 class="step-title">Covering Tracks (Anti-Forensics)</h3>
+                        <p class="step-desc">Clearing evidence of intrusion to avoid triggering SOC alarms. In authorized tests, practitioners document these steps to help blue teams tighten logging.</p>
+                        <div class="step-tactics">
+                            <strong>Key Tactics:</strong> Sanitizing bash history (<code>history -c</code>), clearing Windows security event logs (<code>wevtutil cl Security</code>), and deleting staged tools.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Arsenal Tool Cards (Clean Tactical Replacement for Cluttered Table) -->
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <div>
+                        <h2 class="section-title">The Operator's Arsenal: Tactical Tool Cards</h2>
+                        <p class="section-intro">
+                            Industry-standard tools tested on CEH and deployed daily across professional red teams worldwide. Click any copy button for instant syntax.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="arsenal-controls">
+                    <div class="arsenal-filters">
+                        <button class="arsenal-filter-btn active" onclick="filterArsenal('all', this)">All Tools (10)</button>
+                        <button class="arsenal-filter-btn" onclick="filterArsenal('scanning', this)">Scanning</button>
+                        <button class="arsenal-filter-btn" onclick="filterArsenal('web', this)">Web & Exploit</button>
+                        <button class="arsenal-filter-btn" onclick="filterArsenal('password', this)">Passwords</button>
+                        <button class="arsenal-filter-btn" onclick="filterArsenal('network', this)">Network & Shells</button>
+                    </div>
+                </div>
+
+                <div class="arsenal-grid" id="arsenalGrid">
+                    <!-- Tool 1 -->
+                    <div class="arsenal-card" data-category="scanning">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">🔍 Nmap</span>
+                            <span class="arsenal-cat-badge">Port Scanner</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Scanning & Enumeration</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">nmap -sC -sV -p- -T4 target_ip</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('nmap -sC -sV -p- -T4 target_ip', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">Industry-standard network exploration tool for discovering open ports, service versions, and OS fingerprints across target ranges.</p>
+                    </div>
+
+                    <!-- Tool 2 -->
+                    <div class="arsenal-card" data-category="web">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">🕷️ Burp Suite</span>
+                            <span class="arsenal-cat-badge">Web Intercept Proxy</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Gaining Access (AppSec)</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">Proxy: 127.0.0.1:8080 (Repeater/Intruder)</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('127.0.0.1:8080', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">The gold standard for intercepting, modifying, and fuzzing raw HTTP/HTTPS requests and analyzing API vulnerabilities.</p>
+                    </div>
+
+                    <!-- Tool 3 -->
+                    <div class="arsenal-card" data-category="web">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">💣 Metasploit</span>
+                            <span class="arsenal-cat-badge">Exploit Framework</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Gaining Access</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">msfconsole -q</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('msfconsole -q', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">World's largest public database of weaponized exploits, payloads, shellcode generators, and post-exploitation modules.</p>
+                    </div>
+
+                    <!-- Tool 4 -->
+                    <div class="arsenal-card" data-category="network">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">🦈 Wireshark</span>
+                            <span class="arsenal-cat-badge">Packet Sniffer</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Sniffing & Forensics</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">http.request.method == "POST"</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('http.request.method == &quot;POST&quot;', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">Deep packet inspection to capture raw traffic frames, diagnose cleartext credentials, and inspect network protocol handshakes.</p>
+                    </div>
+
+                    <!-- Tool 5 -->
+                    <div class="arsenal-card" data-category="password">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">🔓 John the Ripper</span>
+                            <span class="arsenal-cat-badge">Offline Hash Cracker</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: System Hacking</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">john --wordlist=rockyou.txt hashes.txt</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('john --wordlist=rockyou.txt hashes.txt', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">High-speed offline password hash cracker supporting NTLM, MD5, SHA-256, bcrypt, and Unix shadow password hashes.</p>
+                    </div>
+
+                    <!-- Tool 6 -->
+                    <div class="arsenal-card" data-category="password">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">⚡ Hydra</span>
+                            <span class="arsenal-cat-badge">Online Login Brute-Forcer</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Gaining Access</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">hydra -l admin -P pass.txt target_ip ssh</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('hydra -l admin -P pass.txt target_ip ssh', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">High-throughput parallelized online brute-forcing against SSH, FTP, HTTP forms, Telnet, SMB, and RDP services.</p>
+                    </div>
+
+                    <!-- Tool 7 -->
+                    <div class="arsenal-card" data-category="web">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">💉 SQLMap</span>
+                            <span class="arsenal-cat-badge">Automated SQLi Engine</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Gaining Access</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">sqlmap -u "site.com?id=1" --batch --dbs</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('sqlmap -u &quot;site.com?id=1&quot; --batch --dbs', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">Automates database fingerprinting, schema dumping, password extraction, and underlying operating system takeover via SQLi.</p>
+                    </div>
+
+                    <!-- Tool 8 -->
+                    <div class="arsenal-card" data-category="scanning">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">📁 Gobuster / FFUF</span>
+                            <span class="arsenal-cat-badge">Web Directory Fuzzer</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Scanning & Enumeration</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">gobuster dir -u target_url -w common.txt</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('gobuster dir -u target_url -w common.txt', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">High-performance directory and virtual host brute-forcer written in fast Go to expose hidden files, panels, and endpoints.</p>
+                    </div>
+
+                    <!-- Tool 9 -->
+                    <div class="arsenal-card" data-category="network">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">📡 Aircrack-ng</span>
+                            <span class="arsenal-cat-badge">Wi-Fi Audit Suite</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Wireless Hacking</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">airmon-ng start wlan0</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('airmon-ng start wlan0', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">Enables monitor mode, captures 802.11 WPA/WPA2 4-way handshakes, injects frames, and audits wireless pre-shared keys.</p>
+                    </div>
+
+                    <!-- Tool 10 -->
+                    <div class="arsenal-card" data-category="network">
+                        <div class="arsenal-card-top">
+                            <span class="arsenal-name">🔌 Netcat (nc)</span>
+                            <span class="arsenal-cat-badge">TCP/IP Swiss Army Knife</span>
+                        </div>
+                        <span class="arsenal-phase-label">Phase: Maintaining Access</span>
+                        <div class="arsenal-cmd-box">
+                            <span class="arsenal-cmd-text">nc -lvnp 4444 (Listener)</span>
+                            <button class="btn-copy-syntax" onclick="copySyntax('nc -lvnp 4444', this)" title="Copy Syntax">📋 Copy</button>
+                        </div>
+                        <p class="arsenal-purpose">Lightweight utility for reading and writing raw socket data; essential for catching reverse shells and manual banner grabs.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ════════════ PANEL 3: VIRTUAL ATTACK LAB ════════════ -->
+        <div id="panel-lab" class="topic-panel" style="display: none;">
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <div>
+                        <h2 class="section-title">Building an Isolated Attack-Defense Virtual Lab</h2>
+                        <p class="section-intro">
+                            Practicing offensive craft requires an isolated sandbox. Never run aggressive scans or exploits on your production home Wi-Fi or public networks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lab-split">
+                    <div class="lab-card">
+                        <h3>💻 Hardware Prerequisites</h3>
+                        <ul>
+                            <li><strong>RAM:</strong> 16 GB recommended (8 GB absolute minimum for running host + 1 VM simultaneously).</li>
+                            <li><strong>CPU:</strong> Quad-core processor with Intel VT-x or AMD-V virtualization enabled in BIOS.</li>
+                            <li><strong>Storage:</strong> 100 GB+ free solid-state storage (SSD strongly advised over HDD for speed).</li>
+                            <li><strong>Hypervisors:</strong> Oracle VM VirtualBox (free & open source) or VMware Workstation Pro.</li>
+                        </ul>
+                    </div>
+
+                    <div class="lab-card">
+                        <h3>🛡️ Safe Network Isolation Rules</h3>
+                        <ul>
+                            <li><strong>Host-Only Adapter:</strong> VMs communicate with each other and the host, with zero outbound internet leakage.</li>
+                            <li><strong>NAT Network:</strong> VMs reach the internet outbound for updates, but are isolated from external devices on your home LAN.</li>
+                            <li><strong>Avoid Bridged Mode:</strong> Never set vulnerable targets to Bridged adapter mode, which exposes them directly to your home network.</li>
+                            <li><strong>Snapshots:</strong> Take a clean baseline snapshot immediately after installing each VM for instant rollback.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="lab-card" style="margin-top: 10px;">
+                    <h3>🖥️ Recommended 4-Machine Virtual Lab Topology</h3>
+                    <div class="lab-vms-grid">
+                        <div class="vm-box attacker">
+                            <span class="vm-box-spec">ATTACKER PLATFORM</span>
+                            <h4 class="vm-box-title">Kali Linux (2024+)</h4>
+                            <p class="vm-box-spec">4GB RAM &bull; 2 Cores &bull; 40GB SSD</p>
+                            <p class="vm-box-desc">Equipped with 600+ pre-installed tools: Nmap, Burp Suite, Metasploit, Wireshark, John, Hydra, and Gobuster.</p>
+                        </div>
+
+                        <div class="vm-box target1">
+                            <span class="vm-box-spec">TARGET 01: LEGACY OS</span>
+                            <h4 class="vm-box-title">Metasploitable 2 / 3</h4>
+                            <p class="vm-box-spec">1GB RAM &bull; 1 Core &bull; 10GB Disk</p>
+                            <p class="vm-box-desc">Vulnerable Linux VM loaded with known CVEs (backdoored VSFTPD 2.3.4, unauthenticated SMB, vulnerable Tomcat).</p>
+                        </div>
+
+                        <div class="vm-box target2">
+                            <span class="vm-box-spec">TARGET 02: WEB APPS</span>
+                            <h4 class="vm-box-title">OWASP Juice Shop / DVWA</h4>
+                            <p class="vm-box-spec">Docker Container or Light VM</p>
+                            <p class="vm-box-desc">Modern Node.js and PHP web apps containing live OWASP Top 10 vulnerabilities (XSS, SQLi, IDOR, Broken Auth).</p>
+                        </div>
+
+                        <div class="vm-box target3">
+                            <span class="vm-box-spec">TARGET 03: ENTERPRISE</span>
+                            <h4 class="vm-box-title">Windows 10/11 Eval VM</h4>
+                            <p class="vm-box-spec">4GB RAM &bull; 2 Cores &bull; 50GB Disk</p>
+                            <p class="vm-box-desc">Official Microsoft Developer evaluation ISO. Practice PowerShell privilege escalation, UAC bypasses, and Defender auditing.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ════════════ PANEL 4: CEH BLUEPRINT ════════════ -->
+        <div id="panel-ceh" class="topic-panel" style="display: none;">
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <div>
+                        <h2 class="section-title">EC-Council CEH v13 ANSI Exam Blueprint</h2>
+                        <p class="section-intro">
+                            The Certified Ethical Hacker (CEH 312-50) is a DoD 8140/8570 benchmark certification. The 4-hour exam features 125 MCQs across 20 tactical domains.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Exam Meta Banner -->
+                <div class="ceh-meta-banner">
+                    <div class="ceh-meta-cell">
+                        <span class="ceh-meta-label">EXAM CODE</span>
+                        <span class="ceh-meta-val">312-50 (ANSI)</span>
+                    </div>
+                    <div class="ceh-meta-cell">
+                        <span class="ceh-meta-label">QUESTIONS</span>
+                        <span class="ceh-meta-val">125 MCQs</span>
+                    </div>
+                    <div class="ceh-meta-cell">
+                        <span class="ceh-meta-label">DURATION</span>
+                        <span class="ceh-meta-val">4 Hours (240 Mins)</span>
+                    </div>
+                    <div class="ceh-meta-cell">
+                        <span class="ceh-meta-label">PASSING CUT SCORE</span>
+                        <span class="ceh-meta-val">60% – 85% (Scaled)</span>
+                    </div>
+                </div>
+
+                <!-- Live Domain Filter Search Input -->
+                <div class="ceh-search-wrapper">
+                    <span>🔍</span>
+                    <input type="text" class="ceh-search-input" id="cehSearchInput" placeholder="Filter domains by keyword: e.g. web, injection, scanning, cloud, wifi..." oninput="filterDomains(this.value)">
+                </div>
+
+                <!-- 4 Clustered Domain Cards (Organized instead of 20 endless rows) -->
+                <div class="ceh-clusters-grid" id="cehClustersGrid">
+                    <!-- Cluster 1 -->
+                    <div class="ceh-cluster-card">
+                        <div class="cluster-head">
+                            <span class="cluster-name">🔥 Core Offensive Operations</span>
+                            <span class="cluster-weight">34% Weight</span>
+                        </div>
+                        <ul class="cluster-list">
+                            <li class="domain-item heavy-hit">
+                                <span>06. System Hacking (Highest Weight!)</span>
+                                <span class="domain-pct">12%</span>
+                            </li>
+                            <li class="domain-item heavy-hit">
+                                <span>14. Hacking Web Applications</span>
+                                <span class="domain-pct">8%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>15. SQL Injection</span>
+                                <span class="domain-pct">7%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>09. Social Engineering</span>
+                                <span class="domain-pct">7%</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Cluster 2 -->
+                    <div class="ceh-cluster-card">
+                        <div class="cluster-head">
+                            <span class="cluster-name">🌐 Reconnaissance & Networks</span>
+                            <span class="cluster-weight">26% Weight</span>
+                        </div>
+                        <ul class="cluster-list">
+                            <li class="domain-item">
+                                <span>02. Footprinting and Reconnaissance</span>
+                                <span class="domain-pct">7%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>03. Scanning Networks</span>
+                                <span class="domain-pct">7%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>04. Enumeration</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>08. Sniffing</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Cluster 3 -->
+                    <div class="ceh-cluster-card">
+                        <div class="cluster-head">
+                            <span class="cluster-name">🛡️ Defense, Perimeter & Cloud</span>
+                            <span class="cluster-weight">25% Weight</span>
+                        </div>
+                        <ul class="cluster-list">
+                            <li class="domain-item">
+                                <span>20. Cryptography</span>
+                                <span class="domain-pct">7%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>12. Evading IDS, Firewalls & Honeypots</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>13. Hacking Web Servers</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>19. Cloud Computing</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Cluster 4 -->
+                    <div class="ceh-cluster-card">
+                        <div class="cluster-head">
+                            <span class="cluster-name">⚡ Specialized Vectors & Threats</span>
+                            <span class="cluster-weight">36% Weight</span>
+                        </div>
+                        <ul class="cluster-list">
+                            <li class="domain-item">
+                                <span>01. InfoSec & Ethical Hacking Overview</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>05. Vulnerability Analysis</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>07. Malware Threats</span>
+                                <span class="domain-pct">6%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>10. Denial-of-Service (DoS/DDoS)</span>
+                                <span class="domain-pct">5%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>11. Session Hijacking</span>
+                                <span class="domain-pct">5%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>16. Hacking Wireless Networks</span>
+                                <span class="domain-pct">5%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>17. Hacking Mobile Platforms</span>
+                                <span class="domain-pct">4%</span>
+                            </li>
+                            <li class="domain-item">
+                                <span>18. IoT & OT Hacking</span>
+                                <span class="domain-pct">4%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ════════════ PANEL 5: CAREERS & MYTHS ════════════ -->
+        <div id="panel-careers" class="topic-panel" style="display: none;">
+            <!-- Career Trajectories -->
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">07</span>
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <h2 class="section-title">Career Pathways & Wargames</h2>
+                            <a href="career_paths.html" class="btn-more-purple" title="View Full Cybersecurity Career Paths Blueprint">MORE PATHS ➔</a>
+                        </div>
+                        <p class="section-intro">
+                            Certification clears initial HR filters, but demonstrated hands-on capability wins technical interviews.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="careers-grid">
+                    <div class="career-box">
+                        <h3 class="career-title">L1 SOC Analyst</h3>
+                        <span class="career-pay">$65,000 – $85,000 (₹5L – ₹9L)</span>
+                        <p class="career-desc">Monitor SIEM alerts (Splunk/Wazuh), analyze suspicious emails, inspect traffic pcaps, and isolate compromised endpoints.</p>
+                    </div>
+
+                    <div class="career-box">
+                        <h3 class="career-title">Junior Penetration Tester</h3>
+                        <span class="career-pay">$70,000 – $95,000 (₹6L – ₹11L)</span>
+                        <p class="career-desc">Perform authorized black-box and grey-box security tests against external network perimeters and Active Directory domains.</p>
+                    </div>
+
+                    <div class="career-box">
+                        <h3 class="career-title">Web AppSec Analyst</h3>
+                        <span class="career-pay">$80,000 – $115,000 (₹8L – ₹15L)</span>
+                        <p class="career-desc">Audit REST/GraphQL APIs, uncover business logic flaws, verify authorization boundaries (IDOR), and guide developers on fixes.</p>
+                    </div>
+
+                    <div class="career-box">
+                        <h3 class="career-title">Bug Bounty Hunter</h3>
+                        <span class="career-pay">$500 – $50,000+ per valid critical bug</span>
+                        <p class="career-desc">Hunt security vulnerabilities on global programs (HackerOne, Bugcrowd) under safe-harbor guidelines for cash rewards.</p>
+                    </div>
+                </div>
+
+                <div class="lab-card" style="margin-top: 10px;">
+                    <h3>🏆 Recommended Training Wargames</h3>
+                    <ul>
+                        <li><strong>OverTheWire (Bandit):</strong> Essential level 0–34 hands-on practice to cement Linux command-line fluency.</li>
+                        <li><strong>TryHackMe (THM):</strong> Pre-built guided browser rooms covering Junior Pentester and Web Fundamentals.</li>
+                        <li><strong>Hack The Box (HTB):</strong> Realistic unassisted challenge boxes mirroring enterprise penetration tests.</li>
+                        <li><strong>PortSwigger Web Security Academy:</strong> Free, industry-standard interactive labs covering all OWASP vulnerabilities.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7 Myths Busted -->
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">08</span>
+                    <div>
+                        <h2 class="section-title">7 Dangerous Cybersecurity Myths Busted</h2>
+                        <p class="section-intro">
+                            Mainstream cinema and social media circulate severe misconceptions. Let's separate fiction from operational reality.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="myths-grid">
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 01</span>
+                        <h4 class="myth-claim">"You need to be a math genius or master coder to hack."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> Logic, persistence, and deep protocol understanding matter vastly more. Basic Python and Bash scripting are more than enough for most roles.
+                        </div>
+                    </div>
+
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 02</span>
+                        <h4 class="myth-claim">"Installing Kali Linux instantly makes you a hacker."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> Kali is merely a toolbox. Running scripts without protocol knowledge produces noisy "script kiddies" who get blocked instantly by firewalls.
+                        </div>
+                    </div>
+
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 03</span>
+                        <h4 class="myth-claim">"Hacking happens in seconds like in Hollywood movies."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> Real cyber operations are patient. Over 80% of an engagement is spent on passive reconnaissance and reading documentation before firing any exploit.
+                        </div>
+                    </div>
+
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 04</span>
+                        <h4 class="myth-claim">"macOS and Linux systems are completely immune to malware."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> No OS is immune. Attackers actively engineer cross-platform ransomware, rootkits, memory corruption exploits, and supply-chain packages targeting Linux and Mac.
+                        </div>
+                    </div>
+
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 05</span>
+                        <h4 class="myth-claim">"Certificates alone will automatically land you a $100k job."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> Certifications like CEH open interview doors. However, demonstrated lab experience, CTF writeups, and articulate technical communication seal the actual offer.
+                        </div>
+                    </div>
+
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 06</span>
+                        <h4 class="myth-claim">"You can test live websites if you don't do any damage."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> Unauthorized scanning or probing of third-party systems is illegal under the Computer Fraud and Abuse Act (CFAA) and IT Act Section 43/66. Always obtain signed written scope!
+                        </div>
+                    </div>
+
+                    <div class="myth-card">
+                        <span class="myth-label">MYTH 07</span>
+                        <h4 class="myth-claim">"You must possess a 4-year Computer Science degree."</h4>
+                        <div class="truth-box">
+                            <strong>THE REALITY:</strong> Cybersecurity is one of the most meritocratic industries on earth. Real-world skills demonstrated through TryHackMe rank, GitHub scripts, and certifications consistently outperform traditional degrees.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ════════════ PANEL 6: AI SECURITY MULTIPLIER ════════════ -->
+        <div id="panel-ai" class="topic-panel" style="display: none;">
+            <section class="info-section">
+                <div class="section-header">
+                    <span class="section-number">09</span>
+                    <div>
+                        <h2 class="section-title">The AI Security Multiplier: Offensive & Defensive Synergy</h2>
+                        <p class="section-intro">
+                            Artificial intelligence is transforming both attack vectors and defensive operations. Understanding both sides of this AI arms race is essential.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ai-battle-grid">
+                    <div class="ai-side-card">
+                        <div class="ai-side-header">
+                            <span>⚔️</span>
+                            <h3 class="ai-side-title" style="color: var(--bauhaus-red);">Adversarial & Offensive AI</h3>
+                        </div>
+                        <div class="ai-point-item">
+                            <h4 class="ai-point-title">Hyper-Personalized Phishing & Vishing</h4>
+                            <p class="ai-point-desc">Adversaries use LLMs to synthesize tailored executive communications and clone voices in real time to bypass verification checks.</p>
+                        </div>
+                        <div class="ai-point-item">
+                            <h4 class="ai-point-title">Automated Code Vulnerability Triage</h4>
+                            <p class="ai-point-desc">Models scan open-source repositories at machine speed to discover subtle buffer overflows and logic bypasses before security patches appear.</p>
+                        </div>
+                        <div class="ai-point-item">
+                            <h4 class="ai-point-title">Polymorphic Payload Mutation</h4>
+                            <p class="ai-point-desc">Lightweight local models rewrite malware source signatures on each compilation, evading static antivirus hash detection.</p>
+                        </div>
+                    </div>
+
+                    <div class="ai-side-card">
+                        <div class="ai-side-header">
+                            <span>🛡️</span>
+                            <h3 class="ai-side-title" style="color: var(--bauhaus-blue);">Defensive & Blue Team AI</h3>
+                        </div>
+                        <div class="ai-point-item">
+                            <h4 class="ai-point-title">Behavioral Anomaly & EDR Telemetry</h4>
+                            <p class="ai-point-desc">Machine learning models baseline normal network traffic and process execution, instantly flagging abnormal lateral movement.</p>
+                        </div>
+                        <div class="ai-point-item">
+                            <h4 class="ai-point-title">Predictive Vulnerability Prioritization</h4>
+                            <p class="ai-point-desc">AI correlates external exploit intelligence feeds with internal asset inventories to flag the critical 2% of CVEs requiring immediate patching.</p>
+                        </div>
+                        <div class="ai-point-item">
+                            <h4 class="ai-point-title">Automated Incident Response Playbooks</h4>
+                            <p class="ai-point-desc">AI copilots summarize multi-stage attack chains in seconds, automatically drafting firewall block rules and SIEM queries.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lab-card" style="margin-top: 10px; border-left: 6px solid var(--bauhaus-yellow);">
+                    <h3 style="font-family: 'Space Mono', monospace;">💡 The Ethical Hacker's Edge in the AI Era</h3>
+                    <p style="font-size: 0.92rem; line-height: 1.6; color: var(--text-main);">
+                        AI will not replace cybersecurity professionals—professionals who master AI will replace those who do not. Leverage LLMs as your personal junior assistant: prompt them to write custom Scapy packet crafting scripts, explain obscure assembly instructions, generate complex regex filters, and draft penetration testing executive summaries in minutes.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Tactical Footer -->
+    <footer class="info-footer">
+        <div class="footer-inner">
+            <div>
+                <span>PWNBOX CYBER COMMAND // </span>
+                <span style="font-weight: 700; color: var(--text-main);">FIELD INTELLIGENCE MATRIX v3.5</span>
+            </div>
+            <div>
+                <span>Authorized Defensive & Educational Use Only</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/theme.js"></script>
+    <script>
+        // --- TOPIC TABS CONTROLLER ---
+        function switchTopicTab(tabId) {
+            const panels = document.querySelectorAll('.topic-panel');
+            const tabBtns = document.querySelectorAll('.topic-tab-btn');
+
+            tabBtns.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (tabId === 'all') {
+                panels.forEach(p => p.style.display = 'flex');
+            } else {
+                panels.forEach(p => {
+                    p.style.display = (p.id === 'panel-' + tabId) ? 'flex' : 'none';
+                });
+            }
+
+            // Update hash without jumping
+            if (window.location.hash !== '#' + tabId) {
+                try {
+                    history.pushState(null, '', window.location.pathname + '#' + tabId);
+                } catch(e) {}
+            }
+        }
+
+        // --- ARSENAL CATEGORY FILTER ---
+        function filterArsenal(cat, btn) {
+            document.querySelectorAll('.arsenal-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.arsenal-card');
+            cards.forEach(c => {
+                if (cat === 'all' || c.getAttribute('data-category') === cat) {
+                    c.style.display = 'flex';
+                } else {
+                    c.style.display = 'none';
+                }
+            });
+        }
+
+        // --- COPY SYNTAX ---
+        function copySyntax(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                btn.style.background = '#10b981';
+                btn.style.color = '#ffffff';
+                setTimeout(() => {
+                    btn.textContent = orig;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 1800);
+            });
+        }
+
+        // --- CEH DOMAIN SEARCH ---
+        function filterDomains(query) {
+            const q = query.toLowerCase().trim();
+            const items = document.querySelectorAll('.domain-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (!q || text.includes(q)) {
+                    item.style.display = 'flex';
+                    if (q) {
+                        item.style.background = 'rgba(242, 169, 0, 0.15)';
+                    } else {
+                        item.style.background = '';
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // --- INIT HASH ROUTING ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+            const validTabs = ['disciplines', 'phases', 'lab', 'ceh', 'careers', 'ai', 'all'];
+            if (validTabs.includes(hash)) {
+                switchTopicTab(hash);
+            } else {
+                switchTopicTab('disciplines');
+            }
+        });
+
+        window.addEventListener('hashchange', () => {
+            const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+            const validTabs = ['disciplines', 'phases', 'lab', 'ceh', 'careers', 'ai', 'all'];
+            if (validTabs.includes(hash)) {
+                switchTopicTab(hash);
+            }
+        });
+    </script>
+</body>
+
+</html>

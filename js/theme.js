@@ -19,28 +19,30 @@ function getPwnboxPath(target) {
     const inModules = path.includes('/modules/');
     const inMasterguide = path.includes('/masterguide/');
     const inGames = path.includes('/games/');
+    const inImpInfo = path.includes('/imp_info/') || path.includes('/imp%20info/');
+    const isSubdir = inModules || inMasterguide || inGames || inImpInfo;
 
     switch (target) {
         case 'dashboard':
-            return (inModules || inMasterguide || inGames) ? '../dashboard.html' : 'dashboard.html';
+            return isSubdir ? '../dashboard.html' : 'dashboard.html';
         case 'home':
-            return (inModules || inMasterguide || inGames) ? '../index.html' : 'index.html';
+            return isSubdir ? '../index.html' : 'index.html';
         case 'notes':
-            return (inModules || inMasterguide || inGames) ? '../notes.html' : 'notes.html';
+            return isSubdir ? '../notes.html' : 'notes.html';
         case 'games':
-            return (inModules || inMasterguide || inGames) ? '../games.html' : 'games.html';
+            return isSubdir ? '../games.html' : 'games.html';
         case 'masterguide':
             if (inMasterguide) return 'cybersecurity_masterguide.html';
-            if (inModules) return '../masterguide/cybersecurity_masterguide.html';
+            if (isSubdir) return '../masterguide/cybersecurity_masterguide.html';
             return 'masterguide/cybersecurity_masterguide.html';
         case 'roadmap':
             if (inMasterguide) return 'roadmap.html';
-            if (inModules) return '../masterguide/roadmap.html';
+            if (isSubdir) return '../masterguide/roadmap.html';
             return 'masterguide/roadmap.html';
         case 'imp':
-            if (inMasterguide) return 'imp_info.html';
-            if (inModules) return '../masterguide/imp_info.html';
-            return 'masterguide/imp_info.html';
+            if (inImpInfo) return 'imp_info.html';
+            if (isSubdir) return '../imp_info/imp_info.html';
+            return 'imp_info/imp_info.html';
         default:
             return '';
     }
@@ -62,7 +64,7 @@ function isCurrentPage(target) {
         case 'roadmap':
             return path.endsWith('/roadmap.html');
         case 'imp':
-            return path.endsWith('/imp_info.html');
+            return path.endsWith('/imp_info.html') || path.endsWith('/imp_info');
         default:
             return false;
     }
