@@ -1512,3 +1512,256 @@ function runPrivescAction(opt) {
         screen.scrollTop = screen.scrollHeight;
     }
 }
+
+
+// ── 9. GAME 6: RANSOMWARE PANIC ROOM IMPLEMENTATION ──
+const RansomPanic = {
+    phase: 1,
+    timeLeft: 45,
+    timerInterval: null,
+    health: 100,
+
+    nodes: [
+        { id: 'ws1', name: 'Workstation 01', icon: '🖥️', status: 'clean', isInfected: false },
+        { id: 'ws2', name: 'Workstation 02', icon: '🖥️', status: 'clean', isInfected: false },
+        { id: 'ws3', name: 'Workstation 03 (Patient Zero)', icon: '☣️', status: 'infected', isInfected: true },
+        { id: 'nas', name: 'FileServer NAS', icon: '🗄️', status: 'threatened', isInfected: false },
+        { id: 'sql', name: 'Production SQL DB', icon: '🗃️', status: 'clean', isInfected: false },
+        { id: 'dc', name: 'Backup Domain Controller', icon: '🛡️', status: 'clean', isInfected: false }
+    ],
+
+    processes: [
+        { pid: 412, parent: 4, name: 'csrss.exe', args: '\\Windows\\System32\\csrss.exe', isMalicious: false },
+        { pid: 1024, parent: 688, name: 'svchost.exe', args: 'svchost.exe -k DcomLaunch', isMalicious: false },
+        { pid: 3110, parent: 1140, name: 'chrome.exe', args: 'chrome.exe --profile-directory=Default', isMalicious: false },
+        { pid: 4820, parent: 3110, name: 'powershell.exe', args: 'powershell.exe -w hidden -enc JABjAGwAaQBl...', isMalicious: true, desc: 'Malicious encoded PowerShell download cradle spawned by browser exploit!' },
+        { pid: 4824, parent: 4820, name: 'vssadmin.exe', args: 'vssadmin.exe delete shadows /all /quiet', isMalicious: true, desc: 'LOLBin attempting shadow copy deletion to prevent system recovery!' },
+        { pid: 5012, parent: 4820, name: 'cryptolocker.exe', args: 'C:\\Users\\Public\\cryptolocker.exe --encrypt-shares', isMalicious: true, desc: 'Primary encryption worker process actively locking files!' }
+    ]
+};
+
+function initRansomPanic() {
+    clearInterval(RansomPanic.timerInterval);
+    RansomPanic.phase = 1;
+    RansomPanic.timeLeft = 45;
+    RansomPanic.health = 100;
+
+    // Reset nodes
+    RansomPanic.nodes.forEach(n => {
+        n.status = n.isInfected ? 'infected' : 'clean';
+    });
+
+    document.getElementById('ransomPhase1Box').style.display = 'block';
+    document.getElementById('ransomPhase2Box').style.display = 'none';
+    document.getElementById('ransomPhase3Box').style.display = 'none';
+
+    renderRansomTopology();
+    updateRansomHUD();
+
+    // Start panic countdown
+    RansomPanic.timerInterval = setInterval(() => {
+        RansomPanic.timeLeft--;
+        const timerEl = document.getElementById('ransomTimerVal');
+        if (timerEl) {
+            timerEl.textContent = `${RansomPanic.timeLeft}s`;
+            if (RansomPanic.timeLeft <= 10) timerEl.style.color = '#ef4444';
+        }
+
+        if (RansomPanic.timeLeft <= 0) {
+            clearInterval(RansomPanic.timerInterval);
+            triggerRansomDefeat();
+        }
+    }, 1000);
+}
+
+function renderRansomTopology() {
+    const grid = document.getElementById('ransomTopologyGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    RansomPanic.nodes.forEach(node => {
+        const card = document.createElement('div');
+        card.className = `ransom-node-card ${node.status}`;
+        card.onclick = () => handleRansomNodeClick(node);
+        card.innerHTML = `
+            <div class="node-icon">${node.icon}</div>
+            <div class="node-name">${node.name}</div>
+            <div class="node-status" style="color:${node.status === 'infected' ? '#ef4444' : (node.status === 'isolated' ? '#f59e0b' : '#10b981')}">
+                ${node.status.toUpperCase()}
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function handleRansomNodeClick(node) {
+    if (RansomPanic.phase !== 1) return;
+
+    if (node.status === 'infected') {
+        CyberAudio.success();
+        node.status = 'isolated';
+        addRansomLog(`[CONTAINMENT SUCCESS] Workstation-03 network interface disabled. Lateral propagation halted!`, 'success');
+        renderRansomTopology();
+
+        setTimeout(() => {
+            advanceToRansomPhase2();
+        }, 800);
+    } else if (node.status === 'clean') {
+        CyberAudio.alert();
+        node.status = 'isolated';
+        addRansomLog(`[AUDIT] Manually segmented ${node.name} for defensive isolation.`, 'warning');
+        renderRansomTopology();
+    }
+}
+
+function advanceToRansomPhase2() {
+    RansomPanic.phase = 2;
+    document.getElementById('ransomPhaseVal').textContent = '2: ERADICATE';
+    document.getElementById('ransomAlertText').textContent = '⚠️ PHASE 2: KILL ROGUE MALWARE ENCRYPTION PROCESSES IN MEMORY';
+    document.getElementById('ransomPhase1Box').style.display = 'none';
+    document.getElementById('ransomPhase2Box').style.display = 'block';
+
+    const tbody = document.getElementById('ransomProcessTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    RansomPanic.processes.forEach(proc => {
+        const tr = document.createElement('tr');
+        tr.className = 'ransom-process-row';
+        tr.id = `procRow_${proc.pid}`;
+        tr.innerHTML = `
+            <td style="font-weight:800; color:#38bdf8;">${proc.pid}</td>
+            <td style="color:#94a3b8;">${proc.parent}</td>
+            <td style="font-weight:700; color:#fff;">${proc.name}</td>
+            <td style="font-family:'Space Mono',monospace; font-size:0.7rem; color:${proc.isMalicious ? '#f43f5e' : '#94a3b8'};">${proc.args}</td>
+            <td>
+                <button class="pg-btn pg-btn-drop" style="padding:4px 8px; font-size:0.65rem;" onclick="terminateRansomProcess(${proc.pid})">
+                    KILL PID
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function terminateRansomProcess(pid) {
+    const proc = RansomPanic.processes.find(p => p.pid === pid);
+    if (!proc) return;
+
+    const row = document.getElementById(`procRow_${pid}`);
+
+    if (proc.isMalicious) {
+        CyberAudio.success();
+        if (row) {
+            row.style.background = 'rgba(34, 197, 94, 0.2)';
+            row.innerHTML = `<td colspan="5" style="color:var(--accent-green); font-weight:800; padding:8px;">[TERMINATED] PID ${pid} (${proc.name}) neutralized! ${proc.desc}</td>`;
+        }
+        addRansomLog(`[ERADICATION] Process ${proc.name} (PID ${pid}) killed. File locking thread destroyed.`, 'success');
+
+        setTimeout(() => {
+            advanceToRansomPhase3();
+        }, 1000);
+    } else {
+        CyberAudio.fail();
+        RansomPanic.health -= 25;
+        addRansomLog(`[ERROR] Attempted to kill critical legitimate OS process ${proc.name}! Kernel instability penalty.`, 'breach');
+        updateRansomHUD();
+    }
+}
+
+function advanceToRansomPhase3() {
+    RansomPanic.phase = 3;
+    document.getElementById('ransomPhaseVal').textContent = '3: SINKHOLE';
+    document.getElementById('ransomAlertText').textContent = '🛑 PHASE 3: SINKHOLE THE DISCOVERED REVERSE-ENGINEERED KILL SWITCH';
+    document.getElementById('ransomPhase2Box').style.display = 'none';
+    document.getElementById('ransomPhase3Box').style.display = 'block';
+
+    const box = document.getElementById('ransomStringsBox');
+    if (!box) return;
+    box.innerHTML = `
+        <p style="margin-bottom:12px; color:#cbd5e1; line-height:1.5;">
+            Static binary disassembly extracted 3 hardcoded URLs from the unpacked binary section <code>.rdata</code>. The ransomware queries this domain before encrypting: if the HTTP request returns an active response, the ransomware self-terminates! Select the sinkhole kill switch domain:
+        </p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+            <button class="pg-btn" style="text-align:left; background:var(--bg-panel); color:var(--text-main); font-size:0.75rem; padding:10px;" onclick="chooseSinkholeDomain(false, 'api.pwnbox.internal')">
+                ❌ 1. http://api.pwnbox.internal/status (Internal legitimate beacon)
+            </button>
+            <button class="pg-btn" style="text-align:left; background:var(--bg-panel); color:var(--text-main); font-size:0.75rem; padding:10px;" onclick="chooseSinkholeDomain(true, 'iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com')">
+                ⚡ 2. http://www.iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com (Unregistered WannaCry-style kill switch)
+            </button>
+            <button class="pg-btn" style="text-align:left; background:var(--bg-panel); color:var(--text-main); font-size:0.75rem; padding:10px;" onclick="chooseSinkholeDomain(false, '194.26.29.112:8080')">
+                ❌ 3. http://194.26.29.112:8080/c2/checkin (Active external C2 beacon)
+            </button>
+        </div>
+    `;
+}
+
+function chooseSinkholeDomain(isCorrect, domainName) {
+    if (isCorrect) {
+        clearInterval(RansomPanic.timerInterval);
+        CyberAudio.success();
+        addArcadeXp(60);
+        addRansomLog(`[SINKHOLE SUCCESS] Domain ${domainName} registered and routed to sinkhole DNS. All ransomware instances worldwide self-terminated!`, 'success');
+
+        const box = document.getElementById('ransomStringsBox');
+        if (box) {
+            box.innerHTML = `
+                <div style="text-align:center; padding:20px; background:rgba(34, 197, 94, 0.15); border:2px solid var(--accent-green);">
+                    <div style="font-size:2.5rem; margin-bottom:8px;">🏆</div>
+                    <h3 style="color:var(--accent-green); margin-bottom:6px;">INCIDENT CONTAINED & NEUTRALIZED!</h3>
+                    <p style="font-size:0.8rem; color:#cbd5e1; margin-bottom:14px;">
+                        Following NIST SP 800-61 protocol, you contained the infected host, eradicated the malicious LOLBin process tree, and sinkholed the kill switch domain. Zero ransoms paid!
+                    </p>
+                    <button class="pg-btn pg-btn-allow" style="padding:10px 20px; font-size:0.8rem; margin:0 auto;" onclick="initRansomPanic()">
+                        <span>↺ REPLAY INCIDENT SIMULATION</span>
+                    </button>
+                </div>
+            `;
+        }
+    } else {
+        CyberAudio.fail();
+        RansomPanic.health -= 35;
+        addRansomLog(`[FAILED SINKHOLE] Domain ${domainName} did not satisfy the kill-switch condition! Encryption continued!`, 'breach');
+        updateRansomHUD();
+        if (RansomPanic.health <= 0) {
+            triggerRansomDefeat();
+        }
+    }
+}
+
+function addRansomLog(msg, type = 'info') {
+    const feed = document.getElementById('ransomLogFeed');
+    if (!feed) return;
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}`;
+    const timestamp = new Date().toTimeString().split(' ')[0];
+    entry.innerHTML = `<strong>[${timestamp}]</strong> ${msg}`;
+    feed.prepend(entry);
+}
+
+function triggerRansomDefeat() {
+    CyberAudio.fail();
+    const box = document.getElementById('ransomStringsBox') || document.getElementById('ransomPhase1Box');
+    if (box) {
+        box.innerHTML = `
+            <div style="text-align:center; padding:20px; background:rgba(239, 68, 68, 0.2); border:2px solid var(--accent-red);">
+                <div style="font-size:2.5rem; margin-bottom:8px;">💀</div>
+                <h3 style="color:var(--accent-red); margin-bottom:6px;">NETWORK ENCRYPTED // RANSOM NOTE POSTED</h3>
+                <p style="font-size:0.8rem; color:#cbd5e1; margin-bottom:14px;">
+                    Incident response containment exceeded the operational window. Shadow copies were destroyed and network shares were locked.
+                </p>
+                <button class="pg-btn pg-btn-drop" style="padding:10px 20px; font-size:0.8rem; margin:0 auto;" onclick="initRansomPanic()">
+                    <span>⚡ REBOOT INCIDENT DRILL</span>
+                </button>
+            </div>
+        `;
+    }
+}
+
+function updateRansomHUD() {
+    const healthEl = document.getElementById('ransomHealthVal');
+    if (healthEl) {
+        healthEl.textContent = `${Math.max(0, RansomPanic.health)}%`;
+        healthEl.style.color = RansomPanic.health > 50 ? 'var(--accent-green)' : 'var(--accent-red)';
+    }
+}

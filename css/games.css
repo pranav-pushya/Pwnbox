@@ -1258,3 +1258,124 @@ body.games-body {
     flex-wrap: wrap;
     gap: 10px;
 }
+
+/* ==========================================================================
+   GAME 6: RANSOMWARE PANIC ROOM SPECIFIC STYLES
+   ========================================================================== */
+.ransom-stage {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+}
+
+@media (max-width: 960px) {
+    .ransom-stage {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ransom-main-deck {
+    background: var(--terminal-bg);
+    border: 3px solid var(--accent-red);
+    box-shadow: 0 0 25px rgba(255, 51, 68, 0.2);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ransom-alert-strip {
+    background: rgba(239, 68, 68, 0.15);
+    border: 2px solid var(--accent-red);
+    color: #ff3344;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    animation: pulseAlert 1.5s infinite;
+}
+
+@keyframes pulseAlert {
+    0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.7); }
+}
+
+/* TOPOLOGY GRAPH NODES */
+.ransom-topo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.ransom-node-card {
+    background: #0f172a;
+    border: 2px solid #334155;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.ransom-node-card.infected {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+.ransom-node-card.isolated {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+    opacity: 0.7;
+}
+
+.ransom-node-card.clean {
+    border-color: #10b981;
+}
+
+.node-icon {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.node-name {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.node-status {
+    font-size: 0.62rem;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* PROCESS TREE TABLE */
+.ransom-process-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    background: #020617;
+    border: 1px solid #1e293b;
+}
+
+.ransom-process-table th {
+    background: #0f172a;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 2px solid #334155;
+    font-size: 0.68rem;
+    color: #94a3b8;
+}
+
+.ransom-process-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.ransom-process-row:hover {
+    background: rgba(0, 240, 255, 0.08);
+}
