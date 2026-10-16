@@ -31,15 +31,15 @@ foot/
 ├── 404.html                     # Tactical Sector 404 Bauhaus Error & Recovery Router
 ├── README.md                    # Project Documentation & Architecture
 │
-├── 📂 imp_info/                 # Field Intelligence & Important Info Suite (Unified 8-Button Nav)
+├── 📂 imp_info/                 # Field Intelligence & Important Info Suite
 │   ├── imp_info.html            # Important Info: 20-Domain Blueprint, Lab Sandboxing & Arsenal
-│   ├── career_paths.html        # 6 Core Cybersecurity Career Specializations (Slide 1 Extended)
-│   ├── ports.html               # 37 Critical Ports & Protocols Vault with Hinglish Explanations (Slide 2 Extended)
-│   ├── http_codes.html          # Complete HTTP Status Codes Compendium across 5 Classes (Slide 3 Extended)
+│   ├── career_paths.html        # 6 Core Cybersecurity Career Specializations
+│   ├── ports.html               # 37 Critical Ports & Protocols Vault with Hinglish Explanations
+│   ├── http_codes.html          # Complete HTTP Status Codes Compendium across 5 Classes
 │   ├── general.html             # General Cyber Intel: Windows Shortcuts, Domain TLDs & 1969-2026 OS Chronicles
-│   ├── google_dorking.html      # Google Dorking Intelligence & Search Operator Arsenal (Placeholder)
-│   ├── hacker_engines_devices.html # Hacker Search Engines & Physical Hardware Devices (Placeholder)
-│   └── linux.html               # Linux Terminal Mastery, Core Commands & Hardening (Placeholder)
+│   ├── google_dorking.html      # Google Dorking Intelligence, GHDB Operators & Interactive Builder
+│   ├── hacker_engines_devices.html # Top 10 Physical Hacking Devices & 32 Specialized Search Engines
+│   └── linux.html               # Linux Terminal Mastery, Core Commands & Hardening
 │
 ├── 📂 games/                    # Standalone Interactive Cyber Mini-Game Simulations
 │   ├── packet_gatekeeper.html   # Game 01: Firewall, Protocol & DPI Defense Arcade
