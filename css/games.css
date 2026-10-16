@@ -1461,3 +1461,102 @@ body.games-body {
     padding: 4px 0;
     border-bottom: 1px dashed rgba(255,255,255,0.1);
 }
+
+/* ==========================================================================
+   GAME 8: CIPHER RELIC SPECIFIC STYLES
+   ========================================================================== */
+.cipher-stage {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+}
+
+@media (max-width: 960px) {
+    .cipher-stage {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cipher-desk-panel {
+    background: var(--bg-panel);
+    border: 3px solid var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cipher-device-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.cipher-device-btn {
+    padding: 8px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border: 2px solid var(--border-color);
+    background: var(--bg-base);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.cipher-device-btn.active {
+    background: var(--text-main);
+    color: var(--bg-base);
+}
+
+.cipher-display-box {
+    background: #020617;
+    border: 2px solid #1e293b;
+    padding: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    line-height: 1.8;
+}
+
+.cipher-dial-control {
+    background: var(--bg-base);
+    border: 2px solid var(--border-color);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cipher-slider {
+    width: 100%;
+    accent-color: var(--accent-green);
+    cursor: pointer;
+}
+
+.xor-bits-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.bit-cell {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-panel);
+    cursor: pointer;
+    user-select: none;
+}
+
+.bit-cell.active-1 {
+    background: var(--accent-green);
+    color: #000;
+}

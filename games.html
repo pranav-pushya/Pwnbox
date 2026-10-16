@@ -820,7 +820,136 @@
                 </p>
             </div>
         </section>
-        <section class="game-instance-container" id="game-cipher-relic"></section>
+        <!-- ================================================================= -->
+        <!-- GAME 8: CIPHER RELIC                                              -->
+        <!-- ================================================================= -->
+        <section class="game-instance-container" id="game-cipher-relic">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🕵️</span> CIPHER RELIC: THE CRYPTANALYST'S DESK <span class="game-badge badge-crypto">CRYPTOGRAPHY / CODEBREAKING</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Decode intercepted tactical transmissions using interactive Caesar shift discs, Vigenère grids, and symmetric XOR stream gates!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Active Device</span>
+                        <span class="stat-val" id="cipherDeviceName" style="color: var(--accent-cyan);">Caesar Dial</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Shift Key</span>
+                        <span class="stat-val" id="cipherKeyVal" style="color: var(--accent-yellow);">ROT +3</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Ciphers Cracked</span>
+                        <span class="stat-val" id="cipherCrackedVal" style="color: var(--accent-green);">0 / 3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cipher-stage">
+                <!-- Device Workbench -->
+                <div class="cipher-desk-panel">
+                    <!-- Device Selector Tabs -->
+                    <div class="cipher-device-tabs">
+                        <button class="cipher-device-btn active" onclick="switchCipherDevice('caesar')">
+                            1. Caesar Dial
+                        </button>
+                        <button class="cipher-device-btn" onclick="switchCipherDevice('vigenere')">
+                            2. Vigenère Table
+                        </button>
+                        <button class="cipher-device-btn" onclick="switchCipherDevice('xor')">
+                            3. XOR Logic Gate
+                        </button>
+                    </div>
+
+                    <!-- CAESAR DIAL SUB-VIEW -->
+                    <div id="caesarView">
+                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">INTERCEPTED CIPHERTEXT TRANSMISSION:</div>
+                        <div class="cipher-display-box" id="caesarCiphertext">
+                            KHOOR ZRUOG // WKH VHFUHW WRNHQ LV: FDHVDU_FRQTXHUHG
+                        </div>
+
+                        <div class="cipher-dial-control" style="margin-top: 14px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800;">
+                                <span>ROTATION OFFSET SLIDER:</span>
+                                <span id="caesarShiftDisplay" style="color: var(--accent-green);">ROT +0 (Shift: 0)</span>
+                            </div>
+                            <input type="range" min="0" max="25" value="0" class="cipher-slider" id="caesarSlider" oninput="updateCaesarShift(this.value)">
+                        </div>
+
+                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin: 14px 0 8px;">DECRYPTED PLAINTEXT PREVIEW:</div>
+                        <div class="cipher-display-box" id="caesarPlaintext" style="color: #22c55e;">
+                            <!-- Live decoded plaintext -->
+                        </div>
+                    </div>
+
+                    <!-- VIGENERE SUB-VIEW -->
+                    <div id="vigenereView" style="display: none;">
+                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">POLYALPHABETIC CIPHERTEXT (REPEATING KEY):</div>
+                        <div class="cipher-display-box" id="vigenereCiphertext">
+                            RIJVS UZQVH // WKH VECUET TOKEM: VIGENERE_UNLOCKED
+                        </div>
+
+                        <div class="cipher-dial-control" style="margin-top: 14px;">
+                            <label style="font-size: 0.75rem; font-weight: 800; margin-bottom: 4px; display: block;">POLYALPHABETIC KEYWORD:</label>
+                            <input type="text" id="vigenereKeyInput" class="entropy-input-box" value="KEY" placeholder="Type key here..." oninput="updateVigenereKey(this.value)">
+                        </div>
+
+                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin: 14px 0 8px;">DECRYPTED PLAINTEXT PREVIEW:</div>
+                        <div class="cipher-display-box" id="vigenerePlaintext" style="color: #22c55e;">
+                            <!-- Decoded output -->
+                        </div>
+                    </div>
+
+                    <!-- XOR GATE SUB-VIEW -->
+                    <div id="xorView" style="display: none;">
+                        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">SYMMETRIC XOR BITSTREAM (ONE-TIME PAD PRINCIPLE):</div>
+                        <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 12px;">Click key bits to toggle between 0 and 1. Notice how A ⊕ B ⊕ B = A!</div>
+
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="xor-bits-row">
+                                <span style="width: 140px;">PLAINTEXT (P):</span>
+                                <div id="xorPlainRow" style="display: flex; gap: 6px;"></div>
+                            </div>
+                            <div class="xor-bits-row">
+                                <span style="width: 140px;">KEY STREAM (K):</span>
+                                <div id="xorKeyRow" style="display: flex; gap: 6px;"></div>
+                            </div>
+                            <div class="xor-bits-row">
+                                <span style="width: 140px; color: var(--accent-cyan);">CIPHERTEXT (P⊕K):</span>
+                                <div id="xorCipherRow" style="display: flex; gap: 6px;"></div>
+                            </div>
+                            <div class="xor-bits-row">
+                                <span style="width: 140px; color: var(--accent-green);">DECRYPT (C⊕K):</span>
+                                <div id="xorDecryptRow" style="display: flex; gap: 6px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frequency Analysis & Cryptographic Intel -->
+                <div class="pg-console-panel">
+                    <div class="pg-console-title">
+                        <span>📊 FREQUENCY & CRYPTO INTEL</span>
+                        <span id="cipherStatusBadge" style="color: var(--accent-yellow);">ANALYZING</span>
+                    </div>
+                    <div class="pg-log-feed" id="cipherIntelFeed">
+                        <div class="log-entry">
+                            <strong>CAESAR SHIFT ANALYSIS:</strong> In English text, 'E' is the most frequent character (~12.7%), followed by 'T', 'A', and 'O'. Rotating the shift dial aligns the peak frequency bars!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: CLASSICAL CIPHERS, POLYALPHABETIC ATTACKS & XOR</h4>
+                <p>
+                    Monoalphabetic substitution ciphers (Caesar) preserve letter frequency distributions, making them vulnerable to single-minute frequency analysis. Polyalphabetic ciphers (Vigenère) disguise frequencies by applying multiple shifts across a key. In modern computing, symmetric cryptography (AES, ChaCha20, One-Time Pads) relies on the reversible mathematical purity of the <strong>XOR (⊕) logic gate</strong>, where <code>(P ⊕ K) ⊕ K = P</code>.
+                </p>
+            </div>
+        </section>
 
     </main>
 

@@ -1906,3 +1906,201 @@ function formatCrackTime(seconds, isDictHit) {
     if (seconds < 31536000 * 1e9) return `${(seconds / (31536000 * 1e6)).toFixed(1)} Million Years`;
     return `${(seconds / (31536000 * 1e9)).toFixed(1)} Billion Years (Heat death of universe)`;
 }
+
+
+// ── 11. GAME 8: CIPHER RELIC IMPLEMENTATION ──
+const CipherRelic = {
+    activeDevice: 'caesar',
+    caesarCiphertext: 'KHOOR ZRUOG // WKH VHFUHW WRNHQ LV: FDHVDU_FRQTXHUHG',
+    caesarSolved: false,
+
+    vigenereCiphertext: 'RIJVS UZQVH // THE SECRET TOKEN IS: VIGENERE_UNLOCKED',
+    vigenereTargetPlain: 'HELLO WORLD // THE SECRET TOKEN IS: VIGENERE_UNLOCKED',
+    vigenereSolved: false,
+
+    plainBits: [1, 0, 1, 1, 0, 0, 1, 0],
+    keyBits:   [0, 1, 1, 0, 1, 0, 1, 1],
+
+    crackedCount: 0
+};
+
+function initCipherRelic() {
+    switchCipherDevice('caesar');
+    updateCaesarShift(0);
+    updateVigenereKey('KEY');
+    renderXorBits();
+}
+
+function switchCipherDevice(device) {
+    CyberAudio.blip();
+    CipherRelic.activeDevice = device;
+
+    document.querySelectorAll('.cipher-device-btn').forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(device)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    document.getElementById('caesarView').style.display = device === 'caesar' ? 'block' : 'none';
+    document.getElementById('vigenereView').style.display = device === 'vigenere' ? 'block' : 'none';
+    document.getElementById('xorView').style.display = device === 'xor' ? 'block' : 'none';
+
+    const deviceNameEl = document.getElementById('cipherDeviceName');
+    if (deviceNameEl) {
+        deviceNameEl.textContent = device === 'caesar' ? 'Caesar Dial' : (device === 'vigenere' ? 'Vigenère Grid' : 'XOR Stream');
+    }
+
+    const feed = document.getElementById('cipherIntelFeed');
+    if (feed) {
+        if (device === 'caesar') {
+            feed.innerHTML = `
+                <div class="log-entry">
+                    <strong>CAESAR SHIFT INTEL:</strong> The Caesar cipher is a monoalphabetic substitution with 25 possible shifts. Slide the dial to align the letters until readable English emerges.
+                </div>
+            `;
+        } else if (device === 'vigenere') {
+            feed.innerHTML = `
+                <div class="log-entry">
+                    <strong>VIGENÈRE INTEL:</strong> The "le chiffre indéchiffrable" uses a repeating keyword to shift each letter by a different Caesar offset, flattening simple letter frequency attacks!
+                </div>
+            `;
+        } else {
+            feed.innerHTML = `
+                <div class="log-entry">
+                    <strong>XOR STREAM INTEL:</strong> Modern symmetric encryption (AES-CTR, ChaCha20) uses XOR (⊕). Because <code>(A ⊕ B) ⊕ B = A</code>, the exact same operation encrypts and decrypts!
+                </div>
+            `;
+        }
+    }
+}
+
+function updateCaesarShift(shiftVal) {
+    const shift = parseInt(shiftVal, 10);
+    const shiftDisp = document.getElementById('caesarShiftDisplay');
+    const keyVal = document.getElementById('cipherKeyVal');
+    if (shiftDisp) shiftDisp.textContent = `ROT +${shift} (Shift: ${shift})`;
+    if (keyVal) keyVal.textContent = `ROT +${shift}`;
+
+    // Decrypt by shifting backwards (26 - shift)
+    const text = CipherRelic.caesarCiphertext;
+    let decoded = '';
+
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        if (char >= 'A' && char <= 'Z') {
+            const code = char.charCodeAt(0) - 65;
+            const newCode = (code - shift + 26) % 26;
+            decoded += String.fromCharCode(newCode + 65);
+        } else {
+            decoded += char;
+        }
+    }
+
+    const plainEl = document.getElementById('caesarPlaintext');
+    if (plainEl) plainEl.textContent = decoded;
+
+    // Check win condition (Shift 3 backwards)
+    if (shift === 3 && !CipherRelic.caesarSolved) {
+        CipherRelic.caesarSolved = true;
+        CipherRelic.crackedCount++;
+        CyberAudio.success();
+        addArcadeXp(50);
+        document.getElementById('cipherCrackedVal').textContent = `${CipherRelic.crackedCount} / 3`;
+        document.getElementById('cipherStatusBadge').textContent = 'SOLVED!';
+        document.getElementById('cipherStatusBadge').style.color = 'var(--accent-green)';
+    }
+}
+
+function updateVigenereKey(keyStr) {
+    const key = (keyStr || 'KEY').toUpperCase().replace(/[^A-Z]/g, '');
+    const cipherText = 'RIJVS UZQVH // WKH VECUET TOKEM: VIGENERE_UNLOCKED';
+    let decoded = '';
+    let keyIdx = 0;
+
+    for (let i = 0; i < cipherText.length; i++) {
+        const char = cipherText[i];
+        if (char >= 'A' && char <= 'Z' && key.length > 0) {
+            const cCode = char.charCodeAt(0) - 65;
+            const kCode = key[keyIdx % key.length].charCodeAt(0) - 65;
+            const pCode = (cCode - kCode + 26) % 26;
+            decoded += String.fromCharCode(pCode + 65);
+            keyIdx++;
+        } else {
+            decoded += char;
+        }
+    }
+
+    const plainEl = document.getElementById('vigenerePlaintext');
+    if (plainEl) plainEl.textContent = decoded;
+
+    if (key === 'KEY' && !CipherRelic.vigenereSolved) {
+        CipherRelic.vigenereSolved = true;
+        CipherRelic.crackedCount++;
+        CyberAudio.success();
+        addArcadeXp(50);
+        document.getElementById('cipherCrackedVal').textContent = `${CipherRelic.crackedCount} / 3`;
+    }
+}
+
+function renderXorBits() {
+    const plainRow = document.getElementById('xorPlainRow');
+    const keyRow = document.getElementById('xorKeyRow');
+    const cipherRow = document.getElementById('xorCipherRow');
+    const decryptRow = document.getElementById('xorDecryptRow');
+
+    if (!plainRow || !keyRow || !cipherRow || !decryptRow) return;
+
+    plainRow.innerHTML = '';
+    keyRow.innerHTML = '';
+    cipherRow.innerHTML = '';
+    decryptRow.innerHTML = '';
+
+    for (let i = 0; i < 8; i++) {
+        const p = CipherRelic.plainBits[i];
+        const k = CipherRelic.keyBits[i];
+        const c = p ^ k;
+        const d = c ^ k;
+
+        // Plaintext cell
+        const pCell = document.createElement('div');
+        pCell.className = `bit-cell ${p === 1 ? 'active-1' : ''}`;
+        pCell.textContent = p;
+        pCell.onclick = () => togglePlainBit(i);
+        plainRow.appendChild(pCell);
+
+        // Key cell
+        const kCell = document.createElement('div');
+        kCell.className = `bit-cell ${k === 1 ? 'active-1' : ''}`;
+        kCell.textContent = k;
+        kCell.onclick = () => toggleKeyBit(i);
+        keyRow.appendChild(kCell);
+
+        // Ciphertext cell
+        const cCell = document.createElement('div');
+        cCell.className = `bit-cell ${c === 1 ? 'active-1' : ''}`;
+        cCell.style.borderColor = 'var(--accent-cyan)';
+        cCell.textContent = c;
+        cipherRow.appendChild(cCell);
+
+        // Decrypted cell
+        const dCell = document.createElement('div');
+        dCell.className = `bit-cell ${d === 1 ? 'active-1' : ''}`;
+        dCell.style.borderColor = 'var(--accent-green)';
+        dCell.textContent = d;
+        decryptRow.appendChild(dCell);
+    }
+}
+
+function togglePlainBit(idx) {
+    CyberAudio.blip();
+    CipherRelic.plainBits[idx] = CipherRelic.plainBits[idx] === 1 ? 0 : 1;
+    renderXorBits();
+}
+
+function toggleKeyBit(idx) {
+    CyberAudio.blip();
+    CipherRelic.keyBits[idx] = CipherRelic.keyBits[idx] === 1 ? 0 : 1;
+    renderXorBits();
+}
