@@ -5,7 +5,7 @@
     <script src="../js/auth_guard.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linux Commands & Host Hardening // PwnBox Academy</title>
+    <title>Most Used Linux Commands // PwnBox Academy Mind Map</title>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
 
     <!-- Fonts -->
@@ -15,13 +15,14 @@
 
     <!-- Theme Initialization -->
     <script>
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/imp_info.css">
+    <link rel="stylesheet" href="../css/linux_mindmap.css">
     <script src="../js/theme.js"></script>
     <script src="../js/ui_popups.js"></script>
 </head>
@@ -42,28 +43,159 @@
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="info-container" style="max-width: 1400px; margin: 0 auto; padding: 32px 24px; width: 100%;">
+    <!-- Main Container Wrap -->
+    <main class="linux-page-wrap">
 
         <!-- Hero Header -->
-        <section class="info-hero" style="margin-bottom: 28px;">
-            <span class="hero-tag">// LINUX SHELL ARCHITECTURE & PRIVILEGE MODEL</span>
-            <h1 class="hero-title">LINUX COMMANDS & HOST HARDENING</h1>
-            <p class="hero-desc">
-                Core Linux terminal commands, filesystem hierarchy standard (FHS), permission bits (chmod, chown, SUID/SGID), process monitoring, systemd services, host auditing, and privilege escalation vectors.
-            </p>
+        <section class="linux-hero-header">
+            <div class="linux-hero-title-group">
+                <span class="linux-hero-tag">// BYTEBYTEGO ARCHITECTURE // SLIDE 13</span>
+                <h1 class="linux-hero-title">
+                    <span class="linux-hero-title-bar"></span>
+                    MOST USED LINUX COMMANDS
+                </h1>
+                <p class="linux-hero-desc">
+                    Comprehensive interactive mind map and command hierarchy: 70 essential terminal commands classified across 12 operational subsystems. Click any command pill to copy to clipboard or launch the live terminal simulator.
+                </p>
+            </div>
+
+            <!-- Stats Badge Counter -->
+            <div class="linux-quick-stats">
+                <div class="stat-chip">
+                    <span class="stat-chip-num">12</span>
+                    <span class="stat-chip-label">Subsystems</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-chip-num" id="searchMatchCount">70 COMMANDS</span>
+                    <span class="stat-chip-label">Total Tools</span>
+                </div>
+            </div>
         </section>
 
-        <!-- Placeholder Content Workspace -->
-        <div style="background: var(--bg-card); border: 2px dashed var(--border-color); padding: 60px 24px; text-align: center; box-shadow: var(--box-shadow); border-radius: 2px;">
-            <div style="font-size: 3.5rem; margin-bottom: 14px;">🐧</div>
-            <h2 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; font-family: 'Space Mono', monospace; text-transform: uppercase;">Awaiting Intel Briefing</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; line-height: 1.6;">
-                This page has been created and integrated into the Important Info hub navigation. Ready for your Linux commands, shortcuts, and concepts.
-            </p>
+        <!-- Command Search & Controls Toolbar -->
+        <section class="linux-toolbar">
+            <div class="toolbar-primary-row">
+                <!-- Live Search Box -->
+                <div class="search-box-wrap">
+                    <span class="search-input-icon">🔍</span>
+                    <input type="text" id="linuxSearchInput" class="linux-search-input" placeholder="Search 70+ commands, flags, descriptions (e.g. grep, port, tar, whoami)..." autocomplete="off" spellcheck="false">
+                    <button class="search-clear-btn" id="searchClearBtn" title="Clear Search">✕</button>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="toolbar-actions">
+                    <button class="btn-cyber active" id="btnViewMindMap" title="View Exact Flowchart Layout from Slide 13">🗺️ Mind Map</button>
+                    <button class="btn-cyber" id="btnViewGrid" title="Switch to Searchable Categorized Grid">📊 Grid View</button>
+                    <button class="btn-cyber" id="btnToggleFullscreen" title="Toggle Fullscreen Interactive Canvas">⛶ Fullscreen</button>
+                    <button class="btn-cyber" id="btnExportCheatSheet" title="Copy Full Markdown Cheat Sheet">📋 Export All</button>
+                </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="category-filter-chips" id="categoryFilterChips">
+                <!-- Dynamically populated by JS -->
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             INTERACTIVE MIND MAP VIEWPORT (EXACT SLIDE 13 VISUAL LAYOUT)
+             ========================================================================== -->
+        <div class="mindmap-viewport-wrapper" id="mindmapWrap">
+            <!-- Background Matrix Grid -->
+            <div class="mindmap-canvas-bg-grid"></div>
+
+            <!-- Controllable Pan/Zoom Canvas Surface -->
+            <div class="mindmap-surface" id="mindmapSurface">
+                <!-- SVG Connector Layer for Center Rays & Branch Curves -->
+                <svg class="mindmap-svg-layer" id="mindmapSvgLayer" viewBox="0 0 1720 1380"></svg>
+
+                <!-- Center Tux Penguin Hub Badge -->
+                <div class="mindmap-center-hub" id="centerTuxHub" title="Linux Commands Central Architecture">
+                    <div class="tux-outer-ring"></div>
+                    <div class="tux-circle-badge">
+                        <img src="../assets/tux_badge.png" alt="Linux Tux Badge">
+                    </div>
+                    <div class="tux-label-arc">Linux Commands</div>
+                </div>
+
+                <!-- 12 Category Boxes & Command Capsules will be rendered here by JS -->
+            </div>
+
+            <!-- Floating Navigation & Zoom HUD -->
+            <div class="mindmap-hud-controls">
+                <button class="hud-btn" onclick="zoomMindMap(0.12)" title="Zoom In (+)">＋</button>
+                <button class="hud-btn" onclick="zoomMindMap(-0.12)" title="Zoom Out (-)">－</button>
+                <button class="hud-btn" onclick="centerView()" title="Center Mind Map">🎯</button>
+                <button class="hud-btn" onclick="fitToScreen()" title="Fit to Screen">📐</button>
+            </div>
+
+            <!-- Floating Interaction Hint -->
+            <div class="mindmap-hud-hint">
+                <span>🖱️ DRAG TO PAN</span>
+                <span>•</span>
+                <span>📜 SCROLL TO ZOOM</span>
+                <span>•</span>
+                <span>📋 CLICK ANY COMMAND TO COPY & TEST</span>
+            </div>
+        </div>
+
+        <!-- ==========================================================================
+             ALTERNATIVE CATEGORIZED GRID VIEW (FOR RAPID SCANNING & MOBILE)
+             ========================================================================== -->
+        <div class="linux-grid-view" id="linuxGridView">
+            <!-- Dynamically populated by JS -->
         </div>
 
     </main>
+
+    <!-- ==========================================================================
+         INTERACTIVE LIVE TERMINAL SANDBOX MODAL
+         ========================================================================== -->
+    <div class="terminal-sandbox-modal" id="terminalModal" role="dialog" aria-modal="true" aria-label="Terminal Simulator">
+        <div class="terminal-window">
+            <!-- Terminal Title Bar -->
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <div class="terminal-title">PWNBOX TERMINAL SANDBOX // BASH 5.2</div>
+                <button class="terminal-close-btn" id="terminalCloseBtn" title="Close (ESC)">✕</button>
+            </div>
+
+            <!-- Intel Specs Header -->
+            <div class="terminal-intel-bar">
+                <span class="intel-category-badge" id="terminalCatBadge">// CATEGORY</span>
+                <div class="intel-cmd-name" id="terminalCmdName">COMMAND</div>
+                <div class="intel-cmd-desc" id="terminalCmdDesc">Description of command</div>
+                <div class="intel-cmd-flags" id="terminalCmdFlags">Flags & options breakdown</div>
+            </div>
+
+            <!-- Simulated Terminal Output Screen -->
+            <div class="terminal-screen" id="terminalOutputScreen">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Interactive CLI Input Line -->
+            <div style="background:#090d16; padding: 10px 20px; border-top: 1px solid #1a2538; display: flex; align-items: center; gap: 8px;">
+                <span style="color:#00ff66; font-family:'Space Mono', monospace; font-size:0.85rem; font-weight:bold;">analyst@pwnbox:~$</span>
+                <input type="text" id="terminalCliInput" style="flex:1; background:none; border:none; color:#f1f5f9; font-family:'Space Mono', monospace; font-size:0.88rem; outline:none;" placeholder="Type a command (ls, whoami, uname -a, clear) and press Enter..." autocomplete="off" spellcheck="false">
+            </div>
+
+            <!-- Terminal Modal Footer Actions -->
+            <div class="terminal-footer-actions">
+                <button class="btn-cyber" id="btnTerminalCopyCmd">📋 Copy Command</button>
+                <button class="btn-cyber" onclick="closeTerminalSimulator()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div id="linuxToast" class="linux-toast">COPIED TO CLIPBOARD</div>
+
+    <!-- Scripts -->
+    <script src="../js/linux_mindmap.js"></script>
 </body>
 
 </html>
