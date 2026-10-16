@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking Protocols & Critical Ports // PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/ports.css">
+    <script src="../js/theme.js"></script>
+    <script src="../js/ui_popups.js"></script>
+</head>
+
+<body>
+    <!-- Top Navigation Bar (Clean & Uncluttered) -->
+    <header class="ports-nav">
+        <a href="imp_info.html" class="ports-brand" title="Back to Important Info">
+            <span class="brand-icon">🔌</span>
+            <span>PwnBox // Networking Ports Vault</span>
+        </a>
+    </header>
+
+    <!-- Main Container -->
+    <main class="ports-container">
+
+        <!-- Hero Header -->
+        <section class="ports-hero">
+            <span class="hero-tag">// NETWORK PROTOCOL & PORT REFERENCE VAULT</span>
+            <h1 class="hero-title">NETWORKING PROTOCOLS & DEFAULT PORTS</h1>
+            <p class="hero-desc">
+                An encyclopedic field directory of essential TCP/UDP ports, network protocols, operational roles, and cybersecurity exploit vectors. Every port includes a concise 2–3 line Hinglish breakdown explaining its real-world function and attack surface.
+            </p>
+        </section>
+
+        <!-- Search & Control Bar -->
+        <div class="ports-controls">
+            <div class="search-row">
+                <input type="text" id="portSearch" class="ports-search-input" placeholder="🔍 Search port number, protocol, keyword (e.g. 445, SMB, MySQL, Windows)..." oninput="filterPorts()">
+                <div class="ports-stats-badge" id="portCountBadge">37 Ports Loaded</div>
+            </div>
+
+            <div class="filter-pills-row">
+                <span class="filter-lbl">CATEGORIES:</span>
+                <button class="ports-filter-btn active" data-filter="all" onclick="setCategoryFilter('all', this)">⚡ All (37)</button>
+                <button class="ports-filter-btn" data-filter="web" onclick="setCategoryFilter('web', this)">🌐 Web (HTTP/S)</button>
+                <button class="ports-filter-btn" data-filter="remote" onclick="setCategoryFilter('remote', this)">💻 Remote Access</button>
+                <button class="ports-filter-btn" data-filter="file" onclick="setCategoryFilter('file', this)">📁 File Transfer</button>
+                <button class="ports-filter-btn" data-filter="mail" onclick="setCategoryFilter('mail', this)">✉️ Mail / Messaging</button>
+                <button class="ports-filter-btn" data-filter="infra" onclick="setCategoryFilter('infra', this)">🏢 Infrastructure & Identity</button>
+                <button class="ports-filter-btn" data-filter="db" onclick="setCategoryFilter('db', this)">🗄️ Databases & Cache</button>
+            </div>
+        </div>
+
+        <!-- Ports Grid Feed -->
+        <section class="ports-grid" id="portsGrid">
+
+            <!-- Port 7: ECHO -->
+            <article class="port-card" data-category="infra" data-port="7" data-name="ECHO">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 7</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">ECHO</h2>
+                        <span class="port-full-name">Echo Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Yeh port incoming testing packets ko wapas sender ko echo (bhej) deta hai debugging ke liye. Attackers iska use karke UDP Amplification aur Smurf DoS attacks execute karte hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-info">Low Risk / DoS Vector</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('7', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 20: FTP Data -->
+            <article class="port-card" data-category="file" data-port="20" data-name="FTP DATA">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 20</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">FTP Data</h2>
+                        <span class="port-full-name">File Transfer Protocol (Data Channel)</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        FTP ke active mode mein actual files transfer karne ke liye use hota hai. Saara file payload unencrypted plaintext mein flow hota hai, isliye network sniffer se files intercept ho sakti hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High Risk / Plaintext</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('20', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 21: FTP Control -->
+            <article class="port-card" data-category="file" data-port="21" data-name="FTP CONTROL">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 21</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">FTP Control</h2>
+                        <span class="port-full-name">File Transfer Protocol (Command Channel)</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        FTP connection establish aur user authenticate karne ke liye command port hai. Anonymous login ('anonymous:guest') misconfigurations aur plaintext credentials leak hona iska main risk hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Sniffable</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('21', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 22: SSH -->
+            <article class="port-card" data-category="remote" data-port="22" data-name="SSH">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 22</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">SSH</h2>
+                        <span class="port-full-name">Secure Shell</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Linux servers ka encrypted secure remote management terminal hai. Telnet ka secure replacement hai, par weak passwords ya default SSH keys hone par brute-force attack se exploit ho jata hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Secure / Brute-force Target</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('22', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 23: Telnet -->
+            <article class="port-card" data-category="remote" data-port="23" data-name="TELNET">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 23</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">Telnet</h2>
+                        <span class="port-full-name">Teletype Network</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Purana remote CLI login protocol jisme koi encryption nahi hoti. Network par chalte Wireshark packet sniffer se koi bhi live usernames aur passwords cleartext mein dekh sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Obsolete</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('23', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 25: SMTP -->
+            <article class="port-card" data-category="mail" data-port="25" data-name="SMTP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 25</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">SMTP</h2>
+                        <span class="port-full-name">Simple Mail Transfer Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Mail servers ke beech unencrypted emails transmit karne ke liye use hota hai. Open Relay misconfigurations se spammers abuse karte hain aur VRFY/EXPN command se valid usernames enumerate ho jate hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / Spam Relay</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('25', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 42: WINS -->
+            <article class="port-card" data-category="infra" data-port="42" data-name="WINS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 42</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">WINS</h2>
+                        <span class="port-full-name">Windows Internet Name Service</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Legacy Windows networks mein NetBIOS computer names ko IP addresses mein map karta hai. Purani machines mein name spoofing, poisoning aur Man-in-the-Middle attacks ke liye target banta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-info">Legacy Windows Service</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('42', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 43: WHOIS -->
+            <article class="port-card" data-category="infra" data-port="43" data-name="WHOIS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 43</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">WHOIS</h2>
+                        <span class="port-full-name">Domain Registration Directory Query</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Kisi bhi domain name ka registrar, owner, creation date aur contact details check karne ka query protocol hai. Reconnaissance phase mein passive footprinting ke liye fundamental tool hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-info">Recon / OSINT Standard</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('43', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 53: DNS -->
+            <article class="port-card" data-category="infra" data-port="53" data-name="DNS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 53</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">DNS</h2>
+                        <span class="port-full-name">Domain Name System</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Domains (jaise google.com) ko machine IP address mein resolve karta hai. Hackers ispe DNS Spoofing, Cache Poisoning aur Zone Transfer (AXFR) chala kar saare internal subdomains dump karte hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical Infrastructure</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('53', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 67: DHCP Server -->
+            <article class="port-card" data-category="infra" data-port="67" data-name="DHCP SERVER">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 67</span>
+                    <span class="port-transport-tag">UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">DHCP Server</h2>
+                        <span class="port-full-name">Dynamic Host Configuration (Server Port)</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Local network par devices ko automatically IP addresses assign karta hai. Attacker rogue DHCP server banakar default gateway hijack kar leta hai aur poora traffic apne through route karwa leta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / Rogue DHCP Attack</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('67', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 68: DHCP Client -->
+            <article class="port-card" data-category="infra" data-port="68" data-name="DHCP CLIENT">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 68</span>
+                    <span class="port-transport-tag">UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">DHCP Client</h2>
+                        <span class="port-full-name">Dynamic Host Configuration (Client Port)</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Client device is port par DHCP server se IP offer aur ACK packets receive karta hai. Attacker fake DHCP replies bhej kar target machine ka DNS poison kar sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-info">Client-side Network Port</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('68', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 69: TFTP -->
+            <article class="port-card" data-category="file" data-port="69" data-name="TFTP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 69</span>
+                    <span class="port-transport-tag">UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">TFTP</h2>
+                        <span class="port-full-name">Trivial File Transfer Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Super lightweight file transfer jisme na koi password hota hai na directory listing. Routers aur switches ke running configuration files aur firmware images download karne ke liye target hota hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / No Auth</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('69', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 79: FINGER -->
+            <article class="port-card" data-category="infra" data-port="79" data-name="FINGER">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 79</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">Finger</h2>
+                        <span class="port-full-name">Finger User Information Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Purana UNIX utility protocol jo logged-in users ka status deta hai. Attacker bina login kiye system ke saare valid username, home folders aur last login timing enumerate kar leta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / User Enumeration</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('79', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 80: HTTP -->
+            <article class="port-card" data-category="web" data-port="80" data-name="HTTP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 80</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">HTTP</h2>
+                        <span class="port-full-name">Hypertext Transfer Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Standard unencrypted web server port (Apache, Nginx). Plaintext traffic hone se Man-in-the-Middle attack ho sakta hai, aur SQLi, XSS, CSRF, File Upload exploits ka sabse primary attack surface hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High Risk / Unencrypted</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('80', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 88: Kerberos -->
+            <article class="port-card" data-category="infra" data-port="88" data-name="KERBEROS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 88</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">Kerberos</h2>
+                        <span class="port-full-name">Ticket-Based Network Authentication</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Windows Active Directory ka heart hai jo user authentication tickets (TGT, TGS) generate karta hai. Hackers ispe AS-REP Roasting, Kerberoasting aur Golden/Silver Ticket persistence attacks chalate hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / AD Privilege Escalation</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('88', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 110: POP3 -->
+            <article class="port-card" data-category="mail" data-port="110" data-name="POP3">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 110</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">POP3</h2>
+                        <span class="port-full-name">Post Office Protocol Version 3</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Email client server se naye emails download karne ke liye use karta hai. Isme email contents aur passwords bina encryption ke travel karte hain, jisse sniffing karke poora mailbox leak ho sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / Plaintext Mail</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('110', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 143: IMAP -->
+            <article class="port-card" data-category="mail" data-port="143" data-name="IMAP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 143</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">IMAP</h2>
+                        <span class="port-full-name">Internet Message Access Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Modern mail synchronization protocol jo server par folders maintain karta hai. Agar STARTTLS enable na ho toh plain authentication credentials aur corporate emails network par leak ho jate hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / Unencrypted Sync</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('143', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 161: SNMP -->
+            <article class="port-card" data-category="infra" data-port="161" data-name="SNMP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 161</span>
+                    <span class="port-transport-tag">UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">SNMP</h2>
+                        <span class="port-full-name">Simple Network Management Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Routers, switches aur servers ke hardware status aur routing table monitor karta hai. Default community string ('public') se attacker poori internal network topology aur running services dump kar leta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Recon Goldmine</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('161', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 389: LDAP -->
+            <article class="port-card" data-category="infra" data-port="389" data-name="LDAP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 389</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">LDAP</h2>
+                        <span class="port-full-name">Lightweight Directory Access Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Corporate Active Directory aur user directory query karne ke liye use hota hai. Anonymous bind allow hone par koi bhi bina authentication poori company ke employees, groups aur email list dump kar sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / AD Recon</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('389', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 443: HTTPS -->
+            <article class="port-card" data-category="web" data-port="443" data-name="HTTPS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 443</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">HTTPS</h2>
+                        <span class="port-full-name">HTTP Secure (SSL / TLS Encrypted)</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        SSL/TLS encrypted modern secure web browsing port hai. Data sniff nahi hota, par web applications ke andar ke flaws (Business Logic, SSRF, IDOR, SQLi) aur weak SSL ciphers testing ke targets hote hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Secure Transport / AppSec Target</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('443', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 445: SMB -->
+            <article class="port-card" data-category="file" data-port="445" data-name="SMB">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 445</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">SMB</h2>
+                        <span class="port-full-name">Server Message Block (over IP)</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Windows network mein file sharing, printer access aur RPC inter-process communication ka spine hai. EternalBlue (MS17-010) exploit isi par bana tha, aur SMB Relay attacks se poora domain hack ho sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / EternalBlue Target</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('445', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 465: SMTPS -->
+            <article class="port-card" data-category="mail" data-port="465" data-name="SMTPS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 465</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">SMTPS</h2>
+                        <span class="port-full-name">Simple Mail Transfer Protocol over SSL</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        SSL/TLS encrypted email transmission channel hai. Plaintext eavesdropping se bachata hai, par underlying web applications mein SMTP header injection aur spoofing flaws exist kar sakte hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Encrypted Mail Sending</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('465', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 636: LDAPS -->
+            <article class="port-card" data-category="infra" data-port="636" data-name="LDAPS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 636</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">LDAPS</h2>
+                        <span class="port-full-name">Lightweight Directory Access Protocol over TLS</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Enterprise identity queries ko SSL/TLS encryption ke sath run karta hai. Man-in-the-middle sniffing se Active Directory credentials aur passwords ko securely protect karta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Encrypted Identity Service</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('636', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 993: IMAPS -->
+            <article class="port-card" data-category="mail" data-port="993" data-name="IMAPS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 993</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">IMAPS</h2>
+                        <span class="port-full-name">Internet Message Access Protocol over SSL</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        SSL/TLS encrypted email retrieval protocol hai jo modern clients (Outlook, Thunderbird) use karte hain. Network eavesdropping se corporate emails aur sensitive attachments ko encrypt karta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Encrypted Mail Retrieval</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('993', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 995: POP3S -->
+            <article class="port-card" data-category="mail" data-port="995" data-name="POP3S">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 995</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">POP3S</h2>
+                        <span class="port-full-name">Post Office Protocol 3 over SSL</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        SSL/TLS encrypted version of POP3 hai jo unencrypted credential leaks ko rokta hai. Email server se machine par email download karte waqt packet interceptors ko cipher text dikhta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Encrypted POP3</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('995', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 1194: OpenVPN -->
+            <article class="port-card" data-category="remote" data-port="1194" data-name="OPENVPN">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 1194</span>
+                    <span class="port-transport-tag">UDP / TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">OpenVPN</h2>
+                        <span class="port-full-name">Virtual Private Network Gateway</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Remote employees ko enterprise private network se connect karne ke liye encrypted tunnel banata hai. VPN server ke software version aur outdated authentication ciphers par attack focus hota hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Encrypted Tunnel</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('1194', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 1433: MSSQL -->
+            <article class="port-card" data-category="db" data-port="1433" data-name="MSSQL">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 1433</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">MS SQL Server</h2>
+                        <span class="port-full-name">Microsoft SQL Relational Database</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Enterprise Windows environments ka relational database server hai. Default 'sa' password brute-force hone par hacker 'xp_cmdshell' stored procedure execute karke underlying Windows host pe SYSTEM shell le leta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / xp_cmdshell RCE</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('1433', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 1521: Oracle DB -->
+            <article class="port-card" data-category="db" data-port="1521" data-name="ORACLE DB">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 1521</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">Oracle DB</h2>
+                        <span class="port-full-name">Oracle TNS Database Listener</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Oracle Enterprise Database ka Transparent Network Substrate (TNS) port hai. SID enumeration tools (odat) se database names crack kiye jaate hain aur default SYS/SYSTEM accounts probe hote hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Enterprise DB</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('1521', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 2049: NFS -->
+            <article class="port-card" data-category="file" data-port="2049" data-name="NFS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 2049</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">NFS</h2>
+                        <span class="port-full-name">Network File System</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Linux servers ke beech remote filesystems ko local disk ki tarah mount karta hai. Agar 'no_root_squash' option enable ho toh attacker client machine se remote server par instant root privilege escalation kar leta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Root Escalation</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('2049', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 3306: MySQL -->
+            <article class="port-card" data-category="db" data-port="3306" data-name="MYSQL">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 3306</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">MySQL</h2>
+                        <span class="port-full-name">MySQL Database Server</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Websites aur applications ka standard open-source relational database server hai. Public internet pe expose hone par weak passwords se connect karke user hashes aur sensitive credit cards dump ho sakte hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Data Breach</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('3306', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 3389: RDP -->
+            <article class="port-card" data-category="remote" data-port="3389" data-name="RDP">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 3389</span>
+                    <span class="port-transport-tag">TCP / UDP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">RDP</h2>
+                        <span class="port-full-name">Remote Desktop Protocol</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Windows system ka graphical desktop remotely access karne ke liye use hota hai. BlueKeep (CVE-2019-0708) wormable exploit aur automated password spray attacks se ransomware drop karne ka main gate hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Ransomware Vector</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('3389', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 5432: PostgreSQL -->
+            <article class="port-card" data-category="db" data-port="5432" data-name="POSTGRESQL">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 5432</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">PostgreSQL</h2>
+                        <span class="port-full-name">PostgreSQL Database System</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        High-performance enterprise open-source SQL database server hai. Default user 'postgres' agar misconfigured ho toh 'COPY ... FROM PROGRAM' command injection se server par remote code execution (RCE) ho jata hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / SQL to Shell RCE</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('5432', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 5900: VNC -->
+            <article class="port-card" data-category="remote" data-port="5900" data-name="VNC">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 5900</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">VNC</h2>
+                        <span class="port-full-name">Virtual Network Computing</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Cross-platform graphical screen sharing aur remote control protocol hai. Agar bina authentication ya 8-character weak password ke configure ho toh attacker screen live dekh aur mouse control kar sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / Screen Hijack</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('5900', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 6379: Redis -->
+            <article class="port-card" data-category="db" data-port="6379" data-name="REDIS">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 6379</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">Redis</h2>
+                        <span class="port-full-name">In-Memory Key-Value Data Store & Cache</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Super-fast in-memory cache server jo session management aur speed badhane ke liye lagate hain. Default configuration mein bina password chalne par attacker root ki SSH key write karke direct box pwn kar leta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Unauth SSH Key Write</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('6379', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 8080: HTTP Alternate -->
+            <article class="port-card" data-category="web" data-port="8080" data-name="HTTP ALTERNATE">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 8080</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">HTTP Alternate</h2>
+                        <span class="port-full-name">Tomcat, Web Proxies & Admin Panels</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Port 80 ka standard alternative jo Apache Tomcat, internal dashboards aur proxies ke liye use hota hai. Tomcat manager dashboard pe default credentials (tomcat:s3cret) se .WAR reverse shell upload hoti hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-high">High / Tomcat WAR Upload</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('8080', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 8443: HTTPS Alternate -->
+            <article class="port-card" data-category="web" data-port="8443" data-name="HTTPS ALTERNATE">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 8443</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">HTTPS Alternate</h2>
+                        <span class="port-full-name">Secondary Secure Web & Appliance Port</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Firewall web interfaces, router login portals aur secure microservices ka alternative port hai. Admin dashboards bina MFA hone par ya SSL certificate misconfigurations se authentication bypass ho sakta hai.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-secure">Encrypted Admin Portal</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('8443', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+            <!-- Port 27017: MongoDB -->
+            <article class="port-card" data-category="db" data-port="27017" data-name="MONGODB">
+                <div class="port-card-header">
+                    <span class="port-number-badge">PORT 27017</span>
+                    <span class="port-transport-tag">TCP</span>
+                </div>
+                <div class="port-card-body">
+                    <div class="port-title-row">
+                        <h2 class="port-proto-name">MongoDB</h2>
+                        <span class="port-full-name">NoSQL Document Database</span>
+                    </div>
+                    <div class="port-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Modern JSON/BSON document database jo high-scale web apps use karti hain. Default install mein bina authentication ke chalne ki wajah se massive databases bina password leak aur delete/ransom ho chuki hain.
+                    </div>
+                </div>
+                <div class="port-card-footer">
+                    <span class="port-risk-badge risk-critical">Critical / Open NoSQL Breaches</span>
+                    <button class="copy-scan-btn" onclick="copyNmap('27017', this)">📋 Copy Scan</button>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <script>
+        let currentFilter = 'all';
+
+        function setCategoryFilter(category, btn) {
+            document.querySelectorAll('.ports-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = category;
+            filterPorts();
+        }
+
+        function filterPorts() {
+            const query = document.getElementById('portSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.port-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const port = card.getAttribute('data-port');
+                const text = card.textContent.toLowerCase();
+
+                const matchesCategory = (currentFilter === 'all' || category === currentFilter);
+                const matchesQuery = (!query || port.includes(query) || text.includes(query));
+
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('portCountBadge').innerText = `${visibleCount} Ports Found`;
+        }
+
+        function copyNmap(port, btn) {
+            const cmd = `nmap -p ${port} -sV -sC target_ip`;
+            navigator.clipboard.writeText(cmd).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = '✅ Copied!';
+                btn.style.background = '#22c55e';
+                btn.style.color = '#000';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 1800);
+            });
+        }
+    </script>
+</body>
+
+</html>

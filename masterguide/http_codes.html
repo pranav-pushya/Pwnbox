@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Status Codes Vault // PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/http_codes.css">
+    <script src="../js/theme.js"></script>
+    <script src="../js/ui_popups.js"></script>
+</head>
+
+<body>
+    <!-- Top Navigation Bar (Clean & Uncluttered) -->
+    <header class="codes-nav">
+        <a href="imp_info.html" class="codes-brand" title="Back to Important Info">
+            <span class="brand-icon">🌐</span>
+            <span>PwnBox // HTTP Status Codes Vault</span>
+        </a>
+    </header>
+
+    <!-- Main Container -->
+    <main class="codes-container">
+
+        <!-- Hero Header -->
+        <section class="codes-hero">
+            <span class="hero-tag">// RFC STANDARDS & WEB SECURITY TELEMETRY</span>
+            <h1 class="hero-title">HTTP STATUS CODES CHEATSHEET</h1>
+            <p class="hero-desc">
+                An exhaustive field reference of standard HTTP response codes (1XX Informational, 2XX Success, 3XX Redirection, 4XX Client Errors, and 5XX Server Errors). Every status code features a concise 2–3 line Hinglish explanation with its critical impact on web penetration testing and defensive auditing.
+            </p>
+        </section>
+
+        <!-- Search & Category Filters -->
+        <div class="codes-controls">
+            <div class="search-row">
+                <input type="text" id="codeSearch" class="codes-search-input" placeholder="🔍 Search code, name, or symptom (e.g. 403, Forbidden, 429, Rate Limit, 502)..." oninput="filterCodes()">
+                <div class="codes-stats-badge" id="codeStatsBadge">18 Codes Loaded</div>
+            </div>
+
+            <div class="filter-pills-row">
+                <span class="filter-lbl">FILTER CLASS:</span>
+                <button class="codes-filter-btn active" data-filter="all" onclick="setCategoryFilter('all', this)">⚡ All (18)</button>
+                <button class="codes-filter-btn" data-filter="1xx" onclick="setCategoryFilter('1xx', this)">ℹ️ 1XX Info</button>
+                <button class="codes-filter-btn" data-filter="2xx" onclick="setCategoryFilter('2xx', this)">✅ 2XX Success</button>
+                <button class="codes-filter-btn" data-filter="3xx" onclick="setCategoryFilter('3xx', this)">🔀 3XX Redirection</button>
+                <button class="codes-filter-btn" data-filter="4xx" onclick="setCategoryFilter('4xx', this)">⚠️ 4XX Client Error</button>
+                <button class="codes-filter-btn" data-filter="5xx" onclick="setCategoryFilter('5xx', this)">🚨 5XX Server Error</button>
+            </div>
+        </div>
+
+        <!-- Codes Grid Feed -->
+        <section class="codes-grid" id="codesGrid">
+
+            <!-- 100 Continue -->
+            <article class="code-card" data-category="1xx" data-code="100" data-name="CONTINUE">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-1xx">100</span>
+                    <span class="code-class-tag">1XX Informational</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Continue</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Client ko batata hai ki initial headers mil chuke hain aur request body send karna continue kar sakte ho. Large payload uploads se pehle bandwidth save karne ke liye use hota hai.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Bypassing initial WAF header checks ya large file streaming flaws inspect karne ke kaam aata hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-info">Request Streaming</span>
+                </div>
+            </article>
+
+            <!-- 101 Switching Protocols -->
+            <article class="code-card" data-category="1xx" data-code="101" data-name="SWITCHING PROTOCOLS">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-1xx">101</span>
+                    <span class="code-class-tag">1XX Informational</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Switching Protocols</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server client ki request par protocol switch kar raha hai (jaise HTTP se real-time WebSocket protocol par upgrade hona).
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Agar origin header validation weak ho toh Cross-Site WebSocket Hijacking (CSWSH) attack ho jata hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-info">WebSocket Upgrade</span>
+                </div>
+            </article>
+
+            <!-- 200 OK -->
+            <article class="code-card" data-category="2xx" data-code="200" data-name="OK">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-2xx">200</span>
+                    <span class="code-class-tag">2XX Success</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">OK</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Request bilkul successful thi aur server ne requested resource aur payload return kar diya. Normal web browsing ka standard success status code hai.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Gobuster aur Dirsearch fuzzer 200 status code dekh kar confirm karte hain ki endpoint live aur accessible hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-success">Standard Success</span>
+                </div>
+            </article>
+
+            <!-- 201 Created -->
+            <article class="code-card" data-category="2xx" data-code="201" data-name="CREATED">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-2xx">201</span>
+                    <span class="code-class-tag">2XX Success</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Created</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server par request successfully process hui aur naya resource (new user account, post, file) successfully create ho gaya.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> API testing mein mass account registration, file uploads aur database insertion verification ke liye dekha jata hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-success">Resource Generated</span>
+                </div>
+            </article>
+
+            <!-- 204 No Content -->
+            <article class="code-card" data-category="2xx" data-code="204" data-name="NO CONTENT">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-2xx">204</span>
+                    <span class="code-class-tag">2XX Success</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">No Content</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server ne request successfully execute kar di, par response body mein koi data wapas nahi bhej raha (jaise delete operation ya autosave).
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Bug bounty aur API testing mein confirm karta hai ki delete/update request backend par bina error execute ho gayi.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-success">Silent Success</span>
+                </div>
+            </article>
+
+            <!-- 301 Moved Permanently -->
+            <article class="code-card" data-category="3xx" data-code="301" data-name="MOVED PERMANENTLY">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-3xx">301</span>
+                    <span class="code-class-tag">3XX Redirection</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Moved Permanently</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Requested URL permanent taur par naye URL par shift ho chuki hai. Browser future requests automatically naye address par forward karta hai.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Agar redirect parameter sanitize na ho toh Open Redirect vulnerability se users phishing sites par redirect ho jaate hain.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-redirect">Permanent Redirect</span>
+                </div>
+            </article>
+
+            <!-- 302 Found -->
+            <article class="code-card" data-category="3xx" data-code="302" data-name="FOUND TEMPORARY REDIRECT">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-3xx">302</span>
+                    <span class="code-class-tag">3XX Redirection</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Found (Temporary)</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Resource temporarily kisi doosri jagah available hai (jaise login hone ke baad dashboard par redirect karna).
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Authentication flows aur OAuth token passes mein parameter manipulation se token interception testing hoti hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-redirect">Temporary Redirect</span>
+                </div>
+            </article>
+
+            <!-- 304 Not Modified -->
+            <article class="code-card" data-category="3xx" data-code="304" data-name="NOT MODIFIED">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-3xx">304</span>
+                    <span class="code-class-tag">3XX Redirection</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Not Modified</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Client ke browser cache mein latest version pehle se maujood hai aur server par koi file change nahi hui, isliye fresh data download nahi hota.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Web Cache Poisoning aur Web Cache Deception exploits mein header manipulation audit karne ke liye zaroori hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-redirect">Cache Verified</span>
+                </div>
+            </article>
+
+            <!-- 400 Bad Request -->
+            <article class="code-card" data-category="4xx" data-code="400" data-name="BAD REQUEST">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-4xx">400</span>
+                    <span class="code-class-tag">4XX Client Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Bad Request</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Client ne invalid syntax, malformed parameters ya corrupt request bheji jisko server parse aur samajh nahi pa raha hai.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> SQLi, HTTP Request Smuggling ya malformed JSON payloads test karte waqt server 400 return karta hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-client-error">Syntax Error</span>
+                </div>
+            </article>
+
+            <!-- 401 Unauthorized -->
+            <article class="code-card" data-category="4xx" data-code="401" data-name="UNAUTHORIZED">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-4xx">401</span>
+                    <span class="code-class-tag">4XX Client Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Unauthorized</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Resource access karne ke liye valid authentication credentials (username/password ya Bearer token) chahiye jo missing ya invalid hain.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Login brute force attacks (Hydra/Burp Intruder) mein galat password hone par 401 response trigger hota hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-client-error">Missing Auth</span>
+                </div>
+            </article>
+
+            <!-- 403 Forbidden -->
+            <article class="code-card" data-category="4xx" data-code="403" data-name="FORBIDDEN">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-4xx">403</span>
+                    <span class="code-class-tag">4XX Client Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Forbidden</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server tumhari identity samajh gaya hai, par tumhare account ke paas us resource/file ko dekhne ki authorization permission nahi hai.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> 403 Bypass techniques (X-Forwarded-For: 127.0.0.1, path case manipulation `/admin` vs `/Admin`) se test hota hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-client-error">Authorization Denied</span>
+                </div>
+            </article>
+
+            <!-- 404 Not Found -->
+            <article class="code-card" data-category="4xx" data-code="404" data-name="NOT FOUND">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-4xx">404</span>
+                    <span class="code-class-tag">4XX Client Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Not Found</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Requested webpage ya endpoint server par exist nahi karta ya jaan-boojh kar hide kiya gaya hai.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Content discovery tools 404 responses ko filter out karke hidden files (`.env`, `backup.zip`, `admin.php`) uncover karte hain.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-client-error">Endpoint Missing</span>
+                </div>
+            </article>
+
+            <!-- 429 Too Many Requests -->
+            <article class="code-card" data-category="4xx" data-code="429" data-name="TOO MANY REQUESTS RATE LIMIT">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-4xx">429</span>
+                    <span class="code-class-tag">4XX Client Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Too Many Requests</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Client ne limited time span mein allowed threshold se zyada requests send kar di hain (Server Rate Limiter ne block kar diya).
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Brute force aur scrapers ko rokne ke liye use hota hai; pentester IP rotation aur header spoofing se isko test karte hain.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-client-error">Rate Limiter Triggered</span>
+                </div>
+            </article>
+
+            <!-- 500 Internal Server Error -->
+            <article class="code-card" data-category="5xx" data-code="500" data-name="INTERNAL SERVER ERROR">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-5xx">500</span>
+                    <span class="code-class-tag">5XX Server Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Internal Server Error</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server ke backend code ya database query mein koi unhandled exception ya fatal crash aa gaya jo server handle nahi kar paya.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> SQL Injection aur Server-Side Template Injection (SSTI) testing mein 500 error aksar internal database stack trace leak karta hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-server-error">Backend Crash / Leak</span>
+                </div>
+            </article>
+
+            <!-- 501 Not Implemented -->
+            <article class="code-card" data-category="5xx" data-code="501" data-name="NOT IMPLEMENTED">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-5xx">501</span>
+                    <span class="code-class-tag">5XX Server Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Not Implemented</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server requested HTTP method (jaise PUT, TRACE ya custom verb) ko recognize nahi karta ya us functionality ko support nahi karta.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Server fingerprinting aur verb tampering testing mein allowed HTTP methods identify karne ke kaam aata hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-server-error">Unsupported Method</span>
+                </div>
+            </article>
+
+            <!-- 502 Bad Gateway -->
+            <article class="code-card" data-category="5xx" data-code="502" data-name="BAD GATEWAY">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-5xx">502</span>
+                    <span class="code-class-tag">5XX Server Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Bad Gateway</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Edge server ya reverse proxy (Cloudflare/Nginx) ko peeche chal rahe actual application server se invalid ya corrupt response mila.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Backend Node.js/Python server crash hone ya heavy denial-of-service stress test ke waqt trigger hota hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-server-error">Proxy Relay Failure</span>
+                </div>
+            </article>
+
+            <!-- 503 Service Unavailable -->
+            <article class="code-card" data-category="5xx" data-code="503" data-name="SERVICE UNAVAILABLE">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-5xx">503</span>
+                    <span class="code-class-tag">5XX Server Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Service Unavailable</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Server temporarily overloaded hai ya maintenance mode chal raha hai, isliye requests accept nahi kar pa raha.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> DoS testing mein server capacity exhaust hone aur circuit breaker triggering verify karne ke liye monitor hota hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-server-error">Overload / Maintenance</span>
+                </div>
+            </article>
+
+            <!-- 504 Gateway Timeout -->
+            <article class="code-card" data-category="5xx" data-code="504" data-name="GATEWAY TIMEOUT">
+                <div class="code-card-header">
+                    <span class="code-number-badge badge-5xx">504</span>
+                    <span class="code-class-tag">5XX Server Error</span>
+                </div>
+                <div class="code-card-body">
+                    <div class="code-title-row">
+                        <h2 class="code-name">Gateway Timeout</h2>
+                    </div>
+                    <div class="code-hinglish-box">
+                        <span class="hinglish-tag">💡 Hinglish Explanation</span>
+                        Reverse proxy ya load balancer ne backend application server se response aane ka wait kiya par allotted timeout limit expire ho gayi.
+                    </div>
+                    <div class="code-takeaway-box">
+                        <strong>Security Context:</strong> Time-Based Blind SQLi (`WAITFOR DELAY`, `sleep(10)`) test karte waqt time-out confirm hone par vulnerability prove hoti hai.
+                    </div>
+                </div>
+                <div class="code-card-footer">
+                    <span class="code-security-badge sec-server-error">Timeout Exceeded</span>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <script>
+        let currentFilter = 'all';
+
+        function setCategoryFilter(category, btn) {
+            document.querySelectorAll('.codes-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = category;
+            filterCodes();
+        }
+
+        function filterCodes() {
+            const query = document.getElementById('codeSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.code-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const code = card.getAttribute('data-code');
+                const text = card.textContent.toLowerCase();
+
+                const matchesCategory = (currentFilter === 'all' || category === currentFilter);
+                const matchesQuery = (!query || code.includes(query) || text.includes(query));
+
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('codeStatsBadge').innerText = `${visibleCount} Codes Found`;
+        }
+    </script>
+</body>
+
+</html>

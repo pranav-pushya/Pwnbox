@@ -28,6 +28,10 @@ foot/
 ├── index.html                   # Cyber Command Landing Page & 3D Matrix Gateway
 ├── games.html                   # Tactical Cyber Mini-Games & Arcade Operations Hub
 ├── notes.html                   # Operative Notes & Tactical Payload Vault
+├── career_paths.html            # Career Paths Direct Gateway Router
+├── ports.html                   # Critical Ports Direct Gateway Router
+├── http_codes.html              # HTTP Status Codes Direct Gateway Router
+├── general.html                 # General Cyber Intel Direct Gateway Router
 ├── 404.html                     # Tactical Sector 404 Bauhaus Error & Recovery Router
 ├── README.md                    # Project Documentation & Architecture
 │
@@ -41,7 +45,7 @@ foot/
 │   ├── entropy_clash.html       # Game 07: Password Entropy & 100 GH/s Hashcat Tug-of-War
 │   └── cipher_relic.html        # Game 08: Caesar, Vigenère & Symmetric XOR Stream Gates
 │
-├── 📂 assets/                   # Vector Brand Icons & FaPvicons
+├── 📂 assets/                   # Vector Brand Icons & Favicons
 │   ├── favicon-main.svg         # Tactical shield dashboard favicon
 │   └── favicon-guide.svg        # Encyclopedic master guide favicon
 │
@@ -59,7 +63,11 @@ foot/
 │   ├── masterguide_ch1.html – ch10.html # 10 Deep-Dive Chapters (100+ Documented Terms)
 │   ├── masterguide_test.html           # Comprehensive MCQ Examination Engine
 │   ├── roadmap.html                    # 9-Month Interactive CEH & Ethical Hacking Career Roadmap
-│   └── imp_info.html                   # Important Info: 20-Domain Blueprint, Lab Sandboxing & Arsenal
+│   ├── imp_info.html                   # Important Info: 20-Domain Blueprint, Lab Sandboxing & Arsenal
+│   ├── career_paths.html               # 6 Core Cybersecurity Career Specializations (Slide 1 Extended)
+│   ├── ports.html                      # 37 Critical Ports & Protocols Vault with Hinglish Explanations (Slide 2 Extended)
+│   ├── http_codes.html                 # Complete HTTP Status Codes Compendium across 5 Classes (Slide 3 Extended)
+│   └── general.html                    # General Cyber Intel: Windows Shortcuts, Domain TLDs & 1969-2026 OS Chronicles
 │
 ├── 📂 css/                      # Modular Bauhaus Design System & Themes
 │   ├── landing.css              # Landing page layout & 3D HUD canvas styling
@@ -67,6 +75,10 @@ foot/
 │   ├── index.css                # Dashboard styling, 3D ID cards, cheat drawer
 │   ├── roadmap.css              # Career roadmap layout, progress cockpit & animations
 │   ├── imp_info.css             # Field compendium styling, tabbed views & arsenal cards
+│   ├── career_paths.css         # Career paths visual matrix & specialization deck
+│   ├── ports.css                # Ports matrix styling, transport badges & copy controls
+│   ├── http_codes.css           # HTTP status code taxonomy & triage card styles
+│   ├── general.css              # General compendium, timeline, and GPU draggable dialog modals
 │   ├── masterguide_test.css     # Examination engine layout & score analytics
 │   ├── masterguide_chat.css     # AI doubt sidebar & chat message styling
 │   ├── resizer.css              # Split-pane draggable laboratory panes
@@ -185,6 +197,32 @@ A quick-access sliding drawer containing categorized, battle-tested terminal syn
 - **Tactical Arsenal Cards:** Interactive tool cards replacing cluttered tables with category filters and 1-click syntax clipboard copying.
 - **Live Search CEH Exam Blueprint:** 20 exam domains organized into 4 weightage clusters with instant keyword filtering.
 - **Virtual Lab Sandbox Architecture:** Isolated multi-VM topology (Kali, Metasploitable, OWASP Juice Shop, Windows Eval) with Host-Only and NAT network rules.
+
+### 12. 🧭 Cybersecurity Career Specializations (`masterguide/career_paths.html`)
+
+- **6 Professional Tracks:** In-depth profiles for Security Operations Center (SOC) / Blue Team, Offensive Penetration Testing / Red Team, Cloud Security Architecture, Governance, Risk & Compliance (GRC), Application Security (AppSec), and Digital Forensics & Incident Response (DFIR).
+- **Competency Matrix & Certifications:** Outlines required skill trees, prerequisite tooling, and industry-standard credential roadmaps (CompTIA Security+, CEH, OSCP, CISSP, AWS Security Specialty).
+- **Tactical Salary & Operational Day-in-the-Life:** Provides realistic compensation ranges, daily workflow walkthroughs, and high-impact interview preparation criteria.
+
+### 13. 🔌 Critical Ports & Protocols Vault (`masterguide/ports.html`)
+
+- **37 Essential Network Ports (TCP/UDP):** Spans fundamental internet infrastructure (DNS 53, DHCP 67/68, NTP 123), cleartext legacy protocols (FTP 21, Telnet 23, HTTP 80), secure encrypted alternatives (SSH 22, HTTPS 443, FTPS 989/990), enterprise directory services (Kerberos 88, LDAP 389, Active Directory SMB 445), and administrative remoting (RDP 3389, VNC 5900).
+- **Hinglish Operational Triage:** Every port features concise 2-3 line Hinglish explanations breaking down security triage, packet headers, and common attack vectors in simple intuitive language.
+- **1-Click Copy & Transport Protocol Badges:** Instant syntax copying and transport classification (TCP, UDP, TCP/UDP) for streamlined terminal workflows.
+
+### 14. 🌐 HTTP Status Codes Compendium (`masterguide/http_codes.html`)
+
+- **Complete 5-Class Taxonomy:** Thorough breakdown of 1xx Informational, 2xx Success, 3xx Redirection, 4xx Client Error, and 5xx Server Error responses.
+- **Hinglish Web Security Analysis:** Practical explanations of how web servers respond during penetration tests and automated directory fuzzing (e.g., distinguishing 401 Unauthorized vs 403 Forbidden, 301 Permanent vs 302 Temporary redirects, and 500 Internal Error SQL injection leaks).
+- **Bug Bounty & Exploitation Notes:** Highlights actionable attacker methodologies, header inspection tactics, and developer remediation countermeasures.
+
+### 15. 🪟 General Cyber Intelligence Compendium (`masterguide/general.html`)
+
+- **Windows Security Shortcuts & Administrative Run Commands:** 25 essential hotkeys, Control Panel applets (`.cpl`), and Microsoft Management Consoles (`.msc`) for incident triage and hardening, featuring a **Custom Shortcut Creator** with `localStorage` persistence.
+- **Global Top-Level Domains (TLDs) & DNS Reconnaissance:** 25 TLD categories (gTLD, ccTLD, sTLD, New gTLD, and Restricted/High-Risk TLDs like `.onion`, `.internal`, `.zip`, `.mov`), featuring a **Custom TLD Creator** with `localStorage` persistence.
+- **Chronological Operating Systems Timeline (1969 UNIX to 2026 AI-Native Zero-Trust):** 22 milestones documenting OS security architecture from Unix permissions and BSD sockets to 2026 Hardware Memory Tagging Extensions (MTE), kernel Rust integration, and Post-Quantum Cryptography (PQC).
+- **Ultra-Smooth Hardware-Accelerated Draggable Modals:** Form dialogs feature GPU-accelerated `translate3d(x, y, 0)` movement, `requestAnimationFrame` 60fps/120fps synchronization, non-blocking transparent backgrounds, and unrestricted full-screen draggability.
+
 
 
 **Clandestine Gateways Hint:** Classified Easter egg gateways are concealed throughout the academy command structure. In particular, recruits whisper of an elite secret gateway that unlocks exclusive **VIP Cyber Themes**, accessible only via a mysterious **triple-click**...(triple click also works to unlock other secret gateways!!)

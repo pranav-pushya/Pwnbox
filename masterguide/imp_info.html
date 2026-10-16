@@ -20,7 +20,7 @@
     </script>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/imp_info.css">
+    <link rel="stylesheet" href="../css/imp_info.css?v=2.7">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/theme.js"></script>
     <script src="../js/ui_popups.js"></script>
@@ -35,10 +35,7 @@
         </a>
 
         <div class="nav-actions">
-            <button onclick="toggleTheme()" class="nav-btn btn-theme" title="Toggle Light / Dark Mode">🌓 Theme</button>
-            <a href="roadmap.html" class="nav-btn btn-roadmap">🗺️ Roadmap</a>
-            <a href="cybersecurity_masterguide.html" class="nav-btn btn-guide">📖 Master Guide</a>
-            <a href="../dashboard.html" class="nav-btn btn-dash">🔙 Dashboard</a>
+            <a href="general.html" class="nav-btn btn-general" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
         </div>
     </header>
 
@@ -190,7 +187,7 @@
                             <ul class="detail-list">
                                 <li><strong>TCP 3-Way Handshake:</strong> SYN &rarr; SYN-ACK &rarr; ACK. Stealth SYN scans (<code>-sS</code>) never send the final ACK.</li>
                                 <li><strong>OSI 7-Layer Model:</strong> Physical (L1), Data Link [MAC/ARP] (L2), Network [IP] (L3), Transport [TCP/UDP] (L4), Application (L7).</li>
-                                <li><strong>Critical Ports:</strong> 21 (FTP), 22 (SSH), 53 (DNS), 80 (HTTP), 443 (HTTPS), 445 (SMB), 3389 (RDP).</li>
+                                <li><a href="ports.html" class="skill-ports-btn" title="Open Networking Protocols & Ports Reference Vault">Critical Ports ➔</a> 21 (FTP), 22 (SSH), 53 (DNS), 80 (HTTP), 443 (HTTPS), 445 (SMB), 3389 (RDP).</li>
                             </ul>
                         </div>
                     </div>
@@ -233,7 +230,7 @@
                         <div class="skill-body">
                             <p>The vast majority of breaches occur through public-facing web applications:</p>
                             <ul class="detail-list">
-                                <li><strong>HTTP Protocol:</strong> Request headers, response codes (200, 301, 401, 403, 500), Session cookies vs JWT tokens.</li>
+                                <li><a href="http_codes.html" class="skill-ports-btn skill-http-btn" title="Open HTTP Status Codes Reference Vault">HTTP Protocol ➔</a> Request headers, response codes (1XX–5XX), Session cookies vs JWT tokens.</li>
                                 <li><strong>Critical Injections:</strong> SQL Injection (SQLi), Command Injection, Server-Side Template Injection (SSTI).</li>
                                 <li><strong>Access Control Flaws:</strong> IDOR (Insecure Direct Object References), BOLA, and SSRF targeting metadata services.</li>
                             </ul>
@@ -730,8 +727,11 @@
             <section class="info-section">
                 <div class="section-header">
                     <span class="section-number">07</span>
-                    <div>
-                        <h2 class="section-title">Career Pathways & Wargames</h2>
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <h2 class="section-title">Career Pathways & Wargames</h2>
+                            <a href="career_paths.html" class="btn-more-purple" title="View Full Cybersecurity Career Paths Blueprint">MORE PATHS ➔</a>
+                        </div>
                         <p class="section-intro">
                             Certification clears initial HR filters, but demonstrated hands-on capability wins technical interviews.
                         </p>

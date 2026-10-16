@@ -183,6 +183,15 @@ body {
     background: var(--bg-panel); 
     color: var(--text-main) !important; 
 }
+.btn-general, a.nav-btn.btn-general { 
+    background: var(--bauhaus-yellow) !important; 
+    color: #000000 !important; 
+    border-color: var(--border-color);
+}
+.btn-general:hover, a.nav-btn.btn-general:hover {
+    background: #d99600 !important;
+    color: #000000 !important;
+}
 .btn-roadmap, a.nav-btn.btn-roadmap { 
     background: #2a9d8f !important; 
     color: #ffffff !important; 
@@ -1096,5 +1105,81 @@ body {
     .info-hero h1 {
         font-size: 1.35rem;
     }
+}
+
+.btn-more-purple {
+    background: #9333ea !important;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border: 2px solid var(--border-color, #0a0a0a);
+    box-shadow: 2px 2px 0 var(--border-color, #0a0a0a);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-more-purple:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--border-color, #0a0a0a);
+    color: #ffffff !important;
+}
+
+.skill-ports-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--cyber-cyan, #00c8d7);
+    color: #000000 !important;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border: 1.5px solid var(--border-color, #0a0a0a);
+    box-shadow: 2px 2px 0 var(--border-color, #0a0a0a);
+    margin-right: 6px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.skill-ports-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-color, #0a0a0a);
+    background: #38bdf8;
+    color: #000000 !important;
+}
+
+.skill-http-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--cyber-cyan, #00c8d7);
+    color: #000000 !important;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border: 1.5px solid var(--border-color, #0a0a0a);
+    box-shadow: 2px 2px 0 var(--border-color, #0a0a0a);
+    margin-right: 6px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.skill-http-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-color, #0a0a0a);
+    background: #38bdf8;
+    color: #000000 !important;
 }
 
