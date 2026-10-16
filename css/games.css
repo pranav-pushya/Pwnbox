@@ -1155,3 +1155,106 @@ body.games-body {
     flex-direction: column;
     gap: 4px;
 }
+
+/* ==========================================================================
+   GAME 5: PRIVESC FLOOR BY FLOOR SPECIFIC STYLES
+   ========================================================================== */
+.privesc-stage {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 960px) {
+    .privesc-stage {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* TOWER ELEVATOR */
+.privesc-tower-panel {
+    background: var(--bg-base);
+    border: 3px solid var(--border-color);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.privesc-floor-card {
+    padding: 12px;
+    background: var(--bg-panel);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+    opacity: 0.5;
+}
+
+.privesc-floor-card.unlocked {
+    opacity: 0.9;
+    border-color: var(--accent-blue);
+}
+
+.privesc-floor-card.active {
+    opacity: 1;
+    border-color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.12);
+    box-shadow: 4px 4px 0 var(--accent-green);
+    font-weight: 800;
+}
+
+.floor-icon-badge {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: var(--bg-base);
+}
+
+/* TERMINAL WORKBENCH */
+.privesc-terminal-box {
+    background: var(--terminal-bg);
+    border: 3px solid var(--border-color);
+    box-shadow: 6px 6px 0 var(--border-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+    font-family: 'Space Mono', monospace;
+}
+
+.privesc-term-header {
+    background: #111827;
+    border-bottom: 2px solid #374151;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #9ca3af;
+    font-size: 0.75rem;
+}
+
+.privesc-screen {
+    flex: 1;
+    padding: 16px;
+    color: #38bdf8;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    overflow-y: auto;
+    max-height: 360px;
+    white-space: pre-wrap;
+}
+
+.privesc-actions-bar {
+    background: #0f172a;
+    border-top: 2px solid #1e293b;
+    padding: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

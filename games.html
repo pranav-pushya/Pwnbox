@@ -506,7 +506,103 @@
                 </p>
             </div>
         </section>
-        <section class="game-instance-container" id="game-privesc-tower"></section>
+        <!-- ================================================================= -->
+        <!-- GAME 5: PRIVESC FLOOR BY FLOOR                                    -->
+        <!-- ================================================================= -->
+        <section class="game-instance-container" id="game-privesc-tower">
+            <div class="game-header-bar">
+                <div class="game-title-group">
+                    <h2><span>🏰</span> PRIVESC: FLOOR BY FLOOR <span class="game-badge badge-defense">HOST EXPLOITATION / LINUX</span></h2>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                        Ascend the corporate server tower from unprivileged www-data service daemon to UID 0 root god-mode!
+                    </p>
+                </div>
+                <div class="game-stats-hud">
+                    <div class="stat-box">
+                        <span class="stat-label">Current Clearance</span>
+                        <span class="stat-val" id="privescRankVal" style="color: var(--accent-yellow);">www-data</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Tower Floor</span>
+                        <span class="stat-val" id="privescFloorVal">0 / 3</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Effective UID</span>
+                        <span class="stat-val" id="privescUidVal">33</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="privesc-stage">
+                <!-- Tower Elevator HUD -->
+                <aside class="privesc-tower-panel">
+                    <div style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">
+                        🏢 SERVER TOWER ELEVATOR
+                    </div>
+
+                    <!-- Floor 3 (Penthouse) -->
+                    <div class="privesc-floor-card" id="floorCard3">
+                        <div class="floor-icon-badge">👑</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 3: ROOT PENTHOUSE</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=0(root) &bull; Full Kernel Control</div>
+                        </div>
+                    </div>
+
+                    <!-- Floor 2 -->
+                    <div class="privesc-floor-card" id="floorCard2">
+                        <div class="floor-icon-badge">💻</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 2: DEVELOPER SUITE</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=1001(developer) &bull; Sudoers</div>
+                        </div>
+                    </div>
+
+                    <!-- Floor 1 -->
+                    <div class="privesc-floor-card" id="floorCard1">
+                        <div class="floor-icon-badge">👤</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 1: LOCAL CADET</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=1000(cadet) &bull; Shell Access</div>
+                        </div>
+                    </div>
+
+                    <!-- Floor 0 (Basement) -->
+                    <div class="privesc-floor-card active unlocked" id="floorCard0">
+                        <div class="floor-icon-badge">📦</div>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: 800;">FLOOR 0: SUB-BASEMENT</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">uid=33(www-data) &bull; Restricted Daemon</div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Interactive Terminal Box -->
+                <div class="privesc-terminal-box">
+                    <div class="privesc-term-header">
+                        <span id="privescTermPromptTitle">www-data@pwnbox-host:~$</span>
+                        <span>TTY /dev/pts/2 &bull; LINUX 6.8.0-GENERIC</span>
+                    </div>
+
+                    <div class="privesc-screen" id="privescScreen">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+
+                    <!-- Recon & Exploit Action Buttons -->
+                    <div class="privesc-actions-bar" id="privescActionsContainer">
+                        <!-- Buttons rendered dynamically based on floor -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Concept Briefing -->
+            <div class="cyber-briefing-box">
+                <h4><span>💡</span> WHAT THIS TEACHES: LINUX PRIVILEGE ESCALATION VECTORS & GTFOBINS</h4>
+                <p>
+                    Initial access rarely yields administrative authority. Penetration testers leverage misconfigurations such as <strong>SUID binaries</strong> (programs that run with the file owner's permissions regardless of caller), <strong>Writable Cron Jobs</strong> executing as root, and loose <strong>sudoers rules (NOPASSWD)</strong> documented in the GTFOBins catalog. Securing systems requires enforcing the <em>Principle of Least Privilege</em>, regular auditing with tools like LinPEAS, and removing unnecessary SUID bits.
+                </p>
+            </div>
+        </section>
         <section class="game-instance-container" id="game-ransom-panic"></section>
         <section class="game-instance-container" id="game-entropy-clash"></section>
         <section class="game-instance-container" id="game-cipher-relic"></section>
