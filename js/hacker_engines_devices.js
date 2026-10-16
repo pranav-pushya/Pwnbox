@@ -200,7 +200,7 @@ function initSearchInput() {
 }
 
 function initDeviceInteractivity() {
-    // 3D Perspective Tilt on Hover
+    // 3D Perspective Tilt on Hover for Device Frames
     document.querySelectorAll('.device-img-frame').forEach(frame => {
         const img = frame.querySelector('img');
         
@@ -208,23 +208,26 @@ function initDeviceInteractivity() {
             const rect = frame.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            const rotateX = -(y / rect.height) * 18;
-            const rotateY = (x / rect.width) * 18;
+            const rotateX = -(y / rect.height) * 16;
+            const rotateY = (x / rect.width) * 16;
             if (img) {
-                img.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
+                img.style.animation = 'none';
+                img.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.12)`;
             }
         });
 
         frame.addEventListener('mouseleave', () => {
             if (img) {
+                img.style.animation = 'deviceFloatAnim 4.5s ease-in-out infinite';
                 img.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
             }
         });
+    });
 
-        // Click to Open Tactical Inspection Modal
-        frame.addEventListener('click', () => {
-            const card = frame.closest('.device-card');
-            if (!card) return;
+    // Click anywhere on device card to open Tactical Inspection Modal
+    document.querySelectorAll('.device-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-copy-device')) return;
             openDeviceInspectModal(card);
         });
     });
@@ -262,6 +265,15 @@ function closeDeviceInspectModal() {
     playEngineSound('click');
     modal.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+function copyCurrentModalIntel() {
+    const modal = document.getElementById('deviceInspectModal');
+    if (!modal) return;
+    const name = modal.querySelector('.modal-device-name')?.textContent || '';
+    const summary = modal.querySelector('.modal-summary-text')?.textContent || '';
+    const text = `${name} - ${summary}`;
+    copyEngineText(text);
 }
 
 document.addEventListener('keydown', (e) => {

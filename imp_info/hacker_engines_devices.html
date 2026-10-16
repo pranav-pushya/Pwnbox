@@ -144,7 +144,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Desktop / Tactical Handheld</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('WiFi Pineapple - PineAP wireless interception platform')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -184,7 +184,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Mobile Android Smartphone</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('Kali NetHunter - Mobile Linux Pentesting OS')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -224,7 +224,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Standard USB Thumb Drive</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('USB Rubber Ducky - Hak5 HID Keystroke Injector')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -264,7 +264,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Rugged USB Flash Drive</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('Bash Bunny - Multi-vector Linux USB Attack Device')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -304,7 +304,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Handheld Gaming Toy Shell</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('Flipper Zero - Multi-Protocol Hardware Swiss Army Knife')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -344,7 +344,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Innocent USB Dongle</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('LAN Turtle - Covert Hak5 Network Implant')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -384,7 +384,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Standard Braided Charging Cable</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('O.MG Cable - Covert Wi-Fi BadUSB Charging Cable')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -424,7 +424,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Micro Ethernet Inline Box</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('Packet Squirrel - Hak5 Ethernet Tap & Sniffer')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -464,7 +464,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Compact PCB with High-Q Antennas</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('Proxmark3 - RFID & NFC Cryptanalysis & Cloning Tool')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -504,7 +504,7 @@
                     </div>
                     <div class="device-card-footer">
                         <span style="font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--text-muted);">Form: Software Framework on Microcontrollers</span>
-                        <button class="btn-engine-action" onclick="copyEngineText('Evil Portal - Captive Portal Phishing Framework')">📋 Copy Specs</button>
+                        <button class="btn-inspect-device" title="Click to view deep technical specs & attack vectors">🔬 Full Intel & Specs →</button>
                     </div>
                 </div>
 
@@ -1412,6 +1412,7 @@
                 <div class="modal-vector-container"></div>
             </div>
             <div class="modal-footer-bar">
+                <button class="btn-inspect-device" onclick="copyCurrentModalIntel()">📋 Copy Device Intel</button>
                 <button class="btn-engine-action" onclick="closeDeviceInspectModal()">Close Inspector</button>
             </div>
         </div>
