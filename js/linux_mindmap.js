@@ -745,46 +745,59 @@ function renderGridView() {
 function setupViewSwitcher() {
     const btnMindMap = document.getElementById('btnViewMindMap');
     const btnGrid = document.getElementById('btnViewGrid');
+    const mindmapWrap = document.getElementById('mindmapWrap');
+    const gridView = document.getElementById('linuxGridView');
 
-    if (btnMindMap && btnGrid) {
+    if (btnMindMap && btnGrid && mindmapWrap && gridView) {
         btnMindMap.addEventListener('click', () => {
             btnMindMap.classList.add('active');
             btnGrid.classList.remove('active');
-            toggleGridView(false);
+            mindmapWrap.style.display = 'block';
+            gridView.classList.remove('active');
+            playCyberSound('click');
         });
 
         btnGrid.addEventListener('click', () => {
             btnGrid.classList.add('active');
             btnMindMap.classList.remove('active');
-            toggleGridView(true);
+            mindmapWrap.style.display = 'none';
+            gridView.classList.add('active');
+            playCyberSound('click');
+        });
+    }
+
+    const btnFullscreen = document.getElementById('btnToggleFullscreen');
+    if (btnFullscreen) {
+        btnFullscreen.addEventListener('click', () => {
+            toggleFullscreenMindmap();
         });
     }
 }
 
-function toggleGridView(show) {
-    const overlay = document.getElementById('linuxGridOverlay');
-    const btnGrid = document.getElementById('btnViewGrid');
-    const btnMindMap = document.getElementById('btnViewMindMap');
-    if (overlay) {
-        overlay.classList.toggle('active', show);
-        if (btnGrid && btnMindMap) {
-            btnGrid.classList.toggle('active', show);
-            btnMindMap.classList.toggle('active', !show);
-        }
-        playCyberSound('click');
-    }
-}
-window.toggleGridView = toggleGridView;
+function toggleFullscreenMindmap(forceState) {
+    const wrap = document.getElementById('mindmapWrap');
+    if (!wrap) return;
 
-function closeLinuxFullscreen() {
-    playCyberSound('click');
-    if (window.history.length > 1) {
-        window.history.back();
-    } else {
-        window.location.href = '../index.html';
+    const isCurrentlyFullscreen = wrap.classList.contains('is-fullscreen');
+    const willBeFullscreen = typeof forceState === 'boolean' ? forceState : !isCurrentlyFullscreen;
+
+    wrap.classList.toggle('is-fullscreen', willBeFullscreen);
+    document.body.classList.toggle('mindmap-fullscreen-active', willBeFullscreen);
+
+    const btnFullscreen = document.getElementById('btnToggleFullscreen');
+    if (btnFullscreen) {
+        btnFullscreen.textContent = willBeFullscreen ? '✕ Exit Fullscreen' : '⛶ Fullscreen';
+        btnFullscreen.classList.toggle('active', willBeFullscreen);
     }
+
+    playCyberSound(willBeFullscreen ? 'open' : 'click');
+
+    setTimeout(() => {
+        if (window.fitToScreen) window.fitToScreen();
+    }, 100);
 }
-window.closeLinuxFullscreen = closeLinuxFullscreen;
+window.toggleFullscreenMindmap = toggleFullscreenMindmap;
+window.closeLinuxFullscreen = () => toggleFullscreenMindmap(false);
 
 // ==========================================================================
 // COPY COMMAND TO CLIPBOARD & TOAST NOTIFICATION
@@ -839,13 +852,11 @@ function setupTerminalSimulator() {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             const termModal = document.getElementById('terminalModal');
-            const gridOverlay = document.getElementById('linuxGridOverlay');
+            const wrap = document.getElementById('mindmapWrap');
             if (termModal && termModal.classList.contains('active')) {
                 closeTerminalSimulator();
-            } else if (gridOverlay && gridOverlay.classList.contains('active')) {
-                toggleGridView(false);
-            } else {
-                closeLinuxFullscreen();
+            } else if (wrap && wrap.classList.contains('is-fullscreen')) {
+                toggleFullscreenMindmap(false);
             }
         }
     });

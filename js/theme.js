@@ -1245,9 +1245,16 @@ document.addEventListener('keydown', function (e) {
     const settingsModal = document.getElementById('pwnboxSettingsOverlay');
     if (settingsModal && settingsModal.classList.contains('active')) return;
 
-    // 6. Disable single-key navigation if on any games page so gameplay is completely uninterrupted
+    // 1b. Shortcut: '?' (or Shift + /) opens the Command Palette & Shortcuts modal
+    if (e.key === '?' || (e.shiftKey && (e.key === '/' || e.code === 'Slash'))) {
+        e.preventDefault();
+        toggleShortcutsModal();
+        return;
+    }
+
+    // 6. Disable single-key navigation if inside an active mini-game simulator subpage (/games/...)
     const currentPath = window.location.pathname.toLowerCase().replace(/\\/g, '/');
-    if (currentPath.includes('/games/') || currentPath.endsWith('/games.html') || currentPath.endsWith('/games')) {
+    if (currentPath.includes('/games/') && !currentPath.endsWith('/games.html') && !currentPath.endsWith('/games')) {
         return;
     }
 
