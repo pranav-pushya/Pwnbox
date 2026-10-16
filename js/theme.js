@@ -1243,7 +1243,13 @@ document.addEventListener('keydown', function (e) {
     const settingsModal = document.getElementById('pwnboxSettingsOverlay');
     if (settingsModal && settingsModal.classList.contains('active')) return;
 
-    // 6. Universal Single-Letter Shortcuts:
+    // 6. Disable single-key navigation if on any games page so gameplay is completely uninterrupted
+    const currentPath = window.location.pathname.toLowerCase().replace(/\\/g, '/');
+    if (currentPath.includes('/games/') || currentPath.endsWith('/games.html') || currentPath.endsWith('/games')) {
+        return;
+    }
+
+    // 7. Universal Single-Letter Shortcuts:
     const k = e.key ? e.key.toLowerCase() : '';
 
     switch (k) {

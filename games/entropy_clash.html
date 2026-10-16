@@ -28,11 +28,11 @@
     <!-- Top Header Navigation -->
     <header class="games-top-header">
         <div class="games-header-left">
-            <a href="../games.html" class="games-nav-btn" title="Back to Games Hub (Press 'G')">
+            <a href="../games.html" class="games-nav-btn" title="Back to Games Hub">
                 <span>⬅️</span>
                 <span>ARCADE HUB</span>
             </a>
-            <a href="../dashboard.html" class="games-nav-btn" title="Dashboard (Press 'D')">
+            <a href="../dashboard.html" class="games-nav-btn" title="Dashboard">
                 <span>📊</span>
                 <span>DASHBOARD</span>
             </a>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="games-header-right">
-            <button onclick="openGameIntelModal('entropy-clash')" class="games-nav-btn" style="background: rgba(0, 240, 255, 0.12); border-color: var(--accent-cyan); color: var(--accent-cyan);" title="Mission Briefing & How to Play">
+            <button onclick="openGameIntelModal('entropy-clash')" class="game-intel-pill-btn" title="Mission Briefing & How to Play">
                 <span>ℹ️</span>
                 <span>HOW TO PLAY & INTEL</span>
             </button>
@@ -52,7 +52,7 @@
                 <span>⚡</span>
                 <span id="totalXpDisplay">TOTAL XP: 0</span>
             </div>
-            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme (Press 'T')">
+            <button onclick="toggleTheme()" class="games-nav-btn" title="Toggle Cyber Theme">
                 <span>🌓</span>
                 <span>THEME</span>
             </button>
@@ -64,7 +64,12 @@
         <section class="game-instance-container active" id="game-entropy-clash" style="display: block;">
             <div class="game-header-bar">
                 <div class="game-title-group">
-                    <h2><span>🔏</span> ENTROPY CLASH: PASSWORD TUG-OF-WAR <span class="game-badge badge-crypto">CRYPTOGRAPHY / AUTH</span></h2>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <h2><span>🔏</span> ENTROPY CLASH: PASSWORD TUG-OF-WAR <span class="game-badge badge-crypto">CRYPTOGRAPHY / AUTH</span></h2>
+                        <button class="game-intel-pill-btn" onclick="openGameIntelModal('entropy-clash')" title="How to Play & Intel">
+                            <span>ℹ️ HOW TO PLAY & INTEL</span>
+                        </button>
+                    </div>
                     <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
                         Pit your password designs against an enterprise Hashcat 100 GH/s GPU cracking rig. Discover why length and key-stretching beat complexity!
                     </p>

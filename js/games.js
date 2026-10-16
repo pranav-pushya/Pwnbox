@@ -490,15 +490,16 @@ document.addEventListener('keydown', (e) => {
     const activeEl = document.activeElement;
     if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) return;
 
-    if (ArcadeState.activeGame === 'game-packet-gatekeeper') {
-        const k = e.key.toLowerCase();
-        if (k === 'a' || e.key === 'ArrowLeft') {
+    // Packet Gatekeeper: Arrow keys only (A, S, D removed to prevent conflict)
+    const isPgActive = document.getElementById('pgChamber') || ArcadeState.activeGame === 'game-packet-gatekeeper';
+    if (isPgActive) {
+        if (e.key === 'ArrowLeft') {
             e.preventDefault();
             handlePgAction('allow');
-        } else if (k === 'd' || e.key === 'ArrowRight') {
+        } else if (e.key === 'ArrowRight') {
             e.preventDefault();
             handlePgAction('drop');
-        } else if (k === 's' || e.key === 'ArrowDown') {
+        } else if (e.key === 'ArrowDown') {
             e.preventDefault();
             handlePgAction('quarantine');
         }
@@ -508,7 +509,9 @@ document.addEventListener('keydown', (e) => {
 // Auto-boot on load
 window.addEventListener('DOMContentLoaded', () => {
     addArcadeXp(0);
-    initPacketGatekeeper();
+    if (document.getElementById('pgChamber')) {
+        initPacketGatekeeper();
+    }
 });
 
 

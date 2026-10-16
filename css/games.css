@@ -1786,3 +1786,28 @@ body.games-body {
     transform: translate(-2px, -2px);
     box-shadow: 4px 4px 0 var(--border-color);
 }
+
+/* IN-GAME INTEL BUTTON */
+.game-intel-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(0, 240, 255, 0.12);
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border-color);
+    transition: all 0.15s ease;
+    border-radius: 2px;
+}
+
+.game-intel-pill-btn:hover {
+    background: var(--accent-cyan);
+    color: #000;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-color);
+}
