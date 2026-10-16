@@ -27,133 +27,99 @@
     <script src="../js/ui_popups.js"></script>
 </head>
 
-<body>
-    <!-- Top Navigation Bar -->
-    <header class="info-nav">
-        <a href="../index.html" class="nav-brand" title="Back to Home Portal">
-            <span class="brand-icon">🐧</span>
-            <span class="brand-title">PwnBox // Imp Info</span>
-        </a>
+<body class="linux-fullscreen-body">
 
-        <div class="nav-actions">
-            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
-            <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
-            <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines & Devices</a>
-            <a href="linux.html" class="nav-btn active" title="Linux Commands & Hardening">🐧 Linux</a>
-        </div>
-    </header>
+    <!-- Red Cross Close Button at Top Right Corner -->
+    <button class="mindmap-fullscreen-close" id="mindmapFullscreenClose" onclick="closeLinuxFullscreen()" title="Close / Return to Previous Page (ESC)">✕</button>
 
-    <!-- Main Container Wrap -->
-    <main class="linux-page-wrap">
-
-        <!-- Hero Header -->
-        <section class="linux-hero-header">
-            <div class="linux-hero-title-group">
-                <span class="linux-hero-tag">// BYTEBYTEGO ARCHITECTURE // SLIDE 13</span>
-                <h1 class="linux-hero-title">
-                    <span class="linux-hero-title-bar"></span>
-                    MOST USED LINUX COMMANDS
-                </h1>
-                <p class="linux-hero-desc">
-                    Comprehensive interactive mind map and command hierarchy: 70 essential terminal commands classified across 12 operational subsystems. Click any command pill to copy to clipboard or launch the live terminal simulator.
-                </p>
-            </div>
-
-            <!-- Stats Badge Counter -->
-            <div class="linux-quick-stats">
-                <div class="stat-chip">
-                    <span class="stat-chip-num">12</span>
-                    <span class="stat-chip-label">Subsystems</span>
-                </div>
-                <div class="stat-chip">
-                    <span class="stat-chip-num" id="searchMatchCount">70 COMMANDS</span>
-                    <span class="stat-chip-label">Total Tools</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Command Search & Controls Toolbar -->
-        <section class="linux-toolbar">
-            <div class="toolbar-primary-row">
-                <!-- Live Search Box -->
-                <div class="search-box-wrap">
-                    <span class="search-input-icon">🔍</span>
-                    <input type="text" id="linuxSearchInput" class="linux-search-input" placeholder="Search 70+ commands, flags, descriptions (e.g. grep, port, tar, whoami)..." autocomplete="off" spellcheck="false">
-                    <button class="search-clear-btn" id="searchClearBtn" title="Clear Search">✕</button>
-                </div>
-
-                <!-- Action Controls -->
-                <div class="toolbar-actions">
-                    <button class="btn-cyber active" id="btnViewMindMap" title="View Exact Flowchart Layout from Slide 13">🗺️ Mind Map</button>
-                    <button class="btn-cyber" id="btnViewGrid" title="Switch to Searchable Categorized Grid">📊 Grid View</button>
-                    <button class="btn-cyber" id="btnToggleFullscreen" title="Toggle Fullscreen Interactive Canvas">⛶ Fullscreen</button>
-                    <button class="btn-cyber" id="btnExportCheatSheet" title="Copy Full Markdown Cheat Sheet">📋 Export All</button>
-                </div>
-            </div>
-
-            <!-- Category Filter Pills -->
-            <div class="category-filter-chips" id="categoryFilterChips">
-                <!-- Dynamically populated by JS -->
-            </div>
-        </section>
-
-        <!-- ==========================================================================
-             INTERACTIVE MIND MAP VIEWPORT (EXACT SLIDE 13 VISUAL LAYOUT)
-             ========================================================================== -->
-        <div class="mindmap-viewport-wrapper" id="mindmapWrap">
-            <!-- Background Matrix Grid -->
-            <div class="mindmap-canvas-bg-grid"></div>
-
-            <!-- Controllable Pan/Zoom Canvas Surface -->
-            <div class="mindmap-surface" id="mindmapSurface">
-                <!-- SVG Connector Layer for Center Rays & Branch Curves -->
-                <svg class="mindmap-svg-layer" id="mindmapSvgLayer" viewBox="0 0 1720 1380"></svg>
-
-                <!-- Center Tux Penguin Hub Badge -->
-                <div class="mindmap-center-hub" id="centerTuxHub" title="Linux Commands Central Architecture">
-                    <div class="tux-outer-ring"></div>
-                    <div class="tux-circle-badge">
-                        <img src="../assets/tux_badge.png" alt="Linux Tux Badge">
-                    </div>
-                    <div class="tux-label-arc">Linux Commands</div>
-                </div>
-
-                <!-- 12 Category Boxes & Command Capsules will be rendered here by JS -->
-            </div>
-
-            <!-- Floating Navigation & Zoom HUD -->
-            <div class="mindmap-hud-controls">
-                <button class="hud-btn" onclick="zoomMindMap(0.12)" title="Zoom In (+)">＋</button>
-                <button class="hud-btn" onclick="zoomMindMap(-0.12)" title="Zoom Out (-)">－</button>
-                <button class="hud-btn" onclick="centerView()" title="Center Mind Map">🎯</button>
-                <button class="hud-btn" onclick="fitToScreen()" title="Fit to Screen">📐</button>
-            </div>
-
-            <!-- Floating Interaction Hint -->
-            <div class="mindmap-hud-hint">
-                <span>🖱️ DRAG TO PAN</span>
-                <span>•</span>
-                <span>📜 SCROLL TO ZOOM</span>
-                <span>•</span>
-                <span>📋 CLICK ANY COMMAND TO COPY & TEST</span>
-            </div>
+    <!-- Floating Top-Left Command Search & Intel HUD -->
+    <div class="mindmap-floating-hud">
+        <div class="hud-brand-pill">
+            <span class="hud-brand-dot"></span>
+            <span class="hud-brand-text">LINUX COMMANDS // MIND MAP</span>
         </div>
 
-        <!-- ==========================================================================
-             ALTERNATIVE CATEGORIZED GRID VIEW (FOR RAPID SCANNING & MOBILE)
-             ========================================================================== -->
-        <div class="linux-grid-view" id="linuxGridView">
+        <div class="hud-search-row">
+            <div class="search-box-wrap">
+                <span class="search-input-icon">🔍</span>
+                <input type="text" id="linuxSearchInput" class="linux-search-input" placeholder="Search commands, flags, descriptions..." autocomplete="off" spellcheck="false">
+                <button class="search-clear-btn" id="searchClearBtn" title="Clear Search">✕</button>
+            </div>
+            <div class="hud-stat-pill" id="searchMatchCount">70 COMMANDS</div>
+        </div>
+
+        <!-- Category Filter Chips Bar -->
+        <div class="category-filter-chips" id="categoryFilterChips">
             <!-- Dynamically populated by JS -->
         </div>
 
-    </main>
+        <!-- Secondary Actions -->
+        <div class="hud-actions-row">
+            <button class="btn-cyber active" id="btnViewMindMap" title="Mind Map View">🗺️ Mind Map</button>
+            <button class="btn-cyber" id="btnViewGrid" title="Switch to Grid View">📊 Grid</button>
+            <button class="btn-cyber" id="btnExportCheatSheet" title="Export Markdown Cheat Sheet">📋 Export All</button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         FULLSCREEN MIND MAP VIEWPORT (COVERS ENTIRE SCREEN 100vw x 100vh)
+         ========================================================================== -->
+    <div class="mindmap-viewport-wrapper" id="mindmapWrap">
+        <!-- Background Matrix Grid -->
+        <div class="mindmap-canvas-bg-grid"></div>
+
+        <!-- Controllable Pan/Zoom Canvas Surface -->
+        <div class="mindmap-surface" id="mindmapSurface">
+            <!-- SVG Connector Layer for Center Rays & Branch Curves -->
+            <svg class="mindmap-svg-layer" id="mindmapSvgLayer" viewBox="0 0 1720 1380"></svg>
+
+            <!-- Center Tux Penguin Hub Badge (ONLY LOGO AT CENTRE, COVERS THE DOTTED CIRCLE) -->
+            <div class="mindmap-center-hub" id="centerTuxHub" title="Linux Tux Core Architecture">
+                <div class="tux-outer-ring"></div>
+                <div class="tux-circle-badge">
+                    <img src="../assets/tux_badge.png" alt="Linux Tux Logo">
+                </div>
+            </div>
+
+            <!-- 12 Category Boxes & Command Capsules will be rendered here by JS -->
+        </div>
+
+        <!-- Floating Navigation & Zoom HUD (Bottom-Right) -->
+        <div class="mindmap-hud-controls">
+            <button class="hud-btn" onclick="zoomMindMap(0.12)" title="Zoom In (+)">＋</button>
+            <button class="hud-btn" onclick="zoomMindMap(-0.12)" title="Zoom Out (-)">－</button>
+            <button class="hud-btn" onclick="centerView()" title="Center Mind Map">🎯</button>
+            <button class="hud-btn" onclick="fitToScreen()" title="Fit to Screen">📐</button>
+        </div>
+
+        <!-- Floating Interaction Hint (Bottom-Left) -->
+        <div class="mindmap-hud-hint">
+            <span>🖱️ DRAG TO PAN</span>
+            <span>•</span>
+            <span>📜 SCROLL TO ZOOM</span>
+            <span>•</span>
+            <span>📋 CLICK ANY COMMAND TO COPY & TEST</span>
+        </div>
+    </div>
+
+    <!-- Alternative Grid View Modal/Drawer if clicked -->
+    <div class="linux-grid-overlay" id="linuxGridOverlay">
+        <div class="linux-grid-modal-body">
+            <div class="linux-grid-header">
+                <h2>// ALL LINUX COMMANDS DIRECTORY</h2>
+                <button class="btn-cyber" onclick="toggleGridView(false)">✕ Close Grid</button>
+            </div>
+            <div class="linux-grid-view active" id="linuxGridView">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================================================
          INTERACTIVE LIVE TERMINAL SANDBOX MODAL
          ========================================================================== -->
     <div class="terminal-sandbox-modal" id="terminalModal" role="dialog" aria-modal="true" aria-label="Terminal Simulator">
         <div class="terminal-window">
-            <!-- Terminal Title Bar -->
             <div class="terminal-header">
                 <div class="terminal-dots">
                     <span class="dot dot-red"></span>
@@ -164,7 +130,6 @@
                 <button class="terminal-close-btn" id="terminalCloseBtn" title="Close (ESC)">✕</button>
             </div>
 
-            <!-- Intel Specs Header -->
             <div class="terminal-intel-bar">
                 <span class="intel-category-badge" id="terminalCatBadge">// CATEGORY</span>
                 <div class="intel-cmd-name" id="terminalCmdName">COMMAND</div>
@@ -172,18 +137,13 @@
                 <div class="intel-cmd-flags" id="terminalCmdFlags">Flags & options breakdown</div>
             </div>
 
-            <!-- Simulated Terminal Output Screen -->
-            <div class="terminal-screen" id="terminalOutputScreen">
-                <!-- Populated dynamically -->
-            </div>
+            <div class="terminal-screen" id="terminalOutputScreen"></div>
 
-            <!-- Interactive CLI Input Line -->
             <div style="background:#090d16; padding: 10px 20px; border-top: 1px solid #1a2538; display: flex; align-items: center; gap: 8px;">
                 <span style="color:#00ff66; font-family:'Space Mono', monospace; font-size:0.85rem; font-weight:bold;">analyst@pwnbox:~$</span>
                 <input type="text" id="terminalCliInput" style="flex:1; background:none; border:none; color:#f1f5f9; font-family:'Space Mono', monospace; font-size:0.88rem; outline:none;" placeholder="Type a command (ls, whoami, uname -a, clear) and press Enter..." autocomplete="off" spellcheck="false">
             </div>
 
-            <!-- Terminal Modal Footer Actions -->
             <div class="terminal-footer-actions">
                 <button class="btn-cyber" id="btnTerminalCopyCmd">📋 Copy Command</button>
                 <button class="btn-cyber" onclick="closeTerminalSimulator()">Done</button>

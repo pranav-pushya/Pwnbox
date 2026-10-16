@@ -745,39 +745,46 @@ function renderGridView() {
 function setupViewSwitcher() {
     const btnMindMap = document.getElementById('btnViewMindMap');
     const btnGrid = document.getElementById('btnViewGrid');
-    const mindmapWrap = document.getElementById('mindmapWrap');
-    const gridView = document.getElementById('linuxGridView');
 
-    if (btnMindMap && btnGrid && mindmapWrap && gridView) {
+    if (btnMindMap && btnGrid) {
         btnMindMap.addEventListener('click', () => {
             btnMindMap.classList.add('active');
             btnGrid.classList.remove('active');
-            mindmapWrap.style.display = 'block';
-            gridView.classList.remove('active');
-            playCyberSound('click');
+            toggleGridView(false);
         });
 
         btnGrid.addEventListener('click', () => {
             btnGrid.classList.add('active');
             btnMindMap.classList.remove('active');
-            mindmapWrap.style.display = 'none';
-            gridView.classList.add('active');
-            playCyberSound('click');
-        });
-    }
-
-    const btnFullscreen = document.getElementById('btnToggleFullscreen');
-    if (btnFullscreen && mindmapWrap) {
-        btnFullscreen.addEventListener('click', () => {
-            mindmapWrap.classList.toggle('is-fullscreen');
-            btnFullscreen.textContent = mindmapWrap.classList.contains('is-fullscreen') ? '✕ Exit' : '⛶ Fullscreen';
-            playCyberSound('open');
-            setTimeout(() => {
-                if (window.fitToScreen) window.fitToScreen();
-            }, 100);
+            toggleGridView(true);
         });
     }
 }
+
+function toggleGridView(show) {
+    const overlay = document.getElementById('linuxGridOverlay');
+    const btnGrid = document.getElementById('btnViewGrid');
+    const btnMindMap = document.getElementById('btnViewMindMap');
+    if (overlay) {
+        overlay.classList.toggle('active', show);
+        if (btnGrid && btnMindMap) {
+            btnGrid.classList.toggle('active', show);
+            btnMindMap.classList.toggle('active', !show);
+        }
+        playCyberSound('click');
+    }
+}
+window.toggleGridView = toggleGridView;
+
+function closeLinuxFullscreen() {
+    playCyberSound('click');
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = '../index.html';
+    }
+}
+window.closeLinuxFullscreen = closeLinuxFullscreen;
 
 // ==========================================================================
 // COPY COMMAND TO CLIPBOARD & TOAST NOTIFICATION
@@ -830,8 +837,16 @@ function setupTerminalSimulator() {
     }
 
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-            closeTerminalSimulator();
+        if (e.key === 'Escape') {
+            const termModal = document.getElementById('terminalModal');
+            const gridOverlay = document.getElementById('linuxGridOverlay');
+            if (termModal && termModal.classList.contains('active')) {
+                closeTerminalSimulator();
+            } else if (gridOverlay && gridOverlay.classList.contains('active')) {
+                toggleGridView(false);
+            } else {
+                closeLinuxFullscreen();
+            }
         }
     });
 
@@ -968,4 +983,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnExport) {
         btnExport.addEventListener('click', copyAllCheatSheet);
     }
+
+    // Auto-fit to viewport on load
+    setTimeout(() => {
+        if (window.fitToScreen) window.fitToScreen();
+    }, 120);
+
+    // Auto-fit on window resize
+    window.addEventListener('resize', () => {
+        if (window.fitToScreen) window.fitToScreen();
+    });
 });
