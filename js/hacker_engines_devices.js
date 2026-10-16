@@ -199,9 +199,81 @@ function initSearchInput() {
     });
 }
 
+function initDeviceInteractivity() {
+    // 3D Perspective Tilt on Hover
+    document.querySelectorAll('.device-img-frame').forEach(frame => {
+        const img = frame.querySelector('img');
+        
+        frame.addEventListener('mousemove', (e) => {
+            const rect = frame.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const rotateX = -(y / rect.height) * 18;
+            const rotateY = (x / rect.width) * 18;
+            if (img) {
+                img.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
+            }
+        });
+
+        frame.addEventListener('mouseleave', () => {
+            if (img) {
+                img.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+            }
+        });
+
+        // Click to Open Tactical Inspection Modal
+        frame.addEventListener('click', () => {
+            const card = frame.closest('.device-card');
+            if (!card) return;
+            openDeviceInspectModal(card);
+        });
+    });
+}
+
+function openDeviceInspectModal(card) {
+    const modal = document.getElementById('deviceInspectModal');
+    if (!modal) return;
+
+    playEngineSound('tab');
+
+    const name = card.querySelector('.device-name')?.textContent || 'Device';
+    const vendor = card.querySelector('.device-vendor')?.textContent || '';
+    const img = card.querySelector('.device-img-frame img')?.src || '';
+    const summary = card.querySelector('.device-core-summary')?.textContent || '';
+    const intel = card.querySelector('.device-tech-intel')?.textContent || '';
+    const specsHtml = card.querySelector('.device-spec-box')?.innerHTML || '';
+    const vectorsHtml = card.querySelector('.device-intel-grid')?.innerHTML || '';
+
+    modal.querySelector('.modal-device-name').textContent = `${name} ${vendor}`;
+    modal.querySelector('.modal-img-stage img').src = img;
+    modal.querySelector('.modal-img-stage img').alt = name;
+    modal.querySelector('.modal-summary-text').textContent = summary;
+    modal.querySelector('.modal-tech-desc').textContent = intel;
+    modal.querySelector('.modal-spec-container').innerHTML = specsHtml;
+    modal.querySelector('.modal-vector-container').innerHTML = vectorsHtml;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDeviceInspectModal() {
+    const modal = document.getElementById('deviceInspectModal');
+    if (!modal) return;
+    playEngineSound('click');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeDeviceInspectModal();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     initViewTabs();
     updateFilterPills('devices');
     initSearchInput();
     applyAllFilters();
+    initDeviceInteractivity();
 });
