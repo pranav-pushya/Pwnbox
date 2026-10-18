@@ -49,7 +49,8 @@
             const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
             if (!isAuth) {
                 const isSubfolder = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/imp_info/') || path.includes('/games/');
-                const redirectUrl = (isSubfolder ? '../' : './') + 'index.html?auth_required=1';
+                const isLocal = window.location.protocol === 'file:';
+                const redirectUrl = isLocal ? ((isSubfolder ? '../' : './') + 'index.html?auth_required=1') : '/?auth_required=1';
                 window.location.replace(redirectUrl);
             }
         }

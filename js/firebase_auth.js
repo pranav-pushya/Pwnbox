@@ -93,7 +93,9 @@ function initFirebaseAuth() {
 
                 if (!isPublic) {
                     const isSubfolder = rawPath.includes('/modules/') || rawPath.includes('/masterguide/') || rawPath.includes('/imp_info/') || rawPath.includes('/games/');
-                    window.location.replace((isSubfolder ? '../' : './') + 'index.html?auth_required=1');
+                    const isLocal = window.location.protocol === 'file:';
+                    const redirectUrl = isLocal ? ((isSubfolder ? '../' : './') + 'index.html?auth_required=1') : '/?auth_required=1';
+                    window.location.replace(redirectUrl);
                     return;
                 }
             }

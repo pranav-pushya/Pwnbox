@@ -22,6 +22,7 @@
       }
     ],
     "redirects": [
+      { "source": "/index.html", "destination": "/", "type": 301 },
       { "source": "/imp_info", "destination": "/imp_info/imp_info", "type": 301 },
       { "source": "/career_paths", "destination": "/imp_info/career_paths", "type": 301 },
       { "source": "/ports", "destination": "/imp_info/ports", "type": 301 },
