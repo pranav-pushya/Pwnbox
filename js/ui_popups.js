@@ -130,12 +130,12 @@
             /* Tactical Toast Notification */
             .pwn-toast-container {
                 position: fixed;
-                bottom: 20px;
-                right: 20px;
+                bottom: 24px;
+                right: 24px;
                 z-index: 1000000;
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
                 pointer-events: none;
             }
             .pwn-toast {
@@ -144,18 +144,31 @@
                 color: var(--text-main, #0a0a0a);
                 border: 2px solid var(--border-color, #0a0a0a);
                 box-shadow: 4px 4px 0 var(--border-color, #0a0a0a);
-                padding: 10px 16px;
+                padding: 12px 18px;
                 font-family: 'Space Mono', monospace;
-                font-size: 0.8rem;
+                font-size: 0.82rem;
                 font-weight: 700;
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 12px;
                 transform: translateX(120%);
                 transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                max-width: min(380px, 90vw);
+                max-width: min(420px, 92vw);
+                line-height: 1.4;
             }
             .pwn-toast.active { transform: translateX(0); }
+            .pwn-toast.warning {
+                border-left: 6px solid var(--bauhaus-yellow, #f2a900);
+            }
+            .pwn-toast.danger {
+                border-left: 6px solid var(--bauhaus-red, #d9291c);
+            }
+            .pwn-toast.success {
+                border-left: 6px solid var(--cyber-green, #10b981);
+            }
+            .pwn-toast.info {
+                border-left: 6px solid var(--bauhaus-blue, #005a9c);
+            }
         `;
         document.head.appendChild(style);
     }
@@ -323,26 +336,30 @@
 
     // ── 6. TACTICAL TOAST NOTIFICATIONS ──
     let toastContainer = null;
-    window.tacticalToast = function (message, type = 'info', duration = 3000) {
+    window.tacticalToast = function (message, type = 'info', duration = 3500) {
         if (!toastContainer) {
             toastContainer = document.createElement('div');
             toastContainer.className = 'pwn-toast-container';
             document.body.appendChild(toastContainer);
         }
 
-        const icon = type === 'success' ? '🟢' : (type === 'danger' ? '🔴' : '🟡');
+        const icon = type === 'success' ? '🟢' : (type === 'danger' ? '🔴' : (type === 'warning' || type === 'auth' ? '⚡' : 'ℹ️'));
         const toast = document.createElement('div');
-        toast.className = 'pwn-toast';
-        toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+        toast.className = `pwn-toast ${type}`;
+        toast.innerHTML = `<span style="font-size: 1.15rem; flex-shrink: 0;">${icon}</span><span style="flex: 1;">${message}</span>`;
         toastContainer.appendChild(toast);
 
-        playBeep(920);
+        playBeep(type === 'danger' ? 440 : (type === 'warning' ? 680 : 880));
         setTimeout(() => toast.classList.add('active'), 10);
 
         setTimeout(() => {
             toast.classList.remove('active');
             setTimeout(() => toast.remove(), 250);
         }, duration);
+    };
+
+    window.showAuthToast = function (msg) {
+        return window.tacticalToast(msg, 'warning', 3500);
     };
 
     // ── 7. OVERRIDE NATIVE WINDOW.ALERT ──
@@ -353,6 +370,22 @@
             message: String(msg),
             type: "warning"
         });
+    };
+
+    window.showCustomAlert = function (title, msg, type) {
+        return window.tacticalAlert({
+            title: title || "SYSTEM ALERT",
+            message: String(msg || title || ''),
+            type: type || "warning"
+        });
+    };
+
+    // showSystemAlert now dispatches a bottom-right toast notification
+    window.showSystemAlert = function (msg) {
+        if (typeof window.tacticalToast === 'function') {
+            return window.tacticalToast(msg, 'warning', 3500);
+        }
+        return window.alert(msg);
     };
 
 })();

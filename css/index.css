@@ -511,6 +511,8 @@ main {
 
 .node.active .node-dot { background: var(--bauhaus-yellow); }
 .node.completed .node-dot { background: var(--bauhaus-blue); box-shadow: 4px 4px 0 var(--border-color); }
+.node.secret-node .node-dot { background: #9333ea; border-color: #c084fc; box-shadow: 0 0 12px rgba(147, 51, 234, 0.4), 4px 4px 0 var(--border-color); }
+.node.secret-node.completed .node-dot { background: #10b981; border-color: #34d399; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4), 4px 4px 0 var(--border-color); }
 
 .node-label {
     margin-top: 15px;

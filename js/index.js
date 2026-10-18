@@ -1,4 +1,27 @@
+function handleProtectedModuleLaunch(e, targetUrl) {
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast("You cannot access curriculum modules without signing in.", "warning");
+        } else if (typeof window.showSystemAlert === 'function') {
+            window.showSystemAlert("You cannot access curriculum modules without signing in.");
+        }
+        return false;
+    }
+    if (targetUrl) {
+        window.location.href = targetUrl;
+    }
+    return true;
+}
+window.handleProtectedModuleLaunch = handleProtectedModuleLaunch;
+
 function updateDashboardStats() {
+            const isM08Unlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+
             const modules = [
                 {
                     key: 'footprinting',
@@ -72,6 +95,19 @@ function updateDashboardStats() {
                 }
             ];
 
+            if (isM08Unlocked) {
+                modules.push({
+                    key: 'blackops',
+                    completedKey: 'module_blackops_completed',
+                    cardId: 'moduleBlackOps',
+                    badgeId: 'blackOpsBadge',
+                    actionsId: 'blackOpsActions',
+                    url: 'modules/BlackOps.html',
+                    toolsText: '🕵️‍♂️ 6 Stealth Tools',
+                    nodeId: 'node8'
+                });
+            }
+
             let completedCount = 0;
             modules.forEach(mod => {
                 const isCompleted = localStorage.getItem(mod.completedKey) === 'true';
@@ -89,39 +125,59 @@ function updateDashboardStats() {
             modules.forEach((mod, index) => {
                 const cardEl = document.getElementById(mod.cardId);
                 const badgeEl = document.getElementById(mod.badgeId);
-                const actionsEl = mod.actionsId ? document.getElementById(mod.actionsId) : cardEl.querySelector('.card-bottom');
+                const actionsEl = mod.actionsId ? document.getElementById(mod.actionsId) : (cardEl ? cardEl.querySelector('.card-bottom') : null);
                 const nodeEl = document.getElementById(mod.nodeId);
 
+                if (!cardEl) return;
+
                 if (mod.isCompleted) {
-                    cardEl.className = "module-card completed";
-                    badgeEl.className = "module-badge badge-completed";
-                    badgeEl.innerText = "Completed ✓";
+                    cardEl.className = "module-card completed" + (mod.key === 'blackops' ? ' secret-m08-card active' : '');
+                    if (badgeEl) {
+                        badgeEl.className = "module-badge badge-completed";
+                        badgeEl.innerText = "Completed ✓";
+                    }
                     if (actionsEl) {
                         actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch">Launch Module ↗</a>`;
                     }
-                    nodeEl.className = "node completed";
-                    nodeEl.onclick = () => { window.location.href = mod.url; };
-                    nodeEl.style.cursor = 'pointer';
+                    if (nodeEl) {
+                        nodeEl.className = "node completed" + (mod.key === 'blackops' ? ' secret-node' : '');
+                        nodeEl.onclick = (e) => { handleProtectedModuleLaunch(e, mod.url); };
+                        nodeEl.style.cursor = 'pointer';
+                    }
                 } else if (mod.isUnlocked) {
-                    cardEl.className = "module-card active";
-                    badgeEl.className = "module-badge badge-active";
-                    badgeEl.innerText = "Active";
-                    if (actionsEl) {
-                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch">Launch Module ↗</a>`;
+                    cardEl.className = "module-card active" + (mod.key === 'blackops' ? ' secret-m08-card' : '');
+                    if (badgeEl) {
+                        badgeEl.className = "module-badge " + (mod.key === 'blackops' ? '' : 'badge-active');
+                        if (mod.key === 'blackops') {
+                            badgeEl.style.background = "#9333ea";
+                            badgeEl.style.color = "#fff";
+                            badgeEl.innerText = "SECRET UNLOCKED";
+                        } else {
+                            badgeEl.innerText = "Active";
+                        }
                     }
-                    nodeEl.className = "node active";
-                    nodeEl.onclick = () => { window.location.href = mod.url; };
-                    nodeEl.style.cursor = 'pointer';
+                    if (actionsEl) {
+                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch"${mod.key === 'blackops' ? ' style="background: #9333ea; color: #fff;"' : ''}>Launch Module ↗</a>`;
+                    }
+                    if (nodeEl) {
+                        nodeEl.className = "node active" + (mod.key === 'blackops' ? ' secret-node' : '');
+                        nodeEl.onclick = (e) => { handleProtectedModuleLaunch(e, mod.url); };
+                        nodeEl.style.cursor = 'pointer';
+                    }
                 } else {
                     cardEl.className = "module-card locked";
-                    badgeEl.className = "module-badge badge-locked";
-                    badgeEl.innerText = "Locked";
+                    if (badgeEl) {
+                        badgeEl.className = "module-badge badge-locked";
+                        badgeEl.innerText = "Locked";
+                    }
                     if (actionsEl) {
                         actionsEl.innerHTML = `<span class="module-meta">🔒 Pre-req: Module 0${index}</span><button class="btn-locked"><span class="lock-icon">🔒</span> Locked</button>`;
                     }
-                    nodeEl.className = "node locked";
-                    nodeEl.onclick = null;
-                    nodeEl.style.cursor = 'not-allowed';
+                    if (nodeEl) {
+                        nodeEl.className = "node locked";
+                        nodeEl.onclick = null;
+                        nodeEl.style.cursor = 'not-allowed';
+                    }
                 }
             });
 
@@ -134,6 +190,15 @@ function updateDashboardStats() {
                 { defaultCount: 6, customKey: 'webapp_custom_tools', deletedKey: 'webapp_deleted_default_indices', catKey: 'webapp_custom_categories' },
                 { defaultCount: 24, customKey: 'osint_custom_tools', deletedKey: 'osint_deleted_default_indices', catKey: 'osint_custom_categories' }
             ];
+
+            if (isM08Unlocked) {
+                toolModules.push({
+                    defaultCount: 6,
+                    customKey: 'blackops_custom_tools',
+                    deletedKey: 'blackops_deleted_default_indices',
+                    catKey: 'blackops_custom_categories'
+                });
+            }
 
             const osintCard = document.getElementById('moduleOsint');
             const osintBadge = document.getElementById('osintBadge');
@@ -188,10 +253,11 @@ function updateDashboardStats() {
             const userRank = document.getElementById('userRank');
             const roadmapLine = document.getElementById('roadmapProgressLine');
 
-            completedCountEl.innerText = `${completedCount} / 7`;
-            const pct = Math.round((completedCount / 7) * 100);
+            const totalModulesTarget = isM08Unlocked ? 8 : 7;
+            completedCountEl.innerText = `${completedCount} / ${totalModulesTarget}`;
+            const pct = Math.round((completedCount / totalModulesTarget) * 100);
             progressText.innerText = `${pct}% Done`;
-            progressFill.style.width = `${Math.min(100, Math.round((completedCount / 7) * 100))}%`;
+            progressFill.style.width = `${Math.min(100, pct)}%`;
 
             const rankNames = [
                 "Apprentice",
@@ -200,10 +266,12 @@ function updateDashboardStats() {
                 "Specialist (System Mapper)",
                 "Assessor (Vulnerability Analyst)",
                 "Operator (Privilege Escalator)",
-                "Elite Agent (Full Methodologist)"
+                "Elite Agent (Full Methodologist)",
+                "Shadow Operator (Black Ops Master)",
+                "Apex Cyber Commander"
             ];
             
-            const isGodMode = localStorage.getItem('pwnbox_godmode_badge') === 'true';
+            const isGodMode = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_godmode_badge') === 'true';
             const dropdownRank = document.getElementById('dropdownRank');
 
             if (isGodMode) {
@@ -214,7 +282,7 @@ function updateDashboardStats() {
                 const profileCard = document.querySelector('.id-card-inner');
                 if (profileCard) profileCard.classList.add('godmode-hologram-active');
             } else {
-                userRank.innerText = rankNames[completedCount];
+                userRank.innerText = rankNames[completedCount] || "Apex Cyber Commander";
                 if (dropdownRank) {
                     dropdownRank.innerText = userRank.innerText;
                 }
@@ -251,6 +319,7 @@ function updateDashboardStats() {
                 "Complete Vulnerability Analysis",
                 "Complete System Hacking",
                 "Complete Web App Threats",
+                isM08Unlocked ? "Complete Black Ops & C2 Evasion" : "All Objectives Completed!",
                 "All Objectives Completed!"
             ];
             const nextMissionText = document.getElementById('nextMissionText');
@@ -259,7 +328,7 @@ function updateDashboardStats() {
             }
             const nextMissionProgress = document.getElementById('nextMissionProgress');
             if (nextMissionProgress) {
-                if (completedCount >= 7 || isGodMode) nextMissionProgress.style.width = '100%';
+                if (completedCount >= totalModulesTarget || isGodMode) nextMissionProgress.style.width = '100%';
                 else nextMissionProgress.style.width = '15%'; // Just a small stub to show it's active
             }
 
@@ -267,7 +336,8 @@ function updateDashboardStats() {
                 const bgLine = document.getElementById('roadmapBgLine');
                 if (bgLine) {
                     const bgWidth = bgLine.getBoundingClientRect().width;
-                    const segmentWidth = bgWidth / 6;
+                    const totalSegments = modules.length > 1 ? (modules.length - 1) : 6;
+                    const segmentWidth = bgWidth / totalSegments;
                     let completedSequence = 0;
                     for (let i = 0; i < modules.length; i++) {
                         if (modules[i].isCompleted) {
@@ -313,12 +383,11 @@ function updateDashboardStats() {
         }
 
         function executeResetProgress() {
-            // Footprinting / General
+            // Module Training Progress, Quizzes & CTFs
+            // Note: Custom tools and categories created via modal forms are preserved.
+
+            // Footprinting / Recon CTF
             localStorage.removeItem('module_footprinting_completed');
-            localStorage.removeItem('custom_tools');
-            localStorage.removeItem('edited_default_tools');
-            localStorage.removeItem('deleted_default_indices');
-            localStorage.removeItem('custom_categories');
             localStorage.removeItem('recon_ctf_flag_1');
             localStorage.removeItem('recon_ctf_flag_2');
             localStorage.removeItem('recon_ctf_flag_3');
@@ -326,10 +395,6 @@ function updateDashboardStats() {
 
             // Scanning
             localStorage.removeItem('module_scanning_completed');
-            localStorage.removeItem('scanning_custom_tools');
-            localStorage.removeItem('scanning_edited_default_tools');
-            localStorage.removeItem('scanning_deleted_default_indices');
-            localStorage.removeItem('scanning_custom_categories');
             localStorage.removeItem('scanning_quiz_q1');
             localStorage.removeItem('scanning_quiz_q2');
             localStorage.removeItem('scanning_quiz_q3');
@@ -337,10 +402,6 @@ function updateDashboardStats() {
 
             // Enumeration
             localStorage.removeItem('module_enumeration_completed');
-            localStorage.removeItem('enumeration_custom_tools');
-            localStorage.removeItem('enumeration_edited_default_tools');
-            localStorage.removeItem('enumeration_deleted_default_indices');
-            localStorage.removeItem('enumeration_custom_categories');
             localStorage.removeItem('enumeration_quiz_q1');
             localStorage.removeItem('enumeration_quiz_q2');
             localStorage.removeItem('enumeration_quiz_q3');
@@ -348,10 +409,6 @@ function updateDashboardStats() {
 
             // Vulnerability Analysis
             localStorage.removeItem('module_vulnanalysis_completed');
-            localStorage.removeItem('vuln_custom_tools');
-            localStorage.removeItem('vuln_edited_default_tools');
-            localStorage.removeItem('vuln_deleted_default_indices');
-            localStorage.removeItem('vuln_custom_categories');
             localStorage.removeItem('vuln_quiz_q1');
             localStorage.removeItem('vuln_quiz_q2');
             localStorage.removeItem('vuln_quiz_q3');
@@ -359,10 +416,6 @@ function updateDashboardStats() {
 
             // System Hacking
             localStorage.removeItem('module_systemhacking_completed');
-            localStorage.removeItem('sys_custom_tools');
-            localStorage.removeItem('sys_edited_default_tools');
-            localStorage.removeItem('sys_deleted_default_indices');
-            localStorage.removeItem('sys_custom_categories');
             localStorage.removeItem('sys_quiz_q1');
             localStorage.removeItem('sys_quiz_q2');
             localStorage.removeItem('sys_quiz_q3');
@@ -370,10 +423,6 @@ function updateDashboardStats() {
 
             // Web App Threats
             localStorage.removeItem('module_webapp_completed');
-            localStorage.removeItem('webapp_custom_tools');
-            localStorage.removeItem('webapp_edited_default_tools');
-            localStorage.removeItem('webapp_deleted_default_indices');
-            localStorage.removeItem('webapp_custom_categories');
             localStorage.removeItem('webapp_quiz_q1');
             localStorage.removeItem('webapp_quiz_q2');
             localStorage.removeItem('webapp_quiz_q3');
@@ -381,15 +430,10 @@ function updateDashboardStats() {
 
             // OSINT & Threat Intel
             localStorage.removeItem('module_osint_completed');
-            localStorage.removeItem('osint_custom_tools');
-            localStorage.removeItem('osint_edited_default_tools');
-            localStorage.removeItem('osint_deleted_default_indices');
-            localStorage.removeItem('osint_custom_categories');
 
             // Module 08: Black Ops (Re-Lock & Reset)
             localStorage.removeItem('pwnbox_m08_unlocked');
             localStorage.removeItem('module_blackops_completed');
-            localStorage.removeItem('blackops_custom_tools');
 
             // Hide dropdown
             document.getElementById('profileDropdown').classList.remove('active');
@@ -557,8 +601,12 @@ let skullTriggerClicks = 0;
 let skullTriggerTimer = null;
 
 function unlockModule08(shouldScroll = true) {
+    if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+        return; // Silently blocked as if it does not exist
+    }
     localStorage.setItem('pwnbox_m08_unlocked', 'true');
     updateModule08State();
+    updateDashboardStats();
     const card = document.getElementById('moduleBlackOps');
     if (card && shouldScroll) {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -574,14 +622,15 @@ function unlockModule08(shouldScroll = true) {
 
 function updateModule08State() {
     const card = document.getElementById('moduleBlackOps');
+    const node8 = document.getElementById('node8');
     if (!card) return;
 
-    const isUnlocked = localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+    const isUnlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
     const isCompleted = localStorage.getItem('module_blackops_completed') === 'true';
 
     if (isUnlocked) {
         card.style.display = 'flex';
-        card.className = "module-card active" + (isCompleted ? " completed" : "");
+        card.className = "module-card active secret-m08-card" + (isCompleted ? " completed" : "");
         const badge = document.getElementById('blackOpsBadge');
         const title = document.getElementById('blackOpsTitle');
         const desc = document.getElementById('blackOpsDesc');
@@ -596,14 +645,22 @@ function updateModule08State() {
         if (actions) {
             actions.innerHTML = `<span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span><a href="modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;">Launch Module ↗</a>`;
         }
+        if (node8) {
+            node8.style.display = 'flex';
+            node8.className = "node secret-node" + (isCompleted ? " completed" : " active");
+            node8.onclick = (e) => { handleProtectedModuleLaunch(e, 'modules/BlackOps.html'); };
+        }
     } else {
         // Must NOT be visible at all until skull is pressed 3 times
         card.style.display = 'none';
+        if (node8) {
+            node8.style.display = 'none';
+        }
     }
 }
 
 function checkDashboardGodModeHUD() {
-    if (localStorage.getItem('pwnbox_godmode_badge') === 'true') {
+    if (localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_godmode_badge') === 'true') {
         let hud = document.getElementById('godmodeFloatingHud');
         if (!hud) {
             hud = document.createElement('div');
@@ -635,6 +692,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (skullTrigger) {
         skullTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
+            if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+                return; // Silently blocked as if it does not exist
+            }
             skullTriggerClicks++;
             skullTrigger.style.transform = 'scale(1.35)';
             skullTrigger.style.color = '#ef4444';
@@ -655,3 +715,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Intercept all module launch clicks on dashboard for unauthenticated users
+document.addEventListener('click', (e) => {
+    const launchTarget = e.target.closest('a[href*="modules/"], .btn-launch');
+    if (launchTarget) {
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            handleProtectedModuleLaunch(e, launchTarget.getAttribute('href'));
+            return false;
+        }
+    }
+}, true);

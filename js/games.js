@@ -2301,3 +2301,21 @@ document.addEventListener('keydown', (e) => {
         closeGameIntelModal();
     }
 });
+
+// Intercept game launches for unauthenticated users
+document.addEventListener('click', (e) => {
+    const playBtn = e.target.closest('.btn-play-game, a[href*="games/"]');
+    if (playBtn) {
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot access games without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot access games without signing in.");
+            }
+            return false;
+        }
+    }
+}, true);

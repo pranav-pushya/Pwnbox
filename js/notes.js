@@ -20,7 +20,44 @@
     let firestoreDb = null;
     let isPreviewMode = false;
 
-    // Preset Sample Notes showcasing in-stream code blocks
+    // Preset Default Academy Note for Guests (Explaining PwnBox & Creator Pranav)
+    const DEFAULT_ACADEMY_NOTE = {
+        id: 'pwnbox_briefing_default',
+        title: '🛡️ PwnBox Cyber Academy // Architecture & Creator Briefing',
+        category: 'General',
+        tags: 'pwnbox, briefing, pranav, cyber-range, ceh',
+        content: `### 🌐 WELCOME TO PWNBOX CYBER COMMAND & ACADEMY
+
+**PwnBox** is a premier browser-based offensive and defensive cybersecurity simulation suite and Certified Ethical Hacker (CEH v12/v13) training platform. Built using a high-contrast Bauhaus design language, a live Three.js 3D quantum matrix viewport, and client-side zero-latency laboratories.
+
+---
+
+### 👨‍💻 ARCHITECT & CREATOR
+* **Created & Engineered by:** **Pranav**
+* **Project Mission:** Bridging the gap between static cybersecurity theory and hands-on offensive operations, reconnaissance tools, and realistic CTF challenges.
+* **Core Philosophy:** Pure browser autonomy. Every network tool, cipher simulator, exploit generator, and command cheatsheet operates instantly without requiring bulky software installations.
+
+---
+
+### ⚡ PLATFORM HIGHLIGHTS & CAPABILITIES
+- **8 Comprehensive Curriculum Modules:** Footprinting, Network Scanning, Enumeration, Vulnerability Analysis, System Exploitation, Web App Threats, OSINT Threat Intel, and Black Ops C2 Operations.
+- **Master Guide & Career Roadmap:** Interactive 4-phase methodology tracking with progress benchmarks from fundamentals to CEH mastery.
+- **Tactical Cyber Arcade:** 8 standalone interactive mini-games (SQLi Locksmith, Packet Gatekeeper, Phish Detective, CIDR Defender, etc.).
+- **Live Terminal & Payload Vault:** In-stream syntax-highlighted code blocks with 1-click clipboard staging and cloud persistence.
+
+---
+
+### 🔐 GUEST CLEARANCE NOTICE
+You are currently viewing PwnBox in **Guest Read-Only Mode**.
+* You can view and explore this official briefing note.
+* Creating new tactical notes, editing payloads, exporting/importing, and saving notes to the cloud requires an **authenticated operative account**.
+* Click **"GUEST MODE"** in the top navigation or sign in from the Dashboard ID Card to authenticate.`,
+        pinned: true,
+        createdAt: Date.now() - 86400000,
+        updatedAt: Date.now()
+    };
+
+    // Preset Sample Notes showcasing in-stream code blocks for authenticated users
     const SAMPLE_NOTES = [
         {
             id: 'sample_revshell',
@@ -75,6 +112,34 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
             updatedAt: Date.now() - 3600000
         }
     ];
+
+    function isUserAuthenticated() {
+        return (currentUser !== null) || (localStorage.getItem('pwnbox_is_authenticated') === 'true');
+    }
+
+    function applyGuestRestrictions(isGuest) {
+        const titleInput = document.getElementById('noteTitleInput');
+        const catSelect = document.getElementById('noteCategorySelect');
+        const tagsInput = document.getElementById('noteTagsInput');
+        const contentTextarea = document.getElementById('noteContentTextarea');
+        const instreamToolbar = document.getElementById('instreamCodeToolbar');
+        const saveIndicator = document.getElementById('editorSaveIndicator');
+
+        if (titleInput) titleInput.readOnly = isGuest;
+        if (tagsInput) tagsInput.readOnly = isGuest;
+        if (catSelect) catSelect.disabled = isGuest;
+        if (contentTextarea) contentTextarea.readOnly = isGuest;
+        if (instreamToolbar) instreamToolbar.style.opacity = isGuest ? '0.35' : '1';
+
+        if (saveIndicator) {
+            if (isGuest) {
+                saveIndicator.textContent = '🔒 GUEST READ-ONLY (SIGN IN TO EDIT/ADD)';
+                saveIndicator.style.color = '#f59e0b';
+            } else {
+                saveIndicator.textContent = '';
+            }
+        }
+    }
 
     // ── 2. INITIALIZATION & AUTH INTEGRATION ──
     document.addEventListener('DOMContentLoaded', () => {
@@ -145,6 +210,16 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     async function loadNotesForUser(user) {
+        if (!isUserAuthenticated()) {
+            applyGuestRestrictions(true);
+            notes = [JSON.parse(JSON.stringify(DEFAULT_ACADEMY_NOTE))];
+            activeNoteId = notes[0].id;
+            selectNote(activeNoteId);
+            renderNotesList();
+            return;
+        }
+
+        applyGuestRestrictions(false);
         const key = getStorageKey(user);
         let loaded = null;
 
@@ -183,18 +258,8 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
 
         // 3. Fallback to sample notes if empty
         if (!loaded || !Array.isArray(loaded) || loaded.length === 0) {
-            if (!user) {
-                loaded = JSON.parse(JSON.stringify(SAMPLE_NOTES));
-                localStorage.setItem(key, JSON.stringify(loaded));
-            } else {
-                const guestNotes = localStorage.getItem('pwnbox_notes_guest');
-                if (guestNotes) {
-                    try { loaded = JSON.parse(guestNotes); } catch (e) { loaded = JSON.parse(JSON.stringify(SAMPLE_NOTES)); }
-                } else {
-                    loaded = JSON.parse(JSON.stringify(SAMPLE_NOTES));
-                }
-                localStorage.setItem(key, JSON.stringify(loaded));
-            }
+            loaded = JSON.parse(JSON.stringify(SAMPLE_NOTES));
+            localStorage.setItem(key, JSON.stringify(loaded));
         }
 
         notes = loaded;
@@ -211,6 +276,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     async function persistNotes() {
+        if (!isUserAuthenticated()) return;
         const key = getStorageKey(currentUser);
         try {
             localStorage.setItem(key, JSON.stringify(notes));
@@ -363,6 +429,14 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
 
     // ── 6. IN-STREAM CODE BLOCK INSERTION (WHEREVER USER IS TYPING) ──
     function insertCodeBlockAtCursor(language = null) {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot edit notes without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot edit notes without signing in.");
+            }
+            return;
+        }
         const textarea = document.getElementById('noteContentTextarea');
         if (!textarea) return;
 
@@ -400,6 +474,14 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function insertMarkdownSnippet(type) {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot edit notes without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot edit notes without signing in.");
+            }
+            return;
+        }
         const textarea = document.getElementById('noteContentTextarea');
         if (!textarea) return;
 
@@ -587,6 +669,15 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
 
     // ── 8. NOTE CRUD & EDITING ──
     function createNewNote() {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot create notes without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot create notes without signing in.");
+            }
+            return;
+        }
+
         const newNote = {
             id: 'note_' + Date.now(),
             title: 'Untitled Tactical Note',
@@ -617,6 +708,15 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function deleteActiveNote() {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("The default briefing note cannot be deleted.", "info");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("The default briefing note cannot be deleted.");
+            }
+            return;
+        }
+
         const note = getActiveNote();
         if (!note) return;
 
@@ -652,6 +752,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function togglePinActiveNote() {
+        if (!isUserAuthenticated()) return;
         const note = getActiveNote();
         if (!note) return;
 
@@ -669,6 +770,15 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function duplicateActiveNote() {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot clone notes without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot clone notes without signing in.");
+            }
+            return;
+        }
+
         const note = getActiveNote();
         if (!note) return;
 
@@ -694,6 +804,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function updateNoteField(field, value) {
+        if (!isUserAuthenticated()) return;
         const note = getActiveNote();
         if (!note) return;
 
@@ -709,6 +820,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function triggerAutoSave() {
+        if (!isUserAuthenticated()) return;
         showSaveIndicator('SAVING...', '#f59e0b');
         clearTimeout(autoSaveTimeout);
         autoSaveTimeout = setTimeout(() => {
@@ -721,6 +833,14 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function manualSave() {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot save notes without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot save notes without signing in.");
+            }
+            return;
+        }
         persistNotes();
         showSaveIndicator('SAVED ✓', '#10b981');
         setTimeout(() => {
@@ -779,6 +899,14 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function importNotesTrigger() {
+        if (!isUserAuthenticated()) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot import notes without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot import notes without signing in.");
+            }
+            return;
+        }
         const input = document.getElementById('notesImportFileInput');
         if (input) input.click();
     }

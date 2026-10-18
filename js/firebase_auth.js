@@ -57,9 +57,13 @@ function initFirebaseAuth() {
 
                 // If on a protected page, redirect immediately to index
                 const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
-                const isPublic = path.endsWith('/index.html') || path.endsWith('/') || path.endsWith('/404.html') || path === '';
+                const isPublic = path.endsWith('/index.html') || path.endsWith('/') || path.endsWith('/404.html') || path === ''
+                    || path.endsWith('/dashboard.html')
+                    || path.endsWith('/notes.html')
+                    || path.endsWith('/games.html')
+                    || path.endsWith('/roadmap.html');
                 if (!isPublic) {
-                    const isSubfolder = path.includes('/modules/') || path.includes('/masterguide/');
+                    const isSubfolder = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/imp_info/') || path.includes('/games/');
                     window.location.replace((isSubfolder ? '../' : '') + 'index.html?auth_required=1');
                     return;
                 }
@@ -432,11 +436,7 @@ function updateAuthUI(user) {
         }
         if (homeDashBtn) {
             homeDashBtn.style.display = 'inline-flex';
-            homeDashBtn.onclick = (e) => {
-                e.preventDefault();
-                openAuthModal();
-                showAuthMessage("🔒 Operative Authentication Required to Access Tactical Dashboard.", "error");
-            };
+            homeDashBtn.onclick = null; // Rule 2: Guests can freely access dashboard
         }
         if (previewBadgeRank) {
             previewBadgeRank.textContent = "CLEARANCE: LEVEL 1 APPRENTICE";
@@ -539,8 +539,11 @@ function flipIdCard(e) {
 function checkAuthQueryParams() {
     if (window.location.search.includes('auth_required=1')) {
         setTimeout(() => {
-            openAuthModal();
-            showAuthMessage("🔒 ACCESS RESTRICTED: Please authenticate your operative clearance to enter PwnBox tactical modules & dashboard.", "error");
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot access restricted resources without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot access restricted resources without signing in.");
+            }
         }, 200);
     }
 }

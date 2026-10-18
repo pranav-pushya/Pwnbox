@@ -23,7 +23,7 @@
     }
 
     // --- MODULES METADATA FOR 3D NODES ---
-    const ATTACK_VECTORS = [
+    const ALL_ATTACK_VECTORS = [
         { id: 1, code: 'M-01', name: 'Footprinting & Recon', icon: '🌐', tools: '22+ Tools', url: 'modules/Footprinting.html', color: 0x00f0ff, desc: 'Passive & active domain intelligence, DNS footprinting, whois reconnaissance.', cve: 'CVE-2023-3824', port: 'PORT 53/UDP, 443/TCP' },
         { id: 2, code: 'M-02', name: 'Network Scanning', icon: '📡', tools: '15+ Tools', url: 'modules/Scanning.html', color: 0x22c55e, desc: 'Host discovery, stealth SYN scans, OS fingerprinting with Nmap & Hping3.', cve: 'CVE-2023-44487', port: 'ALL PORTS (1-65535)' },
         { id: 3, code: 'M-03', name: 'Service Enumeration', icon: '🔍', tools: '8+ Tools', url: 'modules/Enumeration.html', color: 0xeab308, desc: 'SMB, SNMP, LDAP, NetBIOS user & share extraction.', cve: 'CVE-2020-1472', port: 'PORT 445/139 (SMB)' },
@@ -33,6 +33,28 @@
         { id: 7, code: 'M-07', name: 'OSINT Reconnaissance', icon: '🕵️', tools: '12+ Tools', url: 'modules/OSINT.html', color: 0x38bdf8, desc: 'Open-source threat intelligence, geolocation, dark web data mining.', cve: 'IDENTITY LEAK INTEL', port: 'DEEP & DARK WEB' },
         { id: 8, code: 'M-08', name: 'Black Ops & C2 Evasion', icon: '⚡', tools: '8+ Tools', url: 'modules/BlackOps.html', color: 0x9333ea, desc: 'Covert command & control, EDR evasion, in-memory execution & defense bypass.', cve: 'MITRE ATT&CK T1059', port: 'COVERT C2 MESH' }
     ];
+
+    const isM08Unlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+    const ATTACK_VECTORS = isM08Unlocked ? ALL_ATTACK_VECTORS : ALL_ATTACK_VECTORS.filter(v => v.id !== 8);
+
+    // Sync home page dynamic module texts & vector pills
+    function syncHomeM08Elements() {
+        const unlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+        const statCount = document.getElementById('statModuleCount');
+        const heroTracks = document.getElementById('heroTracksCount');
+        const pillM08 = document.getElementById('vectorPillM08');
+        const featCount = document.getElementById('featureModuleCount');
+        const featBlackOps = document.getElementById('featureModuleBlackOps');
+        const featRange = document.getElementById('featureModuleRangeTag');
+
+        if (statCount) statCount.textContent = unlocked ? "08" : "07";
+        if (heroTracks) heroTracks.textContent = unlocked ? "8" : "7";
+        if (pillM08) pillM08.style.display = unlocked ? "inline-block" : "none";
+        if (featCount) featCount.textContent = unlocked ? "8" : "7";
+        if (featBlackOps) featBlackOps.textContent = unlocked ? ", C2 Beaconing" : "";
+        if (featRange) featRange.textContent = unlocked ? "⚡ 60+ Tool Simulations (M-01 to M-08)" : "⚡ 54+ Tool Simulations (M-01 to M-07)";
+    }
+    syncHomeM08Elements();
 
     // --- SOUND SYNTHESIZER (ZERO-LATENCY WEB AUDIO API) ---
     let audioCtx = null;
@@ -365,6 +387,14 @@
                 launchBtn.addEventListener('click', (ev) => {
                     ev.stopPropagation();
                     playClickSound();
+                    if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+                        if (typeof window.tacticalToast === 'function') {
+                            window.tacticalToast(`You cannot access ${vectorData.name} without signing in.`, "warning");
+                        } else if (typeof window.showSystemAlert === 'function') {
+                            window.showSystemAlert(`You cannot access ${vectorData.name} without signing in.`);
+                        }
+                        return;
+                    }
                     window.location.href = vectorData.url;
                 });
             }
@@ -414,6 +444,9 @@
         } else if (coreClickCount >= 3) {
             clearTimeout(coreClickTimer);
             coreClickCount = 0;
+            if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+                return; // Silently blocked as if it does not exist
+            }
             triggerHyperdriveCollapse();
         }
     }
@@ -456,8 +489,16 @@
     function selectNode(nodeGroup) {
         const data = nodeGroup.userData;
 
-        // If clicking same node twice, direct launch!
+        // If clicking same node twice, direct launch (if authenticated)!
         if (focusedNode === nodeGroup) {
+            if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+                if (typeof window.tacticalToast === 'function') {
+                    window.tacticalToast(`You cannot access ${data.name} without signing in.`, "warning");
+                } else if (typeof window.showSystemAlert === 'function') {
+                    window.showSystemAlert(`You cannot access ${data.name} without signing in.`);
+                }
+                return;
+            }
             window.location.href = data.url;
             return;
         }
@@ -847,6 +888,9 @@
     };
 
     function openDeclassifiedModal() {
+        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+            return; // Silently blocked as if it does not exist
+        }
         const modal = document.getElementById('declassifiedArchiveModal');
         if (modal) {
             modal.style.display = 'flex';

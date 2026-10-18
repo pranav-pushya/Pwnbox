@@ -196,6 +196,17 @@
             }
 
             cb.addEventListener('change', (e) => {
+                const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+                if (!isAuth) {
+                    e.preventDefault();
+                    cb.checked = !cb.checked;
+                    if (typeof window.tacticalToast === 'function') {
+                        window.tacticalToast("You cannot track roadmap progress without signing in.", "warning");
+                    } else if (typeof window.showSystemAlert === 'function') {
+                        window.showSystemAlert("You cannot track roadmap progress without signing in.");
+                    }
+                    return;
+                }
                 const isChecked = cb.checked;
                 const parent = cb.closest('.checklist-item');
                 if (parent) parent.classList.toggle('checked', isChecked);
@@ -243,6 +254,17 @@
     };
 
     window.showPhaseDetail = function (phaseId = 'p1', scroll = true) {
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("You cannot access roadmap phases without signing in.", "warning");
+            } else if (typeof window.showSystemAlert === 'function') {
+                window.showSystemAlert("You cannot access roadmap phases without signing in.");
+            }
+            window.showPhaseOverview();
+            return;
+        }
+
         if (!phaseTitles[phaseId]) phaseId = 'p1';
 
         const overviewEl = document.getElementById('phasesOverviewView');
@@ -341,6 +363,11 @@
     }
 
     function checkInitialView() {
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            window.showPhaseOverview();
+            return;
+        }
         const hash = (window.location.hash || '').toLowerCase();
         if (hash === '#p1' || hash === '#phase1') {
             window.showPhaseDetail('p1', false);

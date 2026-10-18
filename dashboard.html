@@ -19,6 +19,7 @@
     <!-- Firebase SDK v10 Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="js/ui_popups.js"></script>
 </head>
 
 <body>
@@ -26,11 +27,11 @@
     <div class="reset-modal-overlay" id="resetModalOverlay">
         <div class="reset-modal-box">
             <h3>⚠️ WARNING</h3>
-            <p>Are you sure you want to completely erase all training progress, custom tools, and categories?
+            <p>Are you sure you want to completely reset all training progress, quizzes, and CTF flags? (Custom tools and categories will remain saved.)
                 <strong>This cannot be undone.</strong></p>
             <div class="reset-modal-actions">
                 <button class="btn-cancel" onclick="closeResetModal()">CANCEL</button>
-                <button class="btn-confirm-reset" onclick="executeResetProgress()">ERASE DATA</button>
+                <button class="btn-confirm-reset" onclick="executeResetProgress()">RESET PROGRESS</button>
             </div>
         </div>
     </div>
@@ -293,7 +294,7 @@
                     <path d="M 50,60 L 50,60" class="roadmap-line-active" id="roadmapProgressLine" />
                 </svg>
                 <div class="roadmap-nodes">
-                    <div class="node active" id="node1" onclick="window.location.href='modules/Footprinting.html'">
+                    <div class="node active" id="node1" onclick="handleProtectedModuleLaunch(event, 'modules/Footprinting.html')">
                         <div class="node-dot"></div>
                         <div class="node-label">01. Recon</div>
                     </div>
@@ -317,9 +318,13 @@
                         <div class="node-dot"></div>
                         <div class="node-label">06. Web Apps</div>
                     </div>
-                    <div class="node" id="node7" onclick="window.location.href='modules/OSINT.html'">
+                    <div class="node" id="node7" onclick="handleProtectedModuleLaunch(event, 'modules/OSINT.html')">
                         <div class="node-dot"></div>
                         <div class="node-label">07. OSINT</div>
+                    </div>
+                    <div class="node secret-node" id="node8" style="display: none;" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">
+                        <div class="node-dot" style="background: #9333ea; border-color: #c084fc;"></div>
+                        <div class="node-label" style="color: #c084fc;">08. Black Ops</div>
                     </div>
                 </div>
             </div>

@@ -486,6 +486,11 @@ function renderShortcutsList(query = '') {
 }
 
 function openShortcutsModal() {
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) {
+        return; // Silently blocked as if it does not exist
+    }
+
     const modal = ensureShortcutsModal();
     renderShortcutsList('');
     modal.classList.add('active');
@@ -507,6 +512,11 @@ function closeShortcutsModal() {
 }
 
 function toggleShortcutsModal() {
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) {
+        openShortcutsModal();
+        return;
+    }
     const modal = document.getElementById('pwnboxShortcutsOverlay');
     if (modal && modal.classList.contains('active')) {
         closeShortcutsModal();
@@ -837,6 +847,16 @@ function ensureSettingsModal() {
                     </div>
                 </div>
 
+                <!-- TACTICAL COMMAND SHORTCUTS NOTICE -->
+                <div class="pwn-settings-section" style="border-left: 4px solid var(--accent-blue, #0055ff); background: rgba(0, 85, 255, 0.05);">
+                    <div class="pwn-settings-section-title" style="color: var(--accent-blue, #0055ff);">
+                        ⌨️ TACTICAL HOTKEYS & SHORTCUTS
+                    </div>
+                    <div class="pwn-setting-desc" style="font-size: 0.76rem; color: var(--text-main, #0a0a0a); font-family: 'Space Mono', monospace; line-height: 1.5;">
+                        💡 <strong>Operative Tip:</strong> Try pressing <kbd style="background: var(--bg-panel, #fff); border: 1px solid var(--border-color, #0a0a0a); padding: 2px 6px; font-weight: bold; border-radius: 3px; box-shadow: 1px 1px 0 var(--border-color, #0a0a0a);">Ctrl</kbd> + <kbd style="background: var(--bg-panel, #fff); border: 1px solid var(--border-color, #0a0a0a); padding: 2px 6px; font-weight: bold; border-radius: 3px; box-shadow: 1px 1px 0 var(--border-color, #0a0a0a);">/</kbd> anywhere across the academy to instantly summon the Tactical Command HUD & keyboard shortcuts matrix.
+                    </div>
+                </div>
+
                 <!-- 5. DANGER ZONE // DELETE ACCOUNT -->
                 <div class="pwn-settings-section danger-zone">
                     <div class="pwn-settings-section-title danger">⚠️ DANGER ZONE // ACCOUNT TERMINATION</div>
@@ -975,7 +995,11 @@ async function handleGoogleLinkToggle() {
     if (typeof firebase === 'undefined' || !firebase.auth) return;
     const user = firebase.auth().currentUser;
     if (!user) {
-        if (window.openAuthModal) { closeSettingsModal(); window.openAuthModal(); }
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast("You cannot manage linked accounts without signing in.", "warning");
+        } else if (typeof window.showSystemAlert === 'function') {
+            window.showSystemAlert("You cannot manage linked accounts without signing in.");
+        }
         return;
     }
     const hasGoogle = user.providerData && user.providerData.some(p => p.providerId === 'google.com');
@@ -1008,7 +1032,11 @@ async function handleGithubLinkToggle() {
     if (typeof firebase === 'undefined' || !firebase.auth) return;
     const user = firebase.auth().currentUser;
     if (!user) {
-        if (window.openAuthModal) { closeSettingsModal(); window.openAuthModal(); }
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast("You cannot manage linked accounts without signing in.", "warning");
+        } else if (typeof window.showSystemAlert === 'function') {
+            window.showSystemAlert("You cannot manage linked accounts without signing in.");
+        }
         return;
     }
     const hasGithub = user.providerData && user.providerData.some(p => p.providerId === 'github.com');
@@ -1213,6 +1241,10 @@ document.addEventListener('keydown', function (e) {
     // 1. Shortcut: Ctrl + / (or Cmd + /) opens the Command Palette
     if ((e.ctrlKey || e.metaKey) && (e.key === '/' || e.code === 'Slash' || e.keyCode === 191)) {
         e.preventDefault();
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            return; // Silently blocked as if it does not exist
+        }
         toggleShortcutsModal();
         return;
     }
@@ -1259,6 +1291,10 @@ document.addEventListener('keydown', function (e) {
     // 1b. Shortcut: '?' (or Shift + /) opens the Command Palette & Shortcuts modal
     if (e.key === '?' || (e.shiftKey && (e.key === '/' || e.code === 'Slash'))) {
         e.preventDefault();
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            return; // Silently blocked as if it does not exist
+        }
         toggleShortcutsModal();
         return;
     }
@@ -1269,7 +1305,11 @@ document.addEventListener('keydown', function (e) {
         return;
     }
 
-    // 7. Universal Single-Letter Shortcuts:
+    // 7. Require authentication for tactical single-letter navigation hotkeys
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) return;
+
+    // Universal Single-Letter Shortcuts:
     const k = e.key ? e.key.toLowerCase() : '';
 
     switch (k) {

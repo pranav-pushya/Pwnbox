@@ -884,6 +884,9 @@
     }
 
     function triggerSecretArchitectModal(message) {
+        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+            return; // Silently blocked as if it does not exist
+        }
         playVictorySfx();
         let modal = document.getElementById('secretArchitectModal');
         if (!modal) {
@@ -1003,6 +1006,9 @@
     }
 
     function openAirgapModal() {
+        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+            return; // Silently blocked as if it does not exist
+        }
         const modal = document.getElementById('airgapPinpadModal');
         if (!modal) return;
         modal.style.display = 'flex';
@@ -1778,9 +1784,11 @@
     let isAmbientPlaying = false;
 
     function openGodModeModal() {
+        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+            return; // Silently blocked as if it does not exist
+        }
         const modal = document.getElementById('architectGodModeModal');
         if (!modal) return;
-        modal.style.display = 'flex';
         playVictorySfx();
         switchGodModeTab('godmode');
     }
@@ -1812,6 +1820,9 @@
     }
 
     function applySecretTheme(themeName) {
+        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+            return; // Silently blocked as if it does not exist
+        }
         playTone(980, 'triangle', 0.12, 0.1);
         document.documentElement.setAttribute('data-theme', themeName);
         localStorage.setItem('theme', themeName);
