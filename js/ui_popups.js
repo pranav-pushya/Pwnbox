@@ -130,7 +130,7 @@
             /* Tactical Toast Notification */
             .pwn-toast-container {
                 position: fixed;
-                bottom: 24px;
+                bottom: 80px;
                 right: 24px;
                 z-index: 1000000;
                 display: flex;
