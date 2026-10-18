@@ -75,6 +75,7 @@ function initFirebaseAuth() {
                     '/games', '/games.html',
                     '/roadmap', '/roadmap.html',
                     '/masterguide/roadmap', '/masterguide/roadmap.html',
+                    '/ai_assistant', '/ai_assistant.html',
                     '/privacy', '/privacy.html',
                     '/contact', '/contact.html',
                     '/thank-you', '/thank-you.html',
@@ -86,6 +87,7 @@ function initFirebaseAuth() {
                     || cleanPath.endsWith('/notes.html')
                     || cleanPath.endsWith('/games.html')
                     || cleanPath.endsWith('/roadmap.html')
+                    || cleanPath.endsWith('/ai_assistant.html')
                     || cleanPath.endsWith('/privacy.html')
                     || cleanPath.endsWith('/contact.html')
                     || cleanPath.endsWith('/thank-you.html')

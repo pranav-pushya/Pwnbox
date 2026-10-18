@@ -94,7 +94,7 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 - Keyboard Shortcuts:
   Ctrl+/ = Tactical Command HUD, T = Theme toggle, H = Home, D = Dashboard, G = Games, N = Notes, R = Roadmap, M = Master Guide, A = Cyber Oracle, S = Settings.
 - Authentication & Clearance:
-  Operatives can sign in via Google or GitHub. Signed-out guests can browse public pages and read default notes, but cannot run live attacks, modify notes, or track progress without signing in. Secret gates and shortcuts are silently blocked when signed out.
+  The Cyber AI Assistant, Copilot, and Cyber Oracle are 100% unlocked and freely available to all visitors and students, whether authenticated or exploring as a guest cadet. Guests have full clearance to ask questions, explore cyber topics, use navigation shortcuts, and learn without restriction.
 `;
 
     // ── 3. Proportions Configuration (1.5x Large & 1x Compact) ─────────

@@ -530,11 +530,6 @@ function renderShortcutsList(query = '') {
 }
 
 function openShortcutsModal() {
-    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-    if (!isAuth) {
-        return; // Silently blocked as if it does not exist
-    }
-
     const modal = ensureShortcutsModal();
     renderShortcutsList('');
     modal.classList.add('active');
@@ -556,11 +551,6 @@ function closeShortcutsModal() {
 }
 
 function toggleShortcutsModal() {
-    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-    if (!isAuth) {
-        openShortcutsModal();
-        return;
-    }
     const modal = document.getElementById('pwnboxShortcutsOverlay');
     if (modal && modal.classList.contains('active')) {
         closeShortcutsModal();
@@ -1356,10 +1346,6 @@ document.addEventListener('keydown', function (e) {
     if (currentPath.includes('/games/') && !currentPath.endsWith('/games.html') && !currentPath.endsWith('/games')) {
         return;
     }
-
-    // 7. Require authentication for tactical single-letter navigation hotkeys
-    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-    if (!isAuth) return;
 
     // Universal Single-Letter Shortcuts:
     const k = e.key ? e.key.toLowerCase() : '';

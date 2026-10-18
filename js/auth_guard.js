@@ -24,6 +24,8 @@
             '/roadmap.html',
             '/masterguide/roadmap',
             '/masterguide/roadmap.html',
+            '/ai_assistant',
+            '/ai_assistant.html',
             '/privacy',
             '/privacy.html',
             '/contact',
@@ -40,6 +42,7 @@
             || normalized.endsWith('/notes.html')
             || normalized.endsWith('/games.html')
             || normalized.endsWith('/roadmap.html')
+            || normalized.endsWith('/ai_assistant.html')
             || normalized.endsWith('/privacy.html')
             || normalized.endsWith('/contact.html')
             || normalized.endsWith('/thank-you.html')
