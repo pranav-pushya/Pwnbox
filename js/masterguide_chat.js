@@ -6,7 +6,7 @@
 (function () {
     // ── DOM Injection & Setup ───────────────────────────────────────────
     function initDoubtChat() {
-        if (document.getElementById('doubtChatDrawer')) return;
+        if (document.getElementById('doubtChatDrawer') || document.getElementById('pwnFloatingAiDrawer') || window.toggleFloatingAiChat) return;
 
         // Toggle Button
         const toggleBtn = document.createElement('button');
