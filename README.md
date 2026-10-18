@@ -306,47 +306,6 @@ An interactive gamified cyber warfare suite comprising 8 standalone operational 
 
 ---
 
-## ⚡ Quickstart & Deployment
-
-Because PwnBox Academy is built on pure web standards without external build dependencies or database overhead, it can be run instantly on any machine or web host:
-
-### Option A: Direct File Execution
-
-Simply double-click or open `index.html` in any modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, Brave, Safari).
-
-### Option B: Local HTTP Server
-
-For optimal module loading and WebGL shader support:
-
-```bash
-# Using Python 3:
-python -m http.server 8080
-
-# Using Node.js:
-npx serve .
-```
-
-Navigate to `http://localhost:8080` in your browser.
-
----
-
-## 🔑 AI Mentor Configuration
-
-To enable the AI Doubt Mentor, add your Groq API key in [`js/config.js`](<file:///d:/CSE%20AI%20ML/CS/foot/js/config.js>):
-
-```javascript
-// Replace with your own Groq key before deploying. Do not commit a real key to a public repository.
-const GROQ_CONFIG = {
-    apiKey: "YOUR_GROQ_API_KEY_HERE",
-    model: "openai/gpt-oss-20b",
-    endpoint: "https://api.groq.com/openai/v1/chat/completions"
-};
-
-export default GROQ_CONFIG;
-```
-
----
-
 ## ⚠️ Tactical Legal & Ethical Notice
 
 > **IMPORTANT DISCLAIMER**

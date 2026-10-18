@@ -1031,7 +1031,18 @@ async function handleGithubLinkToggle() {
             if (window.tacticalAlert) window.tacticalAlert({ title: "GITHUB LINKED", message: "GitHub account linked successfully!", type: "success" });
             updateSettingsUI();
         } catch(e) {
-            if (window.tacticalAlert) window.tacticalAlert({ title: "LINKING FAILED", message: e.message, type: "danger" });
+            console.error("GitHub link error:", e);
+            let errMsg = e.message;
+            if (e.code === 'auth/operation-not-allowed') {
+                errMsg = "GitHub Sign-In provider is currently disabled in your Firebase project (pwnbo-x). Enable it in the Firebase Console (Authentication > Sign-in method > GitHub) using a GitHub OAuth App (Client ID & Secret).";
+            } else if (e.code === 'auth/credential-already-in-use') {
+                errMsg = "This GitHub account is already linked to another operative profile.";
+            } else if (e.code === 'auth/popup-blocked') {
+                errMsg = "Popup was blocked by your browser. Please allow popups for pwnbo-x.web.app.";
+            } else if (e.code === 'auth/popup-closed-by-user') {
+                errMsg = "Authentication canceled: the GitHub OAuth window was closed before finishing.";
+            }
+            if (window.tacticalAlert) window.tacticalAlert({ title: "LINKING FAILED", message: errMsg, type: "danger" });
         }
     }
 }
