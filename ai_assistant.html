@@ -1031,7 +1031,7 @@
             border-radius: 28px;
             display: flex;
             align-items: flex-end;
-            padding: 8px 14px;
+            padding: 8px 10px 8px 18px;
             gap: 8px;
             box-sizing: border-box;
             transition: box-shadow 0.15s, transform 0.15s;
@@ -1483,23 +1483,11 @@
                 </div>
 
                 <div class="dock-capsule-bar">
-                    <!-- Plus / Attack Vector Menu -->
-                    <button class="dock-plus-btn" onclick="promptRandomAttackVector()" title="Inject Pre-built Threat Vector">＋</button>
-
                     <!-- Textarea Input -->
                     <textarea class="dock-textarea-input" id="assistantInput" placeholder="Ask PwnBox Cyber Assistant..." rows="1" onkeydown="handleInputKeydown(event)"></textarea>
 
                     <!-- Right Controls Suite -->
                     <div class="dock-actions-right">
-                        <!-- Think Deep Reasoning Mode -->
-                        <button class="dock-think-pill" id="thinkPillBtn" onclick="toggleThinkMode()" title="Toggle Deep Threat Reasoning Engine">
-                            <span>🧠</span>
-                            <span>Think</span>
-                        </button>
-
-                        <!-- Speech-to-text Microphone -->
-                        <button class="dock-mic-btn" id="dockMicBtn" onclick="toggleVoiceInput()" title="Voice Input (Speech-to-Text)">🎙️</button>
-
                         <!-- Execute Send Button -->
                         <button class="dock-execute-btn" id="dockSendBtn" onclick="handleSendClick()" title="Send Prompt (Enter)">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
