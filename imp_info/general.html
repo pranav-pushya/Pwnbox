@@ -1355,7 +1355,7 @@
             card.className = 'shortcut-card custom-shortcut-card';
             card.setAttribute('data-custom-id', s.id);
 
-            const escapedCopy = escapeHtml(s.copyCmd).replace(/'/g, "\\'");
+            const encodedCopy = encodeURIComponent(s.copyCmd);
 
             card.innerHTML = `
                 <div class="shortcut-header">
@@ -1367,7 +1367,7 @@
                 </div>
                 <div class="shortcut-target">${escapeHtml(s.target)}</div>
                 <p class="shortcut-hinglish">${escapeHtml(s.hinglish)}</p>
-                <button class="shortcut-copy-btn" onclick="copySnippet('${escapedCopy}', this)">📋 Copy Shortcut</button>
+                <button class="shortcut-copy-btn" onclick="copySnippet(decodeURIComponent('${encodedCopy}'), this)">📋 Copy Shortcut</button>
             `;
 
             grid.appendChild(card);

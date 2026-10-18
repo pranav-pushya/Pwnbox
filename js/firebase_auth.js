@@ -50,10 +50,20 @@ function initFirebaseAuth() {
                     localStorage.setItem('pwnbox_user_photo', user.photoURL);
                 }
             } else {
+                // If in local development and dev bypass is explicitly active, preserve mock session
+                const host = window.location.hostname || '';
+                const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0' || window.location.protocol === 'file:';
+                const isDevBypass = localStorage.getItem('pwnbox_dev_bypass') === 'true' || localStorage.getItem('pwnbox_user_email') === 'cadet.dev@pwnbox.local';
+                if (isLocal && isDevBypass && localStorage.getItem('pwnbox_is_authenticated') === 'true') {
+                    updateAuthUI({ displayName: localStorage.getItem('pwnbox_user_name') || 'CADET_DEV', email: 'cadet.dev@pwnbox.local' });
+                    return;
+                }
+
                 localStorage.removeItem('pwnbox_is_authenticated');
                 localStorage.removeItem('pwnbox_user_email');
                 localStorage.removeItem('pwnbox_user_name');
                 localStorage.removeItem('pwnbox_user_photo');
+                localStorage.removeItem('pwnbox_dev_bypass');
 
                 // If on a protected page, redirect immediately to index
                 const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
@@ -290,6 +300,7 @@ async function logoutUser() {
         localStorage.removeItem('pwnbox_user_email');
         localStorage.removeItem('pwnbox_user_name');
         localStorage.removeItem('pwnbox_user_photo');
+        localStorage.removeItem('pwnbox_dev_bypass');
         showAuthMessage("Operative session terminated.", "info");
 
         // Always redirect back to home page after sign out
@@ -475,6 +486,7 @@ function bypassLocalAuth() {
     localStorage.setItem('pwnbox_user_name', alias);
     localStorage.setItem('agentAlias', alias);
     localStorage.setItem('pwnbox_agent_alias', alias);
+    localStorage.setItem('pwnbox_dev_bypass', 'true');
     showAuthMessage(`⚡ Localhost Dev Clearance Granted! Welcome, Agent ${alias}! Redirecting...`, "success");
     setTimeout(() => {
         closeAuthModal();

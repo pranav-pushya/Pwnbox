@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PwnBox Cyber Security AI Assistant: Tactical LLM mentor powered by Groq providing instant guidance on offensive security, incident response, reverse engineering, and CEH certification prep.">
     <title>PwnBox // Cyber Security AI Assistant</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
 
@@ -2279,7 +2280,7 @@ Perform an in-depth threat audit. Break down the theoretical mathematical/archit
 
             // 1. Stash fenced code blocks with language badge and copy button
             const codeBlocks = [];
-            let processed = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+            let processed = text.replace(/```([^\n\r]*)\r?\n([\s\S]*?)```/g, (match, lang, code) => {
                 const id = "code-" + Math.random().toString(36).substr(2, 9);
                 const cleanCode = escapeHtml(code.trim());
                 const displayLang = (lang && lang.trim()) ? lang.trim().toUpperCase() : 'CODE';

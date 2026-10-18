@@ -572,7 +572,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         let html = '';
 
         // Tokenize code blocks
-        const codeBlockRegex = /```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g;
+        const codeBlockRegex = /```([^\n\r]*)\r?\n([\s\S]*?)```/g;
         let lastIndex = 0;
         let match;
         let blockIndex = 0;

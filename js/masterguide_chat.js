@@ -261,7 +261,7 @@ Format requirements:
             .replace(/>/g, "&gt;");
 
         // Code blocks
-        html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        html = html.replace(/```([^\n\r]*)\r?\n([\s\S]*?)```/g, (match, lang, code) => {
             return `<pre><code>${code.trim()}</code></pre>`;
         });
 

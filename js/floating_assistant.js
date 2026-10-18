@@ -499,7 +499,7 @@ STRICT ANSWERING RULES:
 
         // Stash code blocks with language badge and copy button
         const codeBlocks = [];
-        let processed = sanitized.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        let processed = sanitized.replace(/```([^\n\r]*)\r?\n([\s\S]*?)```/g, (match, lang, code) => {
             const displayLang = (lang && lang.trim()) ? lang.trim().toUpperCase() : 'CODE';
             codeBlocks.push(`
                 <div class="code-block-wrapper">
