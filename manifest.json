@@ -1,0 +1,60 @@
+{
+  "name": "PwnBox Cyber Command Academy",
+  "short_name": "PwnBox",
+  "description": "Elite offensive and defensive cybersecurity training platform, interactive 3D command core, kill-chain simulation labs, and arcade games.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00ff66",
+  "orientation": "any",
+  "categories": [
+    "education",
+    "games",
+    "security"
+  ],
+  "icons": [
+    {
+      "src": "assets/favicon-main.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/tux_logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tactical Dashboard",
+      "short_name": "Dashboard",
+      "description": "Access your command overview and curriculum tracks",
+      "url": "/dashboard",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Cyber Master Guide",
+      "short_name": "Master Guide",
+      "description": "100 terms, real-world attack breakdowns, and security encyclopedias",
+      "url": "/masterguide/cybersecurity_masterguide",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Cyber Arcade",
+      "short_name": "Arcade",
+      "description": "Play interactive cybersecurity minigames and challenges",
+      "url": "/games",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    },
+    {
+      "name": "AI Oracle Assistant",
+      "short_name": "AI Oracle",
+      "description": "Deep threat reasoning and offensive security mentor",
+      "url": "/ai_assistant",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    }
+  ]
+}

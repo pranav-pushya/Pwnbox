@@ -7,6 +7,8 @@
     <meta name="description" content="PwnBox Cyber Command Academy: Tactical in-browser cybersecurity training platform featuring 8 kill-chain labs, 3D holographic command matrix, 8 cyber mini-games, and 10-chapter master guide.">
     <title>PwnBox // Cyber Command - Tactical Offensive & Defensive Security Academy</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff66">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1088,7 +1090,15 @@
         </div>
     </div>
     <script src="js/firebase_auth.js"></script>
-
+    <script>
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch((err) => {
+                    console.log('SW registration note:', err);
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,101 @@
+name: PwnBox CI - Automated Quality & Regression Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Set up Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🐍 Set up Python 3.11 Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install websockets
+
+      - name: 🔍 Lint & Validate Syntax
+        run: |
+          echo "=== 1. Validating JavaScript Files ==="
+          for file in js/*.js; do
+            node -c "$file"
+          done
+          echo "All JavaScript files passed syntax compilation!"
+
+          echo "=== 2. Validating Configuration JSON Files ==="
+          node -e "JSON.parse(require('fs').readFileSync('firebase.json', 'utf8')); console.log('firebase.json is valid!');"
+          node -e "JSON.parse(require('fs').readFileSync('.firebaserc', 'utf8')); console.log('.firebaserc is valid!');"
+
+          echo "=== 3. Validating Sitemap XML Structure ==="
+          python -c "import xml.etree.ElementTree as ET; ET.parse('sitemap.xml'); print('sitemap.xml is valid XML!');"
+
+      - name: 🌐 Start Local Test Server
+        run: |
+          python3 -m http.server 8085 &
+          sleep 2
+
+      - name: 🚀 Install Google Chrome for Headless CDP Testing
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: 🧪 Execute Automated E2E & Route Integrity Suite
+        run: |
+          python - << 'EOF'
+          import urllib.request
+          import sys
+
+          routes = [
+              "http://localhost:8085/index.html",
+              "http://localhost:8085/dashboard.html",
+              "http://localhost:8085/games.html",
+              "http://localhost:8085/notes.html",
+              "http://localhost:8085/ai_assistant.html",
+              "http://localhost:8085/masterguide/cybersecurity_masterguide.html",
+              "http://localhost:8085/masterguide/roadmap.html",
+              "http://localhost:8085/masterguide/masterguide_test.html",
+              "http://localhost:8085/imp_info/general.html",
+              "http://localhost:8085/imp_info/ports.html",
+              "http://localhost:8085/robots.txt",
+              "http://localhost:8085/sitemap.xml"
+          ]
+
+          failed = []
+          for r in routes:
+              try:
+                  req = urllib.request.Request(r, headers={'User-Agent': 'PwnBox-CI-Auditor/1.0'})
+                  with urllib.request.urlopen(req, timeout=5) as res:
+                      if res.status != 200:
+                          failed.append((r, f"HTTP {res.status}"))
+                      else:
+                          print(f"✅ PASS: {r} (HTTP {res.status})")
+              except Exception as e:
+                  failed.append((r, str(e)))
+
+          if failed:
+              print("\n❌ CI Suite Failures detected:")
+              for r, err in failed:
+                  print(f"  - {r}: {err}")
+              sys.exit(1)
+          else:
+              print("\n🎉 All 12 critical academy routes responded with HTTP 200 OK!")
+          EOF

@@ -149,6 +149,11 @@
     color: var(--text-primary);
   }
 
+  .masterguide-nav .btn-lang {
+    background: #e76f51;
+    color: #ffffff;
+  }
+
   .masterguide-nav .btn-roadmap {
     background: #2a9d8f;
     color: #ffffff;

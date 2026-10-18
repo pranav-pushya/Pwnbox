@@ -415,13 +415,9 @@ STRICT ANSWERING RULES:
         showFloatingTyping(loadingId);
 
         try {
-            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
+            let data;
+            if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
+                data = await window.GroqService.callGroqChat({
                     model: "openai/gpt-oss-120b",
                     messages: [
                         { role: "system", content: systemPrompt },
@@ -429,12 +425,28 @@ STRICT ANSWERING RULES:
                     ],
                     temperature: 0.5,
                     max_tokens: 180
-                })
-            });
+                });
+            } else {
+                const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "openai/gpt-oss-120b",
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            { role: "user", content: text }
+                        ],
+                        temperature: 0.5,
+                        max_tokens: 180
+                    })
+                });
+                data = await response.json();
+            }
 
             removeFloatingTyping(loadingId);
-
-            const data = await response.json();
             if (data.error) {
                 addFloatingBubble(`⚠️ AI Error: ${data.error.message || 'Service unavailable'}`, 'bot');
             } else if (data.choices && data.choices[0] && data.choices[0].message) {
@@ -496,6 +508,10 @@ STRICT ANSWERING RULES:
             .replace(/cybersecurity_masterguide\.html/gi, 'Master Guide')
             .replace(/modules\/([a-zA-Z0-9_-]+)\.html/gi, 'Module: $1')
             .replace(/([a-zA-Z0-9_-]+)\.html/gi, '$1');
+
+        if (typeof window !== "undefined" && window.PwnMarkdown && window.PwnMarkdown.parseMarkdown) {
+            return window.PwnMarkdown.parseMarkdown(sanitized, { style: 'oracle' });
+        }
 
         // Stash code blocks with language badge and copy button
         const codeBlocks = [];

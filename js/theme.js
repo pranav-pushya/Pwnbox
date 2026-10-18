@@ -1587,6 +1587,21 @@ window.navigateToSettings = openSettingsModal;
         const inSubdir = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/games/') || path.includes('/imp_info/') || path.includes('/imp%20info/');
         const basePath = inSubdir ? '../' : '';
 
+        // Ensure shared markdown parser and groq service are loaded
+        if (!window.PwnMarkdown && !document.getElementById('pwnMarkdownParserScript')) {
+            const mdScript = document.createElement('script');
+            mdScript.id = 'pwnMarkdownParserScript';
+            mdScript.src = `${basePath}js/markdown_parser.js`;
+            document.head.appendChild(mdScript);
+        }
+
+        if (!window.GroqService && !document.getElementById('pwnGroqServiceScript')) {
+            const groqScript = document.createElement('script');
+            groqScript.id = 'pwnGroqServiceScript';
+            groqScript.src = `${basePath}js/groq_service.js`;
+            document.head.appendChild(groqScript);
+        }
+
         const script = document.createElement('script');
         script.id = 'pwnFloatingAiScript';
         script.src = `${basePath}js/floating_assistant.js?v=2.0`;

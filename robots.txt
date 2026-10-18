@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /dashboard
+Allow: /games
+Allow: /notes
+Allow: /roadmap
+Allow: /ai_assistant
+Allow: /masterguide/
+Allow: /imp_info/
+Allow: /modules/
+
+# Disallow internal scripts, data dumps, and functions
+Disallow: /scripts/
+Disallow: /functions/
+Disallow: /quiz-data/
+
+Sitemap: https://pwnbo-x.web.app/sitemap.xml

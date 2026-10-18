@@ -191,13 +191,9 @@ Format requirements:
         showTyping(loadingId);
 
         try {
-            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
+            let data;
+            if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
+                data = await window.GroqService.callGroqChat({
                     model: "openai/gpt-oss-20b",
                     messages: [
                         { role: "system", content: systemPrompt },
@@ -205,12 +201,28 @@ Format requirements:
                     ],
                     temperature: 0.7,
                     max_tokens: 600
-                })
-            });
+                });
+            } else {
+                const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "openai/gpt-oss-20b",
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            { role: "user", content: text }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 600
+                    })
+                });
+                data = await response.json();
+            }
 
             removeTyping(loadingId);
-
-            const data = await response.json();
             if (data.error) {
                 addChatBubble(`Groq API Error: ${data.error.message || 'Unknown error'}`, 'bot');
             } else if (data.choices && data.choices[0] && data.choices[0].message) {
@@ -255,6 +267,11 @@ Format requirements:
 
     // ── Markdown Parser ────────────────────────────────────────────────
     function formatChatMarkdown(text) {
+        if (!text) return '';
+        if (typeof window !== "undefined" && window.PwnMarkdown && window.PwnMarkdown.parseMarkdown) {
+            return window.PwnMarkdown.parseMarkdown(text);
+        }
+
         let html = text
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")

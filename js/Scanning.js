@@ -285,22 +285,32 @@ Be brutally honest, avoid fluff, and never give vague answers.`;
             try {
                 showTypingIndicator(loadingId);
 
-                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${(typeof window !== "undefined" && window.GROQ_API_KEY) || localStorage.getItem('pwnbox_groq_api_key') || apiKey || ""}`
-                    },
-                    body: JSON.stringify({
+                let data;
+                if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
+                    data = await window.GroqService.callGroqChat({
                         model: "openai/gpt-oss-20b",
                         messages: [
                             { role: "system", content: systemPrompt },
                             { role: "user", content: msg }
                         ]
-                    })
-                });
-
-                const data = await response.json();
+                    });
+                } else {
+                    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${(typeof window !== "undefined" && window.GROQ_API_KEY) || localStorage.getItem('pwnbox_groq_api_key') || apiKey || ""}`
+                        },
+                        body: JSON.stringify({
+                            model: "openai/gpt-oss-20b",
+                            messages: [
+                                { role: "system", content: systemPrompt },
+                                { role: "user", content: msg }
+                            ]
+                        })
+                    });
+                    data = await response.json();
+                }
                 const indicator = document.getElementById(loadingId);
                 if (indicator) indicator.remove();
 

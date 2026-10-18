@@ -241,13 +241,9 @@ async function sendMessage() {
     try {
         const sysPrompt = "You are the PwnBox Module 08 Classified Black Ops AI Mentor. You specialize in advanced adversary simulation, C2 frameworks (Cobalt Strike, Havoc), in-memory AMSI/ETW evasion, Living-off-the-Land (LOLBins), Active Directory Kerberos attack chains, and internal pivoting. Answer concisely, technically, and strictly for ethical educational red teaming.";
         
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        let data;
+        if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
+            data = await window.GroqService.callGroqChat({
                 model: "openai/gpt-oss-20b",
                 messages: [
                     { role: "system", content: sysPrompt },
@@ -255,10 +251,27 @@ async function sendMessage() {
                 ],
                 temperature: 0.6,
                 max_tokens: 600
-            })
-        });
+            });
+        } else {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${apiKey}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "openai/gpt-oss-20b",
+                    messages: [
+                        { role: "system", content: sysPrompt },
+                        { role: "user", content: msg }
+                    ],
+                    temperature: 0.6,
+                    max_tokens: 600
+                })
+            });
+            data = await response.json();
+        }
 
-        const data = await response.json();
         if (data.choices && data.choices[0]) {
             botDiv.innerHTML = data.choices[0].message.content.replace(/\n/g, '<br/>');
         } else {

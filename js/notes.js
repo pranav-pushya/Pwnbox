@@ -569,6 +569,11 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         if (!previewEl || !note) return;
 
         const rawContent = note.content || '';
+        if (typeof window !== "undefined" && window.PwnMarkdown && window.PwnMarkdown.parseMarkdown) {
+            previewEl.innerHTML = window.PwnMarkdown.parseMarkdown(rawContent, { style: 'terminal' });
+            return;
+        }
+
         let html = '';
 
         // Tokenize code blocks
