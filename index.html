@@ -18,6 +18,21 @@
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Bauhaus Loader Skip Initialization on Repeat Navigation (Shows on first visit or hard refresh only)
+        (function () {
+            try {
+                const navEntry = (window.performance && performance.getEntriesByType) ? performance.getEntriesByType('navigation')[0] : null;
+                const isReload = (navEntry && navEntry.type === 'reload') || (window.performance && window.performance.navigation && window.performance.navigation.type === 1);
+                const hasVisited = sessionStorage.getItem('pwnbox_home_visited');
+                if (hasVisited && !isReload) {
+                    const style = document.createElement('style');
+                    style.id = 'skip-loader-style';
+                    style.textContent = '#bauhaus-loader { display: none !important; }';
+                    document.head.appendChild(style);
+                }
+            } catch (e) {}
+        })();
     </script>
 
     <!-- Stylesheet -->
@@ -26,6 +41,7 @@
     <!-- Firebase SDK v10 Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="js/ui_popups.js"></script>
 </head>
 
 <body>
@@ -41,7 +57,21 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const loader = document.getElementById('bauhaus-loader');
-            if (loader) {
+            if (!loader) return;
+
+            let isReload = false;
+            try {
+                const navEntry = (window.performance && performance.getEntriesByType) ? performance.getEntriesByType('navigation')[0] : null;
+                isReload = (navEntry && navEntry.type === 'reload') || (window.performance && window.performance.navigation && window.performance.navigation.type === 1);
+            } catch (e) {}
+
+            const hasVisited = sessionStorage.getItem('pwnbox_home_visited');
+            const shouldShowLoader = isReload || !hasVisited;
+
+            if (shouldShowLoader) {
+                try {
+                    sessionStorage.setItem('pwnbox_home_visited', 'true');
+                } catch (e) {}
                 document.body.style.overflow = 'hidden';
                 setTimeout(() => {
                     loader.classList.add('hide');
@@ -50,6 +80,9 @@
                         loader.style.display = 'none';
                     }, 800);
                 }, 2200);
+            } else {
+                loader.style.display = 'none';
+                document.body.style.overflow = '';
             }
         });
     </script>
@@ -86,14 +119,14 @@
 
                 <p class="hero-subtitle">
                     Master real-world offensive reconnaissance, automated vulnerability scanning, system exploitation,
-                    and cyber defense across 8 battle-tested training tracks, 60+ practical in-browser security tools, 8
+                    and cyber defense across <span id="heroTracksCount">7</span> battle-tested training tracks, 60+ practical in-browser security tools, 8
                     tactical cyber games, and an interactive 10-chapter master guide.
                 </p>
 
                 <!-- Live Statistics Counter -->
                 <div class="hero-stats-bar">
                     <div class="stat-item">
-                        <div class="stat-num">08</div>
+                        <div class="stat-num" id="statModuleCount">07</div>
                         <div class="stat-label">Training Modules</div>
                     </div>
                     <div class="stat-item">
@@ -166,7 +199,7 @@
                         <li><button class="btn-vector-pill" data-id="5">M-05 Exploit</button></li>
                         <li><button class="btn-vector-pill" data-id="6">M-06 WebSec</button></li>
                         <li><button class="btn-vector-pill" data-id="7">M-07 OSINT</button></li>
-                        <li><button class="btn-vector-pill" data-id="8">M-08 C2 Ops</button></li>
+                        <li id="vectorPillM08" style="display: none;"><button class="btn-vector-pill" data-id="8" style="border-color: #9333ea; color: #c084fc;">M-08 C2 Ops</button></li>
                     </ul>
                 </div>
             </div>
@@ -317,13 +350,13 @@
                         <div class="feature-icon-box">🛠️</div>
                         <h3 class="feature-title">Hands-on Tool Labs</h3>
                         <p class="feature-text">
-                            Live simulations of industry-standard toolsets across 8 modules: Nmap, Gobuster, Nikto,
-                            Metasploit, Hydra, C2 Beaconing, and more. Experience real command execution, terminal
+                            Live simulations of industry-standard toolsets across <span id="featureModuleCount">7</span> modules: Nmap, Gobuster, Nikto,
+                            Metasploit, Hydra<span id="featureModuleBlackOps"></span>, and more. Experience real command execution, terminal
                             output, and attack vectors without risk.
                         </p>
                     </div>
                     <div class="feature-footer-tag">
-                        <span>⚡ 60+ Tool Simulations (M-01 to M-08)</span>
+                        <span id="featureModuleRangeTag">⚡ 54+ Tool Simulations (M-01 to M-07)</span>
                     </div>
                 </div>
 
@@ -1053,7 +1086,6 @@
             </div>
         </div>
     </div>
-    <script src="js/ui_popups.js"></script>
     <script src="js/firebase_auth.js"></script>
 
 </body>
