@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Core Public Academy Pages -->
   <url>
     <loc>https://pwnbo-x.web.app/</loc>
     <lastmod>2026-10-19</lastmod>
@@ -31,8 +30,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Master Guide & Curriculum -->
   <url>
     <loc>https://pwnbo-x.web.app/masterguide/cybersecurity_masterguide</loc>
     <lastmod>2026-10-19</lastmod>
@@ -111,8 +108,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Important Field Reference Information -->
   <url>
     <loc>https://pwnbo-x.web.app/imp_info/imp_info</loc>
     <lastmod>2026-10-19</lastmod>
@@ -143,58 +138,54 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Cyber Arcade Games -->
   <url>
-    <loc>https://pwnbo-x.web.app/games/terminal_typer.html</loc>
+    <loc>https://pwnbo-x.web.app/games/cidr_block.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/packet_tracer.html</loc>
+    <loc>https://pwnbo-x.web.app/games/cipher_relic.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/hash_cracker.html</loc>
+    <loc>https://pwnbo-x.web.app/games/entropy_clash.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/sql_injector.html</loc>
+    <loc>https://pwnbo-x.web.app/games/packet_gatekeeper.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/phish_catcher.html</loc>
+    <loc>https://pwnbo-x.web.app/games/phish_detective.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/cipher_decoder.html</loc>
+    <loc>https://pwnbo-x.web.app/games/privesc_tower.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/port_scanner.html</loc>
+    <loc>https://pwnbo-x.web.app/games/ransom_panic.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pwnbo-x.web.app/games/priv_escalate.html</loc>
+    <loc>https://pwnbo-x.web.app/games/sqli_locksmith.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- Interactive Kill Chain Modules -->
   <url>
     <loc>https://pwnbo-x.web.app/modules/Footprinting.html</loc>
     <lastmod>2026-10-19</lastmod>
