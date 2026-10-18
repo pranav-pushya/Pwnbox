@@ -19,6 +19,18 @@
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 
+    <!-- Strict Operative Authentication Guard -->
+    <script src="js/auth_guard.js"></script>
+    <script>
+        (function() {
+            const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+            if (!isAuth) {
+                const isLocal = window.location.protocol === 'file:';
+                window.location.replace(isLocal ? 'index.html?auth_required=1' : '/?auth_required=1');
+            }
+        })();
+    </script>
+
     <style>
         /* ==========================================================================
            1. CSS VARIABLES & THEME PRESETS (Zero dependency on external broken layouts)
@@ -1945,6 +1957,13 @@
 
         // ── 6. Message Dispatch & Rendering ─────────────────────────────────
         function handleSendClick() {
+            if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
+                alert("AUTHENTICATION REQUIRED: Please sign in to use the PwnBox Cyber Security AI Assistant.");
+                const isLocal = window.location.protocol === 'file:';
+                window.location.replace(isLocal ? 'index.html?auth_required=1' : '/?auth_required=1');
+                return;
+            }
+
             const input = document.getElementById('assistantInput');
             const text = input.value.trim();
             if (!text) return;

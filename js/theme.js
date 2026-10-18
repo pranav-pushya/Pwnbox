@@ -76,6 +76,20 @@ function isCurrentPage(target) {
 
 function navigateTo(target) {
     if (isCurrentPage(target)) return;
+    if (target === 'assistant') {
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("Authentication required to access Deep Cyber AI Oracle.", "warning");
+            }
+            if (typeof openAuthModal === 'function') {
+                openAuthModal();
+            } else {
+                window.location.href = '/?auth_required=1';
+            }
+            return;
+        }
+    }
     const dest = getPwnboxPath(target);
     if (dest) {
         window.location.href = dest;
@@ -530,6 +544,11 @@ function renderShortcutsList(query = '') {
 }
 
 function openShortcutsModal() {
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) {
+        return; // Silently blocked as if it does not exist
+    }
+
     const modal = ensureShortcutsModal();
     renderShortcutsList('');
     modal.classList.add('active');
@@ -551,6 +570,11 @@ function closeShortcutsModal() {
 }
 
 function toggleShortcutsModal() {
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) {
+        openShortcutsModal();
+        return;
+    }
     const modal = document.getElementById('pwnboxShortcutsOverlay');
     if (modal && modal.classList.contains('active')) {
         closeShortcutsModal();
@@ -1346,6 +1370,10 @@ document.addEventListener('keydown', function (e) {
     if (currentPath.includes('/games/') && !currentPath.endsWith('/games.html') && !currentPath.endsWith('/games')) {
         return;
     }
+
+    // 7. Require authentication for tactical single-letter navigation hotkeys
+    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) return;
 
     // Universal Single-Letter Shortcuts:
     const k = e.key ? e.key.toLowerCase() : '';

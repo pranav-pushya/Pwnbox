@@ -158,6 +158,17 @@ Guide Summary & Notes: "${bodyText}"`
         const text = input.value.trim();
         if (!text) return;
 
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            addChatBubble(text, 'user');
+            input.value = '';
+            setTimeout(() => {
+                addChatBubble("🔒 <strong>Clearance Required:</strong> Sawt AI Tutor is restricted to authenticated operatives. Please sign in to ask questions.", 'bot');
+                if (typeof openAuthModal === 'function') openAuthModal();
+            }, 150);
+            return;
+        }
+
         addChatBubble(text, 'user');
         input.value = '';
 

@@ -27,6 +27,12 @@ async function callGroqChat({
     temperature = 0.7,
     max_tokens = 1024
 }) {
+    // Step 0: Strict Authentication Guard (AI Assistant restricted to authenticated operatives)
+    const isAuth = typeof localStorage !== 'undefined' && localStorage.getItem('pwnbox_is_authenticated') === 'true';
+    if (!isAuth) {
+        throw new Error("AUTHENTICATION_REQUIRED: Tactical AI Assistant is restricted to authenticated operatives. Please sign in to access.");
+    }
+
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
         throw new Error("Invalid payload: 'messages' array is required.");
     }

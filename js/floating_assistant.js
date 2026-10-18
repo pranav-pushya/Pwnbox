@@ -94,7 +94,7 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 - Keyboard Shortcuts:
   Ctrl+/ = Tactical Command HUD, T = Theme toggle, H = Home, D = Dashboard, G = Games, N = Notes, R = Roadmap, M = Master Guide, A = Cyber Oracle, S = Settings.
 - Authentication & Clearance:
-  The Cyber AI Assistant, Copilot, and Cyber Oracle are 100% unlocked and freely available to all visitors and students, whether authenticated or exploring as a guest cadet. Guests have full clearance to ask questions, explore cyber topics, use navigation shortcuts, and learn without restriction.
+  Operatives can sign in via Google or GitHub. Signed-out guests can browse public pages and read default notes, but cannot run live attacks, modify notes, or track progress without signing in. Secret gates and shortcuts are silently blocked when signed out.
 `;
 
     // ── 3. Proportions Configuration (1.5x Large & 1x Compact) ─────────
@@ -202,17 +202,30 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 
             <!-- Chat Feed Body with Clean Welcome Card (No button grid) -->
             <div class="copilot-body" id="pwnFloatingChatHistory">
+                ${localStorage.getItem('pwnbox_is_authenticated') === 'true' ? `
                 <div class="copilot-welcome-card" id="copilotWelcomeCard">
                     <div class="welcome-text">
                         👋 Greetings Operative <strong id="welcomeAliasText">${escapeHtml(telemetry.alias)}</strong>! I am your PwnBox Tactical Copilot. Ask me anything about navigating modules, checking progress, tools, or shortcuts.
                     </div>
                 </div>
+                ` : `
+                <div class="copilot-welcome-card" id="copilotWelcomeCard" style="background: rgba(239, 68, 68, 0.08); border: 2px dashed #ef4444; border-radius: 8px; padding: 18px 14px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 6px;">🔒</div>
+                    <div style="font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.9rem; color: #ef4444; margin-bottom: 6px;">OPERATIVE CLEARANCE REQUIRED</div>
+                    <div class="welcome-text" style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 14px; color: var(--text-muted, #94a3b8);">
+                        Tactical AI Copilot is strictly restricted to authenticated operatives. Please sign in to ask questions, query live telemetry, or receive AI guidance.
+                    </div>
+                    <button onclick="if(typeof openAuthModal==='function'){openAuthModal();}else{window.location.href='/?auth_required=1';}" style="background: #00ff66; color: #030712; border: none; padding: 8px 16px; font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; border-radius: 4px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,255,102,0.3);">
+                        🔐 SIGN IN TO ACTIVATE
+                    </button>
+                </div>
+                `}
             </div>
 
             <!-- Clean Single-Row Input (Zero extra buttons strip) -->
             <div class="copilot-input-area">
-                <input type="text" id="pwnFloatingChatInput" class="copilot-input" placeholder="Ask tactical question or navigate..." autocomplete="off" onkeypress="window.handleFloatingEnter(event)">
-                <button id="pwnFloatingSendBtn" class="copilot-send-btn" onclick="window.sendFloatingMessage()" title="Send">
+                <input type="text" id="pwnFloatingChatInput" class="copilot-input" ${localStorage.getItem('pwnbox_is_authenticated') === 'true' ? 'placeholder="Ask tactical question or navigate..."' : 'placeholder="🔒 Sign in to unlock AI Copilot..." disabled style="opacity: 0.6; cursor: not-allowed;"'} autocomplete="off" onkeypress="window.handleFloatingEnter(event)">
+                <button id="pwnFloatingSendBtn" class="copilot-send-btn" ${localStorage.getItem('pwnbox_is_authenticated') === 'true' ? 'onclick="window.sendFloatingMessage()"' : 'disabled style="opacity: 0.5; cursor: not-allowed;"'} title="${localStorage.getItem('pwnbox_is_authenticated') === 'true' ? 'Send' : 'Sign in required'}">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                     </svg>
@@ -303,6 +316,18 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 
     window.switchFloatingAiMode = function (mode) {
         if (mode === 'cybersec') {
+            const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+            if (!isAuth) {
+                if (typeof window.tacticalToast === 'function') {
+                    window.tacticalToast("Authentication required to access Deep Cyber AI Oracle.", "warning");
+                }
+                if (typeof openAuthModal === 'function') {
+                    openAuthModal();
+                } else {
+                    window.location.href = '/?auth_required=1';
+                }
+                return;
+            }
             const input = document.getElementById('pwnFloatingChatInput');
             const draft = input ? input.value.trim() : '';
             const basePath = getBasePath();
@@ -331,6 +356,17 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
         if (!input) return;
         const text = input.value.trim();
         if (!text) return;
+
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        if (!isAuth) {
+            addFloatingBubble(text, 'user');
+            input.value = '';
+            setTimeout(() => {
+                addFloatingBubble("🔒 <strong>Clearance Denied:</strong> Tactical AI Copilot requires an authenticated session. Please sign in via the top-right button.", 'bot');
+                if (typeof openAuthModal === 'function') openAuthModal();
+            }, 100);
+            return;
+        }
 
         addFloatingBubble(text, 'user');
         input.value = '';
