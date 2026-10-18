@@ -31,6 +31,8 @@ function getPwnboxPath(target) {
             return isSubdir ? '../notes.html' : 'notes.html';
         case 'games':
             return isSubdir ? '../games.html' : 'games.html';
+        case 'assistant':
+            return isSubdir ? '../ai_assistant.html' : 'ai_assistant.html';
         case 'masterguide':
             if (inMasterguide) return 'cybersecurity_masterguide.html';
             if (isSubdir) return '../masterguide/cybersecurity_masterguide.html';
@@ -65,6 +67,8 @@ function isCurrentPage(target) {
             return path.endsWith('/roadmap.html');
         case 'imp':
             return path.endsWith('/imp_info.html') || path.endsWith('/imp_info');
+        case 'assistant':
+            return path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant');
         default:
             return false;
     }
@@ -160,6 +164,14 @@ const PWNBOX_SHORTCUTS = [
                 if (dest) window.location.href = dest + (dest.includes('?') ? '&' : '?') + 'cheatsheet=1';
             }
         }
+    },
+    {
+        key: 'A',
+        badge: 'A',
+        title: 'Cyber AI Assistant',
+        desc: 'Deep Cybersecurity Intelligence Oracle & Tutor',
+        category: 'Intel',
+        target: 'assistant'
     },
     {
         key: 'S',
@@ -392,7 +404,7 @@ function ensureShortcutsModal() {
             </div>
             <div class="pwn-shortcuts-list" id="pwnboxShortcutsListFeed"></div>
             <div class="pwn-shortcuts-footer">
-                <span>[ESC] to dismiss &bull; [ENTER] to select top match</span>
+                <span>[↑/↓] Navigate &bull; [ENTER] Select &bull; [ESC] Dismiss</span>
                 <span>GLOBAL HOTKEYS // PWNBOX v3.4</span>
             </div>
         </div>
@@ -414,13 +426,39 @@ function ensureShortcutsModal() {
             renderShortcutsList(e.target.value);
         });
 
-        // Enter key to execute first filtered match
+        // Arrow and Enter key navigation
         searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+            const listFeed = modal.querySelector('#pwnboxShortcutsListFeed');
+            const items = listFeed ? Array.from(listFeed.querySelectorAll('.pwn-shortcut-item')) : [];
+            if (items.length === 0) return;
+
+            const currentIndex = items.findIndex(el => el.classList.contains('highlighted'));
+
+            if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                const firstItem = modal.querySelector('.pwn-shortcut-item');
-                if (firstItem) {
-                    firstItem.click();
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= items.length) nextIndex = 0;
+                items.forEach((it, idx) => {
+                    it.classList.toggle('highlighted', idx === nextIndex);
+                });
+                if (items[nextIndex]) {
+                    items[nextIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                let prevIndex = currentIndex - 1;
+                if (prevIndex < 0) prevIndex = items.length - 1;
+                items.forEach((it, idx) => {
+                    it.classList.toggle('highlighted', idx === prevIndex);
+                });
+                if (items[prevIndex]) {
+                    items[prevIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                const activeItem = items[currentIndex >= 0 ? currentIndex : 0];
+                if (activeItem) {
+                    activeItem.click();
                 }
             }
         });
@@ -460,6 +498,12 @@ function renderShortcutsList(query = '') {
         const item = document.createElement('div');
         item.className = `pwn-shortcut-item ${index === 0 ? 'highlighted' : ''}`;
         item.title = `Activate: ${shortcut.title}`;
+
+        item.addEventListener('mouseenter', () => {
+            const allItems = listFeed.querySelectorAll('.pwn-shortcut-item');
+            allItems.forEach(el => el.classList.remove('highlighted'));
+            item.classList.add('highlighted');
+        });
 
         item.onclick = () => {
             closeShortcutsModal();
@@ -1271,6 +1315,14 @@ document.addEventListener('keydown', function (e) {
                 return;
             }
         }
+        const aiDrawer = document.getElementById('pwnFloatingAiDrawer');
+        if (aiDrawer && aiDrawer.classList.contains('open')) {
+            e.preventDefault();
+            if (typeof window.toggleFloatingAiChat === 'function') {
+                window.toggleFloatingAiChat();
+                return;
+            }
+        }
     }
 
     // 3. Ignore single-key shortcuts if holding modifier keys (Ctrl, Alt, Meta/Command)
@@ -1344,6 +1396,9 @@ document.addEventListener('keydown', function (e) {
                 }
             }
             break;
+        case 'a': // A or a for Cyber AI Assistant
+            navigateTo('assistant');
+            break;
         case 's': // S or s for Settings
             openSettingsModal();
             break;
@@ -1383,6 +1438,11 @@ window.navigateToSettings = openSettingsModal;
         '.auth-modal',
         '.auth-modal-card',
         '.profile-dropdown',
+        '#pwnFloatingAiDrawer',
+        '.pwn-copilot-card',
+        '.copilot-body',
+        '.doubt-chat-drawer',
+        '.doubt-chat-body',
         '.id-card-wrapper',
         '.id-card-inner',
         '.id-card-front',
@@ -1514,3 +1574,30 @@ window.navigateToSettings = openSettingsModal;
         }
     }, { passive: false });
 })();
+
+// ── 9. AUTO-INITIALIZE GLOBAL 2-MODE FLOATING AI ASSISTANT ACROSS ALL PAGES ──
+(function initGlobalFloatingAiAssistant() {
+    if (typeof window === 'undefined') return;
+    const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+    // Do not show floating widget on the dedicated full-page assistant itself
+    if (path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant')) return;
+
+    function injectFloatingScript() {
+        if (document.getElementById('pwnFloatingAiScript') || window.toggleFloatingAiChat) return;
+        const inSubdir = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/games/') || path.includes('/imp_info/') || path.includes('/imp%20info/');
+        const basePath = inSubdir ? '../' : '';
+
+        const script = document.createElement('script');
+        script.id = 'pwnFloatingAiScript';
+        script.src = `${basePath}js/floating_assistant.js?v=2.0`;
+        script.async = true;
+        document.body ? document.body.appendChild(script) : document.head.appendChild(script);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectFloatingScript);
+    } else {
+        injectFloatingScript();
+    }
+})();
+
