@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transmit secure feedback, report cyber range vulnerabilities, or contact PwnBox Academy Command. Protected by automated rate limiting and bot traps.">
+    <title>Operative Transmission Desk // Contact — PwnBox Cyber Academy</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/tactical_policy.css">
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Operative Transmission Desk // Contact — PwnBox Cyber Academy">
+    <meta property="og:description" content="Transmit secure feedback, report cyber range vulnerabilities, or contact PwnBox Academy Command. Protected by automated rate limiting and bot traps.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Operative Transmission Desk // Contact — PwnBox Cyber Academy">
+    <meta name="twitter:description" content="Transmit secure feedback, report cyber range vulnerabilities, or contact PwnBox Academy Command. Protected by automated rate limiting and bot traps.">
+    <meta name="twitter:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body>
+    <!-- Tactical Header -->
+    <header class="policy-header">
+        <a href="index.html" class="brand-link">
+            <span>🛡️ PWNBOX</span>
+            <span class="brand-badge">TRANSMISSION DESK</span>
+        </a>
+        <div class="header-actions">
+            <a href="index.html" class="action-btn">🏠 Base Camp</a>
+            <a href="dashboard.html" class="action-btn">📊 Dashboard</a>
+            <a href="privacy.html" class="action-btn">🔒 Privacy</a>
+            <button onclick="toggleTheme()" class="action-btn" id="themeToggleBtn">🌓 Theme</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="policy-container">
+        <!-- Hero Section -->
+        <div class="hero-badge" style="border-color: var(--accent-green); color: var(--accent-green); background: rgba(0, 255, 102, 0.1);">
+            <span>📡 ENCRYPTED CHANNEL</span>
+            <span>//</span>
+            <span>DIRECT ARCHITECT DISPATCH</span>
+        </div>
+        <h1 class="hero-title">OPERATIVE TRANSMISSION DESK</h1>
+        <p class="hero-subtitle">
+            Submit bug bounties, report lab anomalies, request academic partnerships, or transmit tactical feedback directly to the PwnBox architecture team.
+        </p>
+
+        <!-- Dispatch Form Card -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">TX</span>
+                <h2 class="card-title">DISPATCH INTEL FORM</h2>
+            </div>
+
+            <!-- Error / Warning Banner -->
+            <div id="formAlertBox" style="display: none; padding: 0.75rem 1rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 1.25rem;"></div>
+
+            <form id="contactTransmissionForm" class="tactical-form" onsubmit="handleTransmissionSubmit(event)" novalidate>
+                <!-- ============================================== -->
+                <!-- SPAM PROTECTION 1: INVISIBLE HONEYPOT FIELD    -->
+                <!-- Bots will auto-fill this. Humans cannot see it. -->
+                <!-- ============================================== -->
+                <div class="terminal-trap-gate" aria-hidden="true">
+                    <label for="fax_terminal_operator">Do not fill this field if you are human:</label>
+                    <input type="text" name="_fax_terminal_operator" id="fax_terminal_operator" tabindex="-1" autocomplete="off">
+                </div>
+
+                <!-- ============================================== -->
+                <!-- SPAM PROTECTION 2: SECONDARY DECOY HONEYPOT    -->
+                <!-- ============================================== -->
+                <div class="terminal-trap-gate" aria-hidden="true">
+                    <label for="system_nonce_check">System Nonce Verification:</label>
+                    <input type="text" name="_system_nonce_check" id="system_nonce_check" tabindex="-1" autocomplete="off">
+                </div>
+
+                <!-- Field 1: Callsign / Operative Handle -->
+                <div class="form-group">
+                    <label class="form-label" for="operative_callsign">
+                        <span>OPERATIVE CALLSIGN / NAME</span>
+                        <span class="req">[REQUIRED]</span>
+                    </label>
+                    <input type="text" id="operative_callsign" name="operative_callsign" class="form-input" placeholder="e.g. Ghost_0x4, Pranav, SecurityAnalyst" required autocomplete="name">
+                </div>
+
+                <!-- Field 2: Return Frequency (Email) -->
+                <div class="form-group">
+                    <label class="form-label" for="operative_email">
+                        <span>RETURN FREQUENCY (EMAIL ADDRESS)</span>
+                        <span class="req">[REQUIRED]</span>
+                    </label>
+                    <input type="email" id="operative_email" name="operative_email" class="form-input" placeholder="operative@domain.com" required autocomplete="email">
+                </div>
+
+                <!-- Field 3: Transmission Classification -->
+                <div class="form-group">
+                    <label class="form-label" for="transmission_category">
+                        <span>MISSION CLASSIFICATION</span>
+                        <span class="req">[SELECT ONE]</span>
+                    </label>
+                    <select id="transmission_category" name="transmission_category" class="form-select">
+                        <option value="Bug Report // Lab Glitch">🐞 Bug Report // Lab Simulation Anomaly</option>
+                        <option value="Feature Suggestion">💡 Feature Request // New Cyber Tool Proposal</option>
+                        <option value="Academic Collaboration">🎓 Academic & University Inquiries</option>
+                        <option value="Security Disclosure">🛡️ Responsible Security Disclosure</option>
+                        <option value="General Dispatch" selected>💬 General Operative Feedback</option>
+                    </select>
+                </div>
+
+                <!-- Field 4: Transmission Payload -->
+                <div class="form-group">
+                    <label class="form-label" for="transmission_message">
+                        <span>TRANSMISSION PAYLOAD (MESSAGE)</span>
+                        <span class="req">[REQUIRED]</span>
+                    </label>
+                    <textarea id="transmission_message" name="transmission_message" class="form-textarea" placeholder="Provide step-by-step reproduction steps, feedback, or inquiry details..." required></textarea>
+                </div>
+
+                <!-- Anti-Spam Notice & Privacy Link -->
+                <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🛡️</span>
+                    <span>Protected by automated honeypots & client rate-limiting. Read our <a href="privacy.html" style="color: var(--accent-cyan);">Privacy Policy</a>.</span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitDispatchBtn" class="submit-btn">
+                    <span>🚀</span> TRANSMIT DISPATCH TO COMMAND
+                </button>
+            </form>
+        </div>
+
+        <!-- Direct Architectural Links -->
+        <div class="policy-card" style="border-left: 4px solid var(--accent-cyan);">
+            <div class="policy-card-header">
+                <span class="card-num" style="color: var(--accent-cyan); border-color: var(--accent-cyan); background: rgba(0, 240, 255, 0.1);">ALT</span>
+                <h2 class="card-title">ALTERNATIVE COMMS CHANNELS</h2>
+            </div>
+            <p>
+                Prefer direct asynchronous comms or public code contribution? You can also engage via:
+            </p>
+            <ul class="policy-list">
+                <li><strong>GitHub Repository:</strong> Submit pull requests and issues at <a href="https://github.com/pranav-pushya/Pwnbox" target="_blank" rel="noopener" style="color: var(--accent-green); text-decoration: underline;">github.com/pranav-pushya/Pwnbox</a>.</li>
+                <li><strong>Interactive AI SOC:</strong> For immediate tactical questions regarding the 8 modules, launch the <a href="ai_assistant.html" style="color: var(--accent-cyan); text-decoration: underline;">AI Assistant</a>.</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Tactical Footer -->
+    <footer class="policy-footer">
+        <div>
+            <span>PWNBOX CYBER COMMAND // SECURE DISPATCH GATE &bull; &copy; 2026 PRANAV PUSHYA</span>
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <a href="index.html">Base Camp</a> |
+            <a href="dashboard.html">Dashboard</a> |
+            <a href="contact.html">Contact Form</a> |
+            <a href="thank-you.html">Transmission Receipt</a> |
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <!-- Anti-Spam & Submission Logic -->
+    <script>
+        // Measure time on page to detect rapid automated bot fills
+        const pageLoadTimestamp = Date.now();
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
+
+        function showAlert(msg, isError = true) {
+            const box = document.getElementById('formAlertBox');
+            box.style.display = 'block';
+            box.style.background = isError ? 'rgba(239, 68, 68, 0.1)' : 'rgba(0, 255, 102, 0.1)';
+            box.style.border = `1px solid ${isError ? 'var(--accent-red)' : 'var(--accent-green)'}`;
+            box.style.color = isError ? 'var(--accent-red)' : 'var(--accent-green)';
+            box.innerHTML = msg;
+        }
+
+        function handleTransmissionSubmit(event) {
+            event.preventDefault();
+
+            // 1. SPAM CHECK: Honeypot trap verification
+            const trap1 = document.getElementById('fax_terminal_operator').value;
+            const trap2 = document.getElementById('system_nonce_check').value;
+            if (trap1 || trap2) {
+                console.warn('[SPAM DEFENSE] Honeypot field triggered. Bot drop activated.');
+                showAlert('SECURITY FAULT: Automated bot submission pattern detected. Transmission aborted.');
+                return;
+            }
+
+            // 2. SPAM CHECK: Time-to-Submit Heuristic (< 2.5s is superhuman/bot)
+            const elapsedTimeSeconds = (Date.now() - pageLoadTimestamp) / 1000;
+            if (elapsedTimeSeconds < 2.5) {
+                console.warn(`[SPAM DEFENSE] Form submitted too quickly (${elapsedTimeSeconds.toFixed(1)}s).`);
+                showAlert('SECURITY NOTICE: Form submitted too quickly. Please review your message and submit again.');
+                return;
+            }
+
+            // 3. SPAM CHECK: Client-side Rate Limiting (60-second cooldown)
+            const lastSubmission = parseInt(localStorage.getItem('pwnbox_last_transmission_time') || '0', 10);
+            const timeSinceLast = Math.floor((Date.now() - lastSubmission) / 1000);
+            const cooldownSeconds = 60;
+            if (timeSinceLast < cooldownSeconds) {
+                const remaining = cooldownSeconds - timeSinceLast;
+                showAlert(`COOLDOWN ENFORCED: Rate limiter active. Please wait ${remaining} seconds before dispatching another transmission.`);
+                return;
+            }
+
+            // 4. Form Validation
+            const callsign = document.getElementById('operative_callsign').value.trim();
+            const email = document.getElementById('operative_email').value.trim();
+            const category = document.getElementById('transmission_category').value;
+            const message = document.getElementById('transmission_message').value.trim();
+
+            if (!callsign || !email || !message) {
+                showAlert('VALIDATION ERROR: Please fill out all required fields.');
+                return;
+            }
+
+            // Basic email pattern check
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showAlert('VALIDATION ERROR: Please provide a valid return email address.');
+                return;
+            }
+
+            // Disable button during processing
+            const submitBtn = document.getElementById('submitDispatchBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>⚡</span> ENCRYPTING & TRANSMITTING...';
+
+            // Generate unique Transmission Reference ID
+            const hexId = Math.floor(1000 + Math.random() * 9000).toString(16).toUpperCase();
+            const txHash = `TX-PWN-${hexId}`;
+
+            // Record timestamp for rate limit enforcement
+            localStorage.setItem('pwnbox_last_transmission_time', Date.now().toString());
+
+            // Save outbox record locally
+            const record = {
+                tx: txHash,
+                callsign,
+                email,
+                category,
+                message,
+                timestamp: new Date().toISOString()
+            };
+            try {
+                const history = JSON.parse(localStorage.getItem('pwnbox_dispatches') || '[]');
+                history.unshift(record);
+                localStorage.setItem('pwnbox_dispatches', JSON.stringify(history.slice(0, 10)));
+            } catch (e) {
+                console.warn('Could not save dispatch to local storage:', e);
+            }
+
+            // Fire Google Analytics 4 conversion event if active
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'generate_lead', {
+                    event_category: 'engagement',
+                    event_label: category,
+                    value: 1
+                });
+            }
+
+            // Redirect to dedicated Thank You / Conversion page
+            setTimeout(() => {
+                window.location.href = `thank-you.html?tx=${encodeURIComponent(txHash)}&cat=${encodeURIComponent(category)}`;
+            }, 800);
+        }
+    </script>
+    <script src="js/analytics_consent.js"></script>
+</body>
+
+</html>

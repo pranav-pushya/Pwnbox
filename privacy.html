@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PwnBox Privacy Policy: Complete disclosure on client-side localStorage, ephemeral Groq AI assistant queries, Firebase hosting telemetry, and our zero-PII data charter.">
+    <title>Privacy Policy & Data Handling Charter — PwnBox Cyber Academy</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/tactical_policy.css">
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Privacy Policy & Data Handling Charter — PwnBox Cyber Academy">
+    <meta property="og:description" content="PwnBox Privacy Policy: Complete disclosure on client-side localStorage, ephemeral Groq AI assistant queries, Firebase hosting telemetry, and our zero-PII data charter.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy & Data Handling Charter — PwnBox Cyber Academy">
+    <meta name="twitter:description" content="PwnBox Privacy Policy: Complete disclosure on client-side localStorage, ephemeral Groq AI assistant queries, Firebase hosting telemetry, and our zero-PII data charter.">
+    <meta name="twitter:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body>
+    <!-- Tactical Header -->
+    <header class="policy-header">
+        <a href="index.html" class="brand-link">
+            <span>🛡️ PWNBOX</span>
+            <span class="brand-badge">COMPLIANCE DIRECTIVE</span>
+        </a>
+        <div class="header-actions">
+            <a href="index.html" class="action-btn">🏠 Base Camp</a>
+            <a href="dashboard.html" class="action-btn">📊 Dashboard</a>
+            <a href="contact.html" class="action-btn">✉️ Contact</a>
+            <button onclick="toggleTheme()" class="action-btn" id="themeToggleBtn">🌓 Theme</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="policy-container">
+        <!-- Hero Section -->
+        <div class="hero-badge">
+            <span>🔒 CLEARANCE LEVEL 1</span>
+            <span>//</span>
+            <span>TRANSPARENCY & DATA COMPLIANCE</span>
+        </div>
+        <h1 class="hero-title">PRIVACY POLICY & DATA HANDLING CHARTER</h1>
+        <p class="hero-subtitle">
+            Effective Date: October 2026 &bull; Platform Build: v3.4.0 &bull; Architect: Pranav Pushya
+        </p>
+
+        <!-- Summary Banner Card -->
+        <div class="policy-card" style="border-left: 4px solid var(--accent-green);">
+            <div class="policy-card-header">
+                <span class="card-num">00</span>
+                <h2 class="card-title">EXECUTIVE DATA DISCLOSURE</h2>
+            </div>
+            <p>
+                <strong>PwnBox is engineered on a Privacy-First, Client-Centric architecture.</strong> We do not operate persistent user account databases, do not sell behavioral data, do not run intrusive tracking pixels, and do not profile your web activity. Your lab progress, simulation scores, and operative notes reside locally inside your own browser.
+            </p>
+        </div>
+
+        <!-- Section 1: Information Stored in Local Storage -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">01</span>
+                <h2 class="card-title">CLIENT BROWSER STORAGE (LOCALSTORAGE)</h2>
+            </div>
+            <p>
+                To provide persistent game progression, terminal custom tools, and notes across browser restarts without requiring cloud logins, PwnBox utilizes HTML5 <code>localStorage</code> on your local device. The specific keys saved are:
+            </p>
+            <ul class="policy-list">
+                <li><code>theme</code>: Your interface display mode preference (<code>'dark'</code> or <code>'light'</code>).</li>
+                <li><code>pwnbox_xp</code> / <code>userXP</code>: Gamification experience points earned in the 8 kill-chain labs.</li>
+                <li><code>pwnbox_operative_name</code> / <code>operative_callsign</code>: Custom tactical alias you select for your session.</li>
+                <li><code>pwnbox_notes</code>: Personal study notes written inside the tactical notepad (<code>notes.html</code>).</li>
+                <li><code>pwnbox_completed_modules</code>: Completion tracking across Footprinting, Scanning, Enumeration, Vulnerability, System Hacking, Web App Threats, OSINT, and BlackOps.</li>
+                <li><code>pwnbox_sound_enabled</code>: Audio effect toggle for arcade simulations and terminal typing sound.</li>
+                <li><code>pwnbox_custom_tools</code>: Custom penetration testing shortcuts you add in the module labs.</li>
+                <li><code>pwnbox_cookie_consent</code>: Your preference regarding optional anonymous performance telemetry.</li>
+            </ul>
+
+            <div class="interactive-data-box">
+                <strong style="color: var(--accent-red); font-family: var(--font-mono);">TACTICAL PURGE: ERASE ALL LOCAL STORED DATA</strong>
+                <p style="font-size: 0.85rem; margin: 0;">
+                    You maintain full sovereign control over your machine. Clicking the button below will immediately wipe all PwnBox keys from your browser's <code>localStorage</code> and reset your session.
+                </p>
+                <button onclick="purgeLocalData()" class="purge-btn">
+                    <span>🗑️</span> Purge Local Storage Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Section 2: AI Assistant & Groq Cloud Proxy -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">02</span>
+                <h2 class="card-title">AI ASSISTANT (GROQ CLOUD INFERENCE)</h2>
+            </div>
+            <p>
+                When you interact with the AI SOC Assistant (<code>ai_assistant.html</code>) or the floating tactical assistant widget, your prompt messages are securely transmitted via HTTPS through our serverless Firebase Cloud Function proxy (<code>/api/chat</code>) to Groq Cloud's high-speed inference API (Llama 3.3 70B Versatile).
+            </p>
+            <ul class="policy-list">
+                <li><strong>No User Data Training:</strong> User queries are processed ephemerally in volatile memory for live response generation and are not utilized to train foundational LLMs.</li>
+                <li><strong>Backend Secret Protection:</strong> API authorization tokens are securely stored in Google Secret Manager and are never exposed to the client-side JavaScript bundle.</li>
+                <li><strong>Zero Identifiers:</strong> We do not attach personal names, email addresses, or device hardware IDs to LLM queries.</li>
+            </ul>
+        </div>
+
+        <!-- Section 3: Firebase Hosting, CDN Edge, & Technical Logging -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">03</span>
+                <h2 class="card-title">HOSTING INFRASTRUCTURE & TECHNICAL LOGS</h2>
+            </div>
+            <p>
+                PwnBox is deployed on Google Firebase Hosting and backed by Google Cloud Platform (GCP) global edge CDN nodes. When your browser requests resources from <code>https://pwnbo-x.web.app</code>, standard technical HTTP web server access logs are automatically generated by the underlying network infrastructure:
+            </p>
+            <ul class="policy-list">
+                <li>Your device's public IP address (for geographical routing and DDoS rate limiting).</li>
+                <li>Request timestamp and HTTP protocol version.</li>
+                <li>User-Agent string (browser type and operating system).</li>
+                <li>Uniform Resource Identifier (URI) requested and response status code (e.g. <code>200 OK</code>, <code>404 Not Found</code>).</li>
+            </ul>
+            <p>
+                These logs are maintained by Google Cloud for infrastructure reliability, abuse mitigation, and server health monitoring under Google Cloud's enterprise security compliance.
+            </p>
+        </div>
+
+        <!-- Section 4: Progressive Web App & Offline Caching -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">04</span>
+                <h2 class="card-title">SERVICE WORKERS & OFFLINE ASSETS</h2>
+            </div>
+            <p>
+                PwnBox includes a Progressive Web App (PWA) Service Worker (<code>sw.js</code>). This script caches static styling, fonts, and 3D Three.js hardware assets in your browser's Cache Storage API so the academy can be accessed offline without sending recurring network requests. You may clear this cache anytime via your browser's Developer Tools (Application &rarr; Storage &rarr; Clear site data).
+            </p>
+        </div>
+
+        <!-- Section 5: Cookies, Telemetry & GDPR / ePrivacy Compliance -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">05</span>
+                <h2 class="card-title">TELEMETRY & COOKIE CONSENT PROTOCOL</h2>
+            </div>
+            <p>
+                In compliance with the European Union General Data Protection Regulation (GDPR), UK Data Protection Act 2018, and Swiss FADP:
+            </p>
+            <ul class="policy-list">
+                <li><strong>Essential Storage:</strong> LocalStorage keys required for UI display and module persistence are categorized as strictly essential technical data.</li>
+                <li><strong>Optional Performance Telemetry (GA4):</strong> When Google Analytics 4 is enabled, it operates under Google Consent Mode v2. Anonymous session metrics (page views, session duration) are only loaded if you grant explicit affirmative consent.</li>
+                <li><strong>Opt-Out & Reset:</strong> You can modify or withdraw your consent status at any time using the control panel below.</li>
+            </ul>
+
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 1rem;">
+                <div>
+                    <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700;">CURRENT TELEMETRY STATUS:</div>
+                    <div id="consentStatusText" style="color: var(--accent-green); font-family: var(--font-mono); font-size: 0.85rem;">[CHECKING...]</div>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button onclick="setConsentPreference('granted')" class="action-btn" style="border-color: var(--accent-green); color: var(--accent-green);">Grant All</button>
+                    <button onclick="setConsentPreference('denied')" class="action-btn">Essential Only</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Ethical Cybersecurity Disclaimer & Safe Harbor -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">06</span>
+                <h2 class="card-title">ETHICAL USE & LEGAL SAFE HARBOR</h2>
+            </div>
+            <p>
+                PwnBox is exclusively created as an educational cyber range and defensive instructional laboratory for security analysts, ethical hackers, students, and defense cadets:
+            </p>
+            <ul class="policy-list">
+                <li>All laboratory targets, simulation engines, and mock networks reside strictly in browser memory or sandboxed environments.</li>
+                <li>Exploits, payloads, and methodologies documented across our modules must only be executed on systems where you possess explicit, written authorization from the asset owner.</li>
+                <li>Unauthorized network intrusion, vulnerability exploitation, or interception of communications is illegal under the Computer Fraud and Abuse Act (CFAA), UK Computer Misuse Act, and equivalent global cyber legislations. PwnBox and its architects assume no liability for misuse of knowledge acquired from this platform.</li>
+            </ul>
+        </div>
+
+        <!-- Section 7: Transmission Desk & Inquiries -->
+        <div class="policy-card">
+            <div class="policy-card-header">
+                <span class="card-num">07</span>
+                <h2 class="card-title">TRANSMISSION DESK & PRIVACY INQUIRIES</h2>
+            </div>
+            <p>
+                If you have questions regarding this Privacy Policy, wish to report a security vulnerability in our codebase, or request technical clarification, contact the System Architect directly via our secure transmission desk:
+            </p>
+            <div style="margin-top: 1rem;">
+                <a href="contact.html" class="submit-btn" style="text-decoration: none;">
+                    <span>✉️</span> Open Operative Transmission Desk &rarr;
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tactical Footer -->
+    <footer class="policy-footer">
+        <div>
+            <span>PWNBOX CYBER COMMAND // DATA COMPLIANCE CHARTER &bull; &copy; 2026 PRANAV PUSHYA</span>
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <a href="index.html">Base Camp</a> |
+            <a href="dashboard.html">Dashboard</a> |
+            <a href="contact.html">Contact Form</a> |
+            <a href="thank-you.html">Transmission Receipt</a> |
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <!-- Theme & Consent Scripts -->
+    <script>
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
+
+        function purgeLocalData() {
+            if (confirm('CRITICAL ACTION: Are you sure you want to purge all local PwnBox progress, XP, notes, and custom settings?')) {
+                localStorage.clear();
+                alert('Local storage successfully cleared. Reloading session...');
+                window.location.reload();
+            }
+        }
+
+        function updateConsentDisplay() {
+            const status = localStorage.getItem('pwnbox_cookie_consent') || 'unspecified (defaults to essential)';
+            const el = document.getElementById('consentStatusText');
+            if (el) {
+                el.textContent = status.toUpperCase();
+                el.style.color = status === 'granted' ? 'var(--accent-green)' : 'var(--text-muted)';
+            }
+        }
+
+        function setConsentPreference(val) {
+            localStorage.setItem('pwnbox_cookie_consent', val);
+            updateConsentDisplay();
+            if (typeof window.pwnboxApplyConsent === 'function') {
+                window.pwnboxApplyConsent(val);
+            }
+            alert(`Privacy preference saved: ${val.toUpperCase()}`);
+        }
+
+        document.addEventListener('DOMContentLoaded', updateConsentDisplay);
+    </script>
+    <script src="js/analytics_consent.js"></script>
+</body>
+
+</html>

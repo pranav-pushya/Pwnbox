@@ -24,6 +24,7 @@
     <script src="js/auth_guard.js"></script>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link rel="stylesheet" href="css/tactical_policy.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -353,7 +354,11 @@
             <div class="footer-divider"></div>
             <div class="footer-bottom">
                 <p class="copyright">© 2026 All Rights Reserved.</p>
-                
+                <div style="font-family: 'Space Mono', monospace; font-size: 0.8rem; margin-top: 6px;">
+                    <a href="privacy.html" style="color: var(--accent-green); text-decoration: none; margin-right: 12px;">🔒 Privacy Policy</a>
+                    <a href="contact.html" style="color: var(--accent-cyan); text-decoration: none; margin-right: 12px;">✉️ Transmit Intel / Contact</a>
+                    <a href="index.html" style="color: var(--text-muted); text-decoration: none;">🏠 Base Camp</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -629,6 +634,7 @@
     </div>
     <script src="js/ui_popups.js"></script>
     <script src="js/firebase_auth.js"></script>
+    <script src="js/analytics_consent.js"></script>
 </body>
 
 </html>

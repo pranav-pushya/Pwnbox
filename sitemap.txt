@@ -39,3 +39,6 @@ https://pwnbo-x.web.app/modules/EvadingIDS.html
 https://pwnbo-x.web.app/modules/SocialEngineering.html
 https://pwnbo-x.web.app/modules/WebAppThreats.html
 https://pwnbo-x.web.app/modules/BlackOps.html
+https://pwnbo-x.web.app/privacy.html
+https://pwnbo-x.web.app/contact.html
+https://pwnbo-x.web.app/thank-you.html
