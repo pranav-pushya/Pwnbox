@@ -66,15 +66,34 @@ function initFirebaseAuth() {
                 localStorage.removeItem('pwnbox_dev_bypass');
 
                 // If on a protected page, redirect immediately to index
-                const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
-                const isPublic = path.endsWith('/index.html') || path.endsWith('/') || path.endsWith('/404.html') || path === ''
-                    || path.endsWith('/dashboard.html')
-                    || path.endsWith('/notes.html')
-                    || path.endsWith('/games.html')
-                    || path.endsWith('/roadmap.html');
+                const rawPath = window.location.pathname.replace(/\\/g, '/').toLowerCase().split('?')[0].split('#')[0];
+                const cleanPath = (rawPath.length > 1 && rawPath.endsWith('/')) ? rawPath.slice(0, -1) : rawPath;
+                const publicPages = [
+                    '', '/', '/index', '/index.html',
+                    '/dashboard', '/dashboard.html',
+                    '/notes', '/notes.html',
+                    '/games', '/games.html',
+                    '/roadmap', '/roadmap.html',
+                    '/masterguide/roadmap', '/masterguide/roadmap.html',
+                    '/privacy', '/privacy.html',
+                    '/contact', '/contact.html',
+                    '/thank-you', '/thank-you.html',
+                    '/404', '/404.html'
+                ];
+                const isPublic = publicPages.includes(cleanPath)
+                    || cleanPath.endsWith('/index.html')
+                    || cleanPath.endsWith('/dashboard.html')
+                    || cleanPath.endsWith('/notes.html')
+                    || cleanPath.endsWith('/games.html')
+                    || cleanPath.endsWith('/roadmap.html')
+                    || cleanPath.endsWith('/privacy.html')
+                    || cleanPath.endsWith('/contact.html')
+                    || cleanPath.endsWith('/thank-you.html')
+                    || cleanPath.endsWith('/404.html');
+
                 if (!isPublic) {
-                    const isSubfolder = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/imp_info/') || path.includes('/games/');
-                    window.location.replace((isSubfolder ? '../' : '') + 'index.html?auth_required=1');
+                    const isSubfolder = rawPath.includes('/modules/') || rawPath.includes('/masterguide/') || rawPath.includes('/imp_info/') || rawPath.includes('/games/');
+                    window.location.replace((isSubfolder ? '../' : './') + 'index.html?auth_required=1');
                     return;
                 }
             }

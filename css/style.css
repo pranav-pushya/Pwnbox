@@ -675,3 +675,128 @@ html, body, * {
     background: var(--scrollbar-track);
 }
 
+/* ==========================================================================
+   PWNBOX TACTICAL TELEMETRY CONSENT BANNER (SCOPED & ISOLATED)
+   ========================================================================== */
+.consent-banner-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 14, 23, 0.96);
+    backdrop-filter: blur(12px);
+    border-top: 2px solid #00ff66;
+    padding: 1.25rem 2rem;
+    z-index: 999999;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    animation: slideUpConsent 0.35s ease-out;
+}
+
+[data-theme="light"] .consent-banner-wrapper {
+    background: rgba(255, 255, 255, 0.96);
+    border-top: 2px solid #059669;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.12);
+}
+
+@keyframes slideUpConsent {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.consent-text {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    max-width: 800px;
+    line-height: 1.5;
+    font-family: 'Work Sans', sans-serif;
+}
+
+[data-theme="light"] .consent-text {
+    color: #475569;
+}
+
+.consent-text strong {
+    color: #f8fafc;
+    font-family: 'Space Mono', monospace;
+}
+
+[data-theme="light"] .consent-text strong {
+    color: #0f172a;
+}
+
+.consent-text a {
+    color: #00f0ff;
+    text-decoration: underline;
+}
+
+[data-theme="light"] .consent-text a {
+    color: #0891b2;
+}
+
+.consent-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.consent-btn-accept {
+    background: #00ff66;
+    color: #030712;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.consent-btn-accept:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 255, 102, 0.3);
+}
+
+.consent-btn-deny {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+[data-theme="light"] .consent-btn-deny {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+.consent-btn-deny:hover {
+    border-color: #64748b;
+}
+
+@media (max-width: 768px) {
+    .consent-banner-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 1.25rem;
+    }
+    .consent-buttons {
+        justify-content: flex-end;
+    }
+}
+
+
