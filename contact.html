@@ -11,16 +11,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Theme Initialization -->
+    <!-- Theme Initialization (Prevents FOUT) -->
     <script>
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/tactical_policy.css">
+    <link rel="stylesheet" href="css/masterguide_chat.css">
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
@@ -51,7 +52,7 @@
     <!-- Main Container -->
     <main class="policy-container">
         <!-- Hero Section -->
-        <div class="hero-badge" style="border-color: var(--accent-green); color: var(--accent-green); background: rgba(0, 255, 102, 0.1);">
+        <div class="hero-badge">
             <span>📡 ENCRYPTED CHANNEL</span>
             <span>//</span>
             <span>DIRECT ARCHITECT DISPATCH</span>
@@ -179,19 +180,13 @@
         // Measure time on page to detect rapid automated bot fills
         const pageLoadTimestamp = Date.now();
 
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme') || 'dark';
-            const next = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-        }
-
         function showAlert(msg, isError = true) {
             const box = document.getElementById('formAlertBox');
             box.style.display = 'block';
-            box.style.background = isError ? 'rgba(239, 68, 68, 0.1)' : 'rgba(0, 255, 102, 0.1)';
-            box.style.border = `1px solid ${isError ? 'var(--accent-red)' : 'var(--accent-green)'}`;
-            box.style.color = isError ? 'var(--accent-red)' : 'var(--accent-green)';
+            box.style.background = isError ? 'rgba(217, 41, 28, 0.1)' : 'rgba(5, 150, 105, 0.1)';
+            box.style.border = `2px solid ${isError ? 'var(--bauhaus-red)' : 'var(--cyber-green)'}`;
+            box.style.boxShadow = `3px 3px 0 ${isError ? 'var(--bauhaus-red)' : 'var(--cyber-green)'}`;
+            box.style.color = isError ? 'var(--bauhaus-red)' : 'var(--cyber-green)';
             box.innerHTML = msg;
         }
 
@@ -287,6 +282,7 @@
             }, 800);
         }
     </script>
+    <script src="js/theme.js"></script>
     <script src="js/analytics_consent.js"></script>
 </body>
 

@@ -11,16 +11,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Theme Initialization -->
+    <!-- Theme Initialization (Prevents FOUT) -->
     <script>
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/tactical_policy.css">
+    <link rel="stylesheet" href="css/masterguide_chat.css">
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
@@ -165,7 +166,7 @@
                 <li><strong>Opt-Out & Reset:</strong> You can modify or withdraw your consent status at any time using the control panel below.</li>
             </ul>
 
-            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 1rem;">
+            <div style="background: var(--bg-panel); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); padding: 1.25rem; margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                 <div>
                     <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700;">CURRENT TELEMETRY STATUS:</div>
                     <div id="consentStatusText" style="color: var(--accent-green); font-family: var(--font-mono); font-size: 0.85rem;">[CHECKING...]</div>
@@ -224,15 +225,9 @@
         </div>
     </footer>
 
-    <!-- Theme & Consent Scripts -->
+    <!-- Core Theme & Telemetry Scripts -->
+    <script src="js/theme.js"></script>
     <script>
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme') || 'dark';
-            const next = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-        }
-
         function purgeLocalData() {
             if (confirm('CRITICAL ACTION: Are you sure you want to purge all local PwnBox progress, XP, notes, and custom settings?')) {
                 localStorage.clear();

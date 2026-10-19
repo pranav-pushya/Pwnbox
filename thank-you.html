@@ -11,16 +11,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Theme Initialization -->
+    <!-- Theme Initialization (Prevents FOUT) -->
     <script>
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/tactical_policy.css">
+    <link rel="stylesheet" href="css/masterguide_chat.css">
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
@@ -38,7 +39,7 @@
     <header class="policy-header">
         <a href="index.html" class="brand-link">
             <span>🛡️ PWNBOX</span>
-            <span class="brand-badge" style="border-color: var(--accent-green); color: var(--accent-green);">DISPATCH LOGGED</span>
+            <span class="brand-badge">DISPATCH LOGGED</span>
         </a>
         <div class="header-actions">
             <a href="index.html" class="action-btn">🏠 Base Camp</a>
@@ -55,7 +56,7 @@
             <div class="pulse-radar">
                 <span>✓</span>
             </div>
-            <div class="hero-badge" style="background: rgba(0, 255, 102, 0.1); border-color: var(--accent-green); color: var(--accent-green);">
+            <div class="hero-badge">
                 <span>STATUS 200 OK</span>
                 <span>//</span>
                 <span>TRANSMISSION ENCRYPTED & LOGGED</span>
@@ -84,7 +85,7 @@
                 <a href="index.html" class="action-btn" style="padding: 0.85rem 1.5rem; text-decoration: none;">
                     <span>🏠</span> Return to Base Camp
                 </a>
-                <a href="games.html" class="action-btn" style="padding: 0.85rem 1.5rem; text-decoration: none; border-color: var(--accent-cyan); color: var(--accent-cyan);">
+                <a href="games.html" class="action-btn" style="padding: 0.85rem 1.5rem; text-decoration: none;">
                     <span>🎮</span> Play Arcade Labs
                 </a>
             </div>
@@ -117,15 +118,9 @@
         </div>
     </footer>
 
-    <!-- Theme & Key Event Trigger -->
+    <!-- Core Theme & Telemetry Scripts -->
+    <script src="js/theme.js"></script>
     <script>
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme') || 'dark';
-            const next = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-        }
-
         // Parse query parameters
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
