@@ -34,16 +34,9 @@
             '/404.html'
         ];
 
-        const isPublic = publicPages.includes(normalized)
-            || normalized.endsWith('/index.html')
-            || normalized.endsWith('/dashboard.html')
-            || normalized.endsWith('/notes.html')
-            || normalized.endsWith('/games.html')
-            || normalized.endsWith('/roadmap.html')
-            || normalized.endsWith('/privacy.html')
-            || normalized.endsWith('/contact.html')
-            || normalized.endsWith('/thank-you.html')
-            || normalized.endsWith('/404.html');
+        // All educational content, field intel, games, master guides, and training modules
+        // are open to guests for local learning. Authentication is strictly optional for cloud sync.
+        const isPublic = true;
 
         if (!isPublic) {
             const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';

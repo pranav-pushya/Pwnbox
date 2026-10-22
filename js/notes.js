@@ -47,11 +47,11 @@
 
 ---
 
-### 🔐 GUEST CLEARANCE NOTICE
-You are currently viewing PwnBox in **Guest Read-Only Mode**.
-* You can view and explore this official briefing note.
-* Creating new tactical notes, editing payloads, exporting/importing, and saving notes to the cloud requires an **authenticated operative account**.
-* Click **"GUEST MODE"** in the top navigation or sign in from the Dashboard ID Card to authenticate.`,
+### 💾 LOCAL VAULT OPERATING MODE
+You are currently operating in **Local Vault Mode**.
+* Your tactical notes, custom payloads, and commands are **automatically saved locally** in this browser.
+* You can create, edit, delete, export, and import notes freely.
+* To **sync notes seamlessly across your phone, laptops, and devices**, sign in with Google or your Operative Email using the badge above!`,
         pinned: true,
         createdAt: Date.now() - 86400000,
         updatedAt: Date.now()
@@ -125,15 +125,16 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         const instreamToolbar = document.getElementById('instreamCodeToolbar');
         const saveIndicator = document.getElementById('editorSaveIndicator');
 
-        if (titleInput) titleInput.readOnly = isGuest;
-        if (tagsInput) tagsInput.readOnly = isGuest;
-        if (catSelect) catSelect.disabled = isGuest;
-        if (contentTextarea) contentTextarea.readOnly = isGuest;
-        if (instreamToolbar) instreamToolbar.style.opacity = isGuest ? '0.35' : '1';
+        // Always allow editing locally for guests and authenticated operatives alike
+        if (titleInput) titleInput.readOnly = false;
+        if (tagsInput) tagsInput.readOnly = false;
+        if (catSelect) catSelect.disabled = false;
+        if (contentTextarea) contentTextarea.readOnly = false;
+        if (instreamToolbar) instreamToolbar.style.opacity = '1';
 
         if (saveIndicator) {
             if (isGuest) {
-                saveIndicator.textContent = '🔒 GUEST READ-ONLY (SIGN IN TO EDIT/ADD)';
+                saveIndicator.textContent = '💾 LOCAL AUTO-SAVE (SIGN IN TO CLOUD SYNC)';
                 saveIndicator.style.color = '#f59e0b';
             } else {
                 saveIndicator.textContent = '';
@@ -152,7 +153,17 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         if (typeof firebase !== 'undefined' && typeof firebase.firestore === 'function') {
             try {
                 if (!firebase.apps.length) {
-                    firebase.initializeApp(window.defaultFirebaseConfig || {});
+                    const fallbackConfig = {
+                        apiKey: atob("QUl6YVN5Q0NfZG5BYmtZZmR6ZGY0Z3M2d2VubnFHVEpHbkltN1JN"),
+                        authDomain: "pwnbo-x.firebaseapp.com",
+                        projectId: "pwnbo-x",
+                        storageBucket: "pwnbo-x.firebasestorage.app",
+                        messagingSenderId: "329054775111",
+                        appId: "1:329054775111:web:299368a06ebd6225bc8e62",
+                        measurementId: "G-TMQT0WGN2Z"
+                    };
+                    const configToUse = window.defaultFirebaseConfig || window.firebaseConfig || fallbackConfig;
+                    firebase.initializeApp(configToUse);
                 }
                 firestoreDb = firebase.firestore();
             } catch (e) {
@@ -167,7 +178,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
                 const auth = firebase.auth();
                 auth.onAuthStateChanged((user) => {
                     currentUser = user;
-                    updateSyncBadge(user);
+                    updateSyncBadge(user, true);
                     loadNotesForUser(user);
                 });
                 return;
@@ -179,19 +190,30 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         loadNotesForUser(null);
     }
 
-    function updateSyncBadge(user) {
+    function updateSyncBadge(user, cloudActive = true) {
         const badge = document.getElementById('notesSyncBadge');
         if (!badge) return;
 
         if (user) {
             const name = user.displayName || (user.email ? user.email.split('@')[0] : 'OPERATIVE');
-            badge.className = 'notes-sync-badge';
-            badge.innerHTML = `<span>🟢</span><span>CLOUD SYNCED: ${name.toUpperCase()}</span>`;
-            badge.onclick = null;
-            badge.title = `Signed in as ${user.email} (All notes auto-saved to Cloud & Local Cache)`;
+            if (cloudActive) {
+                badge.className = 'notes-sync-badge';
+                badge.innerHTML = `<span>🟢</span><span>CLOUD SYNCED: ${escapeHtml(name.toUpperCase())}</span>`;
+                badge.onclick = null;
+                badge.title = `Signed in as ${user.email} (All notes auto-saved to Cloud & Local Storage)`;
+            } else {
+                badge.className = 'notes-sync-badge guest';
+                badge.innerHTML = `<span>🟡</span><span>LOCAL SAVED (${escapeHtml(name.toUpperCase())} - CLOUD OFFLINE)</span>`;
+                badge.onclick = () => {
+                    if (typeof window.tacticalToast === 'function') {
+                        window.tacticalToast("Notes saved locally. Cloud sync pending Firestore activation in Firebase Console.", "info");
+                    }
+                };
+                badge.title = "Notes saved locally. Cloud sync pending Firestore activation in Firebase Console.";
+            }
         } else {
             badge.className = 'notes-sync-badge guest';
-            badge.innerHTML = `<span>🟡</span><span>GUEST MODE (CLICK TO SIGN IN & SYNC)</span>`;
+            badge.innerHTML = `<span>🟡</span><span>LOCAL VAULT (CLICK TO SIGN IN & SYNC)</span>`;
             badge.onclick = () => {
                 if (typeof window.openAuthModal === 'function') {
                     window.openAuthModal();
@@ -209,60 +231,101 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         return 'pwnbox_notes_guest';
     }
 
+    function mergeNotes(listA, listB) {
+        const map = new Map();
+        (listA || []).forEach(n => {
+            if (n && n.id) map.set(n.id, n);
+        });
+        (listB || []).forEach(n => {
+            if (n && n.id) {
+                if (map.has(n.id)) {
+                    const existing = map.get(n.id);
+                    if ((n.updatedAt || 0) > (existing.updatedAt || 0)) {
+                        map.set(n.id, n);
+                    }
+                } else {
+                    map.set(n.id, n);
+                }
+            }
+        });
+        return Array.from(map.values());
+    }
+
     async function loadNotesForUser(user) {
-        if (!isUserAuthenticated()) {
-            applyGuestRestrictions(true);
-            notes = [JSON.parse(JSON.stringify(DEFAULT_ACADEMY_NOTE))];
-            activeNoteId = notes[0].id;
-            selectNote(activeNoteId);
-            renderNotesList();
-            return;
-        }
+        applyGuestRestrictions(!user && !isUserAuthenticated());
+        const userKey = getStorageKey(user);
 
-        applyGuestRestrictions(false);
-        const key = getStorageKey(user);
-        let loaded = null;
-
-        // 1. Read local cache
+        // 1. Gather all local notes across keys (pwnbox_notes_vault, userKey, pwnbox_notes_guest)
+        let localNotes = [];
         try {
-            const localData = localStorage.getItem(key);
-            if (localData) {
-                loaded = JSON.parse(localData);
+            const keysToTry = ['pwnbox_notes_vault', userKey, 'pwnbox_notes_guest'];
+            for (const k of keysToTry) {
+                const raw = localStorage.getItem(k);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        localNotes = mergeNotes(localNotes, parsed);
+                    }
+                }
             }
         } catch (e) {
-            console.error("Failed to parse local notes:", e);
+            console.error("Local notes parse notice:", e);
         }
+
+        let cloudNotes = null;
+        let cloudConnected = false;
 
         // 2. Fetch cloud data if signed in
         if (user && firestoreDb) {
             try {
                 const docRef = firestoreDb.collection('users').doc(user.uid).collection('vault').doc('tactical_notes');
                 const docSnap = await docRef.get();
+                cloudConnected = true;
                 if (docSnap.exists) {
                     const cloudData = docSnap.data();
                     if (cloudData && Array.isArray(cloudData.notes)) {
-                        loaded = cloudData.notes;
-                        localStorage.setItem(key, JSON.stringify(loaded));
+                        cloudNotes = cloudData.notes;
                     }
-                } else if (loaded && loaded.length > 0) {
-                    await docRef.set({
-                        notes: loaded,
-                        lastSync: Date.now(),
-                        agentEmail: user.email || ''
-                    }, { merge: true });
                 }
             } catch (err) {
-                console.warn("Firestore fetch error:", err.message);
+                console.warn("Firestore fetch notice:", err.message);
+                cloudConnected = false;
             }
         }
 
-        // 3. Fallback to sample notes if empty
-        if (!loaded || !Array.isArray(loaded) || loaded.length === 0) {
-            loaded = JSON.parse(JSON.stringify(SAMPLE_NOTES));
-            localStorage.setItem(key, JSON.stringify(loaded));
+        // 3. Merge cloud & local notes seamlessly
+        let finalNotes = [];
+        if (cloudNotes && cloudNotes.length > 0) {
+            finalNotes = mergeNotes(cloudNotes, localNotes);
+        } else {
+            finalNotes = localNotes;
         }
 
-        notes = loaded;
+        // 4. Fallback to default notes if nothing exists yet
+        if (!finalNotes || finalNotes.length === 0) {
+            finalNotes = user ? JSON.parse(JSON.stringify(SAMPLE_NOTES)) : [JSON.parse(JSON.stringify(DEFAULT_ACADEMY_NOTE))];
+        }
+
+        notes = finalNotes;
+        localStorage.setItem('pwnbox_notes_vault', JSON.stringify(notes));
+        if (user) {
+            localStorage.setItem(userKey, JSON.stringify(notes));
+            updateSyncBadge(user, cloudConnected);
+            if (cloudConnected && firestoreDb) {
+                try {
+                    const docRef = firestoreDb.collection('users').doc(user.uid).collection('vault').doc('tactical_notes');
+                    await docRef.set({
+                        notes: notes,
+                        lastSync: Date.now(),
+                        agentEmail: user.email || ''
+                    }, { merge: true });
+                } catch (e) {
+                    console.warn("Cloud initial sync notice:", e.message);
+                }
+            }
+        } else {
+            updateSyncBadge(null);
+        }
 
         if (notes.length > 0) {
             const targetId = activeNoteId && notes.some(n => n.id === activeNoteId) ? activeNoteId : notes[0].id;
@@ -276,10 +339,10 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     async function persistNotes() {
-        if (!isUserAuthenticated()) return;
         const key = getStorageKey(currentUser);
         try {
             localStorage.setItem(key, JSON.stringify(notes));
+            localStorage.setItem('pwnbox_notes_vault', JSON.stringify(notes));
         } catch (e) {
             console.error("Local storage save error:", e);
         }
@@ -292,8 +355,10 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
                     lastSync: Date.now(),
                     agentEmail: currentUser.email || ''
                 }, { merge: true });
+                updateSyncBadge(currentUser, true);
             } catch (err) {
-                console.warn("Cloud sync error:", err.message);
+                console.warn("Cloud sync notice:", err.message);
+                updateSyncBadge(currentUser, false);
             }
         }
     }
@@ -429,14 +494,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
 
     // ── 6. IN-STREAM CODE BLOCK INSERTION (WHEREVER USER IS TYPING) ──
     function insertCodeBlockAtCursor(language = null) {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("You cannot edit notes without signing in.", "warning");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("You cannot edit notes without signing in.");
-            }
-            return;
-        }
         const textarea = document.getElementById('noteContentTextarea');
         if (!textarea) return;
 
@@ -474,14 +531,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function insertMarkdownSnippet(type) {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("You cannot edit notes without signing in.", "warning");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("You cannot edit notes without signing in.");
-            }
-            return;
-        }
         const textarea = document.getElementById('noteContentTextarea');
         if (!textarea) return;
 
@@ -674,15 +723,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
 
     // ── 8. NOTE CRUD & EDITING ──
     function createNewNote() {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("You cannot create notes without signing in.", "warning");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("You cannot create notes without signing in.");
-            }
-            return;
-        }
-
         const newNote = {
             id: 'note_' + Date.now(),
             title: 'Untitled Tactical Note',
@@ -710,18 +750,13 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
                 titleInput.select();
             }
         }, 50);
+
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast("New tactical note created", "success");
+        }
     }
 
     function deleteActiveNote() {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("The default briefing note cannot be deleted.", "info");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("The default briefing note cannot be deleted.");
-            }
-            return;
-        }
-
         const note = getActiveNote();
         if (!note) return;
 
@@ -757,7 +792,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function togglePinActiveNote() {
-        if (!isUserAuthenticated()) return;
         const note = getActiveNote();
         if (!note) return;
 
@@ -775,15 +809,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function duplicateActiveNote() {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("You cannot clone notes without signing in.", "warning");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("You cannot clone notes without signing in.");
-            }
-            return;
-        }
-
         const note = getActiveNote();
         if (!note) return;
 
@@ -809,7 +834,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function updateNoteField(field, value) {
-        if (!isUserAuthenticated()) return;
         const note = getActiveNote();
         if (!note) return;
 
@@ -825,7 +849,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function triggerAutoSave() {
-        if (!isUserAuthenticated()) return;
         showSaveIndicator('SAVING...', '#f59e0b');
         clearTimeout(autoSaveTimeout);
         autoSaveTimeout = setTimeout(() => {
@@ -838,14 +861,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function manualSave() {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("You cannot save notes without signing in.", "warning");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("You cannot save notes without signing in.");
-            }
-            return;
-        }
         persistNotes();
         showSaveIndicator('SAVED ✓', '#10b981');
         setTimeout(() => {
@@ -896,7 +911,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         const data = {
             pwnboxVersion: 'v3.4.0',
             exportedAt: new Date().toISOString(),
-            agent: currentUser ? (currentUser.displayName || currentUser.email) : 'GUEST_OPERATOR',
+            agent: currentUser ? (currentUser.displayName || currentUser.email) : 'OPERATIVE',
             notesCount: notes.length,
             notes: notes
         };
@@ -904,14 +919,6 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     function importNotesTrigger() {
-        if (!isUserAuthenticated()) {
-            if (typeof window.tacticalToast === 'function') {
-                window.tacticalToast("You cannot import notes without signing in.", "warning");
-            } else if (typeof window.showSystemAlert === 'function') {
-                window.showSystemAlert("You cannot import notes without signing in.");
-            }
-            return;
-        }
         const input = document.getElementById('notesImportFileInput');
         if (input) input.click();
     }

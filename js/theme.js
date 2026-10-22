@@ -1593,10 +1593,11 @@ window.navigateToSettings = openSettingsModal;
 (function initGlobalFloatingAiAssistant() {
     if (typeof window === 'undefined') return;
     const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
-    // Do not show floating widget on the dedicated full-page assistant itself
-    if (path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant')) return;
+    // Do not show floating widget on the dedicated full-page assistant itself or in training modules (which have integrated in-page assistants)
+    if (path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant') || path.includes('/modules/')) return;
 
     function injectFloatingScript() {
+        if (path.includes('/modules/') || (document.body && document.body.classList.contains('tab-tools'))) return;
         if (document.getElementById('pwnFloatingAiScript') || window.toggleFloatingAiChat) return;
         const inSubdir = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/games/') || path.includes('/imp_info/') || path.includes('/imp%20info/');
         const basePath = inSubdir ? '../' : '';

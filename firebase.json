@@ -1,17 +1,28 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "functions": {
     "source": "functions"
   },
   "hosting": {
     "public": ".",
     "ignore": [
+      ".git",
+      ".git/**",
+      "**/.git/**",
+      ".env",
+      "**/.env*",
+      ".gitignore",
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
       "*.md",
       "package*.json",
       "*.log",
-      "functions/**"
+      "functions/**",
+      "scratch/**",
+      "scripts/**"
     ],
     "cleanUrls": true,
     "trailingSlash": false,
@@ -22,7 +33,13 @@
       }
     ],
     "redirects": [
+      { "source": "/.git", "destination": "/404", "type": 301 },
+      { "source": "/.git/**", "destination": "/404", "type": 301 },
       { "source": "/index.html", "destination": "/", "type": 301 },
+      { "source": "/modules/Vulnerablity", "destination": "/modules/Vulnerability", "type": 301 },
+      { "source": "/modules/Vulnerablity.html", "destination": "/modules/Vulnerability", "type": 301 },
+      { "source": "/modules/VulnerabilityAnalysis", "destination": "/modules/Vulnerability", "type": 301 },
+      { "source": "/modules/VulnerabilityAnalysis.html", "destination": "/modules/Vulnerability", "type": 301 },
       { "source": "/imp_info", "destination": "/imp_info/imp_info", "type": 301 },
       { "source": "/career_paths", "destination": "/imp_info/career_paths", "type": 301 },
       { "source": "/ports", "destination": "/imp_info/ports", "type": 301 },
@@ -80,8 +97,21 @@
         ]
       },
       {
+        "source": "@(*.html|**/*.html)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=0, must-revalidate"
+          }
+        ]
+      },
+      {
         "source": "**",
         "headers": [
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains; preload"
+          },
           {
             "key": "X-Content-Type-Options",
             "value": "nosniff"
@@ -97,6 +127,10 @@
           {
             "key": "Permissions-Policy",
             "value": "camera=(), microphone=(), geolocation=()"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://www.gstatic.com https://*.firebaseio.com https://apis.google.com https://accounts.google.com https://*.firebaseapp.com https://*.googleapis.com https://*.google.com https://www.google.com https://recaptcha.net https://*.recaptcha.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data: https:; connect-src 'self' https://api.groq.com https://*.googleapis.com https://*.google.com https://*.firebaseio.com https://firestore.googleapis.com https://accounts.google.com https://*.firebaseapp.com; frame-src 'self' https://*.firebaseapp.com https://accounts.google.com https://*.google.com https://www.google.com https://recaptcha.net https://*.recaptcha.net; object-src 'none'; base-uri 'self';"
           }
         ]
       }

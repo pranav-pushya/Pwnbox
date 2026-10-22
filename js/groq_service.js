@@ -7,7 +7,7 @@
  * for local development and offline environments.
  */
 
-const DEFAULT_MODEL = "openai/gpt-oss-20b";
+const DEFAULT_MODEL = "llama-3.3-70b-versatile";
 const PROXY_ENDPOINT = "/api/chat";
 const DIRECT_GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
@@ -64,12 +64,21 @@ async function callGroqChat({
 
     // Step 2: Fallback to direct client call if proxy is unavailable (e.g. local file/dev server)
     if (proxyFailed) {
-        const fallbackKey = (typeof window !== "undefined" && window.GROQ_API_KEY) ||
+        let fallbackKey = (typeof window !== "undefined" && window.GROQ_API_KEY) ||
             (typeof localStorage !== "undefined" && localStorage.getItem('pwnbox_groq_api_key')) ||
             (typeof GROQ_API_KEY !== "undefined" ? GROQ_API_KEY : "");
 
+        if (!fallbackKey && typeof window !== "undefined") {
+            const enteredKey = window.prompt("🔑 PwnBox AI Mentor: Enter your Groq API Key (stored safely in your local browser only):");
+            if (enteredKey && enteredKey.trim()) {
+                fallbackKey = enteredKey.trim();
+                localStorage.setItem('pwnbox_groq_api_key', fallbackKey);
+                window.GROQ_API_KEY = fallbackKey;
+            }
+        }
+
         if (!fallbackKey) {
-            throw new Error("Missing Groq API Key! Server proxy is unreachable and no client key is configured in js/config.js.");
+            throw new Error("Missing Groq API Key! Please configure your key in settings or provide one when prompted.");
         }
 
         const directResponse = await fetch(DIRECT_GROQ_ENDPOINT, {

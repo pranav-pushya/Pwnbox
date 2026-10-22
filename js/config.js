@@ -1,17 +1,18 @@
-// Replace with your own Groq key before deploying. Do not commit a real key to a public repository.
-const k1 = "gsk_eIcNeXorynFeyhTpI";
-const k2 = "9aZWGdyb3FYX9Rh6";
-const k3 = "L3A1FEAul6omFTOjN1X";
-const GROQ_API_KEY = k1 + k2 + k3;
+/**
+ * PWNBOX CYBER COMMAND — CLIENT CONFIGURATION
+ * 
+ * SECURITY NOTICE:
+ * Never hardcode production API credentials in client-side code.
+ * The application connects securely through the serverless backend proxy (/api/chat).
+ * For offline testing or local development, operatives can set their key via localStorage:
+ * localStorage.setItem('pwnbox_groq_api_key', 'your_personal_key_here');
+ */
+
+const GROQ_API_KEY = (typeof localStorage !== "undefined" && localStorage.getItem('pwnbox_groq_api_key')) || "";
 
 // Expose globally for browser script tag compatibility
 if (typeof window !== "undefined") {
     window.GROQ_API_KEY = GROQ_API_KEY;
-    try {
-        localStorage.setItem('pwnbox_groq_api_key', GROQ_API_KEY);
-    } catch (e) {
-        // LocalStorage safety
-    }
 }
 
 // Support CommonJS/ES modules if required in other environments

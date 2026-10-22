@@ -1837,7 +1837,7 @@ main {
 .reset-modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.75);
-    z-index: 100000;
+    z-index: 1000000;
     display: flex; justify-content: center; align-items: center;
     opacity: 0; visibility: hidden;
     transition: opacity 0.25s;
@@ -1851,6 +1851,8 @@ main {
     transform: translateY(20px);
     transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 .reset-modal-overlay.active .reset-modal-box { transform: translateY(0); }

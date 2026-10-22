@@ -59,7 +59,7 @@ function updateDashboardStats() {
                     cardId: 'moduleVulnAnalysis',
                     badgeId: 'vulnAnalysisBadge',
                     actionsId: 'vulnAnalysisActions',
-                    url: 'modules/Vulnerablity.html',
+                    url: 'modules/Vulnerability.html',
                     toolsText: '🌐 5+ Tools Loaded',
                     nodeId: 'node4'
                 },
@@ -295,7 +295,7 @@ function updateDashboardStats() {
                 const moduleUrlMap = {
                     'moduleScanning': 'modules/Scanning.html',
                     'moduleEnumeration': 'modules/Enumeration.html',
-                    'moduleVulnAnalysis': 'modules/Vulnerablity.html',
+                    'moduleVulnAnalysis': 'modules/Vulnerability.html',
                     'moduleSystemHacking': 'modules/SystemHacking.html',
                     'moduleWebApp': 'modules/WebAppThreats.html'
                 };

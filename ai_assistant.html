@@ -19,17 +19,8 @@
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 
-    <!-- Strict Operative Authentication Guard -->
+    <!-- Operative Authentication Guard -->
     <script src="js/auth_guard.js"></script>
-    <script>
-        (function() {
-            const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-            if (!isAuth) {
-                const isLocal = window.location.protocol === 'file:';
-                window.location.replace(isLocal ? 'index.html?auth_required=1' : '/?auth_required=1');
-            }
-        })();
-    </script>
 
     <style>
         /* ==========================================================================

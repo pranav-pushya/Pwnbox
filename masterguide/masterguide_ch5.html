@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script src="../js/auth_guard.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="Master Guide Chapter 5: Identity and access control principles covering OAuth2, SAML, RBAC, Multi-Factor Authentication, and Zero Trust Architecture.">
-<title>Chapter 05: Identity, Access Management & Zero Trust — CyberSec Master Guide</title>
+<title>Chapter 05: Identity, Access Management & Zero Trust â€” CyberSec Master Guide</title>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon-guide.svg">
 
     <link rel="stylesheet" href="../css/cybersecurity_masterguide.css">
@@ -19,42 +19,42 @@
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Chapter 05: Identity, Access Management & Zero Trust — CyberSec Master Guide">
+    <meta property="og:title" content="Chapter 05: Identity, Access Management & Zero Trust â€” CyberSec Master Guide">
     <meta property="og:description" content="Master Guide Chapter 5: Identity and access control principles covering OAuth2, SAML, RBAC, Multi-Factor Authentication, and Zero Trust Architecture.">
     <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Chapter 05: Identity, Access Management & Zero Trust — CyberSec Master Guide">
+    <meta name="twitter:title" content="Chapter 05: Identity, Access Management & Zero Trust â€” CyberSec Master Guide">
     <meta name="twitter:description" content="Master Guide Chapter 5: Identity and access control principles covering OAuth2, SAML, RBAC, Multi-Factor Authentication, and Zero Trust Architecture.">
     <meta name="twitter:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
 </head>
 <body>
 
-<!-- ══ HERO ══ -->
+<!-- â•â• HERO â•â• -->
 <div class="hero">
   <div class="hero-grid"></div>
   <div class="hero-badge">// CYBERSECURITY MASTER GUIDE</div>
   <h1>Zero to Cyber</h1>
-  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses — from absolute beginner to actually knowing what's happening.</p>
+  <p class="hero-sub">100 terms. 10 chapters. Real-world examples, attack flows, and defenses â€” from absolute beginner to actually knowing what's happening.</p>
   <div class="hero-stats">
     <div class="hero-stat-item"><div class="hero-stat-num">100</div><div class="hero-stat-label">Terms Covered</div></div>
     <div class="hero-stat-item"><div class="hero-stat-num">10</div><div class="hero-stat-label">Chapters</div></div>
-    <div class="hero-stat-item"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Real Examples</div></div>
+    <div class="hero-stat-item"><div class="hero-stat-num">âˆž</div><div class="hero-stat-label">Real Examples</div></div>
   </div>
 </div>
 
-<!-- ══ LAYOUT ══ -->
+<!-- â•â• LAYOUT â•â• -->
 <div class="layout">
 
-<!-- ── SIDEBAR ── -->
+<!-- â”€â”€ SIDEBAR â”€â”€ -->
 <nav class="sidebar">
   <div class="search-bar">
             <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
-      <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🗺️ Roadmap</button>
-      <button onclick="window.location.href='masterguide_test.html?chapter=5'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
-      <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🔙 Main</button>
+      <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">ðŸŒ“ Theme</button>
+      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ—ºï¸ Roadmap</button>
+      <button onclick="window.location.href='masterguide_test.html?chapter=5'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ“ Master Quiz</button>
+      <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ”™ Main</button>
     </div>
-    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+    <input class="search-input" placeholder="ðŸ” search terms..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
   <div class="sidebar-title">// Chapters</div>
 
@@ -91,13 +91,13 @@
   </div>
 </nav>
 
-<!-- ── MAIN ── -->
+<!-- â”€â”€ MAIN â”€â”€ -->
 <main class="main">
 
-<!-- ████ CHAPTER 1: CORE THREATS ████ -->
+<!-- â–ˆâ–ˆâ–ˆâ–ˆ CHAPTER 1: CORE THREATS â–ˆâ–ˆâ–ˆâ–ˆ -->
 <section class="chapter ch-cyan" id="ch5">
   <div class="chapter-header">
-    <div class="chapter-icon">🆔</div>
+    <div class="chapter-icon">ðŸ†”</div>
     <div class="chapter-title-block">
       <h2>Identity & Access Management</h2>
       <p>Who are you? Kya tumhe yahan rehne ka haq hai? Yeh sab IAM decide karta hai.</p>
@@ -106,53 +106,53 @@
 
   <div class="term-card" id="2fa">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">📱</div><div><div class="term-name">2FA</div><div class="term-tagline">Two-Factor Authentication — password + something else</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸ“±</div><div><div class="term-name">2FA</div><div class="term-tagline">Two-Factor Authentication â€” password + something else</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
         <div class="block"><div class="block-label">What is it</div><p>Login ke liye 2 cheezein chahiye: kuch tum jaante ho (password) + kuch tumhare paas hai (phone OTP) ya kuch tum ho (fingerprint). Password chori bhi ho to koi faida nahi attacker ko.</p></div>
-        <div class="block"><div class="block-label">Types</div><p>SMS OTP (weakest — SIM swap possible), Authenticator App (better — Google Auth, Authy), Hardware Key (strongest — YubiKey), Biometric.</p></div>
+        <div class="block"><div class="block-label">Types</div><p>SMS OTP (weakest â€” SIM swap possible), Authenticator App (better â€” Google Auth, Authy), Hardware Key (strongest â€” YubiKey), Biometric.</p></div>
       </div>
-      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>ATM — PIN (kuch tum jaante ho) + ATM card (kuch tumhare paas hai). Sirf PIN nahi, sirf card nahi — dono chahiye. 2FA yahi concept online.</p></div>
-      <div class="real-example"><div class="real-example-label">📰 Real World</div><p>2023 mein MGM Resorts hack mein — social engineering se employee credentials mili. Agar proper MFA hota to hack fail ho jaata. $100M+ loss directly 2FA missing ki wajah se.</p></div>
+      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>ATM â€” PIN (kuch tum jaante ho) + ATM card (kuch tumhare paas hai). Sirf PIN nahi, sirf card nahi â€” dono chahiye. 2FA yahi concept online.</p></div>
+      <div class="real-example"><div class="real-example-label">ðŸ“° Real World</div><p>2023 mein MGM Resorts hack mein â€” social engineering se employee credentials mili. Agar proper MFA hota to hack fail ho jaata. $100M+ loss directly 2FA missing ki wajah se.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="mfa">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🔑</div><div><div class="term-name">MFA</div><div class="term-tagline">Multi-Factor Authentication — 2FA ka superset</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸ”‘</div><div><div class="term-name">MFA</div><div class="term-tagline">Multi-Factor Authentication â€” 2FA ka superset</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">2FA vs MFA</div><p>2FA specifically 2 factors. MFA = 2 ya zyada factors. Three categories: Knowledge (password), Possession (phone/token), Inherence (biometric). Mix karo — harder to breach.</p></div>
-        <div class="block"><div class="block-label">Factors</div><p>🧠 <strong>Know:</strong> Password, PIN, security question<br/>📱 <strong>Have:</strong> Phone, security key, smart card<br/>👁️ <strong>Are:</strong> Fingerprint, face, iris, voice<br/>📍 <strong>Where:</strong> Location-based (bonus layer)</p></div>
+        <div class="block"><div class="block-label">2FA vs MFA</div><p>2FA specifically 2 factors. MFA = 2 ya zyada factors. Three categories: Knowledge (password), Possession (phone/token), Inherence (biometric). Mix karo â€” harder to breach.</p></div>
+        <div class="block"><div class="block-label">Factors</div><p>ðŸ§  <strong>Know:</strong> Password, PIN, security question<br/>ðŸ“± <strong>Have:</strong> Phone, security key, smart card<br/>ðŸ‘ï¸ <strong>Are:</strong> Fingerprint, face, iris, voice<br/>ðŸ“ <strong>Where:</strong> Location-based (bonus layer)</p></div>
       </div>
     </div>
   </div>
 
   <div class="term-card" id="iam">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">👥</div><div><div class="term-name">IAM</div><div class="term-tagline">Identity & Access Management — who gets what access</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸ‘¥</div><div><div class="term-name">IAM</div><div class="term-tagline">Identity & Access Management â€” who gets what access</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
         <div class="block"><div class="block-label">What is it</div><p>Framework aur tools jo define karte hain ki kaun user kaun sa resource access kar sakta hai. User accounts banao, permissions assign karo, review karo. Okta, Microsoft Azure AD popular tools.</p></div>
-        <div class="block"><div class="block-label">Principle</div><p><strong>Least Privilege:</strong> Har user sirf woh access mile jo kaam ke liye absolutely zaroori hai — extra nahi. Agar DB admin ko billing system access nahi chahiye, nahi milega.</p></div>
+        <div class="block"><div class="block-label">Principle</div><p><strong>Least Privilege:</strong> Har user sirf woh access mile jo kaam ke liye absolutely zaroori hai â€” extra nahi. Agar DB admin ko billing system access nahi chahiye, nahi milega.</p></div>
       </div>
     </div>
   </div>
 
   <div class="term-card" id="pam">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">👑</div><div><div class="term-name">PAM</div><div class="term-tagline">Privileged Access Management — admin accounts ka special protection</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸ‘‘</div><div><div class="term-name">PAM</div><div class="term-tagline">Privileged Access Management â€” admin accounts ka special protection</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>IAM ka subset jo specifically privileged accounts (admins, root, service accounts) ko protect karta hai. These accounts are highest risk — inka control matlab full system control.</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>IAM ka subset jo specifically privileged accounts (admins, root, service accounts) ko protect karta hai. These accounts are highest risk â€” inka control matlab full system control.</p></div>
         <div class="block"><div class="block-label">Features</div><p>Just-in-time access (sirf jab zaroori), session recording (admin ne kya kiya), password vaulting (auto-rotate passwords), MFA enforcement.</p></div>
       </div>
     </div>
@@ -160,8 +160,8 @@
 
   <div class="term-card" id="sso">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🗝️</div><div><div class="term-name">SSO</div><div class="term-tagline">Single Sign-On — ek login, sab access</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸ—ï¸</div><div><div class="term-name">SSO</div><div class="term-tagline">Single Sign-On â€” ek login, sab access</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
@@ -173,22 +173,22 @@
 
   <div class="term-card" id="zerotrust">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🚫</div><div><div class="term-name">Zero Trust Security</div><div class="term-tagline">"Never trust, always verify" — koi bhi trusted nahi by default</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸš«</div><div><div class="term-name">Zero Trust Security</div><div class="term-tagline">"Never trust, always verify" â€” koi bhi trusted nahi by default</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Traditional model: network ke andar ho to trusted. Zero Trust: andar ya bahar koi fark nahi — har request verify karo, least privilege do, assume breach. "Trust but verify" → "Never trust, always verify."</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Traditional model: network ke andar ho to trusted. Zero Trust: andar ya bahar koi fark nahi â€” har request verify karo, least privilege do, assume breach. "Trust but verify" â†’ "Never trust, always verify."</p></div>
         <div class="block"><div class="block-label">Why important</div><p>Remote work, cloud era mein "corporate network" ka concept gone. Employees anywhere se kaam karte hain. Zero Trust ke bina insider threats aur compromised accounts devastating hote hain.</p></div>
       </div>
-      <div class="real-example"><div class="real-example-label">📰 Real World</div><p>Google ka BeyondCorp — industry ka pehla large-scale Zero Trust implementation (post-Operation Aurora 2010 China hack). Now industry standard recommendation.</p></div>
+      <div class="real-example"><div class="real-example-label">ðŸ“° Real World</div><p>Google ka BeyondCorp â€” industry ka pehla large-scale Zero Trust implementation (post-Operation Aurora 2010 China hack). Now industry standard recommendation.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="accesscontrol">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🚪</div><div><div class="term-name">Access Control</div><div class="term-tagline">Resources tak kaun ja sakta hai — policy enforcement</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸšª</div><div><div class="term-name">Access Control</div><div class="term-tagline">Resources tak kaun ja sakta hai â€” policy enforcement</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
@@ -200,12 +200,12 @@
 
   <div class="term-card" id="authn">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🪪</div><div><div class="term-name">Authentication</div><div class="term-tagline">"Tum kaun ho?" — identity prove karna</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸªª</div><div><div class="term-name">Authentication</div><div class="term-tagline">"Tum kaun ho?" â€” identity prove karna</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Identity verify karna — prove karo tum wahi ho jo tum claim karte ho. Password, biometric, token — sab authentication methods hain.</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Identity verify karna â€” prove karo tum wahi ho jo tum claim karte ho. Password, biometric, token â€” sab authentication methods hain.</p></div>
         <div class="block"><div class="block-label">Authentication vs Authorization</div><p><strong>Authentication = WHO are you?</strong> (Passport check)<br/><strong>Authorization = WHAT can you do?</strong> (Visa allows entry to certain areas)</p></div>
       </div>
     </div>
@@ -213,28 +213,28 @@
 
   <div class="term-card" id="authz">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">✅</div><div><div class="term-name">Authorization</div><div class="term-tagline">"Tumhe kya karne ka haq hai?" — permissions check</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">âœ…</div><div><div class="term-name">Authorization</div><div class="term-tagline">"Tumhe kya karne ka haq hai?" â€” permissions check</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
-        <div class="block"><div class="block-label">What is it</div><p>Authenticated user ko kya resources access karne ki permission hai. Login ke baad — "can this user read/write/delete this file?" Authorization decide karta hai.</p></div>
-        <div class="block"><div class="block-label">Fails when</div><p>Broken Access Control — OWASP Top 10 mein #1. User A ki ID change karke User B ka data access karna (IDOR). Horizontal aur vertical privilege escalation.</p></div>
+        <div class="block"><div class="block-label">What is it</div><p>Authenticated user ko kya resources access karne ki permission hai. Login ke baad â€” "can this user read/write/delete this file?" Authorization decide karta hai.</p></div>
+        <div class="block"><div class="block-label">Fails when</div><p>Broken Access Control â€” OWASP Top 10 mein #1. User A ki ID change karke User B ka data access karna (IDOR). Horizontal aur vertical privilege escalation.</p></div>
       </div>
     </div>
   </div>
 
   <div class="term-card" id="token">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">🎫</div><div><div class="term-name">Token</div><div class="term-tagline">Digital proof of identity — baar baar login mat karo</div></div></div>
-      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">▾</span>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(6,182,212,0.1)">ðŸŽ«</div><div><div class="term-name">Token</div><div class="term-tagline">Digital proof of identity â€” baar baar login mat karo</div></div></div>
+      <span class="term-badge badge-iam">IAM</span><span class="expand-btn">â–¾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
         <div class="block"><div class="block-label">What is it</div><p>Login ke baad server ek token deta hai (string of characters). Agle requests mein password ki jagah token bhejo. Limited time ke liye valid. JWT (JSON Web Token) most common.</p></div>
-        <div class="block"><div class="block-label">JWT Structure</div><p>Header.Payload.Signature — 3 parts dot se separated. Payload mein user info (encrypted nahi, base64 encoded!). Signature server verify karta hai.</p></div>
+        <div class="block"><div class="block-label">JWT Structure</div><p>Header.Payload.Signature â€” 3 parts dot se separated. Payload mein user info (encrypted nahi, base64 encoded!). Signature server verify karta hai.</p></div>
       </div>
-      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Movie ticket. Counter pe ID dikhaya (login), ticket mila (token). Ab har movie hall mein token dikhao — baar baar ID nahi dikhani. Ticket expire hoti hai (token expiry).</p></div>
+      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>Movie ticket. Counter pe ID dikhaya (login), ticket mila (token). Ab har movie hall mein token dikhao â€” baar baar ID nahi dikhani. Ticket expire hoti hai (token expiry).</p></div>
     </div>
   </div>
 </section>
@@ -244,14 +244,14 @@
 <!-- FOOTER -->
 <div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
   <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
-  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
-  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Sawt — cybersecurity ki neev tune padhh li hai. 🔐</div>
+  <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber â€” 100 Terms Done âœ…</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi â€” concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. ðŸ”</div>
 </div>
 
 </main>
 </div>
 
-<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="back-to-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">â†‘</button>
 
 
     <script src="../js/cybersecurity_masterguide.js"></script>
@@ -260,3 +260,5 @@
   <script src="../js/masterguide_chat.js"></script>
     </body>
 </html>
+
+

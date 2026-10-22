@@ -307,10 +307,19 @@
         </div>
     </main>
 
-    <!-- Firebase SDK & Auth Integration -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <!-- Firebase SDK & Auth Integration (Local First-Party with CDN Fallback) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
     <script src="js/firebase_auth.js"></script>
+    <script src="js/cloud_sync.js"></script>
 
     <!-- Global Scripts -->
     <script src="js/ui_popups.js"></script>

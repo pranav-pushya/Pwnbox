@@ -15,7 +15,10 @@
 
     function isAiAssistantPage() {
         const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
-        return path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant');
+        return path.endsWith('/ai_assistant.html') || 
+               path.endsWith('/ai_assistant') || 
+               path.includes('/modules/') || 
+               (document.body && document.body.classList.contains('tab-tools'));
     }
 
     // ── 1. Telemetry & User Progress Access ──────────────────────────────
@@ -106,7 +109,13 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 
     // ── 4. DOM Injection (Bauhaus Brutalism Ambient Copilot Card) ───────
     function initFloatingAssistant() {
-        if (isAiAssistantPage()) return;
+        if (isAiAssistantPage()) {
+            const existingBtn = document.getElementById('pwnFloatingAiToggle');
+            if (existingBtn) existingBtn.remove();
+            const existingDrawer = document.getElementById('pwnFloatingAiDrawer');
+            if (existingDrawer) existingDrawer.remove();
+            return;
+        }
         if (document.getElementById('pwnFloatingAiDrawer')) return;
 
         const basePath = getBasePath();

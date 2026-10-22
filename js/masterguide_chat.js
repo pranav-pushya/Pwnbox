@@ -1,6 +1,6 @@
 /**
  * CyberSec Master Guide — "Ask a Doubt" AI Tutor
- * Context-aware Hinglish chatbot powered by Groq (openai/gpt-oss-20b)
+ * Context-aware Hinglish chatbot powered by Groq (llama-3.3-70b-versatile)
  */
 
 (function () {
@@ -37,7 +37,7 @@
                 <div class="doubt-chat-title">
                     <div class="doubt-avatar">🛡️</div>
                     <div>
-                        <h3>Sawt AI Tutor</h3>
+                        <h3>PwnBox AI Mentor</h3>
                         <div class="doubt-subtitle">Target: <span id="doubtContextName">General CyberSec</span></div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ Guide Summary & Notes: "${bodyText}"`
             addChatBubble(text, 'user');
             input.value = '';
             setTimeout(() => {
-                addChatBubble("🔒 <strong>Clearance Required:</strong> Sawt AI Tutor is restricted to authenticated operatives. Please sign in to ask questions.", 'bot');
+                addChatBubble("🔒 <strong>Clearance Required:</strong> PwnBox AI Mentor is restricted to authenticated operatives. Please sign in to ask questions.", 'bot');
                 if (typeof openAuthModal === 'function') openAuthModal();
             }, 150);
             return;
@@ -205,7 +205,7 @@ Format requirements:
             let data;
             if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
                 data = await window.GroqService.callGroqChat({
-                    model: "openai/gpt-oss-20b",
+                    model: "llama-3.3-70b-versatile",
                     messages: [
                         { role: "system", content: systemPrompt },
                         { role: "user", content: text }
@@ -221,7 +221,7 @@ Format requirements:
                         "Authorization": `Bearer ${apiKey}`
                     },
                     body: JSON.stringify({
-                        model: "openai/gpt-oss-20b",
+                        model: "llama-3.3-70b-versatile",
                         messages: [
                             { role: "system", content: systemPrompt },
                             { role: "user", content: text }

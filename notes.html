@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="PwnBox Tactical Notes Vault: Markdown editor with in-stream syntax-highlighted code blocks, 1-click clipboard staging, tagging, and Firebase cloud synchronization.">
     <title>PwnBox // Operative Notes & Payload Vault</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
@@ -24,10 +25,17 @@
     <link rel="stylesheet" href="css/style.css?v=1.0">
     <link rel="stylesheet" href="css/notes.css?v=2.0">
 
-    <!-- Firebase SDK v10 Compat -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase SDK v10 (Local First-Party with CDN Fallback: Immunizes against Adblockers & Privacy Shields) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
@@ -277,71 +285,126 @@
     </div>
 
     <!-- Firebase Authentication Modal (For Guest to Sign In) -->
-    <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none;">
-        <div class="reset-modal-box" style="max-width: 440px; text-align: left; padding: 24px;">
+    <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none; background: rgba(0, 0, 0, 0.75);">
+        <div class="reset-modal-box" style="max-width: 440px; max-height: 92vh; overflow-y: auto; text-align: left; padding: 24px; background: var(--bg-panel, #ffffff); border: 3px solid var(--border-color); box-shadow: 10px 10px 0 var(--border-color);">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
-                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE AUTHENTICATION</h3>
+                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;">🔐 OPERATIVE CLEARANCE</h3>
                 <button onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
             </div>
 
-            <!-- Localhost Dev Helper Banner -->
-            <div id="localDevBanner" style="display: none; margin-bottom: 16px; padding: 12px; background: rgba(147, 51, 234, 0.12); border: 2px dashed #9333ea; font-family: 'Space Mono', monospace;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 0.75rem; font-weight: 800; color: #a855f7;">🛠️ LOCALHOST DEV ENVIRONMENT DETECTED</span>
-                </div>
-                <div style="font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px;">
-                    Testing locally? Bypass Google OAuth popup restrictions for instant operative clearance:
-                </div>
-                <button onclick="bypassLocalAuth()" style="width: 100%; padding: 8px; background: #9333ea; color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; cursor: pointer;">
-                    ⚡ 1-CLICK LOCAL DEV BYPASS (INSTANT ACCESS)
-                </button>
-                <button id="authSwitchToLocalhostBtn" style="display: none; width: 100%; margin-top: 8px; padding: 8px; background: #f59e0b; color: #000; border: 2px solid #000; box-shadow: 2px 2px 0 #000; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
-                    🔄 Switch from 127.0.0.1 to localhost
-                </button>
-            </div>
-            
-            <!-- Google 1-Click Button -->
-            <button onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 18px; transition: transform 0.15s;">
-                <span style="font-size: 1.1rem;">🔴</span>
-                <span>SIGN IN WITH GOOGLE</span>
-            </button>
-
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
-                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
-                <span>// OR EMAIL CREDENTIALS //</span>
-                <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
-            </div>
-
-            <!-- Email & Password Form -->
-            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
-                <div>
-                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
-                    <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="agent@pwnbox.internal" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
-                </div>
-                <div>
-                    <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE</label>
-                    <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
-                <button onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" style="padding: 10px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+            <!-- Tab Switcher: Sign In vs Register -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+                <button type="button" id="authTabLogin" class="auth-tab-btn active" onclick="switchAuthTab('login')" style="padding: 10px; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 800; border: 2px solid var(--border-color); cursor: pointer; background: var(--bauhaus-blue); color: #fff; box-shadow: 2px 2px 0 var(--border-color);">
                     ⚡ SIGN IN
                 </button>
-                <button onclick="registerWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value, 'CADET_' + Math.floor(Math.random()*9000+1000))" style="padding: 10px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
+                <button type="button" id="authTabRegister" class="auth-tab-btn" onclick="switchAuthTab('register')" style="padding: 10px; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 800; border: 2px solid var(--border-color); cursor: pointer; background: var(--bg-panel); color: var(--text-muted); box-shadow: none;">
                     📝 REGISTER
                 </button>
             </div>
 
+            <!-- TAB 1: SIGN IN PANEL -->
+            <div id="authLoginPanel">
+                <!-- Google 1-Click Button -->
+                <button type="button" onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 16px; transition: transform 0.15s;">
+                    <span style="font-size: 1.1rem;">🔴</span>
+                    <span>SIGN IN WITH GOOGLE</span>
+                </button>
+
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                    <span>// OR EMAIL CREDENTIALS //</span>
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                        <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="Enter your email address..." style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                    </div>
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE</label>
+                        <div style="position: relative;">
+                            <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 40px 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                            <button type="button" onclick="togglePasswordVisibility('authPasswordInput', this)" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px; color: var(--text-main); user-select: none;" title="Show/Hide Passphrase">👁️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" style="width: 100%; padding: 11px; background: var(--bauhaus-blue); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-bottom: 12px;">
+                    ⚡ SIGN IN TO PWNBOX
+                </button>
+
+                <div style="text-align: center; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    New operative? <a href="javascript:void(0)" onclick="switchAuthTab('register')" style="color: var(--bauhaus-red); font-weight: 800; text-decoration: underline;">Create account here</a>
+                </div>
+            </div>
+
+            <!-- TAB 2: REGISTER PANEL -->
+            <div id="authRegisterPanel" style="display: none;">
+                <!-- Google 1-Click Sign Up Button -->
+                <button type="button" onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 16px; transition: transform 0.15s;">
+                    <span style="font-size: 1.1rem;">🔴</span>
+                    <span>SIGN UP WITH GOOGLE</span>
+                </button>
+
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                    <span>// OR REGISTER WITH EMAIL //</span>
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                        <input type="email" id="regEmailInput" class="bauhaus-input" placeholder="Enter your email address..." style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                    </div>
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE (Min 6 chars)</label>
+                        <div style="position: relative;">
+                            <input type="password" id="regPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 40px 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                            <button type="button" onclick="togglePasswordVisibility('regPasswordInput', this)" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px; color: var(--text-main); user-select: none;" title="Show/Hide Passphrase">👁️</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">CONFIRM SECURITY PASSPHRASE</label>
+                        <div style="position: relative;">
+                            <input type="password" id="regConfirmPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 40px 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                            <button type="button" onclick="togglePasswordVisibility('regConfirmPasswordInput', this)" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px; color: var(--text-main); user-select: none;" title="Show/Hide Passphrase">👁️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="handleRegisterSubmit()" style="width: 100%; padding: 11px; background: var(--bauhaus-red); color: #fff; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); font-family: 'Space Mono', monospace; font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-bottom: 12px;">
+                    📝 CREATE OPERATIVE ACCOUNT
+                </button>
+
+                <div style="text-align: center; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    Already have an account? <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color: var(--bauhaus-blue); font-weight: 800; text-decoration: underline;">Sign In here</a>
+                </div>
+            </div>
+
             <!-- Status Console Output -->
-            <div id="authStatusMessage" style="display: none; padding: 8px 12px; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 10px; word-break: break-word;"></div>
+            <div id="authStatusMessage" style="display: none; padding: 10px 12px; border: 2px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.74rem; margin-top: 14px; word-break: break-word;"></div>
+
+            <!-- Localhost Dev Helper Banner (Positioned neatly at bottom) -->
+            <div id="localDevBanner" style="display: none; margin-top: 14px; padding: 10px; background: rgba(147, 51, 234, 0.08); border: 1px dashed #9333ea; font-family: 'Space Mono', monospace; text-align: center;">
+                <div style="font-size: 0.68rem; color: #a855f7; font-weight: 700; margin-bottom: 6px;">
+                    🛠️ LOCALHOST DEV MODE
+                </div>
+                <button type="button" onclick="bypassLocalAuth()" style="width: 100%; padding: 7px 10px; background: #9333ea; color: #fff; border: 1px solid #7e22ce; font-family: 'Space Mono', monospace; font-size: 0.74rem; font-weight: 700; cursor: pointer;">
+                    ⚡ 1-CLICK DEV BYPASS (TESTING)
+                </button>
+                <button id="authSwitchToLocalhostBtn" style="display: none; width: 100%; margin-top: 6px; padding: 6px; background: #f59e0b; color: #000; border: 1px solid #d97706; font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 700; cursor: pointer;">
+                    🔄 Switch from 127.0.0.1 to localhost
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- UI Scripts -->
     <script src="js/ui_popups.js"></script>
     <script src="js/firebase_auth.js"></script>
+    <script src="js/cloud_sync.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/markdown_parser.js"></script>
     <script src="js/notes.js"></script>

@@ -28,7 +28,7 @@ exports.groqChat = functions.https.onRequest(async (req, res) => {
     }
 
     try {
-        const { messages, model = "openai/gpt-oss-20b", temperature = 0.7, max_tokens = 1024 } = req.body || {};
+        const { messages, model = "llama-3.3-70b-versatile", temperature = 0.7, max_tokens = 1024 } = req.body || {};
 
         if (!messages || !Array.isArray(messages) || messages.length === 0) {
             return res.status(400).json({ error: "Invalid payload: 'messages' array is required." });

@@ -5,7 +5,7 @@
  * icons, and Three.js 3D engine libraries.
  */
 
-const CACHE_NAME = 'pwnbox-shell-v1';
+const CACHE_NAME = 'pwnbox-shell-v3';
 
 const STATIC_ASSETS = [
     '/',
@@ -16,13 +16,16 @@ const STATIC_ASSETS = [
     '/ai_assistant.html',
     '/masterguide/cybersecurity_masterguide.html',
     '/css/style.css',
-    '/css/dashboard.css',
+    '/css/index.css',
     '/css/cybersecurity_masterguide.css',
     '/js/config.js',
     '/js/theme.js',
     '/js/markdown_parser.js',
     '/js/groq_service.js',
     '/js/ui_popups.js',
+    '/js/vendor/firebase-app-compat.js',
+    '/js/vendor/firebase-auth-compat.js',
+    '/js/vendor/firebase-firestore-compat.js',
     '/assets/favicon-main.svg',
     '/assets/favicon-guide.svg',
     '/assets/tux_logo.png',

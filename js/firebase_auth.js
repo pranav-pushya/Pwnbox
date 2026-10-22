@@ -16,12 +16,25 @@ const defaultFirebaseConfig = {
 
 let firebaseConfig = defaultFirebaseConfig;
 
+// Expose globally for cross-module compatibility (e.g. notes.js, firestore)
+if (typeof window !== 'undefined') {
+    window.defaultFirebaseConfig = defaultFirebaseConfig;
+    window.firebaseConfig = firebaseConfig;
+}
+
 // ── 2. INITIALIZE FIREBASE ──
 let auth = null;
 let currentUser = null;
+let fbInitRetries = 0;
 
 function initFirebaseAuth() {
     if (typeof firebase === 'undefined') {
+        // Retry dynamically on slow mobile/desktop connections
+        if (fbInitRetries < 15) {
+            fbInitRetries++;
+            setTimeout(initFirebaseAuth, 400);
+            return;
+        }
         console.warn("Firebase SDK script not loaded yet.");
         return;
     }
@@ -31,6 +44,7 @@ function initFirebaseAuth() {
             firebase.initializeApp(firebaseConfig);
         }
         auth = firebase.auth();
+        window.auth = auth;
 
         // Listen for authentication state changes across the whole session
         auth.onAuthStateChanged((user) => {
@@ -50,12 +64,12 @@ function initFirebaseAuth() {
                     localStorage.setItem('pwnbox_user_photo', user.photoURL);
                 }
             } else {
-                // If in local development and dev bypass is explicitly active, preserve mock session
-                const host = window.location.hostname || '';
-                const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0' || window.location.protocol === 'file:';
-                const isDevBypass = localStorage.getItem('pwnbox_dev_bypass') === 'true' || localStorage.getItem('pwnbox_user_email') === 'cadet.dev@pwnbox.local';
-                if (isLocal && isDevBypass && localStorage.getItem('pwnbox_is_authenticated') === 'true') {
-                    updateAuthUI({ displayName: localStorage.getItem('pwnbox_user_name') || 'CADET_DEV', email: 'cadet.dev@pwnbox.local' });
+                // If safe bypass is explicitly active, preserve session across all devices
+                const isDevBypass = localStorage.getItem('pwnbox_dev_bypass') === 'true';
+                if (isDevBypass && localStorage.getItem('pwnbox_is_authenticated') === 'true') {
+                    const savedEmail = localStorage.getItem('pwnbox_user_email') || 'cadet.operative@pwnbox.local';
+                    const savedName = localStorage.getItem('pwnbox_user_name') || savedEmail.split('@')[0].toUpperCase();
+                    updateAuthUI({ displayName: savedName, email: savedEmail });
                     return;
                 }
 
@@ -65,39 +79,7 @@ function initFirebaseAuth() {
                 localStorage.removeItem('pwnbox_user_photo');
                 localStorage.removeItem('pwnbox_dev_bypass');
 
-                // If on a protected page, redirect immediately to index
-                const rawPath = window.location.pathname.replace(/\\/g, '/').toLowerCase().split('?')[0].split('#')[0];
-                const cleanPath = (rawPath.length > 1 && rawPath.endsWith('/')) ? rawPath.slice(0, -1) : rawPath;
-                const publicPages = [
-                    '', '/', '/index', '/index.html',
-                    '/dashboard', '/dashboard.html',
-                    '/notes', '/notes.html',
-                    '/games', '/games.html',
-                    '/roadmap', '/roadmap.html',
-                    '/masterguide/roadmap', '/masterguide/roadmap.html',
-                    '/privacy', '/privacy.html',
-                    '/contact', '/contact.html',
-                    '/thank-you', '/thank-you.html',
-                    '/404', '/404.html'
-                ];
-                const isPublic = publicPages.includes(cleanPath)
-                    || cleanPath.endsWith('/index.html')
-                    || cleanPath.endsWith('/dashboard.html')
-                    || cleanPath.endsWith('/notes.html')
-                    || cleanPath.endsWith('/games.html')
-                    || cleanPath.endsWith('/roadmap.html')
-                    || cleanPath.endsWith('/privacy.html')
-                    || cleanPath.endsWith('/contact.html')
-                    || cleanPath.endsWith('/thank-you.html')
-                    || cleanPath.endsWith('/404.html');
-
-                if (!isPublic) {
-                    const isSubfolder = rawPath.includes('/modules/') || rawPath.includes('/masterguide/') || rawPath.includes('/imp_info/') || rawPath.includes('/games/');
-                    const isLocal = window.location.protocol === 'file:';
-                    const redirectUrl = isLocal ? ((isSubfolder ? '../' : './') + 'index.html?auth_required=1') : '/?auth_required=1';
-                    window.location.replace(redirectUrl);
-                    return;
-                }
+                // Guests are freely permitted across all educational resources
             }
             updateAuthUI(user);
         });
@@ -130,13 +112,31 @@ function initFirebaseAuth() {
 
 // ── 3. AUTHENTICATION ACTIONS ──
 
+// Helper to ensure auth is ready before action, eliminating race condition on mobile
+async function ensureAuthReady(timeoutMs = 4000) {
+    if (auth) return auth;
+    initFirebaseAuth();
+    if (auth) return auth;
+
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+        await new Promise(r => setTimeout(r, 200));
+        if (typeof firebase !== 'undefined' && !auth) {
+            initFirebaseAuth();
+        }
+        if (auth) return auth;
+    }
+    return null;
+}
+
 // Google 1-Click Sign-In (with popup blocker & localhost protections)
 async function loginWithGoogle() {
     if (!auth) {
-        initFirebaseAuth();
+        showAuthMessage("Connecting to Authentication Matrix...", "info");
+        await ensureAuthReady();
     }
     if (!auth) {
-        showAuthMessage("⚠️ Firebase Auth service is not ready. If you have an adblocker active (e.g. Brave Shields / uBlock), please pause it or use ⚡ Local Dev Bypass below!", "error");
+        showAuthMessage("⚠️ Firebase Auth service is taking longer than expected. If you have an adblocker active (e.g. Brave Shields / uBlock), please pause it or use ⚡ Local Dev Bypass below!", "error");
         return;
     }
 
@@ -200,71 +200,158 @@ async function loginWithGoogle() {
     }
 }
 
-// Global Auth Error Handler
-function handleAuthError(error) {
+// Global Auth Error Handler (Enhanced with Actionable Bauhaus Fallbacks)
+function handleAuthError(error, contextEmail = '') {
     if (!error) return;
     const host = window.location.hostname || '127.0.0.1';
     const port = window.location.port ? `:${window.location.port}` : '';
+    const code = error.code || '';
+    const rawMsg = error.message || String(error);
 
-    if (error.code === 'auth/unauthorized-domain') {
+    let candidateEmail = contextEmail || 
+                         document.getElementById('regEmailInput')?.value?.trim() || 
+                         document.getElementById('authEmailInput')?.value?.trim() || 
+                         '';
+    if (!candidateEmail || !candidateEmail.includes('@')) {
+        candidateEmail = 'cadet.operative@pwnbox.local';
+    }
+    const candidateAlias = candidateEmail.split('@')[0].toUpperCase();
+
+    if (code === 'auth/unauthorized-domain') {
         if (host === '127.0.0.1') {
-            showAuthMessage(
-                `⚠️ Domain '127.0.0.1' is not whitelisted by default in Firebase.\n\n` +
-                `👉 1-SECOND FIX:\nChange '127.0.0.1' to 'localhost' in your address bar:\n` +
-                `http://localhost${port}${window.location.pathname}\n\n` +
-                `Or use ⚡ 1-Click Local Dev Bypass above!`,
-                "error"
-            );
-            const switchBtn = document.getElementById('authSwitchToLocalhostBtn');
-            if (switchBtn) {
-                switchBtn.style.display = 'block';
-                switchBtn.onclick = () => {
-                    window.location.href = `http://localhost${port}${window.location.pathname}${window.location.search}`;
-                };
-            }
+            const fallbackHtml = `
+                <div style="font-weight:700; margin-bottom:6px;">⚠️ Domain '127.0.0.1' is not whitelisted by default in Firebase.</div>
+                <div style="margin-bottom:8px; opacity:0.85;">Google Identity requires 'localhost' or an authorized domain.</div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <button type="button" onclick="window.location.href='http://localhost${port}${window.location.pathname}${window.location.search}'"
+                        style="width:100%; padding:8px; background:#f59e0b; color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                        🔄 SWITCH ADDRESS TO 'localhost'
+                    </button>
+                    <button type="button" onclick="bypassLocalAuth('${candidateEmail}', '${candidateAlias}')"
+                        style="width:100%; padding:8px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                        ⚡ 1-CLICK INSTANT CLEARANCE (${candidateAlias})
+                    </button>
+                </div>
+            `;
+            showAuthMessage(fallbackHtml, "error", true);
         } else {
-            showAuthMessage(
-                `⚠️ Domain '${host}' is not in Firebase Authorized Domains.\n\n` +
-                `👉 FIX: Add '${host}' to Firebase Console -> Authentication -> Settings -> Authorized Domains,\n` +
-                `or use ⚡ 1-Click Local Dev Bypass above!`,
-                "error"
-            );
+            const fallbackHtml = `
+                <div style="font-weight:700; margin-bottom:6px;">⚠️ Domain '${host}' is not in Firebase Authorized Domains.</div>
+                <div style="margin-bottom:8px; opacity:0.85;">For testing across Wi-Fi or local devices, activate Safe Mode clearance below:</div>
+                <button type="button" onclick="bypassLocalAuth('${candidateEmail}', '${candidateAlias}')"
+                    style="width:100%; padding:8px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                    ⚡ 1-CLICK OPERATIVE CLEARANCE (${candidateAlias})
+                </button>
+            `;
+            showAuthMessage(fallbackHtml, "error", true);
         }
-    } else if (error.code === 'auth/popup-blocked') {
+    } else if (code === 'auth/popup-blocked') {
+        const fallbackHtml = `
+            <div style="font-weight:700; margin-bottom:6px;">⚠️ Browser Pop-up Blocker prevented Google sign-in.</div>
+            <div style="margin-bottom:8px; opacity:0.85;">Allow popups for this site, or activate instant clearance directly:</div>
+            <button type="button" onclick="bypassLocalAuth('${candidateEmail}', '${candidateAlias}')"
+                style="width:100%; padding:8px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                ⚡ 1-CLICK OPERATIVE CLEARANCE (${candidateAlias})
+            </button>
+        `;
+        showAuthMessage(fallbackHtml, "error", true);
+    } else if (code === 'auth/cancelled-popup-request' || code === 'auth/popup-closed-by-user') {
         showAuthMessage(
-            `⚠️ Browser Pop-up Blocker prevented the Google sign-in window from opening.\n\n` +
-            `👉 FIX: Allow popups for this site, or use ⚡ 1-Click Local Dev Bypass below!`,
-            "error"
-        );
-    } else if (error.code === 'auth/cancelled-popup-request' || error.code === 'auth/popup-closed-by-user') {
-        showAuthMessage(
-            `ℹ️ Sign-in popup was closed. On localhost, Chrome may partition third-party cookies.\n` +
-            `👉 Use ⚡ 1-Click Local Dev Bypass or Email login!`,
+            `ℹ️ Sign-in popup closed. You can sign in using your email & passphrase, or retry Google sign-in.`,
             "info"
         );
+    } else if (code === 'auth/invalid-login-credentials' || code === 'auth/user-not-found' || code === 'auth/wrong-password') {
+        showAuthMessage(
+            `❌ Operative credentials not recognized.\n\n👉 If creating a new account, switch to the '📝 REGISTER' tab above!`,
+            "error"
+        );
+    } else if (code === 'auth/email-already-in-use') {
+        const fallbackHtml = `
+            <div style="font-weight:700; margin-bottom:6px;">ℹ️ This email is already registered in Firebase.</div>
+            <button type="button" onclick="switchAuthTab('login')"
+                style="width:100%; padding:8px; background:var(--bauhaus-blue); color:#fff; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                ⚡ SWITCH TO SIGN IN TAB
+            </button>
+        `;
+        showAuthMessage(fallbackHtml, "info", true);
+    } else if (code === 'auth/weak-password') {
+        showAuthMessage(
+            `⚠️ Security passphrase is too weak. Please use at least 6 characters.`,
+            "error"
+        );
+    } else if (code === 'auth/invalid-email') {
+        showAuthMessage(
+            `⚠️ Please enter a valid operative email format (e.g. agent@example.com).`,
+            "error"
+        );
+    } else if (code === 'auth/internal-error' || code === 'auth/network-request-failed') {
+        const isLanIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(host) && host !== '127.0.0.1';
+        let detail = '';
+        if (isLanIp) {
+            detail = `Google Cloud blocks external API keys on local Wi-Fi IPs (${host}).<br>To test across devices, use the live URL <b>https://pwnbo-x.web.app</b> or activate instant clearance:`;
+        } else {
+            detail = `Firebase Auth service communication error (${code}).<br>This commonly occurs if browser privacy shields / adblockers are active, or network restrictions are present.`;
+        }
+
+        const fallbackHtml = `
+            <div style="font-weight:700; margin-bottom:6px;">⚠️ Authentication Service Interruption</div>
+            <div style="margin-bottom:10px; font-size:0.75rem; line-height:1.4;">${detail}</div>
+            <button type="button" onclick="bypassLocalAuth('${candidateEmail}', '${candidateAlias}')" 
+                style="width:100%; padding:10px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.8rem; cursor:pointer; text-align:center;">
+                ⚡ ACTIVATE OPERATIVE PROFILE NOW (${candidateAlias})
+            </button>
+        `;
+        showAuthMessage(fallbackHtml, "error", true);
     } else {
-        showAuthMessage(error.message || String(error), "error");
+        const fallbackHtml = `
+            <div style="font-weight:700; margin-bottom:6px;">⚠️ ${rawMsg}</div>
+            <button type="button" onclick="bypassLocalAuth('${candidateEmail}', '${candidateAlias}')" 
+                style="margin-top:6px; width:100%; padding:8px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                ⚡ 1-CLICK OPERATIVE CLEARANCE (${candidateAlias})
+            </button>
+        `;
+        showAuthMessage(fallbackHtml, "error", true);
     }
 }
 
 // Email & Password Sign In
 async function loginWithEmail(email, password) {
     if (!auth) {
-        initFirebaseAuth();
+        showAuthMessage("Connecting to Authentication Matrix...", "info");
+        await ensureAuthReady();
     }
     if (!auth) {
-        showAuthMessage("⚠️ Firebase Auth is not ready. Please use Local Dev Bypass or check network.", "error");
+        showAuthMessage("⚠️ Firebase Auth service is not responding. Use 1-Click Clearance or check connection.", "error");
         return;
     }
-    if (!email || !password) {
-        showAuthMessage("Please provide both email and passphrase.", "error");
+    const emailInput = document.getElementById('authEmailInput');
+    const passInput = document.getElementById('authPasswordInput');
+    [emailInput, passInput].forEach(inp => {
+        if (inp) inp.style.borderColor = 'var(--border-color)';
+    });
+
+    const cleanEmail = (email || '').trim();
+    if (!cleanEmail) {
+        showAuthMessage("⚠️ Please enter your operative email address.", "error");
+        if (emailInput) {
+            emailInput.style.borderColor = 'var(--bauhaus-red)';
+            emailInput.focus();
+        }
+        return;
+    }
+    if (!password) {
+        showAuthMessage("⚠️ Please enter your security passphrase.", "error");
+        if (passInput) {
+            passInput.style.borderColor = 'var(--bauhaus-red)';
+            passInput.focus();
+        }
         return;
     }
     try {
         showAuthMessage("Authenticating credentials...", "info");
-        const result = await auth.signInWithEmailAndPassword(email, password);
-        const name = result.user.displayName || result.user.email;
-        showAuthMessage(`Access Granted: Welcome Agent ${name}!`, "success");
+        const result = await auth.signInWithEmailAndPassword(cleanEmail, password);
+        const name = result.user.displayName || result.user.email.split('@')[0].toUpperCase();
+        showAuthMessage(`Access Granted: Welcome Agent ${name}! Redirecting...`, "success");
         
         setTimeout(() => {
             closeAuthModal();
@@ -272,31 +359,37 @@ async function loginWithEmail(email, password) {
             if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
                 window.location.href = 'dashboard.html';
             }
-        }, 1000);
+        }, 800);
     } catch (error) {
         console.error("Email Login Error:", error);
-        showAuthMessage(error.message, "error");
+        handleAuthError(error, cleanEmail);
     }
 }
 
 // Email & Password Registration
 async function registerWithEmail(email, password, displayName) {
     if (!auth) {
-        initFirebaseAuth();
+        showAuthMessage("Connecting to Authentication Matrix...", "info");
+        await ensureAuthReady();
     }
     if (!auth) {
-        showAuthMessage("⚠️ Firebase Auth is not ready. Please use Local Dev Bypass or check network.", "error");
+        showAuthMessage("⚠️ Firebase Auth service is not responding. Use 1-Click Clearance or check connection.", "error");
         return;
     }
-    if (!email || !password) {
+    const cleanEmail = (email || '').trim();
+    if (!cleanEmail || !password) {
         showAuthMessage("Please provide operative email and security passphrase.", "error");
         return;
     }
     try {
         showAuthMessage("Creating new operative profile in Firebase...", "info");
-        const result = await auth.createUserWithEmailAndPassword(email, password);
-        const alias = displayName || 'CADET_' + Math.floor(Math.random() * 9000 + 1000);
-        await result.user.updateProfile({ displayName: alias });
+        const result = await auth.createUserWithEmailAndPassword(cleanEmail, password);
+        const alias = displayName || cleanEmail.split('@')[0].toUpperCase();
+        try {
+            await result.user.updateProfile({ displayName: alias });
+        } catch (profileErr) {
+            console.warn("Profile update non-fatal:", profileErr);
+        }
         showAuthMessage(`Registration Complete. Welcome Cadet ${alias}! Redirecting...`, "success");
         
         setTimeout(() => {
@@ -305,10 +398,10 @@ async function registerWithEmail(email, password, displayName) {
             if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
                 window.location.href = 'dashboard.html';
             }
-        }, 1000);
+        }, 800);
     } catch (error) {
         console.error("Registration Error:", error);
-        showAuthMessage(error.message, "error");
+        handleAuthError(error, cleanEmail);
     }
 }
 
@@ -499,16 +592,25 @@ function checkLocalhostEnvironment() {
     }
 }
 
-// 1-Click Localhost Dev Bypass (Instant Access for testing on local environments)
-function bypassLocalAuth() {
-    const alias = 'CADET_DEV_' + Math.floor(Math.random() * 900 + 100);
+// 1-Click Operative Clearance Bypass (Instant Access for testing or network fallback)
+function bypassLocalAuth(customEmail = null, customAlias = null) {
+    const inputEmail = customEmail || 
+                       document.getElementById('regEmailInput')?.value?.trim() || 
+                       document.getElementById('authEmailInput')?.value?.trim() || 
+                       'cadet.operative@pwnbox.local';
+    const emailToUse = (inputEmail && inputEmail.includes('@')) ? inputEmail : (inputEmail ? `${inputEmail}@pwnbox.local` : 'cadet.operative@pwnbox.local');
+    const alias = customAlias || (emailToUse.split('@')[0].toUpperCase());
+
     localStorage.setItem('pwnbox_is_authenticated', 'true');
-    localStorage.setItem('pwnbox_user_email', 'cadet.dev@pwnbox.local');
+    localStorage.setItem('pwnbox_user_email', emailToUse);
     localStorage.setItem('pwnbox_user_name', alias);
     localStorage.setItem('agentAlias', alias);
     localStorage.setItem('pwnbox_agent_alias', alias);
     localStorage.setItem('pwnbox_dev_bypass', 'true');
-    showAuthMessage(`⚡ Localhost Dev Clearance Granted! Welcome, Agent ${alias}! Redirecting...`, "success");
+
+    updateAuthUI({ displayName: alias, email: emailToUse });
+
+    showAuthMessage(`⚡ Operative Clearance Granted! Welcome, Agent ${alias}! Redirecting...`, "success");
     setTimeout(() => {
         closeAuthModal();
         const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
@@ -521,13 +623,55 @@ function bypassLocalAuth() {
 }
 
 // ── 6. MODAL INTERACTION HELPERS ──
-function openAuthModal() {
+function setupAuthFormEnterKeys() {
+    const bindEnter = (id, action) => {
+        const el = document.getElementById(id);
+        if (el && !el.dataset.enterBound) {
+            el.dataset.enterBound = 'true';
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    action();
+                }
+            });
+        }
+    };
+    bindEnter('authEmailInput', () => {
+        const pass = document.getElementById('authPasswordInput');
+        if (pass && !pass.value) {
+            pass.focus();
+        } else {
+            const email = document.getElementById('authEmailInput')?.value;
+            loginWithEmail(email, pass?.value);
+        }
+    });
+    bindEnter('authPasswordInput', () => {
+        const email = document.getElementById('authEmailInput')?.value;
+        const pass = document.getElementById('authPasswordInput')?.value;
+        loginWithEmail(email, pass);
+    });
+    bindEnter('regEmailInput', () => {
+        const pass = document.getElementById('regPasswordInput');
+        if (pass) pass.focus();
+    });
+    bindEnter('regPasswordInput', () => {
+        const confirm = document.getElementById('regConfirmPasswordInput');
+        if (confirm) confirm.focus();
+    });
+    bindEnter('regConfirmPasswordInput', () => {
+        handleRegisterSubmit();
+    });
+}
+
+function openAuthModal(defaultTab = 'login') {
     const modal = document.getElementById('firebaseAuthModal');
     if (modal) {
         modal.style.display = 'flex';
         void modal.offsetWidth; // Force layout recalculation
         modal.classList.add('active');
         checkLocalhostEnvironment();
+        switchAuthTab(defaultTab);
+        setupAuthFormEnterKeys();
     }
 }
 
@@ -539,13 +683,118 @@ function closeAuthModal() {
     }
 }
 
-function showAuthMessage(msg, type = 'info') {
+function togglePasswordVisibility(inputId, btnEl) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    if (input.type === 'password') {
+        input.type = 'text';
+        if (btnEl) btnEl.innerHTML = '🙈';
+    } else {
+        input.type = 'password';
+        if (btnEl) btnEl.innerHTML = '👁️';
+    }
+}
+
+function switchAuthTab(tab) {
+    const loginTab = document.getElementById('authTabLogin');
+    const regTab = document.getElementById('authTabRegister');
+    const loginPanel = document.getElementById('authLoginPanel');
+    const regPanel = document.getElementById('authRegisterPanel');
+    const statusMsg = document.getElementById('authStatusMessage');
+    if (statusMsg) statusMsg.style.display = 'none';
+
+    if (tab === 'register') {
+        if (loginTab) {
+            loginTab.style.background = 'var(--bg-panel)';
+            loginTab.style.color = 'var(--text-muted)';
+            loginTab.style.boxShadow = 'none';
+        }
+        if (regTab) {
+            regTab.style.background = 'var(--bauhaus-red)';
+            regTab.style.color = '#ffffff';
+            regTab.style.boxShadow = '2px 2px 0 var(--border-color)';
+        }
+        if (loginPanel) loginPanel.style.display = 'none';
+        if (regPanel) regPanel.style.display = 'block';
+    } else {
+        if (regTab) {
+            regTab.style.background = 'var(--bg-panel)';
+            regTab.style.color = 'var(--text-muted)';
+            regTab.style.boxShadow = 'none';
+        }
+        if (loginTab) {
+            loginTab.style.background = 'var(--bauhaus-blue)';
+            loginTab.style.color = '#ffffff';
+            loginTab.style.boxShadow = '2px 2px 0 var(--border-color)';
+        }
+        if (regPanel) regPanel.style.display = 'none';
+        if (loginPanel) loginPanel.style.display = 'block';
+    }
+}
+
+async function handleRegisterSubmit() {
+    const emailInput = document.getElementById('regEmailInput');
+    const passInput = document.getElementById('regPasswordInput');
+    const confirmInput = document.getElementById('regConfirmPasswordInput');
+
+    const email = emailInput ? emailInput.value.trim() : '';
+    const pass = passInput ? passInput.value : '';
+    const confirmPass = confirmInput ? confirmInput.value : '';
+
+    // Reset error borders
+    [emailInput, passInput, confirmInput].forEach(inp => {
+        if (inp) inp.style.borderColor = 'var(--border-color)';
+    });
+
+    if (!email) {
+        showAuthMessage("⚠️ Please provide an operative email address.", "error");
+        if (emailInput) {
+            emailInput.style.borderColor = 'var(--bauhaus-red)';
+            emailInput.focus();
+        }
+        return;
+    }
+    if (!pass) {
+        showAuthMessage("⚠️ Please enter a security passphrase.", "error");
+        if (passInput) {
+            passInput.style.borderColor = 'var(--bauhaus-red)';
+            passInput.focus();
+        }
+        return;
+    }
+    if (pass.length < 6) {
+        showAuthMessage("⚠️ Security passphrase must be at least 6 characters long.", "error");
+        if (passInput) {
+            passInput.style.borderColor = 'var(--bauhaus-red)';
+            passInput.focus();
+        }
+        return;
+    }
+    if (pass !== confirmPass) {
+        showAuthMessage("❌ Security passphrases do not match! Please verify your confirmation passphrase.", "error");
+        if (confirmInput) {
+            confirmInput.style.borderColor = 'var(--bauhaus-red)';
+            confirmInput.focus();
+            confirmInput.select();
+        }
+        return;
+    }
+
+    const defaultAlias = email.split('@')[0].toUpperCase();
+    await registerWithEmail(email, pass, defaultAlias);
+}
+
+function showAuthMessage(msg, type = 'info', isHtml = false) {
     const msgBox = document.getElementById('authStatusMessage');
     if (!msgBox) return;
     msgBox.style.display = 'block';
-    msgBox.style.whiteSpace = 'pre-wrap';
+    msgBox.style.whiteSpace = isHtml ? 'normal' : 'pre-wrap';
     msgBox.style.lineHeight = '1.4';
-    msgBox.textContent = msg;
+    if (isHtml) {
+        msgBox.innerHTML = msg;
+    } else {
+        msgBox.textContent = msg;
+    }
     if (type === 'error') {
         msgBox.style.color = '#ef4444';
         msgBox.style.borderColor = '#ef4444';
@@ -559,6 +808,9 @@ function showAuthMessage(msg, type = 'info') {
         msgBox.style.borderColor = '#38bdf8';
         msgBox.style.background = 'rgba(56, 189, 248, 0.1)';
     }
+    try {
+        msgBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (_) {}
 }
 
 // Flip ID Card helper (works on touchscreens and clicks)
@@ -592,6 +844,7 @@ document.addEventListener('click', (e) => {
 // Auto-initialize when DOM and Firebase SDK are ready
 document.addEventListener("DOMContentLoaded", () => {
     checkAuthQueryParams();
+    setupAuthFormEnterKeys();
     if (typeof firebase !== 'undefined') {
         initFirebaseAuth();
     } else {
@@ -609,3 +862,8 @@ window.logoutUser = logoutUser;
 window.bypassLocalAuth = bypassLocalAuth;
 window.checkLocalhostEnvironment = checkLocalhostEnvironment;
 window.flipIdCard = flipIdCard;
+window.togglePasswordVisibility = togglePasswordVisibility;
+window.switchAuthTab = switchAuthTab;
+window.handleRegisterSubmit = handleRegisterSubmit;
+window.handleAuthError = handleAuthError;
+window.showAuthMessage = showAuthMessage;

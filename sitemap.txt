@@ -32,7 +32,7 @@ https://pwnbo-x.web.app/games/sqli_locksmith.html
 https://pwnbo-x.web.app/modules/Footprinting.html
 https://pwnbo-x.web.app/modules/Scanning.html
 https://pwnbo-x.web.app/modules/Enumeration.html
-https://pwnbo-x.web.app/modules/VulnerabilityAnalysis.html
+https://pwnbo-x.web.app/modules/Vulnerability.html
 https://pwnbo-x.web.app/modules/SystemHacking.html
 https://pwnbo-x.web.app/modules/MalwareThreats.html
 https://pwnbo-x.web.app/modules/EvadingIDS.html
