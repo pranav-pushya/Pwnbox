@@ -90,12 +90,22 @@
             if (roadmapRaw) roadmap = JSON.parse(roadmapRaw);
         } catch (_) {}
 
+        let ctfFlags = [];
+        try {
+            const flagsRaw = localStorage.getItem('pwnbox_ctf_solved_flags');
+            if (flagsRaw) ctfFlags = JSON.parse(flagsRaw);
+        } catch (_) {}
+
+        const arcadeXp = parseInt(localStorage.getItem('pwnbox_arcade_total_xp') || '0', 10);
+
         return {
             modules,
             profile,
             notes: Array.isArray(notes) ? notes : [],
             exams: Array.isArray(exams) ? exams : [],
             roadmap: typeof roadmap === 'object' && roadmap !== null ? roadmap : {},
+            ctfFlags: Array.isArray(ctfFlags) ? ctfFlags : [],
+            arcadeXp: isNaN(arcadeXp) ? 0 : arcadeXp,
             clientTimestamp: Date.now()
         };
     }
@@ -187,6 +197,21 @@
                 } catch (_) {}
                 const mergedExams = mergeExamHistory(cloudData.exams, currentExams);
                 localStorage.setItem('pwnbox_exam_history', JSON.stringify(mergedExams));
+            }
+
+            // 6. CTF Flags & Arcade XP
+            if (Array.isArray(cloudData.ctfFlags)) {
+                let currentFlags = [];
+                try {
+                    currentFlags = JSON.parse(localStorage.getItem('pwnbox_ctf_solved_flags') || '[]');
+                } catch (_) {}
+                const mergedFlags = Array.from(new Set([...currentFlags, ...cloudData.ctfFlags]));
+                localStorage.setItem('pwnbox_ctf_solved_flags', JSON.stringify(mergedFlags));
+            }
+            if (typeof cloudData.arcadeXp === 'number') {
+                const localXp = parseInt(localStorage.getItem('pwnbox_arcade_total_xp') || '0', 10);
+                const highestXp = Math.max(localXp, cloudData.arcadeXp);
+                localStorage.setItem('pwnbox_arcade_total_xp', String(highestXp));
             }
 
             lastCloudTimestamp = cloudData.clientTimestamp || Date.now();

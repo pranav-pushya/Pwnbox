@@ -1,0 +1,460 @@
+/**
+ * PWNBOX CYBER COMMAND — CTF ARENA, GLOBAL LEADERBOARD & CERTIFICATES STYLES
+ * Bauhaus Cyberpunk Brutalism
+ */
+
+.ctf-page-body {
+    min-height: 100vh;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: 'Work Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.ctf-top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: var(--bg-panel);
+    border-bottom: var(--border-width) solid var(--border-color);
+    box-shadow: 0 3px 0 var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.ctf-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.ctf-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text-main);
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ctf-nav-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-color);
+    background: var(--bauhaus-yellow);
+    color: #000;
+}
+
+.ctf-header-title-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+}
+
+.ctf-header-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.5px;
+}
+
+.ctf-header-tag {
+    background: var(--bauhaus-red);
+    color: #fff;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
+}
+
+.ctf-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Main Container */
+.ctf-main-container {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Hero Stats Deck */
+.ctf-stats-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.ctf-stat-card {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ctf-stat-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--bauhaus-blue);
+}
+
+.ctf-stat-lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+/* Master Universal Flag Submit Box */
+.universal-flag-box {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.flag-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.flag-box-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flag-input-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.flag-input {
+    flex-grow: 1;
+    min-width: 280px;
+    padding: 12px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--bg-base);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    transition: all 0.15s ease;
+}
+
+.flag-input:focus {
+    outline: none;
+    border-color: var(--bauhaus-blue);
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+.btn-flag-submit {
+    padding: 12px 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 800;
+    background: var(--bauhaus-yellow);
+    color: #000;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-flag-submit:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-color);
+    background: #eab308;
+}
+
+/* Section Headings */
+.ctf-section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+/* Tabs */
+.ctf-tabs-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ctf-tab-btn {
+    padding: 10px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: var(--bg-panel);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.ctf-tab-btn:hover {
+    background: var(--bg-card);
+    transform: translateY(-1px);
+}
+
+.ctf-tab-btn.active {
+    background: var(--bauhaus-blue);
+    color: #fff;
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+
+/* Challenges Grid */
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .challenges-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.challenge-card {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.challenge-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.challenge-card.solved {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.04);
+}
+
+.challenge-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.challenge-badge {
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 1px solid currentColor;
+}
+
+.challenge-points {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--bauhaus-yellow);
+    background: #0f172a;
+    padding: 2px 8px;
+    border: 1px solid #334155;
+}
+
+.challenge-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.challenge-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.challenge-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--bauhaus-blue);
+    background: rgba(0, 90, 156, 0.06);
+    padding: 6px 10px;
+    border-left: 3px solid var(--bauhaus-blue);
+}
+
+/* Leaderboard Table */
+.leaderboard-table-wrapper {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.leaderboard-table th {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 12px 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.leaderboard-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .leaderboard-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.leaderboard-table tr:hover {
+    background: rgba(0, 90, 156, 0.05);
+}
+
+.leaderboard-table tr.current-user-row {
+    background: rgba(242, 169, 0, 0.15) !important;
+    font-weight: 700;
+}
+
+.rank-badge {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 0.8rem;
+}
+
+.rank-gold { background: #facc15; color: #000; }
+.rank-silver { background: #94a3b8; color: #000; }
+.rank-bronze { background: #d97706; color: #fff; }
+
+/* Certificate Deck */
+.certificate-deck {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.certificate-canvas-container {
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border: 3px solid var(--border-color);
+}
+
+#certificateCanvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cert-btn-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-cert-download {
+    padding: 12px 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    background: var(--bauhaus-blue);
+    color: #fff;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-cert-download:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-color);
+    background: #1d4ed8;
+}
+
+.btn-cert-print {
+    padding: 12px 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-cert-print:hover {
+    transform: translate(-1px, -1px);
+    background: var(--bauhaus-yellow);
+    color: #000;
+}

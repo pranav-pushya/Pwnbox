@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description" content="PwnBox CTF Arena & Global Operative Leaderboard: Standardized flag validation, competitive rankings, and authorized cryptographic certificates of completion.">
+    <title>PwnBox // CTF Arena, Leaderboard & Certificates</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/landing.css?v=4.0">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link rel="stylesheet" href="css/ctf.css?v=1.0">
+
+    <!-- Firebase SDK v10 (Local First-Party with CDN Fallback) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PwnBox // CTF Arena & Global Leaderboard">
+    <meta property="og:description" content="Validate flags, compete on the live operative leaderboard, and download your authorized completion certificate.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="ctf-page-body">
+
+    <!-- Top Navigation Header -->
+    <header class="ctf-top-header">
+        <div class="ctf-header-left">
+            <a href="dashboard.html" class="ctf-nav-btn" title="Back to Command Dashboard">
+                <span>⬅️</span>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="index.html" class="ctf-nav-btn" title="Return to Home Portal">
+                <span>🏠</span>
+                <span>HOME</span>
+            </a>
+            <a href="terminal.html" class="ctf-nav-btn" title="Linux WebShell Terminal">
+                <span>💻</span>
+                <span>TERMINAL</span>
+            </a>
+            <a href="payloads.html" class="ctf-nav-btn" title="Tactical Payload Arsenal">
+                <span>⚡</span>
+                <span>PAYLOADS</span>
+            </a>
+            <a href="notes.html" class="ctf-nav-btn" title="Operative Notes Vault">
+                <span>📝</span>
+                <span>NOTES VAULT</span>
+            </a>
+            <a href="games.html" class="ctf-nav-btn" title="Cyber Mini-Games & Arcade">
+                <span>🎮</span>
+                <span>GAMES</span>
+            </a>
+            <div class="ctf-header-title-box">
+                <span style="font-size: 1.3rem;">🚩</span>
+                <span class="ctf-header-title">PWNBOX // CTF ARENA</span>
+                <span class="ctf-header-tag">GLOBAL LEADERBOARD</span>
+            </div>
+        </div>
+
+        <div class="ctf-header-right">
+            <!-- Global Cloud Sync Pill -->
+            <div id="pwnCloudSyncPill" class="cloud-sync-pill" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; font-family:'Space Mono', monospace; font-size:0.75rem; font-weight:700; border:2px solid var(--border-color); background:var(--bg-panel); color:var(--text-main); cursor:pointer;" onclick="if(window.PwnCloudSync) window.PwnCloudSync.trigger()">
+                <span style="color:#10b981;">●</span>
+                <span>CLOUD SYNC</span>
+            </div>
+            <button onclick="toggleTheme()" class="ctf-nav-btn" title="Toggle Page Light/Dark Theme">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Workspace -->
+    <main class="ctf-main-container">
+
+        <!-- Live Statistics Deck -->
+        <section class="ctf-stats-deck">
+            <div class="ctf-stat-card">
+                <div class="ctf-stat-val" id="statSolvedCount">0 / 8</div>
+                <div class="ctf-stat-lbl">FLAGS CAPTURED</div>
+            </div>
+            <div class="ctf-stat-card">
+                <div class="ctf-stat-val" id="statTotalXp">0 XP</div>
+                <div class="ctf-stat-lbl">TACTICAL SCORE</div>
+            </div>
+            <div class="ctf-stat-card">
+                <div class="ctf-stat-val" id="statClearanceRank" style="font-size: 1.4rem; color: var(--bauhaus-red);">APPRENTICE</div>
+                <div class="ctf-stat-lbl">CLEARANCE LEVEL</div>
+            </div>
+            <div class="ctf-stat-card">
+                <div class="ctf-stat-val" style="color: var(--bauhaus-yellow);">ACTIVE</div>
+                <div class="ctf-stat-lbl">CYBER RANGE STATUS</div>
+            </div>
+        </section>
+
+        <!-- Master Universal Flag Submission Deck -->
+        <section class="universal-flag-box">
+            <div class="flag-box-header">
+                <div class="flag-box-title">
+                    <span>🎯</span>
+                    <span>UNIVERSAL CTF FLAG SUBMISSION DECK</span>
+                </div>
+                <span style="font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--text-muted);">ACCEPTED FORMAT: pwn{...}</span>
+            </div>
+            <div class="flag-input-group">
+                <input type="text" id="universalFlagInput" class="flag-input" placeholder="Enter captured flag (e.g. pwn{w3bsh3ll_m4st3r_unl0ck3d})...">
+                <button type="button" id="btnSubmitUniversalFlag" class="btn-flag-submit">SUBMIT FLAG</button>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <section class="ctf-tabs-bar">
+            <button type="button" class="ctf-tab-btn active" onclick="switchSection('challenges', this)">
+                <span>⚔️</span>
+                <span>TACTICAL CHALLENGES</span>
+            </button>
+            <button type="button" class="ctf-tab-btn" onclick="switchSection('leaderboard', this)">
+                <span>🏆</span>
+                <span>GLOBAL LEADERBOARD</span>
+            </button>
+            <button type="button" class="ctf-tab-btn" onclick="switchSection('certificates', this)">
+                <span>📜</span>
+                <span>CERTIFICATE FORGE</span>
+            </button>
+        </section>
+
+        <!-- Section 1: Challenges Matrix -->
+        <section id="sectionChallenges" class="ctf-sub-section">
+            <h2 class="ctf-section-title">
+                <span>🛡️</span>
+                <span>ACTIVE CTF LAB VECTORS</span>
+            </h2>
+            <div class="challenges-grid" id="ctfChallengesList">
+                <!-- Rendered by js/ctf.js -->
+            </div>
+        </section>
+
+        <!-- Section 2: Global Operative Leaderboard -->
+        <section id="sectionLeaderboard" class="ctf-sub-section" style="display: none;">
+            <h2 class="ctf-section-title">
+                <span>👑</span>
+                <span>OPERATIVE CADRE RANKINGS</span>
+            </h2>
+            <div class="leaderboard-table-wrapper">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">RANK</th>
+                            <th>OPERATIVE ALIAS</th>
+                            <th>CLEARANCE</th>
+                            <th>FLAGS SECURED</th>
+                            <th>SCORE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardTbody">
+                        <!-- Rendered by js/ctf.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Certificate Forge -->
+        <section id="sectionCertificates" class="ctf-sub-section" style="display: none;">
+            <h2 class="ctf-section-title">
+                <span>📜</span>
+                <span>AUTHORIZED CERTIFICATION OF MASTERY</span>
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:14px;">
+                Verified credentials generated live on HTML5 Canvas. Backed by Lead Architect cryptographic signature and PwnBox security net hash.
+            </p>
+
+            <div class="certificate-deck">
+                <div class="certificate-canvas-container">
+                    <canvas id="certificateCanvas"></canvas>
+                </div>
+                <div class="cert-btn-group">
+                    <button type="button" class="btn-cert-download" onclick="PwnCTF.downloadCertificate()">
+                        📥 DOWNLOAD HIGH-RES PNG
+                    </button>
+                    <button type="button" class="btn-cert-print" onclick="window.print()">
+                        🖨️ PRINT / EXPORT PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Notifications Box -->
+    <div id="ctfToastBox" style="position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none;"></div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cloud_sync.js"></script>
+    <script src="js/ctf.js"></script>
+
+    <script>
+        // Section Switching
+        function switchSection(name, btn) {
+            document.querySelectorAll('.ctf-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            document.getElementById('sectionChallenges').style.display = name === 'challenges' ? 'block' : 'none';
+            document.getElementById('sectionLeaderboard').style.display = name === 'leaderboard' ? 'block' : 'none';
+            document.getElementById('sectionCertificates').style.display = name === 'certificates' ? 'block' : 'none';
+
+            if (name === 'certificates') {
+                setTimeout(() => {
+                    if (window.PwnCTF) window.PwnCTF.renderAll();
+                }, 50);
+            }
+        }
+
+        // Page Theme Toggle
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            if (window.PwnCTF) window.PwnCTF.renderAll();
+        }
+    </script>
+</body>
+
+</html>
