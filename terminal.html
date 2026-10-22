@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description" content="PwnBox Interactive In-Browser Linux WebShell Terminal Emulator: Virtual UNIX filesystem, Nmap scanner, hash cracker, privilege escalation, and CTF sandbox.">
+    <title>PwnBox // Interactive Linux WebShell Terminal</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        const savedTermTheme = localStorage.getItem('pwn_term_theme') || 'matrix';
+        document.documentElement.setAttribute('data-term-theme', savedTermTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/landing.css?v=4.0">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link rel="stylesheet" href="css/terminal.css?v=1.0">
+
+    <!-- Firebase SDK v10 (Local First-Party with CDN Fallback) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PwnBox // Interactive Linux WebShell Terminal">
+    <meta property="og:description" content="In-Browser Linux WebShell Terminal with virtual filesystem, Nmap scanning, hash cracking, and CTF challenges.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="term-page-body">
+
+    <!-- Top Navigation Header -->
+    <header class="term-top-header">
+        <div class="term-header-left">
+            <a href="dashboard.html" class="term-nav-btn" title="Back to Command Dashboard">
+                <span>⬅️</span>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="index.html" class="term-nav-btn" title="Return to Home Portal">
+                <span>🏠</span>
+                <span>HOME</span>
+            </a>
+            <a href="payloads.html" class="term-nav-btn" title="Tactical Payload Arsenal">
+                <span>⚡</span>
+                <span>PAYLOADS</span>
+            </a>
+            <a href="notes.html" class="term-nav-btn" title="Operative Notes Vault">
+                <span>📝</span>
+                <span>NOTES VAULT</span>
+            </a>
+            <a href="games.html" class="term-nav-btn" title="Cyber Mini-Games & CTF">
+                <span>🎮</span>
+                <span>GAMES</span>
+            </a>
+            <div class="term-header-title-box">
+                <span style="font-size: 1.3rem;">💻</span>
+                <span class="term-header-title">PWNBOX // WEBSHELL</span>
+                <span class="term-header-tag">LINUX 6.5</span>
+            </div>
+        </div>
+
+        <div class="term-header-right">
+            <!-- Global Cloud Sync Pill -->
+            <div id="pwnCloudSyncPill" class="cloud-sync-pill" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; font-family:'Space Mono', monospace; font-size:0.75rem; font-weight:700; border:2px solid var(--border-color); background:var(--bg-panel); color:var(--text-main); cursor:pointer;" onclick="if(window.PwnCloudSync) window.PwnCloudSync.trigger()">
+                <span style="color:#10b981;">●</span>
+                <span>CLOUD SYNC</span>
+            </div>
+            <button onclick="toggleTheme()" class="term-nav-btn" title="Toggle Page Light/Dark Theme">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Terminal Workspace -->
+    <main class="term-main-container">
+
+        <!-- Toolbar & Control Deck -->
+        <section class="term-toolbar">
+            <div class="term-toolbar-group">
+                <span class="term-toolbar-label">CRT PHOSPHOR:</span>
+                <button type="button" class="term-color-btn" style="background: #22c55e;" onclick="PwnTerminal.setTheme('matrix')" title="Matrix Phosphor Green"></button>
+                <button type="button" class="term-color-btn" style="background: #f59e0b;" onclick="PwnTerminal.setTheme('amber')" title="Cyber Amber"></button>
+                <button type="button" class="term-color-btn" style="background: #06b6d4;" onclick="PwnTerminal.setTheme('cyan')" title="Glacier Cyan"></button>
+                <button type="button" class="term-color-btn" style="background: #f8fafc;" onclick="PwnTerminal.setTheme('white')" title="Brutalist Monochrome"></button>
+            </div>
+
+            <div class="term-toolbar-group">
+                <button type="button" class="term-tool-btn" onclick="PwnTerminal.toggleCrt()" title="Toggle CRT Scanline Overlay">
+                    📺 TOGGLE CRT SCANLINES
+                </button>
+                <button type="button" class="term-tool-btn" onclick="PwnTerminal.runQuickCmd('clear')" title="Clear Terminal Output">
+                    🧹 CLEAR SCREEN
+                </button>
+                <button type="button" class="term-tool-btn" onclick="location.reload()" title="Reboot Virtual Shell Session">
+                    🔄 REBOOT SESSION
+                </button>
+            </div>
+        </section>
+
+        <!-- Quick Tactical One-Liner Launcher Pills -->
+        <section class="term-quick-bar">
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('help')">help</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('nmap -sV 10.10.10.27')">nmap -sV 10.10.10.27</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('cat notes.txt')">cat notes.txt</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('whoami')">whoami</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('id')">id</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('sudo su')">sudo su</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('ping 10.10.10.27')">ping 10.10.10.27</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('hashcat 5d41402abc4b2a76b9719d911017c592')">hashcat</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('notes')">notes</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('payloads')">payloads</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('pwn ctf')">pwn ctf</button>
+        </section>
+
+        <!-- CRT Terminal Window Frame -->
+        <section class="terminal-window" id="terminalWindow">
+            <div class="terminal-win-header">
+                <div class="terminal-win-dots">
+                    <span class="win-dot red"></span>
+                    <span class="win-dot yellow"></span>
+                    <span class="win-dot green"></span>
+                </div>
+                <div class="terminal-win-title">agent@pwnbox: ~ (bash 5.2.15)</div>
+                <div style="font-size: 0.72rem; color: #64748b; font-weight: 700;">TTY // ACTIVE</div>
+            </div>
+
+            <!-- CRT Scanline Filter -->
+            <div class="crt-overlay" id="crtOverlay"></div>
+
+            <!-- Terminal Screen Output Buffer -->
+            <div class="terminal-screen" id="terminalScreen">
+                <pre class="term-banner-text">
+  ██████╗ ██╗    ██╗███╗   ██╗██████╗  ██████╗ ██╗  ██╗
+  ██╔══██╗██║    ██║████╗  ██║██╔══██╗██╔═══██╗╚██╗██╔╝
+  ██████╔╝██║ █╗ ██║██╔██╗ ██║██████╔╝██║   ██║ ╚███╔╝ 
+  ██╔═══╝ ██║███╗██║██║╚██╗██║██╔══██╗██║   ██║ ██╔██╗ 
+  ██║     ╚███╔███╔╝██║ ╚████║██████╔╝╚██████╔╝██╔╝ ██╗
+  ╚═╝      ╚══╝╚══╝ ╚═╝  ╚═══╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝
+  PWNBOX TACTICAL WEBSHELL EMULATOR // KERNEL 6.5.0-KALI3-AMD64
+  * Virtualized Linux sandbox environment initialized.
+  * Real-time bash parsing, command history, and filesystem simulation active.
+  * Type 'help' to display operative command reference manual.
+----------------------------------------------------------------------
+                </pre>
+            </div>
+
+            <!-- Bottom Interactive Input Line -->
+            <div style="padding: 10px 18px; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 8px;">
+                <span class="term-prompt-tag" id="terminalPromptTag">agent@pwnbox:~$</span>
+                <input type="text" id="terminalInput" class="terminal-active-input" autocomplete="off" spellcheck="false" autofocus placeholder="Type command... (Tab to autocomplete, Up/Down for history)">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cloud_sync.js"></script>
+    <script src="js/terminal.js"></script>
+
+    <script>
+        // Page Theme Toggle
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
+    </script>
+</body>
+
+</html>
