@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description" content="PwnBox Tactical Payload Arsenal: Real-time interactive reverse shells, MSFVenom cradles, WebShells, TTY stabilization, and file transfer one-liners with 1-click note vault staging.">
+    <title>PwnBox // Interactive Tactical Payload Arsenal</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/landing.css?v=4.0">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link rel="stylesheet" href="css/payloads.css?v=1.0">
+
+    <!-- Firebase SDK v10 (Local First-Party with CDN Fallback) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PwnBox // Tactical Payload Arsenal">
+    <meta property="og:description" content="Real-time interactive reverse shells, MSFVenom cradles, WebShells, TTY stabilization, and file transfer one-liners.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="payload-page-body">
+
+    <!-- Top Header -->
+    <header class="payload-top-header">
+        <div class="payload-header-left">
+            <a href="dashboard.html" class="payload-nav-btn" title="Back to Command Dashboard">
+                <span>⬅️</span>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="index.html" class="payload-nav-btn" title="Return to Portal">
+                <span>🏠</span>
+                <span>HOME</span>
+            </a>
+            <a href="notes.html" class="payload-nav-btn" title="Operative Notes Vault">
+                <span>📝</span>
+                <span>NOTES VAULT</span>
+            </a>
+            <a href="games.html" class="payload-nav-btn" title="Cyber Mini-Games & CTF">
+                <span>🎮</span>
+                <span>GAMES</span>
+            </a>
+            <div class="payload-header-title-box">
+                <span style="font-size: 1.3rem;">⚡</span>
+                <span class="payload-header-title">PWNBOX // PAYLOAD ARSENAL</span>
+                <span class="payload-header-tag">ACTIVE FORGE</span>
+            </div>
+        </div>
+
+        <div class="payload-header-right">
+            <!-- Global Cloud Sync Pill -->
+            <div id="pwnCloudSyncPill" class="cloud-sync-pill" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; font-family:'Space Mono', monospace; font-size:0.75rem; font-weight:700; border:2px solid var(--border-color); background:var(--bg-panel); color:var(--text-main); cursor:pointer;" onclick="if(window.PwnCloudSync) window.PwnCloudSync.trigger()">
+                <span style="color:#10b981;">●</span>
+                <span>CLOUD SYNC</span>
+            </div>
+            <button onclick="toggleTheme()" class="payload-nav-btn" title="Toggle Dark/Light Mode">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="payload-main-container">
+
+        <!-- Control Deck / Tactical HUD -->
+        <section class="payload-hud-card">
+            <div class="hud-grid">
+                <!-- LHOST IP -->
+                <div class="hud-field">
+                    <label class="hud-label" for="payloadIpInput">
+                        <span>ATTACKER LHOST / IP</span>
+                        <span style="color:var(--bauhaus-blue); font-size: 0.7rem;">(TUN0 / INTERFACE)</span>
+                    </label>
+                    <input type="text" id="payloadIpInput" class="hud-input" value="10.10.14.2" placeholder="e.g. 10.10.14.2">
+                    <div class="preset-pill-group">
+                        <button type="button" class="preset-pill" onclick="document.getElementById('payloadIpInput').value='10.10.14.2'; document.getElementById('payloadIpInput').dispatchEvent(new Event('input'));">10.10.14.2 (HTB)</button>
+                        <button type="button" class="preset-pill" onclick="document.getElementById('payloadIpInput').value='10.8.0.2'; document.getElementById('payloadIpInput').dispatchEvent(new Event('input'));">10.8.0.2 (THM)</button>
+                        <button type="button" class="preset-pill" onclick="document.getElementById('payloadIpInput').value='127.0.0.1'; document.getElementById('payloadIpInput').dispatchEvent(new Event('input'));">127.0.0.1 (Local)</button>
+                    </div>
+                </div>
+
+                <!-- LPORT -->
+                <div class="hud-field">
+                    <label class="hud-label" for="payloadPortInput">
+                        <span>LISTENER LPORT</span>
+                        <span style="color:var(--bauhaus-red); font-size: 0.7rem;">(TCP SOCKET)</span>
+                    </label>
+                    <input type="text" id="payloadPortInput" class="hud-input" value="4444" placeholder="4444">
+                    <div class="preset-pill-group">
+                        <button type="button" class="preset-pill" onclick="PwnPayloads.setPortPreset('4444')">4444</button>
+                        <button type="button" class="preset-pill" onclick="PwnPayloads.setPortPreset('1337')">1337</button>
+                        <button type="button" class="preset-pill" onclick="PwnPayloads.setPortPreset('9001')">9001</button>
+                        <button type="button" class="preset-pill" onclick="PwnPayloads.setPortPreset('443')">443</button>
+                        <button type="button" class="preset-pill" onclick="PwnPayloads.setPortPreset('80')">80</button>
+                    </div>
+                </div>
+
+                <!-- Encoding Selector -->
+                <div class="hud-field">
+                    <label class="hud-label" for="payloadEncodingSelect">
+                        <span>PAYLOAD ENCODING</span>
+                        <span style="color:var(--bauhaus-yellow); font-size: 0.7rem;">(BYPASS WAF/IDS)</span>
+                    </label>
+                    <select id="payloadEncodingSelect" class="hud-select">
+                        <option value="none">Plaintext / Raw Execution</option>
+                        <option value="url">URL Encoded (1-pass)</option>
+                        <option value="double_url">Double URL Encoded</option>
+                        <option value="base64">Base64 Encoded Wrap</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Staged Netcat Listener Box -->
+            <div class="listener-banner">
+                <div class="listener-label">
+                    <span>📡</span>
+                    <span>ACTIVE LISTENER:</span>
+                </div>
+                <code class="listener-cmd" id="listenerCmdDisplay">nc -lvnp 4444</code>
+                <button type="button" class="listener-copy-btn" onclick="PwnPayloads.copyListener()" title="Copy Listener One-Liner">
+                    📋 COPY LISTENER
+                </button>
+            </div>
+        </section>
+
+        <!-- Search & Filter Controls -->
+        <section class="payload-filter-bar">
+            <!-- Search -->
+            <div class="payload-search-box">
+                <span class="payload-search-icon">🔍</span>
+                <input type="text" id="payloadSearchInput" class="payload-search-input" placeholder="Search payloads by keyword (e.g. bash, powershell, python, certutil, socat, php)...">
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="payload-tabs-container">
+                <button type="button" class="payload-cat-tab active" data-category="reverse_shells">
+                    <span>🔄</span>
+                    <span>Reverse Shells</span>
+                </button>
+                <button type="button" class="payload-cat-tab" data-category="tty_spawn">
+                    <span>📟</span>
+                    <span>TTY Spawn</span>
+                </button>
+                <button type="button" class="payload-cat-tab" data-category="web_shells">
+                    <span>🌐</span>
+                    <span>Web Shells</span>
+                </button>
+                <button type="button" class="payload-cat-tab" data-category="file_transfer">
+                    <span>🚀</span>
+                    <span>Download & Transfer</span>
+                </button>
+                <button type="button" class="payload-cat-tab" data-category="listeners">
+                    <span>📡</span>
+                    <span>Listeners & Handlers</span>
+                </button>
+                <button type="button" class="payload-cat-tab" data-category="all">
+                    <span>⚡</span>
+                    <span>All Payloads</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Payload Cards Grid -->
+        <section class="payload-cards-grid" id="payloadCardsList">
+            <!-- Rendered reactively by js/payload_generator.js -->
+        </section>
+
+    </main>
+
+    <!-- Tactical Toast Notification Container -->
+    <div id="tacticalToastBox" class="tactical-toast-box"></div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cloud_sync.js"></script>
+    <script src="js/payload_generator.js"></script>
+
+    <script>
+        // Tactical Toast Notification Handler
+        window.tacticalToast = function (message, type = 'info') {
+            const container = document.getElementById('tacticalToastBox');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'tactical-toast';
+            const icon = type === 'success' ? '⚡' : 'ℹ️';
+            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.2s ease';
+                setTimeout(() => toast.remove(), 200);
+            }, 2500);
+        };
+
+        // Theme Toggle
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
+    </script>
+</body>
+
+</html>

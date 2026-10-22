@@ -1,0 +1,472 @@
+/**
+ * PWNBOX CYBER COMMAND — INTERACTIVE TACTICAL PAYLOAD ARSENAL STYLES
+ * Bauhaus Cyberpunk Brutalist Architecture
+ */
+
+:root {
+    --payload-card-bg: var(--bg-panel);
+    --payload-code-bg: #090d16;
+    --payload-code-text: #38bdf8;
+    --payload-code-border: #1e293b;
+}
+
+[data-theme="dark"] {
+    --payload-card-bg: #131826;
+    --payload-code-bg: #070a10;
+    --payload-code-text: #38bdf8;
+    --payload-code-border: #334155;
+}
+
+.payload-page-body {
+    min-height: 100vh;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: 'Work Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.payload-top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: var(--bg-panel);
+    border-bottom: var(--border-width) solid var(--border-color);
+    box-shadow: 0 3px 0 var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.payload-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.payload-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text-main);
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.payload-nav-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-color);
+    background: var(--bauhaus-yellow);
+    color: #000;
+}
+
+.payload-header-title-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+}
+
+.payload-header-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.5px;
+}
+
+.payload-header-tag {
+    background: var(--bauhaus-red);
+    color: #fff;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
+}
+
+.payload-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Main Container */
+.payload-main-container {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Config HUD / Control Deck */
+.payload-hud-card {
+    background: var(--bg-panel);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.hud-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    align-items: end;
+}
+
+.hud-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hud-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hud-input,
+.hud-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: var(--bg-base);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+}
+
+.hud-input:focus,
+.hud-select:focus {
+    outline: none;
+    border-color: var(--bauhaus-blue);
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+.preset-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.preset-pill {
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    color: var(--text-main);
+}
+
+.preset-pill:hover {
+    background: var(--bauhaus-yellow);
+    color: #000;
+    transform: translateY(-1px);
+}
+
+/* Listener Bar Banner */
+.listener-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0f172a;
+    color: #38bdf8;
+    border: 2px solid var(--border-color);
+    padding: 12px 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.listener-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.listener-cmd {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4ade80;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 4px 10px;
+    border: 1px solid #334155;
+    flex-grow: 1;
+    overflow-x: auto;
+}
+
+.listener-copy-btn {
+    padding: 6px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--bauhaus-yellow);
+    color: #000;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.listener-copy-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0 #000;
+}
+
+/* Search and Filter Row */
+.payload-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.payload-search-box {
+    position: relative;
+    width: 100%;
+}
+
+.payload-search-input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    background: var(--bg-panel);
+    color: var(--text-main);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+}
+
+.payload-search-input:focus {
+    outline: none;
+    border-color: var(--bauhaus-blue);
+    box-shadow: 6px 6px 0 var(--border-color);
+}
+
+.payload-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+/* Category Tabs */
+.payload-tabs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.payload-cat-tab {
+    padding: 8px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--bg-panel);
+    color: var(--text-main);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.payload-cat-tab:hover {
+    transform: translateY(-1px);
+    box-shadow: 3px 3px 0 var(--border-color);
+    background: var(--bg-card);
+}
+
+.payload-cat-tab.active {
+    background: var(--bauhaus-blue);
+    color: #ffffff;
+    border-color: var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+
+/* Payload Cards Grid */
+.payload-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .payload-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.payload-card {
+    background: var(--payload-card-bg);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.payload-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.payload-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.payload-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    border: 1px solid currentColor;
+    letter-spacing: 0.5px;
+}
+
+.payload-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.payload-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-payload-copy,
+.btn-payload-save {
+    padding: 4px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    white-space: nowrap;
+}
+
+.btn-payload-copy:hover {
+    background: var(--bauhaus-yellow);
+    color: #000;
+}
+
+.btn-payload-save:hover {
+    background: var(--bauhaus-blue);
+    color: #fff;
+}
+
+.payload-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.payload-code-box {
+    background: var(--payload-code-bg);
+    border: 1.5px solid var(--payload-code-border);
+    padding: 12px;
+    overflow-x: auto;
+    position: relative;
+    max-height: 220px;
+}
+
+.payload-code-box pre {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.payload-code-box code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--payload-code-text);
+}
+
+/* Toast Container */
+.tactical-toast-box {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.tactical-toast {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 2px solid var(--bauhaus-yellow);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    padding: 12px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: toastFadeIn 0.2s ease forwards;
+}
+
+@keyframes toastFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
