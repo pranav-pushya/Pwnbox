@@ -1,0 +1,5 @@
+# Local test profiles and scratch files
+scratch/
+*.log
+.DS_Store
+Thumbs.db

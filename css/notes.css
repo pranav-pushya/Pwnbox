@@ -734,6 +734,62 @@ body.notes-body {
 
 /* Responsive Rules */
 @media (max-width: 860px) {
+    .notes-top-header {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .notes-header-left {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        width: 100%;
+        padding-bottom: 2px;
+    }
+
+    .notes-nav-btn {
+        padding: 5px 10px;
+        font-size: 0.72rem;
+        flex: 0 0 auto;
+    }
+
+    .notes-header-logo {
+        white-space: nowrap;
+        flex: 0 0 auto;
+        font-size: 0.85rem;
+    }
+
+    .notes-header-title {
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .notes-header-actions {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .notes-filter-pills {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding-bottom: 4px;
+    }
+
+    .notes-filter-pill {
+        flex: 0 0 auto;
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+
     .notes-sidebar {
         width: 100%;
         max-width: none;
@@ -742,6 +798,7 @@ body.notes-body {
         bottom: 0;
         left: 0;
         transition: transform 0.25s ease;
+        z-index: 50;
     }
 
     .notes-sidebar.hidden {
@@ -750,5 +807,11 @@ body.notes-body {
 
     .editor-body {
         padding: 14px;
+    }
+
+    /* Suppress floating bot obstructing notes bottom bar */
+    #pwnFloatingAiToggle,
+    #pwnFloatingAiDrawer {
+        display: none !important;
     }
 }

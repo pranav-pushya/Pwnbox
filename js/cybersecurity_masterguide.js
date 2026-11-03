@@ -89,9 +89,13 @@ function showChapter(chapterId, termId = null, smoothScroll = true) {
 
   // 5. Update header Master Quiz button to target current chapter
   const chNum = parseInt(chapterId.replace('ch', ''), 10) || 1;
-  const quizBtn = document.querySelector('button[onclick*="masterguide_test.html"]');
+  const quizBtn = document.querySelector('a.btn-quiz, button[onclick*="masterguide_test.html"]');
   if (quizBtn) {
-    quizBtn.setAttribute('onclick', `window.location.href='masterguide_test.html?chapter=${chNum}'`);
+    if (quizBtn.tagName.toLowerCase() === 'a') {
+      quizBtn.setAttribute('href', `masterguide_test.html?chapter=${chNum}`);
+    } else {
+      quizBtn.setAttribute('onclick', `window.location.href='masterguide_test.html?chapter=${chNum}'`);
+    }
   }
 
   // 6. Update URL hash cleanly
@@ -249,6 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else {
     // Single chapter page (masterguide_chX.html)
+    const singleChapter = document.querySelector('.chapter');
+    if (singleChapter) {
+      singleChapter.classList.add('active-chapter');
+      singleChapter.style.display = 'block';
+    }
     document.querySelectorAll('.term-card').forEach((card, i) => {
       if (i === 0) card.classList.add('open');
     });

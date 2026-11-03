@@ -1631,3 +1631,60 @@ window.navigateToSettings = openSettingsModal;
     }
 })();
 
+// ── 10. AUTO-INITIALIZE UNIVERSAL MOBILE HAMBURGER NAVIGATION ACROSS ALL PAGES ──
+(function initGlobalMobileNavLoader() {
+    if (typeof window === 'undefined') return;
+    function injectMobileNav() {
+        if (document.getElementById('pwnMobileNavScript') || window.PwnMobileNav) return;
+        const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+        const inSubdir = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/games/') || path.includes('/imp_info/') || path.includes('/imp%20info/');
+        const basePath = inSubdir ? '../' : '';
+
+        if (!document.getElementById('pwnMobileNavCss')) {
+            const link = document.createElement('link');
+            link.id = 'pwnMobileNavCss';
+            link.rel = 'stylesheet';
+            link.href = `${basePath}css/mobile_nav.css?v=2.0`;
+            document.head.appendChild(link);
+        }
+
+        const script = document.createElement('script');
+        script.id = 'pwnMobileNavScript';
+        script.src = `${basePath}js/mobile_nav.js?v=2.0`;
+        script.async = true;
+        document.body ? document.body.appendChild(script) : document.head.appendChild(script);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectMobileNav);
+    } else {
+        injectMobileNav();
+    }
+})();
+
+// ── 11. AUTO-INITIALIZE UNIVERSAL FIREBASE AUTH ACROSS ALL PAGES ──
+(function initGlobalFirebaseAuthLoader() {
+    if (typeof window === 'undefined') return;
+    function injectFirebaseAuth() {
+        if (window.openAuthModal && window.initFirebaseAuth) return;
+        const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+        const inSubdir = path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/games/') || path.includes('/imp_info/') || path.includes('/imp%20info/');
+        const basePath = inSubdir ? '../' : '';
+
+        if (!document.getElementById('pwnFirebaseAuthScript')) {
+            const script = document.createElement('script');
+            script.id = 'pwnFirebaseAuthScript';
+            script.src = `${basePath}js/firebase_auth.js?v=4.0`;
+            script.async = true;
+            document.body ? document.body.appendChild(script) : document.head.appendChild(script);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectFirebaseAuth);
+    } else {
+        injectFirebaseAuth();
+    }
+})();
+
+

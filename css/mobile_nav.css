@@ -1,0 +1,702 @@
+/**
+ * PWNBOX CYBER COMMAND — UNIVERSAL MOBILE HAMBURGER NAVIGATION
+ * Collapses all cluttered navbar buttons into a high-visibility tactile hamburger icon
+ * and smooth full-screen/sliding Bauhaus tactical dropdown on mobile viewports (<= 768px).
+ */
+
+/* ==========================================================================
+   1. DESKTOP RULES (Default state: Hidden on screens > 768px)
+   ========================================================================== */
+.pwn-mobile-top-bar,
+.pwn-mobile-nav-toggle,
+.pwn-mobile-dropdown,
+.pwn-mobile-dropdown-backdrop {
+    display: none !important;
+}
+
+/* ==========================================================================
+   2. MOBILE RULES (Active on screens <= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* --- Universal Mobile Zoom Normalization --- */
+    body {
+        zoom: 1 !important;
+    }
+
+    /* --- Universal Navbar Button Clutter Suppression --- */
+    /* Hide all individual desktop navigation buttons, action pills, and profile widgets that crowd the header */
+    .profile-container,
+    .notes-header-actions,
+    .notes-sync-badge,
+    #notesSyncBadge,
+    .pwn-cloud-sync-pill,
+    .notes-header-left > .notes-nav-btn,
+    .games-header-left > .games-nav-btn,
+    .games-header-right,
+    .games-header-actions,
+    .games-xp-badge,
+    .games-sync-pill,
+    .games-header-tag,
+    .games-nav-btn,
+    .payload-header-left > .payload-nav-btn,
+    .payload-top-header .payload-header-actions,
+    .term-header-left > .term-nav-btn,
+    .term-top-header .term-header-actions,
+    .ctf-header-left > .ctf-nav-btn,
+    .ctf-top-header .ctf-header-actions,
+    .roadmap-nav .nav-actions,
+    .masterguide-nav .nav-actions,
+    .info-nav .nav-actions,
+    .top-right-actions {
+        display: none !important;
+    }
+
+    /* --- Landing Page Mobile Header Bar --- */
+    .pwn-mobile-top-bar {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 52px;
+        background: var(--bg-panel, #ffffff);
+        border-bottom: 3px solid var(--border-color, #0a0a0a);
+        padding: 0 14px;
+        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+        z-index: 10000;
+        box-sizing: border-box;
+    }
+
+    .pwn-mobile-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--text-main, #0a0a0a);
+        font-family: 'Space Mono', monospace;
+        font-weight: 800;
+        font-size: 0.95rem;
+        letter-spacing: -0.5px;
+    }
+
+    .pwn-mobile-brand .brand-shield {
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    /* --- Universal Header Resizing for Strict Single-Row Layout --- */
+    header,
+    .notes-top-header,
+    .games-top-header,
+    .payload-top-header,
+    .term-top-header,
+    .ctf-top-header,
+    .roadmap-nav,
+    .masterguide-nav,
+    .info-nav,
+    .header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        padding: 6px 14px !important;
+        min-height: 52px !important;
+        height: 52px !important;
+        box-sizing: border-box !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 10000 !important;
+        background: var(--bg-panel, #ffffff) !important;
+        overflow: hidden !important;
+    }
+
+    .notes-header-left,
+    .games-header-left,
+    .payload-header-left,
+    .term-header-left,
+    .ctf-header-left {
+        display: flex !important;
+        align-items: center !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .notes-header-logo,
+    .games-header-logo,
+    .payload-header-logo,
+    .term-header-logo,
+    .ctf-header-logo,
+    .logo,
+    .nav-brand {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important;
+        font-family: 'Space Mono', monospace !important;
+        font-weight: 800 !important;
+        font-size: 0.9rem !important;
+        color: var(--text-main, #0a0a0a) !important;
+        text-decoration: none !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .notes-header-title,
+    .games-header-title,
+    .payload-header-title,
+    .term-header-title,
+    .ctf-header-title,
+    .logo-text,
+    .brand-title {
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 220px !important;
+    }
+
+    .notes-header-tag,
+    .brand-sub {
+        display: none !important;
+    }
+
+    /* --- High-Tactical Bauhaus Hamburger Toggle Button --- */
+    .pwn-mobile-nav-toggle {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        margin-left: auto !important;
+        flex: 0 0 38px !important;
+        background: var(--bg-panel, #ffffff) !important;
+        color: var(--text-main, #0a0a0a) !important;
+        border: 2px solid var(--border-color, #0a0a0a) !important;
+        box-shadow: 2px 2px 0 var(--border-color, #0a0a0a) !important;
+        cursor: pointer !important;
+        border-radius: 4px !important;
+        transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+        z-index: 10001 !important;
+        box-sizing: border-box !important;
+    }
+
+    .pwn-mobile-nav-toggle:active {
+        transform: translate(1px, 1px) !important;
+        box-shadow: 1px 1px 0 var(--border-color, #0a0a0a) !important;
+    }
+
+    .pwn-mobile-nav-toggle.is-open {
+        background: var(--bauhaus-red, #D9291C) !important;
+        color: #ffffff !important;
+        border-color: var(--border-color, #0a0a0a) !important;
+    }
+
+    /* Animated 3-Bar to X Hamburger Icon */
+    .pwn-hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 18px;
+        height: 14px;
+        position: relative;
+    }
+
+    .pwn-hamburger-icon span {
+        display: block;
+        width: 100%;
+        height: 2.2px;
+        background-color: var(--text-main, #0a0a0a);
+        border-radius: 1px;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, background-color 0.2s ease;
+    }
+
+    .pwn-mobile-nav-toggle.is-open .pwn-hamburger-icon span {
+        background-color: #ffffff !important;
+    }
+
+    .pwn-mobile-nav-toggle.is-open .pwn-hamburger-icon span:nth-child(1) {
+        transform: translateY(5.9px) rotate(45deg);
+    }
+
+    .pwn-mobile-nav-toggle.is-open .pwn-hamburger-icon span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    .pwn-mobile-nav-toggle.is-open .pwn-hamburger-icon span:nth-child(3) {
+        transform: translateY(-5.9px) rotate(-45deg);
+    }
+
+    /* --- Dimmed Backdrop Overlay --- */
+    .pwn-mobile-dropdown-backdrop {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.65) !important;
+        backdrop-filter: blur(2px) !important;
+        -webkit-backdrop-filter: blur(2px) !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease, visibility 0.25s ease !important;
+        z-index: 99998 !important;
+    }
+
+    .pwn-mobile-dropdown-backdrop.is-visible {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    /* --- Tactical Sliding Dropdown Menu --- */
+    .pwn-mobile-dropdown {
+        display: block !important;
+        position: fixed !important;
+        top: 52px !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-height: calc(100vh - 56px) !important;
+        background: #ffffff !important;
+        border-bottom: 4px solid #0a0a0a !important;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 14px 14px 20px 14px !important;
+        box-sizing: border-box !important;
+        z-index: 99999 !important;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.28s ease !important;
+    }
+
+    .pwn-mobile-dropdown.is-open {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* --- Dropdown Header Operative Status Banner --- */
+    .pwn-dropdown-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: #f4f4f0;
+        border: 2px solid #0a0a0a;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+
+    .pwn-dropdown-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: #0a0a0a;
+        text-transform: uppercase;
+    }
+
+    .pwn-dropdown-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 6px #10b981;
+        animation: pwnPulseDot 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pwnPulseDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .pwn-dropdown-alias {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.74rem;
+        font-weight: 700;
+        color: #005A9C;
+        background: rgba(0, 90, 156, 0.1);
+        padding: 2px 6px;
+        border: 1px solid rgba(0, 90, 156, 0.3);
+    }
+
+    /* --- Dropdown Navigation Items Grid --- */
+    .pwn-dropdown-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    /* Compact 1-column layout when 3 or fewer items */
+    .pwn-dropdown-grid.single-column {
+        grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 340px) {
+        .pwn-dropdown-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    .pwn-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: #f4f4f0 !important;
+        color: #0a0a0a !important;
+        text-decoration: none;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 2px solid #0a0a0a !important;
+        box-shadow: 2px 2px 0 #0a0a0a !important;
+        border-radius: 3px;
+        transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+        box-sizing: border-box;
+        cursor: pointer;
+        min-height: 44px;
+    }
+
+    .pwn-dropdown-item:active {
+        transform: translate(1px, 1px);
+        box-shadow: 1px 1px 0 #0a0a0a !important;
+    }
+
+    .pwn-dropdown-item.span-full {
+        grid-column: 1 / -1;
+    }
+
+    .pwn-dropdown-item .item-icon {
+        font-size: 1.15rem;
+        line-height: 1;
+        flex: 0 0 auto;
+    }
+
+    .pwn-dropdown-item .item-text {
+        flex: 1 1 auto;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: inherit !important;
+        font-weight: 700;
+    }
+
+    /* Active Highlight for Current Page */
+    .pwn-dropdown-item.is-current {
+        background: #F2A900 !important;
+        color: #000000 !important;
+        border-color: #0a0a0a !important;
+        box-shadow: 3px 3px 0 #0a0a0a !important;
+    }
+
+    .pwn-dropdown-item.is-current .item-text {
+        color: #000000 !important;
+        font-weight: 800;
+    }
+
+    /* --- Close Button --- */
+    .pwn-action-btn.btn-close-menu {
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 11px 12px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: 2px solid #0a0a0a !important;
+        box-shadow: 2px 2px 0 #0a0a0a !important;
+        border-radius: 3px;
+        background: #f4f4f0 !important;
+        color: #0a0a0a !important;
+        text-decoration: none;
+        box-sizing: border-box;
+        transition: transform 0.12s ease;
+        margin-top: 4px;
+    }
+
+    .pwn-action-btn.btn-close-menu:active {
+        transform: translate(1px, 1px);
+        box-shadow: 1px 1px 0 #0a0a0a !important;
+    }
+
+    /* ==========================================================================
+       THEME OVERRIDES FOR FULL VISIBILITY & HIGH CONTRAST (Fixes Screenshots Issue)
+       ========================================================================== */
+
+    /* ── DARK THEME ── */
+    [data-theme="dark"] .pwn-mobile-top-bar,
+    [data-theme="dark"] header,
+    [data-theme="dark"] .notes-top-header,
+    [data-theme="dark"] .games-top-header,
+    [data-theme="dark"] .payload-top-header,
+    [data-theme="dark"] .term-top-header,
+    [data-theme="dark"] .ctf-top-header,
+    [data-theme="dark"] .roadmap-nav,
+    [data-theme="dark"] .masterguide-nav,
+    [data-theme="dark"] .info-nav,
+    [data-theme="dark"] .header {
+        background: #131826 !important;
+        border-color: #334155 !important;
+        color: #f1f5f9 !important;
+    }
+
+    [data-theme="dark"] .pwn-mobile-nav-toggle {
+        background: #1e293b !important;
+        color: #f1f5f9 !important;
+        border-color: #64748b !important;
+        box-shadow: 2px 2px 0 #000000 !important;
+    }
+
+    [data-theme="dark"] .pwn-hamburger-icon span {
+        background-color: #f1f5f9 !important;
+    }
+
+    [data-theme="dark"] .pwn-mobile-dropdown {
+        background: #0f172a !important;
+        border-color: #334155 !important;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75) !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-header {
+        background: #1e293b !important;
+        border-color: #334155 !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-status {
+        color: #f1f5f9 !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-alias {
+        color: #38bdf8 !important;
+        background: rgba(56, 189, 248, 0.12) !important;
+        border-color: rgba(56, 189, 248, 0.3) !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-item {
+        background: #1e293b !important;
+        color: #f8fafc !important;
+        border-color: #475569 !important;
+        box-shadow: 2px 2px 0 #000000 !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-item .item-text {
+        color: #f8fafc !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-item.is-current {
+        background: #F2A900 !important;
+        color: #000000 !important;
+        border-color: #f1f5f9 !important;
+        box-shadow: 3px 3px 0 #000000 !important;
+    }
+
+    [data-theme="dark"] .pwn-dropdown-item.is-current .item-text {
+        color: #000000 !important;
+    }
+
+    [data-theme="dark"] .pwn-action-btn.btn-close-menu {
+        background: #1e293b !important;
+        color: #f8fafc !important;
+        border-color: #475569 !important;
+        box-shadow: 2px 2px 0 #000000 !important;
+    }
+
+    /* ── MATRIX THEME ── */
+    [data-theme="matrix"] .pwn-mobile-top-bar,
+    [data-theme="matrix"] header,
+    [data-theme="matrix"] .notes-top-header,
+    [data-theme="matrix"] .games-top-header,
+    [data-theme="matrix"] .payload-top-header,
+    [data-theme="matrix"] .term-top-header,
+    [data-theme="matrix"] .ctf-top-header,
+    [data-theme="matrix"] .roadmap-nav,
+    [data-theme="matrix"] .masterguide-nav,
+    [data-theme="matrix"] .info-nav,
+    [data-theme="matrix"] .header {
+        background: #051208 !important;
+        border-color: #00ff66 !important;
+        color: #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-mobile-nav-toggle {
+        background: #081a0c !important;
+        color: #00ff66 !important;
+        border-color: #00ff66 !important;
+        box-shadow: 2px 2px 0 #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-hamburger-icon span {
+        background-color: #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-mobile-dropdown {
+        background: #020804 !important;
+        border-color: #00ff66 !important;
+        box-shadow: 0 16px 36px rgba(0, 255, 102, 0.2) !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-header {
+        background: #081a0c !important;
+        border-color: #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-status {
+        color: #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-alias {
+        color: #00ff66 !important;
+        background: rgba(0, 255, 102, 0.15) !important;
+        border-color: #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-item {
+        background: #081a0c !important;
+        color: #00ff66 !important;
+        border-color: #00ff66 !important;
+        box-shadow: 2px 2px 0 rgba(0, 255, 102, 0.4) !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-item .item-text {
+        color: #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-item.is-current {
+        background: #00ff66 !important;
+        color: #000000 !important;
+        border-color: #00ff66 !important;
+        box-shadow: 3px 3px 0 #00ff66 !important;
+    }
+
+    [data-theme="matrix"] .pwn-dropdown-item.is-current .item-text {
+        color: #000000 !important;
+    }
+
+    [data-theme="matrix"] .pwn-action-btn.btn-close-menu {
+        background: #081a0c !important;
+        color: #00ff66 !important;
+        border-color: #00ff66 !important;
+        box-shadow: 2px 2px 0 #00ff66 !important;
+    }
+
+    /* ── CYBERPUNK THEME ── */
+    [data-theme="cyberpunk"] .pwn-mobile-top-bar,
+    [data-theme="cyberpunk"] header,
+    [data-theme="cyberpunk"] .notes-top-header,
+    [data-theme="cyberpunk"] .games-top-header,
+    [data-theme="cyberpunk"] .payload-top-header,
+    [data-theme="cyberpunk"] .term-top-header,
+    [data-theme="cyberpunk"] .ctf-top-header,
+    [data-theme="cyberpunk"] .roadmap-nav,
+    [data-theme="cyberpunk"] .masterguide-nav,
+    [data-theme="cyberpunk"] .info-nav,
+    [data-theme="cyberpunk"] .header {
+        background: #140924 !important;
+        border-color: #ffe600 !important;
+        color: #00f0ff !important;
+    }
+
+    [data-theme="cyberpunk"] .pwn-mobile-dropdown {
+        background: #0b0514 !important;
+        border-color: #ffe600 !important;
+    }
+
+    [data-theme="cyberpunk"] .pwn-dropdown-item {
+        background: #1c0e33 !important;
+        color: #00f0ff !important;
+        border-color: #ffe600 !important;
+        box-shadow: 2px 2px 0 #ff0055 !important;
+    }
+
+    [data-theme="cyberpunk"] .pwn-dropdown-item .item-text {
+        color: #00f0ff !important;
+    }
+
+    [data-theme="cyberpunk"] .pwn-dropdown-item.is-current {
+        background: #ffe600 !important;
+        color: #000000 !important;
+        border-color: #ff0055 !important;
+    }
+
+    [data-theme="cyberpunk"] .pwn-dropdown-item.is-current .item-text {
+        color: #000000 !important;
+    }
+
+    [data-theme="cyberpunk"] .pwn-action-btn.btn-close-menu {
+        background: #1c0e33 !important;
+        color: #ffe600 !important;
+        border-color: #ffe600 !important;
+    }
+
+    /* ── SYNTHWAVE THEME ── */
+    [data-theme="synthwave"] .pwn-mobile-top-bar,
+    [data-theme="synthwave"] header,
+    [data-theme="synthwave"] .notes-top-header,
+    [data-theme="synthwave"] .games-top-header,
+    [data-theme="synthwave"] .payload-top-header,
+    [data-theme="synthwave"] .term-top-header,
+    [data-theme="synthwave"] .ctf-top-header,
+    [data-theme="synthwave"] .roadmap-nav,
+    [data-theme="synthwave"] .masterguide-nav,
+    [data-theme="synthwave"] .info-nav,
+    [data-theme="synthwave"] .header {
+        background: #180c2e !important;
+        border-color: #ff007f !important;
+        color: #ff71ce !important;
+    }
+
+    [data-theme="synthwave"] .pwn-mobile-dropdown {
+        background: #0d061a !important;
+        border-color: #ff007f !important;
+    }
+
+    [data-theme="synthwave"] .pwn-dropdown-item {
+        background: #221142 !important;
+        color: #ff71ce !important;
+        border-color: #01cdfe !important;
+        box-shadow: 2px 2px 0 #ff007f !important;
+    }
+
+    [data-theme="synthwave"] .pwn-dropdown-item .item-text {
+        color: #ff71ce !important;
+    }
+
+    [data-theme="synthwave"] .pwn-dropdown-item.is-current {
+        background: #05ffa1 !important;
+        color: #000000 !important;
+        border-color: #ff007f !important;
+    }
+
+    [data-theme="synthwave"] .pwn-dropdown-item.is-current .item-text {
+        color: #000000 !important;
+    }
+
+    [data-theme="synthwave"] .pwn-action-btn.btn-close-menu {
+        background: #221142 !important;
+        color: #ff71ce !important;
+        border-color: #01cdfe !important;
+    }
+}

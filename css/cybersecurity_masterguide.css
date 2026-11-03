@@ -399,8 +399,9 @@
     display: none;
     margin-bottom: 50px;
   }
+  .chapter:only-of-type,
   .chapter.active-chapter {
-    display: block;
+    display: block !important;
     animation: fadeInChapter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
   @keyframes fadeInChapter {
@@ -922,16 +923,19 @@
     }
     .masterguide-nav .nav-actions {
       width: 100%;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
+      display: flex !important;
+      overflow-x: auto !important;
+      white-space: nowrap !important;
+      -webkit-overflow-scrolling: touch !important;
+      gap: 6px !important;
+      padding-bottom: 2px !important;
+      grid-template-columns: none !important;
     }
     .masterguide-nav .nav-btn {
-      font-size: 0.65rem;
-      padding: 6px 4px;
-      justify-content: center;
-      gap: 4px;
-      text-align: center;
+      flex: 0 0 auto !important;
+      font-size: 0.72rem !important;
+      padding: 6px 12px !important;
+      white-space: nowrap !important;
     }
     .search-bar { padding: 10px 14px; }
     .search-input { padding: 8px 12px; font-size: 0.82rem; }

@@ -800,18 +800,52 @@ html, body, * {
 }
 
 /* ==========================================================================
-   SUPPRESS FLOATING AI ASSISTANT ON ALL MODULE PAGES (Built-in Assistant present)
+   SUPPRESS FLOATING AI ASSISTANT ON ALL MODULE PAGES, NOTES, DASHBOARD, GAMES & MOBILE
    ========================================================================== */
 body.tab-tools #pwnFloatingAiToggle,
 body.tab-tools #pwnFloatingAiDrawer,
 body.tab-tools .pwn-copilot-toggle,
 body.tab-tools .pwn-copilot-card,
 body[class*="module"] #pwnFloatingAiToggle,
-body[class*="module"] #pwnFloatingAiDrawer {
+body[class*="module"] #pwnFloatingAiDrawer,
+body.notes-body #pwnFloatingAiToggle,
+body.notes-body #pwnFloatingAiDrawer,
+html.notes-html #pwnFloatingAiToggle,
+html.notes-html #pwnFloatingAiDrawer,
+body.games-body #pwnFloatingAiToggle,
+body.games-body #pwnFloatingAiDrawer,
+.roadmap-container #pwnFloatingAiToggle,
+.roadmap-container #pwnFloatingAiDrawer {
     display: none !important;
     visibility: hidden !important;
     pointer-events: none !important;
     opacity: 0 !important;
+}
+
+@media (max-width: 768px) {
+    #pwnFloatingAiToggle,
+    #pwnFloatingAiDrawer,
+    .pwn-copilot-toggle,
+    .pwn-copilot-card,
+    .doubt-chat-toggle,
+    .doubt-chat-drawer {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    #pwnGodModeStatusBadge {
+        bottom: 8px !important;
+        right: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        font-size: 0.65rem !important;
+        padding: 4px 8px !important;
+        max-width: 90vw !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
 }
 
 

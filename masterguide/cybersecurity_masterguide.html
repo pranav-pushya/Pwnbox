@@ -10,7 +10,8 @@
 
     <link rel="stylesheet" href="../css/cybersecurity_masterguide.css">
     <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/masterguide_chat.css">
+    <link rel="stylesheet" href="../css/mobile_nav.css?v=2.0">
+    <link rel="stylesheet" href="../css/masterguide_chat.css">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -1805,7 +1806,7 @@ $ sudo cat /etc/shadow
   <div class="term-card" id="cpa">
     <div class="term-header" onclick="toggle(this)">
       <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">⚡</div><div><div class="term-name">Cyber-Physical Attack</div><div class="term-tagline">Digital attack → real world physical harm</div></div></div>
-      <span class="term-badge badge-emerging">Emerging</span><span class="expand-top">▾</span>
+      <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
       <div class="content-grid">
@@ -1877,5 +1878,6 @@ $ sudo cat /etc/shadow
   <script src="../js/groq_service.js"></script>
   <script src="../js/masterguide_translations.js"></script>
   <script src="../js/masterguide_chat.js"></script>
+  <script src="../js/mobile_nav.js?v=3.0"></script>
     </body>
 </html>

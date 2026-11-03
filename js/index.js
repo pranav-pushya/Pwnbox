@@ -580,7 +580,7 @@ let logoDoorClicks = 0;
 let logoDoorTimer = null;
 
 function navigateToMasterGuide() {
-    window.location.href = 'masterguide/masterguide_ch1.html';
+    window.location.href = 'masterguide/cybersecurity_masterguide.html?ch=1';
 }
 
 function handleLogoDoorClick() {

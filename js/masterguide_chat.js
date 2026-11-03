@@ -241,10 +241,13 @@ Format requirements:
                 addChatBubble(formatChatMarkdown(reply), 'bot');
             } else {
                 addChatBubble("Maaf karna, response format samajh nahi aaya. Dobara try karo.", 'bot');
-            }
-        } catch (err) {
+            }        } catch (err) {
             removeTyping(loadingId);
-            addChatBubble("Network Error: Could not connect to Groq API. Please check your internet connection.", 'bot');
+            if (err && err.message && err.message.includes('AUTHENTICATION_REQUIRED')) {
+                addChatBubble("⚠️ <strong>Authentication Required:</strong> Tactical AI Assistant is reserved for authenticated operatives. Please <a href='../index.html?auth_required=1' style='color:var(--accent-blue,#3b82f6);text-decoration:underline;font-weight:600;'>sign in</a> to activate.", 'bot');
+            } else {
+                addChatBubble("Network Error: Could not connect to AI Assistant. Please check your internet connection or API settings.", 'bot');
+            }
         }
     };
 

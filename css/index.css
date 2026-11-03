@@ -1137,25 +1137,63 @@ footer.site-footer {
     }
 }
 
+@media (max-width: 768px) {
+    header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 10px 14px !important;
+    }
+
+    .profile-container {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 6px !important;
+        gap: 6px !important;
+        width: 100% !important;
+        scrollbar-width: thin !important;
+    }
+
+    .profile-container a, 
+    .profile-container button, 
+    .profile-container .user-profile {
+        width: auto !important;
+        max-width: fit-content !important;
+        flex: 0 0 auto !important;
+        padding: 6px 12px !important;
+        font-size: 0.72rem !important;
+        white-space: nowrap !important;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        margin-bottom: 24px !important;
+    }
+
+    .stat-card {
+        padding: 14px 10px !important;
+        box-shadow: 3px 3px 0 var(--border-color) !important;
+    }
+
+    .stat-val {
+        font-size: 1.6rem !important;
+    }
+
+    .stat-lbl {
+        font-size: 0.68rem !important;
+    }
+}
+
 @media (max-width: 480px) {
     html {
         font-size: 13.5px;
     }
 
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
     .roadmap-nodes {
         grid-template-columns: 1fr;
-    }
-
-    .profile-container a, .profile-container button {
-        width: auto !important;
-        max-width: fit-content !important;
-        flex: 0 0 auto !important;
-        padding: 5px 10px;
-        font-size: 0.72rem;
     }
 }
 

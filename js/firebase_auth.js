@@ -110,12 +110,56 @@ function initFirebaseAuth() {
     }
 }
 
+// Dynamic Firebase SDK loader for pages that don't include compat scripts directly
+function ensureFirebaseSdk() {
+    if (typeof firebase !== 'undefined') return Promise.resolve();
+    return new Promise((resolve) => {
+        const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+        const inSubdir = path.includes('/masterguide/') || path.includes('/imp_info/') || 
+                         path.includes('/imp%20info/') || path.includes('/modules/') || path.includes('/games/');
+        const base = inSubdir ? '../' : '';
+        
+        function loadScript(src) {
+            return new Promise((res) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = res;
+                s.onerror = () => {
+                    const cdnSrc = src.replace(`${base}js/vendor/`, 'https://www.gstatic.com/firebasejs/10.8.0/');
+                    const cdnScript = document.createElement('script');
+                    cdnScript.src = cdnSrc;
+                    cdnScript.onload = res;
+                    cdnScript.onerror = res;
+                    document.head.appendChild(cdnScript);
+                };
+                document.head.appendChild(s);
+            });
+        }
+
+        loadScript(`${base}js/vendor/firebase-app-compat.js`).then(() => {
+            return Promise.all([
+                loadScript(`${base}js/vendor/firebase-auth-compat.js`),
+                loadScript(`${base}js/vendor/firebase-firestore-compat.js`)
+            ]);
+        }).then(() => {
+            initFirebaseAuth();
+            resolve();
+        }).catch(() => {
+            resolve();
+        });
+    });
+}
+
 // ── 3. AUTHENTICATION ACTIONS ──
 
 // Helper to ensure auth is ready before action, eliminating race condition on mobile
 async function ensureAuthReady(timeoutMs = 4000) {
     if (auth) return auth;
-    initFirebaseAuth();
+    if (typeof firebase === 'undefined') {
+        await ensureFirebaseSdk();
+    } else {
+        initFirebaseAuth();
+    }
     if (auth) return auth;
 
     const start = Date.now();
@@ -167,15 +211,18 @@ async function loginWithGoogle() {
             result = await auth.signInWithPopup(provider);
         } catch (popupError) {
             console.warn("signInWithPopup encountered an issue:", popupError);
-            // If popup was blocked by browser or closed due to localhost cookie partitioning
             if (
                 popupError.code === 'auth/popup-blocked' ||
-                popupError.code === 'auth/popup-closed-by-user' ||
-                popupError.code === 'auth/cancelled-popup-request' ||
                 popupError.code === 'auth/operation-not-supported-in-this-environment'
             ) {
-                showAuthMessage("⚠️ Pop-up was blocked or restricted by browser. Switching to secure redirect mode...", "info");
+                showAuthMessage("⚠️ Pop-up was blocked by browser. Switching to secure redirect mode...", "info");
                 await auth.signInWithRedirect(provider);
+                return;
+            } else if (
+                popupError.code === 'auth/popup-closed-by-user' ||
+                popupError.code === 'auth/cancelled-popup-request'
+            ) {
+                showAuthMessage("ℹ️ Sign-in popup was closed. You can retry with Google or use email & passphrase.", "info");
                 return;
             } else {
                 throw popupError;
@@ -261,17 +308,34 @@ function handleAuthError(error, contextEmail = '') {
             "info"
         );
     } else if (code === 'auth/invalid-login-credentials' || code === 'auth/user-not-found' || code === 'auth/wrong-password') {
-        showAuthMessage(
-            `❌ Operative credentials not recognized.\n\n👉 If creating a new account, switch to the '📝 REGISTER' tab above!`,
-            "error"
-        );
+        const fallbackHtml = `
+            <div style="font-weight:700; margin-bottom:6px;">❌ Operative credentials not recognized.</div>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
+                <button type="button" onclick="handleForgotPasswordInModal('${candidateEmail}')"
+                    style="width:100%; padding:8px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                    🔑 SEND PASSWORD RESET LINK
+                </button>
+                <button type="button" onclick="switchAuthTab('register', '${candidateEmail}')"
+                    style="width:100%; padding:8px; background:var(--bauhaus-red); color:#fff; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                    📝 REGISTER AS NEW OPERATIVE
+                </button>
+            </div>
+        `;
+        showAuthMessage(fallbackHtml, "error", true);
     } else if (code === 'auth/email-already-in-use') {
         const fallbackHtml = `
             <div style="font-weight:700; margin-bottom:6px;">ℹ️ This email is already registered in Firebase.</div>
-            <button type="button" onclick="switchAuthTab('login')"
-                style="width:100%; padding:8px; background:var(--bauhaus-blue); color:#fff; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
-                ⚡ SWITCH TO SIGN IN TAB
-            </button>
+            <div style="margin-bottom:8px; opacity:0.85;">Switch to Sign In, or reset your passphrase if forgotten:</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+                <button type="button" onclick="switchAuthTab('login', '${candidateEmail}')"
+                    style="width:100%; padding:8px; background:var(--bauhaus-blue); color:#fff; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                    ⚡ SWITCH TO SIGN IN TAB
+                </button>
+                <button type="button" onclick="handleForgotPasswordInModal('${candidateEmail}')"
+                    style="width:100%; padding:8px; background:var(--bauhaus-yellow); color:#000; border:2px solid #000; box-shadow:2px 2px 0 #000; font-family:'Space Mono',monospace; font-weight:800; font-size:0.75rem; cursor:pointer;">
+                    🔑 SEND PASSWORD RESET LINK
+                </button>
+            </div>
         `;
         showAuthMessage(fallbackHtml, "info", true);
     } else if (code === 'auth/weak-password') {
@@ -330,7 +394,7 @@ async function loginWithEmail(email, password) {
         if (inp) inp.style.borderColor = 'var(--border-color)';
     });
 
-    const cleanEmail = (email || '').trim();
+    const cleanEmail = (email || '').trim().toLowerCase();
     if (!cleanEmail) {
         showAuthMessage("⚠️ Please enter your operative email address.", "error");
         if (emailInput) {
@@ -376,7 +440,7 @@ async function registerWithEmail(email, password, displayName) {
         showAuthMessage("⚠️ Firebase Auth service is not responding. Use 1-Click Clearance or check connection.", "error");
         return;
     }
-    const cleanEmail = (email || '').trim();
+    const cleanEmail = (email || '').trim().toLowerCase();
     if (!cleanEmail || !password) {
         showAuthMessage("Please provide operative email and security passphrase.", "error");
         return;
@@ -663,15 +727,241 @@ function setupAuthFormEnterKeys() {
     });
 }
 
+// Dynamic DOM Modal Generator ensures Auth Modal is accessible on EVERY page
+function ensureAuthModalInDOM() {
+    let modal = document.getElementById('firebaseAuthModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'firebaseAuthModal';
+        modal.className = 'reset-modal-overlay';
+        modal.style.display = 'none';
+        modal.style.background = 'rgba(0, 0, 0, 0.75)';
+        modal.innerHTML = `
+        <div class="reset-modal-box" style="max-width: 440px; max-height: 92vh; overflow-y: auto; text-align: left; padding: 24px; background: var(--bg-panel, #ffffff); border: 3px solid var(--border-color); box-shadow: 10px 10px 0 var(--border-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 16px;">
+                <h3 style="margin: 0; font-family: 'Space Mono', monospace; font-size: 1.05rem;" id="authModalTitle">🔐 OPERATIVE CLEARANCE</h3>
+                <button type="button" onclick="closeAuthModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: bold;">✕</button>
+            </div>
+
+            <!-- Profile Panel for Authenticated Users -->
+            <div id="authProfilePanel" style="display: none;">
+                <div style="background: var(--bg-base); border: 2px solid var(--border-color); padding: 14px; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <div id="authProfileLargeAvatar" style="width: 44px; height: 44px; border-radius: 4px; background: var(--bauhaus-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800;">👤</div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div id="authProfileName" style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: var(--text-main); word-break: break-all;">AGENT OPERATIVE</div>
+                            <div id="authProfileEmail" style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted); word-break: break-all;">operative@pwnbox.local</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #10b981; margin-top: 6px;">
+                        <span>🟢</span>
+                        <span>CLEARANCE: VERIFIED OPERATIVE</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #38bdf8; margin-top: 4px;">
+                        <span>☁️</span>
+                        <span>FIRESTORE CLOUD SYNC ACTIVE</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button type="button" onclick="logoutUser()" style="width: 100%; padding: 12px; background: var(--bauhaus-red); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); cursor: pointer; text-transform: uppercase;">
+                        🚪 TERMINATE SESSION // SIGN OUT
+                    </button>
+                    <button type="button" onclick="switchAuthToRegisterNew()" style="width: 100%; padding: 10px; background: var(--bauhaus-yellow); color: #000; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 800; border: 2px solid var(--border-color); box-shadow: 2px 2px 0 var(--border-color); cursor: pointer; text-transform: uppercase;">
+                        🔄 REGISTER / SWITCH ANOTHER ACCOUNT
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Switcher: Sign In vs Register (for Guests/Sign in) -->
+            <div id="authTabsContainer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+                <button type="button" id="authTabLogin" class="auth-tab-btn active" onclick="switchAuthTab('login')" style="padding: 10px; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 800; border: 2px solid var(--border-color); cursor: pointer; background: var(--bauhaus-blue); color: #fff; box-shadow: 2px 2px 0 var(--border-color);">
+                    ⚡ SIGN IN
+                </button>
+                <button type="button" id="authTabRegister" class="auth-tab-btn" onclick="switchAuthTab('register')" style="padding: 10px; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 800; border: 2px solid var(--border-color); cursor: pointer; background: var(--bg-panel); color: var(--text-muted); box-shadow: none;">
+                    📝 REGISTER
+                </button>
+            </div>
+
+            <!-- TAB 1: SIGN IN PANEL -->
+            <div id="authLoginPanel">
+                <!-- Google 1-Click Button -->
+                <button type="button" onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 16px; transition: transform 0.15s;">
+                    <span style="font-size: 1.1rem;">🌐</span>
+                    <span>SIGN IN WITH GOOGLE</span>
+                </button>
+
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                    <span>// OR EMAIL CREDENTIALS //</span>
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                        <input type="email" id="authEmailInput" class="bauhaus-input" placeholder="Enter your email address..." style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <label style="font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700;">SECURITY PASSPHRASE</label>
+                            <a href="javascript:void(0)" onclick="handleForgotPasswordInModal()" style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--bauhaus-blue); text-decoration: underline;">Forgot Passphrase?</a>
+                        </div>
+                        <div style="position: relative;">
+                            <input type="password" id="authPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 40px 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                            <button type="button" onclick="togglePasswordVisibility('authPasswordInput', this)" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px; color: var(--text-main); user-select: none;" title="Show/Hide Passphrase">👁️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="loginWithEmail(document.getElementById('authEmailInput').value, document.getElementById('authPasswordInput').value)" class="bauhaus-btn" style="width: 100%; padding: 12px; background: var(--bauhaus-blue); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); cursor: pointer; text-transform: uppercase;">
+                    ⚡ SIGN IN TO PWNBOX
+                </button>
+
+                <div style="text-align: center; margin-top: 14px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    New operative? <a href="javascript:void(0)" onclick="switchAuthTab('register')" style="color: var(--bauhaus-red); font-weight: 800; text-decoration: underline;">Create account here</a>
+                </div>
+            </div>
+
+            <!-- TAB 2: REGISTER PANEL -->
+            <div id="authRegisterPanel" style="display: none;">
+                <!-- Google 1-Click Sign Up Button -->
+                <button type="button" onclick="loginWithGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: var(--bg-panel); color: var(--text-main); border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; cursor: pointer; margin-bottom: 16px; transition: transform 0.15s;">
+                    <span style="font-size: 1.1rem;">🌐</span>
+                    <span>SIGN UP WITH GOOGLE</span>
+                </button>
+
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                    <span>// OR REGISTER WITH EMAIL //</span>
+                    <div style="flex: 1; height: 1px; background: var(--border-color); opacity: 0.3;"></div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">OPERATIVE EMAIL</label>
+                        <input type="email" id="regEmailInput" class="bauhaus-input" placeholder="Enter your email address..." style="width: 100%; padding: 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                    </div>
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">SECURITY PASSPHRASE (Min 6 chars)</label>
+                        <div style="position: relative;">
+                            <input type="password" id="regPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 40px 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                            <button type="button" onclick="togglePasswordVisibility('regPasswordInput', this)" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px; color: var(--text-main); user-select: none;" title="Show/Hide Passphrase">👁️</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">CONFIRM SECURITY PASSPHRASE</label>
+                        <div style="position: relative;">
+                            <input type="password" id="regConfirmPasswordInput" class="bauhaus-input" placeholder="••••••••••••" style="width: 100%; padding: 8px 40px 8px 12px; font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--bg-base); border: 2px solid var(--border-color); color: var(--text-main);">
+                            <button type="button" onclick="togglePasswordVisibility('regConfirmPasswordInput', this)" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px; color: var(--text-main); user-select: none;" title="Show/Hide Passphrase">👁️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="handleRegisterSubmit()" class="bauhaus-btn" style="width: 100%; padding: 12px; background: var(--bauhaus-red); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 800; border: 2px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); cursor: pointer; text-transform: uppercase;">
+                    📝 CREATE OPERATIVE ACCOUNT
+                </button>
+
+                <div style="text-align: center; margin-top: 14px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted);">
+                    Already have an account? <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color: var(--bauhaus-blue); font-weight: 800; text-decoration: underline;">Sign In here</a>
+                </div>
+            </div>
+
+            <!-- Status Console Output -->
+            <div id="authStatusMessage" style="display: none; padding: 10px 12px; border: 2px solid var(--border-color); font-family: 'Space Mono', monospace; font-size: 0.74rem; margin-top: 14px; word-break: break-word;"></div>
+
+            <!-- Localhost Dev Helper Banner -->
+            <div id="localDevBanner" style="display: none; margin-top: 14px; padding: 10px; background: rgba(147, 51, 234, 0.08); border: 1px dashed #9333ea; font-family: 'Space Mono', monospace; text-align: center;">
+                <div style="font-size: 0.68rem; color: #a855f7; font-weight: 700; margin-bottom: 6px;">
+                    🛠️ LOCALHOST DEV MODE
+                </div>
+                <button type="button" onclick="bypassLocalAuth()" style="width: 100%; padding: 7px 10px; background: #9333ea; color: #fff; border: 1px solid #7e22ce; font-family: 'Space Mono', monospace; font-size: 0.74rem; font-weight: 700; cursor: pointer;">
+                    ⚡ 1-CLICK DEV BYPASS (TESTING)
+                </button>
+                <button id="authSwitchToLocalhostBtn" style="display: none; width: 100%; margin-top: 6px; padding: 6px; background: #f59e0b; color: #000; border: 1px solid #d97706; font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 700; cursor: pointer;">
+                    🔄 Switch from 127.0.0.1 to localhost
+                </button>
+            </div>
+        </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    return modal;
+}
+
 function openAuthModal(defaultTab = 'login') {
-    const modal = document.getElementById('firebaseAuthModal');
+    const modal = ensureAuthModalInDOM();
     if (modal) {
         modal.style.display = 'flex';
         void modal.offsetWidth; // Force layout recalculation
         modal.classList.add('active');
         checkLocalhostEnvironment();
-        switchAuthTab(defaultTab);
+
+        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+        const profilePanel = document.getElementById('authProfilePanel');
+        const tabsContainer = document.getElementById('authTabsContainer');
+        const loginPanel = document.getElementById('authLoginPanel');
+        const regPanel = document.getElementById('authRegisterPanel');
+        const modalTitle = document.getElementById('authModalTitle');
+
+        if (isAuth && defaultTab !== 'login' && defaultTab !== 'register') {
+            // User is signed in: show active profile & sign-out controls
+            if (modalTitle) modalTitle.textContent = "👤 OPERATIVE PROFILE";
+            if (tabsContainer) tabsContainer.style.display = 'none';
+            if (loginPanel) loginPanel.style.display = 'none';
+            if (regPanel) regPanel.style.display = 'none';
+            if (profilePanel) {
+                profilePanel.style.display = 'block';
+                const nameEl = document.getElementById('authProfileName');
+                const emailEl = document.getElementById('authProfileEmail');
+                const avatarEl = document.getElementById('authProfileLargeAvatar');
+                const savedName = localStorage.getItem('pwnbox_user_name') || localStorage.getItem('agentAlias') || 'OPERATIVE';
+                const savedEmail = localStorage.getItem('pwnbox_user_email') || 'cadet.operative@pwnbox.local';
+                const savedPhoto = localStorage.getItem('pwnbox_user_photo');
+                
+                if (nameEl) nameEl.textContent = `AGENT ${savedName.toUpperCase()}`;
+                if (emailEl) emailEl.textContent = savedEmail;
+                if (avatarEl) {
+                    if (savedPhoto) {
+                        avatarEl.innerHTML = `<img src="${savedPhoto}" style="width:100%;height:100%;border-radius:4px;object-fit:cover;">`;
+                    } else {
+                        avatarEl.textContent = savedName.charAt(0).toUpperCase() || '👤';
+                    }
+                }
+            }
+        } else {
+            // Guest or explicit sign-in/register requested
+            if (modalTitle) modalTitle.textContent = "🔐 OPERATIVE CLEARANCE";
+            if (profilePanel) profilePanel.style.display = 'none';
+            if (tabsContainer) tabsContainer.style.display = 'grid';
+            switchAuthTab(defaultTab || 'login');
+        }
         setupAuthFormEnterKeys();
+    }
+}
+
+async function switchAuthToRegisterNew() {
+    await logoutUser();
+    openAuthModal('register');
+}
+
+async function handleForgotPasswordInModal(customEmail = '') {
+    let email = customEmail || document.getElementById('authEmailInput')?.value?.trim();
+    if (!email || !email.includes('@')) {
+        showAuthMessage("⚠️ Please enter your operative email in the field above to receive a password reset link.", "error");
+        document.getElementById('authEmailInput')?.focus();
+        return;
+    }
+    try {
+        if (!auth) await ensureAuthReady();
+        if (auth) {
+            showAuthMessage("Transmitting password reset link...", "info");
+            await auth.sendPasswordResetEmail(email);
+            showAuthMessage(`✅ Password reset link transmitted to ${email}.\nCheck your inbox and spam folders.`, "success");
+        }
+    } catch (err) {
+        console.error("Password reset error:", err);
+        showAuthMessage("❌ Failed to send reset link: " + (err.message || String(err)), "error");
     }
 }
 
@@ -695,7 +985,7 @@ function togglePasswordVisibility(inputId, btnEl) {
     }
 }
 
-function switchAuthTab(tab) {
+function switchAuthTab(tab, prefillEmail = '') {
     const loginTab = document.getElementById('authTabLogin');
     const regTab = document.getElementById('authTabRegister');
     const loginPanel = document.getElementById('authLoginPanel');
@@ -716,6 +1006,10 @@ function switchAuthTab(tab) {
         }
         if (loginPanel) loginPanel.style.display = 'none';
         if (regPanel) regPanel.style.display = 'block';
+        if (prefillEmail) {
+            const regEmail = document.getElementById('regEmailInput');
+            if (regEmail) regEmail.value = prefillEmail;
+        }
     } else {
         if (regTab) {
             regTab.style.background = 'var(--bg-panel)';
@@ -729,6 +1023,10 @@ function switchAuthTab(tab) {
         }
         if (regPanel) regPanel.style.display = 'none';
         if (loginPanel) loginPanel.style.display = 'block';
+        if (prefillEmail) {
+            const authEmail = document.getElementById('authEmailInput');
+            if (authEmail) authEmail.value = prefillEmail;
+        }
     }
 }
 
@@ -785,8 +1083,17 @@ async function handleRegisterSubmit() {
 }
 
 function showAuthMessage(msg, type = 'info', isHtml = false) {
+    ensureAuthModalInDOM();
     const msgBox = document.getElementById('authStatusMessage');
     if (!msgBox) return;
+
+    // Ensure modal is visible if message is displayed
+    const modal = document.getElementById('firebaseAuthModal');
+    if (modal && (modal.style.display === 'none' || !modal.classList.contains('active'))) {
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+    }
+
     msgBox.style.display = 'block';
     msgBox.style.whiteSpace = isHtml ? 'normal' : 'pre-wrap';
     msgBox.style.lineHeight = '1.4';
@@ -867,3 +1174,6 @@ window.switchAuthTab = switchAuthTab;
 window.handleRegisterSubmit = handleRegisterSubmit;
 window.handleAuthError = handleAuthError;
 window.showAuthMessage = showAuthMessage;
+window.ensureAuthModalInDOM = ensureAuthModalInDOM;
+window.handleForgotPasswordInModal = handleForgotPasswordInModal;
+window.switchAuthToRegisterNew = switchAuthToRegisterNew;

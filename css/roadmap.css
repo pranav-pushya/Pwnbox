@@ -1026,6 +1026,34 @@ body {
         padding: 7px 12px;
         font-size: 0.72rem;
     }
+
+    .roadmap-nav {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        padding: 8px 12px !important;
+    }
+
+    .nav-actions {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+
+    .phase-card-meta {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 6px !important;
+    }
+
+    .phase-card-milestone-tag {
+        white-space: normal !important;
+        word-break: break-word !important;
+        max-width: 100% !important;
+        font-size: 0.68rem !important;
+    }
 }
 
 @media (max-width: 380px) {
