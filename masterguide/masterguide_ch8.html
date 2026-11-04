@@ -58,11 +58,11 @@
   <div class="search-bar">
             <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
       <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ—ºï¸ Roadmap</button>
-      <button onclick="window.location.href='masterguide_test.html?chapter=8'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ“ Master Quiz</button>
+      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🗺️ Roadmap</button>
+      <button onclick="window.location.href='masterguide_test.html?chapter=8'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
       <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">⬅️ Main</button>
     </div>
-    <input class="search-input" placeholder="ðŸ” search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
   <div class="sidebar-title">// Chapters</div>
 
@@ -105,7 +105,7 @@
 <!-- â–ˆâ–ˆâ–ˆâ–ˆ CHAPTER 1: CORE THREATS â–ˆâ–ˆâ–ˆâ–ˆ -->
 <section class="chapter ch-yellow active-chapter" id="ch8">
   <div class="chapter-header">
-    <div class="chapter-icon">ðŸ“‹</div>
+    <div class="chapter-icon">📝‹</div>
     <div class="chapter-title-block">
       <h2>Governance & Compliance</h2>
       <p>Rules, regulations, aur processes — security ko systematic banana</p>
@@ -114,7 +114,7 @@
 
   <div class="term-card" id="risk">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">âš–ï¸</div><div><div class="term-name">Risk Management</div><div class="term-tagline">Threats ko identify, assess aur treat karna systematically</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">âš–️</div><div><div class="term-name">Risk Management</div><div class="term-tagline">Threats ko identify, assess aur treat karna systematically</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -127,7 +127,7 @@
 
   <div class="term-card" id="compliance">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ“</div><div><div class="term-name">Compliance</div><div class="term-tagline">Laws aur standards follow karna — legal obligation</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">📝</div><div><div class="term-name">Compliance</div><div class="term-tagline">Laws aur standards follow karna — legal obligation</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -140,7 +140,7 @@
 
   <div class="term-card" id="insurance">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ¥</div><div><div class="term-name">Cyber Insurance</div><div class="term-tagline">Cyberattack ke financial losses cover karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🛡️</div><div><div class="term-name">Cyber Insurance</div><div class="term-tagline">Cyberattack ke financial losses cover karna</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -153,7 +153,7 @@
 
   <div class="term-card" id="vuln">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸªŸ</div><div><div class="term-name">Vulnerability</div><div class="term-tagline">System mein weakness — exploit ho sakta hai</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🪟</div><div><div class="term-name">Vulnerability</div><div class="term-tagline">System mein weakness — exploit ho sakta hai</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -166,7 +166,7 @@
 
   <div class="term-card" id="pentest">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ”</div><div><div class="term-name">Penetration Testing</div><div class="term-tagline">Ethical hacking — authorized attack to find weaknesses</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🔍</div><div><div class="term-name">Penetration Testing</div><div class="term-tagline">Ethical hacking — authorized attack to find weaknesses</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -174,13 +174,13 @@
         <div class="block"><div class="block-label">What is it</div><p>Company authorize karta hai security professionals ko attack karne ke liye — vulnerabilities find karo before real attackers do. Ethical hackers = white hat hackers.</p></div>
         <div class="block"><div class="block-label">Types</div><p><strong>Black Box:</strong> No prior info (realistic)<br/><strong>White Box:</strong> Full access/info given<br/><strong>Grey Box:</strong> Partial info<br/><strong>Red Team:</strong> Extended adversary simulation</p></div>
       </div>
-      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>Bank apne security expert ko bolti hai "try to rob us" — legally. Expert koshish karta hai, gaps dhundhta hai, report karta hai. Fix hote hain before real robber try kare.</p></div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Bank apne security expert ko bolti hai "try to rob us" — legally. Expert koshish karta hai, gaps dhundhta hai, report karta hai. Fix hote hain before real robber try kare.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="resilience">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ’ª</div><div><div class="term-name">Cyber Resilience</div><div class="term-tagline">Attack ke baad bhi survive aur recover karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">💪</div><div><div class="term-name">Cyber Resilience</div><div class="term-tagline">Attack ke baad bhi survive aur recover karna</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -193,7 +193,7 @@
 
   <div class="term-card" id="cti">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ§ </div><div><div class="term-name">CTI — Cyber Threat Intelligence</div><div class="term-tagline">Threats ke baare mein actionable information</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🧠</div><div><div class="term-name">CTI — Cyber Threat Intelligence</div><div class="term-tagline">Threats ke baare mein actionable information</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -206,7 +206,7 @@
 
   <div class="term-card" id="cybercrime">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸš”</div><div><div class="term-name">Cyber Crime</div><div class="term-tagline">Computer ya internet ke through illegal activities</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🚔</div><div><div class="term-name">Cyber Crime</div><div class="term-tagline">Computer ya internet ke through illegal activities</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -219,7 +219,7 @@
 
   <div class="term-card" id="bully">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ˜¢</div><div><div class="term-name">Cyber Bullying</div><div class="term-tagline">Online harassment aur intimidation</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">😢</div><div><div class="term-name">Cyber Bullying</div><div class="term-tagline">Online harassment aur intimidation</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -232,7 +232,7 @@
 
   <div class="term-card" id="forensics">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">ðŸ”¬</div><div><div class="term-name">Digital Forensics</div><div class="term-tagline">Crime scene investigation — digital evidence collect karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(234,179,8,0.1)">🔍¬</div><div><div class="term-name">Digital Forensics</div><div class="term-tagline">Crime scene investigation — digital evidence collect karna</div></div></div>
       <span class="term-badge badge-gov">Governance</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -250,7 +250,7 @@
 <div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
   <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
   <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
-  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. ðŸ”</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. 🔍</div>
 </div>
 
 </main>

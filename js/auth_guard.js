@@ -34,6 +34,18 @@
             '/404.html'
         ];
 
+        // AI Assistant is restricted strictly to authenticated operatives
+        const isAiAssistant = normalized.includes('/ai_assistant') || normalized.endsWith('ai_assistant.html');
+        if (isAiAssistant) {
+            const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
+            if (!isAuth) {
+                const isLocal = window.location.protocol === 'file:';
+                const redirectUrl = isLocal ? 'index.html?auth_required=1' : '/?auth_required=1';
+                window.location.replace(redirectUrl);
+                return;
+            }
+        }
+
         // All educational content, field intel, games, master guides, and training modules
         // are open to guests for local learning. Authentication is strictly optional for cloud sync.
         const isPublic = true;

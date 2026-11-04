@@ -58,11 +58,11 @@
   <div class="search-bar">
             <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
       <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ—ºï¸ Roadmap</button>
-      <button onclick="window.location.href='masterguide_test.html?chapter=4'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ“ Master Quiz</button>
+      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🗺️ Roadmap</button>
+      <button onclick="window.location.href='masterguide_test.html?chapter=4'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
       <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">⬅️ Main</button>
     </div>
-    <input class="search-input" placeholder="ðŸ” search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
   <div class="sidebar-title">// Chapters</div>
 
@@ -105,7 +105,7 @@
 <!-- â–ˆâ–ˆâ–ˆâ–ˆ CHAPTER 1: CORE THREATS â–ˆâ–ˆâ–ˆâ–ˆ -->
 <section class="chapter ch-blue active-chapter" id="ch4">
   <div class="chapter-header">
-    <div class="chapter-icon">ðŸ”</div>
+    <div class="chapter-icon">🔍</div>
     <div class="chapter-title-block">
       <h2>Encryption & Protocols</h2>
       <p>Data ko scramble karna taaki sirf sahi log padhein — internet ki neev</p>
@@ -114,7 +114,7 @@
 
   <div class="term-card" id="encryption">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ”</div><div><div class="term-name">Encryption</div><div class="term-tagline">Data ko unreadable banana — sirf key se padhein</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔍</div><div><div class="term-name">Encryption</div><div class="term-tagline">Data ko unreadable banana — sirf key se padhein</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -129,13 +129,13 @@ Ciphertext: <span class="bad">KHOOR</span>
 
 <span class="comment">// Real AES-256 looks like this (128 chars of gibberish):</span>
 <span class="bad">a3f8e9c7b2d1f4e8c9b3a2d1f4e8c9b3a2d1f4e8...</span></div>
-      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>Tumhara diary mein secret language likhna — sirf tumhe pata hai "cat = 7, dog = 9". Key yaad ho to padhlo, nahi to gibberish. Encryption exactly aise, par mathematically unbreakable.</p></div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Tumhara diary mein secret language likhna — sirf tumhe pata hai "cat = 7, dog = 9". Key yaad ho to padhlo, nahi to gibberish. Encryption exactly aise, par mathematically unbreakable.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="e2ee">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ’¬</div><div><div class="term-name">End-to-End Encryption (E2EE)</div><div class="term-tagline">Sirf sender aur receiver padh sakte — beech mein koi nahi</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">💬</div><div><div class="term-name">End-to-End Encryption (E2EE)</div><div class="term-tagline">Sirf sender aur receiver padh sakte — beech mein koi nahi</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -146,11 +146,11 @@ Ciphertext: <span class="bad">KHOOR</span>
       <div class="flow-diagram">
         <div class="flow-label">// E2EE Message Flow</div>
         <div class="flow-nodes">
-          <div class="flow-node attacker"><div class="flow-node-icon">ðŸ‘¤</div><div class="flow-node-text">Alice<br/>Encrypts</div></div>
+          <div class="flow-node attacker"><div class="flow-node-icon">👤</div><div class="flow-node-text">Alice<br/>Encrypts</div></div>
           <div class="flow-arrow">â†’</div>
-          <div class="flow-node"><div class="flow-node-icon">ðŸ”’</div><div class="flow-node-text">Encrypted<br/>(Server sees ðŸ”’)</div></div>
+          <div class="flow-node"><div class="flow-node-icon">🔍’</div><div class="flow-node-text">Encrypted<br/>(Server sees 🔍’)</div></div>
           <div class="flow-arrow">â†’</div>
-          <div class="flow-node victim"><div class="flow-node-icon">ðŸ‘¤</div><div class="flow-node-text">Bob<br/>Decrypts</div></div>
+          <div class="flow-node victim"><div class="flow-node-icon">👤</div><div class="flow-node-text">Bob<br/>Decrypts</div></div>
         </div>
       </div>
     </div>
@@ -158,7 +158,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="aes">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ”¢</div><div><div class="term-name">AES</div><div class="term-tagline">Advanced Encryption Standard — industry gold standard symmetric encryption</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔍¢</div><div><div class="term-name">AES</div><div class="term-tagline">Advanced Encryption Standard — industry gold standard symmetric encryption</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -171,7 +171,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="pki">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ›ï¸</div><div><div class="term-name">PKI</div><div class="term-tagline">Public Key Infrastructure — trust management system</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🏛️</div><div><div class="term-name">PKI</div><div class="term-tagline">Public Key Infrastructure — trust management system</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -184,7 +184,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="digicert">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ“œ</div><div><div class="term-name">Digital Certificate</div><div class="term-tagline">Online ID card — identity prove karta hai</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">📝œ</div><div><div class="term-name">Digital Certificate</div><div class="term-tagline">Online ID card — identity prove karta hai</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -192,13 +192,13 @@ Ciphertext: <span class="bad">KHOOR</span>
         <div class="block"><div class="block-label">What is it</div><p>Electronic document jo ek entity ki identity prove karta hai aur unki public key contain karta hai. CA (Certificate Authority) issue karta hai. Browser ka padlock icon yahi hai.</p></div>
         <div class="block"><div class="block-label">Contains</div><p>Owner name, public key, issuing CA, validity dates, domain name, CA's digital signature (tamper proof).</p></div>
       </div>
-      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>Passport jaisa. Government (CA) ne issue kiya, tumhara photo aur details hain (public key), expiry date hai, aur tamper-proof features hain. Bank ne passport dekha â†’ trust kiya.</p></div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Passport jaisa. Government (CA) ne issue kiya, tumhara photo aur details hain (public key), expiry date hai, aur tamper-proof features hain. Bank ne passport dekha â†’ trust kiya.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="digisig">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">âœï¸</div><div><div class="term-name">Digital Signature</div><div class="term-tagline">Authenticity prove karna — tamper detect karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">âœ️</div><div><div class="term-name">Digital Signature</div><div class="term-tagline">Authenticity prove karna — tamper detect karna</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -211,7 +211,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="ssl">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ”“</div><div><div class="term-name">SSL</div><div class="term-tagline">Secure Sockets Layer — now deprecated, replaced by TLS</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔍“</div><div><div class="term-name">SSL</div><div class="term-tagline">Secure Sockets Layer — now deprecated, replaced by TLS</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -224,7 +224,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="tls">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ›¡ï¸</div><div><div class="term-name">TLS</div><div class="term-tagline">Transport Layer Security — SSL ka successor, internet ki backbone</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🛡️</div><div><div class="term-name">TLS</div><div class="term-tagline">Transport Layer Security — SSL ka successor, internet ki backbone</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -237,7 +237,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="https">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">ðŸ”’</div><div><div class="term-name">HTTPS</div><div class="term-tagline">HTTP + TLS — secure website communication</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">🔍’</div><div><div class="term-name">HTTPS</div><div class="term-tagline">HTTP + TLS — secure website communication</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -250,7 +250,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 
   <div class="term-card" id="ssh">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">âŒ¨ï¸</div><div><div class="term-name">SSH</div><div class="term-tagline">Secure Shell — encrypted remote server access</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(59,130,246,0.1)">âŒ¨️</div><div><div class="term-name">SSH</div><div class="term-tagline">Secure Shell — encrypted remote server access</div></div></div>
       <span class="term-badge badge-crypto">Crypto</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -273,7 +273,7 @@ Ciphertext: <span class="bad">KHOOR</span>
 <div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
   <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
   <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
-  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. ðŸ”</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. 🔍</div>
 </div>
 
 </main>

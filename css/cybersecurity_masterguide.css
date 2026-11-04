@@ -272,6 +272,15 @@
   }
 
   /* ── NAV SIDEBAR ── */
+  
+  /* Desktop defaults: mobile-only elements hidden */
+  .sidebar-header-mobile,
+  .sidebar-backdrop,
+  .mobile-chapters-fab,
+  .btn-chapters-mobile {
+    display: none !important;
+  }
+
   .layout {
     display: grid;
     grid-template-columns: 260px 1fr;
@@ -899,16 +908,175 @@
     .hero-stat-item{padding:5px 10px;}
     .hero-stat-num{font-size:1.4rem;}
     
-    /* Sleek scrollable sidebar index so 100 links never push chapter content down */
-    .sidebar{
-      position:relative;
-      height:auto;
-      max-height:220px;
-      overflow-y:auto;
-      border-right:none;
-      border-bottom:var(--border-width) solid var(--border-dim);
-      padding:10px 14px;
-      scrollbar-width:thin;
+    .layout {
+      display: block !important;
+      grid-template-columns: none !important;
+      width: 100% !important;
+    }
+
+    /* ── OFF-CANVAS SLIDING DRAWER SIDEBAR ON MOBILE ── */
+    .sidebar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      width: 320px !important;
+      max-width: 86vw !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      z-index: 100002 !important;
+      background: var(--bg-panel) !important;
+      border-right: 3px solid var(--border-dim) !important;
+      border-bottom: none !important;
+      padding: 0 0 50px 0 !important;
+      box-shadow: 6px 0 30px rgba(0, 0, 0, 0.65) !important;
+      transform: translateX(-100%) !important;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s !important;
+      visibility: hidden !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: thin;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .sidebar.mobile-open {
+      transform: translateX(0) !important;
+      visibility: visible !important;
+    }
+
+    .sidebar-header-mobile {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--bg-base);
+      border-bottom: 3px solid var(--border-dim);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      flex-shrink: 0;
+    }
+
+    .sidebar-mobile-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .sidebar-close-btn {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--danger, #D9291C);
+      color: #ffffff;
+      border: 2px solid var(--border-dim);
+      box-shadow: 2px 2px 0 var(--border-dim);
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      border-radius: 0px;
+      line-height: 1;
+      transition: transform 0.1s ease;
+    }
+
+    .sidebar-close-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--border-dim);
+    }
+
+    /* Backdrop overlay */
+    .sidebar-backdrop {
+      display: block !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      pointer-events: none;
+    }
+
+    .sidebar-backdrop.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    /* Mobile Floating Action Button (FAB) for Opening Chapters Sidebar */
+    .mobile-chapters-fab {
+      display: flex !important;
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      z-index: 99990;
+      background: var(--bauhaus-blue, #005A9C);
+      color: #ffffff;
+      border: 3px solid var(--border-dim, #0a0a0a);
+      box-shadow: 4px 4px 0 var(--border-dim, #0a0a0a);
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 10px 14px;
+      border-radius: 0px;
+      cursor: pointer;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      user-select: none;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .mobile-chapters-fab:hover,
+    .mobile-chapters-fab:focus {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0 var(--border-dim, #0a0a0a);
+    }
+
+    .mobile-chapters-fab:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--border-dim, #0a0a0a);
+    }
+
+    .mobile-chapters-fab .fab-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .mobile-chapters-fab .fab-badge {
+      background: #ffffff;
+      color: #000000;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 1px 5px;
+      border: 1px solid #000000;
+      border-radius: 2px;
+      line-height: 1.2;
+    }
+
+    .btn-chapters-mobile {
+      display: flex !important;
+    }
+
+    .main {
+      padding: 18px 12px 90px !important;
+      width: 100% !important;
+      max-width: 100% !important;
     }
     .masterguide-nav {
       padding: 10px 14px;

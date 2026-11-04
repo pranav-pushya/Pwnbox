@@ -84,10 +84,13 @@
         banner.setAttribute('role', 'region');
         banner.setAttribute('aria-label', 'Privacy and Telemetry Consent Notice');
 
+        const isSubfolder = window.location.pathname.includes('/modules/') || window.location.pathname.includes('/games/') || window.location.pathname.includes('/imp_info/') || window.location.pathname.includes('/masterguide/');
+        const privacyHref = (window.location.protocol === 'file:') ? (isSubfolder ? '../privacy.html' : 'privacy.html') : '/privacy.html';
+
         banner.innerHTML = `
             <div class="consent-text">
                 <strong>TACTICAL PRIVACY DIRECTIVE:</strong>
-                PwnBox uses browser local storage for mission progress and optional anonymous telemetry to optimize simulation stability. No personal identity is ever tracked or sold. Read our <a href="privacy.html">Privacy Policy</a>.
+                PwnBox uses browser local storage for mission progress and optional anonymous telemetry to optimize simulation stability. No personal identity is ever tracked or sold. Read our <a href="${privacyHref}">Privacy Policy</a>.
             </div>
             <div class="consent-buttons">
                 <button type="button" class="consent-btn-accept" id="consentAcceptBtn">ACCEPT ALL</button>

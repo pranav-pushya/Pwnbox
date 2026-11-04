@@ -70,12 +70,12 @@
       <div class="search-bar">
         <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
       <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="toggleMasterguideLang()" class="theme-nav-btn" id="mgLangToggleBtn" style="background: #e76f51; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸŒ <span id="mgLangLabel">EN</span></button>
-      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ—ºï¸ Roadmap</button>
-      <button onclick="window.location.href='masterguide_test.html?chapter=1'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ“ Master Quiz</button>
+      <button onclick="toggleMasterguideLang()" class="theme-nav-btn" id="mgLangToggleBtn" style="background: #e76f51; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🌐 <span id="mgLangLabel">EN</span></button>
+      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🗺️ Roadmap</button>
+      <button onclick="window.location.href='masterguide_test.html?chapter=1'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
       <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">⬅️ Main</button>
     </div>
-    <input class="search-input" placeholder="ðŸ” search terms..." id="searchInput" oninput="filterNav(this.value)" />
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)" />
       </div>
       <div class="sidebar-title">// Chapters</div>
 
@@ -191,7 +191,7 @@
       <!-- â–ˆâ–ˆâ–ˆâ–ˆ CHAPTER 1: CORE THREATS â–ˆâ–ˆâ–ˆâ–ˆ -->
       <section class="chapter ch-red active-chapter" id="ch1">
         <div class="chapter-header">
-          <div class="chapter-icon">âš”ï¸</div>
+          <div class="chapter-icon">âš”️</div>
           <div class="chapter-title-block">
             <h2>Core Threats & Attacks</h2>
             <p>The most common weapons attackers use — yeh sab basic attacks hain jo real-world mein sabse zyada hote
@@ -226,18 +226,18 @@
               </div>
             </div>
             <div class="analogy-box">
-              <div class="analogy-label">ðŸ§  Analogy</div>
+              <div class="analogy-label">🧠 Analogy</div>
               <p>Malware ek bimari ki tarah hai. Jaise flu (virus), jaundice (spyware jo slowly damage kare), ya cholera
                 (worm jo paani se spread ho) — sab alag hai, sab nuksan karta hai, par sab "bimari" hi hai.</p>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>WannaCry (2017):</strong> 150 countries mein ek worm-based malware ne UK ke NHS hospitals,
                 TelefÃ³nica Spain, aur FedEx ko paralyze kar diya. $4 billion+ estimated loss. Ek unpatched Windows
                 vulnerability se spread hua.</p>
             </div>
             <div class="defense-box">
-              <div class="defense-label">ðŸ›¡ï¸ Defense</div>
+              <div class="defense-label">🛡️ Defense</div>
               <ul>
                 <li>Updated antivirus always run karo</li>
                 <li>OS aur software patches turant apply karo</li>
@@ -257,7 +257,7 @@
         <div class="term-card" id="phishing">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸŽ£</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">🎣</div>
               <div>
                 <div class="term-name">Phishing</div>
                 <div class="term-tagline">Digital makka — "fishing" for your credentials</div>
@@ -283,39 +283,39 @@
               <div class="flow-label">// Attack Flow</div>
               <div class="flow-nodes">
                 <div class="flow-node attacker">
-                  <div class="flow-node-icon">ðŸ‘¤</div>
+                  <div class="flow-node-icon">👤</div>
                   <div class="flow-node-text">Attacker<br />Fake Email</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node">
-                  <div class="flow-node-icon">ðŸ“§</div>
+                  <div class="flow-node-icon">📝§</div>
                   <div class="flow-node-text">Victim<br />Receives</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node">
-                  <div class="flow-node-icon">ðŸ–±ï¸</div>
+                  <div class="flow-node-icon">🖱️</div>
                   <div class="flow-node-text">Clicks<br />Link</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node server">
-                  <div class="flow-node-icon">ðŸŒ</div>
+                  <div class="flow-node-icon">🌐</div>
                   <div class="flow-node-text">Fake<br />Website</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node attacker">
-                  <div class="flow-node-icon">ðŸ”‘</div>
+                  <div class="flow-node-icon">🔍‘</div>
                   <div class="flow-node-text">Creds<br />Stolen!</div>
                 </div>
               </div>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Google & Facebook Scam (2013-2015):</strong> Evaldas Rimasauskas ne Lithuania se fake invoices
                 Google aur Facebook ko bheji (impersonating Quanta Computer). $100M+ chura liye. Dono companies ne
                 actually pay kiya!</p>
             </div>
             <div class="defense-box">
-              <div class="defense-label">ðŸ›¡ï¸ Defense</div>
+              <div class="defense-label">🛡️ Defense</div>
               <ul>
                 <li>Sender ka email address dhyan se check karo</li>
                 <li>Links pe hover karo URL dekhne ke liye pehle click se</li>
@@ -335,7 +335,7 @@
         <div class="term-card" id="ransomware">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸ’°</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">💰</div>
               <div>
                 <div class="term-name">Ransomware</div>
                 <div class="term-tagline">Digital kidnapping — "pay up or lose everything"</div>
@@ -368,13 +368,13 @@
               </ul>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Colonial Pipeline (2021):</strong> US ki sabse badi fuel pipeline band ho gayi jab DarkSide
                 ransomware ne attack kiya. $4.4 million ransom diya gaya. East coast mein fuel shortage aayi, panic
                 buying shuru. Biden ne national emergency declare kiya.</p>
             </div>
             <div class="defense-box">
-              <div class="defense-label">ðŸ›¡ï¸ Defense</div>
+              <div class="defense-label">🛡️ Defense</div>
               <ul>
                 <li>Offline backups (3-2-1 rule: 3 copies, 2 media, 1 offsite)</li>
                 <li>Network segmentation — infection spread na ho</li>
@@ -417,13 +417,13 @@
               </div>
             </div>
             <div class="analogy-box">
-              <div class="analogy-label">ðŸ§  Analogy</div>
+              <div class="analogy-label">🧠 Analogy</div>
               <p>Sochao koi tumhare phone ko secretly remote control kar raha hai. Tum normal use kar rahe ho, but
                 background mein woh kisi par spam bhej raha hai ya kisi website ko attack kar raha hai tumhare naam se.
               </p>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Mirai Botnet (2016):</strong> IoT devices (cameras, routers) ko infect kar ke ek massive botnet
                 banaya gaya. Iska use Dyn DNS pe DDoS attack karne ke liye hua jisse Twitter, Netflix, Amazon, Reddit —
                 sab down ho gaye US mein ek din ke liye.</p>
@@ -440,7 +440,7 @@
         <div class="term-card" id="ddos">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸ’¥</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">💥</div>
               <div>
                 <div class="term-name">DDoS</div>
                 <div class="term-tagline">Distributed Denial of Service — traffic flood se server crash</div>
@@ -466,7 +466,7 @@
               <div class="flow-label">// DDoS Attack Visual</div>
               <div class="flow-nodes">
                 <div class="flow-node attacker">
-                  <div class="flow-node-icon">ðŸŽ¯</div>
+                  <div class="flow-node-icon">🎯</div>
                   <div class="flow-node-text">Attacker<br />C&C Server</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
@@ -476,7 +476,7 @@
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node victim">
-                  <div class="flow-node-icon">ðŸ’»</div>
+                  <div class="flow-node-icon">💻</div>
                   <div class="flow-node-text">Target<br />Server</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
@@ -487,13 +487,13 @@
               </div>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>GitHub (2018):</strong> 1.35 Tbps ka attack — history ka biggest DDoS at that time. Memcached
                 servers ka exploit karke amplification attack tha. GitHub 10 minutes tak down raha phir Akamai ne
                 traffic absorb kiya.</p>
             </div>
             <div class="defense-box">
-              <div class="defense-label">ðŸ›¡ï¸ Defense</div>
+              <div class="defense-label">🛡️ Defense</div>
               <ul>
                 <li>CDN use karo (Cloudflare, Akamai) jo traffic absorb kare</li>
                 <li>Rate limiting implement karo</li>
@@ -513,7 +513,7 @@
         <div class="term-card" id="mitm">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸ•µï¸</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">🕵️</div>
               <div>
                 <div class="term-name">MITM Attack</div>
                 <div class="term-tagline">Man-in-the-Middle — conversation intercept karna</div>
@@ -540,28 +540,28 @@
               <div class="flow-label">// MITM Flow</div>
               <div class="flow-nodes">
                 <div class="flow-node attacker">
-                  <div class="flow-node-icon">ðŸ‘¤</div>
+                  <div class="flow-node-icon">👤</div>
                   <div class="flow-node-text">You<br />(Victim)</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node middle">
-                  <div class="flow-node-icon">ðŸ˜ˆ</div>
+                  <div class="flow-node-icon">😈</div>
                   <div class="flow-node-text">Attacker<br />MITM</div>
                 </div>
                 <div class="flow-arrow">â†’</div>
                 <div class="flow-node victim">
-                  <div class="flow-node-icon">ðŸ¦</div>
+                  <div class="flow-node-icon">🏦</div>
                   <div class="flow-node-text">Your<br />Bank</div>
                 </div>
               </div>
             </div>
             <div class="analogy-box">
-              <div class="analogy-label">ðŸ§  Analogy</div>
+              <div class="analogy-label">🧠 Analogy</div>
               <p>Tumne apne dost ko letter bheja. Par postman ne woh letter open kiya, padhà¤¾, kuch badla, seal band
                 kiya, aur bheja. Dono kisi ko nahi pata kuch hua bhi hai. Exactly yahi MITM hai.</p>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Public WiFi MITM:</strong> Coffee shop/airport ke open WiFi par attacker "Evil Twin" attack
                 karta hai — same naam ka fake hotspot. Tum connect hote ho, woh sab traffic dekh sakta hai.</p>
             </div>
@@ -577,7 +577,7 @@
         <div class="term-card" id="sqli">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸ’‰</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">💉</div>
               <div>
                 <div class="term-name">SQL Injection</div>
                 <div class="term-tagline">Database mein malicious code inject karna</div>
@@ -611,12 +611,12 @@
               <span class="comment">// -- is comment in SQL, so password part ignored!</span>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Heartland Payment Systems (2008):</strong> SQL injection se 130 million credit card numbers
                 chori hue. $140 million+ settlement. At that time, US history ki largest data breach.</p>
             </div>
             <div class="defense-box">
-              <div class="defense-label">ðŸ›¡ï¸ Defense</div>
+              <div class="defense-label">🛡️ Defense</div>
               <ul>
                 <li>Parameterized queries / prepared statements use karo</li>
                 <li>Input validation aur sanitization</li>
@@ -636,7 +636,7 @@
         <div class="term-card" id="xss">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸ“œ</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">📝œ</div>
               <div>
                 <div class="term-name">XSS</div>
                 <div class="term-tagline">Cross-Site Scripting — dusre ki site pe apna script</div>
@@ -665,7 +665,7 @@
               <span class="comment">// Anyone who reads the page sends their cookies to attacker!</span>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Samy Worm (MySpace, 2005):</strong> Samy Kamkar ne MySpace profile pe XSS script daali. Ek din
                 mein 1 million+ profiles ne automatically "Samy is my hero" add kar liya. Ek teen ki prank ne history ka
                 fastest spreading virus banaya.</p>
@@ -682,7 +682,7 @@
         <div class="term-card" id="csrf">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">ðŸ”„</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">🔍„</div>
               <div>
                 <div class="term-name">CSRF</div>
                 <div class="term-tagline">Cross-Site Request Forgery — browser se unwanted action</div>
@@ -705,12 +705,12 @@
               </div>
             </div>
             <div class="analogy-box">
-              <div class="analogy-label">ðŸ§  Analogy</div>
+              <div class="analogy-label">🧠 Analogy</div>
               <p>Koi tumhara haath pakad ke ek cheque pe sign karwa leta hai jab tum neend mein ho. Tumne kiya nahi, par
                 signature tumhara hai. CSRF exactly aisa — browser tumhara auth use karta hai bina tumhare jaane.</p>
             </div>
             <div class="defense-box">
-              <div class="defense-label">ðŸ›¡ï¸ Defense</div>
+              <div class="defense-label">🛡️ Defense</div>
               <ul>
                 <li>CSRF tokens — har request mein unique token</li>
                 <li>SameSite cookie attribute</li>
@@ -729,7 +729,7 @@
         <div class="term-card" id="zeroday">
           <div class="term-header" onclick="toggle(this)">
             <div class="term-header-left">
-              <div class="term-icon" style="background:rgba(239,68,68,0.1)">0ï¸âƒ£</div>
+              <div class="term-icon" style="background:rgba(239,68,68,0.1)">0️âƒ£</div>
               <div>
                 <div class="term-name">Zero-Day Exploit</div>
                 <div class="term-tagline">Unknown vulnerability — patch exist hi nahi karta</div>
@@ -752,7 +752,7 @@
               </div>
             </div>
             <div class="real-example">
-              <div class="real-example-label">ðŸ“° Real World</div>
+              <div class="real-example-label">📝° Real World</div>
               <p><strong>Stuxnet (2010):</strong> US+Israel jointly banaya ek zero-day exploit jo Iran ke nuclear
                 centrifuges ko physically damage karne ke liye. 4 zero-days ek saath use kiye — unprecedented. Iran ke
                 Natanz facility mein 1,000 centrifuges destroy huye bina koi bomb use kiye.</p>
@@ -776,7 +776,7 @@
           style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">
           Zero to Cyber — 100 Terms Done ✅</div>
         <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi —
-          concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. ðŸ”</div>
+          concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. 🔍</div>
       </div>
 
     </main>

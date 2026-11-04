@@ -57,6 +57,9 @@ function showChapter(chapterId, termId = null, smoothScroll = true) {
   if (!chapterEl) return;
 
   currentActiveChapterId = chapterId;
+  if (window.innerWidth <= 768 && typeof window.toggleMobileSidebar === 'function') {
+    window.toggleMobileSidebar(false);
+  }
 
   // 1. Hide all chapters, display only target chapter
   document.querySelectorAll('.chapter').forEach(ch => {
@@ -268,4 +271,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('backTop');
     if (btn) btn.classList.toggle('show', window.scrollY > 400);
   });
+});
+
+// Mobile Sidebar Toggle
+function toggleMobileSidebar(open) {
+  const sidebar = document.querySelector('.sidebar');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  if (!sidebar) return;
+
+  const shouldOpen = (typeof open === 'boolean') ? open : !sidebar.classList.contains('mobile-open');
+  sidebar.classList.toggle('mobile-open', shouldOpen);
+  if (backdrop) backdrop.classList.toggle('active', shouldOpen);
+
+  if (shouldOpen) {
+    document.body.style.overflow = 'hidden';
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) setTimeout(() => searchInput.focus(), 250);
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+window.toggleMobileSidebar = toggleMobileSidebar;
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    toggleMobileSidebar(false);
+  }
 });

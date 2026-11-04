@@ -36,6 +36,8 @@
       { "source": "/.git", "destination": "/404", "type": 301 },
       { "source": "/.git/**", "destination": "/404", "type": 301 },
       { "source": "/index.html", "destination": "/", "type": 301 },
+      { "source": "/roadmap", "destination": "/masterguide/roadmap", "type": 301 },
+      { "source": "/roadmap.html", "destination": "/masterguide/roadmap", "type": 301 },
       { "source": "/modules/Vulnerablity", "destination": "/modules/Vulnerability", "type": 301 },
       { "source": "/modules/Vulnerablity.html", "destination": "/modules/Vulnerability", "type": 301 },
       { "source": "/modules/VulnerabilityAnalysis", "destination": "/modules/Vulnerability", "type": 301 },

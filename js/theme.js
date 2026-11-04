@@ -1365,9 +1365,10 @@ document.addEventListener('keydown', function (e) {
         return;
     }
 
-    // 6. Disable single-key navigation if inside an active mini-game simulator subpage (/games/...)
+    // 6. Disable single-key navigation if inside an active mini-game simulator subpage (/games/...) or terminal/ctf environment
     const currentPath = window.location.pathname.toLowerCase().replace(/\\/g, '/');
-    if (currentPath.includes('/games/') && !currentPath.endsWith('/games.html') && !currentPath.endsWith('/games')) {
+    if ((currentPath.includes('/games/') && !currentPath.endsWith('/games.html') && !currentPath.endsWith('/games')) ||
+        currentPath.includes('terminal') || currentPath.includes('ctf')) {
         return;
     }
 

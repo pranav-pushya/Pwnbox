@@ -42,6 +42,10 @@
   </a>
 
   <div class="nav-actions">
+    <button onclick="toggleMobileSidebar(true)" class="nav-btn btn-chapters-mobile" id="mobileChaptersNavBtn" title="Open Chapters Directory">
+      <span class="btn-icon">📑</span>
+      <span>CHAPTERS</span>
+    </button>
     <button onclick="toggleTheme()" class="nav-btn btn-theme" title="Toggle Theme (T)">
       <span class="btn-icon">🌓</span>
       <span>THEME</span>
@@ -85,7 +89,14 @@
 <div class="layout">
 
 <!-- ── SIDEBAR ── -->
-<nav class="sidebar">
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header-mobile">
+    <div class="sidebar-mobile-title">
+      <span class="sidebar-mobile-icon">📑</span>
+      <span>Chapters Directory</span>
+    </div>
+    <button class="sidebar-close-btn" id="closeSidebarBtn" onclick="toggleMobileSidebar(false)" aria-label="Close sidebar">✕</button>
+  </div>
   <div class="search-bar">
     <input class="search-input" placeholder="🔍 search 100 terms & chapters..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
@@ -184,6 +195,7 @@
     </div>
   </div>
 </nav>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar(false)"></div>
 
 <!-- ── MAIN ── -->
 <main class="main">
@@ -1879,5 +1891,12 @@ $ sudo cat /etc/shadow
   <script src="../js/masterguide_translations.js"></script>
   <script src="../js/masterguide_chat.js"></script>
   <script src="../js/mobile_nav.js?v=3.0"></script>
-    </body>
+      <!-- Mobile Floating Action Button (FAB) to open Chapters Sidebar -->
+  <button class="mobile-chapters-fab" id="mobileChaptersFab" onclick="toggleMobileSidebar(true)" aria-label="Open Chapters Directory">
+    <span class="fab-icon">📑</span>
+    <span class="fab-text">Chapters</span>
+    <span class="fab-badge">10</span>
+  </button>
+
+</body>
 </html>

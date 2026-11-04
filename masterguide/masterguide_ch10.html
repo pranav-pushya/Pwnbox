@@ -58,11 +58,11 @@
   <div class="search-bar">
             <div style="display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; margin-bottom: 8px;">
       <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
-      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ—ºï¸ Roadmap</button>
-      <button onclick="window.location.href='masterguide_test.html?chapter=10'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">ðŸ“ Master Quiz</button>
+      <button onclick="window.location.href='roadmap.html'" class="theme-nav-btn" style="background: #2a9d8f; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">🗺️ Roadmap</button>
+      <button onclick="window.location.href='masterguide_test.html?chapter=10'" class="theme-nav-btn" style="background: #005A9C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">📝 Master Quiz</button>
       <button onclick="window.location.href='../dashboard.html'" class="theme-nav-btn" style="background: #D9291C; color: white; border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.72rem; padding: 5px 8px; cursor: pointer; text-transform: uppercase; box-shadow: 2px 2px 0 var(--text-main);">⬅️ Main</button>
     </div>
-    <input class="search-input" placeholder="ðŸ” search terms..." id="searchInput" oninput="filterNav(this.value)"/>
+    <input class="search-input" placeholder="🔍 search terms..." id="searchInput" oninput="filterNav(this.value)"/>
   </div>
   <div class="sidebar-title">// Chapters</div>
 
@@ -105,7 +105,7 @@
 <!-- â–ˆâ–ˆâ–ˆâ–ˆ CHAPTER 1: CORE THREATS â–ˆâ–ˆâ–ˆâ–ˆ -->
 <section class="chapter ch-teal active-chapter" id="ch10">
   <div class="chapter-header">
-    <div class="chapter-icon">ðŸš€</div>
+    <div class="chapter-icon">🚀</div>
     <div class="chapter-title-block">
       <h2>Emerging & Essential Concepts</h2>
       <p>Future of cybersecurity — AI, dark web, aur jo aage aane wala hai</p>
@@ -122,13 +122,13 @@
         <div class="block"><div class="block-label">AI as Attacker</div><p>Deepfake phishing (voice/video clone), AI-generated perfect spear phishing emails, automated vulnerability discovery, adversarial attacks on ML models, AI-generated malware.</p></div>
         <div class="block"><div class="block-label">AI as Defender</div><p>Anomaly detection, automated threat response, behavior analytics (UEBA), log analysis at scale, vulnerability prediction, smart SIEM. Both sides use AI — arms race.</p></div>
       </div>
-      <div class="real-example"><div class="real-example-label">ðŸ“° Real World</div><p><strong>WormGPT (2023):</strong> ChatGPT jaise AI model, sans restrictions — phishing emails, malware code generate karta tha. Dark web pe subscribe kiya ja sakta tha. Ethics training ke bina AI = powerful criminal tool.</p></div>
+      <div class="real-example"><div class="real-example-label">📝° Real World</div><p><strong>WormGPT (2023):</strong> ChatGPT jaise AI model, sans restrictions — phishing emails, malware code generate karta tha. Dark web pe subscribe kiya ja sakta tha. Ethics training ke bina AI = powerful criminal tool.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="root">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸ‘‘</div><div><div class="term-name">Root Access</div><div class="term-tagline">Highest privilege — full system control</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">👑</div><div><div class="term-name">Root Access</div><div class="term-tagline">Highest privilege — full system control</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -148,7 +148,7 @@ $ sudo cat /etc/shadow
 
   <div class="term-card" id="pwdcrack">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸ’¥</div><div><div class="term-name">Password Cracking</div><div class="term-tagline">Stored password hashes ko crack karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">💥</div><div><div class="term-name">Password Cracking</div><div class="term-tagline">Stored password hashes ko crack karna</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -156,7 +156,7 @@ $ sudo cat /etc/shadow
         <div class="block"><div class="block-label">How passwords stored</div><p>Proper systems passwords plain text nahi store karte — hash store karte hain. SHA256("password123") = fixed string. Attacker hash file chura ke offline crack karta hai.</p></div>
         <div class="block"><div class="block-label">Tools</div><p>Hashcat, John the Ripper — GPU-accelerated password cracking. RTX 4090 = 300 billion MD5 hashes/second. "password" = cracked instantly. "Tr0ub4dor&3" = years.</p></div>
       </div>
-      <div class="defense-box"><div class="defense-label">ðŸ›¡ï¸ Defense (for developers)</div><ul>
+      <div class="defense-box"><div class="defense-label">🛡️ Defense (for developers)</div><ul>
         <li>bcrypt, Argon2, scrypt — slow hashing algorithms specifically designed for passwords</li>
         <li>Salt (random string add karo before hashing) — rainbow tables defeat karo</li>
         <li>Never use MD5 or SHA1 for passwords</li>
@@ -166,7 +166,7 @@ $ sudo cat /etc/shadow
 
   <div class="term-card" id="dos">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸš«</div><div><div class="term-name">DoS — Denial of Service</div><div class="term-tagline">Single source se service unavailable karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🚫</div><div><div class="term-name">DoS — Denial of Service</div><div class="term-tagline">Single source se service unavailable karna</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -179,7 +179,7 @@ $ sudo cat /etc/shadow
 
   <div class="term-card" id="ueba">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸ“Š</div><div><div class="term-name">UEBA</div><div class="term-tagline">User & Entity Behavior Analytics — anomalies detect karna</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">📝Š</div><div><div class="term-name">UEBA</div><div class="term-tagline">User & Entity Behavior Analytics — anomalies detect karna</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -192,7 +192,7 @@ $ sudo cat /etc/shadow
 
   <div class="term-card" id="darkweb">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸŒ‘</div><div><div class="term-name">Dark Web</div><div class="term-tagline">Hidden internet — Tor network pe, not indexed by Google</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🌑</div><div><div class="term-name">Dark Web</div><div class="term-tagline">Hidden internet — Tor network pe, not indexed by Google</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -200,7 +200,7 @@ $ sudo cat /etc/shadow
         <div class="block"><div class="block-label">Internet Layers</div><p><strong>Surface Web:</strong> Google index karta hai (4%)<br/><strong>Deep Web:</strong> Password-protected, not indexed — email, banking (90%)<br/><strong>Dark Web:</strong> Tor needed, anonymous, not indexed (6%)</p></div>
         <div class="block"><div class="block-label">Not all evil</div><p>Dark web = journalist whistleblowers (Tor Project made by US Navy), censorship bypass (Iran, China activists), privacy enthusiasts. But also: drugs, stolen credentials, hitmen (mostly scams), hacking services, child abuse material (ICAC investigates).</p></div>
       </div>
-      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>Ocean ki tarah. Surface = visible waala hissa. Deep = underwater (banks, gov databases — not evil, just inaccessible without access). Dark = Mariana Trench — reach karna mushkil, kuch genuinely dangerous creatures wahan.</p></div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Ocean ki tarah. Surface = visible waala hissa. Deep = underwater (banks, gov databases — not evil, just inaccessible without access). Dark = Mariana Trench — reach karna mushkil, kuch genuinely dangerous creatures wahan.</p></div>
     </div>
   </div>
 
@@ -214,13 +214,13 @@ $ sudo cat /etc/shadow
         <div class="block"><div class="block-label">What is it</div><p>Cyber attack jiske physical consequences hain. Power grids off karna, traffic lights hack, pacemaker attack, autonomous vehicle hijack, water poison — digital command = physical disaster.</p></div>
         <div class="block"><div class="block-label">Increasing threat</div><p>Smart cities, connected infrastructure, Industry 4.0 — jitna zyada connectivity, utna zyada attack surface. OT (Operational Technology) security critical ho gayi hai.</p></div>
       </div>
-      <div class="real-example"><div class="real-example-label">ðŸ“° Real World</div><p><strong>Florida Water Treatment (2021):</strong> Hacker ne Oldsmar city ke water treatment plant ka SCADA system access kiya aur sodium hydroxide 111x badha diya — drinking water poison attempt. Operator ne catch kiya, disaster averted.</p></div>
+      <div class="real-example"><div class="real-example-label">📝° Real World</div><p><strong>Florida Water Treatment (2021):</strong> Hacker ne Oldsmar city ke water treatment plant ka SCADA system access kiya aur sodium hydroxide 111x badha diya — drinking water poison attempt. Operator ne catch kiya, disaster averted.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="cloudiam">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">â˜ï¸</div><div><div class="term-name">Cloud IAM</div><div class="term-tagline">Cloud resources ka access management — AWS, Azure, GCP</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">â˜️</div><div><div class="term-name">Cloud IAM</div><div class="term-tagline">Cloud resources ka access management — AWS, Azure, GCP</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -233,7 +233,7 @@ $ sudo cat /etc/shadow
 
   <div class="term-card" id="databreach">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸ’§</div><div><div class="term-name">Data Breach</div><div class="term-tagline">Unauthorized access to sensitive data — confidential info leak</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">💧</div><div><div class="term-name">Data Breach</div><div class="term-tagline">Unauthorized access to sensitive data — confidential info leak</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -241,13 +241,13 @@ $ sudo cat /etc/shadow
         <div class="block"><div class="block-label">What is it</div><p>Sensitive, confidential ya protected information unauthorized parties ke hands mein jaana. Intentional (hack) ya accidental (misconfigured database). Average cost: $4.45 million (IBM 2023).</p></div>
         <div class="block"><div class="block-label">Aftermath</div><p>GDPR notification 72 hours mein required. Stock price drop (avg 7.5%). Customer trust loss. Class action lawsuits. Regulatory fines. Executives fired. haveibeenpwned.com track karta hai breaches.</p></div>
       </div>
-      <div class="real-example"><div class="real-example-label">ðŸ“° Real World</div><p><strong>Aadhaar (2018):</strong> Report aaya ki 1.1 billion Indians ka Aadhaar data accessible tha for â‚¹500 via WhatsApp. UIDAI ne deny kiya, par investigation ne serious vulnerabilities found. Government data breach consequences are population-scale.</p></div>
+      <div class="real-example"><div class="real-example-label">📝° Real World</div><p><strong>Aadhaar (2018):</strong> Report aaya ki 1.1 billion Indians ka Aadhaar data accessible tha for â‚¹500 via WhatsApp. UIDAI ne deny kiya, par investigation ne serious vulnerabilities found. Government data breach consequences are population-scale.</p></div>
     </div>
   </div>
 
   <div class="term-card" id="framework">
     <div class="term-header" onclick="toggle(this)">
-      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">ðŸ—ï¸</div><div><div class="term-name">Cybersecurity Framework</div><div class="term-tagline">Structured approach to manage cybersecurity risk</div></div></div>
+      <div class="term-header-left"><div class="term-icon" style="background:rgba(20,184,166,0.1)">🏗️</div><div><div class="term-name">Cybersecurity Framework</div><div class="term-tagline">Structured approach to manage cybersecurity risk</div></div></div>
       <span class="term-badge badge-emerging">Emerging</span><span class="expand-btn">▾</span>
     </div>
     <div class="term-body">
@@ -255,7 +255,7 @@ $ sudo cat /etc/shadow
         <div class="block"><div class="block-label">NIST CSF</div><p>Most widely used. 5 functions:<br/>1. <strong>Identify:</strong> Assets, risks samjho<br/>2. <strong>Protect:</strong> Safeguards implement karo<br/>3. <strong>Detect:</strong> Incidents identify karo<br/>4. <strong>Respond:</strong> Action lo<br/>5. <strong>Recover:</strong> Restore karo</p></div>
         <div class="block"><div class="block-label">Other Frameworks</div><p><strong>ISO 27001:</strong> International standard<br/><strong>MITRE ATT&CK:</strong> Adversary tactics matrix — actual attack techniques documented<br/><strong>CIS Controls:</strong> Top 18 security actions<br/><strong>OWASP Top 10:</strong> Web vulnerabilities</p></div>
       </div>
-      <div class="analogy-box"><div class="analogy-label">ðŸ§  Analogy</div><p>Building code for architecture. Alag-alag engineers alag-alag sochein to inconsistency. Framework ek common language aur standard approach deta hai — security "building code."</p></div>
+      <div class="analogy-box"><div class="analogy-label">🧠 Analogy</div><p>Building code for architecture. Alag-alag engineers alag-alag sochein to inconsistency. Framework ek common language aur standard approach deta hai — security "building code."</p></div>
     </div>
   </div>
 </section>
@@ -266,7 +266,7 @@ $ sudo cat /etc/shadow
 <div style="margin-top:60px;padding:40px 0;border-top:1px solid var(--border);text-align:center;">
   <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;">// END OF GUIDE</div>
   <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--text-primary);margin:12px 0;">Zero to Cyber — 100 Terms Done ✅</div>
-  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. ðŸ”</div>
+  <div style="font-size:13px;color:var(--text-secondary);max-width:500px;margin:0 auto;">Ab yeh sirf terms nahi — concepts hain. Real-world mein apply karo, labs karo (TryHackMe, HackTheBox), aur keep learning. Cadet — cybersecurity ki neev tune padhh li hai. 🔍</div>
 </div>
 
 </main>

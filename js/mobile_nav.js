@@ -97,8 +97,8 @@
                 ];
 
             case 'masterguide':
-                // "master guide : theme,user,dashbord ,notes,roadmap"
                 return [
+                    { type: 'action', action: 'chapters', label: 'Chapters Directory', icon: '📑', spanFull: true },
                     { type: 'action', action: 'theme', label: 'Theme', icon: '🌓' },
                     { type: 'action', action: 'user', label: userLabel, icon: isAuth ? '👤' : '🔐' },
                     { type: 'link', label: 'Dashboard', icon: '🛡️', href: resolveHref('dashboard.html') },
@@ -185,6 +185,13 @@
     }
 
     function handleActionClick(action, e) {
+        if (action === 'chapters') {
+            closeMobileMenu();
+            if (typeof window.toggleMobileSidebar === 'function') {
+                window.toggleMobileSidebar(true);
+            }
+            return;
+        }
         if (action === 'theme') {
             if (typeof window.toggleTheme === 'function') {
                 window.toggleTheme();
