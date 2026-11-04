@@ -21,6 +21,7 @@ new_entries = [
     ("https://pwnbo-x.web.app/imp_info/google_dorking", "0.7", "monthly"),
     ("https://pwnbo-x.web.app/imp_info/hacker_engines_devices", "0.7", "monthly"),
     ("https://pwnbo-x.web.app/imp_info/linux", "0.7", "monthly"),
+    ("https://pwnbo-x.web.app/imp_info/ecosystem", "0.7", "monthly"),
 ]
 
 # 1. Update sitemap.txt

@@ -95,7 +95,8 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 - Tactical Notes Vault (Access via top navbar "NOTES" or hotkey 'N'):
   In-browser cloud-synced Markdown notes engine with preloaded cheat-sheets, social engineering vectors, and penetration testing payloads.
 - Important Info & Tools Matrix (Access via hotkey 'I'):
-  Career Paths, Ports & Protocols, HTTP Codes, General Cyber Intel, Google Dorking, Hacker Engines & Physical Devices, Linux Command Center.
+  1. Cybersecurity Ecosystem Mind Map: Interactive domain topology & attack-defense graph across 10 security disciplines (Offensive, Defensive, Network, IAM, Cryptography, Cloud, DFIR, GRC, Emerging). Features 31+ topic nodes, MITRE alignment, tool stacks, live CLI command recipes, 3-tier difficulty filtering (Beginner, Intermediate, Advanced), and a 10-step guided learning path.
+  2. Specializations & Career Paths, 37 Ports & Protocols, HTTP Status Codes, General Cyber Intel (Shortcuts & OS Timeline), Google Dorking Database & Builder, Hacker Search Engines & Physical Hardware Devices (3D Models), Linux Terminal Mastery & Slide 13 Mind Map.
 - Cyber AI Oracle (Access via "Oracle Mode ↗" in this copilot or hotkey 'A'):
   Full-screen deep threat intelligence oracle powered by Groq for complete exploit recipes, MITRE ATT&CK mappings, and lab walk-throughs.
 - Keyboard Shortcuts:

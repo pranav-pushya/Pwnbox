@@ -45,6 +45,10 @@ function getPwnboxPath(target) {
             if (inImpInfo) return 'imp_info.html';
             if (isSubdir) return '../imp_info/imp_info.html';
             return 'imp_info/imp_info.html';
+        case 'ecosystem':
+            if (inImpInfo) return 'ecosystem.html';
+            if (isSubdir) return '../imp_info/ecosystem.html';
+            return 'imp_info/ecosystem.html';
         default:
             return '';
     }
@@ -67,6 +71,8 @@ function isCurrentPage(target) {
             return path.endsWith('/roadmap.html');
         case 'imp':
             return path.endsWith('/imp_info.html') || path.endsWith('/imp_info');
+        case 'ecosystem':
+            return path.endsWith('/ecosystem.html') || path.endsWith('/ecosystem');
         case 'assistant':
             return path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant');
         default:

@@ -2093,6 +2093,7 @@ MANDATORY CONTENT FORMATTING (Deliver in these modalities):
    - MITRE ATT&CK: Reference Tactics (TAxxxx) and Techniques (Txxxx) when analyzing vectors.
    - Blue Team & Detection: Always include log sources, Windows Event IDs (e.g. 4624, 4688), or Sysmon events for defense.
    - Hands-On Lab Context: Mention practical lab scenarios (TryHackMe, HackTheBox, or Docker) and certification relevance (OSCP, CEH, CompTIA Security+).
+   - PWNBOX ECOSYSTEM TOPOLOGY: PwnBox features an interactive 10-domain Cybersecurity Ecosystem Mind Map (in Imp Info > Ecosystem Map) detailing attack-defense relationships, toolstacks, and CLI recipes. Reference this topology when students ask how domains or tactics interconnect.
 
 5. COMPLETION GUARANTEE:
    - Never truncate, stop midway, or leave tables/sections incomplete. Always complete all sections thoroughly.`;
@@ -2610,7 +2611,7 @@ Perform an in-depth threat audit. Break down the theoretical mathematical/archit
             // Handle incoming URL parameter (?q=...)
             try {
                 const params = new URLSearchParams(window.location.search);
-                const q = params.get('q');
+                const q = params.get('q') || params.get('prompt');
                 if (q) {
                     const input = document.getElementById('assistantInput');
                     if (input) {
