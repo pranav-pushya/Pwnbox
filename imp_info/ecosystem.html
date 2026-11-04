@@ -191,6 +191,26 @@
             box-shadow: 3px 3px 0 var(--border-color, #0a0a0a);
         }
 
+        /* Unified Floating HUD Dock - Always covers whole content edge-to-edge */
+        #hud-dock {
+            width: max-content !important;
+            max-width: calc(100vw - 24px) !important;
+            box-sizing: border-box !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow-x: auto !important;
+            scrollbar-width: none !important;
+        }
+        #hud-dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        [data-theme="light"] #hud-dock {
+            box-shadow: 4px 4px 0 var(--border-color, #0a0a0a) !important;
+            border: 2px solid var(--border-color, #0a0a0a) !important;
+        }
+
         /* D3 Graph Customizations */
         .node circle {
             transition: all 0.25s ease;
@@ -336,7 +356,7 @@
             <svg id="mindmap-svg" class="w-full h-full"></svg>
 
             <!-- Floating Bottom HUD Dock: View Modes, Level, Learning Path & Zoom (Unified bottom dock, fully visible above bottom edge) -->
-            <div class="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-nowrap items-center justify-center gap-1.5 sm:gap-2 glass-panel px-3 py-1.5 rounded-xl shadow-2xl border max-w-[96vw]" style="border-color: var(--eco-border); background: var(--eco-panel);">
+            <div id="hud-dock" class="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-nowrap items-center justify-center gap-1.5 sm:gap-2 glass-panel px-4 py-1.5 rounded-full shadow-2xl border" style="border-color: var(--eco-border); background: var(--eco-panel);">
                 <!-- View Mode Selector -->
                 <div class="flex items-center rounded-lg p-0.5 border flex-shrink-0" style="border-color: var(--eco-border); background: var(--bg-card, #171e30);">
                     <button onclick="setViewMode('all')" id="btn-mode-all" class="px-2.5 py-1 rounded text-xs font-semibold text-white bg-slate-800 transition-all border border-slate-700">
@@ -1274,82 +1294,82 @@
         const NODE_TARGETS = {
             CORE: { rx: 0, ry: 0 },
 
-            // OFFENSIVE (Left: rx from -0.44 to -1.14, ry ~ -0.32 to +0.12)
-            OSINT:          { rx: -0.44, ry: -0.06 },
-            PHISHING:       { rx: -0.62, ry: -0.24 },
-            FOOTPRINTING:   { rx: -0.68, ry: -0.06 },
-            VULN_ASSESS:    { rx: -0.84, ry: -0.16 },
-            EXPLOITATION:   { rx: -0.98, ry: -0.08 },
-            CRED_THEFT:     { rx: -1.14, ry: -0.22 },
-            BINARY_EXPLOIT: { rx: -0.96, ry: -0.32 },
-            RED_TEAMING:    { rx: -0.86, ry: 0.12 },
+            // OFFENSIVE (West: rx from -0.42 to -1.14, ry from -0.48 to +0.14)
+            OSINT:          { rx: -0.42, ry: -0.10 },
+            FOOTPRINTING:   { rx: -0.62, ry: -0.15 },
+            VULN_ASSESS:    { rx: -0.80, ry: -0.25 },
+            PHISHING:       { rx: -0.60, ry: -0.42 },
+            EXPLOITATION:   { rx: -0.96, ry: -0.15 },
+            CRED_THEFT:     { rx: -1.14, ry: -0.30 },
+            BINARY_EXPLOIT: { rx: -1.02, ry: -0.48 },
+            RED_TEAMING:    { rx: -0.88, ry: 0.14 },
 
-            // IAM (Top-Left: rx ~ -0.38 to -0.76, ry ~ -0.28 to -0.76)
-            IAM_AUTH:     { rx: -0.38, ry: -0.46 },
-            OWASP_TOP10:  { rx: -0.44, ry: -0.28 },
-            ACTIVE_DIR:   { rx: -0.68, ry: -0.76 },
-            SECURE_CODING:{ rx: -0.76, ry: -0.52 },
-            DEVSECOPS:    { rx: -0.52, ry: -0.64 },
-            API_SEC:      { rx: -0.62, ry: -0.38 },
+            // IAM (North-West: rx ~ -0.36 to -0.74, ry ~ -0.36 to -0.96)
+            OWASP_TOP10:  { rx: -0.42, ry: -0.36 },
+            IAM_AUTH:     { rx: -0.36, ry: -0.60 },
+            API_SEC:      { rx: -0.58, ry: -0.50 },
+            SECURE_CODING:{ rx: -0.74, ry: -0.68 },
+            DEVSECOPS:    { rx: -0.50, ry: -0.82 },
+            ACTIVE_DIR:   { rx: -0.70, ry: -0.96 },
 
-            // NETWORK (Bottom-Left: rx ~ -0.42 to -0.98, ry ~ 0.30 to 0.78)
-            FIREWALLS:    { rx: -0.42, ry: 0.30 },
-            IDS_IPS:      { rx: -0.60, ry: 0.44 },
-            SEGMENTATION: { rx: -0.76, ry: 0.54 },
-            VPN:          { rx: -0.68, ry: 0.70 },
-            OT_ICS:       { rx: -0.98, ry: 0.60 },
-            IOT_SEC:      { rx: -0.88, ry: 0.78 },
+            // CLOUD (North: rx ~ -0.14 to +0.14, ry ~ -0.70 to -1.02)
+            CSPM:         { rx: -0.10, ry: -0.70 },
+            SHARED_RESP:  { rx: 0.14,  ry: -0.72 },
+            K8S_SECURITY: { rx: -0.14, ry: -0.96 },
+            CLOUD_IAM:    { rx: 0.08,  ry: -1.02 },
 
-            // CRYPTOGRAPHY (South-Southwest: rx ~ -0.24 to -0.38, ry ~ 0.48 to 0.90)
-            ENCRYPTION:   { rx: -0.26, ry: 0.48 },
-            TLS:          { rx: -0.38, ry: 0.66 },
-            HASHING:      { rx: -0.24, ry: 0.80 },
-            PKI_CERTS:    { rx: -0.36, ry: 0.90 },
+            // DEFENSIVE (North-East: rx from +0.42 to +1.18, ry ~ -0.20 to -0.96)
+            SIEM_LOGS:      { rx: 0.42, ry: -0.28 },
+            IR_SOAR:        { rx: 0.68, ry: -0.20 },
+            EDR_XDR:        { rx: 0.62, ry: -0.46 },
+            THREAT_HUNTING: { rx: 0.82, ry: -0.62 },
+            PATCH_MGMT:     { rx: 0.58, ry: -0.88 },
+            ZERO_TRUST:     { rx: 0.86, ry: -0.96 },
+            DETECTION_ENG:  { rx: 1.06, ry: -0.48 },
+            MITRE:          { rx: 1.18, ry: -0.70 },
 
-            // CLOUD (Top-Center: rx ~ -0.16 to +0.16, ry ~ -0.58 to -0.88)
-            CSPM:         { rx: -0.06, ry: -0.58 },
-            SHARED_RESP:  { rx: 0.16,  ry: -0.64 },
-            CLOUD_IAM:    { rx: 0.02,  ry: -0.88 },
-            K8S_SECURITY: { rx: -0.16, ry: -0.78 },
+            // DFIR (East: rx from +0.60 to +1.20, ry ~ 0.12 to 0.28)
+            FORENSICS:        { rx: 0.60, ry: 0.14 },
+            NET_FORENSICS:    { rx: 0.84, ry: 0.28 },
+            MALWARE_ANALYSIS: { rx: 1.08, ry: 0.12 },
+            THREAT_INTEL:     { rx: 1.20, ry: 0.26 },
 
-            // DEFENSIVE (Top-Right: rx from +0.44 to +1.25, ry ~ -0.22 to -0.80)
-            SIEM_LOGS:      { rx: 0.44, ry: -0.22 },
-            EDR_XDR:        { rx: 0.64, ry: -0.36 },
-            IR_SOAR:        { rx: 0.70, ry: -0.14 },
-            PATCH_MGMT:     { rx: 0.62, ry: -0.74 },
-            ZERO_TRUST:     { rx: 0.88, ry: -0.80 },
-            THREAT_HUNTING: { rx: 0.82, ry: -0.52 },
-            DETECTION_ENG:  { rx: 1.08, ry: -0.38 },
-            MITRE:          { rx: 1.25, ry: -0.54 },
+            // GRC (South-East: rx from +0.48 to +1.12, ry ~ 0.50 to 0.88)
+            GRC_FRAMEWORKS: { rx: 0.48, ry: 0.50 },
+            RISK_MGMT:      { rx: 0.72, ry: 0.66 },
+            COMPLIANCE:     { rx: 0.90, ry: 0.88 },
+            SUPPLY_CHAIN:   { rx: 1.12, ry: 0.76 },
 
-            // DFIR (Mid-Right: rx from +0.60 to +1.28, ry ~ 0.08 to 0.26)
-            FORENSICS:        { rx: 0.60, ry: 0.12 },
-            NET_FORENSICS:    { rx: 0.82, ry: 0.26 },
-            MALWARE_ANALYSIS: { rx: 1.05, ry: 0.08 },
-            THREAT_INTEL:     { rx: 1.28, ry: 0.16 },
+            // EMERGING (South-Southeast: rx ~ +0.28 to +0.42, ry ~ 0.60 to 1.02)
+            AI_SECURITY:   { rx: 0.28, ry: 0.60 },
+            PROMPT_INJ:    { rx: 0.42, ry: 0.84 },
+            POST_QUANTUM:  { rx: 0.34, ry: 1.02 },
 
-            // GRC (Bottom-Right: rx from +0.48 to +1.12, ry ~ 0.44 to 0.76)
-            GRC_FRAMEWORKS: { rx: 0.48, ry: 0.44 },
-            RISK_MGMT:      { rx: 0.70, ry: 0.56 },
-            COMPLIANCE:     { rx: 0.88, ry: 0.76 },
-            SUPPLY_CHAIN:   { rx: 1.12, ry: 0.64 },
+            // CRYPTO (South / South-Southwest: rx ~ -0.22 to -0.38, ry ~ 0.58 to 1.04)
+            ENCRYPTION:   { rx: -0.24, ry: 0.58 },
+            TLS:          { rx: -0.38, ry: 0.78 },
+            HASHING:      { rx: -0.22, ry: 0.92 },
+            PKI_CERTS:    { rx: -0.36, ry: 1.04 },
 
-            // EMERGING (South-Southeast: rx ~ +0.28 to +0.40, ry ~ 0.50 to 0.88)
-            AI_SECURITY:   { rx: 0.28, ry: 0.50 },
-            PROMPT_INJ:    { rx: 0.40, ry: 0.70 },
-            POST_QUANTUM:  { rx: 0.32, ry: 0.88 }
+            // NETWORK (South-West: rx ~ -0.42 to -1.02, ry ~ 0.36 to 0.90)
+            FIREWALLS:    { rx: -0.42, ry: 0.36 },
+            IDS_IPS:      { rx: -0.62, ry: 0.50 },
+            SEGMENTATION: { rx: -0.78, ry: 0.64 },
+            VPN:          { rx: -0.70, ry: 0.82 },
+            OT_ICS:       { rx: -1.02, ry: 0.70 },
+            IOT_SEC:      { rx: -0.92, ry: 0.90 }
         };
 
         const DOMAIN_CENTERS = {
-            OFFENSIVE: { rx: -0.80, ry: -0.10 },
-            NETWORK:   { rx: -0.70, ry: 0.54 },
-            IAM:       { rx: -0.58, ry: -0.52 },
-            CRYPTO:    { rx: -0.32, ry: 0.70 },
-            CLOUD:     { rx: 0.00,  ry: -0.70 },
-            DEFENSIVE: { rx: 0.84,  ry: -0.48 },
-            DFIR:      { rx: 0.92,  ry: 0.12 },
-            GRC:       { rx: 0.80,  ry: 0.58 },
-            EMERGING:  { rx: 0.32,  ry: 0.70 }
+            OFFENSIVE: { rx: -0.78, ry: -0.22 },
+            IAM:       { rx: -0.56, ry: -0.66 },
+            CLOUD:     { rx: 0.00,  ry: -0.85 },
+            DEFENSIVE: { rx: 0.80,  ry: -0.58 },
+            DFIR:      { rx: 0.94,  ry: 0.18 },
+            GRC:       { rx: 0.80,  ry: 0.68 },
+            EMERGING:  { rx: 0.34,  ry: 0.82 },
+            CRYPTO:    { rx: -0.30, ry: 0.84 },
+            NETWORK:   { rx: -0.70, ry: 0.64 }
         };
 
         function getNodeTarget(d, cx, cy, RX, RY) {
@@ -1463,11 +1483,11 @@
 
             // Dynamic widescreen-aware domain sector anchors (fills full canvas edge-to-edge)
             const cx = width / 2, cy = height / 2;
-            const RX = Math.max(600, width * 0.44);
-            const RY = Math.max(280, height * 0.38);
+            const RX = Math.max(560, width * 0.42);
+            const RY = Math.max(380, height * 0.46);
             
-            const haloRx = Math.min(220, Math.max(140, width * 0.10));
-            const haloRy = Math.min(160, Math.max(100, height * 0.14));
+            const haloRx = Math.min(210, Math.max(140, width * 0.10));
+            const haloRy = Math.min(170, Math.max(110, height * 0.15));
 
             const halo = containerGroup.append("g").attr("class", "halos");
             Object.keys(DOMAIN_CENTERS).forEach(k => {
@@ -1497,11 +1517,11 @@
             const sameDom = l => l.source.domain === l.target.domain || l.source.id === 'CORE' || l.target.id === 'CORE';
             simulation = d3.forceSimulation(graphData.nodes)
                 .force("link", d3.forceLink(graphData.links).id(d => d.id)
-                    .distance(l => sameDom(l) ? 95 : 200).strength(l => sameDom(l) ? 0.30 : 0.02))
-                .force("charge", d3.forceManyBody().strength(-350))
-                .force("x", d3.forceX(d => getNodeTarget(d, cx, cy, RX, RY).x).strength(d => d.id === 'CORE' ? 1.0 : 0.45))
-                .force("y", d3.forceY(d => getNodeTarget(d, cx, cy, RX, RY).y).strength(d => d.id === 'CORE' ? 1.0 : 0.45))
-                .force("collision", d3.forceCollide().radius(d => d.radius + 28));
+                    .distance(l => sameDom(l) ? 110 : 220).strength(l => sameDom(l) ? 0.28 : 0.015))
+                .force("charge", d3.forceManyBody().strength(-420))
+                .force("x", d3.forceX(d => getNodeTarget(d, cx, cy, RX, RY).x).strength(d => d.id === 'CORE' ? 1.0 : 0.50))
+                .force("y", d3.forceY(d => getNodeTarget(d, cx, cy, RX, RY).y).strength(d => d.id === 'CORE' ? 1.0 : 0.50))
+                .force("collision", d3.forceCollide().radius(d => d.radius + 30));
 
             linkElements = containerGroup.append("g")
                 .attr("class", "links")
@@ -1575,7 +1595,7 @@
             });
 
             // Pre-warm simulation so nodes take their initial positions immediately
-            for (let i = 0; i < 40; ++i) simulation.tick();
+            for (let i = 0; i < 80; ++i) simulation.tick();
 
             resetZoom();
         }
@@ -1890,7 +1910,7 @@
             const availableW = Math.max(300, w - panelW);
             
             // Pad coordinates to include labels and circular nodes cleanly
-            const padX = 65, padY = 38;
+            const padX = 50, padY = 30;
             const x0 = d3.min(ns, d => d.x - d.radius) - padX;
             const x1 = d3.max(ns, d => d.x + d.radius) + padX;
             const y0 = d3.min(ns, d => d.y - d.radius) - padY;
@@ -1900,9 +1920,9 @@
             const graphH = Math.max(100, y1 - y0);
             
             // Scale to fill available width and height comfortably edge-to-edge
-            const scaleX = (availableW - 30) / graphW;
-            const scaleY = (h - 80) / graphH;
-            const k = Math.max(0.35, Math.min(1.25, Math.min(scaleX, scaleY)));
+            const scaleX = (availableW - 24) / graphW;
+            const scaleY = (h - 68) / graphH;
+            const k = Math.max(0.45, Math.min(1.40, Math.min(scaleX, scaleY)));
             
             // Translate so node bounding box centers precisely within available area
             const graphMidX = (x0 + x1) / 2;
@@ -1927,11 +1947,11 @@
             svg.attr("width", width).attr("height", height);
 
             const cx = width / 2, cy = height / 2;
-            const RX = Math.max(600, width * 0.44);
-            const RY = Math.max(280, height * 0.38);
+            const RX = Math.max(560, width * 0.42);
+            const RY = Math.max(380, height * 0.46);
 
-            const haloRx = Math.min(220, Math.max(140, width * 0.10));
-            const haloRy = Math.min(160, Math.max(100, height * 0.14));
+            const haloRx = Math.min(210, Math.max(140, width * 0.10));
+            const haloRy = Math.min(170, Math.max(110, height * 0.15));
             if (containerGroup) {
                 containerGroup.selectAll(".halos ellipse")
                     .data(Object.keys(DOMAIN_CENTERS))
@@ -1946,8 +1966,8 @@
                     .attr("y", k => cy + DOMAIN_CENTERS[k].ry * RY - haloRy - 8);
             }
 
-            simulation.force("x", d3.forceX(d => getNodeTarget(d, cx, cy, RX, RY).x).strength(d => d.id === 'CORE' ? 1.0 : 0.45));
-            simulation.force("y", d3.forceY(d => getNodeTarget(d, cx, cy, RX, RY).y).strength(d => d.id === 'CORE' ? 1.0 : 0.45));
+            simulation.force("x", d3.forceX(d => getNodeTarget(d, cx, cy, RX, RY).x).strength(d => d.id === 'CORE' ? 1.0 : 0.50));
+            simulation.force("y", d3.forceY(d => getNodeTarget(d, cx, cy, RX, RY).y).strength(d => d.id === 'CORE' ? 1.0 : 0.50));
             simulation.alpha(0.3).restart();
             setTimeout(resetZoom, 150);
         }
