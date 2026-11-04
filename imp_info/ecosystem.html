@@ -76,6 +76,7 @@
 
     <style>
         :root {
+            color-scheme: dark;
             --eco-bg: #080C14;
             --eco-panel: rgba(15, 23, 42, 0.92);
             --eco-panel-solid: #0f172a;
@@ -92,6 +93,7 @@
         }
 
         [data-theme="light"] {
+            color-scheme: light;
             --eco-bg: #f4f4f0;
             --eco-panel: rgba(255, 255, 255, 0.96);
             --eco-panel-solid: #ffffff;
@@ -108,6 +110,7 @@
         }
 
         [data-theme="matrix"] {
+            color-scheme: dark;
             --eco-bg: #020804;
             --eco-panel: rgba(5, 18, 8, 0.94);
             --eco-panel-solid: #051208;
@@ -124,6 +127,7 @@
         }
 
         [data-theme="cyberpunk"] {
+            color-scheme: dark;
             --eco-bg: #0b0514;
             --eco-panel: rgba(20, 9, 36, 0.94);
             --eco-panel-solid: #140924;
@@ -209,6 +213,35 @@
         [data-theme="light"] #hud-dock {
             box-shadow: 4px 4px 0 var(--border-color, #0a0a0a) !important;
             border: 2px solid var(--border-color, #0a0a0a) !important;
+        }
+
+        /* Learning Path Select and Dropdown Options Styling */
+        #path-select {
+            color: var(--eco-text, #E2E8F0);
+            background: transparent;
+        }
+
+        #path-select option {
+            background-color: var(--eco-panel-solid, #0f172a);
+            color: var(--eco-text, #f1f5f9);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.75rem;
+            padding: 6px 10px;
+        }
+
+        [data-theme="light"] #path-select option {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+
+        [data-theme="matrix"] #path-select option {
+            background-color: #051208;
+            color: #00ff66;
+        }
+
+        [data-theme="cyberpunk"] #path-select option {
+            background-color: #140924;
+            color: #00f0ff;
         }
 
         /* D3 Graph Customizations */
