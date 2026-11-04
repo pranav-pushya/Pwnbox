@@ -415,7 +415,7 @@ function escapeHtml(str) {
 }
 
 // ==========================================================================
-// PAN & ZOOM CONTROLLER FOR MIND MAP CANVAS
+// PAN & ZOOM CONTROLLER FOR MIND MAP CANVAS (CURSOR FOCAL-POINT ZOOM)
 // ==========================================================================
 function setupPanZoom() {
     const wrap = document.getElementById('mindmapWrap');
@@ -426,15 +426,34 @@ function setupPanZoom() {
         surface.style.transform = `translate(${mindMapState.panX}px, ${mindMapState.panY}px) scale(${mindMapState.zoom})`;
     }
 
+    // Focal-point zoom engine: pins exact point under focalPoint (defaults to wrap center)
+    function applyZoom(delta, focalPoint = null) {
+        const oldZoom = mindMapState.zoom;
+        const newZoom = Math.max(0.35, Math.min(2.5, oldZoom + delta));
+        if (Math.abs(newZoom - oldZoom) < 0.0001) return;
+
+        const rect = wrap.getBoundingClientRect();
+        const focalX = (focalPoint && typeof focalPoint.x === 'number') ? focalPoint.x : rect.width / 2;
+        const focalY = (focalPoint && typeof focalPoint.y === 'number') ? focalPoint.y : rect.height / 2;
+
+        const ratio = newZoom / oldZoom;
+        mindMapState.panX = focalX - (focalX - mindMapState.panX) * ratio;
+        mindMapState.panY = focalY - (focalY - mindMapState.panY) * ratio;
+        mindMapState.zoom = newZoom;
+        updateTransform();
+    }
+
     // Center the view on load
     centerView();
 
     // Mouse Dragging to Pan
     wrap.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.cmd-pill') || e.target.closest('.desc-capsule') || e.target.closest('.hud-btn')) return;
+        if (e.button !== 0) return;
+        if (e.target.closest('.cmd-pill') || e.target.closest('.desc-capsule') || e.target.closest('.hud-btn') || e.target.closest('.mindmap-fullscreen-close')) return;
         mindMapState.isPanning = true;
         mindMapState.startX = e.clientX - mindMapState.panX;
         mindMapState.startY = e.clientY - mindMapState.panY;
+        wrap.style.cursor = 'grabbing';
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -445,38 +464,57 @@ function setupPanZoom() {
     });
 
     window.addEventListener('mouseup', () => {
-        mindMapState.isPanning = false;
+        if (mindMapState.isPanning) {
+            mindMapState.isPanning = false;
+            wrap.style.cursor = '';
+        }
     });
 
-    // Mouse Wheel Zoom
+    // Mouse Wheel Focal Zoom (Centered on Cursor)
     wrap.addEventListener('wheel', (e) => {
         e.preventDefault();
-        const zoomDelta = e.deltaY < 0 ? 0.08 : -0.08;
-        const newZoom = Math.max(0.4, Math.min(1.8, mindMapState.zoom + zoomDelta));
-        
-        // Zoom towards mouse pointer
+
         const rect = wrap.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
 
-        mindMapState.panX = mouseX - (mouseX - mindMapState.panX) * (newZoom / mindMapState.zoom);
-        mindMapState.panY = mouseY - (mouseY - mindMapState.panY) * (newZoom / mindMapState.zoom);
-        mindMapState.zoom = newZoom;
-        updateTransform();
+        let zoomDelta = 0;
+        if (e.ctrlKey) {
+            // Trackpad pinch-to-zoom gesture
+            zoomDelta = -e.deltaY * 0.01;
+        } else {
+            // Mouse wheel scroll notch
+            const step = Math.sign(e.deltaY) < 0 ? 0.09 : -0.09;
+            zoomDelta = step;
+        }
+
+        applyZoom(zoomDelta, { x: mouseX, y: mouseY });
     }, { passive: false });
 
-    // Touch Support for Mobile / Tablets
+    // Touch Support for Mobile / Tablets (Two-Finger Midpoint Pinch Zoom)
     let touchStartDist = 0;
+    let touchStartMidX = 0;
+    let touchStartMidY = 0;
+    let touchStartZoom = 1;
+    let touchStartPanX = 0;
+    let touchStartPanY = 0;
+
     wrap.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
             mindMapState.isPanning = true;
             mindMapState.startX = e.touches[0].clientX - mindMapState.panX;
             mindMapState.startY = e.touches[0].clientY - mindMapState.panY;
         } else if (e.touches.length === 2) {
-            touchStartDist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
+            mindMapState.isPanning = false;
+            const rect = wrap.getBoundingClientRect();
+            const t1 = e.touches[0];
+            const t2 = e.touches[1];
+            touchStartDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+            touchStartMidX = ((t1.clientX + t2.clientX) / 2) - rect.left;
+            touchStartMidY = ((t1.clientY + t2.clientY) / 2) - rect.top;
+            touchStartZoom = mindMapState.zoom;
+            touchStartPanX = mindMapState.panX;
+            touchStartPanY = mindMapState.panY;
         }
     }, { passive: true });
 
@@ -485,27 +523,37 @@ function setupPanZoom() {
             mindMapState.panX = e.touches[0].clientX - mindMapState.startX;
             mindMapState.panY = e.touches[0].clientY - mindMapState.startY;
             updateTransform();
-        } else if (e.touches.length === 2) {
-            const dist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            const factor = dist / touchStartDist;
-            mindMapState.zoom = Math.max(0.4, Math.min(1.8, mindMapState.zoom * factor));
-            touchStartDist = dist;
+        } else if (e.touches.length === 2 && touchStartDist > 0) {
+            const t1 = e.touches[0];
+            const t2 = e.touches[1];
+            const currentDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+            const scaleRatio = currentDist / touchStartDist;
+            const targetZoom = Math.max(0.35, Math.min(2.5, touchStartZoom * scaleRatio));
+
+            // Pin to touch midpoint
+            mindMapState.panX = touchStartMidX - (touchStartMidX - touchStartPanX) * (targetZoom / touchStartZoom);
+            mindMapState.panY = touchStartMidY - (touchStartMidY - touchStartPanY) * (targetZoom / touchStartZoom);
+            mindMapState.zoom = targetZoom;
             updateTransform();
         }
     }, { passive: true });
 
-    wrap.addEventListener('touchend', () => {
-        mindMapState.isPanning = false;
+    wrap.addEventListener('touchend', (e) => {
+        if (e.touches.length === 0) {
+            mindMapState.isPanning = false;
+            touchStartDist = 0;
+        } else if (e.touches.length === 1) {
+            mindMapState.isPanning = true;
+            mindMapState.startX = e.touches[0].clientX - mindMapState.panX;
+            mindMapState.startY = e.touches[0].clientY - mindMapState.panY;
+            touchStartDist = 0;
+        }
     });
 
     // Expose helpers
     window.centerView = centerView;
-    window.zoomMindMap = (factor) => {
-        mindMapState.zoom = Math.max(0.4, Math.min(1.8, mindMapState.zoom + factor));
-        updateTransform();
+    window.zoomMindMap = (factor, focalPoint = null) => {
+        applyZoom(factor, focalPoint);
     };
     window.fitToScreen = () => {
         const wrapRect = wrap.getBoundingClientRect();
