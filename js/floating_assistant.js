@@ -67,33 +67,37 @@
     const WEBSITE_KNOWLEDGE = `
 PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
 - 8 Training Modules:
-  1. Module 01: Footprinting & Reconnaissance — Whois, DNS enumeration, Shodan reconnaissance.
-  2. Module 02: Scanning Networks — Nmap sweeps, TCP/SYN port analysis, OS fingerprinting.
-  3. Module 03: Enumeration — NetBIOS, SNMP, SMB, RPC, LDAP directory extraction.
-  4. Module 04: Vulnerability Analysis — CVE indexing, CVSS scoring, OpenVAS and Nessus scans.
-  5. Module 05: System Hacking — Password cracking, privilege escalation, Metasploit automation.
-  6. Module 06: Web App Threats — OWASP Top 10, SQL injection, XSS, CSRF, Burp Suite interceptor.
-  7. Module 07: OSINT & Deep Recon — Maltego graphs, Google dorking, metadata harvesting.
-  8. Module 08: Black Ops & C2 Operations — Secret module! Unlocked via secret skull trigger 💀 or clearance.
+  1. Module 01: Footprinting & Reconnaissance (press '1') — Whois, DNS enumeration, Shodan reconnaissance, passive & active recon.
+  2. Module 02: Scanning Networks (press '2') — Nmap sweeps, TCP/SYN port analysis, OS fingerprinting, firewall evasion.
+  3. Module 03: Enumeration (press '3') — NetBIOS, SNMP, SMB, RPC, LDAP directory extraction, banner grabbing.
+  4. Module 04: Vulnerability Analysis (press '4') — CVE indexing, CVSS scoring, OpenVAS and Nessus scans.
+  5. Module 05: System Hacking (press '5') — Password cracking, privilege escalation, Metasploit automation, malware payloads.
+  6. Module 06: Web App Threats (press '6') — OWASP Top 10, SQL injection, XSS, CSRF, Burp Suite interceptor, credential theft, social engineering web vectors.
+  7. Module 07: OSINT & Deep Recon (press '7') — Social engineering reconnaissance, Maltego graphs, Google dorking, metadata harvesting, human intelligence (HUMINT), and employee profiling.
+  8. Module 08: Black Ops & C2 Operations (press '8') — Secret module! Unlocked via secret skull trigger 💀 or clearance.
 - 8 Cyber Arcade Mini-Games (Access via top navbar "GAMES" or hotkey 'G'):
-  1. Packet Gatekeeper: Firewall rule filtering (Port 80 vs 443, Telnet 23, SYN flood defense).
-  2. SQLi Locksmith: SQL injection payload bypass & authentication circumvention.
-  3. PrivEsc Tower: Multi-floor privilege escalation on Linux and Windows.
-  4. Ransomware Panic Room: Live incident response, process killing & decryptor crafting.
-  5. CIDR Block: Subnetting, network addressing & IP calculation speed run.
-  6. Cipher Relic: Cryptography puzzle (Caesar, Base64, Hex, Vigenère, XOR).
-  7. Entropy Clash: Password entropy, rainbow table resistance & brute-force defense.
-  8. Phish Detective: Email header forensics, SPF/DKIM inspection & spear-phishing triage.
+  1. Phish Detective: Dedicated social engineering & phishing simulation! Inspect email headers, SPF/DKIM records, sender spoofing, spear-phishing cues, and psychological urgency triggers.
+  2. Packet Gatekeeper: Firewall rule filtering (Port 80 vs 443, Telnet 23, SYN flood defense).
+  3. SQLi Locksmith: SQL injection payload bypass & authentication circumvention.
+  4. PrivEsc Tower: Multi-floor privilege escalation on Linux and Windows.
+  5. Ransomware Panic Room: Live incident response, process killing & decryptor crafting.
+  6. CIDR Block: Subnetting, network addressing & IP calculation speed run.
+  7. Cipher Relic: Cryptography puzzle (Caesar, Base64, Hex, Vigenère, XOR).
+  8. Entropy Clash: Password entropy, rainbow table resistance & brute-force defense.
+- Master Guide (Access via top navbar "MASTER GUIDE" or hotkey 'M'):
+  10 comprehensive chapters covering 75+ core cybersecurity concepts with real-world analogies:
+  - Chapter 01: Cybersecurity Fundamentals & The Human Attack Vector (in-depth coverage of Social Engineering: Phishing, Vishing, Smishing, Whaling, Pretexting, Baiting, Tailgating, and psychological manipulation triggers).
+  - Chapter 06: Web Application Security & Client Attacks.
+  - Chapter 07: OSINT & Threat Reconnaissance.
+  - Chapter 08: Incident Response & Threat Hunting.
 - Career Roadmap (Access via top navbar "ROADMAP" or hotkey 'R'):
   4 Progression Phases: Phase 1 Novice (Foundations), Phase 2 Specialist (Red/Blue teaming), Phase 3 Operator (Advanced exploit/defense), Phase 4 Architect (CISO & Security leadership).
-- Master Guide (Access via top navbar or hotkey 'M'):
-  10 comprehensive chapters covering 75+ core cybersecurity concepts with analogies.
 - Tactical Notes Vault (Access via top navbar "NOTES" or hotkey 'N'):
-  In-browser cloud-synced Markdown notes engine with default briefings and code snippets.
+  In-browser cloud-synced Markdown notes engine with preloaded cheat-sheets, social engineering vectors, and penetration testing payloads.
 - Important Info & Tools Matrix (Access via hotkey 'I'):
   Career Paths, Ports & Protocols, HTTP Codes, General Cyber Intel, Google Dorking, Hacker Engines & Physical Devices, Linux Command Center.
 - Cyber AI Oracle (Access via "Oracle Mode ↗" in this copilot or hotkey 'A'):
-  Full-screen deep threat intelligence oracle powered by Groq.
+  Full-screen deep threat intelligence oracle powered by Groq for complete exploit recipes, MITRE ATT&CK mappings, and lab walk-throughs.
 - Keyboard Shortcuts:
   Ctrl+/ = Tactical Command HUD, T = Theme toggle, H = Home, D = Dashboard, G = Games, N = Notes, R = Roadmap, M = Master Guide, A = Cyber Oracle, S = Settings.
 - Authentication & Clearance:
@@ -276,7 +280,10 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
         if (label) label.textContent = COPILOT_SIZE_LABELS[nextSize];
     };
 
+    let floatingChatHistory = [];
+
     window.clearFloatingChat = function () {
+        floatingChatHistory = [];
         const history = document.getElementById('pwnFloatingChatHistory');
         const telemetry = getUserTelemetry();
         if (history) {
@@ -436,11 +443,11 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
             return;
         }
 
-        const systemPrompt = `You are the PwnBox Academy Tactical AI Copilot. Your absolute mandate is to give ULTRA-CRISP, 1-TO-2 SENTENCE DIRECT ANSWERS.
+        const systemPrompt = `You are the PwnBox Academy Tactical AI Copilot. Your role is to guide operatives, answer technical cybersecurity questions, check user telemetry progress, and point them to exact modules, games, and chapters.
 
-USER STATUS:
+OPERATIVE TELEMETRY:
 - Callsign: ${telemetry.alias}
-- Auth: ${telemetry.isAuth}
+- Auth Status: ${telemetry.isAuth}
 - Earned XP: ${telemetry.totalXp}
 - Module 08 Status: ${telemetry.gate08}
 - Saved Notes: ${telemetry.notesCount}
@@ -449,12 +456,23 @@ USER STATUS:
 
 ${WEBSITE_KNOWLEDGE}
 
-STRICT ANSWERING RULES:
-1. EXTREME BREVITY: Answer ONLY what was asked in 1 or 2 crisp sentences. Do NOT give long, detailed explanations. Do NOT provide unrequested background, bulleted lists, or essays.
-2. NEVER mention any ".html" file names or URL paths (DO NOT say "notes.html", "roadmap.html", "games.html", etc.).
-3. To open or find sections, simply state the section name and its keyboard shortcut (e.g. "Open **Tactical Notes Vault** from the top navbar, or press 'N'.").
-4. If asked about progress, state only the XP and completed items in one sentence.
-5. Answer strictly what the user asked. No fluff.`;
+CORE INSTRUCTIONS:
+1. COMPLETION GUARANTEE (CRITICAL): Always generate a 100% complete answer. NEVER stop mid-sentence, truncate words, or leave thoughts/markdown unclosed. Complete every list, sentence, and section fully.
+2. HELPFUL & DIRECT: Answer what the user asked thoroughly without unnecessary preamble. When asked where certain topics exist on the website (e.g. social engineering, SQLi, malware, OSINT, etc.), list every relevant module, mini-game, master guide chapter, and notes section clearly with key highlights.
+3. FORMATTING: Use clean Markdown formatting, bold section titles, and concise bullet points when referencing multiple locations.
+4. NAVIGATION & SHORTCUTS: Never mention raw ".html" file extensions. Refer to sections by name and keyboard shortcut (e.g. "Module 07: OSINT & Deep Recon (press '7')", "Phish Detective in Games (press 'G')", "Master Guide (press 'M')", "Tactical Notes (press 'N')").
+5. USER PROGRESS: If asked about progress, state their exact XP, completed modules count, and saved notes from the telemetry above.`;
+
+        // Maintain multi-turn conversation history for ambient chat
+        floatingChatHistory.push({ role: "user", content: text });
+        if (floatingChatHistory.length > 10) {
+            floatingChatHistory = floatingChatHistory.slice(-10);
+        }
+
+        const requestMessages = [
+            { role: "system", content: systemPrompt },
+            ...floatingChatHistory
+        ];
 
         const loadingId = "pwn-ai-load-" + Date.now();
         showFloatingTyping(loadingId);
@@ -464,12 +482,9 @@ STRICT ANSWERING RULES:
             if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
                 data = await window.GroqService.callGroqChat({
                     model: "openai/gpt-oss-120b",
-                    messages: [
-                        { role: "system", content: systemPrompt },
-                        { role: "user", content: text }
-                    ],
+                    messages: requestMessages,
                     temperature: 0.5,
-                    max_tokens: 180
+                    max_tokens: 2048
                 });
             } else {
                 const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -480,12 +495,9 @@ STRICT ANSWERING RULES:
                     },
                     body: JSON.stringify({
                         model: "openai/gpt-oss-120b",
-                        messages: [
-                            { role: "system", content: systemPrompt },
-                            { role: "user", content: text }
-                        ],
+                        messages: requestMessages,
                         temperature: 0.5,
-                        max_tokens: 180
+                        max_tokens: 2048
                     })
                 });
                 data = await response.json();
@@ -493,14 +505,18 @@ STRICT ANSWERING RULES:
 
             removeFloatingTyping(loadingId);
             if (data.error) {
+                floatingChatHistory.pop();
                 addFloatingBubble(`⚠️ AI Error: ${data.error.message || 'Service unavailable'}`, 'bot');
             } else if (data.choices && data.choices[0] && data.choices[0].message) {
                 const reply = data.choices[0].message.content || 'Response processed.';
+                floatingChatHistory.push({ role: "assistant", content: reply });
                 addFloatingBubble(formatAssistantMarkdown(reply), 'bot');
             } else {
+                floatingChatHistory.pop();
                 addFloatingBubble("Unable to parse response from intelligence core. Please retry.", 'bot');
             }
         } catch (err) {
+            floatingChatHistory.pop();
             removeFloatingTyping(loadingId);
             addFloatingBubble("⚠️ Network Error: Could not connect to PwnBox AI service. Please check your connection.", 'bot');
         }

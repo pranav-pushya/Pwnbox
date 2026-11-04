@@ -211,7 +211,7 @@ Format requirements:
                         { role: "user", content: text }
                     ],
                     temperature: 0.7,
-                    max_tokens: 600
+                    max_tokens: 2048
                 });
             } else {
                 const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -227,7 +227,7 @@ Format requirements:
                             { role: "user", content: text }
                         ],
                         temperature: 0.7,
-                        max_tokens: 600
+                        max_tokens: 2048
                     })
                 });
                 data = await response.json();

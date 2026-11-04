@@ -25,7 +25,7 @@ async function callGroqChat({
     messages,
     model = DEFAULT_MODEL,
     temperature = 0.7,
-    max_tokens = 1024
+    max_tokens = 2048
 }) {
     // Step 0: Strict Authentication Guard (AI Assistant restricted to authenticated operatives)
     const isAuth = typeof localStorage !== 'undefined' && localStorage.getItem('pwnbox_is_authenticated') === 'true';
