@@ -110,6 +110,14 @@
             </div>
 
             <div class="term-toolbar-group">
+                <span class="term-mode-indicator" id="termModeIndicator" title="Press Esc to enable single-key page navigation (D, H, G, N, T), Enter to type in terminal">
+                    <span id="termModeDot" style="color: #22c55e;">●</span>
+                    <span id="termModeText">SHELL ACTIVE</span>
+                    <span style="font-size: 0.68rem; opacity: 0.75;">(Esc: Nav Mode | Ctrl+/: HUD)</span>
+                </span>
+            </div>
+
+            <div class="term-toolbar-group">
                 <button type="button" class="term-tool-btn" onclick="PwnTerminal.toggleCrt()" title="Toggle CRT Scanline Overlay">
                     📺 TOGGLE CRT SCANLINES
                 </button>
@@ -125,16 +133,20 @@
         <!-- Quick Tactical One-Liner Launcher Pills -->
         <section class="term-quick-bar">
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('help')">help</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('man nmap')">man nmap</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('nmap -sV 10.10.10.27')">nmap -sV 10.10.10.27</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('cat notes.txt')">cat notes.txt</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('whoami')">whoami</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('id')">id</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('sudo su')">sudo su</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('ifconfig')">ifconfig</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('ps')">ps</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('ping 10.10.10.27')">ping 10.10.10.27</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('hashcat 5d41402abc4b2a76b9719d911017c592')">hashcat</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('notes')">notes</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('payloads')">payloads</button>
             <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('pwn ctf')">pwn ctf</button>
+            <button type="button" class="term-quick-pill" onclick="PwnTerminal.runQuickCmd('ask how to escalate privileges')">ask ai</button>
         </section>
 
         <!-- CRT Terminal Window Frame -->
@@ -182,16 +194,7 @@
     <script src="js/firebase_auth.js"></script>
     <script src="js/cloud_sync.js"></script>
     <script src="js/terminal.js"></script>
-
-    <script>
-        // Page Theme Toggle
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme') || 'light';
-            const next = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-        }
-    </script>
+    <script src="js/theme.js"></script>
     <script src="js/mobile_nav.js?v=2.0"></script>
 </body>
 

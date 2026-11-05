@@ -386,3 +386,87 @@
 .terminal-screen::-webkit-scrollbar-thumb {
     background: var(--term-text-dim);
 }
+
+/* --- Terminal Mode Indicator & Tactical Helpers --- */
+.term-mode-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.term-mode-indicator.nav-mode {
+    background: var(--bauhaus-yellow);
+    color: #000;
+    border-color: var(--border-color);
+}
+
+.term-dir {
+    color: #38bdf8;
+    font-weight: 700;
+}
+
+.term-exec {
+    color: #4ade80;
+    font-weight: 700;
+}
+
+.term-file {
+    color: var(--term-text);
+}
+
+.term-flag {
+    color: #facc15;
+    font-weight: 800;
+}
+
+.term-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    margin: 6px 0;
+}
+
+.term-table th {
+    text-align: left;
+    color: var(--term-prompt);
+    border-bottom: 1px solid var(--term-text-dim);
+    padding: 3px 8px;
+}
+
+.term-table td {
+    padding: 3px 8px;
+    color: var(--term-text);
+    vertical-align: top;
+}
+
+.term-man-box {
+    border: 1px dashed var(--term-prompt);
+    padding: 10px 14px;
+    margin: 8px 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.term-man-title {
+    color: var(--term-accent);
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.term-man-section {
+    color: var(--term-prompt);
+    font-weight: 700;
+    margin-top: 6px;
+    margin-bottom: 2px;
+}

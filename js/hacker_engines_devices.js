@@ -280,6 +280,16 @@ function closeDeviceInspectModal() {
     document.body.style.overflow = '';
 }
 
+function launch3DFromInspectModal() {
+    const modal = document.getElementById('deviceInspectModal');
+    if (!modal) return;
+    const name = modal.querySelector('.modal-device-name')?.textContent || 'Device';
+    const img = modal.querySelector('.modal-img-stage img')?.src || '';
+    closeDeviceInspectModal();
+    open3DViewer(img, name, '');
+}
+window.launch3DFromInspectModal = launch3DFromInspectModal;
+
 function copyCurrentModalIntel() {
     const modal = document.getElementById('deviceInspectModal');
     if (!modal) return;
@@ -290,8 +300,11 @@ function copyCurrentModalIntel() {
 }
 
 // ==========================================================================
-// FULLSCREEN 3D MODEL VIEWER & THEME MESH LAB (THREE.JS + D3.JS TELEMETRY)
 // ==========================================================================
+// PHOTOREALISTIC 3D HARDWARE ANATOMY & D3.JS TELEMETRY ENGINE (PRO EDITION)
+// Physically Based Rendering (PBR), Studio HDRI Reflections & Micro-Surfaces
+// ==========================================================================
+
 const viewer3D = {
     active: false,
     renderer: null,
@@ -301,16 +314,18 @@ const viewer3D = {
     deviceGroup: null,
     explodedParts: [],
     floorMesh: null,
+    contactShadow: null,
     ceilingMesh: null,
     particles: null,
     radarGrid: null,
+    envMap: null,
     autoRotate: true,
     isDragging: false,
     pointerStart: { x: 0, y: 0 },
-    currentRotation: { x: 0.15, y: 0 },
-    targetRotation: { x: 0.15, y: 0 },
-    cameraDistance: 6.5,
-    targetCameraDistance: 6.5,
+    currentRotation: { x: 0.18, y: 0 },
+    targetRotation: { x: 0.18, y: 0 },
+    cameraDistance: 6.2,
+    targetCameraDistance: 6.2,
     minDistance: 2.2,
     maxDistance: 12.0,
     clock: null,
@@ -325,10 +340,6 @@ const viewer3D = {
     d3SpectrumTimer: null,
     d3Simulation: null
 };
-
-// ==========================================================================
-// DYNAMIC PROCEDURAL TEXTURES (ANIMATED CYBER LCDS & DETAILED PCBS)
-// ==========================================================================
 
 function getDeviceKey(name = '', imgSrc = '') {
     const s = (name + ' ' + imgSrc).toLowerCase();
@@ -346,189 +357,173 @@ function getDeviceKey(name = '', imgSrc = '') {
 }
 window.getDeviceKey = getDeviceKey;
 
-// 1. Flipper Zero Animated LCD Screen (Cyber-Dolphin Mascot & Sub-GHz Readout)
-function createFlipperLcdTexture() {
+// ==========================================================================
+// PBR STUDIO ENVIRONMENT & MICRO-SURFACE GENERATORS
+// ==========================================================================
+
+// 1. Dynamic Cyber Studio HDRI Reflection Map (Gives metals realistic specular glints)
+function createCyberStudioEnvironment(renderer) {
+    if (!renderer || typeof THREE.PMREMGenerator === 'undefined') return null;
+
+    try {
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        pmrem.compileEquirectangularShader();
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 1024;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+
+        // Dark slate studio gradient background
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, 512);
+        bgGrad.addColorStop(0, '#040711');
+        bgGrad.addColorStop(0.5, '#0a1024');
+        bgGrad.addColorStop(1, '#020409');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, 1024, 512);
+
+        // Key Studio Softbox (Top-Right, 5600K Clean White)
+        const key = ctx.createRadialGradient(760, 130, 10, 760, 130, 240);
+        key.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
+        key.addColorStop(0.35, 'rgba(235, 245, 255, 0.7)');
+        key.addColorStop(1, 'transparent');
+        ctx.fillStyle = key;
+        ctx.fillRect(520, 0, 480, 360);
+
+        // Cyan Rim Studio Light (Top-Left, Tactical Cyan #00ffcc)
+        const rim = ctx.createRadialGradient(260, 150, 10, 260, 150, 220);
+        rim.addColorStop(0, 'rgba(0, 255, 204, 0.95)');
+        rim.addColorStop(0.4, 'rgba(0, 200, 215, 0.45)');
+        rim.addColorStop(1, 'transparent');
+        ctx.fillStyle = rim;
+        ctx.fillRect(60, 0, 400, 360);
+
+        // Cobalt Floor Fill (Bottom-Center, #005A9C)
+        const fill = ctx.createRadialGradient(512, 420, 10, 512, 420, 280);
+        fill.addColorStop(0, 'rgba(0, 90, 156, 0.6)');
+        fill.addColorStop(1, 'transparent');
+        ctx.fillStyle = fill;
+        ctx.fillRect(200, 220, 624, 292);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.mapping = THREE.EquirectangularReflectionMapping;
+        const envMap = pmrem.fromEquirectangular(tex).texture;
+        pmrem.dispose();
+        return envMap;
+    } catch (e) {
+        return null;
+    }
+}
+
+// 2. Knurled Diamond Cross-Hatch Texture (For RP-SMA Brass Connector Nuts)
+function createKnurlingTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#808080';
+    ctx.fillRect(0, 0, 256, 256);
+
+    ctx.strokeStyle = '#222222';
+    ctx.lineWidth = 2.5;
+
+    for (let i = -256; i < 512; i += 16) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0); ctx.lineTo(i + 256, 256);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(i, 256); ctx.lineTo(i + 256, 0);
+        ctx.stroke();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 1);
+    return tex;
+}
+
+// 3. Brushed Aluminum Micro-Texture (For USB Plugs & ESP32 RF Shield Cans)
+function createBrushedMetalTexture() {
     const canvas = document.createElement('canvas');
     canvas.width = 512;
     canvas.height = 256;
     const ctx = canvas.getContext('2d');
 
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
+    ctx.fillStyle = '#b0b8c0';
+    ctx.fillRect(0, 0, 512, 256);
 
-    let frame = 0;
-    function update(elapsed) {
-        frame++;
-        // Flipper signature vibrant orange backlight
-        ctx.fillStyle = '#ff8400';
-        ctx.fillRect(0, 0, 512, 256);
-
-        // Pixel grid matrix effect
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        for (let y = 0; y < 256; y += 4) {
-            ctx.fillRect(0, y, 512, 1);
-        }
-
-        // Inner display frame border
-        ctx.strokeStyle = '#1a0d00';
-        ctx.lineWidth = 4;
-        ctx.strokeRect(8, 8, 496, 240);
-
-        // Cyber-Dolphin Mascot Drawing
-        ctx.fillStyle = '#1a0d00';
-        const dolphinY = 120 + Math.sin(elapsed * 4) * 6;
-        
-        // Dolphin Body
-        ctx.beginPath();
-        ctx.ellipse(120, dolphinY, 55, 30, -0.15, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Snout
-        ctx.beginPath();
-        ctx.moveTo(170, dolphinY - 5);
-        ctx.lineTo(200, dolphinY + 2);
-        ctx.lineTo(165, dolphinY + 14);
-        ctx.fill();
-
-        // Dorsal Fin
-        ctx.beginPath();
-        ctx.moveTo(110, dolphinY - 26);
-        ctx.lineTo(95, dolphinY - 52);
-        ctx.lineTo(135, dolphinY - 24);
-        ctx.fill();
-
-        // Tail flukes
-        const tailFlap = Math.sin(elapsed * 8) * 8;
-        ctx.beginPath();
-        ctx.moveTo(70, dolphinY + 4);
-        ctx.lineTo(35, dolphinY - 14 + tailFlap);
-        ctx.lineTo(45, dolphinY + 4);
-        ctx.lineTo(32, dolphinY + 24 - tailFlap);
-        ctx.fill();
-
-        // Blinking Eye
-        const isBlinking = (Math.floor(elapsed * 2) % 6 === 0);
-        ctx.fillStyle = '#ff8400';
-        if (isBlinking) {
-            ctx.fillRect(160, dolphinY - 6, 8, 2);
-        } else {
-            ctx.beginPath();
-            ctx.arc(162, dolphinY - 6, 5, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // Cyber Dolphin expression: Tamagotchi smile
-        ctx.strokeStyle = '#ff8400';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.arc(178, dolphinY + 3, 6, 0.1 * Math.PI, 0.9 * Math.PI);
-        ctx.stroke();
-
-        // HUD Technical Readouts
-        ctx.fillStyle = '#1a0d00';
-        ctx.font = 'bold 22px "Space Mono", monospace';
-        ctx.fillText('SUB-GHZ RX // ACTIVE', 215, 48);
-
-        ctx.font = 'bold 36px "Space Mono", monospace';
-        ctx.fillText('433.92 MHz', 215, 96);
-
-        ctx.font = '16px "Space Mono", monospace';
-        ctx.fillText('MOD: AM650  RSSI: -44dBm', 215, 132);
-        ctx.fillText('HOPPING: CH 01-14 [LOCK]', 215, 158);
-
-        // Dynamic Frequency Spectrum Bars on Screen
-        for (let i = 0; i < 18; i++) {
-            const h = Math.abs(Math.sin(elapsed * 3 + i * 0.45)) * 45 + 5;
-            ctx.fillRect(215 + i * 15, 225 - h, 11, h);
-        }
-
-        texture.needsUpdate = true;
+    for (let y = 0; y < 256; y += 2) {
+        const val = Math.floor(140 + Math.random() * 80);
+        ctx.fillStyle = `rgb(${val},${val},${val})`;
+        ctx.fillRect(0, y, 512, 1.5);
     }
 
-    return { texture, update };
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(2, 2);
+    return tex;
 }
 
-// 2. Kali NetHunter Live Animated Linux Terminal Texture
-function createKaliTerminalTexture() {
+// 4. Stippled Matte ABS Plastic Texture (For Tactical Housings)
+function createStippledPlasticTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(0, 0, 256, 256);
+
+    for (let i = 0; i < 6000; i++) {
+        const x = Math.random() * 256;
+        const y = Math.random() * 256;
+        const v = Math.random() > 0.5 ? 25 : 55;
+        ctx.fillStyle = `rgb(${v},${v},${v})`;
+        ctx.fillRect(x, y, 1.2, 1.2);
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(6, 6);
+    return tex;
+}
+
+// 5. Soft Drop Shadow Ground Plane (Grounds the device with realistic ambient occlusion)
+function createContactShadowPlane() {
     const canvas = document.createElement('canvas');
     canvas.width = 512;
     canvas.height = 512;
     const ctx = canvas.getContext('2d');
 
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
+    const grad = ctx.createRadialGradient(256, 256, 20, 256, 256, 230);
+    grad.addColorStop(0, 'rgba(0, 0, 0, 0.85)');
+    grad.addColorStop(0.35, 'rgba(0, 0, 0, 0.55)');
+    grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.2)');
+    grad.addColorStop(1, 'transparent');
 
-    const terminalLines = [
-        '[+] Kali NetHunter 2026.4 Kernel 6.8.0-kali-arm64',
-        '[+] Interface wlan0mon injected into promiscuous mode',
-        '[*] BSSID [18:64:72:A1:BC:0F] PWR: -36dBm CH: 6 ESSID: Corp_CorpNet',
-        '[!] Deauth packet broadcast sent: 128 pkts/sec',
-        '[+] WPA2 4-Way Handshake Captured: [0x8f2a...e9b1]',
-        '[*] Launching DuckHunter BadUSB HID payload: [revshell.ps1]',
-        '[+] Keystroke rate: 1,200 WPM - UAC bypass triggered',
-        '[+] Reverse TCP shell opened: 10.0.0.1:4444 -> ROOT SHELL',
-        'root@kali:~# listening on [any] 4444 ...'
-    ];
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 512);
 
-    function update(elapsed) {
-        // Deep cyber slate background
-        ctx.fillStyle = '#060a12';
-        ctx.fillRect(0, 0, 512, 512);
-
-        // Kali Dragon Crest Watermark
-        ctx.fillStyle = 'rgba(0, 200, 215, 0.08)';
-        ctx.beginPath();
-        ctx.arc(256, 256, 160, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Terminal Top Bar
-        ctx.fillStyle = '#0d1527';
-        ctx.fillRect(0, 0, 512, 38);
-        ctx.fillStyle = '#ff3344'; ctx.beginPath(); ctx.arc(20, 19, 5, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#f2a900'; ctx.beginPath(); ctx.arc(38, 19, 5, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#00ffcc'; ctx.beginPath(); ctx.arc(56, 19, 5, 0, Math.PI * 2); ctx.fill();
-
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = 'bold 13px "Space Mono", monospace';
-        ctx.fillText('root@nethunter: ~ (wlan0mon) - [KALI LINUX]', 80, 24);
-
-        // Render Scrolling Console Logs
-        ctx.font = '14px "Space Mono", monospace';
-        const lineOffset = (elapsed * 1.5) % terminalLines.length;
-        const startIdx = Math.floor(lineOffset);
-
-        for (let i = 0; i < 16; i++) {
-            const lIdx = (startIdx + i) % terminalLines.length;
-            const text = terminalLines[lIdx];
-            const y = 70 + i * 26;
-
-            if (text.startsWith('[+]')) {
-                ctx.fillStyle = '#00ffcc';
-            } else if (text.startsWith('[!]')) {
-                ctx.fillStyle = '#ff3344';
-            } else if (text.startsWith('[*]')) {
-                ctx.fillStyle = '#38bdf8';
-            } else {
-                ctx.fillStyle = '#f8fafc';
-            }
-            ctx.fillText(text, 18, y);
-        }
-
-        // Blinking cursor
-        if (Math.floor(elapsed * 3) % 2 === 0) {
-            ctx.fillStyle = '#00ffcc';
-            ctx.fillRect(18, 485, 12, 18);
-        }
-
-        texture.needsUpdate = true;
-    }
-
-    return { texture, update };
+    const tex = new THREE.CanvasTexture(canvas);
+    const planeGeo = new THREE.PlaneGeometry(12, 12);
+    planeGeo.rotateX(-Math.PI / 2);
+    const planeMat = new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.85,
+        depthWrite: false
+    });
+    const shadow = new THREE.Mesh(planeGeo, planeMat);
+    shadow.position.y = -1.65;
+    return shadow;
 }
 
-// 3. High-Detail Cyber Motherboard / Multi-Layer PCB Texture
+// 6. High-Detail Multi-Layer PCB Texture with Gold Differential Traces & Vias
 function createDetailedPCBTexture(boardColor = '#060a14', traceColor = '#e6b800') {
     const canvas = document.createElement('canvas');
     canvas.width = 512;
@@ -602,30 +597,223 @@ function createDetailedPCBTexture(boardColor = '#060a14', traceColor = '#e6b800'
     return new THREE.CanvasTexture(canvas);
 }
 
-// Helper: Common Hardware Elements
-function createUSBAConnector() {
+// 7. Flipper Zero Animated ST7567 128x64 LCD Texture with Dolphin Mascot
+function createFlipperLcdTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+
+    function update(elapsed) {
+        // Flipper vibrant orange backlight
+        ctx.fillStyle = '#ff8400';
+        ctx.fillRect(0, 0, 512, 256);
+
+        // Pixel grid scanlines
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+        for (let y = 0; y < 256; y += 4) {
+            ctx.fillRect(0, y, 512, 1.5);
+        }
+
+        // Inner display frame border
+        ctx.strokeStyle = '#180c00';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(8, 8, 496, 240);
+
+        // Cyber-Dolphin Mascot Drawing
+        ctx.fillStyle = '#180c00';
+        const dolphinY = 120 + Math.sin(elapsed * 4) * 6;
+
+        // Body
+        ctx.beginPath();
+        ctx.ellipse(120, dolphinY, 55, 30, -0.15, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Snout
+        ctx.beginPath();
+        ctx.moveTo(170, dolphinY - 5);
+        ctx.lineTo(200, dolphinY + 2);
+        ctx.lineTo(165, dolphinY + 14);
+        ctx.fill();
+
+        // Dorsal Fin
+        ctx.beginPath();
+        ctx.moveTo(110, dolphinY - 26);
+        ctx.lineTo(95, dolphinY - 52);
+        ctx.lineTo(135, dolphinY - 24);
+        ctx.fill();
+
+        // Tail flukes
+        const tailFlap = Math.sin(elapsed * 8) * 8;
+        ctx.beginPath();
+        ctx.moveTo(70, dolphinY + 4);
+        ctx.lineTo(35, dolphinY - 14 + tailFlap);
+        ctx.lineTo(45, dolphinY + 4);
+        ctx.lineTo(32, dolphinY + 24 - tailFlap);
+        ctx.fill();
+
+        // Blinking Eye
+        const isBlinking = (Math.floor(elapsed * 2) % 6 === 0);
+        ctx.fillStyle = '#ff8400';
+        if (isBlinking) {
+            ctx.fillRect(160, dolphinY - 6, 8, 2);
+        } else {
+            ctx.beginPath();
+            ctx.arc(162, dolphinY - 6, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Cyber Tamagotchi Smile
+        ctx.strokeStyle = '#ff8400';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(178, dolphinY + 3, 6, 0.1 * Math.PI, 0.9 * Math.PI);
+        ctx.stroke();
+
+        // HUD Technical Readouts
+        ctx.fillStyle = '#180c00';
+        ctx.font = 'bold 22px "Space Mono", monospace';
+        ctx.fillText('SUB-GHZ RX // ACTIVE', 215, 48);
+
+        ctx.font = 'bold 36px "Space Mono", monospace';
+        ctx.fillText('433.92 MHz', 215, 96);
+
+        ctx.font = '16px "Space Mono", monospace';
+        ctx.fillText('MOD: AM650  RSSI: -44dBm', 215, 132);
+        ctx.fillText('HOPPING: CH 01-14 [LOCK]', 215, 158);
+
+        // Dynamic Frequency Spectrum Bars
+        for (let i = 0; i < 18; i++) {
+            const h = Math.abs(Math.sin(elapsed * 3 + i * 0.45)) * 45 + 5;
+            ctx.fillRect(215 + i * 15, 225 - h, 11, h);
+        }
+
+        texture.needsUpdate = true;
+    }
+
+    return { texture, update };
+}
+
+// 8. Kali NetHunter Live Animated Linux Terminal Texture
+function createKaliTerminalTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+
+    const terminalLines = [
+        '[+] Kali NetHunter 2026.4 Kernel 6.8.0-kali-arm64',
+        '[+] Interface wlan0mon injected into promiscuous mode',
+        '[*] BSSID [18:64:72:A1:BC:0F] PWR: -36dBm CH: 6 ESSID: CorpNet_HQ',
+        '[!] Deauth packet broadcast sent: 128 pkts/sec',
+        '[+] WPA2 4-Way Handshake Captured: [0x8f2a...e9b1]',
+        '[*] Launching DuckHunter BadUSB HID payload: [revshell.ps1]',
+        '[+] Keystroke rate: 1,200 WPM - UAC bypass triggered',
+        '[+] Reverse TCP shell opened: 10.0.0.1:4444 -> ROOT SHELL',
+        'root@kali:~# listening on [any] 4444 ...'
+    ];
+
+    function update(elapsed) {
+        ctx.fillStyle = '#060a12';
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Watermark Dragon Crest
+        ctx.fillStyle = 'rgba(0, 200, 215, 0.08)';
+        ctx.beginPath();
+        ctx.arc(256, 256, 160, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Terminal Title Bar
+        ctx.fillStyle = '#0d1527';
+        ctx.fillRect(0, 0, 512, 38);
+        ctx.fillStyle = '#ff3344'; ctx.beginPath(); ctx.arc(20, 19, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#f2a900'; ctx.beginPath(); ctx.arc(38, 19, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#00ffcc'; ctx.beginPath(); ctx.arc(56, 19, 5, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = 'bold 13px "Space Mono", monospace';
+        ctx.fillText('root@nethunter: ~ (wlan0mon) - [KALI LINUX]', 80, 24);
+
+        // Scrolling Console Lines
+        ctx.font = '14px "Space Mono", monospace';
+        const lineOffset = (elapsed * 1.5) % terminalLines.length;
+        const startIdx = Math.floor(lineOffset);
+
+        for (let i = 0; i < 16; i++) {
+            const lIdx = (startIdx + i) % terminalLines.length;
+            const text = terminalLines[lIdx];
+            const y = 70 + i * 26;
+
+            if (text.startsWith('[+]')) {
+                ctx.fillStyle = '#00ffcc';
+            } else if (text.startsWith('[!]')) {
+                ctx.fillStyle = '#ff3344';
+            } else if (text.startsWith('[*]')) {
+                ctx.fillStyle = '#38bdf8';
+            } else {
+                ctx.fillStyle = '#f8fafc';
+            }
+            ctx.fillText(text, 18, y);
+        }
+
+        // Blinking cursor
+        if (Math.floor(elapsed * 3) % 2 === 0) {
+            ctx.fillStyle = '#00ffcc';
+            ctx.fillRect(18, 485, 12, 18);
+        }
+
+        texture.needsUpdate = true;
+    }
+
+    return { texture, update };
+}
+
+// ==========================================================================
+// COMMON HIGH-FIDELITY HARDWARE ASSEMBLIES (PBR MATERIALS)
+// ==========================================================================
+
+function createUSBAConnector(isUSB3 = false) {
     const group = new THREE.Group();
-    // Metal outer sleeve
+    const brushedTex = createBrushedMetalTexture();
+
+    // Brushed Stainless Steel Outer Sleeve
     const sleeveGeo = new THREE.BoxGeometry(1.3, 0.52, 1.1);
     const sleeveMat = new THREE.MeshStandardMaterial({
-        color: 0xd8e0e8,
+        color: 0xe2e8f0,
         metalness: 0.95,
-        roughness: 0.22
+        roughness: 0.22,
+        roughnessMap: brushedTex
     });
     const sleeve = new THREE.Mesh(sleeveGeo, sleeveMat);
     group.add(sleeve);
 
-    // Inner white/black dielectric tongue
+    // Inner Dielectric Insulator Tongue (White for USB 2.0, Blue for USB 3.0)
     const tongueGeo = new THREE.BoxGeometry(1.22, 0.14, 0.9);
-    const tongueMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 });
+    const tongueMat = new THREE.MeshStandardMaterial({
+        color: isUSB3 ? 0x0284c7 : 0xffffff,
+        roughness: 0.45
+    });
     const tongue = new THREE.Mesh(tongueGeo, tongueMat);
     tongue.position.set(0, 0.12, 0.05);
     group.add(tongue);
 
-    // 4 Gold pin contacts
-    for (let i = 0; i < 4; i++) {
+    // Gold Spring Contact Leaves (4 pins for USB 2.0, +5 pins for USB 3.0)
+    const pinCount = isUSB3 ? 9 : 4;
+    for (let i = 0; i < Math.min(4, pinCount); i++) {
         const pinGeo = new THREE.BoxGeometry(0.12, 0.03, 0.45);
-        const pinMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.98, roughness: 0.15 });
+        const pinMat = new THREE.MeshStandardMaterial({
+            color: 0xd4af37,
+            metalness: 0.98,
+            roughness: 0.15
+        });
         const pin = new THREE.Mesh(pinGeo, pinMat);
         pin.position.set(-0.35 + i * 0.23, 0.19, 0.22);
         group.add(pin);
@@ -635,20 +823,20 @@ function createUSBAConnector() {
 
 function createRJ45Port() {
     const group = new THREE.Group();
-    // Metal shielded jack outer
+    // Metal Shielded Jack Outer Housing
     const portGeo = new THREE.BoxGeometry(0.9, 0.75, 0.85);
-    const portMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.85, roughness: 0.3 });
+    const portMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.88, roughness: 0.28 });
     const port = new THREE.Mesh(portGeo, portMat);
     group.add(port);
 
-    // Dark cavity interior
+    // Dark Cavity Interior
     const cavGeo = new THREE.BoxGeometry(0.72, 0.55, 0.5);
-    const cavMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9 });
+    const cavMat = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.9 });
     const cav = new THREE.Mesh(cavGeo, cavMat);
     cav.position.z = 0.22;
     group.add(cav);
 
-    // Internal copper wire contacts
+    // 8 Gold Wire Spring Contacts
     for (let i = 0; i < 8; i++) {
         const wireGeo = new THREE.CylinderGeometry(0.015, 0.015, 0.35);
         const wireMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.95, roughness: 0.2 });
@@ -660,19 +848,49 @@ function createRJ45Port() {
     return group;
 }
 
-function createStatusLED(colorHex, label = '') {
+function createRP_SMA_Antenna(knurlingTex, rubberMat, brassMat, angleZ = 0) {
+    const group = new THREE.Group();
+
+    // Knurled Brass Base Nut
+    const nutGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.35, 24);
+    const nutMat = new THREE.MeshStandardMaterial({
+        color: 0xd4af37,
+        metalness: 0.95,
+        roughness: 0.25,
+        bumpMap: knurlingTex,
+        bumpScale: 0.05
+    });
+    const nut = new THREE.Mesh(nutGeo, nutMat);
+    group.add(nut);
+
+    // Swivel Knuckle Elbow Joint with Hinge Pin
+    const elbow = new THREE.Mesh(new THREE.SphereGeometry(0.22, 16, 16), brassMat);
+    elbow.position.set(0, 0.25, 0);
+    group.add(elbow);
+
+    // Articulated Tapered Rubber Mast
+    const mastGeo = new THREE.CylinderGeometry(0.12, 0.08, 3.8, 16);
+    const mast = new THREE.Mesh(mastGeo, rubberMat);
+    mast.position.set(0, 1.9, 0);
+    mast.rotation.z = angleZ;
+    elbow.add(mast);
+
+    return group;
+}
+
+function createStatusLED(colorHex) {
     const ledGroup = new THREE.Group();
     const domeGeo = new THREE.SphereGeometry(0.09, 16, 16);
     const domeMat = new THREE.MeshStandardMaterial({
         color: colorHex,
         emissive: colorHex,
-        emissiveIntensity: 1.6,
+        emissiveIntensity: 1.8,
         roughness: 0.2
     });
     const dome = new THREE.Mesh(domeGeo, domeMat);
     ledGroup.add(dome);
 
-    const light = new THREE.PointLight(colorHex, 0.65, 2.5);
+    const light = new THREE.PointLight(colorHex, 0.75, 3.0);
     light.position.set(0, 0.05, 0);
     ledGroup.add(light);
 
@@ -686,113 +904,107 @@ function registerPart(root, mesh, normalY, explodedY) {
 }
 
 // ==========================================================================
-// PROCEDURAL 3D HARDWARE MODEL BUILDERS (ALL 10 PHYSICAL DEVICES)
+// 10 PHOTOREALISTIC PROCEDURAL 3D HARDWARE BUILDERS
 // ==========================================================================
 
-// 1. WiFi Pineapple (Hak5) - Dual Band Tactical Wireless Audit Platform
+// 1. WiFi Pineapple Mark VII (Hak5) - Triple RP-SMA Antennas, Atheros SoC, Heatsink & RJ45
 function buildWiFiPineapple3D(root) {
-    // A. Bottom Chassis (Tactical Matte Slate)
-    const botGeo = new THREE.BoxGeometry(4.4, 0.45, 3.2);
-    const darkChassisMat = new THREE.MeshStandardMaterial({
-        color: 0x111827,
-        roughness: 0.45,
-        metalness: 0.35
-    });
-    const botChassis = new THREE.Mesh(botGeo, darkChassisMat);
-    registerPart(root, botChassis, -0.3, -1.5);
+    const knurlTex = createKnurlingTexture();
+    const stippleTex = createStippledPlasticTexture();
 
-    // B. Internal PCB Motherboard with PineAP SoC & Radio Modules
+    // A. Bottom Tactical Casing (Stippled Matte ABS)
+    const botGeo = new THREE.BoxGeometry(4.4, 0.45, 3.2);
+    const casingMat = new THREE.MeshStandardMaterial({
+        color: 0x111827,
+        roughness: 0.6,
+        metalness: 0.15,
+        bumpMap: stippleTex,
+        bumpScale: 0.02
+    });
+    const botChassis = new THREE.Mesh(botGeo, casingMat);
+    registerPart(root, botChassis, -0.3, -1.6);
+
+    // B. Internal Multi-Layer PCB Motherboard with Atheros SoC & Heatsink
     const pcbGeo = new THREE.BoxGeometry(4.1, 0.08, 2.9);
     const pcbTex = createDetailedPCBTexture('#064e3b', '#e6b800');
-    const pcbMat = new THREE.MeshStandardMaterial({
-        map: pcbTex,
-        roughness: 0.35,
-        metalness: 0.45
-    });
+    const pcbMat = new THREE.MeshStandardMaterial({ map: pcbTex, roughness: 0.35, metalness: 0.45 });
     const pcb = new THREE.Mesh(pcbGeo, pcbMat);
-    
-    // Add Aluminum Heatsink on PineAP SoC
-    const sinkGeo = new THREE.BoxGeometry(1.2, 0.3, 1.2);
-    const sinkMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.9, roughness: 0.2 });
+
+    // Extruded Aluminum Ribbed Heatsink on PineAP SoC
+    const sinkGeo = new THREE.BoxGeometry(1.3, 0.35, 1.3);
+    const sinkMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.92, roughness: 0.22 });
     const sink = new THREE.Mesh(sinkGeo, sinkMat);
-    sink.position.set(-0.6, 0.18, 0);
+    sink.position.set(-0.6, 0.2, 0);
+    for (let r = 0; r < 5; r++) {
+        const fin = new THREE.Mesh(new THREE.BoxGeometry(1.28, 0.18, 0.08), sinkMat);
+        fin.position.set(0, 0.22, -0.48 + r * 0.24);
+        sink.add(fin);
+    }
     pcb.add(sink);
 
     registerPart(root, pcb, 0, 0);
 
-    // C. Top Chassis with Cooling Slits & Embossed Emblem
+    // C. Top Tactical Housing with Ventilation Fins & Hak5 Crest Badge
     const topGeo = new THREE.BoxGeometry(4.4, 0.45, 3.2);
-    const topChassis = new THREE.Mesh(topGeo, darkChassisMat);
-    
-    // Hak5 Emblem Badge on Top
-    const badgeGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.04, 32);
+    const topChassis = new THREE.Mesh(topGeo, casingMat);
+
+    // Gold/Cyan Pineapple Crest Badge
+    const badgeGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.05, 32);
     const badgeMat = new THREE.MeshStandardMaterial({
         color: 0x00c8d7,
         emissive: 0x00c8d7,
-        emissiveIntensity: 0.45,
-        metalness: 0.8,
-        roughness: 0.2
+        emissiveIntensity: 0.4,
+        metalness: 0.85,
+        roughness: 0.18
     });
     const badge = new THREE.Mesh(badgeGeo, badgeMat);
-    badge.position.set(0, 0.24, 0);
+    badge.position.set(0, 0.25, 0);
     topChassis.add(badge);
 
-    // Ventilation Grooves
-    for (let i = 0; i < 5; i++) {
-        const ventGeo = new THREE.BoxGeometry(1.4, 0.05, 0.08);
+    // Lateral Ventilation Grilles
+    for (let i = 0; i < 6; i++) {
+        const ventGeo = new THREE.BoxGeometry(1.3, 0.05, 0.07);
         const ventMat = new THREE.MeshStandardMaterial({ color: 0x030712, roughness: 0.9 });
         const vent = new THREE.Mesh(ventGeo, ventMat);
-        vent.position.set(0.9, 0.24, -0.6 + i * 0.3);
+        vent.position.set(0.9, 0.24, -0.7 + i * 0.28);
         topChassis.add(vent);
     }
 
-    registerPart(root, topChassis, 0.3, 1.5);
+    registerPart(root, topChassis, 0.3, 1.6);
 
-    // D. Dual Articulated High-Gain RP-SMA Dipole Antennas
+    // D. Triple Articulated High-Gain RP-SMA Antennas (Left, Center, Right)
     const antennaGroup = new THREE.Group();
     const brassMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95, roughness: 0.2 });
     const rubberMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.6 });
 
-    // Left Antenna
-    const mountLeft = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.4, 16), brassMat);
-    mountLeft.position.set(-1.4, 0.3, -1.5);
-    const elbowLeft = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 16), brassMat);
-    elbowLeft.position.set(0, 0.25, 0);
-    mountLeft.add(elbowLeft);
-    const mastLeft = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.08, 3.6, 16), rubberMat);
-    mastLeft.position.set(0, 1.8, 0);
-    mastLeft.rotation.z = 0.12;
-    mountLeft.add(mastLeft);
-    antennaGroup.add(mountLeft);
+    // Left Antenna (-14 degrees)
+    const antL = createRP_SMA_Antenna(knurlTex, rubberMat, brassMat, 0.14);
+    antL.position.set(-1.5, 0.3, -1.5);
+    antennaGroup.add(antL);
 
-    // Right Antenna
-    const mountRight = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.4, 16), brassMat);
-    mountRight.position.set(1.4, 0.3, -1.5);
-    const elbowRight = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 16), brassMat);
-    elbowRight.position.set(0, 0.25, 0);
-    mountRight.add(elbowRight);
-    const mastRight = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.08, 3.6, 16), rubberMat);
-    mastRight.position.set(0, 1.8, 0);
-    mastRight.rotation.z = -0.12;
-    mountRight.add(mastRight);
-    antennaGroup.add(mountRight);
+    // Center Antenna (Straight)
+    const antC = createRP_SMA_Antenna(knurlTex, rubberMat, brassMat, 0);
+    antC.position.set(0, 0.3, -1.5);
+    antennaGroup.add(antC);
 
-    registerPart(root, antennaGroup, 0.25, 2.2);
+    // Right Antenna (+14 degrees)
+    const antR = createRP_SMA_Antenna(knurlTex, rubberMat, brassMat, -0.14);
+    antR.position.set(1.5, 0.3, -1.5);
+    antennaGroup.add(antR);
 
-    // E. Front Panel Ports & LED Array
+    registerPart(root, antennaGroup, 0.25, 2.3);
+
+    // E. Front Face Ports: RJ45 + USB 2.0 Host + 4 Diagnostic LEDs
     const frontGroup = new THREE.Group();
-    // RJ45 Port
     const rj45 = createRJ45Port();
     rj45.position.set(-1.1, 0, 1.6);
     frontGroup.add(rj45);
 
-    // USB Host Port
-    const usb = createUSBAConnector();
+    const usb = createUSBAConnector(false);
     usb.position.set(-0.1, 0, 1.6);
     usb.rotation.y = Math.PI;
     frontGroup.add(usb);
 
-    // 4 Diagnostic Status LEDs
     const ledColors = [0x00ff66, 0x00c8d7, 0x0088ff, 0xff00aa];
     ledColors.forEach((col, idx) => {
         const { ledGroup, domeMat, light } = createStatusLED(col);
@@ -805,16 +1017,16 @@ function buildWiFiPineapple3D(root) {
         });
     });
 
-    registerPart(root, frontGroup, 0, 0.2);
+    registerPart(root, frontGroup, 0, 0.3);
 }
 
-// 2. Flipper Zero - Multi-Tool with Cyber-Dolphin LCD & Tamagotchi OS
+// 2. Flipper Zero - Ergonomic White Body, Orange Side Grips, ST7567 LCD & 5-Way D-Pad
 function buildFlipperZero3D(root) {
     // A. Rear Ergonomic Shell in Matte Cyber-White
     const botGeo = new THREE.BoxGeometry(4.4, 1.85, 0.7);
-    const whiteMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.35, metalness: 0.1 });
+    const whiteMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.35, metalness: 0.08 });
     const botShell = new THREE.Mesh(botGeo, whiteMat);
-    
+
     // 1-Wire iButton Reader Contact Ring on rear
     const ringGeo = new THREE.RingGeometry(0.2, 0.45, 24);
     const ringMat = new THREE.MeshStandardMaterial({ color: 0xd4d4d8, metalness: 0.95, roughness: 0.15, side: THREE.DoubleSide });
@@ -822,7 +1034,7 @@ function buildFlipperZero3D(root) {
     iButtonRing.position.set(1.2, -0.2, -0.36);
     botShell.add(iButtonRing);
 
-    registerPart(root, botShell, -0.35, -1.4);
+    registerPart(root, botShell, -0.35, -1.5);
 
     // B. Internal Motherboard with CC1101 Sub-GHz, NFC & STM32 Chips
     const pcbGeo = new THREE.BoxGeometry(4.1, 1.6, 0.08);
@@ -835,7 +1047,6 @@ function buildFlipperZero3D(root) {
     const frontGeo = new THREE.BoxGeometry(4.4, 1.85, 0.65);
     const frontShell = new THREE.Mesh(frontGeo, whiteMat);
 
-    // Orange accent bumper trim
     const orangeMat = new THREE.MeshStandardMaterial({ color: 0xff6600, roughness: 0.45 });
     const trimLeft = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.86, 0.68), orangeMat);
     trimLeft.position.x = -2.2;
@@ -845,7 +1056,7 @@ function buildFlipperZero3D(root) {
     trimRight.position.x = 2.2;
     frontShell.add(trimRight);
 
-    registerPart(root, frontShell, 0.35, 1.4);
+    registerPart(root, frontShell, 0.35, 1.5);
 
     // D. Recessed Monochrome LCD Screen with Animated Cyber Dolphin
     const screenGroup = new THREE.Group();
@@ -868,13 +1079,11 @@ function buildFlipperZero3D(root) {
     dpadBase.position.set(1.25, 0.25, 0.72);
     screenGroup.add(dpadBase);
 
-    // Center Action Button
     const dpadCenter = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.18, 24), orangeMat);
     dpadCenter.rotation.x = Math.PI / 2;
     dpadCenter.position.set(1.25, 0.25, 0.74);
     screenGroup.add(dpadCenter);
 
-    // Back Button (Elliptical)
     const backBtn = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.24, 0.14), new THREE.MeshStandardMaterial({ color: 0x27272a, roughness: 0.4 }));
     backBtn.position.set(1.25, -0.45, 0.72);
     screenGroup.add(backBtn);
@@ -900,21 +1109,21 @@ function buildFlipperZero3D(root) {
     irWindow.position.set(-1.45, 0.95, 0);
     screenGroup.add(irWindow);
 
-    registerPart(root, screenGroup, 0, 1.8);
+    registerPart(root, screenGroup, 0, 1.9);
 }
 
-// 3. USB Rubber Ducky (Hak5) - Keystroke Injection BadUSB with RP2040 Chip
+// 3. USB Rubber Ducky MK2 - Translucent Shine-Through Case, RP2040, MicroSD & RGB LED
 function buildRubberDucky3D(root) {
-    // A. Translucent Smoky Polycarbonate Lower Case
+    // A. Translucent Smoky Polycarbonate Lower Case (MeshPhysicalMaterial with Transmission)
     const botGeo = new THREE.BoxGeometry(3.2, 0.32, 1.35);
     const casingMat = new THREE.MeshPhysicalMaterial ? new THREE.MeshPhysicalMaterial({
         color: 0x0f172a,
-        roughness: 0.22,
+        roughness: 0.24,
         metalness: 0.1,
         transmission: 0.75,
         opacity: 0.88,
         transparent: true,
-        ior: 1.45
+        ior: 1.48
     }) : new THREE.MeshStandardMaterial({
         color: 0x0f172a,
         roughness: 0.25,
@@ -950,7 +1159,6 @@ function buildRubberDucky3D(root) {
     pcb.add(ledGroup);
 
     viewer3D.animatedUpdaters.push((elapsed) => {
-        // Attack pulse cycle: Green (armed) -> Cyan/Red (injecting)
         const cycle = Math.sin(elapsed * 4);
         if (cycle > 0) {
             domeMat.color.setHex(0x00ffcc);
@@ -973,7 +1181,6 @@ function buildRubberDucky3D(root) {
 
     // C. Translucent Top Casing with Rubber Ducky Badge
     const topCase = new THREE.Mesh(botGeo, casingMat);
-    // Yellow Duck Silkscreen Badge
     const duckBadge = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.02, 0.6), new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 }));
     duckBadge.position.set(0.1, 0.17, 0);
     topCase.add(duckBadge);
@@ -981,17 +1188,24 @@ function buildRubberDucky3D(root) {
     registerPart(root, topCase, 0.16, 1.2);
 
     // D. Stainless Steel USB-A Connector Head
-    const usb = createUSBAConnector();
+    const usb = createUSBAConnector(false);
     usb.position.set(2.0, 0, 0);
     usb.rotation.y = Math.PI / 2;
     registerPart(root, usb, 0, 0);
 }
 
-// 4. Kali NetHunter - Tactical Mobile Smartphone with Live Terminal & SDR Dongle
+// 4. Kali NetHunter - Tactical Smartphone Chassis, Live Terminal OLED, USB-C OTG Alfa Dongle
 function buildNetHunter3D(root) {
+    const brushedTex = createBrushedMetalTexture();
+
     // A. Slim Aluminum Perimeter Frame & Dark Glass Rear
     const phoneGeo = new THREE.BoxGeometry(3.2, 5.8, 0.4);
-    const phoneMat = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.3, metalness: 0.85 });
+    const phoneMat = new THREE.MeshStandardMaterial({
+        color: 0x090d16,
+        roughness: 0.28,
+        metalness: 0.88,
+        roughnessMap: brushedTex
+    });
     const phone = new THREE.Mesh(phoneGeo, phoneMat);
 
     // Camera Bump with Dual Lenses & Flash
@@ -1006,7 +1220,7 @@ function buildNetHunter3D(root) {
     camBump.add(lens2);
     phone.add(camBump);
 
-    registerPart(root, phone, 0, -1.2);
+    registerPart(root, phone, 0, -1.3);
 
     // B. Edge-to-Edge Front OLED Screen with Live Animated Terminal
     const { texture: termTex, update: termUpdate } = createKaliTerminalTexture();
@@ -1016,16 +1230,15 @@ function buildNetHunter3D(root) {
     const screenMat = new THREE.MeshBasicMaterial({ map: termTex });
     const screen = new THREE.Mesh(screenGeo, screenMat);
     screen.position.set(0, 0, 0.21);
-    registerPart(root, screen, 0, 1.2);
+    registerPart(root, screen, 0, 1.3);
 
     // C. External High-Gain Tactical Wi-Fi Injection Antenna via USB OTG
     const otgGroup = new THREE.Group();
-    // USB-C Plug inserted into bottom
     const plug = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.16, 0.25), new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9 }));
     plug.position.set(0, -3.05, 0);
     otgGroup.add(plug);
 
-    // High-gain external Alfa-style antenna mounted on side bracket
+    // Alfa-style adapter dongle with whip antenna
     const alfaDongle = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.4, 0.45), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 }));
     alfaDongle.position.set(2.2, -1.8, 0.1);
     otgGroup.add(alfaDongle);
@@ -1049,15 +1262,22 @@ function buildNetHunter3D(root) {
         rfRingMat.opacity = Math.max(0, 1 - (s / 3.3));
     });
 
-    registerPart(root, otgGroup, 0, 0.4);
+    registerPart(root, otgGroup, 0, 0.5);
 }
 
-// 5. Bash Bunny (Hak5) - Multi-Vector USB Pentest Implant with Slide Switch
+// 5. Bash Bunny MK2 (Hak5) - SuperSpeed USB 3.0, 3-Way Selector Switch & Attack RGB LED
 function buildBashBunny3D(root) {
+    const stippleTex = createStippledPlasticTexture();
     const chassisGeo = new THREE.BoxGeometry(3.6, 0.75, 1.35);
-    const chassisMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.3 });
+    const chassisMat = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        roughness: 0.5,
+        metalness: 0.25,
+        bumpMap: stippleTex,
+        bumpScale: 0.02
+    });
     const botChassis = new THREE.Mesh(chassisGeo, chassisMat);
-    registerPart(root, botChassis, -0.25, -1.1);
+    registerPart(root, botChassis, -0.25, -1.2);
 
     // Internal PCB
     const pcbGeo = new THREE.BoxGeometry(3.3, 0.08, 1.15);
@@ -1069,7 +1289,7 @@ function buildBashBunny3D(root) {
     const bunnyEmblem = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.04, 24), new THREE.MeshStandardMaterial({ color: 0x00c8d7, metalness: 0.8 }));
     bunnyEmblem.position.set(0, 0.38, 0);
     topChassis.add(bunnyEmblem);
-    registerPart(root, topChassis, 0.25, 1.1);
+    registerPart(root, topChassis, 0.25, 1.2);
 
     // 3-Position Mechanical Slide Switch on Side
     const switchGroup = new THREE.Group();
@@ -1093,21 +1313,27 @@ function buildBashBunny3D(root) {
 
     registerPart(root, switchGroup, 0, 1.4);
 
-    // USB-A Connector
-    const usb = createUSBAConnector();
+    // USB 3.0 Type-A Connector (Blue Tongue)
+    const usb = createUSBAConnector(true);
     usb.position.set(2.2, 0, 0);
     usb.rotation.y = Math.PI / 2;
     registerPart(root, usb, 0, 0);
 }
 
-// 6. LAN Turtle (Hak5) - Stealth Inline Network Tap & Remote Access
+// 6. LAN Turtle (Hak5) - Covert Stealth Adapter Body, USB-A Plug, Shielded RJ45 & MITM LEDs
 function buildLanTurtle3D(root) {
-    // Cylindrical/Beveled Stealth Body
+    const stippleTex = createStippledPlasticTexture();
     const bodyGeo = new THREE.CylinderGeometry(0.65, 0.65, 3.4, 24);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.4, metalness: 0.25 });
+    const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0x090d16,
+        roughness: 0.5,
+        metalness: 0.25,
+        bumpMap: stippleTex,
+        bumpScale: 0.02
+    });
     const botShell = new THREE.Mesh(bodyGeo, bodyMat);
     botShell.rotation.z = Math.PI / 2;
-    registerPart(root, botShell, -0.2, -1.1);
+    registerPart(root, botShell, -0.2, -1.2);
 
     // Internal Ethernet NIC PCB
     const pcb = new THREE.Mesh(new THREE.BoxGeometry(3.0, 0.08, 0.95), new THREE.MeshStandardMaterial({ map: createDetailedPCBTexture('#042f2e', '#14b8a6'), roughness: 0.3 }));
@@ -1116,10 +1342,10 @@ function buildLanTurtle3D(root) {
     // Top Shell
     const topShell = new THREE.Mesh(bodyGeo, bodyMat);
     topShell.rotation.z = Math.PI / 2;
-    registerPart(root, topShell, 0.2, 1.1);
+    registerPart(root, topShell, 0.2, 1.2);
 
     // Front USB-A Plug
-    const usb = createUSBAConnector();
+    const usb = createUSBAConnector(false);
     usb.position.set(2.1, 0, 0);
     usb.rotation.y = Math.PI / 2;
     registerPart(root, usb, 0, 0);
@@ -1148,11 +1374,11 @@ function buildLanTurtle3D(root) {
     registerPart(root, rj45Group, 0, 0);
 }
 
-// 7. O.MG Cable (Hak5 / MG) - Implanted Keystroke Injection & Wi-Fi Cable
+// 7. O.MG Cable - Braided Nylon Cyber Cord, Hidden Implant SoC & Micro-LED Inspection
 function buildOmgCable3D(root) {
     const cableGroup = new THREE.Group();
 
-    // Braided Nylon Cyber Cable Spine (Curving gracefully)
+    // Braided Nylon Cyber Cable Spine
     class CableCurve extends THREE.Curve {
         getPoint(t) {
             const x = (t - 0.5) * 6;
@@ -1172,7 +1398,7 @@ function buildOmgCable3D(root) {
     plugHead.position.set(3.4, 0, 0);
     cableGroup.add(plugHead);
 
-    const usbProngs = createUSBAConnector();
+    const usbProngs = createUSBAConnector(false);
     usbProngs.position.set(4.4, 0, 0);
     usbProngs.rotation.y = Math.PI / 2;
     cableGroup.add(usbProngs);
@@ -1200,12 +1426,19 @@ function buildOmgCable3D(root) {
     registerPart(root, cableGroup, 0, 0);
 }
 
-// 8. Packet Squirrel (Hak5) - Inline Ethernet Packet Sniffer & Gateway
+// 8. Packet Squirrel (Hak5) - Dual RJ45 Taps, Selector Switch & PCAP Storage
 function buildPacketSquirrel3D(root) {
+    const stippleTex = createStippledPlasticTexture();
     const cubeGeo = new THREE.BoxGeometry(2.8, 1.4, 2.8);
-    const cubeMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.45, metalness: 0.3 });
+    const cubeMat = new THREE.MeshStandardMaterial({
+        color: 0x111827,
+        roughness: 0.55,
+        metalness: 0.2,
+        bumpMap: stippleTex,
+        bumpScale: 0.02
+    });
     const botShell = new THREE.Mesh(cubeGeo, cubeMat);
-    registerPart(root, botShell, -0.4, -1.2);
+    registerPart(root, botShell, -0.4, -1.3);
 
     // Internal Dual-PHY Capture PCB
     const pcb = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.08, 2.5), new THREE.MeshStandardMaterial({ map: createDetailedPCBTexture('#064e3b', '#22c55e'), roughness: 0.3 }));
@@ -1216,7 +1449,7 @@ function buildPacketSquirrel3D(root) {
     const badge = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.04, 24), new THREE.MeshStandardMaterial({ color: 0x22c55e, metalness: 0.8 }));
     badge.position.set(0, 0.71, 0);
     topShell.add(badge);
-    registerPart(root, topShell, 0.4, 1.2);
+    registerPart(root, topShell, 0.4, 1.3);
 
     // Dual Shielded RJ45 Jacks (ETH IN / ETH OUT)
     const portGroup = new THREE.Group();
@@ -1236,7 +1469,7 @@ function buildPacketSquirrel3D(root) {
     registerPart(root, portGroup, 0, 0.3);
 }
 
-// 9. Proxmark3 RDV4 - RFID / NFC Motherboard with Dual 3D Antennas
+// 9. Proxmark3 RDV4.01 - 125kHz LF Wound Copper Coil & 13.56MHz HF Planar Antenna
 function buildProxmark3D(root) {
     // Matte Black Dual-Sided PCB Base
     const pcbGeo = new THREE.BoxGeometry(3.6, 0.12, 5.4);
@@ -1250,7 +1483,7 @@ function buildProxmark3D(root) {
     // 125 kHz Low-Frequency Wound Copper Antenna Coil (Concentric Wire Loops)
     for (let c = 0; c < 5; c++) {
         const lfCoilGeo = new THREE.TorusGeometry(0.85 + c * 0.08, 0.035, 12, 48);
-        const copperMat = new THREE.MeshStandardMaterial({ color: 0xb45309, metalness: 0.95, roughness: 0.15 });
+        const copperMat = new THREE.MeshStandardMaterial({ color: 0xb45309, metalness: 0.96, roughness: 0.15 });
         const lfCoil = new THREE.Mesh(lfCoilGeo, copperMat);
         lfCoil.rotation.x = Math.PI / 2;
         lfCoil.position.set(0, 0.12 + c * 0.04, -1.2);
@@ -1284,11 +1517,13 @@ function buildProxmark3D(root) {
         });
     });
 
-    registerPart(root, rfGroup, 0, 0.8);
+    registerPart(root, rfGroup, 0, 0.9);
 }
 
-// 10. Evil Portal (ESP32 DevKit) - Metallic RF Shield Can & Meandering PCB Antenna
+// 10. Evil Portal (ESP32 DevKit v1) - Brushed Metal Shield Can, Golden MIFA Antenna & 30 Header Pins
 function buildEvilPortal3D(root) {
+    const brushedTex = createBrushedMetalTexture();
+
     // Matte Black Dual-Layer Breadboard PCB
     const pcbGeo = new THREE.BoxGeometry(2.4, 0.12, 4.8);
     const pcbTex = createDetailedPCBTexture('#090d16', '#eab308');
@@ -1298,9 +1533,14 @@ function buildEvilPortal3D(root) {
 
     const compGroup = new THREE.Group();
 
-    // Metallic ESP-WROOM-32 RF Shield Can
+    // Metallic ESP-WROOM-32 RF Shield Can (Brushed Nickel)
     const shieldGeo = new THREE.BoxGeometry(1.65, 0.24, 1.65);
-    const shieldMat = new THREE.MeshStandardMaterial({ color: 0xd4d4d8, metalness: 0.96, roughness: 0.18 });
+    const shieldMat = new THREE.MeshStandardMaterial({
+        color: 0xd4d4d8,
+        metalness: 0.96,
+        roughness: 0.22,
+        roughnessMap: brushedTex
+    });
     const shield = new THREE.Mesh(shieldGeo, shieldMat);
     shield.position.set(0, 0.16, 0.2);
     compGroup.add(shield);
@@ -1315,12 +1555,10 @@ function buildEvilPortal3D(root) {
     // Dual 15-Pin Header Banks (30 individual gold square pins extending downward)
     const pinGeo = new THREE.BoxGeometry(0.08, 0.95, 0.08);
     for (let p = 0; p < 15; p++) {
-        // Left Pin Row
         const pLeft = new THREE.Mesh(pinGeo, goldMat);
         pLeft.position.set(-1.05, -0.45, -2.0 + p * 0.28);
         compGroup.add(pLeft);
 
-        // Right Pin Row
         const pRight = new THREE.Mesh(pinGeo, goldMat);
         pRight.position.set(1.05, -0.45, -2.0 + p * 0.28);
         compGroup.add(pRight);
@@ -1356,7 +1594,7 @@ function buildEvilPortal3D(root) {
         bLight.intensity = burst * 0.5;
     });
 
-    registerPart(root, compGroup, 0, 0.6);
+    registerPart(root, compGroup, 0, 0.7);
 }
 
 // ==========================================================================
@@ -1545,7 +1783,6 @@ function renderD3Spectrum(devKey) {
     const bandBadge = document.getElementById('d3SpectrumBand');
     if (bandBadge) bandBadge.textContent = prof.bandName;
 
-    // Render Telemetry Stats
     const statsContainer = document.getElementById('d3TelemetryStats');
     if (statsContainer) {
         statsContainer.innerHTML = prof.stats.map(s => `
@@ -1567,7 +1804,6 @@ function renderD3Spectrum(devKey) {
         .attr('height', height)
         .attr('viewBox', `0 0 ${width} ${height}`);
 
-    // Gradient definition for spectrum area
     const defs = svg.append('defs');
     const grad = defs.append('linearGradient')
         .attr('id', 'spectrumGradient')
@@ -1598,7 +1834,6 @@ function renderD3Spectrum(devKey) {
         .attr('y1', d => yScale(d))
         .attr('y2', d => yScale(d));
 
-    // Axes
     const xAxis = d3.axisBottom(xScale).ticks(6).tickFormat(d => `${d} ${prof.unit}`);
     const yAxis = d3.axisLeft(yScale).ticks(4).tickFormat(d => `${-100 + d}dB`);
 
@@ -1612,11 +1847,9 @@ function renderD3Spectrum(devKey) {
         .attr('transform', `translate(${margin.left}, 0)`)
         .call(yAxis);
 
-    // Spectrum Area & Line Paths
     const areaPath = svg.append('path').attr('class', 'd3-spectrum-area');
     const linePath = svg.append('path').attr('class', 'd3-spectrum-line');
 
-    // Noise Floor Line (-85 dBm)
     svg.append('line')
         .attr('class', 'd3-noise-line')
         .attr('x1', margin.left)
@@ -1624,10 +1857,7 @@ function renderD3Spectrum(devKey) {
         .attr('y1', yScale(15))
         .attr('y2', yScale(15));
 
-    // Peak labels group
     const peakGroup = svg.append('g').attr('class', 'd3-peaks');
-
-    // Generator function for simulated RF spectrum curve
     const pointCount = 120;
     const step = (prof.freqMax - prof.freqMin) / pointCount;
 
@@ -1635,10 +1865,8 @@ function renderD3Spectrum(devKey) {
         const pts = [];
         for (let i = 0; i <= pointCount; i++) {
             const f = prof.freqMin + i * step;
-            // Base thermal noise floor + jitter
             let amp = 12 + Math.sin(f * 0.2 + time * 3) * 3 + Math.random() * 4;
 
-            // Add peaks from profile
             prof.peaks.forEach(p => {
                 const dist = Math.abs(f - p.freq);
                 const widthParam = (prof.freqMax - prof.freqMin) * 0.04;
@@ -1664,7 +1892,6 @@ function renderD3Spectrum(devKey) {
         .y1(d => yScale(d.amp))
         .curve(d3.curveMonotoneX);
 
-    // Dynamic Real-Time Animation Loop
     if (viewer3D.d3SpectrumTimer) clearInterval(viewer3D.d3SpectrumTimer);
 
     let t = 0;
@@ -1676,7 +1903,6 @@ function renderD3Spectrum(devKey) {
         areaPath.attr('d', areaGen(pts));
         linePath.attr('d', lineGen(pts));
 
-        // Update peak callouts
         const peakData = prof.peaks.map(p => ({
             x: xScale(p.freq),
             y: yScale(p.amp),
@@ -1702,13 +1928,13 @@ function renderD3Spectrum(devKey) {
 }
 
 // ==========================================================================
-// D3.JS INTERACTIVE ATTACK VECTOR TOPOLOGY FORCE GRAPH
+// D3.JS INTERACTIVE ATTACK VECTOR TOPOLOGY FORCE GRAPHS (ALL 10 HARDWARE TOOLS)
 // ==========================================================================
 const DEVICE_ATTACK_TOPOLOGIES = {
     "wifi_pineapple": {
         nodes: [
             { id: "OP", name: "Operator (C2)", type: "c2", r: 24 },
-            { id: "PINE", name: "WiFi Pineapple", type: "device", r: 28 },
+            { id: "PINE", name: "WiFi Pineapple Mark VII", type: "device", r: 28 },
             { id: "SSID", name: "Rogue PineAP SSID", type: "vector", r: 22 },
             { id: "DEAUTH", name: "802.11 Deauth Burst", type: "vector", r: 20 },
             { id: "CLIENT", name: "Victim Workstation", type: "target", r: 24 },
@@ -1729,9 +1955,9 @@ const DEVICE_ATTACK_TOPOLOGIES = {
             { id: "FLIP", name: "Flipper Zero", type: "device", r: 28 },
             { id: "SUB", name: "433.92MHz Replay", type: "vector", r: 22 },
             { id: "NFC", name: "13.56MHz NFC Clone", type: "vector", r: 22 },
-            { id: "GATE", name: "Automated Barrier / Gate", type: "target", r: 24 },
+            { id: "GATE", name: "Automated Barrier Gate", type: "target", r: 24 },
             { id: "BADGE", name: "HID Prox Card Reader", type: "target", r: 24 },
-            { id: "ACCESS", name: "Physical Perimeter Access", type: "loot", r: 26 }
+            { id: "ACCESS", name: "Perimeter Physical Access", type: "loot", r: 26 }
         ],
         links: [
             { source: "OP", target: "FLIP" },
@@ -1746,7 +1972,7 @@ const DEVICE_ATTACK_TOPOLOGIES = {
     "usb_rubber_ducky": {
         nodes: [
             { id: "OP", name: "Adversary", type: "c2", r: 24 },
-            { id: "DUCK", name: "Rubber Ducky", type: "device", r: 28 },
+            { id: "DUCK", name: "Rubber Ducky MK2", type: "device", r: 28 },
             { id: "HID", name: "DuckyScript 3.0 (1200WPM)", type: "vector", r: 22 },
             { id: "OS", name: "Windows Workstation (Locked)", type: "target", r: 24 },
             { id: "REV", name: "Reverse TCP Shell", type: "loot", r: 26 },
@@ -1758,6 +1984,126 @@ const DEVICE_ATTACK_TOPOLOGIES = {
             { source: "HID", target: "OS" },
             { source: "OS", target: "REV" },
             { source: "OS", target: "SAM" }
+        ]
+    },
+    "kali_nethunter": {
+        nodes: [
+            { id: "OP", name: "Mobile PenTester", type: "c2", r: 24 },
+            { id: "NETH", name: "Kali NetHunter", type: "device", r: 28 },
+            { id: "WLAN", name: "wlan0mon Injection", type: "vector", r: 22 },
+            { id: "AP", name: "Corporate AP (WPA3/2)", type: "target", r: 24 },
+            { id: "HAND", name: "Captured PMKID Handshake", type: "loot", r: 25 },
+            { id: "CRACK", name: "Hashcat GPU Cracking", type: "loot", r: 25 }
+        ],
+        links: [
+            { source: "OP", target: "NETH" },
+            { source: "NETH", target: "WLAN" },
+            { source: "WLAN", target: "AP" },
+            { source: "AP", target: "HAND" },
+            { source: "HAND", target: "CRACK" }
+        ]
+    },
+    "bash_bunny": {
+        nodes: [
+            { id: "OP", name: "Red Team Operator", type: "c2", r: 24 },
+            { id: "BUNNY", name: "Bash Bunny MK2", type: "device", r: 28 },
+            { id: "MULTI", name: "Multi-Payload Switch Pos 1", type: "vector", r: 22 },
+            { id: "HOST", name: "Enterprise Endpoint", type: "target", r: 24 },
+            { id: "QUICK", name: "QuickCreds NTLM Capture", type: "loot", r: 25 },
+            { id: "DOMAIN", name: "Active Directory Admin", type: "loot", r: 26 }
+        ],
+        links: [
+            { source: "OP", target: "BUNNY" },
+            { source: "BUNNY", target: "MULTI" },
+            { source: "MULTI", target: "HOST" },
+            { source: "HOST", target: "QUICK" },
+            { source: "QUICK", target: "DOMAIN" }
+        ]
+    },
+    "lan_turtle": {
+        nodes: [
+            { id: "C2", name: "Covert DNS C2 Server", type: "c2", r: 24 },
+            { id: "TURTLE", name: "LAN Turtle Implant", type: "device", r: 28 },
+            { id: "TAP", name: "100BASE-TX Inline Tap", type: "vector", r: 22 },
+            { id: "GW", name: "Internal LAN Gateway", type: "target", r: 24 },
+            { id: "SPOOF", name: "DNS Poisoning / MITM", type: "vector", r: 22 },
+            { id: "TUN", name: "Reverse SSH Tunnel", type: "loot", r: 26 }
+        ],
+        links: [
+            { source: "C2", target: "TURTLE" },
+            { source: "TURTLE", target: "TAP" },
+            { source: "TAP", target: "GW" },
+            { source: "TURTLE", target: "SPOOF" },
+            { source: "SPOOF", target: "TUN" }
+        ]
+    },
+    "omg_cable": {
+        nodes: [
+            { id: "OP", name: "Covert Remote Operator", type: "c2", r: 24 },
+            { id: "OMG", name: "O.MG Cable Implant", type: "device", r: 28 },
+            { id: "RADIO", name: "2.4GHz Wi-Fi Radio Beacon", type: "vector", r: 22 },
+            { id: "LAP", name: "Target Executive Laptop", type: "target", r: 24 },
+            { id: "KEY", name: "Injected Keystroke Stream", type: "vector", r: 22 },
+            { id: "EXFIL", name: "Discord Webhook Exfiltration", type: "loot", r: 26 }
+        ],
+        links: [
+            { source: "OP", target: "RADIO" },
+            { source: "RADIO", target: "OMG" },
+            { source: "OMG", target: "KEY" },
+            { source: "KEY", target: "LAP" },
+            { source: "LAP", target: "EXFIL" }
+        ]
+    },
+    "packet_squirrel": {
+        nodes: [
+            { id: "OP", name: "Physical Pentester", type: "c2", r: 24 },
+            { id: "SQRL", name: "Packet Squirrel", type: "device", r: 28 },
+            { id: "BRIDGE", name: "Transparent Ethernet Bridge", type: "vector", r: 22 },
+            { id: "NIC", name: "Sensitive Switch / Camera", type: "target", r: 24 },
+            { id: "PCAP", name: "Unencrypted TCP Stream", type: "vector", r: 22 },
+            { id: "DISK", name: "Encrypted USB Flash PCAP", type: "loot", r: 26 }
+        ],
+        links: [
+            { source: "OP", target: "SQRL" },
+            { source: "SQRL", target: "BRIDGE" },
+            { source: "BRIDGE", target: "NIC" },
+            { source: "NIC", target: "PCAP" },
+            { source: "PCAP", target: "DISK" }
+        ]
+    },
+    "proxmark3": {
+        nodes: [
+            { id: "OP", name: "Physical Security Auditor", type: "c2", r: 24 },
+            { id: "PM3", name: "Proxmark3 RDV4.01", type: "device", r: 28 },
+            { id: "LF", name: "125kHz Inductive Field", type: "vector", r: 22 },
+            { id: "HF", name: "13.56MHz NFC Interrogation", type: "vector", r: 22 },
+            { id: "CARD", name: "Mifare Classic / HID Prox", type: "target", r: 24 },
+            { id: "CLONE", name: "Cloned T5577 Magic Card", type: "loot", r: 26 }
+        ],
+        links: [
+            { source: "OP", target: "PM3" },
+            { source: "PM3", target: "LF" },
+            { source: "PM3", target: "HF" },
+            { source: "LF", target: "CARD" },
+            { source: "HF", target: "CARD" },
+            { source: "CARD", target: "CLONE" }
+        ]
+    },
+    "evil_portal": {
+        nodes: [
+            { id: "OP", name: "Wi-Fi Attacker", type: "c2", r: 24 },
+            { id: "ESP", name: "ESP32 Evil Portal", type: "device", r: 28 },
+            { id: "AP", name: "Rogue SoftAP [Free_WiFi]", type: "vector", r: 22 },
+            { id: "DNS", name: "DNS Request Intercept", type: "vector", r: 22 },
+            { id: "USER", name: "Connected Mobile Victims", type: "target", r: 24 },
+            { id: "CREDS", name: "Harvested Portal Credentials", type: "loot", r: 26 }
+        ],
+        links: [
+            { source: "OP", target: "ESP" },
+            { source: "ESP", target: "AP" },
+            { source: "AP", target: "USER" },
+            { source: "USER", target: "DNS" },
+            { source: "DNS", target: "CREDS" }
         ]
     }
 };
@@ -1779,7 +2125,6 @@ function renderD3Topology(devKey) {
         .attr('height', height)
         .attr('viewBox', `0 0 ${width} ${height}`);
 
-    // Clone data to avoid mutating original
     const nodes = topo.nodes.map(d => ({ ...d }));
     const links = topo.links.map(d => ({ ...d }));
 
@@ -1801,7 +2146,6 @@ function renderD3Topology(devKey) {
 
     viewer3D.d3Simulation = simulation;
 
-    // Draw Links
     const link = svg.append("g")
         .selectAll("line")
         .data(links)
@@ -1809,7 +2153,6 @@ function renderD3Topology(devKey) {
         .append("line")
         .attr("class", "d3-link");
 
-    // Draw Nodes
     const node = svg.append("g")
         .selectAll(".d3-node")
         .data(nodes)
@@ -1971,7 +2314,6 @@ function build3DDeviceModel(imgSrc, name = '') {
 
     viewer3D.scene.add(viewer3D.deviceGroup);
 
-    // Refresh D3 spectrum or topology if active
     if (viewer3D.currentMode === 'spectrum') {
         renderD3Spectrum(devKey);
     } else if (viewer3D.currentMode === 'topology') {
@@ -2024,32 +2366,40 @@ function initOrUpdate3DScene(imgSrc, name) {
         viewer3D.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
         viewer3D.renderer.setSize(width, height);
         viewer3D.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        viewer3D.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        viewer3D.renderer.toneMappingExposure = 1.15;
         wrap.appendChild(viewer3D.renderer.domElement);
 
         viewer3D.scene = new THREE.Scene();
         viewer3D.scene.fog = new THREE.FogExp2(0x050811, 0.025);
 
+        // Cyber Studio PBR Environment Map
+        viewer3D.envMap = createCyberStudioEnvironment(viewer3D.renderer);
+        if (viewer3D.envMap) {
+            viewer3D.scene.environment = viewer3D.envMap;
+        }
+
         viewer3D.camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        viewer3D.camera.position.set(0, 0, 6.5);
-        viewer3D.cameraDistance = 6.5;
-        viewer3D.targetCameraDistance = 6.5;
+        viewer3D.camera.position.set(0, 0, 6.2);
+        viewer3D.cameraDistance = 6.2;
+        viewer3D.targetCameraDistance = 6.2;
 
         viewer3D.clock = new THREE.Clock();
         viewer3D.textureLoader = new THREE.TextureLoader();
 
         // 3D Studio Lighting
-        const ambLight = new THREE.AmbientLight(0xffffff, 1.2);
+        const ambLight = new THREE.AmbientLight(0xffffff, 1.25);
         viewer3D.scene.add(ambLight);
 
-        const dirKey = new THREE.DirectionalLight(0xffffff, 1.35);
+        const dirKey = new THREE.DirectionalLight(0xffffff, 1.4);
         dirKey.position.set(5, 7, 8);
         viewer3D.scene.add(dirKey);
 
-        const dirFill = new THREE.DirectionalLight(0x00c8d7, 0.9);
+        const dirFill = new THREE.DirectionalLight(0x00c8d7, 0.95);
         dirFill.position.set(-6, -3, 6);
         viewer3D.scene.add(dirFill);
 
-        const dirRim = new THREE.DirectionalLight(0x005A9C, 0.85);
+        const dirRim = new THREE.DirectionalLight(0x005A9C, 0.9);
         dirRim.position.set(0, 6, -8);
         viewer3D.scene.add(dirRim);
 
@@ -2065,11 +2415,11 @@ function initOrUpdate3DScene(imgSrc, name) {
         viewer3D.camera.updateProjectionMatrix();
     }
 
-    viewer3D.targetRotation = { x: 0.15, y: 0 };
-    viewer3D.currentRotation = { x: 0.15, y: 0 };
-    viewer3D.targetCameraDistance = 6.5;
-    viewer3D.cameraDistance = 6.5;
-    viewer3D.camera.position.set(0, 0, 6.5);
+    viewer3D.targetRotation = { x: 0.18, y: 0 };
+    viewer3D.currentRotation = { x: 0.18, y: 0 };
+    viewer3D.targetCameraDistance = 6.2;
+    viewer3D.cameraDistance = 6.2;
+    viewer3D.camera.position.set(0, 0, 6.2);
 
     build3DDeviceModel(imgSrc, name);
 
@@ -2079,7 +2429,11 @@ function initOrUpdate3DScene(imgSrc, name) {
 }
 
 function setupBackgroundMeshes() {
-    // 1. Floor Wireframe Mesh
+    // 1. Soft Ambient Occlusion Contact Shadow Plane
+    viewer3D.contactShadow = createContactShadowPlane();
+    viewer3D.scene.add(viewer3D.contactShadow);
+
+    // 2. Floor Wireframe Mesh
     const floorGeo = new THREE.PlaneGeometry(80, 80, 42, 42);
     floorGeo.rotateX(-Math.PI / 2);
     const floorMat = new THREE.MeshBasicMaterial({
@@ -2092,7 +2446,7 @@ function setupBackgroundMeshes() {
     viewer3D.floorMesh.position.y = -3.8;
     viewer3D.scene.add(viewer3D.floorMesh);
 
-    // 2. Ceiling Wireframe Mesh
+    // 3. Ceiling Wireframe Mesh
     const ceilGeo = new THREE.PlaneGeometry(80, 80, 36, 36);
     ceilGeo.rotateX(Math.PI / 2);
     const ceilMat = new THREE.MeshBasicMaterial({
@@ -2105,13 +2459,13 @@ function setupBackgroundMeshes() {
     viewer3D.ceilingMesh.position.y = 4.8;
     viewer3D.scene.add(viewer3D.ceilingMesh);
 
-    // 3. Polar Radar Floor Grid
+    // 4. Polar Radar Floor Grid
     const radar = new THREE.PolarGridHelper(14, 18, 8, 48, 0x00c8d7, 0x005A9C);
     radar.position.y = -3.75;
     viewer3D.radarGrid = radar;
     viewer3D.scene.add(radar);
 
-    // 4. Floating Cyber Particles
+    // 5. Floating Cyber Particles
     const particleCount = 500;
     const posArray = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount * 3; i += 3) {
@@ -2201,7 +2555,7 @@ function animate3DViewer() {
     viewer3D.animId = requestAnimationFrame(animate3DViewer);
     const elapsed = viewer3D.clock ? viewer3D.clock.getElapsedTime() : 0;
 
-    // Turntable 360° Auto-Rotation
+    // Turntable 360 Auto-Rotation
     if (viewer3D.autoRotate && !viewer3D.isDragging) {
         viewer3D.targetRotation.y += 0.0045;
     }
@@ -2297,8 +2651,8 @@ function updateAutoRotateUI() {
 }
 
 function reset3DCamera() {
-    viewer3D.targetRotation = { x: 0.15, y: 0 };
-    viewer3D.targetCameraDistance = 6.5;
+    viewer3D.targetRotation = { x: 0.18, y: 0 };
+    viewer3D.targetCameraDistance = 6.2;
     playEngineSound('tab');
 }
 window.reset3DCamera = reset3DCamera;
