@@ -197,6 +197,11 @@
 
         /* Unified Floating HUD Dock - Always covers whole content edge-to-edge */
         #hud-dock {
+            position: absolute !important;
+            bottom: 1.5rem !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            z-index: 20 !important;
             width: max-content !important;
             max-width: calc(100vw - 24px) !important;
             box-sizing: border-box !important;
@@ -213,6 +218,26 @@
         [data-theme="light"] #hud-dock {
             box-shadow: 4px 4px 0 var(--border-color, #0a0a0a) !important;
             border: 2px solid var(--border-color, #0a0a0a) !important;
+        }
+
+        /* Floating Domain Legend Overlay */
+        #domain-legend-card {
+            position: absolute !important;
+            top: 1.5rem !important;
+            left: 1.5rem !important;
+            z-index: 10 !important;
+        }
+
+        /* Graph Canvas & Navigation Layout Guard */
+        #graph-container {
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
+            flex: 1 1 0% !important;
+            overflow: hidden !important;
+        }
+        header.info-nav {
+            flex-shrink: 0 !important;
         }
 
         /* Learning Path Select and Dropdown Options Styling */
@@ -349,7 +374,7 @@
 
     <!-- Single Unified PwnBox Navigation Bar (Spanning Full Width to Far Right Edge) -->
     <header class="info-nav w-full flex items-center justify-between px-4 sm:px-6 py-2 border-b" style="border-color: var(--border-color, #1e293b); background: var(--bg-panel, #0f172a);">
-        <div class="flex items-center gap-3 flex-shrink-0">
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0 whitespace-nowrap flex-nowrap">
             <a href="../index.html" class="nav-brand" title="Back to Home Portal">
                 <span class="brand-icon">🌐</span>
                 <span class="brand-title">PwnBox // Imp Info</span>
@@ -433,7 +458,7 @@
             </div>
 
             <!-- Legend Overlay -->
-            <div class="absolute top-6 left-6 z-10 glass-panel p-3 rounded-xl max-w-xs text-xs hidden lg:block">
+            <div id="domain-legend-card" class="absolute top-6 left-6 z-10 glass-panel p-3 rounded-xl max-w-xs text-xs hidden lg:block">
                 <div class="font-bold mb-2 flex items-center justify-between" style="color: var(--eco-text);">
                     <span>SECURITY DOMAINS</span>
                     <span class="text-[10px] font-mono text-cyan-400">10 CLUSTERS</span>
