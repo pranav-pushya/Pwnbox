@@ -1435,6 +1435,32 @@
         <!-- 3D WebGL Canvas Container -->
         <div class="viewer-3d-canvas-wrap" id="viewer3DCanvasWrap"></div>
 
+        <!-- D3 Tactical Telemetry & Attack Spectrum HUD Container -->
+        <div class="viewer-3d-d3-overlay" id="viewer3DD3Overlay" style="display: none;">
+            <div class="d3-hud-card" id="d3SpectrumCard" style="display: none;">
+                <div class="d3-hud-header-bar">
+                    <div class="d3-hud-title-wrap">
+                        <span class="d3-hud-icon">📡</span>
+                        <span class="d3-hud-title">REAL-TIME RF SPECTRUM & SIGNAL TELEMETRY</span>
+                    </div>
+                    <span class="d3-hud-badge" id="d3SpectrumBand">2.4 GHz ISM</span>
+                </div>
+                <div class="d3-svg-container" id="d3SpectrumSvgWrap"></div>
+                <div class="d3-telemetry-stats" id="d3TelemetryStats"></div>
+            </div>
+
+            <div class="d3-hud-card" id="d3TopologyCard" style="display: none;">
+                <div class="d3-hud-header-bar">
+                    <div class="d3-hud-title-wrap">
+                        <span class="d3-hud-icon">⚡</span>
+                        <span class="d3-hud-title">ATTACK VECTOR TOPOLOGY & PROTOCOL FLOW</span>
+                    </div>
+                    <span class="d3-hud-badge">INTERACTIVE D3 FORCE GRAPH</span>
+                </div>
+                <div class="d3-svg-container" id="d3TopologySvgWrap"></div>
+            </div>
+        </div>
+
         <!-- HUD Header -->
         <div class="viewer-3d-hud-header">
             <div class="viewer-3d-title-group">
@@ -1442,6 +1468,15 @@
                 <h2 class="viewer-3d-device-name" id="viewer3DDeviceName">DEVICE MODEL</h2>
                 <span class="viewer-3d-device-vendor" id="viewer3DDeviceVendor">// VENDOR</span>
             </div>
+
+            <!-- View Mode Switcher -->
+            <div class="viewer-3d-mode-switcher">
+                <button class="btn-mode-tab active" id="btnMode3D" onclick="switchViewerMode('3d')" title="View Full 3D Hardware Model">🎮 3D Model</button>
+                <button class="btn-mode-tab" id="btnModeSpectrum" onclick="switchViewerMode('spectrum')" title="View Live RF Spectrum via D3.js">📡 D3 RF Spectrum</button>
+                <button class="btn-mode-tab" id="btnModeTopology" onclick="switchViewerMode('topology')" title="View Attack Chain via D3.js Force Graph">⚡ D3 Attack Topology</button>
+                <button class="btn-mode-tab" id="btnModeExplode" onclick="toggle3DExplodedView()" title="Explode Casing to Inspect Internal PCB & Hardware">💥 Exploded View</button>
+            </div>
+
             <!-- Small Cross Close Button at Top Right -->
             <button class="viewer-3d-close-btn" id="viewer3DCloseBtn" onclick="close3DViewer()" title="Close 3D Viewer (ESC)">✕</button>
         </div>
@@ -1452,6 +1487,7 @@
                 <span class="hint-pill">🖱️ DRAG TO ROTATE 360°</span>
                 <span class="hint-pill">📜 SCROLL TO ZOOM</span>
                 <span class="hint-pill" id="viewer3DAutoRotateStatus">🔄 AUTO-ROTATING</span>
+                <span class="hint-pill" id="viewer3DExplodeStatus" style="display: none; color: #ff00aa; border-color: rgba(255, 0, 170, 0.4);">💥 EXPLODED ANATOMY</span>
             </div>
             <div class="viewer-3d-actions">
                 <button class="btn-viewer-hud" onclick="toggle3DAutoRotate()" id="btnToggleAutoRotate" title="Toggle Turntable Rotation">Pause Spin</button>
@@ -1464,6 +1500,7 @@
     <div id="enginesToast">COPIED TO CLIPBOARD</div>
 
     <!-- Controller Scripts -->
+    <script src="../js/d3.min.js"></script>
     <script src="../js/three.min.js"></script>
     <script src="../js/hacker_engines_devices.js"></script>
 </body>

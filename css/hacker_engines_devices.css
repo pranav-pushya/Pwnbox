@@ -1068,3 +1068,263 @@ body.viewer-3d-open {
         font-size: 1.4rem;
     }
 }
+
+/* ==========================================================================
+   3D HOLOGRAPHIC LAB MODE SWITCHER & D3.JS TELEMETRY OVERLAYS
+   ========================================================================== */
+.viewer-3d-mode-switcher {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(10, 16, 32, 0.75);
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 200, 215, 0.25);
+    backdrop-filter: blur(8px);
+    pointer-events: auto;
+}
+
+.btn-mode-tab {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #94a3b8;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-mode-tab:hover {
+    color: #00c8d7;
+    background: rgba(0, 200, 215, 0.08);
+}
+
+.btn-mode-tab.active {
+    background: rgba(0, 255, 204, 0.16);
+    color: #00ffcc;
+    border-color: rgba(0, 255, 204, 0.5);
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.3);
+}
+
+/* D3 Tactical Telemetry HUD Overlay */
+.viewer-3d-d3-overlay {
+    position: absolute;
+    top: 96px;
+    right: 32px;
+    max-width: 620px;
+    width: calc(100vw - 64px);
+    max-height: calc(100vh - 190px);
+    overflow-y: auto;
+    z-index: 15;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: d3HudFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes d3HudFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.d3-hud-card {
+    background: rgba(6, 11, 24, 0.92);
+    border: 1.5px solid rgba(0, 200, 215, 0.35);
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(0, 200, 215, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.d3-hud-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.d3-hud-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.d3-hud-icon {
+    font-size: 1.1rem;
+}
+
+.d3-hud-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.d3-hud-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #00ffcc;
+    background: rgba(0, 255, 204, 0.12);
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+}
+
+.d3-svg-container {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+}
+
+.d3-svg-container svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* D3 Graph Elements */
+.d3-grid-line {
+    stroke: rgba(255, 255, 255, 0.06);
+    stroke-dasharray: 2, 2;
+}
+
+.d3-axis text {
+    fill: #64748b;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+}
+
+.d3-axis path,
+.d3-axis line {
+    stroke: rgba(255, 255, 255, 0.12);
+}
+
+.d3-spectrum-area {
+    fill: url(#spectrumGradient);
+    opacity: 0.45;
+}
+
+.d3-spectrum-line {
+    fill: none;
+    stroke: #00ffcc;
+    stroke-width: 2.2;
+    filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.6));
+}
+
+.d3-noise-line {
+    fill: none;
+    stroke: rgba(255, 51, 68, 0.5);
+    stroke-width: 1;
+    stroke-dasharray: 4, 3;
+}
+
+.d3-peak-label {
+    fill: #00ffcc;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+/* D3 Telemetry Stats Grid */
+.d3-telemetry-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.d3-stat-chip {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.d3-stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.64rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.d3-stat-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: #00c8d7;
+}
+
+/* D3 Force Topology Graph */
+.d3-link {
+    stroke: rgba(0, 200, 215, 0.4);
+    stroke-width: 1.8;
+    stroke-dasharray: 4, 3;
+    animation: d3LinkFlow 1.2s linear infinite;
+}
+
+@keyframes d3LinkFlow {
+    from { stroke-dashoffset: 7; }
+    to { stroke-dashoffset: 0; }
+}
+
+.d3-node circle {
+    cursor: grab;
+    transition: r 0.2s ease, stroke-width 0.2s ease;
+}
+
+.d3-node:hover circle {
+    stroke: #00ffcc !important;
+    stroke-width: 3.5px !important;
+    filter: drop-shadow(0 0 10px #00ffcc);
+}
+
+.d3-node text {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    fill: #ffffff;
+    pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+}
+
+/* Responsive adjustments for 3D Lab */
+@media (max-width: 900px) {
+    .viewer-3d-hud-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    .viewer-3d-mode-switcher {
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+    .viewer-3d-d3-overlay {
+        top: 160px;
+        right: 16px;
+        left: 16px;
+        width: calc(100vw - 32px);
+    }
+}
