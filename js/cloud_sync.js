@@ -19,6 +19,8 @@
         'module_webapp_completed',
         'module_osint_completed',
         'module_blackops_completed',
+        'module_cloudsec_completed',
+        'module_activedirectory_completed',
         'pwnbox_m08_unlocked',
         'webapp_quiz_completed',
         'webapp_quiz_score'

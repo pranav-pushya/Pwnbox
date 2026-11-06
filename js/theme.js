@@ -331,6 +331,22 @@ const PWNBOX_SHORTCUTS = [
         category: 'Labs',
         target: 'modules/BlackOps.html'
     },
+    {
+        key: 'M09',
+        badge: 'LAB',
+        title: 'M-09: Cloud & Container Security',
+        desc: 'AWS & Azure IAM escalation, IMDSv2 metadata tokens, Docker escapes, K8s RBAC & Trivy',
+        category: 'Labs',
+        target: 'modules/CloudSecurity.html'
+    },
+    {
+        key: 'M10',
+        badge: 'LAB',
+        title: 'M-10: Active Directory & Enterprise Dominance',
+        desc: 'Kerberoasting, AS-REP Roasting, BloodHound shortest paths, DCSync & ADCS Certipy',
+        category: 'Labs',
+        target: 'modules/ActiveDirectory.html'
+    },
 
     // --- 8 Tactical Arcade Mini-Games ---
     {

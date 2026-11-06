@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 09: Master cloud penetration testing, AWS/Azure IAM privilege escalation, SSRF IMDSv2 pivoting, Docker escapes, and Kubernetes RBAC exploitation.">
+    <title>M-09: Cloud & Container Security — PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+    
+    <link rel="stylesheet" href="../css/SystemHacking.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="stylesheet" href="../css/resizer.css">
+    <script src="../js/ui_popups.js"></script>
+    <style>
+        :root {
+            --accent-primary: #0284c7;
+        }
+        .local-badge {
+            background: #0284c7 !important;
+            color: #ffffff !important;
+            border: 2px solid #000000 !important;
+            box-shadow: 2px 2px 0 #000000 !important;
+        }
+        .cloud-glow {
+            animation: cloudPulse 2.4s infinite alternate ease-in-out;
+        }
+        @keyframes cloudPulse {
+            from { box-shadow: 0 0 5px rgba(2, 132, 199, 0.4); }
+            to { box-shadow: 0 0 16px rgba(2, 132, 199, 0.9); }
+        }
+    </style>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="M-09: Cloud & Container Security — PwnBox Academy">
+    <meta property="og:description" content="Module 09: Master cloud penetration testing, AWS/Azure IAM privilege escalation, SSRF IMDSv2 pivoting, Docker escapes, and Kubernetes RBAC exploitation.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="M-09: Cloud & Container Security — PwnBox Academy">
+    <meta name="twitter:description" content="Module 09: Master cloud penetration testing, AWS/Azure IAM privilege escalation, SSRF IMDSv2 pivoting, Docker escapes, and Kubernetes RBAC exploitation.">
+    <meta name="twitter:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="tab-tools">
+
+    <div class="sidebar">
+        <div class="header">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+            <a href="../dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>M-09 Cloud Security</h2>
+            <div style="font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #0284c7; font-weight: 800; margin-bottom: 8px;">☁️ MULTI-CLOUD & KUBERNETES ARSENAL</div>
+            <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
+        </div>
+        <div class="tool-list" id="toolList"></div>
+        <div class="sidebar-footer">
+            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
+        </div>
+    </div>
+    <div class="resizer-v" id="sidebarResizer"></div>
+    <div class="workspace">
+        <div class="content-split">
+            <div class="details-panel" id="detailsPanel">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 20vh;">
+                    <div style="font-size: 3rem; margin-bottom: 12px;">☁️</div>
+                    <h3>CLOUD & CONTAINER SECURITY: MODULE 09</h3>
+                    <p style="margin-top: 8px; font-size: 0.9rem;">Select a cloud or container exploitation framework from the sidebar to inspect IAM escalation routes, IMDS token harvesting, and Docker breakout mechanics.</p>
+                </div>
+            </div>
+            <div class="resizer-v" id="panelResizer"></div>
+            <div class="chat-panel">
+                <div class="chat-header" style="flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="status-container">
+                            <div class="status-dot online" id="statusDot"></div>
+                            Cloud Sec AI Mentor
+                        </div>
+                        <div class="local-badge cloud-glow">MODULE 09: ADVANCED</div>
+                    </div>
+                    <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                        <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 Cloud AI Oracle</button>
+                        <button class="panel-tab" onclick="switchPanelTab('terminal')">💻 Cloud CLI Sandbox</button>
+                        <button class="panel-tab" onclick="switchPanelTab('quiz')">📝 Cloud Mastery Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Chat Tab Content -->
+                <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
+                    <div class="chat-history" id="chatHistory">
+                        <div class="msg bot">Cloud Operations Mentor Initialized. Try asking: "How does SSRF exploit AWS IMDSv2 compared to IMDSv1 to steal IAM instance role credentials?"</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask about AWS IAM, S3 buckets, IMDSv2, Docker escapes, K8s RBAC..." onkeypress="handleEnter(event)">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+
+                <!-- Terminal Tab Content -->
+                <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #38bdf8; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
+                        <div style="color: #0284c7; font-weight: bold;">PWNBOX MULTI-CLOUD TERMINAL SANDBOX v1.0</div>
+                        <div style="color: #64748b; margin-bottom: 10px;">Type 'help' to inspect cloud commands: imds, s3-enum, docker-breakout, kubectl-can-i.</div>
+                    </div>
+                    <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        <span style="color: #38bdf8; margin-right: 8px; font-weight: bold; font-size: 0.85rem;">cloud-operator@aws-pod:~$</span>
+                        <input type="text" id="terminalInput" onkeypress="handleTerminalEnter(event)" style="flex-grow: 1; background: transparent; border: none; outline: none; color: #f8fafc; font-family: 'Space Mono', monospace; font-size: 0.8rem;" placeholder="run cloud command...">
+                    </div>
+                </div>
+
+                <!-- Quiz Tab Content -->
+                <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
+                    <h3 style="font-size: 1rem; color: #0284c7; margin-bottom: 8px;">📝 Module 09: Cloud Security Mastery Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Assess your grasp of cloud metadata pivoting, container privileges, and Kubernetes security boundaries.</p>
+                    
+                    <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Question 1 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. What header does AWS IMDSv2 mandate that neutralizes simple GET-based SSRF attacks?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'B')"> A) Authorization: Bearer AWS_SECRET</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'B')"> B) X-aws-ec2-metadata-token acquired via a PUT request with a TTL</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'B')"> C) User-Agent: AWS-CLI/2.0</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. How can an attacker inside a container escape to the host if /var/run/docker.sock is mounted?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'A')"> A) Run 'docker -H unix:///var/run/docker.sock run -v /:/host -it alpine chroot /host'</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'A')"> B) Reboot the virtual machine using shutdown -r now</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'A')"> C) Delete /etc/resolv.conf inside the container</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. In Kubernetes, what default path inside a pod stores the projected ServiceAccount JWT token?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'C')"> A) /root/.kube/config</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'C')"> B) /etc/k8s/token.key</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'C')"> C) /var/run/secrets/kubernetes.io/serviceaccount/token</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Custom Tool Modal -->
+    <div class="pwn-modal-overlay" id="addToolModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div style="background: var(--bg-panel); border: 3px solid var(--border-color); padding: 24px; width: min(480px, 90vw); box-shadow: 8px 8px 0 var(--border-color); font-family: 'Space Mono', monospace;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 1rem; font-weight: 800; margin: 0;">➕ ADD CUSTOM CLOUD TOOL</h3>
+                <button onclick="closeAddToolModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: 800;">&times;</button>
+            </div>
+            <form id="addToolForm" onsubmit="event.preventDefault(); saveCustomTool();" style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="text" id="customToolName" placeholder="Tool Name (e.g. Pacu, S3Scanner)" required style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit;">
+                <input type="text" id="customToolCategory" placeholder="Category (e.g. CloudRecon, IAM, K8s)" required style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit;">
+                <textarea id="customToolDesc" placeholder="Brief technical summary..." rows="2" style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit; resize: none;"></textarea>
+                <input type="text" id="customToolSyntax" placeholder="Command syntax..." style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit;">
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px;">
+                    <button type="button" onclick="closeAddToolModal()" style="padding: 6px 12px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-weight: 700; cursor: pointer;">Cancel</button>
+                    <button type="submit" style="padding: 6px 14px; border: 2px solid var(--border-color); background: #0284c7; color: #fff; font-weight: 700; cursor: pointer;">Save Tool</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/config.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/resizer.js"></script>
+    <script src="../js/CloudSecurity.js"></script>
+    <script src="../js/mobile_nav.js?v=3.0"></script>
+</body>
+</html>

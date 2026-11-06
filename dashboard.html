@@ -291,6 +291,38 @@
                 </div>
             </div>
 
+            <!-- Module 09: Cloud & Container Security -->
+            <div class="module-card active" id="moduleCloudSec">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-active" style="background: #0284c7; color: #fff;">Cloud Track</span>
+                        <span class="module-num" style="color: #0284c7;">MODULE 09</span>
+                    </div>
+                    <h3 class="module-title">Cloud & Container Security</h3>
+                    <p class="module-desc">AWS & Azure IAM privilege escalation, SSRF to IMDSv2 metadata tokens, Docker container escapes, Kubernetes RBAC audits, and Terraform drift scanning.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="module-meta" style="color: #0284c7;">☁️ 7 Cloud Tools</span>
+                    <a href="modules/CloudSecurity.html" class="btn-launch" style="background: #0284c7; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">Launch Module ↗</a>
+                </div>
+            </div>
+
+            <!-- Module 10: Active Directory & Enterprise Dominance -->
+            <div class="module-card active" id="moduleActiveDirectory">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-active" style="background: #ea580c; color: #fff;">Enterprise Track</span>
+                        <span class="module-num" style="color: #ea580c;">MODULE 10</span>
+                    </div>
+                    <h3 class="module-title">Active Directory Dominance</h3>
+                    <p class="module-desc">Kerberoasting, AS-REP Roasting, BloodHound shortest path analysis, DCSync hash replication, and AD CS certificate template exploitation.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="module-meta" style="color: #ea580c;">🏰 7 AD Tools</span>
+                    <a href="modules/ActiveDirectory.html" class="btn-launch" style="background: #ea580c; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">Launch Module ↗</a>
+                </div>
+            </div>
+
             <!-- Secret Module 08: Black Ops & C2 Evasion (Completely hidden until Skull 3x trigger) -->
             <div class="module-card secret-m08-card" id="moduleBlackOps" style="display: none;">
                 <div class="card-top">
@@ -346,6 +378,14 @@
                     <div class="node" id="node7" onclick="handleProtectedModuleLaunch(event, 'modules/OSINT.html')">
                         <div class="node-dot"></div>
                         <div class="node-label">07. OSINT</div>
+                    </div>
+                    <div class="node active" id="node9" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">
+                        <div class="node-dot" style="background: #0284c7; border-color: #38bdf8;"></div>
+                        <div class="node-label" style="color: #38bdf8;">09. Cloud Sec</div>
+                    </div>
+                    <div class="node active" id="node10" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">
+                        <div class="node-dot" style="background: #ea580c; border-color: #fdba74;"></div>
+                        <div class="node-label" style="color: #fdba74;">10. Active Dir</div>
                     </div>
                     <div class="node secret-node" id="node8" style="display: none;" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">
                         <div class="node-dot" style="background: #9333ea; border-color: #c084fc;"></div>
