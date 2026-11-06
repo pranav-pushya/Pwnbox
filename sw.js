@@ -7,7 +7,7 @@
  * and offline WebGL/Three.js engines.
  */
 
-const CACHE_NAME = 'pwnbox-shell-v5';
+const CACHE_NAME = 'pwnbox-shell-v6';
 
 const STATIC_ASSETS = [
     // Core Application Shell & Portals
@@ -41,6 +41,7 @@ const STATIC_ASSETS = [
     '/modules/BlackOps.html',
     '/modules/CloudSecurity.html',
     '/modules/ActiveDirectory.html',
+    '/modules/SocDefense.html',
 
     // All 8 Interactive Cyber Warfare Mini-Games
     '/games/cidr_block.html',
@@ -117,6 +118,7 @@ const STATIC_ASSETS = [
     '/js/BlackOps.js',
     '/js/CloudSecurity.js',
     '/js/ActiveDirectory.js',
+    '/js/SocDefense.js',
 
     // Branding & Graphic Assets
     '/assets/favicon-main.svg',

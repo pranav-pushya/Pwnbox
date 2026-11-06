@@ -13,6 +13,7 @@
         'module_scanning_completed',
         'module_enumeration_completed',
         'module_vuln_completed',
+        'module_vulnanalysis_completed',
         'module_systemhacking_completed',
         'module_malware_completed',
         'module_evading_completed',
@@ -21,6 +22,7 @@
         'module_blackops_completed',
         'module_cloudsec_completed',
         'module_activedirectory_completed',
+        'module_socdefense_completed',
         'pwnbox_m08_unlocked',
         'webapp_quiz_completed',
         'webapp_quiz_score'
@@ -48,8 +50,9 @@
         if (firestoreInstance) return firestoreInstance;
         if (typeof firebase !== 'undefined' && typeof firebase.firestore === 'function') {
             try {
-                if (!firebase.apps.length && window.firebaseConfig) {
-                    firebase.initializeApp(window.firebaseConfig);
+                const cfg = window.firebaseConfig || window.defaultFirebaseConfig;
+                if (!firebase.apps.length && cfg) {
+                    firebase.initializeApp(cfg);
                 }
                 firestoreInstance = firebase.firestore();
                 return firestoreInstance;

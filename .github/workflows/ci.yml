@@ -35,6 +35,7 @@ jobs:
           for file in js/*.js; do
             node -c "$file"
           done
+          node -c functions/index.js
           echo "All JavaScript files passed syntax compilation!"
 
           echo "=== 2. Validating Configuration JSON Files ==="
@@ -99,3 +100,24 @@ jobs:
           else:
               print("\n🎉 All 12 critical academy routes responded with HTTP 200 OK!")
           EOF
+
+  deploy-production:
+    name: 🚀 Continuous Deployment to Firebase Hosting
+    needs: audit-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🚀 Deploy to Firebase Hosting Live Channel
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        if: ${{ env.FIREBASE_SERVICE_ACCOUNT_PWNBO_X != '' }}
+        env:
+          FIREBASE_SERVICE_ACCOUNT_PWNBO_X: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PWNBO_X }}
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PWNBO_X }}'
+          channelId: live
+          projectId: pwnbo-x
+

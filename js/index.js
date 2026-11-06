@@ -182,7 +182,10 @@ function updateDashboardStats() {
                 { defaultCount: 5, customKey: 'vuln_custom_tools', deletedKey: 'vuln_deleted_default_indices', catKey: 'vuln_custom_categories' },
                 { defaultCount: 6, customKey: 'sys_custom_tools', deletedKey: 'sys_deleted_default_indices', catKey: 'sys_custom_categories' },
                 { defaultCount: 6, customKey: 'webapp_custom_tools', deletedKey: 'webapp_deleted_default_indices', catKey: 'webapp_custom_categories' },
-                { defaultCount: 24, customKey: 'osint_custom_tools', deletedKey: 'osint_deleted_default_indices', catKey: 'osint_custom_categories' }
+                { defaultCount: 24, customKey: 'osint_custom_tools', deletedKey: 'osint_deleted_default_indices', catKey: 'osint_custom_categories' },
+                { defaultCount: 7, customKey: 'cloudsec_custom_tools', deletedKey: 'cloudsec_deleted_default_indices', catKey: 'cloudsec_custom_categories' },
+                { defaultCount: 7, customKey: 'ad_custom_tools', deletedKey: 'ad_deleted_default_indices', catKey: 'ad_custom_categories' },
+                { defaultCount: 7, customKey: 'soc_custom_tools', deletedKey: 'soc_deleted_default_indices', catKey: 'soc_custom_categories' }
             ];
 
             if (isM08Unlocked) {
@@ -206,6 +209,36 @@ function updateDashboardStats() {
                     osintCard.className = "module-card active";
                     osintBadge.className = "module-badge badge-active";
                     osintBadge.innerText = "Bonus";
+                }
+            }
+
+            const cloudCard = document.getElementById('moduleCloudSec');
+            const cloudBadge = document.getElementById('cloudSecBadge');
+            if (cloudCard && cloudBadge) {
+                if (localStorage.getItem('module_cloudsec_completed') === 'true') {
+                    cloudCard.classList.add('completed');
+                    cloudBadge.className = "module-badge badge-completed";
+                    cloudBadge.innerText = "Completed ✓";
+                }
+            }
+
+            const adCard = document.getElementById('moduleActiveDirectory');
+            const adBadge = document.getElementById('adBadge');
+            if (adCard && adBadge) {
+                if (localStorage.getItem('module_activedirectory_completed') === 'true') {
+                    adCard.classList.add('completed');
+                    adBadge.className = "module-badge badge-completed";
+                    adBadge.innerText = "Completed ✓";
+                }
+            }
+
+            const socCard = document.getElementById('moduleSocDefense');
+            const socBadge = document.getElementById('socBadge');
+            if (socCard && socBadge) {
+                if (localStorage.getItem('module_socdefense_completed') === 'true') {
+                    socCard.classList.add('completed');
+                    socBadge.className = "module-badge badge-completed";
+                    socBadge.innerText = "Completed ✓";
                 }
             }
 

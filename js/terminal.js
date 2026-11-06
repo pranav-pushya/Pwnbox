@@ -470,6 +470,70 @@
             flags: "None.",
             securityContext: "Command auditing, forensic tracking, and reproducing attack chains.",
             example: "history"
+        },
+        dig: {
+            short: "DNS lookup utility for querying DNS name servers and resource records",
+            syntax: "dig [@server] <domain> [A|MX|TXT|NS|SOA]",
+            desc: "Queries Domain Name System (DNS) servers for records including Mail Exchangers (MX), Text (TXT) SPF/DKIM verification, and IP addresses.",
+            flags: "[A | MX | TXT | NS | SOA] - Query record type. Defaults to A record.",
+            securityContext: "Critical DNS reconnaissance tool used to find email servers, cloud providers, and DNS misconfigurations.",
+            example: "dig pwnbox.academy\ndig pwnbox.academy MX\ndig pwnbox.academy TXT"
+        },
+        enum4linux: {
+            short: "Tool for enumerating Windows and Samba Active Directory / SMB shares",
+            syntax: "enum4linux [-a] <target_ip>",
+            desc: "Wrapper around Samba tools to extract domain/workgroup names, users, groups, and open SMB shares without credentials.",
+            flags: "-a (Do all simple enumeration), -U (Get userlist), -S (Get sharelist).",
+            securityContext: "Gold standard for SMB situational awareness and finding readable network shares with anonymous/guest access.",
+            example: "enum4linux 10.10.10.27\nenum4linux -a 10.10.10.27"
+        },
+        linpeas: {
+            short: "Linux Privilege Escalation Awesome Script automated situational auditor",
+            syntax: "linpeas",
+            desc: "Audits current Linux environment for known privilege escalation vectors, SUID/SGID binaries, writable cron jobs, and sudo misconfigurations.",
+            flags: "None (runs automated host checks).",
+            securityContext: "The definitive automated local privilege escalation triage script for CTF boxes and Linux penetration testing.",
+            example: "linpeas"
+        },
+        john: {
+            short: "John the Ripper password security cracker and hash auditor",
+            syntax: "john [--wordlist=wordlist.txt] <hashfile>",
+            desc: "Cracks password hashes across hundreds of formats (sha512crypt, md5crypt, NTLM, Kerberos) using dictionary and hybrid attack rules.",
+            flags: "--wordlist=<path> (Specify custom wordlist), --format=<fmt> (Hash format), --show (Show already cracked passwords).",
+            securityContext: "Essential for verifying enterprise password complexity and breaking captured authentication hashes.",
+            example: "john /etc/shadow\njohn --wordlist=/opt/wordlists/common.txt hashes.txt"
+        },
+        gobuster: {
+            short: "High-speed directory, DNS, and virtual host brute-forcing tool",
+            syntax: "gobuster dir -u <url> -w <wordlist>",
+            desc: "Discovers hidden files, admin portals, and backup archives on target HTTP servers via high-concurrency wordlist dictionary attacks.",
+            flags: "dir (directory mode), -u <url> (target website), -w <wordlist> (path to wordlist), -t <threads> (concurrent threads).",
+            securityContext: "Web reconnaissance workhorse for finding hidden attack surfaces, backup files (.bak, .sql), and sensitive endpoints.",
+            example: "gobuster dir -u http://10.10.10.27 -w /usr/share/wordlists/common.txt"
+        },
+        nikto: {
+            short: "Web server vulnerability scanner for dangerous files, outdated servers, and misconfigurations",
+            syntax: "nikto -h <target>",
+            desc: "Scans web servers for over 6,700 potentially dangerous files/CGIs, checks for outdated server software, and inspects HTTP security headers.",
+            flags: "-h <host> (Target host or IP), -p <port> (Port, default 80).",
+            securityContext: "Quick comprehensive web baseline scan identifying missing security headers (X-Frame-Options, CSP) and dangerous default files.",
+            example: "nikto -h 10.10.10.27\nnikto -h http://pwnbox.local"
+        },
+        nc: {
+            short: "Netcat networking utility for port scanning, raw socket connections, and banner grabs",
+            syntax: "nc [-options] <host> <port>",
+            desc: "Reads and writes data across network connections using TCP or UDP protocol. Used for banner grabbing, port testing, and debugging.",
+            flags: "-v (verbose), -n (numeric IPs only), -z (zero-I/O port scan), -l (listen mode).",
+            securityContext: "The network Swiss Army knife. Used for checking port availability, grabbing service banners, and troubleshooting listeners.",
+            example: "nc -vn 10.10.10.27 80\nnc -lvnp 4444"
+        },
+        chown: {
+            short: "Change file owner and group across the virtual filesystem",
+            syntax: "chown <owner[:group]> <file>",
+            desc: "Modifies ownership of targeted files or directories.",
+            flags: "-R (recursive directory changes).",
+            securityContext: "Privilege management command. In CTFs and real systems, improper chown permissions can lead to privilege escalation.",
+            example: "chown root:root /etc/shadow\nchown agent:agent /home/agent/notes.txt"
         }
     };
 
@@ -770,6 +834,7 @@
                         ["rm [-rf] <path>", "Remove a file or directory"],
                         ["echo <text> [> file]", "Output text or redirect/append into virtual file"],
                         ["chmod <perms> <file>", "Modify file permissions (e.g. +x for executable)"],
+                        ["chown <user:group> <file>", "Modify file ownership in virtual filesystem"],
                         ["clear", "Clear terminal display (or press Ctrl+L)"],
                         ["history", "Show session command history"]
                     ]
@@ -805,8 +870,15 @@
                         ["nmap [-sV] <ip>", "Perform tactical port scan with banner grabbing"],
                         ["ping [-c N] <target>", "Transmit ICMP echo ping packets to host"],
                         ["whois <domain>", "Query domain registrar and DNS records"],
+                        ["dig <domain>", "Query DNS resource records (A, MX, TXT, NS)"],
                         ["curl [-I] <url>", "Simulate HTTP request and inspect headers/body"],
                         ["hashcat <hash>", "Crack MD5, SHA-256, and NTLM password hashes"],
+                        ["john <hashfile>", "John the Ripper password security and hash cracker"],
+                        ["enum4linux <ip>", "Enumerate SMB shares, users, and domains"],
+                        ["linpeas", "Automated Linux local privilege escalation auditor"],
+                        ["gobuster dir -u <url>", "High-speed HTTP directory and path brute-forcer"],
+                        ["nikto -h <target>", "Comprehensive web server security scanner"],
+                        ["nc <host> <port>", "Netcat banner grabbing and connection tester"],
                         ["payloads [tech]", "Display tactical reverse shell cheat sheet"],
                         ["notes [list|view|add]", "Manage operative notes vault across all keys"],
                         ["ask <query>", "Query PwnBox Tactical AI Copilot directly in terminal"]
@@ -1557,6 +1629,133 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used
             } else {
                 writeOutput("Usage: pwn ctf [flag]");
             }
+        },
+
+        dig: (args) => {
+            const host = args.find(a => !a.startsWith('-') && !['A','AAAA','MX','TXT','NS','SOA'].includes(a.toUpperCase())) || 'pwnbox.academy';
+            const type = (args.find(a => ['A', 'AAAA', 'MX', 'TXT', 'NS', 'SOA'].includes(a.toUpperCase())) || 'A').toUpperCase();
+            writeOutput(`; <<>> DiG 9.18.19-1~deb12u1-Debian <<>> ${host} ${type}`);
+            writeOutput(`;; global options: +cmd`);
+            writeOutput(`;; Got answer:`);
+            writeOutput(`;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 41285`);
+            writeOutput(`;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1`);
+            writeOutput(`\n;; QUESTION SECTION:`);
+            writeOutput(`;${host}.\t\t\tIN\t${type}`);
+            writeOutput(`\n;; ANSWER SECTION:`);
+            if (type === 'MX') {
+                writeOutput(`${host}.\t\t300\tIN\tMX\t10 mail.${host}.`);
+            } else if (type === 'TXT') {
+                writeOutput(`${host}.\t\t300\tIN\tTXT\t"v=spf1 include:_spf.google.com ~all"`);
+            } else {
+                writeOutput(`${host}.\t\t300\tIN\tA\t10.10.10.27`);
+            }
+            writeOutput(`\n;; Query time: 14 msec`);
+            writeOutput(`;; SERVER: 1.1.1.1#53(1.1.1.1) (UDP)`);
+            writeOutput(`;; WHEN: ${new Date().toUTCString()}`);
+        },
+
+        enum4linux: (args) => {
+            const target = args.find(a => !a.startsWith('-')) || '10.10.10.27';
+            writeOutput(`Starting enum4linux v0.9.1 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on ${target}`);
+            writeOutput(` ========================== Target Information ========================== `);
+            writeOutput(`Target ........... ${target}`);
+            writeOutput(`RID Range ........ 500-550,1000-1050`);
+            writeOutput(` ==================== Enumerating Workgroup/Domain ==================== `);
+            writeOutput(`[+] Got domain/workgroup name: CORP.LOCAL`);
+            writeOutput(` ========================== Share Enumeration ========================== `);
+            writeOutput(`[+] Found 3 share(s):`);
+            writeOutput(`\tIPC$            IPC Service (Samba 4.18.6)`);
+            writeOutput(`\tprint$          Printer Drivers`);
+            writeOutput(`\tbackups         Enterprise System Backups [READABLE - Anonymous Access]`);
+            writeOutput(` ========================== User Enumeration ========================== `);
+            writeOutput(`[+] Found local user: Administrator (RID: 500)`);
+            writeOutput(`[+] Found local user: guest (RID: 501)`);
+            writeOutput(`[+] Found local user: cadet (RID: 1001)`);
+            writeOutput(`[+] enum4linux complete.`);
+        },
+
+        linpeas: () => {
+            writeOutput(`               .---.                 _             `, 'term-out info');
+            writeOutput(`              / / \\ \\   _     _ _ __(_) ___  __ _  `, 'term-out info');
+            writeOutput(`             / /   \\ \\ | |   | | '__| |/ _ \\/ _' | `, 'term-out info');
+            writeOutput(`            / /     \\ \\| |___| | |  | |  __/ (_| | `, 'term-out info');
+            writeOutput(`           / /       \\_\\_____|_|_|  |_|\\___|\\__,_| `, 'term-out info');
+            writeOutput(`\n[+] LINPEAS (v2026.11) - Linux Privilege Escalation Awesome Script`);
+            writeOutput(`[+] Scanning target system: ${currentHost} (Linux 6.5.0-generic)`);
+            writeOutput(`\n[!] SUID Binaries (Potential Escalation Vectors):`);
+            writeOutput(`    -rwsr-xr-x 1 root root /usr/bin/sudo`);
+            writeOutput(`    -rwsr-xr-x 1 root root /usr/bin/pkexec`);
+            writeOutput(`    -rwsr-xr-x 1 root root /usr/bin/find [!] VULNERABLE: GTFOBins execute available!`);
+            writeOutput(`\n[!] Sudo Privileges:`);
+            writeOutput(`    User agent may run the following commands on this host:`);
+            writeOutput(`    (ALL : ALL) NOPASSWD: /usr/bin/find`);
+            writeOutput(`\n[+] Audit finished. 1 Critical privilege escalation path identified via SUID /usr/bin/find.`);
+        },
+
+        john: (args) => {
+            const file = args.find(a => !a.startsWith('-')) || '/etc/shadow';
+            writeOutput(`Loaded 1 password hash (sha512crypt, crypt(3) $6$ [AVX2 256/256])`);
+            writeOutput(`Cost 1 (iteration count) is 5000 for all loaded hashes`);
+            writeOutput(`Will run 4 OpenMP threads`);
+            writeOutput(`Press 'q' or Ctrl-C to abort, almost any other key for status`);
+            writeOutput(`password123      (agent)`);
+            writeOutput(`1g 0:00:00:01 DONE (2026-11-06 23:30) 0.8196g/s 1240p/s 1240c/s 1240C/s`);
+            writeOutput(`Use the "--show" option to display all of the cracked passwords reliably`);
+            writeOutput(`Session completed.`);
+        },
+
+        gobuster: (args) => {
+            const url = args.find(a => a.startsWith('http')) || 'http://10.10.10.27';
+            writeOutput(`===============================================================`);
+            writeOutput(`Gobuster v3.6 - Dir & DNS Brute Forcing`);
+            writeOutput(`[+] Url:            ${url}`);
+            writeOutput(`[+] Method:         GET`);
+            writeOutput(`[+] Threads:        10`);
+            writeOutput(`[+] Wordlist:       /usr/share/wordlists/dirb/common.txt`);
+            writeOutput(`===============================================================`);
+            writeOutput(`Starting gobuster in directory enumeration mode`);
+            writeOutput(`===============================================================`);
+            writeOutput(`/admin                (Status: 301) [Size: 178] [--> /admin/]`);
+            writeOutput(`/api                  (Status: 200) [Size: 420]`);
+            writeOutput(`/assets               (Status: 301) [Size: 178] [--> /assets/]`);
+            writeOutput(`/dashboard            (Status: 200) [Size: 1845]`);
+            writeOutput(`/login                (Status: 200) [Size: 932]`);
+            writeOutput(`/robots.txt           (Status: 200) [Size: 58]`);
+            writeOutput(`===============================================================`);
+            writeOutput(`Finished: 6 matching paths identified.`);
+        },
+
+        nikto: (args) => {
+            const host = args.find(a => !a.startsWith('-')) || '10.10.10.27';
+            writeOutput(`- Nikto v2.5.0`);
+            writeOutput(`---------------------------------------------------------------------------`);
+            writeOutput(`+ Target IP:          ${host}`);
+            writeOutput(`+ Target Hostname:    pwnbox.local`);
+            writeOutput(`+ Target Port:        80`);
+            writeOutput(`+ Start Time:         ${new Date().toUTCString()}`);
+            writeOutput(`---------------------------------------------------------------------------`);
+            writeOutput(`+ Server: Apache/2.4.57 (Debian)`);
+            writeOutput(`+ [!] The anti-clickjacking X-Frame-Options header is not present.`);
+            writeOutput(`+ [!] The X-Content-Type-Options header is not set.`);
+            writeOutput(`+ [+] /robots.txt: Contains 2 interesting disallowed entries.`);
+            writeOutput(`+ [+] /admin/: Directory indexing found.`);
+            writeOutput(`+ 1482 requests: 0 error(s) and 4 item(s) reported on remote host.`);
+            writeOutput(`+ End Time:           ${new Date().toUTCString()} (4 seconds)`);
+        },
+
+        nc: (args) => {
+            const host = args.find(a => !a.startsWith('-')) || '10.10.10.27';
+            const port = args[args.indexOf(host) + 1] || '80';
+            writeOutput(`(UNKNOWN) [${host}] ${port} (?) open`);
+            writeOutput(`SSH-2.0-OpenSSH_9.3p1 Debian-1`);
+        },
+
+        chown: (args) => {
+            if (args.length < 2) {
+                writeOutput("usage: chown <owner[:group]> <file>", "term-out error");
+                return;
+            }
+            writeOutput(`[+] Changed ownership of '${args[1]}' to '${args[0]}'.`);
         }
     };
 
@@ -1755,6 +1954,8 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used
     window.PwnTerminal = {
         init,
         executeCommand,
+        commands,
+        COMMAND_MANUALS,
         setTheme: (themeName) => {
             document.documentElement.setAttribute('data-term-theme', themeName);
             localStorage.setItem('pwn_term_theme', themeName);

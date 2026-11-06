@@ -561,14 +561,27 @@
         }
     }
 
-    function copyListener() {
+    async function copyListener() {
         const port = (portInput ? portInput.value.trim() : '') || '4444';
         const cmd = `nc -lvnp ${port}`;
-        navigator.clipboard.writeText(cmd).then(() => {
+        try {
+            await navigator.clipboard.writeText(cmd);
             if (typeof window.tacticalToast === 'function') {
                 window.tacticalToast(`Copied listener: ${cmd}`, "success");
             }
-        });
+        } catch (_) {
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = cmd;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                if (typeof window.tacticalToast === 'function') {
+                    window.tacticalToast(`Copied listener: ${cmd}`, "success");
+                }
+            } catch (e) {}
+        }
     }
 
     window.PwnPayloads = {

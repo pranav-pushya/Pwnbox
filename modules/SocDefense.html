@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 11: Master Blue Team operations, SOC log correlation, Sigma detection rules, Volatility memory forensics, Zeek PCAP hunting, and incident response playbooks.">
+    <title>M-11: Blue Team Defense & SOC Operations — PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+    
+    <link rel="stylesheet" href="../css/SystemHacking.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="stylesheet" href="../css/resizer.css">
+    <script src="../js/ui_popups.js"></script>
+    <style>
+        :root {
+            --accent-primary: #10b981;
+        }
+        .local-badge {
+            background: #10b981 !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+            box-shadow: 2px 2px 0 #000000 !important;
+            font-weight: 800 !important;
+        }
+        .soc-glow {
+            animation: socPulse 2.4s infinite alternate ease-in-out;
+        }
+        @keyframes socPulse {
+            from { box-shadow: 0 0 5px rgba(16, 185, 129, 0.4); }
+            to { box-shadow: 0 0 16px rgba(16, 185, 129, 0.9); }
+        }
+    </style>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="M-11: Blue Team Defense & SOC Operations — PwnBox Academy">
+    <meta property="og:description" content="Module 11: Master Blue Team operations, SOC log correlation, Sigma detection rules, Volatility memory forensics, Zeek PCAP hunting, and incident response playbooks.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="M-11: Blue Team Defense & SOC Operations — PwnBox Academy">
+    <meta name="twitter:description" content="Module 11: Master Blue Team operations, SOC log correlation, Sigma detection rules, Volatility memory forensics, Zeek PCAP hunting, and incident response playbooks.">
+    <meta name="twitter:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="tab-tools">
+
+    <div class="sidebar">
+        <div class="header">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+            <a href="../dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>M-11 Blue Team SOC</h2>
+            <div style="font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #10b981; font-weight: 800; margin-bottom: 8px;">🛡️ DEFENSIVE SIEM & THREAT HUNTING</div>
+            <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
+        </div>
+        <div class="tool-list" id="toolList"></div>
+        <div class="sidebar-footer">
+            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
+        </div>
+    </div>
+    <div class="resizer-v" id="sidebarResizer"></div>
+    <div class="workspace">
+        <div class="content-split">
+            <div class="details-panel" id="detailsPanel">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 20vh;">
+                    <div style="font-size: 3rem; margin-bottom: 12px;">🛡️</div>
+                    <h3>SOC OPERATIONS & BLUE TEAM: MODULE 11</h3>
+                    <p style="margin-top: 8px; font-size: 0.9rem;">Select a defensive security framework from the sidebar to inspect Sigma detection rules, Sysmon event correlations, and Volatility memory forensics.</p>
+                </div>
+            </div>
+            <div class="resizer-v" id="panelResizer"></div>
+            <div class="chat-panel">
+                <div class="chat-header" style="flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="status-container">
+                            <div class="status-dot online" id="statusDot"></div>
+                            SOC Defense AI Mentor
+                        </div>
+                        <div class="local-badge soc-glow">MODULE 11: BLUE TEAM</div>
+                    </div>
+                    <div class="panel-tabs" style="display: flex; gap: 4px; background: rgba(2, 6, 23, 0.3); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                        <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 SOC AI Oracle</button>
+                        <button class="panel-tab" onclick="switchPanelTab('terminal')">💻 SIEM CLI Sandbox</button>
+                        <button class="panel-tab" onclick="switchPanelTab('quiz')">📝 Defense Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Chat Tab Content -->
+                <div id="chatTabContent" class="tab-content active" style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0;">
+                    <div class="chat-history" id="chatHistory">
+                        <div class="msg bot">SOC Lead Mentor Initialized. Try asking: "How do I write a Sigma rule to detect Cobalt Strike or certutil.exe LOLBin downloads via Sysmon Event ID 1?"</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask about Sysmon, Sigma rules, Zeek, Volatility memory analysis, YARA, Wazuh..." onkeypress="handleEnter(event)">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+
+                <!-- Terminal Tab Content -->
+                <div id="terminalTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; background: #010409; font-family: 'Space Mono', monospace; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div id="terminalOutput" style="flex-grow: 1; overflow-y: auto; color: #6ee7b7; font-size: 0.8rem; line-height: 1.4; margin-bottom: 10px; padding-right: 5px; text-align: left;">
+                        <div style="color: #10b981; font-weight: bold;">PWNBOX SECURITY OPERATIONS CENTER SIEM TERMINAL v1.0</div>
+                        <div style="color: #64748b; margin-bottom: 10px;">Type 'help' to inspect commands: sysmon-triage, sigma-check, volatility-malfind, zeek-conn.</div>
+                    </div>
+                    <div style="display: flex; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        <span style="color: #6ee7b7; margin-right: 8px; font-weight: bold; font-size: 0.85rem;">soc-analyst@siem-node:~$</span>
+                        <input type="text" id="terminalInput" onkeypress="handleTerminalEnter(event)" style="flex-grow: 1; background: transparent; border: none; outline: none; color: #f8fafc; font-family: 'Space Mono', monospace; font-size: 0.8rem;" placeholder="run SOC command...">
+                    </div>
+                </div>
+
+                <!-- Quiz Tab Content -->
+                <div id="quizTabContent" class="tab-content" style="display: none; flex-direction: column; flex-grow: 1; min-height: 0; padding: 20px; overflow-y: auto; text-align: left;">
+                    <h3 style="font-size: 1rem; color: #10b981; margin-bottom: 8px;">📝 Module 11: SOC Analyst Mastery Quiz</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 15px;">Evaluate your understanding of log telemetry, memory forensic indicators, and detection engineering.</p>
+                    
+                    <div class="quiz-container" style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Question 1 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">1. Which Sysmon Event ID records detailed Process Creation telemetry (command-line arguments, parent process, hashes)?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="A" onclick="checkQuizAnswer(1, 'A')"> A) Event ID 1 (Process Create)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="B" onclick="checkQuizAnswer(1, 'A')"> B) Event ID 7 (Image Loaded)</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q1" value="C" onclick="checkQuizAnswer(1, 'A')"> C) Event ID 13 (Registry Event)</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">2. In Volatility 3, which plugin inspects memory pages with PAGE_EXECUTE_READWRITE permissions to detect injected shellcode?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="A" onclick="checkQuizAnswer(2, 'B')"> A) windows.netscan</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="B" onclick="checkQuizAnswer(2, 'B')"> B) windows.malfind</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q2" value="C" onclick="checkQuizAnswer(2, 'B')"> C) windows.cmdline</label>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; color: var(--text-main);">3. What open standard allows threat hunters to write detection signatures once and convert them to Splunk, Elastic, QRadar, or Microsoft Sentinel?</h4>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="A" onclick="checkQuizAnswer(3, 'C')"> A) PCAP</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="B" onclick="checkQuizAnswer(3, 'C')"> B) CSV</label>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="radio" name="q3" value="C" onclick="checkQuizAnswer(3, 'C')"> C) Sigma (Generic Signature Format for SIEM Systems)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Custom Tool Modal -->
+    <div class="pwn-modal-overlay" id="addToolModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div style="background: var(--bg-panel); border: 3px solid var(--border-color); padding: 24px; width: min(480px, 90vw); box-shadow: 8px 8px 0 var(--border-color); font-family: 'Space Mono', monospace;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 1rem; font-weight: 800; margin: 0;">➕ ADD CUSTOM DEFENSIVE TOOL</h3>
+                <button onclick="closeAddToolModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); font-weight: 800;">&times;</button>
+            </div>
+            <form id="addToolForm" onsubmit="event.preventDefault(); saveCustomTool();" style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="text" id="customToolName" placeholder="Tool Name (e.g. Zeek, Hayabusa)" required style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit;">
+                <input type="text" id="customToolCategory" placeholder="Category (e.g. SIEM, Detection, Forensics)" required style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit;">
+                <textarea id="customToolDesc" placeholder="Brief technical summary..." rows="2" style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit; resize: none;"></textarea>
+                <input type="text" id="customToolSyntax" placeholder="Command syntax..." style="padding: 8px 10px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-family: inherit;">
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px;">
+                    <button type="button" onclick="closeAddToolModal()" style="padding: 6px 12px; border: 2px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-weight: 700; cursor: pointer;">Cancel</button>
+                    <button type="submit" style="padding: 6px 14px; border: 2px solid var(--border-color); background: #10b981; color: #000; font-weight: 800; cursor: pointer;">Save Tool</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/config.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/resizer.js"></script>
+    <script src="../js/groq_service.js"></script>
+    <script src="../js/SocDefense.js"></script>
+    <script src="../js/mobile_nav.js?v=3.0"></script>
+    <!-- Firebase SDK v10 & Cloud Sync -->
+    <script src="../js/vendor/firebase-app-compat.js"></script>
+    <script src="../js/vendor/firebase-auth-compat.js"></script>
+    <script src="../js/vendor/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase_auth.js"></script>
+    <script src="../js/cloud_sync.js"></script>
+</body>
+</html>

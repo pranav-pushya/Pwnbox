@@ -295,7 +295,7 @@
             <div class="module-card active" id="moduleCloudSec">
                 <div class="card-top">
                     <div class="module-badge-row">
-                        <span class="module-badge badge-active" style="background: #0284c7; color: #fff;">Cloud Track</span>
+                        <span class="module-badge badge-active" id="cloudSecBadge" style="background: #0284c7; color: #fff;">Cloud Track</span>
                         <span class="module-num" style="color: #0284c7;">MODULE 09</span>
                     </div>
                     <h3 class="module-title">Cloud & Container Security</h3>
@@ -311,7 +311,7 @@
             <div class="module-card active" id="moduleActiveDirectory">
                 <div class="card-top">
                     <div class="module-badge-row">
-                        <span class="module-badge badge-active" style="background: #ea580c; color: #fff;">Enterprise Track</span>
+                        <span class="module-badge badge-active" id="adBadge" style="background: #ea580c; color: #fff;">Enterprise Track</span>
                         <span class="module-num" style="color: #ea580c;">MODULE 10</span>
                     </div>
                     <h3 class="module-title">Active Directory Dominance</h3>
@@ -320,6 +320,22 @@
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #ea580c;">🏰 7 AD Tools</span>
                     <a href="modules/ActiveDirectory.html" class="btn-launch" style="background: #ea580c; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">Launch Module ↗</a>
+                </div>
+            </div>
+
+            <!-- Module 11: Blue Team Defense & SOC Operations -->
+            <div class="module-card active" id="moduleSocDefense">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-active" id="socBadge" style="background: #10b981; color: #000; font-weight: 800;">Defensive Track</span>
+                        <span class="module-num" style="color: #10b981;">MODULE 11</span>
+                    </div>
+                    <h3 class="module-title">Blue Team SOC & Defense</h3>
+                    <p class="module-desc">Sigma detection rules, Sysmon log correlation, Volatility 3 memory forensics, Zeek PCAP hunting, and incident response playbooks.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="module-meta" style="color: #10b981;">🛡️ 7 SOC Tools</span>
+                    <a href="modules/SocDefense.html" class="btn-launch" style="background: #10b981; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -386,6 +402,10 @@
                     <div class="node active" id="node10" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">
                         <div class="node-dot" style="background: #ea580c; border-color: #fdba74;"></div>
                         <div class="node-label" style="color: #fdba74;">10. Active Dir</div>
+                    </div>
+                    <div class="node active" id="node11" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">
+                        <div class="node-dot" style="background: #10b981; border-color: #6ee7b7;"></div>
+                        <div class="node-label" style="color: #6ee7b7;">11. Blue Team</div>
                     </div>
                     <div class="node secret-node" id="node8" style="display: none;" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">
                         <div class="node-dot" style="background: #9333ea; border-color: #c084fc;"></div>

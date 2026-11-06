@@ -279,13 +279,9 @@ async function sendMessage() {
     history.scrollTop = history.scrollHeight;
 
     try {
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
+        let content = '';
+        if (typeof window !== "undefined" && window.GroqService && window.GroqService.callGroqChat) {
+            const data = await window.GroqService.callGroqChat({
                 model: "llama-3.3-70b-versatile",
                 messages: [
                     {
@@ -296,12 +292,34 @@ async function sendMessage() {
                 ],
                 temperature: 0.5,
                 max_tokens: 600
-            })
-        });
+            });
+            content = data.choices[0].message.content;
+        } else {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: "llama-3.3-70b-versatile",
+                    messages: [
+                        {
+                            role: "system",
+                            content: "You are an expert Active Directory and Windows Enterprise Penetration Testing Mentor on the PwnBox cybersecurity academy. Explain Kerberos authentication, BloodHound graphs, ticket forging, and privilege escalation with concrete examples and Hinglish analogies if appropriate."
+                        },
+                        { role: "user", content: msg }
+                    ],
+                    temperature: 0.5,
+                    max_tokens: 600
+                })
+            });
 
-        if (!response.ok) throw new Error("API request failed");
-        const data = await response.json();
-        botDiv.textContent = data.choices[0].message.content;
+            if (!response.ok) throw new Error("API request failed");
+            const data = await response.json();
+            content = data.choices[0].message.content;
+        }
+        botDiv.textContent = content;
     } catch (e) {
         botDiv.textContent = "Downlink failed. Ensure Groq API key is valid in js/config.js or test commands in the AD CLI Sandbox tab.";
     }

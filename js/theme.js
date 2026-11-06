@@ -347,6 +347,14 @@ const PWNBOX_SHORTCUTS = [
         category: 'Labs',
         target: 'modules/ActiveDirectory.html'
     },
+    {
+        key: 'M11',
+        badge: 'LAB',
+        title: 'M-11: Blue Team Defense & SOC Operations',
+        desc: 'Sigma rules, Sysmon correlation, Volatility 3 memory analysis & Zeek threat hunting',
+        category: 'Labs',
+        target: 'modules/SocDefense.html'
+    },
 
     // --- 8 Tactical Arcade Mini-Games ---
     {

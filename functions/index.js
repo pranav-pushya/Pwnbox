@@ -12,6 +12,35 @@ if (!admin.apps.length) {
  */
 const GROQ_API_KEY = process.env.GROQ_API_KEY || "";
 
+// In-memory sliding window rate limiter for abuse prevention
+const rateLimitMap = new Map();
+function isRateLimited(ip) {
+    const now = Date.now();
+    const windowMs = 60 * 1000; // 1 minute window
+    const maxRequests = 30;     // Max 30 AI queries per minute per IP
+
+    const history = rateLimitMap.get(ip) || [];
+    const recent = history.filter(ts => now - ts < windowMs);
+
+    if (recent.length >= maxRequests) {
+        return true;
+    }
+
+    recent.push(now);
+    rateLimitMap.set(ip, recent);
+
+    // Occasional cleanup of stale entries
+    if (rateLimitMap.size > 2000) {
+        for (const [storedIp, timestamps] of rateLimitMap.entries()) {
+            if (timestamps.every(ts => now - ts >= windowMs)) {
+                rateLimitMap.delete(storedIp);
+            }
+        }
+    }
+
+    return false;
+}
+
 exports.groqChat = functions.https.onRequest(async (req, res) => {
     // Allowed origins: allow localhost in dev and production web app
     const origin = req.headers.origin || "*";
@@ -25,6 +54,13 @@ exports.groqChat = functions.https.onRequest(async (req, res) => {
 
     if (req.method !== "POST") {
         return res.status(405).json({ error: "Method not allowed. Use POST." });
+    }
+
+    const clientIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress || "unknown";
+    if (isRateLimited(clientIp)) {
+        return res.status(429).json({
+            error: "RATE_LIMITED: Tactical AI query frequency limit reached (30 req/min). Please standby."
+        });
     }
 
     try {
