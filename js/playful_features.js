@@ -862,9 +862,13 @@
     // --- 4. KEYBOARD EASTER EGGS ---
     const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     let konamiIndex = 0;
+    let konamiTimeout = null;
     let typedBuffer = '';
+    let wordEasterEggTimeout = null;
+    const secretEasterWords = ['hack', 'matrix', 'pranav'];
 
     function initEasterEggs() {
+        // Use capture phase so Konami code & secret word keystrokes are intercepted BEFORE any single-key navigation
         window.addEventListener('keydown', (e) => {
             const activeEl = document.activeElement;
             const activeTag = activeEl ? activeEl.tagName : '';
@@ -872,26 +876,81 @@
             if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT' || isEditable) return;
 
             const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+
+            // 1. Konami Code Sequence Matching
             if (key === konamiSequence[konamiIndex] || e.key === konamiSequence[konamiIndex]) {
                 konamiIndex++;
+                window.__pwnboxKonamiActive = true;
+                clearTimeout(konamiTimeout);
+                konamiTimeout = setTimeout(() => {
+                    konamiIndex = 0;
+                    window.__pwnboxKonamiActive = false;
+                }, 3000);
+
+                // When typing 'b' or 'a' in the sequence, strictly intercept and stop propagation so it never redirects to assistant!
+                if (key === 'b' || key === 'a' || konamiIndex === konamiSequence.length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+                }
+
                 if (konamiIndex === konamiSequence.length) {
                     konamiIndex = 0;
+                    clearTimeout(konamiTimeout);
+                    setTimeout(() => { window.__pwnboxKonamiActive = false; }, 600);
                     triggerSecretArchitectModal('KONAMI CODE DETECTED: GODMODE ACTIVE');
+                    return;
                 }
             } else if (key === konamiSequence[0] || e.key === konamiSequence[0]) {
                 konamiIndex = 1;
+                window.__pwnboxKonamiActive = true;
+                clearTimeout(konamiTimeout);
+                konamiTimeout = setTimeout(() => {
+                    konamiIndex = 0;
+                    window.__pwnboxKonamiActive = false;
+                }, 3000);
             } else {
                 konamiIndex = 0;
+                window.__pwnboxKonamiActive = false;
             }
 
+            // 2. Secret Word Triggers ('hack', 'matrix', 'pranav')
             typedBuffer += key;
             if (typedBuffer.length > 20) typedBuffer = typedBuffer.slice(-20);
 
-            if (typedBuffer.endsWith('hack') || typedBuffer.endsWith('matrix') || typedBuffer.endsWith('pranav')) {
-                typedBuffer = '';
-                triggerSecretArchitectModal('AUTHENTICATED BY ARCHITECT: PRANAV PUSHYA');
+            // Check if current buffer matches any prefix of secret words
+            const isMatchingPrefix = secretEasterWords.some(w => {
+                for (let i = 1; i <= w.length; i++) {
+                    if (typedBuffer.endsWith(w.slice(0, i))) return true;
+                }
+                return false;
+            });
+
+            if (isMatchingPrefix) {
+                window.__pwnboxSecretTyping = true;
+                clearTimeout(wordEasterEggTimeout);
+                wordEasterEggTimeout = setTimeout(() => {
+                    window.__pwnboxSecretTyping = false;
+                }, 1200);
+
+                // Consume single key if it could be part of an easter egg word on home page
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            } else {
+                window.__pwnboxSecretTyping = false;
             }
-        });
+
+            if (typedBuffer.endsWith('hack') || typedBuffer.endsWith('matrix') || typedBuffer.endsWith('pranav')) {
+                const matched = typedBuffer.endsWith('hack') ? 'HACK' : (typedBuffer.endsWith('matrix') ? '1999 MATRIX' : 'PRANAV PUSHYA');
+                typedBuffer = '';
+                window.__pwnboxSecretTyping = false;
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+                triggerSecretArchitectModal(`AUTHENTICATED BY ARCHITECT [${matched}]: ROOT ACCESS GRANTED`);
+            }
+        }, { capture: true });
     }
 
     function triggerSecretArchitectModal(message) {
@@ -925,6 +984,13 @@
         } else {
             const msgEl = document.getElementById('secretModalMsg');
             if (msgEl) msgEl.textContent = message;
+            const actionsEl = modal.querySelector('.secret-actions');
+            if (actionsEl) {
+                actionsEl.innerHTML = `
+                    <button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'">RETURN TO OPERATIONAL DECK</button>
+                    ${isGodmode ? `<button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'; if(typeof openGodModeModal === 'function') openGodModeModal();" style="background: #ffe600; color: #000; font-weight: 800;">OPEN ARCHITECT GODMODE ⚡</button>` : `<a href="dashboard.html" class="btn-secret-action red">PROCEED TO DASHBOARD &rarr;</a>`}
+                `;
+            }
         }
 
         modal.style.display = 'flex';

@@ -1378,6 +1378,11 @@ document.addEventListener('keydown', function (e) {
         return;
     }
 
+    // 0. Do not execute navigation shortcuts if Konami code sequence is active or secret word is being typed
+    if (window.__pwnboxKonamiActive || window.__pwnboxSecretTyping) {
+        return;
+    }
+
     // Allow 'c' on dashboard for cheatsheet drawer without requiring auth
     const k = e.key ? e.key.toLowerCase() : '';
     if (k === 'c' && isCurrentPage('dashboard')) {
@@ -1426,6 +1431,7 @@ document.addEventListener('keydown', function (e) {
             }
             break;
         case 'a': // A or a for Cyber AI Assistant
+            if (window.__pwnboxKonamiActive || window.__pwnboxSecretTyping) return;
             navigateTo('assistant');
             break;
         case 's': // S or s for Settings
