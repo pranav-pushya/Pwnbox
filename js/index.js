@@ -1,16 +1,10 @@
 function handleProtectedModuleLaunch(e, targetUrl) {
     const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
     if (!isAuth) {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        // Inform user they are in Guest Mode with local progress tracking
         if (typeof window.tacticalToast === 'function') {
-            window.tacticalToast("You cannot access curriculum modules without signing in.", "warning");
-        } else if (typeof window.showSystemAlert === 'function') {
-            window.showSystemAlert("You cannot access curriculum modules without signing in.");
+            window.tacticalToast("Cadet Guest Mode active. Progress saved locally; sign in anytime for cloud sync.", "info");
         }
-        return false;
     }
     if (targetUrl) {
         window.location.href = targetUrl;
@@ -601,9 +595,6 @@ let skullTriggerClicks = 0;
 let skullTriggerTimer = null;
 
 function unlockModule08(shouldScroll = true) {
-    if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-        return; // Silently blocked as if it does not exist
-    }
     localStorage.setItem('pwnbox_m08_unlocked', 'true');
     updateModule08State();
     updateDashboardStats();
@@ -625,7 +616,7 @@ function updateModule08State() {
     const node8 = document.getElementById('node8');
     if (!card) return;
 
-    const isUnlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+    const isUnlocked = localStorage.getItem('pwnbox_m08_unlocked') === 'true';
     const isCompleted = localStorage.getItem('module_blackops_completed') === 'true';
 
     if (isUnlocked) {
@@ -660,7 +651,7 @@ function updateModule08State() {
 }
 
 function checkDashboardGodModeHUD() {
-    if (localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_godmode_badge') === 'true') {
+    if (localStorage.getItem('pwnbox_godmode_badge') === 'true') {
         let hud = document.getElementById('godmodeFloatingHud');
         if (!hud) {
             hud = document.createElement('div');
@@ -692,12 +683,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (skullTrigger) {
         skullTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-                return; // Silently blocked as if it does not exist
-            }
             skullTriggerClicks++;
             skullTrigger.style.transform = 'scale(1.35)';
-            skullTrigger.style.color = '#ef4444';
+            skullTrigger.style.color = '#a855f7';
             skullTrigger.style.opacity = '1';
             setTimeout(() => {
                 skullTrigger.style.transform = 'scale(1)';
@@ -705,27 +693,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 skullTrigger.style.opacity = '0.4';
             }, 250);
 
-            if (skullTriggerClicks === 1) {
-                skullTriggerTimer = setTimeout(() => { skullTriggerClicks = 0; }, 1000);
-            } else if (skullTriggerClicks >= 3) {
+            clearTimeout(skullTriggerTimer);
+            skullTriggerTimer = setTimeout(() => { skullTriggerClicks = 0; }, 900);
+
+            if (skullTriggerClicks >= 3) {
                 clearTimeout(skullTriggerTimer);
                 skullTriggerClicks = 0;
                 unlockModule08(true);
             }
         });
     }
+
+    // Single-key shortcut 'c' or 'C' for Cheatsheet drawer (Dashboard only)
+    document.addEventListener('keydown', (e) => {
+        if (e.key && e.key.toLowerCase() === 'c') {
+            const activeEl = document.activeElement;
+            const activeTag = activeEl ? activeEl.tagName : '';
+            const isEditable = activeEl ? (activeEl.isContentEditable || activeEl.getAttribute('contenteditable') === 'true') : false;
+            if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT' || isEditable) return;
+            if (typeof toggleCheatSheetDrawer === 'function') {
+                toggleCheatSheetDrawer(e);
+            }
+        }
+    });
 });
 
-// Intercept all module launch clicks on dashboard for unauthenticated users
+window.copyCheatCommand = copyCheatCommand;
+
+// Notify guests of local progress tracking on module launch
 document.addEventListener('click', (e) => {
     const launchTarget = e.target.closest('a[href*="modules/"], .btn-launch');
     if (launchTarget) {
         const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
         if (!isAuth) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            handleProtectedModuleLaunch(e, launchTarget.getAttribute('href'));
-            return false;
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("Cadet Guest Mode active. Progress saved locally; sign in anytime for cloud sync.", "info");
+            }
         }
     }
 }, true);

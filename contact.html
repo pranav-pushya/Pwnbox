@@ -23,6 +23,17 @@
     <link rel="stylesheet" href="css/tactical_policy.css">
     <link rel="stylesheet" href="css/masterguide_chat.css">
 
+    <!-- Firebase SDK (Local First-Party with Fallback) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
+    <script src="js/firebase_auth.js"></script>
+
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Operative Transmission Desk // Contact — PwnBox Cyber Academy">
@@ -190,7 +201,7 @@
             box.innerHTML = msg;
         }
 
-        function handleTransmissionSubmit(event) {
+        async function handleTransmissionSubmit(event) {
             event.preventDefault();
 
             // 1. SPAM CHECK: Honeypot trap verification
@@ -246,18 +257,69 @@
             // Generate unique Transmission Reference ID
             const hexId = Math.floor(1000 + Math.random() * 9000).toString(16).toUpperCase();
             const txHash = `TX-PWN-${hexId}`;
+            let finalTxId = txHash;
+            let transmitted = false;
+
+            // 5. Dual-Channel Network Transmission
+            try {
+                // Primary Channel: Serverless Function (/api/submitDispatch)
+                const response = await fetch('/api/submitDispatch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        callsign,
+                        email,
+                        category,
+                        message,
+                        honeypot: trap1 || trap2
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.txId) finalTxId = data.txId;
+                    transmitted = true;
+                } else {
+                    throw new Error(`Endpoint returned status ${response.status}`);
+                }
+            } catch (netErr) {
+                console.warn('[Transmission Desk] Primary endpoint unreachable, falling back to direct Firestore channel...', netErr);
+
+                // Secondary Channel: Direct Firestore Client SDK
+                try {
+                    if (typeof firebase !== 'undefined' && firebase.firestore) {
+                        if (!firebase.apps.length && window.defaultFirebaseConfig) {
+                            firebase.initializeApp(window.defaultFirebaseConfig);
+                        }
+                        const db = firebase.firestore();
+                        await db.collection('operative_dispatches').add({
+                            txId: txHash,
+                            callsign,
+                            email,
+                            category,
+                            message,
+                            submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            channel: 'direct_sdk'
+                        });
+                        transmitted = true;
+                    }
+                } catch (fsErr) {
+                    console.warn('[Transmission Desk] Secondary Firestore fallback unavailable:', fsErr);
+                }
+            }
 
             // Record timestamp for rate limit enforcement
             localStorage.setItem('pwnbox_last_transmission_time', Date.now().toString());
 
             // Save outbox record locally
             const record = {
-                tx: txHash,
+                tx: finalTxId,
                 callsign,
                 email,
                 category,
                 message,
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                synced: transmitted
             };
             try {
                 const history = JSON.parse(localStorage.getItem('pwnbox_dispatches') || '[]');
@@ -278,8 +340,8 @@
 
             // Redirect to dedicated Thank You / Conversion page
             setTimeout(() => {
-                window.location.href = `thank-you.html?tx=${encodeURIComponent(txHash)}&cat=${encodeURIComponent(category)}`;
-            }, 800);
+                window.location.href = `thank-you.html?tx=${encodeURIComponent(finalTxId)}&cat=${encodeURIComponent(category)}`;
+            }, 600);
         }
     </script>
     <script src="js/theme.js"></script>

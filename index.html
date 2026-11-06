@@ -1152,11 +1152,22 @@
                         <div style="color: #94a3b8; font-size: 0.75rem;">Type 'help' to view available tactical
                             commands. (probe, bypass, inject).</div>
                     </div>
+                    <!-- Quick Command Shortcuts Bar -->
+                    <div class="darknet-quick-actions-bar" style="border-top: 1px solid rgba(245, 158, 11, 0.25); border-bottom: 1px solid rgba(245, 158, 11, 0.25); background: rgba(0, 0, 0, 0.45);">
+                        <span style="font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #f59e0b; align-self: center; margin-right: 4px;">QUICK:</span>
+                        <button class="darknet-quick-pill" style="border-color: #f59e0b; color: #f59e0b;" onclick="runWargamesShortcut('probe')">🔍 1. PROBE</button>
+                        <button class="darknet-quick-pill" style="border-color: #f59e0b; color: #f59e0b;" onclick="runWargamesShortcut('bypass')">⚡ 2. BYPASS</button>
+                        <button class="darknet-quick-pill" style="border-color: #f59e0b; color: #f59e0b;" onclick="runWargamesShortcut('inject')">💥 3. INJECT</button>
+                        <button class="darknet-quick-pill" style="border-color: #f59e0b; color: #f59e0b;" onclick="runWargamesShortcut('help')">❓ HELP</button>
+                        <button class="darknet-quick-pill" style="border-color: #f59e0b; color: #f59e0b;" onclick="runWargamesShortcut('clear')">🧹 CLEAR</button>
+                    </div>
                     <div class="darknet-cli-input-bar" style="border-top-color: #f59e0b;">
                         <span
                             style="color: #f59e0b; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;">falken@wopr:~#</span>
                         <input type="text" id="wargamesInput" class="darknet-cli-input" style="color: #f59e0b;"
-                            placeholder="enter tactical command..." onkeypress="handleWargamesKey(event)">
+                            placeholder="enter tactical command (probe, bypass, inject)..." onkeypress="handleWargamesKey(event)">
+                        <button onclick="executeWargamesCmd(document.getElementById('wargamesInput').value); document.getElementById('wargamesInput').value='';"
+                            style="background: #f59e0b; color: #000; border: none; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; cursor: pointer;">EXECUTE</button>
                     </div>
                 </div>
             </div>

@@ -30,6 +30,10 @@
       {
         "source": "/api/chat",
         "function": "groqChat"
+      },
+      {
+        "source": "/api/submitDispatch",
+        "function": "submitDispatch"
       }
     ],
     "redirects": [

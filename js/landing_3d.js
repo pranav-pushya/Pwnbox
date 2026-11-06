@@ -439,14 +439,12 @@
         coreClickCount++;
         playTone(700 + coreClickCount * 200, 'triangle', 0.08, 0.08);
 
-        if (coreClickCount === 1) {
-            coreClickTimer = setTimeout(() => { coreClickCount = 0; }, 750);
-        } else if (coreClickCount >= 3) {
+        clearTimeout(coreClickTimer);
+        coreClickTimer = setTimeout(() => { coreClickCount = 0; }, 900);
+
+        if (coreClickCount >= 3) {
             clearTimeout(coreClickTimer);
             coreClickCount = 0;
-            if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-                return; // Silently blocked as if it does not exist
-            }
             triggerHyperdriveCollapse();
         }
     }
@@ -471,12 +469,21 @@
 
     container.addEventListener('pointerup', (e) => {
         const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
-        if (dist < 6) {
+        if (dist < 10) {
+            const p = getPointerPos(e);
+            mouse.x = p.x;
+            mouse.y = p.y;
+            raycaster.setFromCamera(mouse, camera);
+
             if (hoveredNode) {
                 playClickSound();
                 selectNode(hoveredNode);
             } else {
-                const coreHits = raycaster.intersectObjects([innerCore, shieldMesh, plasmaMesh]);
+                const coreTargets = [innerCore, shieldMesh, plasmaMesh];
+                if (typeof ring1 !== 'undefined') coreTargets.push(ring1);
+                if (typeof ring2 !== 'undefined') coreTargets.push(ring2);
+                if (typeof ring3 !== 'undefined') coreTargets.push(ring3);
+                const coreHits = raycaster.intersectObjects(coreTargets);
                 if (coreHits.length > 0) {
                     handleCoreClick();
                 }
@@ -888,9 +895,6 @@
     };
 
     function openDeclassifiedModal() {
-        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-            return; // Silently blocked as if it does not exist
-        }
         const modal = document.getElementById('declassifiedArchiveModal');
         if (modal) {
             modal.style.display = 'flex';

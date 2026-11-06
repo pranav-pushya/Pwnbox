@@ -46,6 +46,10 @@
         setTimeout(() => playTone(600, 'sine', 0.04, 0.03), 15);
     }
 
+    function playClickSound() {
+        playKeyClick();
+    }
+
     function playSonarPing() {
         try {
             const ctx = getAudioContext();
@@ -862,6 +866,11 @@
 
     function initEasterEggs() {
         window.addEventListener('keydown', (e) => {
+            const activeEl = document.activeElement;
+            const activeTag = activeEl ? activeEl.tagName : '';
+            const isEditable = activeEl ? (activeEl.isContentEditable || activeEl.getAttribute('contenteditable') === 'true') : false;
+            if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT' || isEditable) return;
+
             const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
             if (key === konamiSequence[konamiIndex] || e.key === konamiSequence[konamiIndex]) {
                 konamiIndex++;
@@ -869,6 +878,8 @@
                     konamiIndex = 0;
                     triggerSecretArchitectModal('KONAMI CODE DETECTED: GODMODE ACTIVE');
                 }
+            } else if (key === konamiSequence[0] || e.key === konamiSequence[0]) {
+                konamiIndex = 1;
             } else {
                 konamiIndex = 0;
             }
@@ -884,11 +895,9 @@
     }
 
     function triggerSecretArchitectModal(message) {
-        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-            return; // Silently blocked as if it does not exist
-        }
         playVictorySfx();
         let modal = document.getElementById('secretArchitectModal');
+        const isGodmode = message.includes('GODMODE');
         if (!modal) {
             modal = document.createElement('div');
             modal.id = 'secretArchitectModal';
@@ -907,7 +916,7 @@
                         </div>
                         <div class="secret-actions">
                             <button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'">RETURN TO OPERATIONAL DECK</button>
-                            <a href="dashboard.html" class="btn-secret-action red">PROCEED TO DASHBOARD &rarr;</a>
+                            ${isGodmode ? `<button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'; if(typeof openGodModeModal === 'function') openGodModeModal();" style="background: #ffe600; color: #000; font-weight: 800;">OPEN ARCHITECT GODMODE ⚡</button>` : `<a href="dashboard.html" class="btn-secret-action red">PROCEED TO DASHBOARD &rarr;</a>`}
                         </div>
                     </div>
                 </div>
@@ -994,9 +1003,9 @@
             verTrigger.addEventListener('click', () => {
                 versionClickCount++;
                 playKeyClick();
-                if (versionClickCount === 1) {
-                    versionClickTimer = setTimeout(() => { versionClickCount = 0; }, 800);
-                } else if (versionClickCount >= 3) {
+                clearTimeout(versionClickTimer);
+                versionClickTimer = setTimeout(() => { versionClickCount = 0; }, 900);
+                if (versionClickCount >= 3) {
                     clearTimeout(versionClickTimer);
                     versionClickCount = 0;
                     openAirgapModal();
@@ -1006,9 +1015,6 @@
     }
 
     function openAirgapModal() {
-        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-            return; // Silently blocked as if it does not exist
-        }
         const modal = document.getElementById('airgapPinpadModal');
         if (!modal) return;
         modal.style.display = 'flex';
@@ -1784,11 +1790,9 @@
     let isAmbientPlaying = false;
 
     function openGodModeModal() {
-        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-            return; // Silently blocked as if it does not exist
-        }
         const modal = document.getElementById('architectGodModeModal');
         if (!modal) return;
+        modal.style.display = 'flex';
         playVictorySfx();
         switchGodModeTab('godmode');
     }
@@ -1820,9 +1824,6 @@
     }
 
     function applySecretTheme(themeName) {
-        if (localStorage.getItem('pwnbox_is_authenticated') !== 'true') {
-            return; // Silently blocked as if it does not exist
-        }
         playTone(980, 'triangle', 0.12, 0.1);
         document.documentElement.setAttribute('data-theme', themeName);
         localStorage.setItem('theme', themeName);
@@ -2029,6 +2030,39 @@
     window.toggleRainbowGodmodeBadge = toggleRainbowGodmodeBadge;
     window.toggleAmbientAudio = toggleAmbientAudio;
     window.handleWargamesKey = handleWargamesKey;
+    window.executeWargamesCmd = executeWargamesCmd;
+    window.runWargamesShortcut = (cmd) => {
+        const input = document.getElementById('wargamesInput');
+        if (input) input.value = cmd;
+        executeWargamesCmd(cmd);
+        if (input) input.value = '';
+    };
+
+    // Backdrop click dismiss for all secret modals
+    ['airgapPinpadModal', 'architectGodModeModal', 'declassifiedArchiveModal', 'secretArchitectModal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('click', (e) => {
+                if (e.target === el) {
+                    el.style.display = 'none';
+                    playClickSound();
+                }
+            });
+        }
+    });
+
+    // Global Escape key dismisses open secret modals
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            ['airgapPinpadModal', 'architectGodModeModal', 'declassifiedArchiveModal', 'secretArchitectModal'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.style.display !== 'none') {
+                    el.style.display = 'none';
+                    playClickSound();
+                }
+            });
+        }
+    });
 
     // --- INIT ON DOM READY ---
     document.addEventListener('DOMContentLoaded', () => {

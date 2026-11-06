@@ -69,3 +69,68 @@ exports.groqChat = functions.https.onRequest(async (req, res) => {
         return res.status(500).json({ error: "Internal server error occurred while contacting AI services." });
     }
 });
+
+/**
+ * Serverless dispatch endpoint for Operative Transmission Desk (contact form).
+ * Validates inputs, handles bot traps, and records messages in Firestore via Admin SDK.
+ */
+exports.submitDispatch = functions.https.onRequest(async (req, res) => {
+    const origin = req.headers.origin || "*";
+    res.set("Access-Control-Allow-Origin", origin);
+    res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.set("Access-Control-Allow-Headers", "Content-Type");
+
+    if (req.method === "OPTIONS") {
+        return res.status(204).send("");
+    }
+
+    if (req.method !== "POST") {
+        return res.status(405).json({ error: "Method not allowed. Use POST." });
+    }
+
+    try {
+        const { callsign, email, category, message, honeypot } = req.body || {};
+
+        // Anti-Spam: Silently drop bots if honeypot trap field is filled
+        if (honeypot) {
+            console.warn("[Spam Defense] Bot honeypot triggered. Dropping transmission.");
+            return res.status(200).json({ success: true, txId: "TX-PWN-BOTDROP" });
+        }
+
+        if (!callsign || !email || !message) {
+            return res.status(400).json({ error: "Missing required transmission fields (callsign, email, message)." });
+        }
+
+        // Basic sanity limits
+        const safeCallsign = String(callsign).trim().substring(0, 80);
+        const safeEmail = String(email).trim().toLowerCase().substring(0, 120);
+        const safeCategory = String(category || "General Feedback").trim().substring(0, 100);
+        const safeMessage = String(message).trim().substring(0, 5000);
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(safeEmail)) {
+            return res.status(400).json({ error: "Invalid email format." });
+        }
+
+        const hexId = Math.floor(1000 + Math.random() * 9000).toString(16).toUpperCase();
+        const txId = `TX-PWN-${hexId}`;
+
+        // Save into Firestore operative_dispatches collection
+        await admin.firestore().collection("operative_dispatches").add({
+            txId,
+            callsign: safeCallsign,
+            email: safeEmail,
+            category: safeCategory,
+            message: safeMessage,
+            status: "unread",
+            submittedAt: admin.firestore.FieldValue.serverTimestamp(),
+            userAgent: req.headers["user-agent"] || "unknown",
+            clientIp: req.headers["x-forwarded-for"] || req.connection.remoteAddress || "unknown"
+        });
+
+        return res.status(200).json({ success: true, txId });
+    } catch (err) {
+        console.error("Error saving dispatch to Firestore:", err);
+        return res.status(500).json({ error: "Internal transmission error while storing dispatch." });
+    }
+});
