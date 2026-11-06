@@ -42,14 +42,22 @@
     <canvas id="roadmap-confetti"></canvas>
 
     <!-- Top Navigation Bar -->
+        <!-- Top Navigation Bar -->
+        <!-- Top Navigation Bar -->
     <header class="roadmap-nav">
-        <a href="../index.html" class="nav-brand">
-            <span class="brand-icon">🗺️</span>
-            <span class="brand-title">PwnBox // Career Roadmap</span>
-        </a>
+        <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+            <a href="../dashboard.html" class="nav-btn" style="background: var(--bauhaus-yellow, #f59e0b); color: #000; font-weight: 800; border: 2px solid var(--border-color, #0a0a0a); padding: 6px 12px; font-family: 'Space Mono', monospace; font-size: 0.74rem; text-decoration: none;" title="Return to Dashboard">⬅️ Dashboard</a>
+            <a href="cybersecurity_masterguide.html" class="nav-brand" title="Master Guide Knowledge Base">
+                <span class="brand-icon">🗺️</span>
+                <span class="brand-title">PwnBox // Career Roadmap</span>
+            </a>
+        </div>
 
         <div class="nav-actions">
-            <a href="../imp_info/imp_info.html" class="nav-btn btn-info" title="Go to Important Info">💡 Important Info</a>
+            <a href="cybersecurity_masterguide.html" class="nav-btn" title="Master Guide Knowledge Base">📖 Master Guide</a>
+            <a href="../imp_info/imp_info.html" class="nav-btn btn-info" title="Go to Field Intel">💡 Field Intel</a>
+            <button onclick="toggleShortcutsModal()" class="nav-btn" style="cursor: pointer;" title="Quick Search (Ctrl+K)">🔍 Search</button>
+            <button onclick="toggleTheme()" class="nav-btn" style="cursor: pointer;" title="Toggle Theme">🌓 Theme</button>
         </div>
     </header>
 

@@ -954,10 +954,6 @@
     }
 
     function triggerSecretArchitectModal(message) {
-        if (typeof openGodModeModal === 'function') {
-            openGodModeModal(message);
-            return;
-        }
         playVictorySfx();
         let modal = document.getElementById('secretArchitectModal');
         const isGodmode = message.includes('GODMODE');
@@ -979,7 +975,7 @@
                         </div>
                         <div class="secret-actions">
                             <button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'">RETURN TO OPERATIONAL DECK</button>
-                            <button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'; if(typeof openGodModeModal === 'function') openGodModeModal();" style="background: #ffe600; color: #000; font-weight: 800;">OPEN ARCHITECT GODMODE ⚡</button>
+                            ${isGodmode ? `<button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'; if(typeof openGodModeModal === 'function') openGodModeModal();" style="background: #ffe600; color: #000; font-weight: 800;">OPEN ARCHITECT GODMODE ⚡</button>` : `<a href="dashboard.html" class="btn-secret-action red">PROCEED TO DASHBOARD &rarr;</a>`}
                         </div>
                     </div>
                 </div>
@@ -992,7 +988,7 @@
             if (actionsEl) {
                 actionsEl.innerHTML = `
                     <button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'">RETURN TO OPERATIONAL DECK</button>
-                    <button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'; if(typeof openGodModeModal === 'function') openGodModeModal();" style="background: #ffe600; color: #000; font-weight: 800;">OPEN ARCHITECT GODMODE ⚡</button>
+                    ${isGodmode ? `<button class="btn-secret-action" onclick="document.getElementById('secretArchitectModal').style.display='none'; if(typeof openGodModeModal === 'function') openGodModeModal();" style="background: #ffe600; color: #000; font-weight: 800;">OPEN ARCHITECT GODMODE ⚡</button>` : `<a href="dashboard.html" class="btn-secret-action red">PROCEED TO DASHBOARD &rarr;</a>`}
                 `;
             }
         }
@@ -1852,7 +1848,7 @@
     window.initDarknetTerminal = initDarknetTerminal;
 
     // ========================================================
-    // --- THREE.JS WEBGL 3D CELEBRATION ENGINE ---
+    // --- THREE.JS WEBGL 3D CELEBRATION FIREWORKS ENGINE ---
     // ========================================================
     const celebration3D = {
         renderer: null,
@@ -1860,18 +1856,16 @@
         camera: null,
         animId: null,
         canvas: null,
-        coreGroup: null,
-        gyroRings: [],
-        shockwaves: [],
         particlesMesh: null,
-        particleCount: 1200,
+        maxParticles: 1600,
         positions: null,
         colors: null,
         velocities: [],
         lifespans: [],
-        maxLifespans: [],
-        mouse: { x: 0, y: 0, targetX: 0, targetY: 0 },
-        isRunning: false
+        autoLaunchTimer: null,
+        isRunning: false,
+        currentPalette: 'gold',
+        gravity: 0.0035
     };
 
     function playGodModeFanfare() {
@@ -1908,12 +1902,7 @@
         if (typeof THREE === 'undefined') return;
 
         let canvas = document.getElementById('threeGodmodeCelebrationCanvas');
-        if (!canvas) {
-            canvas = document.createElement('canvas');
-            canvas.id = 'threeGodmodeCelebrationCanvas';
-            canvas.className = 'godmode-3d-canvas';
-            document.body.appendChild(canvas);
-        }
+        if (!canvas) return;
         canvas.style.display = 'block';
         celebration3D.canvas = canvas;
 
@@ -1922,8 +1911,8 @@
             const height = window.innerHeight;
 
             const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
-            camera.position.set(0, 0, 16);
+            const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+            camera.position.set(0, 0, 20);
 
             const renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
@@ -1934,65 +1923,12 @@
             renderer.setSize(width, height);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            // Lighting
-            const ambient = new THREE.AmbientLight(0xffffff, 0.9);
-            scene.add(ambient);
-            const pointGold = new THREE.PointLight(0xffe600, 3.5, 60);
-            pointGold.position.set(0, 0, 2);
-            scene.add(pointGold);
-            const pointCyan = new THREE.PointLight(0x00f0ff, 2.5, 50);
-            pointCyan.position.set(5, 5, 5);
-            scene.add(pointCyan);
-
-            // Core Group
-            const coreGroup = new THREE.Group();
-
-            // 1. Outer Wireframe Icosahedron
-            const icoGeo = new THREE.IcosahedronGeometry(3.0, 1);
-            const icoWire = new THREE.WireframeGeometry(icoGeo);
-            const icoMat = new THREE.LineBasicMaterial({ color: 0xffe600, transparent: true, opacity: 0.85 });
-            const icoMesh = new THREE.LineSegments(icoWire, icoMat);
-            coreGroup.add(icoMesh);
-
-            // 2. Inner Spinning Octahedron
-            const octGeo = new THREE.OctahedronGeometry(1.8, 0);
-            const octWire = new THREE.WireframeGeometry(octGeo);
-            const octMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.9 });
-            const octMesh = new THREE.LineSegments(octWire, octMat);
-            coreGroup.add(octMesh);
-
-            // 3. Glowing Center Core Sphere
-            const sphGeo = new THREE.SphereGeometry(0.8, 16, 16);
-            const sphMat = new THREE.MeshBasicMaterial({ color: 0xffe600, wireframe: true });
-            const sphMesh = new THREE.Mesh(sphGeo, sphMat);
-            coreGroup.add(sphMesh);
-
-            // 4. Gyroscopic Orbital Rings
-            const gyroRings = [];
-            const ringDefs = [
-                { r1: 4.0, r2: 4.06, c: 0x00f0ff, rotX: Math.PI / 4, rotY: 0 },
-                { r1: 4.6, r2: 4.66, c: 0xffe600, rotX: -Math.PI / 3, rotY: Math.PI / 6 },
-                { r1: 5.2, r2: 5.26, c: 0xd946ef, rotX: Math.PI / 2, rotY: Math.PI / 4 }
-            ];
-            ringDefs.forEach(def => {
-                const rGeo = new THREE.RingGeometry(def.r1, def.r2, 64);
-                const rMat = new THREE.MeshBasicMaterial({ color: def.c, side: THREE.DoubleSide, transparent: true, opacity: 0.75 });
-                const rMesh = new THREE.Mesh(rGeo, rMat);
-                rMesh.rotation.x = def.rotX;
-                rMesh.rotation.y = def.rotY;
-                coreGroup.add(rMesh);
-                gyroRings.push(rMesh);
-            });
-
-            scene.add(coreGroup);
-
-            // 5. 3D Particle Fireworks System
-            const pCount = celebration3D.particleCount;
+            // Fireworks Particle System
+            const pCount = celebration3D.maxParticles;
             const positions = new Float32Array(pCount * 3);
             const colors = new Float32Array(pCount * 3);
             const velocities = [];
             const lifespans = [];
-            const maxLifespans = [];
 
             for (let i = 0; i < pCount; i++) {
                 positions[i * 3] = 0;
@@ -2005,7 +1941,6 @@
 
                 velocities.push({ x: 0, y: 0, z: 0 });
                 lifespans.push(0);
-                maxLifespans.push(1);
             }
 
             const pGeo = new THREE.BufferGeometry();
@@ -2013,7 +1948,7 @@
             pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
             const pMat = new THREE.PointsMaterial({
-                size: 0.24,
+                size: 0.35,
                 vertexColors: true,
                 transparent: true,
                 opacity: 0.95,
@@ -2023,46 +1958,35 @@
             const particlesMesh = new THREE.Points(pGeo, pMat);
             scene.add(particlesMesh);
 
-            // 6. Shockwave Rings
-            const shockwaves = [];
-            for (let i = 0; i < 3; i++) {
-                const sGeo = new THREE.RingGeometry(0.1, 0.22, 48);
-                const sMat = new THREE.MeshBasicMaterial({ color: i === 1 ? 0x00f0ff : 0xffe600, side: THREE.DoubleSide, transparent: true, opacity: 0 });
-                const sMesh = new THREE.Mesh(sGeo, sMat);
-                scene.add(sMesh);
-                shockwaves.push({ mesh: sMesh, scale: 0, speed: 0.12 + i * 0.04, active: false });
-            }
-
             celebration3D.scene = scene;
             celebration3D.camera = camera;
             celebration3D.renderer = renderer;
-            celebration3D.coreGroup = coreGroup;
-            celebration3D.gyroRings = gyroRings;
             celebration3D.particlesMesh = particlesMesh;
             celebration3D.positions = positions;
             celebration3D.colors = colors;
             celebration3D.velocities = velocities;
             celebration3D.lifespans = lifespans;
-            celebration3D.maxLifespans = maxLifespans;
-            celebration3D.shockwaves = shockwaves;
 
-            // Resize handler
             window.addEventListener('resize', onCelebrationResize);
-
-            // Mouse parallax
-            window.addEventListener('mousemove', (e) => {
-                const nx = (e.clientX / window.innerWidth) * 2 - 1;
-                const ny = -(e.clientY / window.innerHeight) * 2 + 1;
-                celebration3D.mouse.targetX = nx * 1.5;
-                celebration3D.mouse.targetY = ny * 1.2;
-            });
         }
 
         celebration3D.isRunning = true;
         animateCelebration3D();
 
-        // Trigger celebratory 3D fireworks burst
+        // Trigger initial celebration fireworks barrage
         trigger3DCelebrationFireworks();
+
+        // Occasional celebratory fireworks in background
+        clearInterval(celebration3D.autoLaunchTimer);
+        celebration3D.autoLaunchTimer = setInterval(() => {
+            if (celebration3D.isRunning) {
+                const rx = (Math.random() - 0.5) * 14;
+                const ry = 1 + Math.random() * 5;
+                const rz = (Math.random() - 0.5) * 6;
+                const palettes = ['gold', 'cyan', 'magenta', 'emerald'];
+                spawnFireworkBurst(rx, ry, rz, 200, palettes[Math.floor(Math.random() * palettes.length)]);
+            }
+        }, 2800);
     }
 
     function onCelebrationResize() {
@@ -2074,38 +1998,41 @@
         celebration3D.renderer.setSize(w, h);
     }
 
-    function trigger3DCelebrationFireworks() {
+    function trigger3DCelebrationFireworks(customPal) {
         if (!celebration3D.isRunning) {
             startGodModeCelebration3D();
         }
-        playTone(880, 'triangle', 0.15, 0.1);
+        playTone(880, 'triangle', 0.12, 0.1);
+        const pal = customPal || celebration3D.currentPalette || 'gold';
 
-        // Detonate fireworks bursts at distinct 3D positions
-        spawnFireworkBurst(0, 0, 0, 400, 'gold');
-        spawnFireworkBurst(-5, 2.5, -2, 350, 'cyan');
-        spawnFireworkBurst(5, 2.0, -1, 350, 'magenta');
-
-        // Trigger expanding shockwaves
-        if (celebration3D.shockwaves) {
-            celebration3D.shockwaves.forEach((sw, i) => {
-                setTimeout(() => {
-                    sw.scale = 0.5;
-                    sw.active = true;
-                    sw.mesh.material.opacity = 0.9;
-                }, i * 180);
-            });
+        if (pal === 'all') {
+            spawnFireworkBurst(0, 4, 0, 400, 'gold');
+            setTimeout(() => spawnFireworkBurst(-6, 3, -2, 350, 'cyan'), 150);
+            setTimeout(() => spawnFireworkBurst(6, 3.5, -2, 350, 'magenta'), 300);
+            setTimeout(() => spawnFireworkBurst(0, 7, -3, 300, 'emerald'), 500);
+        } else {
+            spawnFireworkBurst(0, 4, 0, 400, pal);
+            setTimeout(() => spawnFireworkBurst(-6, 3, -2, 350, pal), 150);
+            setTimeout(() => spawnFireworkBurst(6, 3.5, -2, 350, pal), 300);
+            setTimeout(() => spawnFireworkBurst(0, 7, -3, 300, pal), 500);
         }
     }
 
     function spawnFireworkBurst(ox, oy, oz, count, palette) {
         if (!celebration3D.positions || !celebration3D.velocities) return;
-        const pCount = celebration3D.particleCount;
+        const pCount = celebration3D.maxParticles;
         let spawned = 0;
 
+        if (palette === 'all') {
+            const pals = ['gold', 'cyan', 'magenta', 'emerald'];
+            palette = pals[Math.floor(Math.random() * pals.length)];
+        }
+
         const paletteColors = {
-            gold: [[1.0, 0.9, 0.1], [1.0, 0.6, 0.0], [1.0, 1.0, 0.8]],
-            cyan: [[0.0, 0.94, 1.0], [0.2, 0.6, 1.0], [0.8, 1.0, 1.0]],
-            magenta: [[0.85, 0.27, 0.94], [1.0, 0.15, 0.4], [1.0, 0.7, 0.9]]
+            gold: [[1.0, 0.88, 0.1], [1.0, 0.65, 0.0], [1.0, 1.0, 0.7]],
+            cyan: [[0.0, 0.94, 1.0], [0.2, 0.7, 1.0], [0.8, 1.0, 1.0]],
+            magenta: [[0.85, 0.2, 0.9], [1.0, 0.1, 0.5], [1.0, 0.7, 0.9]],
+            emerald: [[0.1, 0.95, 0.5], [0.3, 1.0, 0.7], [0.8, 1.0, 0.9]]
         }[palette] || [[1.0, 0.9, 0.1], [0.0, 0.94, 1.0]];
 
         for (let i = 0; i < pCount && spawned < count; i++) {
@@ -2116,11 +2043,11 @@
 
                 const theta = Math.random() * Math.PI * 2;
                 const phi = Math.acos(Math.random() * 2 - 1);
-                const speed = 0.15 + Math.random() * 0.35;
+                const speed = 0.12 + Math.random() * 0.38;
 
                 celebration3D.velocities[i] = {
                     x: Math.sin(phi) * Math.cos(theta) * speed,
-                    y: Math.sin(phi) * Math.sin(theta) * speed + (Math.random() * 0.06),
+                    y: Math.sin(phi) * Math.sin(theta) * speed + (Math.random() * 0.04),
                     z: Math.cos(phi) * speed
                 };
 
@@ -2129,8 +2056,7 @@
                 celebration3D.colors[i * 3 + 1] = col[1];
                 celebration3D.colors[i * 3 + 2] = col[2];
 
-                celebration3D.maxLifespans[i] = 60 + Math.random() * 60;
-                celebration3D.lifespans[i] = celebration3D.maxLifespans[i];
+                celebration3D.lifespans[i] = 65 + Math.random() * 55;
                 spawned++;
             }
         }
@@ -2140,50 +2066,12 @@
         if (!celebration3D.isRunning) return;
         celebration3D.animId = requestAnimationFrame(animateCelebration3D);
 
-        const time = performance.now() * 0.001;
-
-        // Smooth mouse parallax
-        celebration3D.mouse.x += (celebration3D.mouse.targetX - celebration3D.mouse.x) * 0.05;
-        celebration3D.mouse.y += (celebration3D.mouse.targetY - celebration3D.mouse.y) * 0.05;
-        celebration3D.camera.position.x = celebration3D.mouse.x;
-        celebration3D.camera.position.y = celebration3D.mouse.y;
-        celebration3D.camera.lookAt(0, 0, 0);
-
-        // Rotate core
-        if (celebration3D.coreGroup) {
-            celebration3D.coreGroup.rotation.y += 0.012;
-            celebration3D.coreGroup.rotation.x += 0.006;
-            celebration3D.coreGroup.position.y = Math.sin(time * 1.5) * 0.35;
-        }
-
-        // Spin gyro rings
-        if (celebration3D.gyroRings) {
-            celebration3D.gyroRings.forEach((ring, idx) => {
-                ring.rotation.z += 0.015 * (idx % 2 === 0 ? 1 : -1);
-            });
-        }
-
-        // Update Shockwaves
-        if (celebration3D.shockwaves) {
-            celebration3D.shockwaves.forEach(sw => {
-                if (sw.active) {
-                    sw.scale += sw.speed;
-                    sw.mesh.scale.set(sw.scale, sw.scale, sw.scale);
-                    sw.mesh.material.opacity = Math.max(0, 0.9 - (sw.scale / 12));
-                    if (sw.scale > 14) {
-                        sw.active = false;
-                        sw.mesh.material.opacity = 0;
-                    }
-                }
-            });
-        }
-
-        // Update Particles
         if (celebration3D.particlesMesh && celebration3D.positions) {
-            const pCount = celebration3D.particleCount;
+            const pCount = celebration3D.maxParticles;
             const pos = celebration3D.positions;
             const vel = celebration3D.velocities;
             const life = celebration3D.lifespans;
+            const grav = celebration3D.gravity || 0.0035;
 
             for (let i = 0; i < pCount; i++) {
                 if (life[i] > 0) {
@@ -2191,10 +2079,10 @@
                     pos[i * 3 + 1] += vel[i].y;
                     pos[i * 3 + 2] += vel[i].z;
 
-                    vel[i].x *= 0.985;
-                    vel[i].y *= 0.985;
-                    vel[i].y -= 0.004; // Gentle gravity
-                    vel[i].z *= 0.985;
+                    vel[i].x *= 0.982;
+                    vel[i].y *= 0.982;
+                    vel[i].y -= grav; // Configurable physics gravity
+                    vel[i].z *= 0.982;
 
                     life[i]--;
                 } else {
@@ -2211,6 +2099,7 @@
 
     function stopGodModeCelebration3D() {
         celebration3D.isRunning = false;
+        clearInterval(celebration3D.autoLaunchTimer);
         if (celebration3D.animId) {
             cancelAnimationFrame(celebration3D.animId);
             celebration3D.animId = null;
@@ -2228,7 +2117,7 @@
     let ambientGain = null;
     let isAmbientPlaying = false;
 
-    function openGodModeModal(customMsg) {
+    function openGodModeModal() {
         const modal = document.getElementById('architectGodModeModal');
         if (!modal) return;
 
@@ -2242,12 +2131,6 @@
         // Update persistent HUD indicator
         updateGodModeHUD();
 
-        // Update custom message readout
-        const msgEl = document.getElementById('godmodeCustomMsg');
-        if (msgEl) {
-            msgEl.textContent = customMsg || 'KONAMI CODE DETECTED: GODMODE ACTIVE';
-        }
-
         // Update XP display
         const xpEl = document.getElementById('godmodeXpDisplay');
         if (xpEl) {
@@ -2259,7 +2142,7 @@
         playGodModeFanfare();
         switchGodModeTab('godmode');
 
-        // Launch Three.js 3D WebGL Celebration Animation!
+        // Launch Three.js 3D WebGL Celebration Fireworks!
         startGodModeCelebration3D();
     }
 
@@ -2271,14 +2154,14 @@
     }
 
     function switchGodModeTab(tab) {
-        const tabs = ['godmode', 'arcade', 'arsenal', 'terminal'];
+        const tabs = ['godmode', 'arcade', 'arsenal'];
         tabs.forEach(t => {
             const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
             const pane = document.getElementById(t + 'Tab');
             if (btn) btn.classList.toggle('active', t === tab);
             if (pane) {
                 if (t === tab) {
-                    pane.style.display = (t === 'godmode' || t === 'arsenal' || t === 'terminal') ? 'flex' : 'block';
+                    pane.style.display = (t === 'godmode' || t === 'arsenal') ? 'flex' : 'block';
                 } else {
                     pane.style.display = 'none';
                 }
@@ -2329,82 +2212,6 @@
         }
     }
 
-    function handleGodmodeExecutorKey(e) {
-        if (e.key === 'Enter') {
-            const input = document.getElementById('godmodeCliInput');
-            if (!input) return;
-            const cmd = input.value.trim().toLowerCase();
-            input.value = '';
-            executeGodmodeCmd(cmd);
-        }
-    }
-
-    function executeGodmodeCmd(cmd) {
-        const out = document.getElementById('godmodeCliOutput');
-        if (!out) return;
-
-        playKeyClick();
-
-        const row = document.createElement('div');
-        row.innerHTML = `<span style="color: #00f0ff;">architect@root:~#</span> <span style="color: #ffffff;">${cmd}</span>`;
-        out.appendChild(row);
-
-        const resp = document.createElement('div');
-        resp.style.marginBottom = '8px';
-
-        if (cmd === 'help') {
-            resp.innerHTML = `
-                <div style="color: #00f0ff;">AVAILABLE ARCHITECT DIRECTIVES:</div>
-                <div>- <b>unlock-all</b>: Disarms all academy locks & unlocks all modules</div>
-                <div>- <b>boost-xp</b>: Injects +10,000 XP into your profile</div>
-                <div>- <b>fireworks</b>: Detonates 3D WebGL particle fireworks celebration</div>
-                <div>- <b>matrix</b>: Activates Matrix code rain & theme</div>
-                <div>- <b>synth</b>: Toggles procedural cyberpunk ambient drone</div>
-                <div>- <b>theme &lt;matrix|cyberpunk|synthwave|dark&gt;</b>: Applies VIP theme</div>
-                <div>- <b>status</b>: Displays telemetry & bypass states</div>
-                <div>- <b>clear</b>: Clears terminal screen</div>
-            `;
-        } else if (cmd === 'unlock-all') {
-            localStorage.setItem('pwnbox_m08_unlocked', 'true');
-            localStorage.setItem('pwnbox_zero_day_bypass', 'true');
-            resp.innerHTML = `<span style="color: #10b981;">[✓] ALL 8 ACADEMY MODULES &amp; LABS FORCED UNLOCKED (ZERO-DAY ACCESS ENGAGED).</span>`;
-            playVictorySfx();
-        } else if (cmd === 'boost-xp') {
-            boostGodmodeXP();
-            resp.innerHTML = `<span style="color: #ffe600;">[✓] +10,000 XP INJECTED TO ARCHITECT OPERATIVE RECORD.</span>`;
-        } else if (cmd === 'fireworks') {
-            trigger3DCelebrationFireworks();
-            resp.innerHTML = `<span style="color: #d946ef;">[✓] THREE.JS WEBGL CELEBRATION DETONATED.</span>`;
-        } else if (cmd === 'matrix') {
-            applySecretTheme('matrix');
-            if (typeof window.triggerMatrixRain === 'function') window.triggerMatrixRain();
-            resp.innerHTML = `<span style="color: #10b981;">[✓] 1999 PHOSPHOR MATRIX OVERLAY ACTIVATED.</span>`;
-        } else if (cmd === 'synth') {
-            toggleAmbientAudio();
-            resp.innerHTML = `<span style="color: #38bdf8;">[✓] CYBER AMBIENT DRONE SYNTHESIZER TOGGLED.</span>`;
-        } else if (cmd.startsWith('theme ')) {
-            const th = cmd.replace('theme ', '').trim();
-            applySecretTheme(th);
-            resp.innerHTML = `<span style="color: #ffe600;">[✓] SECRET VIP THEME '${th.toUpperCase()}' APPLIED.</span>`;
-        } else if (cmd === 'status') {
-            resp.innerHTML = `
-                <div style="color: #38bdf8;">[TELEMETRY STATUS]:</div>
-                <div>CLEARANCE: OMEGA-0 UNRESTRICTED</div>
-                <div>STATUS: ROOT ARCHITECT (PRANAV PUSHYA)</div>
-                <div>MODULE 08 (BLACK OPS): UNLOCKED</div>
-                <div>3D WEBGL ENGINE: ONLINE (THREE.JS r128)</div>
-            `;
-        } else if (cmd === 'clear') {
-            out.innerHTML = '';
-            return;
-        } else {
-            resp.innerHTML = `<span style="color: #ef4444;">Directive not recognized. Type 'help'.</span>`;
-        }
-
-        out.appendChild(resp);
-        out.scrollTop = out.scrollHeight;
-    }
-
     function applySecretTheme(themeName) {
         playTone(980, 'triangle', 0.12, 0.1);
         document.documentElement.setAttribute('data-theme', themeName);
@@ -2422,26 +2229,384 @@
     function updateGodModeHUD() {
         let hud = document.getElementById('godmodeFloatingHud');
         const isActive = localStorage.getItem('pwnbox_godmode_badge') === 'true';
+        const rank = localStorage.getItem('userRank') || localStorage.getItem('pwnbox_agent_rank') || 'ROOT ARCHITECT';
+        const aura = localStorage.getItem('pwnbox_aura_glow') || 'gold';
+        const auraColors = {
+            gold: '#ffe600',
+            cyan: '#00f0ff',
+            rainbow: '#d946ef',
+            matrix: '#10b981'
+        };
+        const col = auraColors[aura] || '#ffe600';
 
         if (isActive) {
             if (!hud) {
                 hud = document.createElement('div');
                 hud.id = 'godmodeFloatingHud';
                 hud.className = 'godmode-hud-indicator';
-                hud.innerHTML = `
-                    <span class="godmode-pulse-dot"></span>
-                    <span>👑 ROOT ARCHITECT // GODMODE ACTIVE</span>
-                `;
                 hud.title = "Click to configure Architect VIP GodMode & Audio";
                 hud.addEventListener('click', () => {
                     if (typeof openGodModeModal === 'function') openGodModeModal();
                 });
                 document.body.appendChild(hud);
             }
+            hud.innerHTML = `
+                <span class="godmode-pulse-dot" style="background: ${col}; box-shadow: 0 0 10px ${col};"></span>
+                <span>👑 ${rank} // GODMODE ACTIVE</span>
+            `;
+            hud.style.borderColor = col;
+            hud.style.boxShadow = `0 0 15px ${col}44`;
             hud.style.display = 'flex';
         } else {
             if (hud) hud.style.display = 'none';
         }
+    }
+
+    // --- UNIQUE ARCHITECT X-RAY SIGHT SCANNER ---
+    let isXrayActive = false;
+
+    function toggleArchitectXRay() {
+        isXrayActive = !isXrayActive;
+        const btn = document.getElementById('btnToggleXray');
+        let overlay = document.getElementById('pwnboxXrayOverlay');
+
+        if (!isXrayActive) {
+            if (overlay) overlay.remove();
+            document.querySelectorAll('.pwnbox-xray-highlight').forEach(el => el.classList.remove('pwnbox-xray-highlight'));
+            document.querySelectorAll('.pwnbox-xray-badge').forEach(el => el.remove());
+            if (btn) {
+                btn.innerHTML = '👁️ ENGAGE X-RAY SCANNER';
+                btn.style.background = '#00f0ff';
+                btn.style.color = '#000';
+            }
+            playTone(300, 'sawtooth', 0.15, 0.1);
+            return;
+        }
+
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'pwnboxXrayOverlay';
+            overlay.innerHTML = `
+                <div class="pwnbox-xray-banner">
+                    <span class="xray-dot"></span>
+                    <span>ARCHITECT X-RAY SIGHT: ACTIVE</span>
+                    <span style="color: #ffe600;">[5 SECRET GATEWAYS REVEALED]</span>
+                    <button onclick="toggleArchitectXRay()" style="background: none; border: 1px solid #00f0ff; color: #00f0ff; padding: 2px 10px; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 800; border-radius: 3px;">DISENGAGE</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        if (btn) {
+            btn.innerHTML = '✓ X-RAY SCANNER ONLINE (DISENGAGE)';
+            btn.style.background = '#10b981';
+            btn.style.color = '#fff';
+        }
+
+        playTone(1200, 'sine', 0.25, 0.15);
+        setTimeout(() => playTone(1800, 'sine', 0.15, 0.1), 120);
+
+        highlightSecretGateways();
+    }
+
+    function highlightSecretGateways() {
+        // Gateway 2: Footer Version
+        const g2 = document.getElementById('footerVersionTrigger');
+        if (g2) {
+            g2.classList.add('pwnbox-xray-highlight');
+            attachXrayBadge(g2, 'GATEWAY 2: AIRGAP PINPAD VAULT (PIN: 1337 / 0000 / CLICK 7x)');
+        }
+
+        // Gateway 4: Quantum Core Canvas / 3D core
+        const g4 = document.getElementById('quantumCoreCanvas') || document.querySelector('.quantum-core-container') || document.querySelector('.canvas-3d-wrapper');
+        if (g4) {
+            g4.classList.add('pwnbox-xray-highlight');
+            attachXrayBadge(g4, 'GATEWAY 4: DECLASSIFIED ARCHIVE (TRIPLE-CLICK CORE)');
+        }
+
+        // Copilot button / AI Assistant
+        const aiBtn = document.querySelector('.floating-copilot-btn') || document.getElementById('floatingAssistantBtn');
+        if (aiBtn) {
+            aiBtn.classList.add('pwnbox-xray-highlight');
+            attachXrayBadge(aiBtn, 'AI COPILOT SHORTCUT (PRESS "A")');
+        }
+
+        // Dossier ID Card
+        const dossier = document.querySelector('.agent-dossier-card') || document.getElementById('pranavStamp');
+        if (dossier) {
+            dossier.classList.add('pwnbox-xray-highlight');
+            attachXrayBadge(dossier, 'CLASSIFIED ARCHITECT DOSSIER ID & BADGE');
+        }
+    }
+
+    function attachXrayBadge(targetEl, text) {
+        if (!targetEl || targetEl.querySelector('.pwnbox-xray-badge')) return;
+        const badge = document.createElement('div');
+        badge.className = 'pwnbox-xray-badge';
+        badge.textContent = text;
+        targetEl.appendChild(badge);
+    }
+
+    // --- UNIQUE MASTER ACADEMY CERTIFICATION ---
+    function autoClearAllAcademyModules() {
+        const modules = [
+            'module_footprinting_completed',
+            'module_scanning_completed',
+            'module_enumeration_completed',
+            'module_vuln_analysis_completed',
+            'module_system_hacking_completed',
+            'module_webapp_threats_completed',
+            'module_osint_completed',
+            'module_blackops_completed'
+        ];
+        modules.forEach(m => localStorage.setItem(m, 'true'));
+        localStorage.setItem('pwnbox_m08_unlocked', 'true');
+        localStorage.setItem('pwnbox_zero_day_bypass', 'true');
+        localStorage.setItem('pwnbox_user_xp', '50000');
+        localStorage.setItem('userXP', '50000');
+        localStorage.setItem('userRank', 'ROOT ARCHITECT');
+        localStorage.setItem('pwnbox_agent_rank', 'ROOT ARCHITECT');
+        localStorage.setItem('pwnbox_godmode_badge', 'true');
+        localStorage.setItem('pwnbox_certificate_unlocked', 'true');
+
+        const xpEl = document.getElementById('godmodeXpDisplay');
+        if (xpEl) {
+            xpEl.textContent = '50,000 XP (ALL MODULES CLEARED 👑)';
+            xpEl.style.color = '#ffe600';
+        }
+
+        updateGodModeHUD();
+        playGodModeFanfare();
+        trigger3DCelebrationFireworks('gold');
+        openRootCertificateModal();
+    }
+
+    function openRootCertificateModal() {
+        const modal = document.getElementById('architectCertificateModal');
+        if (!modal) return;
+        const nameEl = document.getElementById('certOperativeName');
+        const hashEl = document.getElementById('certCryptoHash');
+        const alias = localStorage.getItem('agentAlias') || localStorage.getItem('pwnbox_agent_alias') || localStorage.getItem('pwnbox_user_name') || 'PRANAV PUSHYA';
+        if (nameEl) nameEl.textContent = alias.toUpperCase();
+        if (hashEl) hashEl.textContent = 'SHA256: 0xPRANAV_' + Date.now().toString(16).toUpperCase() + '_OMEGA_ARCHITECT_GODMODE';
+
+        modal.style.display = 'flex';
+        playVictorySfx();
+    }
+
+    function closeRootCertificateModal() {
+        const modal = document.getElementById('architectCertificateModal');
+        if (modal) modal.style.display = 'none';
+        playClickSound();
+    }
+
+    // --- UNIQUE CTF FLAG MASTER INJECTOR ---
+    function injectMasterCtfFlags() {
+        const flags = ['pwn_web_01', 'pwn_priv_02', 'pwn_osint_03', 'pwn_secret_godmode'];
+        localStorage.setItem('pwnbox_ctf_solved_flags', JSON.stringify(flags));
+        localStorage.setItem('pwnbox_arcade_total_xp', '15000');
+        localStorage.setItem('pwnbox_arcade_xp', '15000');
+
+        const btn = document.getElementById('btnCtfInject');
+        if (btn) {
+            btn.innerHTML = '<span>🏆</span> <span>ALL CTF FLAGS INJECTED (LEADERBOARD #1)</span>';
+            btn.style.background = '#10b981';
+            btn.style.color = '#fff';
+        }
+
+        playGodModeFanfare();
+        trigger3DCelebrationFireworks('emerald');
+
+        if (window.showCustomAlert) {
+            window.showCustomAlert(
+                "CTF SUPREMACY UNLOCKED!",
+                "All operational flags injected into profile. Leaderboard position #1 claimed!",
+                "success"
+            );
+        }
+    }
+
+    // --- UNIQUE OPERATIVE AURA & RANK CUSTOMIZER ---
+    function updateAuraPillUI(selectedAura) {
+        ['Gold', 'Cyan', 'Rainbow', 'Matrix'].forEach(a => {
+            const lbl = document.getElementById('lblAura' + a);
+            if (lbl) {
+                lbl.classList.toggle('active', a.toLowerCase() === selectedAura.toLowerCase());
+            }
+        });
+    }
+
+    function applyCustomAuraAndRank() {
+        const titleInput = document.getElementById('godmodeCustomTitleInput');
+        const auraRadio = document.querySelector('input[name="godmodeAura"]:checked');
+        const title = (titleInput && titleInput.value.trim()) ? titleInput.value.trim().toUpperCase() : 'ROOT ARCHITECT';
+        const aura = auraRadio ? auraRadio.value : 'gold';
+
+        localStorage.setItem('userRank', title);
+        localStorage.setItem('pwnbox_agent_rank', title);
+        localStorage.setItem('pwnbox_user_rank', title);
+        localStorage.setItem('pwnbox_aura_glow', aura);
+        localStorage.setItem('pwnbox_godmode_badge', 'true');
+
+        updateGodModeHUD();
+        playTone(980, 'triangle', 0.15, 0.1);
+        trigger3DCelebrationFireworks(aura === 'matrix' ? 'emerald' : (aura === 'cyan' ? 'cyan' : (aura === 'rainbow' ? 'all' : 'gold')));
+
+        if (window.showCustomAlert) {
+            window.showCustomAlert(
+                "AURA HUD ACTIVATED",
+                `Operative Rank set to [${title}] with ${aura.toUpperCase()} Aura!`,
+                "success"
+            );
+        }
+    }
+
+    // --- UNIQUE INTERACTIVE CYBER SYNTH SOUNDBOARD ---
+    function playCyberPad(type, padEl) {
+        if (padEl) {
+            padEl.classList.add('pad-active');
+            setTimeout(() => padEl.classList.remove('pad-active'), 220);
+        }
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        try {
+            if (type === 'subBass') {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(75, now);
+                osc.frequency.exponentialRampToValueAtTime(25, now + 0.55);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.65);
+            } else if (type === 'laserZap') {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(2200, now);
+                osc.frequency.exponentialRampToValueAtTime(160, now + 0.18);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.22);
+            } else if (type === 'empBurst') {
+                const bufferSize = Math.floor(ctx.sampleRate * 0.4);
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(3500, now);
+                filter.frequency.exponentialRampToValueAtTime(150, now + 0.38);
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.22, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+                noise.start(now);
+            } else if (type === 'warpSpeed') {
+                [523.25, 659.25, 1046.50, 1318.51].forEach((f, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now + idx * 0.06);
+                    gain.gain.setValueAtTime(0.12, now + idx * 0.06);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.14);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.06);
+                    osc.stop(now + idx * 0.06 + 0.16);
+                });
+            } else if (type === 'matrixGlitch') {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'square';
+                [880, 220, 1760, 440, 120].forEach((f, idx) => {
+                    osc.frequency.setValueAtTime(f, now + idx * 0.035);
+                });
+                gain.gain.setValueAtTime(0.14, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.22);
+            } else if (type === 'overclockPulse') {
+                [150, 154].forEach(f => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.28);
+                });
+            } else if (type === 'cyberFanfare') {
+                playGodModeFanfare();
+            } else if (type === 'sonarRadar') {
+                [1400, 2800].forEach(f => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.8);
+                });
+            }
+        } catch (e) {}
+    }
+
+    // Hotkey listener for soundboard keys 1-8
+    window.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('architectGodModeModal');
+        if (!modal || modal.style.display === 'none') return;
+        if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+        const padMap = {
+            '1': 'subBass',
+            '2': 'laserZap',
+            '3': 'empBurst',
+            '4': 'warpSpeed',
+            '5': 'matrixGlitch',
+            '6': 'overclockPulse',
+            '7': 'cyberFanfare',
+            '8': 'sonarRadar'
+        };
+        if (padMap[e.key]) {
+            const padEl = document.getElementById('pad_' + e.key);
+            playCyberPad(padMap[e.key], padEl);
+        }
+    });
+
+    // --- UNIQUE 3D PHYSICS SANDBOX CONTROLS ---
+    function setCelebrationPalette(pal, btnEl) {
+        celebration3D.currentPalette = pal;
+        document.querySelectorAll('.godmode-sandbox-panel .sandbox-pill-btn[id^="btnPal"]').forEach(b => b.classList.remove('active'));
+        if (btnEl) btnEl.classList.add('active');
+        trigger3DCelebrationFireworks(pal);
+    }
+
+    function setCelebrationGravity(grav, btnEl) {
+        celebration3D.gravity = grav;
+        document.querySelectorAll('.godmode-sandbox-panel .sandbox-pill-btn[id^="btnGrav"]').forEach(b => b.classList.remove('active'));
+        if (btnEl) btnEl.classList.add('active');
+        trigger3DCelebrationFireworks();
     }
 
     function toggleRainbowGodmodeBadge() {
@@ -2514,7 +2679,7 @@
                 ambientSynthOsc2.start();
                 isAmbientPlaying = true;
                 if (btn) btn.textContent = '⏸ PAUSE SYNTH DRONE';
-            } catch (e) {}
+            } catch(e) {}
         }
     }
 
@@ -2613,8 +2778,6 @@
     window.trigger3DCelebrationFireworks = trigger3DCelebrationFireworks;
     window.boostGodmodeXP = boostGodmodeXP;
     window.copyArsenalPayload = copyArsenalPayload;
-    window.handleGodmodeExecutorKey = handleGodmodeExecutorKey;
-    window.executeGodmodeCmd = executeGodmodeCmd;
     window.applySecretTheme = applySecretTheme;
     window.toggleRainbowGodmodeBadge = toggleRainbowGodmodeBadge;
     window.toggleAmbientAudio = toggleAmbientAudio;
@@ -2627,8 +2790,19 @@
         if (input) input.value = '';
     };
 
+    window.toggleArchitectXRay = toggleArchitectXRay;
+    window.autoClearAllAcademyModules = autoClearAllAcademyModules;
+    window.openRootCertificateModal = openRootCertificateModal;
+    window.closeRootCertificateModal = closeRootCertificateModal;
+    window.injectMasterCtfFlags = injectMasterCtfFlags;
+    window.applyCustomAuraAndRank = applyCustomAuraAndRank;
+    window.updateAuraPillUI = updateAuraPillUI;
+    window.playCyberPad = playCyberPad;
+    window.setCelebrationPalette = setCelebrationPalette;
+    window.setCelebrationGravity = setCelebrationGravity;
+
     // Backdrop click dismiss for all secret modals
-    ['airgapPinpadModal', 'architectGodModeModal', 'declassifiedArchiveModal', 'secretArchitectModal'].forEach(id => {
+    ['airgapPinpadModal', 'architectGodModeModal', 'declassifiedArchiveModal', 'secretArchitectModal', 'architectCertificateModal'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
             el.addEventListener('click', (e) => {
@@ -2643,7 +2817,7 @@
     // Global Escape key dismisses open secret modals
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            ['airgapPinpadModal', 'architectGodModeModal', 'declassifiedArchiveModal', 'secretArchitectModal'].forEach(id => {
+            ['airgapPinpadModal', 'architectGodModeModal', 'declassifiedArchiveModal', 'secretArchitectModal', 'architectCertificateModal'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el && el.style.display !== 'none') {
                     el.style.display = 'none';

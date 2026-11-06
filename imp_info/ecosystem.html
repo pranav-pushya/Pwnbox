@@ -396,42 +396,42 @@
 <body class="h-screen w-screen flex flex-col antialiased">
 
     <!-- Single Unified PwnBox Navigation Bar (Spanning Full Width to Far Right Edge) -->
+        <!-- Single Unified PwnBox Navigation Bar (Spanning Full Width to Far Right Edge) -->
     <header class="info-nav w-full flex items-center justify-between px-4 sm:px-6 py-2 border-b"
         style="border-color: var(--border-color, #1e293b); background: var(--bg-panel, #0f172a);">
         <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0 whitespace-nowrap flex-nowrap">
-            <a href="../index.html" class="nav-brand" title="Back to Home Portal">
+            <a href="../dashboard.html" class="nav-btn" style="background: var(--bauhaus-yellow, #f59e0b); color: #000; font-weight: 800; border: 2px solid var(--border-color, #1e293b); padding: 5px 10px; font-family: 'Space Mono', monospace; font-size: 0.74rem; text-decoration: none;" title="Return to Dashboard">⬅️ Dashboard</a>
+            <a href="imp_info.html" class="nav-brand" title="Field Intel Command Center">
                 <span class="brand-icon">🌐</span>
-                <span class="brand-title">PwnBox // Imp Info</span>
+                <span class="brand-title">Field Intel Hub</span>
             </a>
-            <!-- <span class="hidden xl:inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                ECOSYSTEM v3.0
-            </span> -->
         </div>
 
         <div class="nav-actions ml-auto flex items-center justify-end gap-1.5 sm:gap-2 flex-nowrap min-w-0">
-            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️
-                General</a>
-            <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Google Dorking</a>
-            <a href="hacker_engines_devices.html" class="nav-btn"
-                title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines<span
-                    class="hidden 2xl:inline"> & Devices</span></a>
+            <a href="imp_info.html" class="nav-btn" title="Field Intel Overview">💡 Overview</a>
+            <a href="ports.html" class="nav-btn" title="37 Ports & Protocols Reference">🔌 Ports</a>
+            <a href="http_codes.html" class="nav-btn" title="HTTP Status Codes Field Guide">🌐 HTTP Codes</a>
+            <a href="general.html" class="nav-btn" title="General Cyber Intel: Shortcuts, Domains, OS Timeline">⚙️ General</a>
+            <a href="google_dorking.html" class="nav-btn" title="Google Dorking & Search Recon">🔎 Dorking</a>
+            <a href="hacker_engines_devices.html" class="nav-btn" title="Hacker Search Engines & Tactical Hardware Devices">📡 Hacker Engines</a>
             <a href="linux.html" class="nav-btn" title="Linux Commands & Hardening">🐧 Linux</a>
-            <a href="ecosystem.html" class="nav-btn active" title="Interactive Cyber Ecosystem Mind Map">🌐
-                Ecosystem</a>
+            <a href="ecosystem.html" class="nav-btn active" title="Interactive Cyber Ecosystem Mind Map">🗺️ Ecosystem</a>
+            <a href="career_paths.html" class="nav-btn" title="Cyber Career Tracks">💼 Careers</a>
 
             <!-- In-Header Search Input -->
             <div class="relative w-32 sm:w-44 xl:w-56 ml-1 flex-shrink min-w-[100px]">
-                <i
-                    class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400"></i>
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400"></i>
                 <input type="text" id="search-input" onkeyup="handleSearch(this.value)"
                     placeholder="Search node, tool..."
                     class="w-full border rounded pl-7 pr-2.5 py-1 text-xs focus:outline-none focus:border-cyan-500 font-mono transition-all"
                     style="background: var(--bg-card, #171e30); border-color: var(--border-color, #1e293b); color: var(--text-main, #f1f5f9);">
             </div>
 
+            <button onclick="toggleShortcutsModal()" class="theme-nav-btn flex-shrink-0" title="Quick Search (Ctrl+K)"
+                style="background: var(--bg-card, #171e30); color: var(--text-main, #00f0ff); border: 1px solid var(--border-color, #1e293b); padding: 5px 9px; font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 4px; font-family: 'Space Mono', monospace;">🔍 Search</button>
+
             <button onclick="toggleTheme()" class="theme-nav-btn flex-shrink-0" title="Toggle Theme (Press 'T')"
-                style="background: var(--text-main, #00f0ff); color: var(--bg-base, #080c14); border: 1px solid var(--border-color, #1e293b); padding: 5px 9px; font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 4px; font-family: 'Space Mono', monospace;">🌓
-                Theme</button>
+                style="background: var(--text-main, #00f0ff); color: var(--bg-base, #080c14); border: 1px solid var(--border-color, #1e293b); padding: 5px 9px; font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 4px; font-family: 'Space Mono', monospace;">🌓 Theme</button>
         </div>
     </header>
 

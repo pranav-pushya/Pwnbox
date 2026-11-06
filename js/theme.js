@@ -49,7 +49,16 @@ function getPwnboxPath(target) {
             if (inImpInfo) return 'ecosystem.html';
             if (isSubdir) return '../imp_info/ecosystem.html';
             return 'imp_info/ecosystem.html';
+        case 'terminal':
+            return isSubdir ? '../terminal.html' : 'terminal.html';
+        case 'payloads':
+            return isSubdir ? '../payloads.html' : 'payloads.html';
+        case 'ctf':
+            return isSubdir ? '../ctf.html' : 'ctf.html';
         default:
+            if (target && (target.includes('/') || target.includes('.html'))) {
+                return isSubdir ? '../' + target : target;
+            }
             return '';
     }
 }
@@ -102,8 +111,9 @@ function navigateTo(target) {
     }
 }
 
-// ── 3. SHORTCUTS REGISTRY ──
+// ── 3. SHORTCUTS & ACADEMY SPOTLIGHT REGISTRY ──
 const PWNBOX_SHORTCUTS = [
+    // --- Global Hotkeys & Core Portals ---
     {
         key: 'D',
         badge: 'D',
@@ -116,7 +126,7 @@ const PWNBOX_SHORTCUTS = [
         key: 'H',
         badge: 'H',
         title: 'Home Portal',
-        desc: 'Return to Academy Landing Page & Matrix Core',
+        desc: 'Return to Academy Landing Page & 3D Matrix Core',
         category: 'Navigation',
         target: 'home'
     },
@@ -124,55 +134,55 @@ const PWNBOX_SHORTCUTS = [
         key: 'T',
         badge: 'T',
         title: 'Toggle Theme',
-        desc: 'Switch between Dark and Light cyber themes',
+        desc: 'Switch between Dark, Light, Matrix & Cyberpunk themes',
         category: 'Interface',
         action: () => toggleTheme()
     },
     {
+        key: 'M',
+        badge: 'M',
+        title: 'Master Guide (Zero to Cyber)',
+        desc: 'Comprehensive 10-Chapter & 100-Term Knowledge Base',
+        category: 'Intel',
+        target: 'masterguide'
+    },
+    {
+        key: 'I',
+        badge: 'I',
+        title: 'Field Intel Command Vault',
+        desc: 'Curated Resource Matrix, 20-Domain Blueprint & Sandboxing',
+        category: 'Intel',
+        target: 'imp'
+    },
+    {
         key: 'G',
         badge: 'G',
-        title: 'Cyber Mini-Games',
-        desc: 'Interactive Tactical Security Simulations & Arcade',
+        title: 'Cyber Mini-Games & Arcade Hub',
+        desc: '8 Interactive Tactical Security Simulations',
         category: 'Play',
         target: 'games'
     },
     {
         key: 'N',
         badge: 'N',
-        title: 'Operative Notes',
-        desc: 'Open Notes & In-Stream Payload Vault',
+        title: 'Operative Notes Vault',
+        desc: 'In-Stream Code Blocks & Markdown Study Notes',
         category: 'Tools',
         target: 'notes'
-    },
-    {
-        key: 'M',
-        badge: 'M',
-        title: 'Master Guide',
-        desc: 'Comprehensive 10-Chapter Cyber Security Compendium',
-        category: 'Intel',
-        target: 'masterguide'
     },
     {
         key: 'R',
         badge: 'R',
         title: 'Career Roadmap',
-        desc: 'Interactive Offensive & Defensive Cyber Career Tree',
+        desc: '9-Month Interactive CEH & Ethical Hacking Timeline',
         category: 'Intel',
         target: 'roadmap'
-    },
-    {
-        key: 'I',
-        badge: 'I',
-        title: 'Important Info & Tools',
-        desc: 'Curated Resource Matrix, Tools & Certifications',
-        category: 'Intel',
-        target: 'imp'
     },
     {
         key: 'C',
         badge: 'C',
         title: 'Command Cheat Sheet',
-        desc: '80+ Essential CEH & Pentesting Commands (Dashboard Only)',
+        desc: '80+ Essential CEH & Pentesting Commands (Nmap, Hydra, John)',
         category: 'Tools',
         action: () => {
             if (isCurrentPage('dashboard')) {
@@ -188,8 +198,8 @@ const PWNBOX_SHORTCUTS = [
     {
         key: 'A',
         badge: 'A',
-        title: 'Cyber AI Assistant',
-        desc: 'Deep Cybersecurity Intelligence Oracle & Tutor',
+        title: 'Cyber AI SOC Mentor',
+        desc: 'Deep Cybersecurity Intelligence Oracle & LLM Assistant',
         category: 'Intel',
         target: 'assistant'
     },
@@ -197,9 +207,311 @@ const PWNBOX_SHORTCUTS = [
         key: 'S',
         badge: 'S',
         title: 'Mission Settings',
-        desc: 'Dedicated System Options & Preference Control Panel',
+        desc: 'Dedicated System Options, Password & Security Controls',
         category: 'Interface',
         action: () => openSettingsModal()
+    },
+
+    // --- Interactive Utilities ---
+    {
+        key: 'TERM',
+        badge: 'CLI',
+        title: 'WebShell Terminal Emulator',
+        desc: 'Interactive In-Browser UNIX Terminal, Nmap & Privilege Escalation',
+        category: 'Tools',
+        target: 'terminal'
+    },
+    {
+        key: 'PAY',
+        badge: 'PAYLOAD',
+        title: 'Tactical Payload Arsenal',
+        desc: '36+ Interactive Reverse Shells, WebShells & TTY Spawners',
+        category: 'Tools',
+        target: 'payloads'
+    },
+    {
+        key: 'CTF',
+        badge: 'FLAG',
+        title: 'CTF Arena & Certificates',
+        desc: '8 Flag Challenges, Operative Leaderboard & Canvas Certificates',
+        category: 'Play',
+        target: 'ctf'
+    },
+    {
+        key: 'EXAM',
+        badge: 'TEST',
+        title: 'Master Quiz Examination',
+        desc: 'MCQ Assessment Engine with Hinglish Explanations & Analytics',
+        category: 'Intel',
+        target: 'masterguide/masterguide_test.html'
+    },
+    {
+        key: 'BACKUP',
+        badge: 'VAULT',
+        title: 'Export Operative Data Vault (JSON)',
+        desc: '1-Click JSON backup of notes, solved CTF flags, module progress, XP and custom tools',
+        category: 'Tools',
+        action: () => exportPwnboxDataVault()
+    },
+    {
+        key: 'RESTORE',
+        badge: 'VAULT',
+        title: 'Restore Operative Data Vault (JSON)',
+        desc: 'Restore PwnBox training records and notes from a JSON backup file',
+        category: 'Tools',
+        action: () => {
+            ensureSettingsModal();
+            const fileInput = document.getElementById('pwnboxVaultFileInput');
+            if (fileInput) fileInput.click();
+        }
+    },
+
+    // --- 8 Cyber Kill Chain Laboratories ---
+    {
+        key: 'M01',
+        badge: 'LAB',
+        title: 'M-01: Passive & Active Reconnaissance',
+        desc: 'WHOIS, DNS Recon, Google Dorking, Shodan & Harvester (22+ Tools)',
+        category: 'Labs',
+        target: 'modules/Footprinting.html'
+    },
+    {
+        key: 'M02',
+        badge: 'LAB',
+        title: 'M-02: Network Scanning & Host Discovery',
+        desc: 'Nmap SYN/UDP/ACK, Masscan, Rustscan, Wireshark & Hping3 (15+ Tools)',
+        category: 'Labs',
+        target: 'modules/Scanning.html'
+    },
+    {
+        key: 'M03',
+        badge: 'LAB',
+        title: 'M-03: System Enumeration & Mining',
+        desc: 'SMB, NetBIOS, SNMPwalk, LDAP & RPC Mining (8+ Tools)',
+        category: 'Labs',
+        target: 'modules/Enumeration.html'
+    },
+    {
+        key: 'M04',
+        badge: 'LAB',
+        title: 'M-04: Vulnerability Assessment & CVSS',
+        desc: 'Nessus, OpenVAS, Nuclei, CVE Details & ExploitDB Auditing',
+        category: 'Labs',
+        target: 'modules/Vulnerability.html'
+    },
+    {
+        key: 'M05',
+        badge: 'LAB',
+        title: 'M-05: System Exploitation & Privilege Escalation',
+        desc: 'LinPEAS, WinPEAS, Hashcat, John, Metasploit & GTFOBins',
+        category: 'Labs',
+        target: 'modules/SystemHacking.html'
+    },
+    {
+        key: 'M06',
+        badge: 'LAB',
+        title: 'M-06: Web App Threats & OWASP Top 10',
+        desc: 'SQL Injection, XSS, CSRF, SSRF, Burp Suite, Commix & XSStrike',
+        category: 'Labs',
+        target: 'modules/WebAppThreats.html'
+    },
+    {
+        key: 'M07',
+        badge: 'LAB',
+        title: 'M-07: Open Source Intelligence (OSINT)',
+        desc: 'ZoomEye, Onyphe, FOFA, LeakIX, Dehashed, Wayback & IntelX',
+        category: 'Labs',
+        target: 'modules/OSINT.html'
+    },
+    {
+        key: 'M08',
+        badge: 'LAB',
+        title: 'M-08: Black Ops & C2 Evasion',
+        desc: 'Cobalt Strike, Havoc, AMSI Memory Bypasses, BloodHound & Ligolo',
+        category: 'Labs',
+        target: 'modules/BlackOps.html'
+    },
+
+    // --- 8 Tactical Arcade Mini-Games ---
+    {
+        key: 'G01',
+        badge: 'GAME',
+        title: 'SQLi Locksmith',
+        desc: 'Database breach puzzle: auth bypass, UNION SELECT & parameterized queries',
+        category: 'Games',
+        target: 'games/sqli_locksmith.html'
+    },
+    {
+        key: 'G02',
+        badge: 'GAME',
+        title: 'Packet Gatekeeper',
+        desc: 'Firewall & DPI arcade defending subnets against malicious packet floods',
+        category: 'Games',
+        target: 'games/packet_gatekeeper.html'
+    },
+    {
+        key: 'G03',
+        badge: 'GAME',
+        title: 'Phish Detective',
+        desc: 'SOC inbox triage: spoofed headers, SPF/DKIM validation & dropper analysis',
+        category: 'Games',
+        target: 'games/phish_detective.html'
+    },
+    {
+        key: 'G04',
+        badge: 'GAME',
+        title: 'CIDR Block Defender',
+        desc: 'VLSM network partitioning puzzle: prefixes /24 to /30 & host ranges',
+        category: 'Games',
+        target: 'games/cidr_block.html'
+    },
+    {
+        key: 'G05',
+        badge: 'GAME',
+        title: 'PrivEsc Tower',
+        desc: 'Linux privilege escalation: SUID binaries, root cron jobs & GTFOBins',
+        category: 'Games',
+        target: 'games/privesc_tower.html'
+    },
+    {
+        key: 'G06',
+        badge: 'GAME',
+        title: 'Ransom Panic',
+        desc: 'DFIR incident response: isolate hosts, sever lateral movement & sinkhole C2',
+        category: 'Games',
+        target: 'games/ransom_panic.html'
+    },
+    {
+        key: 'G07',
+        badge: 'GAME',
+        title: 'Entropy Clash',
+        desc: 'Password security tug-of-war against simulated 100 GH/s Hashcat rigs',
+        category: 'Games',
+        target: 'games/entropy_clash.html'
+    },
+    {
+        key: 'G08',
+        badge: 'GAME',
+        title: 'Cipher Relic Decoder',
+        desc: 'Cryptographic trial: break Caesar rotation, Vigenère matrices & XOR stream',
+        category: 'Games',
+        target: 'games/cipher_relic.html'
+    },
+
+    // --- Field Intelligence Compendiums ---
+    {
+        key: 'PORTS',
+        badge: 'INTEL',
+        title: '37 Network Ports & Protocols Matrix',
+        desc: 'TCP/UDP default ports (21, 22, 53, 80, 443, 445, 3389, 8080), Hinglish triage & exploitation notes',
+        category: 'Field Intel',
+        target: 'imp_info/ports.html'
+    },
+    {
+        key: 'HTTP',
+        badge: 'INTEL',
+        title: 'HTTP Status Codes Field Guide',
+        desc: '1xx to 5xx response code taxonomy, fuzzing insights & security headers',
+        category: 'Field Intel',
+        target: 'imp_info/http_codes.html'
+    },
+    {
+        key: 'DORK',
+        badge: 'INTEL',
+        title: 'Google Dorking Intelligence & GHDB Builder',
+        desc: 'Advanced search operators, site footprinting & login portal dorks',
+        category: 'Field Intel',
+        target: 'imp_info/google_dorking.html'
+    },
+    {
+        key: 'HARD',
+        badge: 'INTEL',
+        title: 'Top 10 Hacking Devices (3D Models) & 32 Engines',
+        desc: 'WiFi Pineapple, Flipper Zero, Rubber Ducky, Bash Bunny with 3D inspection',
+        category: 'Field Intel',
+        target: 'imp_info/hacker_engines_devices.html'
+    },
+    {
+        key: 'LINUX',
+        badge: 'INTEL',
+        title: 'Linux Terminal Mastery & Mind Map',
+        desc: 'Core commands, permissions, filesystem hierarchy & fullscreen Tux map',
+        category: 'Field Intel',
+        target: 'imp_info/linux.html'
+    },
+    {
+        key: 'ECO',
+        badge: 'INTEL',
+        title: 'Cybersecurity Ecosystem Topology',
+        desc: 'Interactive D3 Force Graph connecting 10 security domains & tools',
+        category: 'Field Intel',
+        target: 'imp_info/ecosystem.html'
+    },
+    {
+        key: 'CAREER',
+        badge: 'INTEL',
+        title: 'Cyber Career Specializations',
+        desc: 'SOC Analyst, Pentester, Cloud Sec, DFIR, AppSec & GRC profiles',
+        category: 'Field Intel',
+        target: 'imp_info/career_paths.html'
+    },
+    {
+        key: 'GEN',
+        badge: 'INTEL',
+        title: 'General Cyber Intelligence Compendium',
+        desc: 'Windows triage shortcuts, high-risk TLDs & 1969-2026 OS Chronicles',
+        category: 'Field Intel',
+        target: 'imp_info/general.html'
+    },
+
+    // --- Master Guide Deep Concepts ---
+    {
+        key: 'SQLI',
+        badge: 'CONCEPT',
+        title: 'SQL Injection (SQLi)',
+        desc: 'Master Guide: Authentication bypass, blind SQLi, union injection & defense',
+        category: 'Guide',
+        target: 'masterguide/cybersecurity_masterguide.html#sqli'
+    },
+    {
+        key: 'XSS',
+        badge: 'CONCEPT',
+        title: 'Cross-Site Scripting (XSS)',
+        desc: 'Master Guide: Reflected, Stored, and DOM-based script injection defense',
+        category: 'Guide',
+        target: 'masterguide/cybersecurity_masterguide.html#xss'
+    },
+    {
+        key: 'RANSOM',
+        badge: 'CONCEPT',
+        title: 'Ransomware & Cryptovirology',
+        desc: 'Master Guide: Double extortion, WannaCry case study, shadow copy wiping',
+        category: 'Guide',
+        target: 'masterguide/cybersecurity_masterguide.html#ransomware'
+    },
+    {
+        key: 'ZERODAY',
+        badge: 'CONCEPT',
+        title: 'Zero-Day Exploits',
+        desc: 'Master Guide: Unpatched vulnerabilities, vulnerability brokers & patching windows',
+        category: 'Guide',
+        target: 'masterguide/cybersecurity_masterguide.html#zeroday'
+    },
+    {
+        key: 'ZEROTRUST',
+        badge: 'CONCEPT',
+        title: 'Zero Trust Architecture',
+        desc: 'Master Guide: "Never Trust, Always Verify", microsegmentation & continuous validation',
+        category: 'Guide',
+        target: 'masterguide/cybersecurity_masterguide.html#zerotrust'
+    },
+    {
+        key: 'SIEM',
+        badge: 'CONCEPT',
+        title: 'SIEM & SOC Operations',
+        desc: 'Master Guide: Log correlation, Splunk, Elastic, alert fatigue & IOC triage',
+        category: 'Guide',
+        target: 'masterguide/cybersecurity_masterguide.html#siem'
     }
 ];
 
@@ -414,18 +726,18 @@ function ensureShortcutsModal() {
             <div class="pwn-shortcuts-header">
                 <div class="pwn-shortcuts-title">
                     <span>⚡</span>
-                    <span>PWNBOX KEYBOARD COMMAND MATRIX</span>
+                    <span>PWNBOX // COMMAND PALETTE & ACADEMY SPOTLIGHT (Ctrl + K)</span>
                 </div>
                 <button class="pwn-shortcuts-close" onclick="window.closeShortcutsModal()" title="Close (ESC)">&times;</button>
             </div>
             <div class="pwn-shortcuts-search-container">
-                <input type="text" class="pwn-shortcuts-search-input" id="pwnboxShortcutsSearchInput" placeholder="Search shortcuts or pages (e.g. Dashboard, Notes, Theme, Roadmap)..." autocomplete="off" spellcheck="false">
+                <input type="text" class="pwn-shortcuts-search-input" id="pwnboxShortcutsSearchInput" placeholder="Quick Search: type a lab, tool, port, game, topic, or command (e.g. nmap, sqli, 443, privesc)..." autocomplete="off" spellcheck="false">
                 <span class="pwn-shortcuts-search-icon">🔍</span>
             </div>
             <div class="pwn-shortcuts-list" id="pwnboxShortcutsListFeed"></div>
             <div class="pwn-shortcuts-footer">
                 <span>[↑/↓] Navigate &bull; [ENTER] Select &bull; [ESC] Dismiss</span>
-                <span>GLOBAL HOTKEYS // PWNBOX v3.4</span>
+                <span>GLOBAL SPOTLIGHT & COMMAND MATRIX // PWNBOX</span>
             </div>
         </div>
     `;
@@ -550,11 +862,6 @@ function renderShortcutsList(query = '') {
 }
 
 function openShortcutsModal() {
-    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-    if (!isAuth) {
-        return; // Silently blocked as if it does not exist
-    }
-
     const modal = ensureShortcutsModal();
     renderShortcutsList('');
     modal.classList.add('active');
@@ -576,11 +883,6 @@ function closeShortcutsModal() {
 }
 
 function toggleShortcutsModal() {
-    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-    if (!isAuth) {
-        openShortcutsModal();
-        return;
-    }
     const modal = document.getElementById('pwnboxShortcutsOverlay');
     if (modal && modal.classList.contains('active')) {
         closeShortcutsModal();
@@ -917,7 +1219,29 @@ function ensureSettingsModal() {
                         ⌨️ TACTICAL HOTKEYS & SHORTCUTS
                     </div>
                     <div class="pwn-setting-desc" style="font-size: 0.76rem; color: var(--text-main, #0a0a0a); font-family: 'Space Mono', monospace; line-height: 1.5;">
-                        💡 <strong>Operative Tip:</strong> Try pressing <kbd style="background: var(--bg-panel, #fff); border: 1px solid var(--border-color, #0a0a0a); padding: 2px 6px; font-weight: bold; border-radius: 3px; box-shadow: 1px 1px 0 var(--border-color, #0a0a0a);">Ctrl</kbd> + <kbd style="background: var(--bg-panel, #fff); border: 1px solid var(--border-color, #0a0a0a); padding: 2px 6px; font-weight: bold; border-radius: 3px; box-shadow: 1px 1px 0 var(--border-color, #0a0a0a);">/</kbd> anywhere across the academy to instantly summon the Tactical Command HUD & keyboard shortcuts matrix.
+                        💡 <strong>Operative Tip:</strong> Try pressing <kbd style="background: var(--bg-panel, #fff); border: 1px solid var(--border-color, #0a0a0a); padding: 2px 6px; font-weight: bold; border-radius: 3px; box-shadow: 1px 1px 0 var(--border-color, #0a0a0a);">Ctrl</kbd> + <kbd style="background: var(--bg-panel, #fff); border: 1px solid var(--border-color, #0a0a0a); padding: 2px 6px; font-weight: bold; border-radius: 3px; box-shadow: 1px 1px 0 var(--border-color, #0a0a0a);">K</kbd> anywhere across the academy to instantly summon the Command Palette & Quick Search spotlight.
+                    </div>
+                </div>
+
+                <!-- 5. OPERATIVE DATA VAULT // 1-CLICK BACKUP & RESTORE -->
+                <div class="pwn-settings-section" style="border-color: #10b981; background: rgba(16, 185, 129, 0.04);">
+                    <div class="pwn-settings-section-title" style="color: #10b981;">
+                        💾 OPERATIVE DATA VAULT // 1-CLICK BACKUP & RESTORE
+                    </div>
+                    <div class="pwn-setting-row" style="align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                        <div class="pwn-setting-label" style="flex: 2; min-width: 240px;">
+                            <span class="pwn-setting-name">PORTABLE MISSION BACKUP (.JSON)</span>
+                            <span class="pwn-setting-desc">Export or restore complete operative data: 8 lab completions, tactical notes vault, CTF flags, arcade XP, custom tools, and roadmap progress.</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button class="pwn-setting-btn primary" onclick="exportPwnboxDataVault()" style="background: #10b981; color: #000; border-color: #059669;" title="Download JSON snapshot">
+                                ⬇️ EXPORT VAULT
+                            </button>
+                            <button class="pwn-setting-btn" onclick="document.getElementById('pwnboxVaultFileInput').click()" style="background: var(--bg-panel); border-color: var(--border-color);" title="Restore from JSON file">
+                                ⬆️ RESTORE VAULT
+                            </button>
+                            <input type="file" id="pwnboxVaultFileInput" accept=".json,application/json" style="display: none;" onchange="handleImportVaultFile(event)">
+                        </div>
                     </div>
                 </div>
 
@@ -1191,6 +1515,179 @@ async function handleDeleteAccount() {
     window.location.href = homePath || 'index.html';
 }
 
+// ── OPERATIVE DATA VAULT (1-CLICK BACKUP & RESTORE) ──
+function exportPwnboxDataVault() {
+    try {
+        const rawStore = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!key) continue;
+            if (
+                key.startsWith('pwnbox_') ||
+                key.startsWith('module_') ||
+                key.startsWith('custom_') ||
+                key.startsWith('edited_') ||
+                key.startsWith('deleted_') ||
+                key.startsWith('vuln_quiz') ||
+                key.startsWith('webapp_quiz') ||
+                key.startsWith('agent') ||
+                key === 'theme'
+            ) {
+                rawStore[key] = localStorage.getItem(key);
+            }
+        }
+
+        let notesCount = 0;
+        try {
+            const notes = JSON.parse(rawStore['pwnbox_notes_vault'] || '[]');
+            if (Array.isArray(notes)) notesCount = notes.length;
+        } catch (_) {}
+
+        let ctfCount = 0;
+        try {
+            const ctf = JSON.parse(rawStore['pwnbox_ctf_solved_flags'] || '[]');
+            if (Array.isArray(ctf)) ctfCount = ctf.length;
+        } catch (_) {}
+
+        const callsign = rawStore['agentAlias'] || rawStore['pwnbox_agent_alias'] || rawStore['pwnbox_user_name'] || 'Operative';
+        const arcadeXp = parseInt(rawStore['pwnbox_arcade_total_xp'] || '0', 10);
+
+        const vaultData = {
+            pwnbox_vault_version: "1.0",
+            app: "PwnBox Cyber Academy",
+            exported_at: new Date().toISOString(),
+            agent_callsign: callsign,
+            summary: {
+                notes_count: notesCount,
+                solved_ctf_flags_count: ctfCount,
+                arcade_xp: arcadeXp,
+                total_stored_keys: Object.keys(rawStore).length
+            },
+            data: rawStore
+        };
+
+        const jsonString = JSON.stringify(vaultData, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const dateStr = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `pwnbox-vault-${callsign.toLowerCase().replace(/[^a-z0-9_-]/g, '_')}-${dateStr}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast(`Data Vault exported: ${notesCount} notes, ${ctfCount} flags, ${arcadeXp} XP.`, "success");
+        } else if (typeof window.tacticalAlert === 'function') {
+            window.tacticalAlert({
+                title: "VAULT EXPORT COMPLETE",
+                message: `Exported ${notesCount} notes, ${ctfCount} CTF flags, ${arcadeXp} XP, and profile keys. Keep your backup file secure!`,
+                type: "success"
+            });
+        }
+        return vaultData;
+    } catch (err) {
+        console.error("Export vault failed:", err);
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast("Export failed: " + err.message, "danger");
+        } else if (typeof window.alert === 'function') {
+            window.alert("Export failed: " + err.message);
+        } else if (typeof alert !== 'undefined') {
+            alert("Export failed: " + err.message);
+        }
+    }
+}
+
+function handleImportVaultFile(event) {
+    const file = event && event.target && event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async function (e) {
+        try {
+            const content = e.target.result;
+            const parsed = JSON.parse(content);
+            await importPwnboxDataVault(parsed);
+        } catch (err) {
+            console.error("Failed to parse vault file:", err);
+            if (typeof window.tacticalAlert === 'function') {
+                window.tacticalAlert({
+                    title: "INVALID VAULT FILE",
+                    message: "The selected file is not a valid PwnBox JSON backup: " + err.message,
+                    type: "danger"
+                });
+            } else if (typeof window.alert === 'function') {
+                window.alert("The selected file is not a valid PwnBox JSON backup: " + err.message);
+            } else if (typeof alert !== 'undefined') {
+                alert("The selected file is not a valid PwnBox JSON backup: " + err.message);
+            }
+        } finally {
+            if (event.target) event.target.value = '';
+        }
+    };
+    reader.readAsText(file);
+}
+
+async function importPwnboxDataVault(vaultObj) {
+    if (!vaultObj || typeof vaultObj !== 'object') {
+        throw new Error("Invalid vault payload");
+    }
+
+    const payload = vaultObj.data || vaultObj;
+    const callsign = vaultObj.agent_callsign || payload.agentAlias || payload.pwnbox_agent_alias || "Operative";
+    const keysCount = Object.keys(payload).length;
+
+    if (keysCount === 0) {
+        throw new Error("Vault payload contains no restorable records.");
+    }
+
+    const confirmMsg = `Restore PwnBox Data Vault for [${callsign}]? This will restore ${keysCount} tactical keys (learning progress, notes vault, CTF flags, arcade XP, and profile). Existing keys will be updated.`;
+    const confirmed = window.tacticalConfirm ?
+        await window.tacticalConfirm({
+            title: "RESTORE DATA VAULT",
+            message: confirmMsg,
+            type: "warning",
+            confirmText: "RESTORE VAULT"
+        }) :
+        (typeof window.confirm === 'function' ? window.confirm(confirmMsg) : (typeof confirm !== 'undefined' ? confirm(confirmMsg) : true));
+
+    if (!confirmed) return false;
+
+    for (const [key, value] of Object.entries(payload)) {
+        if (typeof value === 'string') {
+            localStorage.setItem(key, value);
+        } else if (value !== null && value !== undefined) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+    }
+
+    if (typeof window.triggerPwnCloudPush === 'function') {
+        try {
+            window.triggerPwnCloudPush();
+        } catch (_) {}
+    }
+
+    if (typeof window.tacticalAlert === 'function') {
+        await window.tacticalAlert({
+            title: "VAULT RESTORED",
+            message: `Successfully restored ${keysCount} keys for ${callsign}. Terminal reloading...`,
+            type: "success"
+        });
+    } else if (typeof window.alert === 'function') {
+        window.alert(`Successfully restored ${keysCount} keys for ${callsign}.`);
+    } else if (typeof alert !== 'undefined') {
+        alert(`Successfully restored ${keysCount} keys for ${callsign}.`);
+    }
+
+    setTimeout(() => {
+        window.location.reload();
+    }, 600);
+
+    return true;
+}
+
 function updateSettingsUI() {
     // 1. Alias & Email
     const aliasInput = document.getElementById('settingsAliasInput');
@@ -1302,13 +1799,9 @@ function toggleSettingsModal() {
 
 // ── 6. GLOBAL KEYDOWN LISTENER ──
 document.addEventListener('keydown', function (e) {
-    // 1. Shortcut: Ctrl + / (or Cmd + /) opens the Command Palette
-    if ((e.ctrlKey || e.metaKey) && (e.key === '/' || e.code === 'Slash' || e.keyCode === 191)) {
+    // 1. Shortcut: Ctrl + K (or Cmd + K) or Ctrl + / opens the Command Palette & Quick Search
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K' || e.code === 'KeyK' || e.key === '/' || e.code === 'Slash' || e.keyCode === 191)) {
         e.preventDefault();
-        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-        if (!isAuth) {
-            return; // Silently blocked as if it does not exist
-        }
         toggleShortcutsModal();
         return;
     }
@@ -1360,13 +1853,9 @@ document.addEventListener('keydown', function (e) {
     const settingsModal = document.getElementById('pwnboxSettingsOverlay');
     if (settingsModal && settingsModal.classList.contains('active')) return;
 
-    // 1b. Shortcut: '?' (or Shift + /) opens the Command Palette & Shortcuts modal
+    // 1b. Shortcut: '?' (or Shift + /) opens the Command Palette & Quick Search
     if (e.key === '?' || (e.shiftKey && (e.key === '/' || e.code === 'Slash'))) {
         e.preventDefault();
-        const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-        if (!isAuth) {
-            return; // Silently blocked as if it does not exist
-        }
         toggleShortcutsModal();
         return;
     }
@@ -1449,6 +1938,11 @@ window.closeSettingsModal = closeSettingsModal;
 window.toggleSettingsModal = toggleSettingsModal;
 window.toggleTheme = toggleTheme;
 window.navigateToSettings = openSettingsModal;
+window.PWNBOX_SHORTCUTS = PWNBOX_SHORTCUTS;
+window.getPwnboxPath = getPwnboxPath;
+window.exportPwnboxDataVault = exportPwnboxDataVault;
+window.handleImportVaultFile = handleImportVaultFile;
+window.importPwnboxDataVault = importPwnboxDataVault;
 
 // ── 8. UNIVERSAL POPUP & MODAL SCROLL ISOLATION ──
 // When cursor is on any popup/modal across the website, background website scroll is blocked,

@@ -85,14 +85,20 @@
                 ];
 
             case 'dashboard':
-                // "dashbord k icon pe setings,theme,user,home,notes,games,roadmap hona choahiye"
+                // Dashboard mobile navigation menu with complete hub accessibility
                 return [
                     { type: 'action', action: 'settings', label: 'Settings', icon: '⚙️' },
                     { type: 'action', action: 'theme', label: 'Theme', icon: '🌓' },
                     { type: 'action', action: 'user', label: userLabel, icon: isAuth ? '👤' : '🔐' },
                     { type: 'link', label: 'Home Portal', icon: '🏠', href: resolveHref('index.html') },
-                    { type: 'link', label: 'Notes Vault', icon: '📝', href: resolveHref('notes.html') },
+                    { type: 'link', label: 'Master Guide', icon: '📖', href: resolveHref('masterguide/cybersecurity_masterguide.html') },
+                    { type: 'link', label: 'Field Intel', icon: '💡', href: resolveHref('imp_info/imp_info.html') },
+                    { type: 'link', label: 'AI Assistant', icon: '🤖', href: resolveHref('ai_assistant.html') },
                     { type: 'link', label: 'Cyber Games', icon: '🎮', href: resolveHref('games.html') },
+                    { type: 'link', label: 'Notes Vault', icon: '📝', href: resolveHref('notes.html') },
+                    { type: 'link', label: 'WebShell Terminal', icon: '💻', href: resolveHref('terminal.html') },
+                    { type: 'link', label: 'Payload Gen', icon: '⚡', href: resolveHref('payloads.html') },
+                    { type: 'link', label: 'CTF Arena', icon: '🚩', href: resolveHref('ctf.html') },
                     { type: 'link', label: 'Roadmap', icon: '🗺️', href: resolveHref('masterguide/roadmap.html'), spanFull: true }
                 ];
 
@@ -127,14 +133,15 @@
                 ];
 
             case 'games':
-                // "games: theme,user, payload gen,ctf arena,terminal, dashbord"
                 return [
                     { type: 'action', action: 'theme', label: 'Theme', icon: '🌓' },
                     { type: 'action', action: 'user', label: userLabel, icon: isAuth ? '👤' : '🔐' },
+                    { type: 'link', label: 'Dashboard', icon: '🛡️', href: resolveHref('dashboard.html') },
+                    { type: 'link', label: 'Master Guide', icon: '📖', href: resolveHref('masterguide/cybersecurity_masterguide.html') },
+                    { type: 'link', label: 'Field Intel', icon: '💡', href: resolveHref('imp_info/imp_info.html') },
                     { type: 'link', label: 'Payload Gen', icon: '⚡', href: resolveHref('payloads.html') },
                     { type: 'link', label: 'CTF Arena', icon: '🚩', href: resolveHref('ctf.html') },
-                    { type: 'link', label: 'WebShell Terminal', icon: '💻', href: resolveHref('terminal.html') },
-                    { type: 'link', label: 'Dashboard', icon: '🛡️', href: resolveHref('dashboard.html') }
+                    { type: 'link', label: 'WebShell Terminal', icon: '💻', href: resolveHref('terminal.html') }
                 ];
 
             case 'notes':
@@ -142,6 +149,8 @@
                     { type: 'action', action: 'theme', label: 'Theme', icon: '🌓' },
                     { type: 'action', action: 'user', label: userLabel, icon: isAuth ? '👤' : '🔐' },
                     { type: 'link', label: 'Dashboard', icon: '🛡️', href: resolveHref('dashboard.html') },
+                    { type: 'link', label: 'Master Guide', icon: '📖', href: resolveHref('masterguide/cybersecurity_masterguide.html') },
+                    { type: 'link', label: 'Field Intel', icon: '💡', href: resolveHref('imp_info/imp_info.html') },
                     { type: 'link', label: 'Home Portal', icon: '🏠', href: resolveHref('index.html') },
                     { type: 'link', label: 'Payload Gen', icon: '⚡', href: resolveHref('payloads.html') },
                     { type: 'link', label: 'WebShell Terminal', icon: '💻', href: resolveHref('terminal.html') }
@@ -156,6 +165,8 @@
                     { type: 'action', action: 'theme', label: 'Theme', icon: '🌓' },
                     { type: 'action', action: 'user', label: userLabel, icon: isAuth ? '👤' : '🔐' },
                     { type: 'link', label: 'Dashboard', icon: '🛡️', href: resolveHref('dashboard.html') },
+                    { type: 'link', label: 'Master Guide', icon: '📖', href: resolveHref('masterguide/cybersecurity_masterguide.html') },
+                    { type: 'link', label: 'Field Intel', icon: '💡', href: resolveHref('imp_info/imp_info.html') },
                     { type: 'link', label: 'Home Portal', icon: '🏠', href: resolveHref('index.html') },
                     { type: 'link', label: 'Cyber Games', icon: '🎮', href: resolveHref('games.html') },
                     { type: 'link', label: 'Notes Vault', icon: '📝', href: resolveHref('notes.html') }
