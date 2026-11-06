@@ -2138,7 +2138,7 @@
             xpEl.textContent = parseInt(cur, 10).toLocaleString() + ' XP';
         }
 
-        modal.style.display = 'flex';
+        modal.style.setProperty('display', 'flex', 'important');
         playGodModeFanfare();
         switchGodModeTab('godmode');
 
@@ -2148,7 +2148,7 @@
 
     function closeGodModeModal() {
         const modal = document.getElementById('architectGodModeModal');
-        if (modal) modal.style.display = 'none';
+        if (modal) modal.style.setProperty('display', 'none', 'important');
         stopGodModeCelebration3D();
         playClickSound();
     }
