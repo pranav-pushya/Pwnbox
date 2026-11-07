@@ -6,6 +6,7 @@ function resolveModuleUrl(targetUrl) {
     const cleanTarget = targetUrl.replace(/^(\.\.\/|\/)+/, '');
 
     const inSubdir = path.includes('/pages/') || path.endsWith('/pages') ||
+                     path.includes('/dashboard') ||
                      path.includes('/modules/') || path.includes('/masterguide/') ||
                      path.includes('/games/') || path.includes('/imp_info/') ||
                      path.includes('/imp%20info/');

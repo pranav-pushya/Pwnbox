@@ -7,7 +7,7 @@
  * and offline WebGL/Three.js engines.
  */
 
-const CACHE_NAME = 'pwnbox-shell-v9';
+const CACHE_NAME = 'pwnbox-shell-v10';
 
 const STATIC_ASSETS = [
     // Core Application Shell & Portals

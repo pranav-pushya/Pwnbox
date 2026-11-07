@@ -140,22 +140,6 @@
         "destination": "/modules/Footprinting.html"
       },
       {
-        "source": "/pages/modules/Footprinting",
-        "destination": "/modules/Footprinting.html"
-      },
-      {
-        "source": "/pages/modules/Footprinting.html",
-        "destination": "/modules/Footprinting.html"
-      },
-      {
-        "source": "/pages/modules/footprinting",
-        "destination": "/modules/Footprinting.html"
-      },
-      {
-        "source": "/pages/modules/footprinting.html",
-        "destination": "/modules/Footprinting.html"
-      },
-      {
         "source": "/modules/Scanning",
         "destination": "/modules/Scanning.html"
       },
@@ -169,22 +153,6 @@
       },
       {
         "source": "/modules/scanning.html",
-        "destination": "/modules/Scanning.html"
-      },
-      {
-        "source": "/pages/modules/Scanning",
-        "destination": "/modules/Scanning.html"
-      },
-      {
-        "source": "/pages/modules/Scanning.html",
-        "destination": "/modules/Scanning.html"
-      },
-      {
-        "source": "/pages/modules/scanning",
-        "destination": "/modules/Scanning.html"
-      },
-      {
-        "source": "/pages/modules/scanning.html",
         "destination": "/modules/Scanning.html"
       },
       {
@@ -204,22 +172,6 @@
         "destination": "/modules/Enumeration.html"
       },
       {
-        "source": "/pages/modules/Enumeration",
-        "destination": "/modules/Enumeration.html"
-      },
-      {
-        "source": "/pages/modules/Enumeration.html",
-        "destination": "/modules/Enumeration.html"
-      },
-      {
-        "source": "/pages/modules/enumeration",
-        "destination": "/modules/Enumeration.html"
-      },
-      {
-        "source": "/pages/modules/enumeration.html",
-        "destination": "/modules/Enumeration.html"
-      },
-      {
         "source": "/modules/Vulnerability",
         "destination": "/modules/Vulnerability.html"
       },
@@ -233,22 +185,6 @@
       },
       {
         "source": "/modules/vulnerability.html",
-        "destination": "/modules/Vulnerability.html"
-      },
-      {
-        "source": "/pages/modules/Vulnerability",
-        "destination": "/modules/Vulnerability.html"
-      },
-      {
-        "source": "/pages/modules/Vulnerability.html",
-        "destination": "/modules/Vulnerability.html"
-      },
-      {
-        "source": "/pages/modules/vulnerability",
-        "destination": "/modules/Vulnerability.html"
-      },
-      {
-        "source": "/pages/modules/vulnerability.html",
         "destination": "/modules/Vulnerability.html"
       },
       {
@@ -268,22 +204,6 @@
         "destination": "/modules/SystemHacking.html"
       },
       {
-        "source": "/pages/modules/SystemHacking",
-        "destination": "/modules/SystemHacking.html"
-      },
-      {
-        "source": "/pages/modules/SystemHacking.html",
-        "destination": "/modules/SystemHacking.html"
-      },
-      {
-        "source": "/pages/modules/systemhacking",
-        "destination": "/modules/SystemHacking.html"
-      },
-      {
-        "source": "/pages/modules/systemhacking.html",
-        "destination": "/modules/SystemHacking.html"
-      },
-      {
         "source": "/modules/WebAppThreats",
         "destination": "/modules/WebAppThreats.html"
       },
@@ -297,22 +217,6 @@
       },
       {
         "source": "/modules/webappthreats.html",
-        "destination": "/modules/WebAppThreats.html"
-      },
-      {
-        "source": "/pages/modules/WebAppThreats",
-        "destination": "/modules/WebAppThreats.html"
-      },
-      {
-        "source": "/pages/modules/WebAppThreats.html",
-        "destination": "/modules/WebAppThreats.html"
-      },
-      {
-        "source": "/pages/modules/webappthreats",
-        "destination": "/modules/WebAppThreats.html"
-      },
-      {
-        "source": "/pages/modules/webappthreats.html",
         "destination": "/modules/WebAppThreats.html"
       },
       {
@@ -332,22 +236,6 @@
         "destination": "/modules/OSINT.html"
       },
       {
-        "source": "/pages/modules/OSINT",
-        "destination": "/modules/OSINT.html"
-      },
-      {
-        "source": "/pages/modules/OSINT.html",
-        "destination": "/modules/OSINT.html"
-      },
-      {
-        "source": "/pages/modules/osint",
-        "destination": "/modules/OSINT.html"
-      },
-      {
-        "source": "/pages/modules/osint.html",
-        "destination": "/modules/OSINT.html"
-      },
-      {
         "source": "/modules/BlackOps",
         "destination": "/modules/BlackOps.html"
       },
@@ -361,22 +249,6 @@
       },
       {
         "source": "/modules/blackops.html",
-        "destination": "/modules/BlackOps.html"
-      },
-      {
-        "source": "/pages/modules/BlackOps",
-        "destination": "/modules/BlackOps.html"
-      },
-      {
-        "source": "/pages/modules/BlackOps.html",
-        "destination": "/modules/BlackOps.html"
-      },
-      {
-        "source": "/pages/modules/blackops",
-        "destination": "/modules/BlackOps.html"
-      },
-      {
-        "source": "/pages/modules/blackops.html",
         "destination": "/modules/BlackOps.html"
       },
       {
@@ -396,22 +268,6 @@
         "destination": "/modules/CloudSecurity.html"
       },
       {
-        "source": "/pages/modules/CloudSecurity",
-        "destination": "/modules/CloudSecurity.html"
-      },
-      {
-        "source": "/pages/modules/CloudSecurity.html",
-        "destination": "/modules/CloudSecurity.html"
-      },
-      {
-        "source": "/pages/modules/cloudsecurity",
-        "destination": "/modules/CloudSecurity.html"
-      },
-      {
-        "source": "/pages/modules/cloudsecurity.html",
-        "destination": "/modules/CloudSecurity.html"
-      },
-      {
         "source": "/modules/ActiveDirectory",
         "destination": "/modules/ActiveDirectory.html"
       },
@@ -425,22 +281,6 @@
       },
       {
         "source": "/modules/activedirectory.html",
-        "destination": "/modules/ActiveDirectory.html"
-      },
-      {
-        "source": "/pages/modules/ActiveDirectory",
-        "destination": "/modules/ActiveDirectory.html"
-      },
-      {
-        "source": "/pages/modules/ActiveDirectory.html",
-        "destination": "/modules/ActiveDirectory.html"
-      },
-      {
-        "source": "/pages/modules/activedirectory",
-        "destination": "/modules/ActiveDirectory.html"
-      },
-      {
-        "source": "/pages/modules/activedirectory.html",
         "destination": "/modules/ActiveDirectory.html"
       },
       {
@@ -460,22 +300,6 @@
         "destination": "/modules/SocDefense.html"
       },
       {
-        "source": "/pages/modules/SocDefense",
-        "destination": "/modules/SocDefense.html"
-      },
-      {
-        "source": "/pages/modules/SocDefense.html",
-        "destination": "/modules/SocDefense.html"
-      },
-      {
-        "source": "/pages/modules/socdefense",
-        "destination": "/modules/SocDefense.html"
-      },
-      {
-        "source": "/pages/modules/socdefense.html",
-        "destination": "/modules/SocDefense.html"
-      },
-      {
         "source": "/modules/IoTSecurity",
         "destination": "/modules/IoTSecurity.html"
       },
@@ -492,35 +316,11 @@
         "destination": "/modules/IoTSecurity.html"
       },
       {
-        "source": "/pages/modules/IoTSecurity",
-        "destination": "/modules/IoTSecurity.html"
-      },
-      {
-        "source": "/pages/modules/IoTSecurity.html",
-        "destination": "/modules/IoTSecurity.html"
-      },
-      {
-        "source": "/pages/modules/iotsecurity",
-        "destination": "/modules/IoTSecurity.html"
-      },
-      {
-        "source": "/pages/modules/iotsecurity.html",
-        "destination": "/modules/IoTSecurity.html"
-      },
-      {
         "source": "/games/cidr_block",
         "destination": "/games/cidr_block.html"
       },
       {
         "source": "/games/cidr_block.html",
-        "destination": "/games/cidr_block.html"
-      },
-      {
-        "source": "/pages/games/cidr_block",
-        "destination": "/games/cidr_block.html"
-      },
-      {
-        "source": "/pages/games/cidr_block.html",
         "destination": "/games/cidr_block.html"
       },
       {
@@ -532,27 +332,11 @@
         "destination": "/games/cipher_relic.html"
       },
       {
-        "source": "/pages/games/cipher_relic",
-        "destination": "/games/cipher_relic.html"
-      },
-      {
-        "source": "/pages/games/cipher_relic.html",
-        "destination": "/games/cipher_relic.html"
-      },
-      {
         "source": "/games/entropy_clash",
         "destination": "/games/entropy_clash.html"
       },
       {
         "source": "/games/entropy_clash.html",
-        "destination": "/games/entropy_clash.html"
-      },
-      {
-        "source": "/pages/games/entropy_clash",
-        "destination": "/games/entropy_clash.html"
-      },
-      {
-        "source": "/pages/games/entropy_clash.html",
         "destination": "/games/entropy_clash.html"
       },
       {
@@ -564,27 +348,11 @@
         "destination": "/games/packet_gatekeeper.html"
       },
       {
-        "source": "/pages/games/packet_gatekeeper",
-        "destination": "/games/packet_gatekeeper.html"
-      },
-      {
-        "source": "/pages/games/packet_gatekeeper.html",
-        "destination": "/games/packet_gatekeeper.html"
-      },
-      {
         "source": "/games/phish_detective",
         "destination": "/games/phish_detective.html"
       },
       {
         "source": "/games/phish_detective.html",
-        "destination": "/games/phish_detective.html"
-      },
-      {
-        "source": "/pages/games/phish_detective",
-        "destination": "/games/phish_detective.html"
-      },
-      {
-        "source": "/pages/games/phish_detective.html",
         "destination": "/games/phish_detective.html"
       },
       {
@@ -596,27 +364,11 @@
         "destination": "/games/privesc_tower.html"
       },
       {
-        "source": "/pages/games/privesc_tower",
-        "destination": "/games/privesc_tower.html"
-      },
-      {
-        "source": "/pages/games/privesc_tower.html",
-        "destination": "/games/privesc_tower.html"
-      },
-      {
         "source": "/games/ransom_panic",
         "destination": "/games/ransom_panic.html"
       },
       {
         "source": "/games/ransom_panic.html",
-        "destination": "/games/ransom_panic.html"
-      },
-      {
-        "source": "/pages/games/ransom_panic",
-        "destination": "/games/ransom_panic.html"
-      },
-      {
-        "source": "/pages/games/ransom_panic.html",
         "destination": "/games/ransom_panic.html"
       },
       {
@@ -628,27 +380,11 @@
         "destination": "/games/sqli_locksmith.html"
       },
       {
-        "source": "/pages/games/sqli_locksmith",
-        "destination": "/games/sqli_locksmith.html"
-      },
-      {
-        "source": "/pages/games/sqli_locksmith.html",
-        "destination": "/games/sqli_locksmith.html"
-      },
-      {
         "source": "/imp_info/imp_info",
         "destination": "/imp_info/imp_info.html"
       },
       {
         "source": "/imp_info/imp_info.html",
-        "destination": "/imp_info/imp_info.html"
-      },
-      {
-        "source": "/pages/imp_info/imp_info",
-        "destination": "/imp_info/imp_info.html"
-      },
-      {
-        "source": "/pages/imp_info/imp_info.html",
         "destination": "/imp_info/imp_info.html"
       },
       {
@@ -660,27 +396,11 @@
         "destination": "/imp_info/career_paths.html"
       },
       {
-        "source": "/pages/imp_info/career_paths",
-        "destination": "/imp_info/career_paths.html"
-      },
-      {
-        "source": "/pages/imp_info/career_paths.html",
-        "destination": "/imp_info/career_paths.html"
-      },
-      {
         "source": "/imp_info/ports",
         "destination": "/imp_info/ports.html"
       },
       {
         "source": "/imp_info/ports.html",
-        "destination": "/imp_info/ports.html"
-      },
-      {
-        "source": "/pages/imp_info/ports",
-        "destination": "/imp_info/ports.html"
-      },
-      {
-        "source": "/pages/imp_info/ports.html",
         "destination": "/imp_info/ports.html"
       },
       {
@@ -692,27 +412,11 @@
         "destination": "/imp_info/http_codes.html"
       },
       {
-        "source": "/pages/imp_info/http_codes",
-        "destination": "/imp_info/http_codes.html"
-      },
-      {
-        "source": "/pages/imp_info/http_codes.html",
-        "destination": "/imp_info/http_codes.html"
-      },
-      {
         "source": "/imp_info/general",
         "destination": "/imp_info/general.html"
       },
       {
         "source": "/imp_info/general.html",
-        "destination": "/imp_info/general.html"
-      },
-      {
-        "source": "/pages/imp_info/general",
-        "destination": "/imp_info/general.html"
-      },
-      {
-        "source": "/pages/imp_info/general.html",
         "destination": "/imp_info/general.html"
       },
       {
@@ -724,27 +428,11 @@
         "destination": "/imp_info/google_dorking.html"
       },
       {
-        "source": "/pages/imp_info/google_dorking",
-        "destination": "/imp_info/google_dorking.html"
-      },
-      {
-        "source": "/pages/imp_info/google_dorking.html",
-        "destination": "/imp_info/google_dorking.html"
-      },
-      {
         "source": "/imp_info/hacker_engines_devices",
         "destination": "/imp_info/hacker_engines_devices.html"
       },
       {
         "source": "/imp_info/hacker_engines_devices.html",
-        "destination": "/imp_info/hacker_engines_devices.html"
-      },
-      {
-        "source": "/pages/imp_info/hacker_engines_devices",
-        "destination": "/imp_info/hacker_engines_devices.html"
-      },
-      {
-        "source": "/pages/imp_info/hacker_engines_devices.html",
         "destination": "/imp_info/hacker_engines_devices.html"
       },
       {
@@ -756,27 +444,11 @@
         "destination": "/imp_info/linux.html"
       },
       {
-        "source": "/pages/imp_info/linux",
-        "destination": "/imp_info/linux.html"
-      },
-      {
-        "source": "/pages/imp_info/linux.html",
-        "destination": "/imp_info/linux.html"
-      },
-      {
         "source": "/imp_info/ecosystem",
         "destination": "/imp_info/ecosystem.html"
       },
       {
         "source": "/imp_info/ecosystem.html",
-        "destination": "/imp_info/ecosystem.html"
-      },
-      {
-        "source": "/pages/imp_info/ecosystem",
-        "destination": "/imp_info/ecosystem.html"
-      },
-      {
-        "source": "/pages/imp_info/ecosystem.html",
         "destination": "/imp_info/ecosystem.html"
       },
       {
@@ -788,14 +460,6 @@
         "destination": "/masterguide/cybersecurity_masterguide.html"
       },
       {
-        "source": "/pages/masterguide/cybersecurity_masterguide",
-        "destination": "/masterguide/cybersecurity_masterguide.html"
-      },
-      {
-        "source": "/pages/masterguide/cybersecurity_masterguide.html",
-        "destination": "/masterguide/cybersecurity_masterguide.html"
-      },
-      {
         "source": "/masterguide/roadmap",
         "destination": "/masterguide/roadmap.html"
       },
@@ -804,27 +468,11 @@
         "destination": "/masterguide/roadmap.html"
       },
       {
-        "source": "/pages/masterguide/roadmap",
-        "destination": "/masterguide/roadmap.html"
-      },
-      {
-        "source": "/pages/masterguide/roadmap.html",
-        "destination": "/masterguide/roadmap.html"
-      },
-      {
         "source": "/masterguide/masterguide_test",
         "destination": "/masterguide/masterguide_test.html"
       },
       {
         "source": "/masterguide/masterguide_test.html",
-        "destination": "/masterguide/masterguide_test.html"
-      },
-      {
-        "source": "/pages/masterguide/masterguide_test",
-        "destination": "/masterguide/masterguide_test.html"
-      },
-      {
-        "source": "/pages/masterguide/masterguide_test.html",
         "destination": "/masterguide/masterguide_test.html"
       }
     ],
@@ -972,6 +620,461 @@
       {
         "source": "/masterguide/masterguide_ch10",
         "destination": "/masterguide/cybersecurity_masterguide?ch=10",
+        "type": 301
+      },
+      {
+        "source": "/pages/css/:file*",
+        "destination": "/css/:file*",
+        "type": 301
+      },
+      {
+        "source": "/pages/js/:file*",
+        "destination": "/js/:file*",
+        "type": 301
+      },
+      {
+        "source": "/pages/assets/:file*",
+        "destination": "/assets/:file*",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Footprinting",
+        "destination": "/modules/Footprinting",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Footprinting.html",
+        "destination": "/modules/Footprinting",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/footprinting",
+        "destination": "/modules/Footprinting",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/footprinting.html",
+        "destination": "/modules/Footprinting",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Scanning",
+        "destination": "/modules/Scanning",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Scanning.html",
+        "destination": "/modules/Scanning",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/scanning",
+        "destination": "/modules/Scanning",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/scanning.html",
+        "destination": "/modules/Scanning",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Enumeration",
+        "destination": "/modules/Enumeration",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Enumeration.html",
+        "destination": "/modules/Enumeration",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/enumeration",
+        "destination": "/modules/Enumeration",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/enumeration.html",
+        "destination": "/modules/Enumeration",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Vulnerability",
+        "destination": "/modules/Vulnerability",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/Vulnerability.html",
+        "destination": "/modules/Vulnerability",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/vulnerability",
+        "destination": "/modules/Vulnerability",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/vulnerability.html",
+        "destination": "/modules/Vulnerability",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/SystemHacking",
+        "destination": "/modules/SystemHacking",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/SystemHacking.html",
+        "destination": "/modules/SystemHacking",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/systemhacking",
+        "destination": "/modules/SystemHacking",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/systemhacking.html",
+        "destination": "/modules/SystemHacking",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/WebAppThreats",
+        "destination": "/modules/WebAppThreats",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/WebAppThreats.html",
+        "destination": "/modules/WebAppThreats",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/webappthreats",
+        "destination": "/modules/WebAppThreats",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/webappthreats.html",
+        "destination": "/modules/WebAppThreats",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/OSINT",
+        "destination": "/modules/OSINT",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/OSINT.html",
+        "destination": "/modules/OSINT",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/osint",
+        "destination": "/modules/OSINT",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/osint.html",
+        "destination": "/modules/OSINT",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/BlackOps",
+        "destination": "/modules/BlackOps",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/BlackOps.html",
+        "destination": "/modules/BlackOps",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/blackops",
+        "destination": "/modules/BlackOps",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/blackops.html",
+        "destination": "/modules/BlackOps",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/CloudSecurity",
+        "destination": "/modules/CloudSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/CloudSecurity.html",
+        "destination": "/modules/CloudSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/cloudsecurity",
+        "destination": "/modules/CloudSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/cloudsecurity.html",
+        "destination": "/modules/CloudSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/ActiveDirectory",
+        "destination": "/modules/ActiveDirectory",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/ActiveDirectory.html",
+        "destination": "/modules/ActiveDirectory",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/activedirectory",
+        "destination": "/modules/ActiveDirectory",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/activedirectory.html",
+        "destination": "/modules/ActiveDirectory",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/SocDefense",
+        "destination": "/modules/SocDefense",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/SocDefense.html",
+        "destination": "/modules/SocDefense",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/socdefense",
+        "destination": "/modules/SocDefense",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/socdefense.html",
+        "destination": "/modules/SocDefense",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/IoTSecurity",
+        "destination": "/modules/IoTSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/IoTSecurity.html",
+        "destination": "/modules/IoTSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/iotsecurity",
+        "destination": "/modules/IoTSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/modules/iotsecurity.html",
+        "destination": "/modules/IoTSecurity",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/cidr_block",
+        "destination": "/games/cidr_block",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/cidr_block.html",
+        "destination": "/games/cidr_block",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/cipher_relic",
+        "destination": "/games/cipher_relic",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/cipher_relic.html",
+        "destination": "/games/cipher_relic",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/entropy_clash",
+        "destination": "/games/entropy_clash",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/entropy_clash.html",
+        "destination": "/games/entropy_clash",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/packet_gatekeeper",
+        "destination": "/games/packet_gatekeeper",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/packet_gatekeeper.html",
+        "destination": "/games/packet_gatekeeper",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/phish_detective",
+        "destination": "/games/phish_detective",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/phish_detective.html",
+        "destination": "/games/phish_detective",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/privesc_tower",
+        "destination": "/games/privesc_tower",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/privesc_tower.html",
+        "destination": "/games/privesc_tower",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/ransom_panic",
+        "destination": "/games/ransom_panic",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/ransom_panic.html",
+        "destination": "/games/ransom_panic",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/sqli_locksmith",
+        "destination": "/games/sqli_locksmith",
+        "type": 301
+      },
+      {
+        "source": "/pages/games/sqli_locksmith.html",
+        "destination": "/games/sqli_locksmith",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/imp_info",
+        "destination": "/imp_info/imp_info",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/imp_info.html",
+        "destination": "/imp_info/imp_info",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/career_paths",
+        "destination": "/imp_info/career_paths",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/career_paths.html",
+        "destination": "/imp_info/career_paths",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/ports",
+        "destination": "/imp_info/ports",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/ports.html",
+        "destination": "/imp_info/ports",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/http_codes",
+        "destination": "/imp_info/http_codes",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/http_codes.html",
+        "destination": "/imp_info/http_codes",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/general",
+        "destination": "/imp_info/general",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/general.html",
+        "destination": "/imp_info/general",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/google_dorking",
+        "destination": "/imp_info/google_dorking",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/google_dorking.html",
+        "destination": "/imp_info/google_dorking",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/hacker_engines_devices",
+        "destination": "/imp_info/hacker_engines_devices",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/hacker_engines_devices.html",
+        "destination": "/imp_info/hacker_engines_devices",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/linux",
+        "destination": "/imp_info/linux",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/linux.html",
+        "destination": "/imp_info/linux",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/ecosystem",
+        "destination": "/imp_info/ecosystem",
+        "type": 301
+      },
+      {
+        "source": "/pages/imp_info/ecosystem.html",
+        "destination": "/imp_info/ecosystem",
+        "type": 301
+      },
+      {
+        "source": "/pages/masterguide/cybersecurity_masterguide",
+        "destination": "/masterguide/cybersecurity_masterguide",
+        "type": 301
+      },
+      {
+        "source": "/pages/masterguide/cybersecurity_masterguide.html",
+        "destination": "/masterguide/cybersecurity_masterguide",
+        "type": 301
+      },
+      {
+        "source": "/pages/masterguide/roadmap",
+        "destination": "/masterguide/roadmap",
+        "type": 301
+      },
+      {
+        "source": "/pages/masterguide/roadmap.html",
+        "destination": "/masterguide/roadmap",
+        "type": 301
+      },
+      {
+        "source": "/pages/masterguide/masterguide_test",
+        "destination": "/masterguide/masterguide_test",
+        "type": 301
+      },
+      {
+        "source": "/pages/masterguide/masterguide_test.html",
+        "destination": "/masterguide/masterguide_test",
         "type": 301
       }
     ],

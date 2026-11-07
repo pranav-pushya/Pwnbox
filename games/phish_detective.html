@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+    <!-- Canonical games Path Correction -->
+    <script>
+        (function() {
+            if (window.location.pathname.includes('/pages/games/')) {
+                window.location.replace(window.location.pathname.replace('/pages/games/', '/games/'));
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Analyze suspicious headers, spoofed domains, and social engineering lures to detect sophisticated phishing campaigns.">
