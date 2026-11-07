@@ -406,6 +406,28 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     // ── 4. NOTES LIST RENDERING ──
+    function renderSkeletonLoader() {
+        const listEl = document.getElementById('notesListFeed');
+        if (!listEl) return;
+        listEl.innerHTML = `
+            <div class="skeleton-card">
+                <div class="pwn-skeleton skeleton-line h-title w-60"></div>
+                <div class="pwn-skeleton skeleton-line w-full"></div>
+                <div class="pwn-skeleton skeleton-line w-40"></div>
+            </div>
+            <div class="skeleton-card">
+                <div class="pwn-skeleton skeleton-line h-title w-80"></div>
+                <div class="pwn-skeleton skeleton-line w-full"></div>
+                <div class="pwn-skeleton skeleton-line w-60"></div>
+            </div>
+            <div class="skeleton-card">
+                <div class="pwn-skeleton skeleton-line h-title w-40"></div>
+                <div class="pwn-skeleton skeleton-line w-full"></div>
+                <div class="pwn-skeleton skeleton-line w-80"></div>
+            </div>
+        `;
+    }
+
     function renderNotesList() {
         const listEl = document.getElementById('notesListFeed');
         const countEl = document.getElementById('notesCountBadge');
@@ -1149,6 +1171,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         handleImportFile,
         flushPendingAutoSave,
         rollbackOptimisticState,
+        renderSkeletonLoader,
         getSyncStatus: () => ({ isCloudSyncing, lastCloudSyncTime, hasSnapshot: !!previousNotesSnapshot }),
         getNotes: () => notes
     };

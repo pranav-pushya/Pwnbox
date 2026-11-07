@@ -850,3 +850,43 @@ body.games-body #pwnFloatingAiDrawer,
 
 
 
+
+
+/* ==========================================================================
+   PWNBOX TACTICAL SKELETON LOADERS & SHIMMER PULSE
+   ========================================================================== */
+.pwn-skeleton {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.09) 50%, rgba(255, 255, 255, 0.04) 75%);
+    background-size: 200% 100%;
+    animation: pwnSkeletonShimmer 1.5s infinite ease-in-out;
+    border-radius: 4px;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes pwnSkeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(18, 22, 30, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skeleton-line {
+    height: 12px;
+    border-radius: 3px;
+}
+
+.skeleton-line.w-80 { width: 80%; }
+.skeleton-line.w-60 { width: 60%; }
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-line.w-full { width: 100%; }
+.skeleton-line.h-title { height: 16px; }
