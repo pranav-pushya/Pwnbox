@@ -885,6 +885,58 @@ function ensureAuthModalInDOM() {
         </div>
         `;
         document.body.appendChild(modal);
+
+        // ── ATTACH SMART LIVE FORM VALIDATION LISTENERS ──
+        const regEmail = modal.querySelector('#regEmailInput');
+        const regPass = modal.querySelector('#regPasswordInput');
+        const regConfirm = modal.querySelector('#regConfirmPasswordInput');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (regEmail && !regEmail.dataset.hasSmartValidation) {
+            regEmail.dataset.hasSmartValidation = 'true';
+            regEmail.addEventListener('input', () => {
+                const val = regEmail.value.trim();
+                if (!val) {
+                    regEmail.style.borderColor = 'var(--border-color)';
+                } else if (emailRegex.test(val)) {
+                    regEmail.style.borderColor = 'var(--cyber-green, #10b981)';
+                } else {
+                    regEmail.style.borderColor = 'var(--bauhaus-yellow, #f2a900)';
+                }
+            });
+        }
+
+        if (regPass && !regPass.dataset.hasSmartValidation) {
+            regPass.dataset.hasSmartValidation = 'true';
+            regPass.addEventListener('input', () => {
+                const val = regPass.value;
+                if (!val) {
+                    regPass.style.borderColor = 'var(--border-color)';
+                } else if (val.length >= 6) {
+                    regPass.style.borderColor = 'var(--cyber-green, #10b981)';
+                } else {
+                    regPass.style.borderColor = 'var(--bauhaus-yellow, #f2a900)';
+                }
+                if (regConfirm && regConfirm.value) {
+                    regConfirm.style.borderColor = (val === regConfirm.value) ? 'var(--cyber-green, #10b981)' : 'var(--bauhaus-red, #d9291c)';
+                }
+            });
+        }
+
+        if (regConfirm && !regConfirm.dataset.hasSmartValidation) {
+            regConfirm.dataset.hasSmartValidation = 'true';
+            regConfirm.addEventListener('input', () => {
+                const passVal = regPass ? regPass.value : '';
+                const confirmVal = regConfirm.value;
+                if (!confirmVal) {
+                    regConfirm.style.borderColor = 'var(--border-color)';
+                } else if (confirmVal === passVal && passVal.length >= 6) {
+                    regConfirm.style.borderColor = 'var(--cyber-green, #10b981)';
+                } else {
+                    regConfirm.style.borderColor = 'var(--bauhaus-red, #d9291c)';
+                }
+            });
+        }
     }
     return modal;
 }

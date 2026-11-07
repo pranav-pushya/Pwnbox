@@ -343,6 +343,39 @@
                 window.location.href = `thank-you.html?tx=${encodeURIComponent(finalTxId)}&cat=${encodeURIComponent(category)}`;
             }, 600);
         }
+
+        // Live Smart Form Validation Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailInp = document.getElementById('operative_email');
+            const callLogInp = document.getElementById('operative_callsign');
+            const msgInp = document.getElementById('transmission_message');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailInp) {
+                emailInp.addEventListener('input', () => {
+                    const val = emailInp.value.trim();
+                    if (!val) {
+                        emailInp.style.borderColor = 'var(--border-color)';
+                    } else if (emailRegex.test(val)) {
+                        emailInp.style.borderColor = 'var(--cyber-green, #10b981)';
+                    } else {
+                        emailInp.style.borderColor = 'var(--bauhaus-yellow, #f2a900)';
+                    }
+                });
+            }
+
+            if (callLogInp) {
+                callLogInp.addEventListener('input', () => {
+                    callLogInp.style.borderColor = callLogInp.value.trim().length >= 2 ? 'var(--cyber-green, #10b981)' : 'var(--border-color)';
+                });
+            }
+
+            if (msgInp) {
+                msgInp.addEventListener('input', () => {
+                    msgInp.style.borderColor = msgInp.value.trim().length >= 10 ? 'var(--cyber-green, #10b981)' : 'var(--border-color)';
+                });
+            }
+        });
     </script>
     <script src="../js/theme.js"></script>
     <script src="../js/analytics_consent.js"></script>
