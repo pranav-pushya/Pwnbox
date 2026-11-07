@@ -855,3 +855,7 @@ body.notes-body {
 .skeleton-line.w-40 { width: 40%; }
 .skeleton-line.w-full { width: 100%; }
 .skeleton-line.h-title { height: 16px; }
+
+.notes-sidebar.collapsed {
+    display: none !important;
+}

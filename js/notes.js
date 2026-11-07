@@ -1051,7 +1051,26 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
     }
 
     // ── 10. EVENT LISTENERS SETUP ──
+    
+    // ── PERSISTENT SIDEBAR CONTROLLER ──
+    function initSidebarState() {
+        const isCollapsed = localStorage.getItem('pwnbox_notes_sidebar_collapsed') === 'true';
+        const sidebar = document.getElementById('notesSidebar');
+        if (sidebar && isCollapsed) {
+            sidebar.classList.add('collapsed');
+        }
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('notesSidebar');
+        if (!sidebar) return;
+        const isCollapsed = sidebar.classList.toggle('collapsed');
+        localStorage.setItem('pwnbox_notes_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+        return isCollapsed;
+    }
+
     function setupEventListeners() {
+        initSidebarState();
         const searchInput = document.getElementById('notesSearchInput');
         const clearBtn = document.getElementById('notesSearchClear');
         if (searchInput) {
@@ -1309,6 +1328,8 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         bulkSelectAll,
         bulkDeleteSelected,
         bulkExportSelected,
+        toggleSidebar,
+        initSidebarState,
         getSelectedNoteIds: () => Array.from(selectedNoteIds),
         renderSkeletonLoader,
         getSyncStatus: () => ({ isCloudSyncing, lastCloudSyncTime, hasSnapshot: !!previousNotesSnapshot }),

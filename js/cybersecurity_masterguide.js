@@ -501,6 +501,7 @@ function toggleMobileSidebar(open) {
   const shouldOpen = (typeof open === 'boolean') ? open : !sidebar.classList.contains('mobile-open');
   sidebar.classList.toggle('mobile-open', shouldOpen);
   if (backdrop) backdrop.classList.toggle('active', shouldOpen);
+  localStorage.setItem('pwnbox_masterguide_sidebar_open', shouldOpen ? 'true' : 'false');
 
   if (shouldOpen) {
     document.body.style.overflow = 'hidden';
