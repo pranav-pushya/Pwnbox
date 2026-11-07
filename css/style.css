@@ -915,3 +915,32 @@ body.games-body #pwnFloatingAiDrawer,
     background: var(--bauhaus-blue, #2563eb);
     border-color: var(--bauhaus-blue, #2563eb);
 }
+
+
+/* ==========================================================================
+   MOBILE-OPTIMIZED SAAS LAYOUT & TOUCH ERGONOMICS (320px - 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    button, .nav-btn, .theme-nav-btn, .editor-btn {
+        min-height: 38px;
+        touch-action: manipulation;
+    }
+
+    .table-wrapper, .leaderboard-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 12px;
+    }
+
+    .modal-box, .tactical-modal-card {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 10px auto;
+        padding: 16px !important;
+    }
+}

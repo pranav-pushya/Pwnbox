@@ -859,3 +859,47 @@ body.notes-body {
 .notes-sidebar.collapsed {
     display: none !important;
 }
+
+
+@media (max-width: 480px) {
+    .editor-top-bar {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+
+    .editor-meta-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .editor-btn {
+        min-height: 38px;
+        padding: 6px 12px;
+        font-size: 0.72rem;
+    }
+
+    .instream-code-toolbar {
+        padding: 6px 8px;
+        gap: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .instream-tool-btn {
+        min-height: 34px;
+        padding: 4px 8px;
+    }
+
+    .notes-filter-bar {
+        padding: 6px 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .notes-filter-pill {
+        min-height: 34px;
+        padding: 4px 10px;
+        font-size: 0.7rem;
+    }
+}
