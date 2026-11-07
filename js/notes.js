@@ -860,6 +860,18 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         }, 500);
     }
 
+    function flushPendingAutoSave() {
+        if (autoSaveTimeout) {
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = null;
+            persistNotes();
+            showSaveIndicator('SAVED ✓', '#10b981');
+            setTimeout(() => {
+                showSaveIndicator('', '');
+            }, 2000);
+        }
+    }
+
     function manualSave() {
         persistNotes();
         showSaveIndicator('SAVED ✓', '#10b981');
@@ -993,12 +1005,22 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         const tagsInput = document.getElementById('noteTagsInput');
         const contentTextarea = document.getElementById('noteContentTextarea');
 
-        if (titleInput) titleInput.addEventListener('input', (e) => updateNoteField('title', e.target.value));
-        if (catSelect) catSelect.addEventListener('change', (e) => updateNoteField('category', e.target.value));
-        if (tagsInput) tagsInput.addEventListener('input', (e) => updateNoteField('tags', e.target.value));
+        if (titleInput) {
+            titleInput.addEventListener('input', (e) => updateNoteField('title', e.target.value));
+            titleInput.addEventListener('blur', flushPendingAutoSave);
+        }
+        if (catSelect) {
+            catSelect.addEventListener('change', (e) => updateNoteField('category', e.target.value));
+            catSelect.addEventListener('blur', flushPendingAutoSave);
+        }
+        if (tagsInput) {
+            tagsInput.addEventListener('input', (e) => updateNoteField('tags', e.target.value));
+            tagsInput.addEventListener('blur', flushPendingAutoSave);
+        }
 
         if (contentTextarea) {
             contentTextarea.addEventListener('input', (e) => updateNoteField('content', e.target.value));
+            contentTextarea.addEventListener('blur', flushPendingAutoSave);
             
             // Tab key support: insert 4 spaces without losing focus
             contentTextarea.addEventListener('keydown', (e) => {
@@ -1013,6 +1035,15 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
                 }
             });
         }
+
+        // Window unload, pagehide, and visibilitychange guards to guarantee zero data loss
+        window.addEventListener('beforeunload', flushPendingAutoSave);
+        window.addEventListener('pagehide', flushPendingAutoSave);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                flushPendingAutoSave();
+            }
+        });
 
         // Global shortcuts (Ctrl+S to save)
         document.addEventListener('keydown', (e) => {
@@ -1069,7 +1100,8 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         exportActiveMarkdown,
         exportAllNotesBackup,
         importNotesTrigger,
-        handleImportFile
+        handleImportFile,
+        flushPendingAutoSave
     };
 
 })();
