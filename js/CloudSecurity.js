@@ -193,9 +193,9 @@ function executeTerminalCommand(cmd) {
             <span style="color: #10b981;">[+] Step 1: Requesting IMDSv2 Session Token from 169.254.169.254...<br/>
             [+] PUT /latest/api/token -> Received Token: AQAAANcm4... (TTL: 21600s)<br/>
             [+] Step 2: Querying STS IAM Instance Profile Credentials with X-aws-ec2-metadata-token...<br/>
-            [✓] EXTRACTED TEMPORARY IAM CREDENTIALS:<br/>
-            &nbsp;&nbsp;AccessKeyId: ASIAIOSFODNN7EXAMPLE<br/>
-            &nbsp;&nbsp;SecretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY<br/>
+            [✓] EXTRACTED TEMPORARY IAM CREDENTIALS (SIMULATED):<br/>
+            &nbsp;&nbsp;AccessKeyId: [DEMO-ASIA-REDACTED-SESSION-KEY]<br/>
+            &nbsp;&nbsp;SecretAccessKey: [DEMO-AWS-SECRET-REDACTED-KEY]<br/>
             &nbsp;&nbsp;Token: IQoJb3JpZ2luX2Vj...<br/>
             &nbsp;&nbsp;Expiration: 2026-11-07T04:12:00Z</span>
         `;

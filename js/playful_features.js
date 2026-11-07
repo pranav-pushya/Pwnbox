@@ -1794,7 +1794,7 @@
                 <div style="font-size: 0.68rem; color: #cbd5e1; background: #000; padding: 8px; border: 1px solid #334155; line-height: 1.5;">
                     <div>[DUMP 01] corp.defense-contractor.internal | Admin: <b>aad3b435b51404eeaad3b435b51404ee:e19ccf750c7254571e77f21f71ce8716</b></div>
                     <div>[DUMP 02] global-banking-vpn.ch | user: cfo_finance | Pass: <b>$2a$12$e8k...9PqW (Bcrypt)</b></div>
-                    <div>[DUMP 03] cloud-telecom-aws-iam | AccessKey: <b>AKIAIOSFODNN7EXAMPLE</b> | Secret: <b>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</b></div>
+                    <div>[DUMP 03] cloud-telecom-aws-iam | AccessKey: <b>[DEMO-AKIA-REDACTED-KEY]</b> | Secret: <b>[DEMO-AWS-SECRET-REDACTED-KEY]</b></div>
                 </div>
             `;
         } else if (cmd === 'circuits') {
