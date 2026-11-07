@@ -226,13 +226,36 @@
     </footer>
 
     <!-- Core Theme & Telemetry Scripts -->
+    <script src="../js/ui_popups.js"></script>
     <script src="../js/theme.js"></script>
     <script>
         function purgeLocalData() {
-            if (confirm('CRITICAL ACTION: Are you sure you want to purge all local PwnBox progress, XP, notes, and custom settings?')) {
+            const doPurge = () => {
                 localStorage.clear();
-                alert('Local storage successfully cleared. Reloading session...');
-                window.location.reload();
+                if (typeof window.tacticalAlert === 'function') {
+                    window.tacticalAlert({
+                        title: 'DATA PURGED',
+                        message: 'Local storage successfully cleared. Reloading session...',
+                        type: 'success',
+                        onClose: () => window.location.reload()
+                    });
+                } else {
+                    alert('Local storage successfully cleared. Reloading session...');
+                    window.location.reload();
+                }
+            };
+
+            if (typeof window.tacticalConfirm === 'function') {
+                window.tacticalConfirm({
+                    title: 'PURGE ALL OPERATIVE DATA',
+                    message: 'Are you sure you want to purge all local PwnBox progress, XP, notes, and custom settings?\nThis action cannot be undone.',
+                    confirmText: 'PERMANENTLY PURGE',
+                    cancelText: 'CANCEL',
+                    type: 'danger',
+                    onConfirm: doPurge
+                });
+            } else if (confirm('CRITICAL ACTION: Are you sure you want to purge all local PwnBox progress, XP, notes, and custom settings?')) {
+                doPurge();
             }
         }
 

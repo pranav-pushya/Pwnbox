@@ -356,7 +356,7 @@
                     type: "danger",
                     onConfirm: doReset
                 });
-            } else {
+            } else if (confirm("RESET ROADMAP CHECKLIST:\nAre you sure you want to reset all roadmap objectives? Your checked checkboxes will be cleared.")) {
                 doReset();
             }
         });
