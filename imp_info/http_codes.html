@@ -513,6 +513,14 @@
                 </div>
             </article>
 
+            <!-- Empty Search State -->
+            <div class="codes-empty-state" id="codesEmptyState" style="display: none; grid-column: 1 / -1; text-align: center; padding: 48px 20px; font-family: 'Space Mono', monospace; border: 2px dashed var(--border-color); background: var(--bg-panel); margin-top: 16px;">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🔍</div>
+                <div style="font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px;">NO MATCHING HTTP STATUS CODES</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem; margin: 8px 0 16px;">No response codes matched your query or category class.</div>
+                <button class="codes-filter-btn active" style="margin: 0 auto; display: inline-block;" onclick="document.getElementById('codeSearch').value=''; setCategoryFilter('all', this)">RESET ALL FILTERS</button>
+            </div>
+
         </section>
 
     </main>
@@ -549,6 +557,10 @@
             });
 
             document.getElementById('codeStatsBadge').innerText = `${visibleCount} Codes Found`;
+            const emptyEl = document.getElementById('codesEmptyState');
+            if (emptyEl) {
+                emptyEl.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
         }
     </script>
 </body>
