@@ -1931,20 +1931,8 @@ document.addEventListener('keydown', function (e) {
         return;
     }
 
-    // Allow 'c' on dashboard for cheatsheet drawer without requiring auth
+    // Universal Single-Letter Shortcuts (Available across academy)
     const k = e.key ? e.key.toLowerCase() : '';
-    if (k === 'c' && isCurrentPage('dashboard')) {
-        if (typeof window.toggleCheatSheetDrawer === 'function') {
-            window.toggleCheatSheetDrawer();
-            return;
-        }
-    }
-
-    // 7. Require authentication for tactical single-letter navigation hotkeys
-    const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
-    if (!isAuth) return;
-
-    // Universal Single-Letter Shortcuts:
 
     switch (k) {
         case 'd': // D or d for Dashboard
