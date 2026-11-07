@@ -1042,6 +1042,14 @@
                 localStorage.setItem('pwnbox_agent_avatar', avatar);
                 localStorage.setItem('userAlias', alias);
                 localStorage.setItem('agentAlias', alias);
+                localStorage.setItem('pwnbox_onboarded', 'true');
+
+                if (window.pwnCloudSync && typeof window.pwnCloudSync.pushToCloud === 'function') {
+                    window.pwnCloudSync.pushToCloud();
+                }
+                if (typeof window.tacticalToast === 'function') {
+                    window.tacticalToast(`Dossier Activated: Callsign ${alias}`, 'success');
+                }
 
                 btnSave.textContent = '✓ DOSSIER SAVED!';
                 btnSave.style.background = '#10b981';

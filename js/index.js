@@ -645,15 +645,36 @@ function updateDashboardStats() {
             el.classList.add('selected');
         }
 
+        function checkOnboardingPrompt() {
+            const hasOnboarded = localStorage.getItem('pwnbox_onboarded');
+            const hasAlias = localStorage.getItem('agentAlias');
+            if (!hasOnboarded && (!hasAlias || hasAlias === 'UNKNOWN AGENT' || hasAlias === 'CADET_OPERATOR')) {
+                setTimeout(() => {
+                    if (typeof window.tacticalToast === 'function') {
+                        window.tacticalToast('Welcome Operative. Click your ID card to set your custom callsign & avatar.', 'info', 7000);
+                    }
+                }, 1500);
+            }
+        }
+
         function saveProfile(e) {
-            e.stopPropagation();
-            currentAlias = document.getElementById('editAliasInput').value.trim();
+            if (e && e.stopPropagation) e.stopPropagation();
+            const inputEl = document.getElementById('editAliasInput');
+            currentAlias = (inputEl ? inputEl.value.trim() : '') || 'CADET_OPERATOR';
             localStorage.setItem('agentAlias', currentAlias);
             localStorage.setItem('pwnbox_agent_alias', currentAlias);
             localStorage.setItem('userAlias', currentAlias);
             localStorage.setItem('agentAvatar', currentAvatar);
+            localStorage.setItem('pwnbox_onboarded', 'true');
             loadProfile();
-            document.getElementById('profileDropdown').classList.remove('active');
+            const dropdown = document.getElementById('profileDropdown');
+            if (dropdown) dropdown.classList.remove('active');
+            if (window.pwnCloudSync && typeof window.pwnCloudSync.pushToCloud === 'function') {
+                window.pwnCloudSync.pushToCloud();
+            }
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast(`Operative Dossier Saved: ${currentAlias}`, 'success');
+            }
         }
 
         // Close dropdown & drawer when clicking outside
@@ -676,6 +697,7 @@ function updateDashboardStats() {
             loadProfile();
             updateDashboardStats();
             updateModule08State();
+            checkOnboardingPrompt();
             window.addEventListener('resize', updateDashboardStats);
         });
 
