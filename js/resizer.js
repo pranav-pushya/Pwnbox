@@ -39,34 +39,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    let resizeRafPending = false;
+    let lastClientX = 0;
+
     document.addEventListener('mousemove', (e) => {
         if (!isResizingSidebar && !isResizingPanel) return;
+        lastClientX = e.clientX;
 
-        if (isResizingSidebar) {
-            // Constrain sidebar width between 200px and 500px
-            let newWidth = e.clientX;
-            if (newWidth < 200) newWidth = 200;
-            if (newWidth > 500) newWidth = 500;
-            sidebar.style.width = `${newWidth}px`;
-            sidebar.style.flex = 'none';
-        }
+        if (!resizeRafPending) {
+            resizeRafPending = true;
+            requestAnimationFrame(() => {
+                resizeRafPending = false;
+                if (!isResizingSidebar && !isResizingPanel) return;
 
-        if (isResizingPanel) {
-            // Get the bounding box of the content split container
-            const containerRect = contentSplit.getBoundingClientRect();
-            // Calculate the mouse position relative to the container
-            let offset = e.clientX - containerRect.left;
-            
-            // Constrain
-            if (offset < 200) offset = 200;
-            if (offset > containerRect.width - 300) offset = containerRect.width - 300; // chat min width ~300
+                if (isResizingSidebar && sidebar) {
+                    // Constrain sidebar width between 200px and 500px
+                    let newWidth = lastClientX;
+                    if (newWidth < 200) newWidth = 200;
+                    if (newWidth > 500) newWidth = 500;
+                    sidebar.style.width = `${newWidth}px`;
+                    sidebar.style.flex = 'none';
+                }
 
-            const totalWidth = containerRect.width - panelResizer.offsetWidth;
-            const detailsPercent = (offset / totalWidth) * 100;
-            const chatPercent = 100 - detailsPercent;
+                if (isResizingPanel && contentSplit && panelResizer && detailsPanel && chatPanel) {
+                    // Get the bounding box of the content split container
+                    const containerRect = contentSplit.getBoundingClientRect();
+                    let offset = lastClientX - containerRect.left;
+                    
+                    // Constrain
+                    if (offset < 200) offset = 200;
+                    if (offset > containerRect.width - 300) offset = containerRect.width - 300; // chat min width ~300
 
-            detailsPanel.style.width = `${detailsPercent}%`;
-            chatPanel.style.width = `${chatPercent}%`;
+                    const totalWidth = containerRect.width - panelResizer.offsetWidth;
+                    const detailsPercent = (offset / totalWidth) * 100;
+                    const chatPercent = 100 - detailsPercent;
+
+                    detailsPanel.style.width = `${detailsPercent}%`;
+                    chatPanel.style.width = `${chatPercent}%`;
+                }
+            });
         }
     });
 

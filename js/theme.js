@@ -2249,4 +2249,24 @@ window.importPwnboxDataVault = importPwnboxDataVault;
     }
 })();
 
+// ── 12. UNIVERSAL TACTICAL THROTTLE & TIMING UTILITIES ──
+window.pwnThrottle = function (fn, waitMs = 50) {
+    let lastTime = 0;
+    let timer = null;
+    return function (...args) {
+        const now = Date.now();
+        if (now - lastTime >= waitMs) {
+            lastTime = now;
+            fn.apply(this, args);
+        } else {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                lastTime = Date.now();
+                fn.apply(this, args);
+            }, waitMs - (now - lastTime));
+        }
+    };
+};
+
+
 
