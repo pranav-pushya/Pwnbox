@@ -7,22 +7,22 @@
  * and offline WebGL/Three.js engines.
  */
 
-const CACHE_NAME = 'pwnbox-shell-v6';
+const CACHE_NAME = 'pwnbox-shell-v7';
 
 const STATIC_ASSETS = [
     // Core Application Shell & Portals
     '/',
     '/index.html',
-    '/dashboard.html',
-    '/games.html',
-    '/notes.html',
-    '/terminal.html',
-    '/ctf.html',
-    '/payloads.html',
-    '/ai_assistant.html',
-    '/contact.html',
-    '/privacy.html',
-    '/thank-you.html',
+    '/pages/dashboard.html',
+    '/pages/games.html',
+    '/pages/notes.html',
+    '/pages/terminal.html',
+    '/pages/ctf.html',
+    '/pages/payloads.html',
+    '/pages/ai_assistant.html',
+    '/pages/contact.html',
+    '/pages/privacy.html',
+    '/pages/thank-you.html',
     '/404.html',
 
     // Master Guide & Career Roadmap

@@ -8,7 +8,7 @@
 
     const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
     const inSubdir = path.includes('/masterguide/') || path.includes('/imp_info/') || 
-                     path.includes('/imp%20info/') || path.includes('/modules/') || path.includes('/games/');
+                     path.includes('/imp%20info/') || path.includes('/modules/') || path.includes('/games/') || path.includes('/pages/');
     const basePath = inSubdir ? '../' : '';
 
     // Auto-inject CSS stylesheet if not present
@@ -58,14 +58,28 @@
         return 'general';
     }
 
+    const PORTAL_PAGES = ['dashboard.html', 'terminal.html', 'ctf.html', 'payloads.html', 'notes.html', 'games.html', 'ai_assistant.html', 'contact.html', 'privacy.html', 'thank-you.html'];
+
     function resolveHref(targetPath) {
-        if (!inSubdir) return targetPath;
+        const isPortal = PORTAL_PAGES.some(p => targetPath.endsWith(p));
+        const inPages = path.includes('/pages/');
+
+        if (!inSubdir) {
+            // From root (index.html)
+            return isPortal ? `pages/${targetPath}` : targetPath;
+        }
         // In subdirectory:
+        if (inPages && isPortal) {
+            return targetPath;
+        }
         if (targetPath.startsWith('masterguide/')) {
             return path.includes('/masterguide/') ? targetPath.replace('masterguide/', '') : `../${targetPath}`;
         }
         if (targetPath.startsWith('imp_info/')) {
             return (path.includes('/imp_info/') || path.includes('/imp%20info/')) ? targetPath.replace('imp_info/', '') : `../${targetPath}`;
+        }
+        if (isPortal) {
+            return `../pages/${targetPath}`;
         }
         return `../${targetPath}`;
     }

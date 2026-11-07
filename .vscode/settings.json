@@ -1,3 +1,15 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "firebase.json": ".firebaserc, firestore.rules",
+        "sitemap.xml": "sitemap.txt, robots.txt",
+        "index.html": "404.html, googlefc958a03c36a76e7.html, manifest.json, sw.js"
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.firebase": true,
+        "**/scratch": true
+    }
 }

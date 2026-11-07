@@ -7,8 +7,8 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="PwnBox Tactical Dashboard: Monitor curriculum progress across 8 cybersecurity training modules, track XP, and customize your operative clearance.">
     <title>PwnBox Cybersecurity Learning Dashboard</title>
-    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+    <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#00ff66">
 
     <!-- Open Graph / Social Preview -->
@@ -22,18 +22,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Mono&display=swap"
         rel="stylesheet">
 
-    <script src="js/auth_guard.js"></script>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/style.css?v=1.0">
-    <link rel="stylesheet" href="css/mobile_nav.css?v=2.0">
+    <script src="../js/auth_guard.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/mobile_nav.css?v=2.0">
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
     <!-- Firebase SDK v10 (Local First-Party with CDN Fallback: Immunizes against Adblockers & Privacy Shields) -->
-    <script src="js/vendor/firebase-app-compat.js"></script>
-    <script src="js/vendor/firebase-auth-compat.js"></script>
-    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    <script src="../js/vendor/firebase-app-compat.js"></script>
+    <script src="../js/vendor/firebase-auth-compat.js"></script>
+    <script src="../js/vendor/firebase-firestore-compat.js"></script>
     <script>
         if (typeof firebase === 'undefined') {
             document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
@@ -41,7 +41,7 @@
             document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
         }
     </script>
-    <script src="js/ui_popups.js"></script>
+    <script src="../js/ui_popups.js"></script>
 </head>
 
 <body>
@@ -63,7 +63,7 @@
             <span class="logo-text">PwnBox Dashboard</span>
         </div>
         <div class="profile-container" style="position: relative;">
-            <a href="index.html" style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">🏠 Home</a>
+            <a href="../index.html" style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">🏠 Home</a>
             <button onclick="toggleTheme()" class="theme-nav-btn"
                 style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase;">🌓 Theme</button>
             <a href="games.html" style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.4); color: #10b981; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Tactical Cyber Mini-Games & Arcade (Press 'G')">🎮 Games</a>
@@ -71,7 +71,7 @@
             <a href="payloads.html" style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Interactive Tactical Payload Arsenal">⚡ Payloads</a>
             <a href="terminal.html" style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.4); color: #22c55e; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Interactive In-Browser Linux WebShell Terminal (Press 'T')">💻 Terminal</a>
             <a href="ctf.html" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="CTF Flag Arena & Leaderboard (Press 'C')">🚩 CTF</a>
-            <a href="masterguide/roadmap.html" style="background: rgba(42, 157, 143, 0.12); border: 1px solid rgba(42, 157, 143, 0.4); color: #2a9d8f; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px;">🗺️ Roadmap</a>
+            <a href="../masterguide/roadmap.html" style="background: rgba(42, 157, 143, 0.12); border: 1px solid rgba(42, 157, 143, 0.4); color: #2a9d8f; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px;">🗺️ Roadmap</a>
             <button onclick="openSettingsModal(event)" class="theme-nav-btn" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; padding: 6px 10px; cursor: pointer; border-radius: 4px;" title="Operative Settings (Press 'S')">⚙️</button>
             <div class="user-profile" onclick="toggleProfileDropdown(event)">
                 <div class="user-avatar" id="headerAvatar">?</div>
@@ -169,7 +169,7 @@
             </div>
         </div>
 
-        <h2 class="section-title">🛡️ Training Curriculum Tracks <span id="secretM08Trigger" title="Classified Vector Bypass" style="cursor: pointer; opacity: 0.4; font-size: 1.15rem; user-select: none; transition: all 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.4'">💀</span></h2>
+        <h2 class="section-title">🛡️ Training Curriculum Tracks</h2>
 
         <div class="modules-grid">
             <!-- Module 1 -->
@@ -185,7 +185,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta">🌐 22+ Tools Loaded</span>
-                    <a href="modules/Footprinting.html" class="btn-launch">Launch Module ↗</a>
+                    <a href="../modules/Footprinting.html" class="btn-launch">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -287,7 +287,23 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta">🛰️ 24 Tools Loaded</span>
-                    <a href="modules/OSINT.html" class="btn-launch">Launch Module ↗</a>
+                    <a href="../modules/OSINT.html" class="btn-launch">Launch Module ↗</a>
+                </div>
+            </div>
+
+            <!-- Module 08: Black Ops & C2 Evasion -->
+            <div class="module-card active" id="moduleBlackOps">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-active" id="blackOpsBadge" style="background: #9333ea; color: #fff;">Red Team Track</span>
+                        <span class="module-num" style="color: #9333ea;">MODULE 08</span>
+                    </div>
+                    <h3 class="module-title" id="blackOpsTitle">Black Ops & C2 Evasion</h3>
+                    <p class="module-desc" id="blackOpsDesc">Classified Red Team adversary simulation: Cobalt Strike & Havoc C2 beaconing, memory AMSI bypasses, LOLBins, and Kerberos lateral movement.</p>
+                </div>
+                <div class="card-bottom" id="blackOpsActions">
+                    <span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span>
+                    <a href="../modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -303,7 +319,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #0284c7;">☁️ 7 Cloud Tools</span>
-                    <a href="modules/CloudSecurity.html" class="btn-launch" style="background: #0284c7; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">Launch Module ↗</a>
+                    <a href="../modules/CloudSecurity.html" class="btn-launch" style="background: #0284c7; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -319,7 +335,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #ea580c;">🏰 7 AD Tools</span>
-                    <a href="modules/ActiveDirectory.html" class="btn-launch" style="background: #ea580c; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">Launch Module ↗</a>
+                    <a href="../modules/ActiveDirectory.html" class="btn-launch" style="background: #ea580c; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -335,23 +351,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #10b981;">🛡️ 7 SOC Tools</span>
-                    <a href="modules/SocDefense.html" class="btn-launch" style="background: #10b981; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">Launch Module ↗</a>
-                </div>
-            </div>
-
-            <!-- Secret Module 08: Black Ops & C2 Evasion (Completely hidden until Skull 3x trigger) -->
-            <div class="module-card secret-m08-card" id="moduleBlackOps" style="display: none;">
-                <div class="card-top">
-                    <div class="module-badge-row">
-                        <span class="module-badge" id="blackOpsBadge" style="background: #9333ea; color: #fff;">SECRET UNLOCKED</span>
-                        <span class="module-num" style="color: #9333ea;">MODULE 08</span>
-                    </div>
-                    <h3 class="module-title" id="blackOpsTitle">Black Ops & C2 Evasion</h3>
-                    <p class="module-desc" id="blackOpsDesc">Classified Red Team adversary simulation: Cobalt Strike & Havoc C2 beaconing, memory AMSI bypasses, LOLBins, and Kerberos lateral movement.</p>
-                </div>
-                <div class="card-bottom" id="blackOpsActions">
-                    <span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span>
-                    <a href="modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;">Launch Module ↗</a>
+                    <a href="../modules/SocDefense.html" class="btn-launch" style="background: #10b981; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">Launch Module ↗</a>
                 </div>
             </div>
         </div>
@@ -395,6 +395,10 @@
                         <div class="node-dot"></div>
                         <div class="node-label">07. OSINT</div>
                     </div>
+                    <div class="node active" id="node8" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">
+                        <div class="node-dot" style="background: #9333ea; border-color: #c084fc;"></div>
+                        <div class="node-label" style="color: #c084fc;">08. Black Ops</div>
+                    </div>
                     <div class="node active" id="node9" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">
                         <div class="node-dot" style="background: #0284c7; border-color: #38bdf8;"></div>
                         <div class="node-label" style="color: #38bdf8;">09. Cloud Sec</div>
@@ -406,10 +410,6 @@
                     <div class="node active" id="node11" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">
                         <div class="node-dot" style="background: #10b981; border-color: #6ee7b7;"></div>
                         <div class="node-label" style="color: #6ee7b7;">11. Blue Team</div>
-                    </div>
-                    <div class="node secret-node" id="node8" style="display: none;" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">
-                        <div class="node-dot" style="background: #9333ea; border-color: #c084fc;"></div>
-                        <div class="node-label" style="color: #c084fc;">08. Black Ops</div>
                     </div>
                 </div>
             </div>
@@ -429,7 +429,7 @@
                 <div style="font-family: 'Space Mono', monospace; font-size: 0.8rem; margin-top: 6px;">
                     <a href="privacy.html" style="color: var(--accent-green); text-decoration: none; margin-right: 12px;">🔒 Privacy Policy</a>
                     <a href="contact.html" style="color: var(--accent-cyan); text-decoration: none; margin-right: 12px;">✉️ Transmit Intel / Contact</a>
-                    <a href="index.html" style="color: var(--text-muted); text-decoration: none;">🏠 Base Camp</a>
+                    <a href="../index.html" style="color: var(--text-muted); text-decoration: none;">🏠 Base Camp</a>
                 </div>
             </div>
         </div>
@@ -638,9 +638,9 @@
             </div>
         </div>
     </div>
-    <script src="js/index.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/mobile_nav.js?v=3.0"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/mobile_nav.js?v=3.0"></script>
 
     <!-- Firebase Authentication Modal -->
     <div class="reset-modal-overlay" id="firebaseAuthModal" style="display: none; background: rgba(0, 0, 0, 0.75);">
@@ -758,10 +758,10 @@
             </div>
         </div>
     </div>
-    <script src="js/ui_popups.js"></script>
-    <script src="js/firebase_auth.js"></script>
-    <script src="js/cloud_sync.js"></script>
-    <script src="js/analytics_consent.js"></script>
+    <script src="../js/ui_popups.js"></script>
+    <script src="../js/firebase_auth.js"></script>
+    <script src="../js/cloud_sync.js"></script>
+    <script src="../js/analytics_consent.js"></script>
 </body>
 
 </html>

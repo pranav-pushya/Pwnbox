@@ -71,10 +71,10 @@ jobs:
 
           routes = [
               "http://localhost:8085/index.html",
-              "http://localhost:8085/dashboard.html",
-              "http://localhost:8085/games.html",
-              "http://localhost:8085/notes.html",
-              "http://localhost:8085/ai_assistant.html",
+              "http://localhost:8085/pages/dashboard.html",
+              "http://localhost:8085/pages/games.html",
+              "http://localhost:8085/pages/notes.html",
+              "http://localhost:8085/pages/ai_assistant.html",
               "http://localhost:8085/masterguide/cybersecurity_masterguide.html",
               "http://localhost:8085/masterguide/roadmap.html",
               "http://localhost:8085/masterguide/masterguide_test.html",

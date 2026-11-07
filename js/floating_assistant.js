@@ -347,8 +347,14 @@ PWNBOX PLATFORM DIRECTORY & ARCHITECTURE:
             }
             const input = document.getElementById('pwnFloatingChatInput');
             const draft = input ? input.value.trim() : '';
-            const basePath = getBasePath();
-            const targetUrl = `${basePath}ai_assistant.html` + (draft ? `?q=${encodeURIComponent(draft)}` : '');
+            const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+            let prefix = 'pages/';
+            if (path.includes('/pages/')) {
+                prefix = '';
+            } else if (path.includes('/modules/') || path.includes('/masterguide/') || path.includes('/games/') || path.includes('/imp_info/') || path.includes('/imp%20info/')) {
+                prefix = '../pages/';
+            }
+            const targetUrl = `${prefix}ai_assistant.html` + (draft ? `?q=${encodeURIComponent(draft)}` : '');
             window.location.href = targetUrl;
         }
     };

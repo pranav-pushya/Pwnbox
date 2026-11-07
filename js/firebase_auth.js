@@ -93,7 +93,7 @@ function initFirebaseAuth() {
                     closeAuthModal();
                     const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
                     if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'pages/dashboard.html';
                     }
                 }, 800);
             }
@@ -237,7 +237,7 @@ async function loginWithGoogle() {
                 closeAuthModal();
                 const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
                 if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'pages/dashboard.html';
                 }
             }, 1000);
         }
@@ -421,7 +421,7 @@ async function loginWithEmail(email, password) {
             closeAuthModal();
             const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
             if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'pages/dashboard.html';
             }
         }, 800);
     } catch (error) {
@@ -460,7 +460,7 @@ async function registerWithEmail(email, password, displayName) {
             closeAuthModal();
             const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
             if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'pages/dashboard.html';
             }
         }, 800);
     } catch (error) {
@@ -679,7 +679,7 @@ function bypassLocalAuth(customEmail = null, customAlias = null) {
         closeAuthModal();
         const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
         if (path.endsWith('/index.html') || path.endsWith('/') || path === '') {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'pages/dashboard.html';
         } else {
             window.location.reload();
         }

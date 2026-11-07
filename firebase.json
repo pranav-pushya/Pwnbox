@@ -34,7 +34,27 @@
       {
         "source": "/api/submitDispatch",
         "function": "submitDispatch"
-      }
+      },
+      { "source": "/dashboard", "destination": "/pages/dashboard.html" },
+      { "source": "/dashboard.html", "destination": "/pages/dashboard.html" },
+      { "source": "/terminal", "destination": "/pages/terminal.html" },
+      { "source": "/terminal.html", "destination": "/pages/terminal.html" },
+      { "source": "/ctf", "destination": "/pages/ctf.html" },
+      { "source": "/ctf.html", "destination": "/pages/ctf.html" },
+      { "source": "/payloads", "destination": "/pages/payloads.html" },
+      { "source": "/payloads.html", "destination": "/pages/payloads.html" },
+      { "source": "/games", "destination": "/pages/games.html" },
+      { "source": "/games.html", "destination": "/pages/games.html" },
+      { "source": "/notes", "destination": "/pages/notes.html" },
+      { "source": "/notes.html", "destination": "/pages/notes.html" },
+      { "source": "/ai_assistant", "destination": "/pages/ai_assistant.html" },
+      { "source": "/ai_assistant.html", "destination": "/pages/ai_assistant.html" },
+      { "source": "/contact", "destination": "/pages/contact.html" },
+      { "source": "/contact.html", "destination": "/pages/contact.html" },
+      { "source": "/privacy", "destination": "/pages/privacy.html" },
+      { "source": "/privacy.html", "destination": "/pages/privacy.html" },
+      { "source": "/thank-you", "destination": "/pages/thank-you.html" },
+      { "source": "/thank-you.html", "destination": "/pages/thank-you.html" }
     ],
     "redirects": [
       { "source": "/.git", "destination": "/404", "type": 301 },
