@@ -34,12 +34,11 @@
         { id: 8, code: 'M-08', name: 'Black Ops & C2 Evasion', icon: '⚡', tools: '8+ Tools', url: 'modules/BlackOps.html', color: 0x9333ea, desc: 'Covert command & control, EDR evasion, in-memory execution & defense bypass.', cve: 'MITRE ATT&CK T1059', port: 'COVERT C2 MESH' }
     ];
 
-    const isM08Unlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
-    const ATTACK_VECTORS = isM08Unlocked ? ALL_ATTACK_VECTORS : ALL_ATTACK_VECTORS.filter(v => v.id !== 8);
+    const isM08Unlocked = true;
+    const ATTACK_VECTORS = ALL_ATTACK_VECTORS;
 
     // Sync home page dynamic module texts & vector pills
     function syncHomeM08Elements() {
-        const unlocked = localStorage.getItem('pwnbox_is_authenticated') === 'true' && localStorage.getItem('pwnbox_m08_unlocked') === 'true';
         const statCount = document.getElementById('statModuleCount');
         const heroTracks = document.getElementById('heroTracksCount');
         const pillM08 = document.getElementById('vectorPillM08');
@@ -47,12 +46,12 @@
         const featBlackOps = document.getElementById('featureModuleBlackOps');
         const featRange = document.getElementById('featureModuleRangeTag');
 
-        if (statCount) statCount.textContent = unlocked ? "08" : "07";
-        if (heroTracks) heroTracks.textContent = unlocked ? "8" : "7";
-        if (pillM08) pillM08.style.display = unlocked ? "inline-block" : "none";
-        if (featCount) featCount.textContent = unlocked ? "8" : "7";
-        if (featBlackOps) featBlackOps.textContent = unlocked ? ", C2 Beaconing" : "";
-        if (featRange) featRange.textContent = unlocked ? "⚡ 60+ Tool Simulations (M-01 to M-08)" : "⚡ 54+ Tool Simulations (M-01 to M-07)";
+        if (statCount) statCount.textContent = "08";
+        if (heroTracks) heroTracks.textContent = "8";
+        if (pillM08) pillM08.style.display = "inline-block";
+        if (featCount) featCount.textContent = "8";
+        if (featBlackOps) featBlackOps.textContent = ", C2 Beaconing";
+        if (featRange) featRange.textContent = "⚡ 60+ Tool Simulations (M-01 to M-08)";
     }
     syncHomeM08Elements();
 

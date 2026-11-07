@@ -7,6 +7,9 @@ function handleProtectedModuleLaunch(e, targetUrl) {
         }
     }
     if (targetUrl) {
+        if (window.location.pathname.includes('/pages/') && !targetUrl.startsWith('../') && !targetUrl.startsWith('/') && !targetUrl.startsWith('http')) {
+            targetUrl = '../' + targetUrl;
+        }
         window.location.href = targetUrl;
     }
     return true;
@@ -86,11 +89,8 @@ function updateDashboardStats() {
                     url: 'modules/OSINT.html',
                     toolsText: '🛰️ 24 Tools Loaded',
                     nodeId: 'node7'
-                }
-            ];
-
-            if (isM08Unlocked) {
-                modules.push({
+                },
+                {
                     key: 'blackops',
                     completedKey: 'module_blackops_completed',
                     cardId: 'moduleBlackOps',
@@ -99,8 +99,38 @@ function updateDashboardStats() {
                     url: 'modules/BlackOps.html',
                     toolsText: '🕵️‍♂️ 6 Stealth Tools',
                     nodeId: 'node8'
-                });
-            }
+                },
+                {
+                    key: 'cloudsec',
+                    completedKey: 'module_cloudsec_completed',
+                    cardId: 'moduleCloudSec',
+                    badgeId: 'cloudSecBadge',
+                    actionsId: null,
+                    url: 'modules/CloudSecurity.html',
+                    toolsText: '☁️ 7 Cloud Tools',
+                    nodeId: 'node9'
+                },
+                {
+                    key: 'activedirectory',
+                    completedKey: 'module_activedirectory_completed',
+                    cardId: 'moduleActiveDirectory',
+                    badgeId: 'adBadge',
+                    actionsId: null,
+                    url: 'modules/ActiveDirectory.html',
+                    toolsText: '🏰 7 AD Tools',
+                    nodeId: 'node10'
+                },
+                {
+                    key: 'socdefense',
+                    completedKey: 'module_socdefense_completed',
+                    cardId: 'moduleSocDefense',
+                    badgeId: 'socBadge',
+                    actionsId: null,
+                    url: 'modules/SocDefense.html',
+                    toolsText: '🛡️ 7 Defense Tools',
+                    nodeId: 'node11'
+                }
+            ];
 
             let completedCount = 0;
             modules.forEach(mod => {
@@ -125,36 +155,55 @@ function updateDashboardStats() {
                 if (!cardEl) return;
 
                 if (mod.isCompleted) {
-                    cardEl.className = "module-card completed" + (mod.key === 'blackops' ? ' secret-m08-card active' : '');
+                    cardEl.className = "module-card completed";
                     if (badgeEl) {
                         badgeEl.className = "module-badge badge-completed";
                         badgeEl.innerText = "Completed ✓";
                     }
                     if (actionsEl) {
-                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch">Launch Module ↗</a>`;
+                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch" onclick="handleProtectedModuleLaunch(event, '${mod.url}')">Launch Module ↗</a>`;
                     }
                     if (nodeEl) {
-                        nodeEl.className = "node completed" + (mod.key === 'blackops' ? ' secret-node' : '');
+                        nodeEl.className = "node completed";
                         nodeEl.onclick = (e) => { handleProtectedModuleLaunch(e, mod.url); };
                         nodeEl.style.cursor = 'pointer';
                     }
                 } else if (mod.isUnlocked) {
-                    cardEl.className = "module-card active" + (mod.key === 'blackops' ? ' secret-m08-card' : '');
+                    cardEl.className = "module-card active";
                     if (badgeEl) {
-                        badgeEl.className = "module-badge " + (mod.key === 'blackops' ? '' : 'badge-active');
+                        badgeEl.className = "module-badge badge-active";
                         if (mod.key === 'blackops') {
                             badgeEl.style.background = "#9333ea";
                             badgeEl.style.color = "#fff";
-                            badgeEl.innerText = "SECRET UNLOCKED";
+                            badgeEl.innerText = "Red Team Track";
+                        } else if (mod.key === 'osint') {
+                            badgeEl.innerText = "Bonus";
+                        } else if (mod.key === 'cloudsec') {
+                            badgeEl.style.background = "#0284c7";
+                            badgeEl.style.color = "#fff";
+                            badgeEl.innerText = "Cloud Track";
+                        } else if (mod.key === 'activedirectory') {
+                            badgeEl.style.background = "#ea580c";
+                            badgeEl.style.color = "#fff";
+                            badgeEl.innerText = "Enterprise Track";
+                        } else if (mod.key === 'socdefense') {
+                            badgeEl.style.background = "#10b981";
+                            badgeEl.style.color = "#000";
+                            badgeEl.innerText = "Blue Team Track";
                         } else {
                             badgeEl.innerText = "Active";
                         }
                     }
                     if (actionsEl) {
-                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch"${mod.key === 'blackops' ? ' style="background: #9333ea; color: #fff;"' : ''}>Launch Module ↗</a>`;
+                        let btnStyle = '';
+                        if (mod.key === 'blackops') btnStyle = ' style="background: #9333ea; color: #fff;"';
+                        else if (mod.key === 'cloudsec') btnStyle = ' style="background: #0284c7; color: #fff;"';
+                        else if (mod.key === 'activedirectory') btnStyle = ' style="background: #ea580c; color: #fff;"';
+                        else if (mod.key === 'socdefense') btnStyle = ' style="background: #10b981; color: #000; font-weight: 800;"';
+                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch"${btnStyle} onclick="handleProtectedModuleLaunch(event, '${mod.url}')">Launch Module ↗</a>`;
                     }
                     if (nodeEl) {
-                        nodeEl.className = "node active" + (mod.key === 'blackops' ? ' secret-node' : '');
+                        nodeEl.className = "node active";
                         nodeEl.onclick = (e) => { handleProtectedModuleLaunch(e, mod.url); };
                         nodeEl.style.cursor = 'pointer';
                     }
@@ -183,19 +232,11 @@ function updateDashboardStats() {
                 { defaultCount: 6, customKey: 'sys_custom_tools', deletedKey: 'sys_deleted_default_indices', catKey: 'sys_custom_categories' },
                 { defaultCount: 6, customKey: 'webapp_custom_tools', deletedKey: 'webapp_deleted_default_indices', catKey: 'webapp_custom_categories' },
                 { defaultCount: 24, customKey: 'osint_custom_tools', deletedKey: 'osint_deleted_default_indices', catKey: 'osint_custom_categories' },
+                { defaultCount: 6, customKey: 'blackops_custom_tools', deletedKey: 'blackops_deleted_default_indices', catKey: 'blackops_custom_categories' },
                 { defaultCount: 7, customKey: 'cloudsec_custom_tools', deletedKey: 'cloudsec_deleted_default_indices', catKey: 'cloudsec_custom_categories' },
                 { defaultCount: 7, customKey: 'ad_custom_tools', deletedKey: 'ad_deleted_default_indices', catKey: 'ad_custom_categories' },
                 { defaultCount: 7, customKey: 'soc_custom_tools', deletedKey: 'soc_deleted_default_indices', catKey: 'soc_custom_categories' }
             ];
-
-            if (isM08Unlocked) {
-                toolModules.push({
-                    defaultCount: 6,
-                    customKey: 'blackops_custom_tools',
-                    deletedKey: 'blackops_deleted_default_indices',
-                    catKey: 'blackops_custom_categories'
-                });
-            }
 
             const osintCard = document.getElementById('moduleOsint');
             const osintBadge = document.getElementById('osintBadge');
@@ -280,7 +321,7 @@ function updateDashboardStats() {
             const userRank = document.getElementById('userRank');
             const roadmapLine = document.getElementById('roadmapProgressLine');
 
-            const totalModulesTarget = isM08Unlocked ? 8 : 7;
+            const totalModulesTarget = 11;
             completedCountEl.innerText = `${completedCount} / ${totalModulesTarget}`;
             const pct = Math.round((completedCount / totalModulesTarget) * 100);
             progressText.innerText = `${pct}% Done`;
@@ -294,7 +335,10 @@ function updateDashboardStats() {
                 "Assessor (Vulnerability Analyst)",
                 "Operator (Privilege Escalator)",
                 "Elite Agent (Full Methodologist)",
+                "Threat Intelligence Scout",
                 "Shadow Operator (Black Ops Master)",
+                "Cloud Security Specialist",
+                "Enterprise AD Dominator",
                 "Apex Cyber Commander"
             ];
             
@@ -346,7 +390,11 @@ function updateDashboardStats() {
                 "Complete Vulnerability Analysis",
                 "Complete System Hacking",
                 "Complete Web App Threats",
-                isM08Unlocked ? "Complete Black Ops & C2 Evasion" : "All Objectives Completed!",
+                "Complete OSINT Arsenal",
+                "Complete Black Ops & C2 Evasion",
+                "Complete Cloud & Container Security",
+                "Complete Active Directory Dominance",
+                "Complete SOC & Blue Team Defense",
                 "All Objectives Completed!"
             ];
             const nextMissionText = document.getElementById('nextMissionText');
@@ -649,37 +697,18 @@ function updateModule08State() {
     const node8 = document.getElementById('node8');
     if (!card) return;
 
-    const isUnlocked = localStorage.getItem('pwnbox_m08_unlocked') === 'true';
+    card.style.display = 'flex';
     const isCompleted = localStorage.getItem('module_blackops_completed') === 'true';
-
-    if (isUnlocked) {
-        card.style.display = 'flex';
-        card.className = "module-card active secret-m08-card" + (isCompleted ? " completed" : "");
-        const badge = document.getElementById('blackOpsBadge');
-        const title = document.getElementById('blackOpsTitle');
-        const desc = document.getElementById('blackOpsDesc');
-        const actions = document.getElementById('blackOpsActions');
-
-        if (badge) {
-            badge.style.background = isCompleted ? "#10b981" : "#9333ea";
-            badge.textContent = isCompleted ? "COMPLETED ✓" : "SECRET UNLOCKED";
-        }
-        if (title) title.textContent = "Black Ops & C2 Evasion";
-        if (desc) desc.textContent = "Classified Red Team adversary simulation: Cobalt Strike & Havoc C2 beaconing, memory AMSI bypasses, LOLBins, and Kerberos lateral movement.";
-        if (actions) {
-            actions.innerHTML = `<span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span><a href="modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;">Launch Module ↗</a>`;
-        }
-        if (node8) {
-            node8.style.display = 'flex';
-            node8.className = "node secret-node" + (isCompleted ? " completed" : " active");
-            node8.onclick = (e) => { handleProtectedModuleLaunch(e, 'modules/BlackOps.html'); };
-        }
-    } else {
-        // Must NOT be visible at all until skull is pressed 3 times
-        card.style.display = 'none';
-        if (node8) {
-            node8.style.display = 'none';
-        }
+    card.className = "module-card active" + (isCompleted ? " completed" : "");
+    const badge = document.getElementById('blackOpsBadge');
+    if (badge) {
+        badge.style.background = isCompleted ? "#10b981" : "#9333ea";
+        badge.textContent = isCompleted ? "Completed ✓" : "Red Team Track";
+    }
+    if (node8) {
+        node8.style.display = 'flex';
+        node8.className = "node active" + (isCompleted ? " completed" : "");
+        node8.onclick = (e) => { handleProtectedModuleLaunch(e, 'modules/BlackOps.html'); };
     }
 }
 
@@ -712,30 +741,7 @@ function checkDashboardGodModeHUD() {
 document.addEventListener('DOMContentLoaded', () => {
     updateModule08State();
     checkDashboardGodModeHUD();
-    const skullTrigger = document.getElementById('secretM08Trigger');
-    if (skullTrigger) {
-        skullTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            skullTriggerClicks++;
-            skullTrigger.style.transform = 'scale(1.35)';
-            skullTrigger.style.color = '#a855f7';
-            skullTrigger.style.opacity = '1';
-            setTimeout(() => {
-                skullTrigger.style.transform = 'scale(1)';
-                skullTrigger.style.color = '';
-                skullTrigger.style.opacity = '0.4';
-            }, 250);
 
-            clearTimeout(skullTriggerTimer);
-            skullTriggerTimer = setTimeout(() => { skullTriggerClicks = 0; }, 900);
-
-            if (skullTriggerClicks >= 3) {
-                clearTimeout(skullTriggerTimer);
-                skullTriggerClicks = 0;
-                unlockModule08(true);
-            }
-        });
-    }
 
     // Single-key shortcut 'c' or 'C' for Cheatsheet drawer (Dashboard only)
     document.addEventListener('keydown', (e) => {
