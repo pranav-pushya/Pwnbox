@@ -72,65 +72,355 @@ const defaultTools = [
     }
 ];
 
-// --- STORAGE & TOOL MANAGEMENT ---
-function getStoredCustomTools() {
-    return JSON.parse(localStorage.getItem(CUSTOM_TOOLS_KEY) || '[]');
-}
+let tools = [];
+let editingToolIndex = null;
 
-function getAllTools() {
-    const custom = getStoredCustomTools();
-    return [...defaultTools, ...custom];
-}
+const categoriesTemplate = {
+    "DetectionEngineering": [],
+    "NetworkDefense": [],
+    "SIEMOperations": [],
+    "MalwareAnalysis": [],
+    "DFIRForensics": [],
+    "IncidentResponse": [],
+    "EndpointHunting": []
+};
+const catDisplayNamesTemplate = {
+    "DetectionEngineering": "📐 Detection Engineering & Sigma",
+    "NetworkDefense": "🌐 Network Hunting & Zeek",
+    "SIEMOperations": "📊 SIEM Operations & Wazuh",
+    "MalwareAnalysis": "🔬 Malware Analysis & YARA",
+    "DFIRForensics": "🧠 Memory Forensics & Volatility",
+    "IncidentResponse": "🚨 Incident Response & TheHive",
+    "EndpointHunting": "🏹 Enterprise Endpoint Hunting"
+};
+const defaultCategoryOptionsHtml = `
+            <option value="DetectionEngineering">📐 Detection Engineering & Sigma</option>
+            <option value="NetworkDefense">🌐 Network Hunting & Zeek</option>
+            <option value="SIEMOperations">📊 SIEM Operations & Wazuh</option>
+            <option value="MalwareAnalysis">🔬 Malware Analysis & YARA</option>
+            <option value="DFIRForensics">🧠 Memory Forensics & Volatility</option>
+            <option value="IncidentResponse">🚨 Incident Response & TheHive</option>
+            <option value="EndpointHunting">🏹 Enterprise Endpoint Hunting</option>`;
 
-function renderToolList() {
+function init() {
     const list = document.getElementById('toolList');
     if (!list) return;
     list.innerHTML = '';
-    const tools = getAllTools();
 
-    tools.forEach((t) => {
-        const item = document.createElement('div');
-        item.className = 'tool-item';
-        item.innerHTML = `
-            <div style="font-weight: 700; color: var(--text-main); font-size: 0.88rem;">${t.name}</div>
-            <div style="font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #10b981; margin-top: 2px;">[${t.category}]</div>
-        `;
-        item.addEventListener('click', () => {
-            document.querySelectorAll('.tool-item').forEach(el => el.classList.remove('active'));
-            item.classList.add('active');
-            renderToolDetails(t);
-        });
-        list.appendChild(item);
+    const moduleCategories = {};
+    for (const k of Object.keys(categoriesTemplate)) moduleCategories[k] = [];
+    const moduleCatDisplayNames = { ...catDisplayNamesTemplate };
+
+    try {
+        const customCats = JSON.parse(localStorage.getItem(CUSTOM_CATS_KEY) || '{}');
+        for (const [k, v] of Object.entries(customCats)) {
+            moduleCategories[k] = [];
+            moduleCatDisplayNames[k] = v;
+        }
+    } catch(e) { console.error(e); }
+
+    const defaultCatKey = Object.keys(moduleCategories)[0];
+    tools.forEach((tool, index) => {
+        const cat = tool.category || defaultCatKey;
+        if (moduleCategories[cat]) moduleCategories[cat].push({ tool, index });
+        else {
+            if (!moduleCategories[defaultCatKey]) moduleCategories[defaultCatKey] = [];
+            moduleCategories[defaultCatKey].push({ tool, index });
+        }
     });
+
+    for (const [catName, catTools] of Object.entries(moduleCategories)) {
+        if (catTools.length === 0) continue;
+        const h = document.createElement('div');
+        h.className = 'category-header';
+        h.innerText = moduleCatDisplayNames[catName] || catName;
+        list.appendChild(h);
+        catTools.forEach(({ tool, index }) => {
+            const div = document.createElement('div');
+            div.className = 'tool-item';
+            div.innerText = tool.name.split('.')[1]?.trim() || tool.name;
+            div.onclick = () => showDetails(index, div);
+            list.appendChild(div);
+        });
+    }
+
+    if (!apiKey) {
+        const dot = document.getElementById('statusDot');
+        if (dot) dot.classList.remove('online');
+        if (typeof addBotMessage === 'function') {
+            addBotMessage("⚠️ API key not configured. Please configure GROQ_API_KEY in js/config.js.");
+        }
+    }
 }
 
-function renderToolDetails(tool) {
-    const panel = document.getElementById('detailsPanel');
-    if (!panel) return;
-    panel.innerHTML = `
-        <div style="margin-bottom: 20px;">
-            <div style="font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #10b981; font-weight: 800; margin-bottom: 4px;">DEFENSIVE DISCIPLINE: ${tool.category}</div>
-            <h2 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 8px;">${tool.name}</h2>
-            <a href="${tool.link}" target="_blank" style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #10b981; text-decoration: underline;">🔗 Official Repository / SIEM Documentation ↗</a>
-        </div>
-        
-        <div style="background: var(--bg-panel); border: 2px solid var(--border-dim); padding: 16px; margin-bottom: 16px; box-shadow: 3px 3px 0 var(--border-dim);">
-            <h4 style="font-family: 'Space Mono', monospace; font-size: 0.82rem; margin-bottom: 6px; color: var(--text-main);">// ARCHITECTURAL OVERVIEW</h4>
-            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--text-muted);">${tool.brief}</p>
-        </div>
-
-        <div style="background: #010409; border: 2px solid var(--border-dim); padding: 16px; margin-bottom: 16px; color: #6ee7b7; font-family: 'Space Mono', monospace; box-shadow: 3px 3px 0 var(--border-dim);">
-            <div style="font-size: 0.75rem; color: #10b981; font-weight: 800; margin-bottom: 8px;"># BLUE TEAM SYNTAX & DETECTION LOGIC</div>
-            <div style="font-size: 0.8rem; line-height: 1.6; word-break: break-all;">${tool.use}</div>
-        </div>
-
-        <div style="background: var(--bg-panel); border: 2px solid var(--border-dim); padding: 16px; box-shadow: 3px 3px 0 var(--border-dim);">
-            <h4 style="font-family: 'Space Mono', monospace; font-size: 0.82rem; margin-bottom: 6px; color: #38bdf8;">// SOC INCIDENT RESPONSE & TRIAGE UTILITY</h4>
-            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--text-muted);">${tool.useful}</p>
-        </div>
-    `;
+function reloadAllTools() {
+    tools = defaultTools.map((t, idx) => ({ ...t, originalIndex: idx }));
+    try {
+        const del = JSON.parse(localStorage.getItem(DELETED_TOOLS_KEY) || '[]');
+        tools = tools.filter(t => !del.includes(t.originalIndex));
+    } catch(e) {}
+    try {
+        const edited = JSON.parse(localStorage.getItem(EDITED_TOOLS_KEY) || '{}');
+        tools.forEach(t => { if (edited[t.originalIndex]) Object.assign(t, edited[t.originalIndex]); });
+    } catch(e) {}
+    loadCustomTools();
+    init();
 }
 
+function showDetails(index, element) {
+    document.querySelectorAll('.tool-item').forEach(el => el.classList.remove('active'));
+    if (element) element.classList.add('active');
+    const tool = tools[index];
+    if (!tool) return;
+    const catClass = `badge-${(tool.category || '').toLowerCase()}`;
+    const displayCatName = (tool.category || '').replace(/_/g, ' ');
+    const detailsPanel = document.getElementById('detailsPanel');
+    if (!detailsPanel) return;
+
+    detailsPanel.innerHTML = `
+        <div class="card">
+            <h1 style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+                <span>${tool.name.split('.')[1]?.trim() || tool.name}<span class="badge ${catClass}">${displayCatName}</span></span>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button class="btn btn-edit-tool" onclick="openEditToolModal(${index})" style="font-size:0.8rem;padding:6px 12px;">✏️ Edit</button>
+                    <button class="btn btn-delete-tool" onclick="confirmDeleteTool(${index})" style="font-size:0.8rem;padding:6px 12px;">🗑️ Delete</button>
+                    <a href="${tool.link}" target="_blank" style="font-size:0.8rem;padding:6px 12px;">Launch ↗</a>
+                </div>
+            </h1>
+            <div class="section-label">Simply Explained (What is it?)</div>
+            <div class="section-content">${tool.brief}</div>
+            <div class="section-label">How to actually use it</div>
+            <div class="section-content">${tool.use}</div>
+            <div class="section-label">Why Defenders & SOC Analysts care about this</div>
+            <div class="section-content">${tool.useful}</div>
+        </div>`;
+    if (window.innerWidth <= 768) switchMobileTab('details');
+}
+
+function updateCompletionButton() {
+    const btn = document.getElementById('completeModuleBtn');
+    if (!btn) return;
+    const done = localStorage.getItem(MODULE_KEY) === 'true';
+    btn.innerText = done ? "✓ Module Completed" : "Mark Module Completed";
+    btn.classList.toggle('completed', done);
+}
+
+function toggleModuleCompletion() {
+    localStorage.setItem(MODULE_KEY, !(localStorage.getItem(MODULE_KEY) === 'true'));
+    updateCompletionButton();
+}
+
+function openAddToolModal() {
+    editingToolIndex = null;
+    const title = document.querySelector('#addToolModal h3');
+    if (title) title.innerText = "Add Custom Tool";
+    const sub = document.querySelector('#addToolForm button[type="submit"]');
+    if (sub) sub.innerText = "Add Tool";
+    const form = document.getElementById('addToolForm');
+    if (form) form.reset();
+    cancelNewCategory();
+    loadCustomCategories();
+    const modal = document.getElementById('addToolModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.offsetHeight;
+        modal.classList.add('active');
+    }
+    const nameInput = document.getElementById('toolName');
+    if (nameInput) nameInput.focus();
+}
+
+function openEditToolModal(index) {
+    editingToolIndex = index;
+    const tool = tools[index];
+    if (!tool) return;
+    const title = document.querySelector('#addToolModal h3');
+    if (title) title.innerText = "Edit Tool Info";
+    const sub = document.querySelector('#addToolForm button[type="submit"]');
+    if (sub) sub.innerText = "Save Changes";
+    const form = document.getElementById('addToolForm');
+    if (form) form.reset();
+    cancelNewCategory();
+    loadCustomCategories();
+    document.getElementById('toolName').value = tool.name.includes('.') ? tool.name.split('.')[1].trim() : tool.name.trim();
+    document.getElementById('toolLink').value = tool.link;
+    document.getElementById('toolCategory').value = tool.category;
+    document.getElementById('toolBrief').value = tool.brief;
+    document.getElementById('toolUse').value = tool.use;
+    document.getElementById('toolUseful').value = tool.useful;
+    const modal = document.getElementById('addToolModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.offsetHeight;
+        modal.classList.add('active');
+    }
+}
+
+function closeAddToolModal() {
+    const modal = document.getElementById('addToolModal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            const form = document.getElementById('addToolForm');
+            if (form) form.reset();
+        }, 300);
+    }
+}
+
+function loadCustomTools() {
+    try {
+        const stored = localStorage.getItem(CUSTOM_TOOLS_KEY);
+        if (stored) {
+            JSON.parse(stored).forEach((tool, idx) => {
+                const match = tool.name.match(/^\d+\.\s*(.*)$/);
+                tool.name = `${tools.length + 1}. ${match ? match[1] : tool.name}`;
+                tool.originalIndex = null;
+                tool.customIndex = idx;
+                tools.push(tool);
+            });
+        }
+    } catch(e) { console.error(e); }
+}
+
+function submitNewTool(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const vals = {
+        name: document.getElementById('toolName').value.trim(),
+        link: document.getElementById('toolLink').value.trim(),
+        category: document.getElementById('toolCategory').value,
+        brief: document.getElementById('toolBrief').value.trim(),
+        use: document.getElementById('toolUse').value.trim(),
+        useful: document.getElementById('toolUseful').value.trim()
+    };
+
+    if (editingToolIndex !== null) {
+        const orig = tools[editingToolIndex];
+        if (orig && orig.originalIndex !== null) {
+            const edited = JSON.parse(localStorage.getItem(EDITED_TOOLS_KEY) || '{}');
+            edited[orig.originalIndex] = vals;
+            localStorage.setItem(EDITED_TOOLS_KEY, JSON.stringify(edited));
+        } else if (orig) {
+            const ct = JSON.parse(localStorage.getItem(CUSTOM_TOOLS_KEY) || '[]');
+            ct[orig.customIndex] = vals;
+            localStorage.setItem(CUSTOM_TOOLS_KEY, JSON.stringify(ct));
+        }
+    } else {
+        const ct = JSON.parse(localStorage.getItem(CUSTOM_TOOLS_KEY) || '[]');
+        ct.push(vals);
+        localStorage.setItem(CUSTOM_TOOLS_KEY, JSON.stringify(ct));
+    }
+
+    closeAddToolModal();
+    reloadAllTools();
+    setTimeout(() => {
+        let foundIndex = 0, newToolEl = null;
+        tools.forEach((t, idx) => {
+            if ((t.name.includes('.') ? t.name.split('.')[1].trim() : t.name.trim()) === vals.name) foundIndex = idx;
+        });
+        document.querySelectorAll('.tool-item').forEach(el => {
+            if (el.innerText === vals.name) newToolEl = el;
+        });
+        if (newToolEl) showDetails(foundIndex, newToolEl);
+    }, 100);
+}
+
+function confirmDeleteTool(index) {
+    const rawName = tools[index].name.includes('.') ? tools[index].name.split('.')[1].trim() : tools[index].name.trim();
+    if (typeof window.tacticalConfirm === 'function') {
+        window.tacticalConfirm({
+            title: "DELETE CUSTOM TOOL",
+            message: `Are you sure you want to delete "${rawName}" from your active tool arsenal?`,
+            confirmText: "🗑️ DELETE TOOL",
+            cancelText: "CANCEL",
+            type: "danger",
+            onConfirm: () => deleteTool(index)
+        });
+    } else if (confirm(`Are you sure you want to delete "${rawName}"?`)) {
+        deleteTool(index);
+    }
+}
+
+function deleteTool(index) {
+    const tool = tools[index];
+    if (!tool) return;
+    if (tool.originalIndex !== null) {
+        const del = JSON.parse(localStorage.getItem(DELETED_TOOLS_KEY) || '[]');
+        if (!del.includes(tool.originalIndex)) {
+            del.push(tool.originalIndex);
+            localStorage.setItem(DELETED_TOOLS_KEY, JSON.stringify(del));
+        }
+    } else {
+        const ct = JSON.parse(localStorage.getItem(CUSTOM_TOOLS_KEY) || '[]');
+        ct.splice(tool.customIndex, 1);
+        localStorage.setItem(CUSTOM_TOOLS_KEY, JSON.stringify(ct));
+    }
+    reloadAllTools();
+    document.getElementById('detailsPanel').innerHTML = `<div style="text-align:center;color:var(--text-muted);margin-top:20vh;"><h3>Select a tool from the menu to view beginner-friendly intelligence data.</h3></div>`;
+}
+
+function loadCustomCategories() {
+    try {
+        const customCats = JSON.parse(localStorage.getItem(CUSTOM_CATS_KEY) || '{}');
+        const sel = document.getElementById('toolCategory');
+        if (!sel) return;
+        sel.innerHTML = defaultCategoryOptionsHtml;
+        for (const [k, v] of Object.entries(customCats)) {
+            sel.innerHTML += `<option value="${k}">${v}</option>`;
+        }
+    } catch(e) { console.error(e); }
+}
+
+function showNewCategoryForm() {
+    const grp = document.getElementById('newCategoryGroup');
+    if (grp) grp.style.display = 'block';
+    const nameInput = document.getElementById('newCategoryName');
+    if (nameInput) nameInput.focus();
+}
+
+function cancelNewCategory() {
+    const grp = document.getElementById('newCategoryGroup');
+    if (grp) grp.style.display = 'none';
+    const n = document.getElementById('newCategoryName');
+    if (n) n.value = '';
+    const i = document.getElementById('newCategoryIcon');
+    if (i) i.value = '';
+}
+
+function saveNewCategory() {
+    const name = document.getElementById('newCategoryName').value.trim();
+    const icon = document.getElementById('newCategoryIcon').value.trim() || '⚙️';
+    if (!name) return;
+    const key = name.replace(/\s+/g, '');
+    const label = `${icon} ${name}`;
+    try {
+        const customCats = JSON.parse(localStorage.getItem(CUSTOM_CATS_KEY) || '{}');
+        customCats[key] = label;
+        localStorage.setItem(CUSTOM_CATS_KEY, JSON.stringify(customCats));
+        loadCustomCategories();
+        document.getElementById('toolCategory').value = key;
+        cancelNewCategory();
+    } catch(e) { console.error(e); }
+}
+
+function switchMobileTab(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.toggle('active', btn.getAttribute('onclick').includes(tabId)));
+    document.body.className = document.body.className.replace(/\btab-\w+\b/g,'').trim();
+    document.body.classList.add('tab-' + tabId);
+}
+
+window.openAddToolModal = openAddToolModal;
+window.openEditToolModal = openEditToolModal;
+window.closeAddToolModal = closeAddToolModal;
+window.submitNewTool = submitNewTool;
+window.confirmDeleteTool = confirmDeleteTool;
+window.showNewCategoryForm = showNewCategoryForm;
+window.cancelNewCategory = cancelNewCategory;
+window.saveNewCategory = saveNewCategory;
+window.switchMobileTab = switchMobileTab;
+window.toggleModuleCompletion = toggleModuleCompletion;
+window.showDetails = showDetails;
+window.reloadAllTools = reloadAllTools;
 // --- PANEL TAB SWITCHING ---
 function switchPanelTab(tabName) {
     document.querySelectorAll('.panel-tab').forEach(b => b.classList.remove('active'));
@@ -331,84 +621,7 @@ function handleEnter(e) {
     if (e.key === 'Enter') sendMessage();
 }
 
-// Module completion
-function toggleModuleCompletion() {
-    const isCompleted = localStorage.getItem(MODULE_KEY) === 'true';
-    if (isCompleted) {
-        localStorage.removeItem(MODULE_KEY);
-        document.getElementById('completeModuleBtn').textContent = 'Mark Module Completed';
-        document.getElementById('completeModuleBtn').style.background = '';
-    } else {
-        localStorage.setItem(MODULE_KEY, 'true');
-        document.getElementById('completeModuleBtn').textContent = '✓ Module Completed!';
-        document.getElementById('completeModuleBtn').style.background = '#10b981';
-        if (typeof window.showCustomAlert === 'function') {
-            window.showCustomAlert("MODULE COMPLETED!", "Module 11 (Blue Team Defense & SOC Operations) completion recorded in local dossier.", "success");
-        }
-    }
-}
-
-// Custom Tool Modal
-function openAddToolModal() {
-    const modal = document.getElementById('addToolModal');
-    if (modal) {
-        modal.style.display = 'flex';
-        setTimeout(() => modal.classList.add('active'), 10);
-    }
-}
-
-function closeAddToolModal() {
-    const modal = document.getElementById('addToolModal');
-    if (modal) {
-        modal.classList.remove('active');
-        setTimeout(() => { modal.style.display = 'none'; }, 200);
-    }
-}
-
-function saveCustomTool() {
-    const name = document.getElementById('customToolName').value.trim();
-    const cat = document.getElementById('customToolCategory').value.trim();
-    const desc = document.getElementById('customToolDesc').value.trim();
-    const syn = document.getElementById('customToolSyntax').value.trim();
-
-    if (!name || !cat) return;
-
-    const list = getStoredCustomTools();
-    list.push({
-        name: name,
-        category: cat,
-        brief: desc || "Custom user tool.",
-        use: syn || "No command provided.",
-        useful: "Custom Blue Team addition.",
-        link: "#"
-    });
-    localStorage.setItem(CUSTOM_TOOLS_KEY, JSON.stringify(list));
-    const form = document.getElementById('addToolForm');
-    if (form) form.reset();
-    closeAddToolModal();
-    renderToolList();
-    if (typeof window.showCustomAlert === 'function') {
-        window.showCustomAlert("SOC TOOL ADDED", `${name} added to your private defensive arsenal!`, "success");
-    }
-}
-
-// Initialization
 document.addEventListener('DOMContentLoaded', () => {
-    renderToolList();
-    if (defaultTools[0]) renderToolDetails(defaultTools[0]);
-    if (localStorage.getItem(MODULE_KEY) === 'true') {
-        const btn = document.getElementById('completeModuleBtn');
-        if (btn) {
-            btn.textContent = '✓ Module Completed!';
-            btn.style.background = '#10b981';
-        }
-    }
+    reloadAllTools();
+    updateCompletionButton();
 });
-
-if (typeof window !== 'undefined') {
-    window.defaultTools = defaultTools;
-    window.getAllTools = getAllTools;
-    window.executeTerminalCommand = executeTerminalCommand;
-    window.toggleModuleCompletion = toggleModuleCompletion;
-    window.saveCustomTool = saveCustomTool;
-}
