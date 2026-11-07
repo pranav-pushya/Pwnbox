@@ -81,7 +81,7 @@
         <!-- Search & Control Bar -->
         <div class="ports-controls">
             <div class="search-row">
-                <input type="text" id="portSearch" class="ports-search-input" placeholder="🔍 Search port number, protocol, keyword (e.g. 445, SMB, MySQL, Windows)..." oninput="filterPorts()">
+                <input type="text" id="portSearch" class="ports-search-input" placeholder="🔍 Search port number, protocol, keyword (e.g. 445, SMB, MySQL, Windows)..." oninput="debouncedFilterPorts()">
                 <div class="ports-stats-badge" id="portCountBadge">37 Ports Loaded</div>
             </div>
 
@@ -928,6 +928,12 @@
 
     <script>
         let currentFilter = 'all';
+        let portFilterDebounceTimer = null;
+
+        function debouncedFilterPorts() {
+            clearTimeout(portFilterDebounceTimer);
+            portFilterDebounceTimer = setTimeout(filterPorts, 150);
+        }
 
         function setCategoryFilter(category, btn) {
             document.querySelectorAll('.ports-filter-btn').forEach(b => b.classList.remove('active'));

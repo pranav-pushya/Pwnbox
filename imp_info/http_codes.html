@@ -81,7 +81,7 @@
         <!-- Search & Category Filters -->
         <div class="codes-controls">
             <div class="search-row">
-                <input type="text" id="codeSearch" class="codes-search-input" placeholder="🔍 Search code, name, or symptom (e.g. 403, Forbidden, 429, Rate Limit, 502)..." oninput="filterCodes()">
+                <input type="text" id="codeSearch" class="codes-search-input" placeholder="🔍 Search code, name, or symptom (e.g. 403, Forbidden, 429, Rate Limit, 502)..." oninput="debouncedFilterCodes()">
                 <div class="codes-stats-badge" id="codeStatsBadge">18 Codes Loaded</div>
             </div>
 
@@ -527,6 +527,12 @@
 
     <script>
         let currentFilter = 'all';
+        let codeFilterDebounceTimer = null;
+
+        function debouncedFilterCodes() {
+            clearTimeout(codeFilterDebounceTimer);
+            codeFilterDebounceTimer = setTimeout(filterCodes, 150);
+        }
 
         function setCategoryFilter(category, btn) {
             document.querySelectorAll('.codes-filter-btn').forEach(b => b.classList.remove('active'));

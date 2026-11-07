@@ -975,10 +975,14 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         const searchInput = document.getElementById('notesSearchInput');
         const clearBtn = document.getElementById('notesSearchClear');
         if (searchInput) {
+            let notesSearchDebounce = null;
             searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value;
                 if (clearBtn) clearBtn.style.display = searchQuery ? 'block' : 'none';
-                renderNotesList();
+                clearTimeout(notesSearchDebounce);
+                notesSearchDebounce = setTimeout(() => {
+                    renderNotesList();
+                }, 150);
             });
         }
         if (clearBtn) {
