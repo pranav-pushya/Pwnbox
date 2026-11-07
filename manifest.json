@@ -55,6 +55,27 @@
       "description": "Deep threat reasoning and offensive security mentor",
       "url": "/ai_assistant",
       "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    },
+    {
+      "name": "WebShell Terminal",
+      "short_name": "Terminal",
+      "description": "Interactive Linux WebShell command environment",
+      "url": "/terminal",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    },
+    {
+      "name": "CTF Flag Arena",
+      "short_name": "CTF Arena",
+      "description": "Capture the Flag challenges, rankings and clearance forge",
+      "url": "/ctf",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Threat Intel Radar",
+      "short_name": "Threat Intel",
+      "description": "Live CISA KEV feeds and global attack telemetry",
+      "url": "/intel",
+      "icons": [{ "src": "assets/favicon-main.svg", "sizes": "any" }]
     }
   ]
 }

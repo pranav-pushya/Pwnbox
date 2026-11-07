@@ -25,6 +25,7 @@
         'module_cloudsecurity_completed',
         'module_activedirectory_completed',
         'module_socdefense_completed',
+        'module_iotsecurity_completed',
         'pwnbox_m08_unlocked',
         'webapp_quiz_completed',
         'webapp_quiz_score'

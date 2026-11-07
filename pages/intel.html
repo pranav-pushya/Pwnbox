@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description" content="PwnBox Real-Time Threat Intelligence & CISA KEV Radar: Live telemetry, weaponized zero-day tracking, CVE vector heatmaps, and 1-click tactical notes staging.">
+    <title>PwnBox // Threat Intelligence & CISA KEV Radar</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/landing.css?v=4.0">
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/intel.css?v=1.0">
+    <link rel="stylesheet" href="../css/mobile_nav.css?v=2.0">
+
+    <!-- Firebase SDK v10 (Local First-Party with CDN Fallback) -->
+    <script src="../js/vendor/firebase-app-compat.js"></script>
+    <script src="../js/vendor/firebase-auth-compat.js"></script>
+    <script src="../js/vendor/firebase-firestore-compat.js"></script>
+    <script>
+        if (typeof firebase === 'undefined') {
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"><\/script>');
+            document.write('<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"><\/script>');
+        }
+    </script>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PwnBox // Real-Time Threat Intelligence & CISA KEV Radar">
+    <meta property="og:description" content="Live telemetry, weaponized zero-day tracking, CVE vector heatmaps, and 1-click tactical notes staging.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="intel-page-body">
+
+    <!-- Top Navigation Header -->
+    <header class="intel-top-header">
+        <div class="intel-header-left">
+            <a href="dashboard.html" class="intel-nav-btn" title="Back to Command Dashboard">
+                <span>⬅️</span>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="../index.html" class="intel-nav-btn" title="Return to Home Portal">
+                <span>🏠</span>
+                <span>HOME</span>
+            </a>
+            <a href="terminal.html" class="intel-nav-btn" title="Linux WebShell Terminal">
+                <span>💻</span>
+                <span>TERMINAL</span>
+            </a>
+            <a href="payloads.html" class="intel-nav-btn" title="Tactical Payload Arsenal">
+                <span>⚡</span>
+                <span>PAYLOADS</span>
+            </a>
+            <a href="notes.html" class="intel-nav-btn" title="Operative Notes Vault">
+                <span>📝</span>
+                <span>NOTES VAULT</span>
+            </a>
+            <a href="ctf.html" class="intel-nav-btn" title="CTF Flag Arena & Leaderboard">
+                <span>🚩</span>
+                <span>CTF ARENA</span>
+            </a>
+            <a href="games.html" class="intel-nav-btn" title="Cyber Mini-Games & Arcade">
+                <span>🎮</span>
+                <span>GAMES</span>
+            </a>
+            <div class="intel-header-title-box">
+                <span style="font-size: 1.3rem;">📡</span>
+                <span class="intel-header-title">PWNBOX // THREAT INTEL RADAR</span>
+                <span class="intel-header-tag">LIVE CISA KEV PULSE</span>
+            </div>
+        </div>
+
+        <div class="intel-header-right">
+            <!-- Global Cloud Sync Pill -->
+            <div id="pwnCloudSyncPill" class="cloud-sync-pill" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; font-family:'Space Mono', monospace; font-size:0.75rem; font-weight:700; border:2px solid var(--intel-border); background:var(--intel-panel); color:var(--intel-text); cursor:pointer;" onclick="if(window.PwnCloudSync) window.PwnCloudSync.trigger()">
+                <span style="color:#10b981;">●</span>
+                <span>CLOUD SYNC</span>
+            </div>
+            <button onclick="toggleTheme()" class="intel-nav-btn" title="Toggle Page Light/Dark Theme">
+                <span>🌓</span>
+                <span>THEME</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="intel-main-container">
+
+        <!-- Live Intelligence Statistics Deck -->
+        <section class="intel-stats-deck">
+            <div class="intel-stat-card danger">
+                <div class="intel-stat-val" id="statKevCount">1,180+</div>
+                <div class="intel-stat-lbl">CISA KEV CATALOGUED THREATS</div>
+            </div>
+            <div class="intel-stat-card warning">
+                <div class="intel-stat-val">34.2%</div>
+                <div class="intel-stat-lbl">RANSOMWARE SYNDICATE EXPLOITATION</div>
+            </div>
+            <div class="intel-stat-card cyan">
+                <div class="intel-stat-val" id="statFilteredCount">12 / 12</div>
+                <div class="intel-stat-lbl">CRITICAL VECTORS LOADED</div>
+            </div>
+            <div class="intel-stat-card success">
+                <div class="intel-stat-val" style="color: #ef4444;">DEFCON 2</div>
+                <div class="intel-stat-lbl">GLOBAL CYBER DEFENSE POSTURE</div>
+            </div>
+        </section>
+
+        <!-- Threat Vector Map & Streaming Console -->
+        <section class="intel-map-section">
+            <div class="intel-section-header">
+                <h2 class="intel-section-title">
+                    <span>🗺️</span>
+                    <span>GLOBAL CYBER ATTACK VECTOR RADAR & TELEMETRY</span>
+                </h2>
+                <div style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--intel-muted);">
+                    <span style="color: #10b981;">●</span> REAL-TIME TELEMETRY STREAM
+                </div>
+            </div>
+
+            <!-- SVG Map Canvas -->
+            <div class="intel-radar-map-wrapper">
+                <svg id="threatSvgMap" class="intel-svg-map" viewBox="0 0 1000 350" preserveAspectRatio="xMidYMid meet">
+                    <!-- Background Grid Lines -->
+                    <defs>
+                        <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1f2937" stroke-width="0.5" />
+                        </pattern>
+                    </defs>
+                    <rect width="1000" height="350" fill="url(#gridPattern)" />
+
+                    <!-- Continent Outlines (Abstract Tactical Polygons) -->
+                    <path d="M 120 70 L 320 60 L 340 180 L 220 220 L 140 160 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+                    <path d="M 300 220 L 390 220 L 360 330 L 290 280 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+                    <path d="M 460 70 L 600 60 L 590 140 L 480 150 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+                    <path d="M 480 160 L 600 160 L 580 300 L 510 260 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+                    <path d="M 610 60 L 920 60 L 890 220 L 640 210 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+                    <path d="M 780 250 L 920 250 L 900 330 L 800 330 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+                </svg>
+            </div>
+
+            <!-- Real-time Attack Stream Console -->
+            <div id="attackConsole" class="intel-console-box">
+                <!-- Stream events dynamically populated by js/intel.js -->
+            </div>
+        </section>
+
+        <!-- KEV Filter Controls -->
+        <section class="intel-filter-deck">
+            <div class="search-box-wrapper">
+                <span>🔍</span>
+                <input type="text" id="cveSearchInput" placeholder="Search CVE ID, vendor, product, or exploit name..." autocomplete="off">
+            </div>
+
+            <div class="quick-filter-btns">
+                <button type="button" class="filter-btn active" data-filter="all" onclick="window.PwnIntel.setFilter('all')">
+                    ALL EXPLOITS
+                </button>
+                <button type="button" class="filter-btn" data-filter="ransomware" onclick="window.PwnIntel.setFilter('ransomware')">
+                    🚨 RANSOMWARE
+                </button>
+                <button type="button" class="filter-btn" data-filter="zeroday" onclick="window.PwnIntel.setFilter('zeroday')">
+                    ⚡ ZERO-DAY
+                </button>
+                <button type="button" class="filter-btn" data-filter="rce" onclick="window.PwnIntel.setFilter('rce')">
+                    💥 RCE VECTORS
+                </button>
+                <button type="button" class="filter-btn" data-filter="auth" onclick="window.PwnIntel.setFilter('auth')">
+                    🔓 AUTH BYPASS
+                </button>
+            </div>
+        </section>
+
+        <!-- CISA KEV Grid -->
+        <section id="kevGridContainer" class="kev-grid">
+            <!-- Populated dynamically by js/intel.js -->
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/firebase_auth.js"></script>
+    <script src="../js/cloud_sync.js"></script>
+    <script src="../js/intel.js"></script>
+
+    <script>
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
+    </script>
+    <script src="../js/mobile_nav.js?v=2.0"></script>
+</body>
+
+</html>

@@ -154,6 +154,14 @@
                 <span>🛡️</span>
                 <span>ACTIVE CTF LAB VECTORS</span>
             </h2>
+            <div class="ctf-category-filters">
+                <button type="button" class="ctf-filter-pill active" onclick="PwnCTF.setCategory('all', this)">ALL VECTORS (15)</button>
+                <button type="button" class="ctf-filter-pill" onclick="PwnCTF.setCategory('Web & Shells', this)">🌐 WEB & SHELLS</button>
+                <button type="button" class="ctf-filter-pill" onclick="PwnCTF.setCategory('Cryptography', this)">🔐 CRYPTOGRAPHY</button>
+                <button type="button" class="ctf-filter-pill" onclick="PwnCTF.setCategory('Reverse & Binary', this)">⚡ REVERSE & BINARY</button>
+                <button type="button" class="ctf-filter-pill" onclick="PwnCTF.setCategory('Memory & Forensics', this)">🔬 FORENSICS</button>
+                <button type="button" class="ctf-filter-pill" onclick="PwnCTF.setCategory('Enterprise & Cloud', this)">☁️ ENTERPRISE & CLOUD</button>
+            </div>
             <div class="challenges-grid" id="ctfChallengesList">
                 <!-- Rendered by js/ctf.js -->
             </div>
@@ -234,6 +242,15 @@
                 }, 50);
             }
         }
+
+        // Auto-switch to certificates tab if targeted
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash === '#certificates' || localStorage.getItem('pwnbox_open_cert_tab') === 'true') {
+                const certBtn = document.querySelectorAll('.ctf-tab-btn')[2];
+                if (certBtn) switchSection('certificates', certBtn);
+                localStorage.removeItem('pwnbox_open_cert_tab');
+            }
+        });
 
         // Page Theme Toggle
         function toggleTheme() {

@@ -7,7 +7,7 @@
  * and offline WebGL/Three.js engines.
  */
 
-const CACHE_NAME = 'pwnbox-shell-v7';
+const CACHE_NAME = 'pwnbox-shell-v8';
 
 const STATIC_ASSETS = [
     // Core Application Shell & Portals
@@ -18,6 +18,7 @@ const STATIC_ASSETS = [
     '/pages/notes.html',
     '/pages/terminal.html',
     '/pages/ctf.html',
+    '/pages/intel.html',
     '/pages/payloads.html',
     '/pages/ai_assistant.html',
     '/pages/contact.html',
@@ -42,6 +43,7 @@ const STATIC_ASSETS = [
     '/modules/CloudSecurity.html',
     '/modules/ActiveDirectory.html',
     '/modules/SocDefense.html',
+    '/modules/IoTSecurity.html',
 
     // All 8 Interactive Cyber Warfare Mini-Games
     '/games/cidr_block.html',
@@ -78,6 +80,7 @@ const STATIC_ASSETS = [
     '/css/masterguide_chat.css',
     '/css/masterguide_test.css',
     '/css/notes.css',
+    '/css/intel.css',
     '/css/tactical_policy.css',
     '/css/404.css',
     '/css/roadmap.css',
@@ -92,6 +95,7 @@ const STATIC_ASSETS = [
     '/js/games.js',
     '/js/terminal.js',
     '/js/ctf.js',
+    '/js/intel.js',
     '/js/payload_generator.js',
     '/js/cybersecurity_masterguide.js',
     '/js/roadmap.js',
@@ -102,6 +106,7 @@ const STATIC_ASSETS = [
     '/js/groq_service.js',
     '/js/firebase_auth.js',
     '/js/cloud_sync.js',
+    '/js/pwa_install.js',
     '/js/mobile_nav.js',
     '/js/vendor/firebase-app-compat.js',
     '/js/vendor/firebase-auth-compat.js',
@@ -119,6 +124,7 @@ const STATIC_ASSETS = [
     '/js/CloudSecurity.js',
     '/js/ActiveDirectory.js',
     '/js/SocDefense.js',
+    '/js/IoTSecurity.js',
 
     // Branding & Graphic Assets
     '/assets/favicon-main.svg',

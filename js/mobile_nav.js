@@ -58,7 +58,7 @@
         return 'general';
     }
 
-    const PORTAL_PAGES = ['dashboard.html', 'terminal.html', 'ctf.html', 'payloads.html', 'notes.html', 'games.html', 'ai_assistant.html', 'contact.html', 'privacy.html', 'thank-you.html'];
+    const PORTAL_PAGES = ['dashboard.html', 'terminal.html', 'ctf.html', 'intel.html', 'payloads.html', 'notes.html', 'games.html', 'ai_assistant.html', 'contact.html', 'privacy.html', 'thank-you.html'];
 
     function resolveHref(targetPath) {
         const isPortal = PORTAL_PAGES.some(p => targetPath.endsWith(p));
@@ -113,6 +113,7 @@
                     { type: 'link', label: 'WebShell Terminal', icon: '💻', href: resolveHref('terminal.html') },
                     { type: 'link', label: 'Payload Gen', icon: '⚡', href: resolveHref('payloads.html') },
                     { type: 'link', label: 'CTF Arena', icon: '🚩', href: resolveHref('ctf.html') },
+                    { type: 'link', label: 'Threat Intel', icon: '📡', href: resolveHref('intel.html') },
                     { type: 'link', label: 'Roadmap', icon: '🗺️', href: resolveHref('masterguide/roadmap.html'), spanFull: true }
                 ];
 
@@ -155,6 +156,7 @@
                     { type: 'link', label: 'Field Intel', icon: '💡', href: resolveHref('imp_info/imp_info.html') },
                     { type: 'link', label: 'Payload Gen', icon: '⚡', href: resolveHref('payloads.html') },
                     { type: 'link', label: 'CTF Arena', icon: '🚩', href: resolveHref('ctf.html') },
+                    { type: 'link', label: 'Threat Intel', icon: '📡', href: resolveHref('intel.html') },
                     { type: 'link', label: 'WebShell Terminal', icon: '💻', href: resolveHref('terminal.html') }
                 ];
 

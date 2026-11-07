@@ -249,6 +249,66 @@
     box-shadow: 3px 3px 0 var(--border-color);
 }
 
+/* Filter Pills */
+.ctf-category-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.ctf-filter-pill {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.ctf-filter-pill:hover, .ctf-filter-pill.active {
+    background: var(--bauhaus-blue);
+    color: #fff;
+    border-color: var(--bauhaus-blue);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+
+.challenge-hint-box {
+    margin-top: 10px;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px dashed var(--bauhaus-yellow);
+    padding: 8px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.btn-unlock-hint {
+    background: var(--bauhaus-yellow);
+    border: 1px solid var(--border-color);
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: opacity 0.15s;
+}
+
+.btn-unlock-hint:hover {
+    opacity: 0.85;
+}
+
 /* Challenges Grid */
 .challenges-grid {
     display: grid;
@@ -457,4 +517,65 @@
     transform: translate(-1px, -1px);
     background: var(--bauhaus-yellow);
     color: #000;
+}
+
+/* Print Optimization for Certificate Export */
+@media print {
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+    body, html {
+        background: #080d18 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+    }
+    .ctf-top-header,
+    .ctf-stats-deck,
+    .universal-flag-box,
+    .ctf-tabs-bar,
+    #sectionChallenges,
+    #sectionLeaderboard,
+    .cert-btn-group,
+    #ctfToastBox,
+    .mobile-nav,
+    .ctf-section-title,
+    p {
+        display: none !important;
+    }
+    .ctf-main-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+    #sectionCertificates {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .certificate-deck {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .certificate-canvas-container {
+        border: none !important;
+        box-shadow: none !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    #certificateCanvas {
+        width: 100vw !important;
+        height: auto !important;
+        max-height: 100vh !important;
+        object-fit: contain !important;
+    }
 }

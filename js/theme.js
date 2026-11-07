@@ -355,6 +355,14 @@ const PWNBOX_SHORTCUTS = [
         category: 'Labs',
         target: 'modules/SocDefense.html'
     },
+    {
+        key: 'M12',
+        badge: 'LAB',
+        title: 'M-12: IoT Security & Firmware Reverse Engineering',
+        desc: 'Binwalk SquashFS extraction, QEMU ARM/MIPS binary emulation, UART/JTAG & CAN bus',
+        category: 'Labs',
+        target: 'modules/IoTSecurity.html'
+    },
 
     // --- 8 Tactical Arcade Mini-Games ---
     {

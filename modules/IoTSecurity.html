@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth_guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 12: Master IoT Security, embedded firmware extraction with Binwalk, QEMU ARM/MIPS binary emulation, UART/JTAG hardware debugging, CAN bus automotive vehicle hacking, and SDR RF analysis.">
+    <title>M-12: IoT Security & Firmware Reverse Engineering — PwnBox Academy</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon-main.svg">
+    
+    <link rel="stylesheet" href="../css/SystemHacking.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <link rel="stylesheet" href="../css/resizer.css">
+    <script src="../js/ui_popups.js"></script>
+    <style>
+        :root {
+            --accent-primary: #f59e0b;
+        }
+        .local-badge {
+            background: #f59e0b !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+            box-shadow: 2px 2px 0 #000000 !important;
+            font-weight: 800 !important;
+        }
+    </style>
+
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="M-12: IoT Security & Firmware Reverse Engineering — PwnBox Academy">
+    <meta property="og:description" content="Module 12: Master IoT Security, embedded firmware extraction with Binwalk, QEMU ARM/MIPS binary emulation, UART/JTAG hardware debugging, CAN bus automotive vehicle hacking, and SDR RF analysis.">
+    <meta property="og:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="M-12: IoT Security & Firmware Reverse Engineering — PwnBox Academy">
+    <meta name="twitter:description" content="Module 12: Master IoT Security, embedded firmware extraction with Binwalk, QEMU ARM/MIPS binary emulation, UART/JTAG hardware debugging, CAN bus automotive vehicle hacking, and SDR RF analysis.">
+    <meta name="twitter:image" content="https://pwnbo-x.web.app/assets/pwnbox-og-preview.png">
+</head>
+
+<body class="tab-tools">
+
+    <div class="sidebar">
+        <div class="header">
+            <button onclick="toggleTheme()" class="theme-nav-btn" style="background: var(--text-main); color: var(--bg-base); border: 2px solid var(--text-main); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 10px; cursor: pointer; text-transform: uppercase; margin-left: auto;">🌓 Theme</button>
+            <a href="../pages/dashboard.html" class="back-dashboard-btn">⬅️ Back to Dashboard</a>
+            <h2>M-12 IoT & Firmware</h2>
+            <div style="font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #f59e0b; font-weight: 800; margin-bottom: 8px;">📟 EMBEDDED SYSTEMS & HARDWARE SECURITY</div>
+            <button class="add-tool-btn" onclick="openAddToolModal()">➕ Add Custom Tool</button>
+        </div>
+        <div class="tool-list" id="toolList"></div>
+        <div class="sidebar-footer">
+            <button id="completeModuleBtn" class="complete-btn" onclick="toggleModuleCompletion()">Mark Module Completed</button>
+        </div>
+    </div>
+    <div class="resizer-v" id="sidebarResizer"></div>
+    <div class="workspace">
+        <div class="content-split">
+            <div class="details-panel" id="detailsPanel">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 20vh;">
+                    <h3>Select a tool from the menu to view beginner-friendly intelligence data.</h3>
+                </div>
+            </div>
+            <div class="resizer-v" id="panelResizer"></div>
+            <div class="chat-panel">
+                <div class="chat-header" style="flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="status-container">
+                            <div class="status-dot online" id="statusDot"></div>
+                            IoT & Hardware AI Mentor
+                        </div>
+                    </div>
+                    <!-- Mode Switcher Tabs -->
+                    <div class="panel-tabs" style="display: flex; gap: 5px; border-bottom: 2px solid var(--border-dim); padding-bottom: 5px;">
+                        <button class="panel-tab active" onclick="switchPanelTab('chat')">💬 AI Mentor</button>
+                        <button class="panel-tab" onclick="switchPanelTab('terminal')">💻 Terminal</button>
+                        <button class="panel-tab" onclick="switchPanelTab('quiz')">❓ Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Tab 1: AI Chat -->
+                <div id="chatTab" class="tab-content" style="display: flex; flex-direction: column; height: calc(100% - 85px);">
+                    <div class="chat-box" id="chatBox">
+                        <div class="message bot-message">
+                            📟 <strong>Greetings, Operative.</strong> I am your IoT & Embedded Firmware Specialist. Ask me anything about extracting SquashFS filesystems with Binwalk, emulating MIPS/ARM binaries in QEMU, probing UART pinouts, or sniffing automotive CAN bus frames!
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="userInput" placeholder="Ask about firmware reverse engineering, UART, JTAG..." onkeydown="handleEnter(event)">
+                        <button id="sendBtn" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Interactive Terminal -->
+                <div id="terminalTab" class="tab-content" style="display: none; height: calc(100% - 85px); flex-direction: column; background: #0c0d10; padding: 10px; font-family: 'Space Mono', monospace; font-size: 0.85rem; color: #f59e0b;">
+                    <div id="termOutput" style="flex: 1; overflow-y: auto; white-space: pre-wrap; margin-bottom: 10px; line-height: 1.4;">[PwnBox Embedded Firmware Linux Shell]
+Type 'help' for available hardware & firmware commands:
+  - binwalk -e firmware.bin : Carve embedded filesystem & compressions
+  - qemu-arm -L ./squashfs-root ./bin/httpd : Emulate ARM router binary
+  - cansend vcan0 123#DEADBEEF : Transmit simulated CAN bus frame
+  - jtag-scan --target stm32 : Probe boundary scan chain
+  - clear : Clear terminal output
+</div>
+                    <div style="display: flex; gap: 8px; border-top: 1px solid #334155; padding-top: 8px;">
+                        <span style="color: #f59e0b;">iot-root@pwnbox:~#</span>
+                        <input type="text" id="termInput" style="flex: 1; background: transparent; border: none; color: #fff; outline: none; font-family: 'Space Mono', monospace;" onkeydown="handleTermCommand(event)">
+                    </div>
+                </div>
+
+                <!-- Tab 3: Interactive Quiz -->
+                <div id="quizTab" class="tab-content" style="display: none; height: calc(100% - 85px); overflow-y: auto; padding: 15px;">
+                    <div id="quizBox">
+                        <!-- Loaded dynamically by js/IoTSecurity.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Standard Custom Tool Modal Matching Modules 1-11 -->
+    <div id="addToolModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2 id="modalTitle">Add Custom Tool</h2>
+            <form id="addToolForm" onsubmit="event.preventDefault(); submitNewTool();">
+                <div class="form-group">
+                    <label for="toolName">Tool Name</label>
+                    <input type="text" id="toolName" required placeholder="e.g. Radare2, GQRX, Saleae Logic">
+                </div>
+                <div class="form-group">
+                    <label for="toolCategory">Category</label>
+                    <div style="display: flex; gap: 8px;">
+                        <select id="toolCategory" style="flex: 1;">
+                            <option value="FirmwareRecon">📁 Firmware Extraction & Carving</option>
+                            <option value="BinaryEmulation">⚙️ Architecture & Binary Emulation</option>
+                            <option value="HardwareDebugging">🔌 Hardware Interfaces & JTAG</option>
+                            <option value="WirelessRF">📡 Wireless & Software Defined Radio (SDR)</option>
+                            <option value="AutomotiveCAN">🚗 Automotive & Controller Area Network (CAN)</option>
+                        </select>
+                        <button type="button" class="btn-new-cat" onclick="showNewCategoryForm()" title="Create New Category">➕ New</button>
+                    </div>
+                </div>
+                <div id="newCategoryForm" style="display: none; margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border: 1px dashed var(--border-color);">
+                    <div style="font-size: 0.75rem; font-weight: 700; margin-bottom: 6px;">Create Custom Category</div>
+                    <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+                        <input type="text" id="newCategoryName" placeholder="Category Name" style="flex: 1; font-size: 0.8rem; padding: 4px 8px;">
+                        <input type="text" id="newCategoryIcon" placeholder="Emoji (e.g. 🛠️)" style="width: 70px; font-size: 0.8rem; padding: 4px 8px; text-align: center;">
+                    </div>
+                    <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                        <button type="button" onclick="cancelNewCategory()" style="padding: 3px 8px; font-size: 0.75rem; background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); cursor: pointer;">Cancel</button>
+                        <button type="button" onclick="saveNewCategory()" style="padding: 3px 8px; font-size: 0.75rem; background: var(--border-dim); border: 1px solid var(--border-color); color: var(--text-main); font-weight: 700; cursor: pointer;">Save</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="toolBrief">Simply Explained (What is it?)</label>
+                    <textarea id="toolBrief" rows="3" required placeholder="Explain this hardware/firmware tool for a beginner..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="toolSyntax">How to actually use it</label>
+                    <textarea id="toolSyntax" rows="3" required placeholder="Example commands or pinout configurations..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="toolUseful">Why Hackers care about this</label>
+                    <textarea id="toolUseful" rows="3" required placeholder="Why security researchers and red teams use this vector..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="toolLink">Official Documentation Link</label>
+                    <input type="url" id="toolLink" placeholder="https://...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeAddToolModal()">Cancel</button>
+                    <button type="submit" class="btn-submit" id="modalSubmitBtn">Save Tool</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Responsive Mobile Bottom Navigation Bar Matching Modules 1-11 -->
+    <div class="mobile-nav">
+        <button class="nav-tab active" onclick="switchMobileTab('tools')">
+            <span class="icon">🛠️</span>
+            <span>Tools</span>
+        </button>
+        <button class="nav-tab" onclick="switchMobileTab('details')">
+            <span class="icon">📄</span>
+            <span>Details</span>
+        </button>
+        <button class="nav-tab" onclick="switchMobileTab('chat')">
+            <span class="icon">💬</span>
+            <span>Assistant</span>
+        </button>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/groq_service.js"></script>
+    <script src="../js/IoTSecurity.js"></script>
+    <script src="../js/resizer.js"></script>
+</body>
+
+</html>

@@ -41,6 +41,8 @@
       { "source": "/terminal.html", "destination": "/pages/terminal.html" },
       { "source": "/ctf", "destination": "/pages/ctf.html" },
       { "source": "/ctf.html", "destination": "/pages/ctf.html" },
+      { "source": "/intel", "destination": "/pages/intel.html" },
+      { "source": "/intel.html", "destination": "/pages/intel.html" },
       { "source": "/payloads", "destination": "/pages/payloads.html" },
       { "source": "/payloads.html", "destination": "/pages/payloads.html" },
       { "source": "/games", "destination": "/pages/games.html" },

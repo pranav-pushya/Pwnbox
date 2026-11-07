@@ -129,6 +129,16 @@ function updateDashboardStats() {
                     url: 'modules/SocDefense.html',
                     toolsText: '🛡️ 7 Defense Tools',
                     nodeId: 'node11'
+                },
+                {
+                    key: 'iotsecurity',
+                    completedKey: 'module_iotsecurity_completed',
+                    cardId: 'moduleIoTSecurity',
+                    badgeId: 'iotBadge',
+                    actionsId: null,
+                    url: 'modules/IoTSecurity.html',
+                    toolsText: '📟 7 IoT Tools',
+                    nodeId: 'node12'
                 }
             ];
 
@@ -190,6 +200,10 @@ function updateDashboardStats() {
                             badgeEl.style.background = "#10b981";
                             badgeEl.style.color = "#000";
                             badgeEl.innerText = "Blue Team Track";
+                        } else if (mod.key === 'iotsecurity') {
+                            badgeEl.style.background = "#f59e0b";
+                            badgeEl.style.color = "#000";
+                            badgeEl.innerText = "Hardware Track";
                         } else {
                             badgeEl.innerText = "Active";
                         }
@@ -200,6 +214,7 @@ function updateDashboardStats() {
                         else if (mod.key === 'cloudsec') btnStyle = ' style="background: #0284c7; color: #fff;"';
                         else if (mod.key === 'activedirectory') btnStyle = ' style="background: #ea580c; color: #fff;"';
                         else if (mod.key === 'socdefense') btnStyle = ' style="background: #10b981; color: #000; font-weight: 800;"';
+                        else if (mod.key === 'iotsecurity') btnStyle = ' style="background: #f59e0b; color: #000; font-weight: 800;"';
                         actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch"${btnStyle} onclick="handleProtectedModuleLaunch(event, '${mod.url}')">Launch Module ↗</a>`;
                     }
                     if (nodeEl) {
@@ -235,7 +250,8 @@ function updateDashboardStats() {
                 { defaultCount: 6, customKey: 'blackops_custom_tools', deletedKey: 'blackops_deleted_default_indices', catKey: 'blackops_custom_categories' },
                 { defaultCount: 7, customKey: 'cloudsec_custom_tools', deletedKey: 'cloudsec_deleted_default_indices', catKey: 'cloudsec_custom_categories' },
                 { defaultCount: 7, customKey: 'ad_custom_tools', deletedKey: 'ad_deleted_default_indices', catKey: 'ad_custom_categories' },
-                { defaultCount: 7, customKey: 'soc_custom_tools', deletedKey: 'soc_deleted_default_indices', catKey: 'soc_custom_categories' }
+                { defaultCount: 7, customKey: 'soc_custom_tools', deletedKey: 'soc_deleted_default_indices', catKey: 'soc_custom_categories' },
+                { defaultCount: 7, customKey: 'pwnbox_custom_tools_IoTSecurity', deletedKey: 'pwnbox_deleted_tools_IoTSecurity', catKey: 'pwnbox_custom_cats_IoTSecurity' }
             ];
 
             const osintCard = document.getElementById('moduleOsint');
@@ -283,6 +299,16 @@ function updateDashboardStats() {
                 }
             }
 
+            const iotCard = document.getElementById('moduleIoTSecurity');
+            const iotBadge = document.getElementById('iotBadge');
+            if (iotCard && iotBadge) {
+                if (localStorage.getItem('module_iotsecurity_completed') === 'true') {
+                    iotCard.classList.add('completed');
+                    iotBadge.className = "module-badge badge-completed";
+                    iotBadge.innerText = "Completed ✓";
+                }
+            }
+
             let totalTools = 0;
             let totalCustomTools = 0;
             let totalCategories = 4; // Base categories is 4
@@ -321,7 +347,7 @@ function updateDashboardStats() {
             const userRank = document.getElementById('userRank');
             const roadmapLine = document.getElementById('roadmapProgressLine');
 
-            const totalModulesTarget = 11;
+            const totalModulesTarget = 12;
             completedCountEl.innerText = `${completedCount} / ${totalModulesTarget}`;
             const pct = Math.round((completedCount / totalModulesTarget) * 100);
             progressText.innerText = `${pct}% Done`;

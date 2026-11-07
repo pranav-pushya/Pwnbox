@@ -71,6 +71,7 @@
             <a href="payloads.html" style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Interactive Tactical Payload Arsenal">⚡ Payloads</a>
             <a href="terminal.html" style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.4); color: #22c55e; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Interactive In-Browser Linux WebShell Terminal (Press 'T')">💻 Terminal</a>
             <a href="ctf.html" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="CTF Flag Arena & Leaderboard (Press 'C')">🚩 CTF</a>
+            <a href="intel.html" style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.4); color: #06b6d4; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Real-Time Threat Intel & CISA KEV Radar (Press 'I')">📡 Intel</a>
             <a href="../masterguide/roadmap.html" style="background: rgba(42, 157, 143, 0.12); border: 1px solid rgba(42, 157, 143, 0.4); color: #2a9d8f; font-weight: 600; font-size: 0.8rem; padding: 7px 15px; border-radius: 6px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px;">🗺️ Roadmap</a>
             <button onclick="openSettingsModal(event)" class="theme-nav-btn" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; padding: 6px 10px; cursor: pointer; border-radius: 4px;" title="Operative Settings (Press 'S')">⚙️</button>
             <div class="user-profile" onclick="toggleProfileDropdown(event)">
@@ -102,6 +103,10 @@
                             <div class="mission-bar-bg">
                                 <div class="mission-bar-fill" id="nextMissionProgress"></div>
                             </div>
+                            <a href="ctf.html#certificates" onclick="localStorage.setItem('pwnbox_open_cert_tab', 'true')" style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; padding: 6px; background: rgba(56, 189, 248, 0.12); border: 1px solid #38bdf8; color: #38bdf8; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; text-decoration: none; border-radius: 3px;">
+                                <span>📜</span>
+                                <span>CERTIFICATE OF CLEARANCE</span>
+                            </a>
                         </div>
                     </div>
                     <div class="id-card-back">
@@ -354,6 +359,22 @@
                     <a href="../modules/SocDefense.html" class="btn-launch" style="background: #10b981; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">Launch Module ↗</a>
                 </div>
             </div>
+
+            <!-- Module 12: IoT Security & Firmware Reverse Engineering -->
+            <div class="module-card active" id="moduleIoTSecurity">
+                <div class="card-top">
+                    <div class="module-badge-row">
+                        <span class="module-badge badge-active" id="iotBadge" style="background: #f59e0b; color: #000; font-weight: 800;">Hardware Track</span>
+                        <span class="module-num" style="color: #f59e0b;">MODULE 12</span>
+                    </div>
+                    <h3 class="module-title">IoT & Firmware Hacking</h3>
+                    <p class="module-desc">Binwalk SquashFS extraction, QEMU ARM/MIPS binary emulation, UART/JTAG hardware debugging, CAN bus automotive vehicle sniffing, and SDR RF analysis.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="module-meta" style="color: #f59e0b;">📟 7 IoT Tools</span>
+                    <a href="../modules/IoTSecurity.html" class="btn-launch" style="background: #f59e0b; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/IoTSecurity.html')">Launch Module ↗</a>
+                </div>
+            </div>
         </div>
 
         <div class="roadmap-container">
@@ -363,7 +384,7 @@
                 Hacking methodology.</p>
             <div class="roadmap-svg-wrapper">
                 <svg style="width: 100%; height: 100%;">
-                    <path d="M 50,60 L 1300,60" class="roadmap-line" id="roadmapBgLine" />
+                    <path d="M 50,60 L 1420,60" class="roadmap-line" id="roadmapBgLine" />
                     <path d="M 50,60 L 50,60" class="roadmap-line-active" id="roadmapProgressLine" />
                 </svg>
                 <div class="roadmap-nodes">
@@ -410,6 +431,10 @@
                     <div class="node active" id="node11" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">
                         <div class="node-dot" style="background: #10b981; border-color: #6ee7b7;"></div>
                         <div class="node-label" style="color: #6ee7b7;">11. Blue Team</div>
+                    </div>
+                    <div class="node active" id="node12" onclick="handleProtectedModuleLaunch(event, 'modules/IoTSecurity.html')">
+                        <div class="node-dot" style="background: #f59e0b; border-color: #fde68a;"></div>
+                        <div class="node-label" style="color: #fde68a;">12. IoT & Hardware</div>
                     </div>
                 </div>
             </div>
@@ -762,6 +787,7 @@
     <script src="../js/firebase_auth.js"></script>
     <script src="../js/cloud_sync.js"></script>
     <script src="../js/analytics_consent.js"></script>
+    <script src="../js/pwa_install.js"></script>
 </body>
 
 </html>
