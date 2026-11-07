@@ -338,8 +338,45 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         renderNotesList();
     }
 
+    // Optimistic UI state tracking & rollback snapshot
+    let previousNotesSnapshot = null;
+    let isCloudSyncing = false;
+    let lastCloudSyncTime = null;
+
+    function rollbackOptimisticState() {
+        if (previousNotesSnapshot && Array.isArray(previousNotesSnapshot)) {
+            notes = JSON.parse(JSON.stringify(previousNotesSnapshot));
+            const key = getStorageKey(currentUser);
+            try {
+                localStorage.setItem(key, JSON.stringify(notes));
+                localStorage.setItem('pwnbox_notes_vault', JSON.stringify(notes));
+            } catch (e) {}
+            renderNotesList();
+            if (activeNoteId && notes.some(n => n.id === activeNoteId)) {
+                selectNote(activeNoteId);
+            } else if (notes.length > 0) {
+                selectNote(notes[0].id);
+            } else {
+                renderEmptyEditor();
+            }
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast('Note state rolled back to previous snapshot', 'info');
+            }
+            return true;
+        }
+        return false;
+    }
+
     async function persistNotes() {
         const key = getStorageKey(currentUser);
+        // Take an optimistic snapshot of current stored state before rewriting
+        try {
+            const raw = localStorage.getItem(key);
+            if (raw) {
+                previousNotesSnapshot = JSON.parse(raw);
+            }
+        } catch (e) {}
+
         try {
             localStorage.setItem(key, JSON.stringify(notes));
             localStorage.setItem('pwnbox_notes_vault', JSON.stringify(notes));
@@ -348,6 +385,7 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         }
 
         if (currentUser && firestoreDb) {
+            isCloudSyncing = true;
             try {
                 const docRef = firestoreDb.collection('users').doc(currentUser.uid).collection('vault').doc('tactical_notes');
                 await docRef.set({
@@ -355,10 +393,14 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
                     lastSync: Date.now(),
                     agentEmail: currentUser.email || ''
                 }, { merge: true });
+                isCloudSyncing = false;
+                lastCloudSyncTime = Date.now();
                 updateSyncBadge(currentUser, true);
             } catch (err) {
+                isCloudSyncing = false;
                 console.warn("Cloud sync notice:", err.message);
                 updateSyncBadge(currentUser, false);
+                showSaveIndicator('⚠️ SAVED LOCALLY (OFFLINE)', '#f59e0b');
             }
         }
     }
@@ -1105,7 +1147,10 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         exportAllNotesBackup,
         importNotesTrigger,
         handleImportFile,
-        flushPendingAutoSave
+        flushPendingAutoSave,
+        rollbackOptimisticState,
+        getSyncStatus: () => ({ isCloudSyncing, lastCloudSyncTime, hasSnapshot: !!previousNotesSnapshot }),
+        getNotes: () => notes
     };
 
 })();
