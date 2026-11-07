@@ -890,3 +890,28 @@ body.games-body #pwnFloatingAiDrawer,
 .skeleton-line.w-40 { width: 40%; }
 .skeleton-line.w-full { width: 100%; }
 .skeleton-line.h-title { height: 16px; }
+
+
+/* ==========================================================================
+   PWNBOX DATA TABLE STYLING
+   ========================================================================== */
+.pwn-table-enhanced th.pwn-sortable-th:hover {
+    color: var(--bauhaus-yellow, #eab308) !important;
+}
+
+.pwn-table-pagination-bar .pwn-pag-btn {
+    background: var(--bg-panel, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+    color: var(--text-main, #ffffff);
+    padding: 4px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 4px;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.pwn-table-pagination-bar .pwn-pag-btn:hover:not(:disabled) {
+    background: var(--bauhaus-blue, #2563eb);
+    border-color: var(--bauhaus-blue, #2563eb);
+}
