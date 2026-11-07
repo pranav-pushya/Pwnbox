@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The requested tactical sector does not exist or has been declassified. Return to PwnBox Cyber Command Base Camp.">
     <title>404 // Sector Not Found — PwnBox Cyber Academy</title>
-    <link rel="icon" type="image/svg+xml" href="assets/favicon-main.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon-main.svg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
     </script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/404.css">
+    <link rel="stylesheet" href="/css/404.css">
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:type" content="website">
@@ -36,13 +36,13 @@
 <body>
     <!-- Tactical Navigation Bar -->
     <header class="nav-header">
-        <a href="index.html" class="nav-brand">
+        <a href="/" class="nav-brand">
             <span class="brand-icon">🛡️</span>
             <span>PWNBOX</span>
             <span class="brand-badge">404 SECTOR</span>
         </a>
         <div class="nav-actions">
-            <a href="index.html" class="nav-btn">🏠 Base Camp</a>
+            <a href="/" class="nav-btn">🏠 Base Camp</a>
             <button onclick="toggleTheme()" class="nav-btn theme-toggle-btn">🌓 Theme</button>
         </div>
     </header>
@@ -95,7 +95,7 @@
                 <div class="terminal-row"><span class="term-prompt">[TARGET]</span> Resource requested: <span class="term-val-error" id="req-target-path">/sector-unknown</span></div>
                 <div class="terminal-row"><span class="term-prompt">[STATUS]</span> Response code: <span class="term-val-error">404_PAGE_NOT_FOUND (TCP_RST_ACK)</span></div>
                 <div class="terminal-row"><span class="term-prompt">[TIMESTAMP]</span> <span class="term-val-green" id="sys-timestamp">--</span></div>
-                <div class="terminal-row"><span class="term-prompt">[FALLBACK]</span> Active training nodes detected: <span class="term-val-green">7 Modules (100% Operational)</span></div>
+                <div class="terminal-row"><span class="term-prompt">[FALLBACK]</span> Active training nodes detected: <span class="term-val-green">11 Modules (100% Operational)</span></div>
             </div>
         </section>
 
@@ -105,7 +105,7 @@
                 <button class="btn-probe" onclick="runDiagnosticProbe()">
                     <span>📡 RUN SECTOR DIAGNOSTIC PROBE</span>
                 </button>
-                <a href="index.html" class="btn-probe btn-home">
+                <a href="/" class="btn-probe btn-home">
                     <span>🏠 RETURN TO BASE CAMP</span>
                 </a>
             </div>
@@ -120,7 +120,7 @@
     </footer>
 
     <!-- Theme Switcher Script -->
-    <script src="js/theme.js"></script>
+    <script src="/js/theme.js"></script>
 
     <!-- 404 Telemetry & Diagnostic Probe Script -->
     <script>
