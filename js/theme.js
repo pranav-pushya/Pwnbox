@@ -2270,3 +2270,79 @@ window.pwnThrottle = function (fn, waitMs = 50) {
 
 
 
+
+
+// ── 13. CADRE RECRUITMENT & REFERRAL SYSTEM ──
+window.openReferralModal = function() {
+    let modal = document.getElementById('pwnReferralModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'pwnReferralModal';
+        modal.className = 'modal active';
+        modal.style.cssText = 'position:fixed; inset:0; z-index:9999999; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);';
+        document.body.appendChild(modal);
+    }
+
+    const alias = localStorage.getItem('agentAlias') || localStorage.getItem('pwnbox_agent_alias') || 'OPERATIVE';
+    function getHash(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = ((hash << 5) - hash) + str.charCodeAt(i);
+            hash |= 0;
+        }
+        return Math.abs(hash);
+    }
+    const refCode = 'PWN-' + getHash(alias).toString(36).toUpperCase().padStart(4, '0') + '-' + alias.slice(0, 4).toUpperCase();
+    const inviteUrl = window.location.origin + '/?ref=' + encodeURIComponent(refCode);
+
+    modal.innerHTML = `
+        <div class="modal-box" style="background:#0f172a; border:2px solid var(--bauhaus-yellow, #eab308); max-width:480px; width:92%; padding:24px; border-radius:8px; font-family:'Space Mono', monospace; color:#fff; box-shadow:0 0 30px rgba(234,179,8,0.25);">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; padding-bottom:12px; margin-bottom:16px;">
+                <h3 style="margin:0; font-size:1.05rem; color:var(--bauhaus-yellow, #eab308); display:flex; align-items:center; gap:8px;">
+                    <span>🤝</span>
+                    <span>CADRE RECRUITMENT & REFERRALS</span>
+                </h3>
+                <button onclick="document.getElementById('pwnReferralModal').remove()" style="background:transparent; border:none; color:#94a3b8; font-size:1.4rem; cursor:pointer;">&times;</button>
+            </div>
+            <p style="font-size:0.78rem; color:#94a3b8; line-height:1.5; margin-bottom:14px;">
+                Recruit fellow cybersecurity operatives to the PwnBox cadre. Track your affiliates and earn tactical badges & clearance perks.
+            </p>
+            <div style="background:#1e293b; padding:12px; border-radius:6px; border:1px dashed #475569; margin-bottom:16px;">
+                <label style="font-size:0.68rem; color:#f59e0b; font-weight:700; display:block; margin-bottom:4px;">YOUR OPERATIVE RECRUIT LINK:</label>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="referralLinkInput" readonly value="${inviteUrl}" style="flex:1; background:#0f172a; border:1px solid #334155; color:#38bdf8; padding:8px; font-family:'Space Mono', monospace; font-size:0.75rem; border-radius:4px;">
+                    <button id="copyRefBtn" onclick="window.copyReferralLink('${inviteUrl}')" style="background:var(--bauhaus-yellow, #eab308); color:#000; border:none; font-weight:900; padding:0 12px; border-radius:4px; cursor:pointer; font-size:0.72rem;">COPY</button>
+                </div>
+            </div>
+            <div style="font-size:0.72rem; color:#cbd5e1; margin-bottom:16px;">
+                <strong style="color:#eab308;">AFFILIATE CADRE PERKS:</strong>
+                <ul style="padding-left:18px; margin-top:6px; line-height:1.6;">
+                    <li>1 Cadet Recruited ➔ +250 Cyber XP & "Vanguard Recruiter" Badge</li>
+                    <li>5 Cadets Recruited ➔ Instant Darknet Protocol & Hologram Clearance</li>
+                    <li>10 Cadets Recruited ➔ Lead Operative Syndicate Clearance</li>
+                </ul>
+            </div>
+            <button onclick="document.getElementById('pwnReferralModal').remove()" style="width:100%; padding:10px; background:#334155; color:#fff; border:none; font-family:'Space Mono', monospace; font-weight:700; border-radius:4px; cursor:pointer;">CLOSE DISPATCH</button>
+        </div>
+    `;
+    modal.style.display = 'flex';
+};
+
+window.copyReferralLink = function(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast('Recruitment link copied to clipboard!', 'success');
+            } else {
+                alert('Recruitment link copied to clipboard!');
+            }
+        });
+    } else {
+        const input = document.getElementById('referralLinkInput');
+        if (input) {
+            input.select();
+            document.execCommand('copy');
+            if (typeof window.tacticalToast === 'function') window.tacticalToast('Recruitment link copied!', 'success');
+        }
+    }
+};
