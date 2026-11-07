@@ -15,51 +15,66 @@ function toggleTheme() {
 
 // ── 2. PATH RESOLUTION & UNIVERSAL NAVIGATION ──
 function getPwnboxPath(target) {
+    if (!target) return '';
     const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
-    const inModules = path.includes('/modules/');
-    const inMasterguide = path.includes('/masterguide/');
-    const inGames = path.includes('/games/');
-    const inImpInfo = path.includes('/imp_info/') || path.includes('/imp%20info/');
-    const isSubdir = inModules || inMasterguide || inGames || inImpInfo;
+    
+    // Accurately detect origin directory
+    let currentDir = 'root';
+    if (path.includes('/pages/')) currentDir = 'pages';
+    else if (path.includes('/modules/')) currentDir = 'modules';
+    else if (path.includes('/masterguide/')) currentDir = 'masterguide';
+    else if (path.includes('/games/')) currentDir = 'games';
+    else if (path.includes('/imp_info/') || path.includes('/imp%20info/')) currentDir = 'imp_info';
 
-    switch (target) {
-        case 'dashboard':
-            return isSubdir ? '../dashboard.html' : 'dashboard.html';
-        case 'home':
-            return isSubdir ? '../index.html' : 'index.html';
-        case 'notes':
-            return isSubdir ? '../notes.html' : 'notes.html';
-        case 'games':
-            return isSubdir ? '../games.html' : 'games.html';
-        case 'assistant':
-            return isSubdir ? '../ai_assistant.html' : 'ai_assistant.html';
-        case 'masterguide':
-            if (inMasterguide) return 'cybersecurity_masterguide.html';
-            if (isSubdir) return '../masterguide/cybersecurity_masterguide.html';
-            return 'masterguide/cybersecurity_masterguide.html';
-        case 'roadmap':
-            if (inMasterguide) return 'roadmap.html';
-            if (isSubdir) return '../masterguide/roadmap.html';
-            return 'masterguide/roadmap.html';
-        case 'imp':
-            if (inImpInfo) return 'imp_info.html';
-            if (isSubdir) return '../imp_info/imp_info.html';
-            return 'imp_info/imp_info.html';
-        case 'ecosystem':
-            if (inImpInfo) return 'ecosystem.html';
-            if (isSubdir) return '../imp_info/ecosystem.html';
-            return 'imp_info/ecosystem.html';
-        case 'terminal':
-            return isSubdir ? '../terminal.html' : 'terminal.html';
-        case 'payloads':
-            return isSubdir ? '../payloads.html' : 'payloads.html';
-        case 'ctf':
-            return isSubdir ? '../ctf.html' : 'ctf.html';
-        default:
-            if (target && (target.includes('/') || target.includes('.html'))) {
-                return isSubdir ? '../' + target : target;
-            }
-            return '';
+    // Canonical root-relative paths for core targets
+    const canonicalMap = {
+        'home': 'index.html',
+        'dashboard': 'pages/dashboard.html',
+        'notes': 'pages/notes.html',
+        'games': 'pages/games.html',
+        'assistant': 'pages/ai_assistant.html',
+        'terminal': 'pages/terminal.html',
+        'payloads': 'pages/payloads.html',
+        'ctf': 'pages/ctf.html',
+        'intel': 'pages/intel.html',
+        'contact': 'pages/contact.html',
+        'privacy': 'pages/privacy.html',
+        'thank-you': 'pages/thank-you.html',
+        'masterguide': 'masterguide/cybersecurity_masterguide.html',
+        'roadmap': 'masterguide/roadmap.html',
+        'imp': 'imp_info/imp_info.html',
+        'ecosystem': 'imp_info/ecosystem.html'
+    };
+
+    let rootRel = canonicalMap[target] || target;
+
+    // Handle hash fragments (e.g. #sqli)
+    let hashPart = '';
+    if (rootRel.includes('#')) {
+        const parts = rootRel.split('#');
+        rootRel = parts[0];
+        hashPart = '#' + parts[1];
+    }
+
+    // Determine target directory
+    let targetDir = 'root';
+    let targetFile = rootRel;
+    if (rootRel.includes('/')) {
+        const segs = rootRel.split('/');
+        targetDir = segs[0];
+        targetFile = segs.slice(1).join('/');
+    }
+
+    if (currentDir === 'root') {
+        return rootRel + hashPart;
+    }
+
+    if (targetDir === currentDir) {
+        return targetFile + hashPart;
+    } else if (targetDir === 'root') {
+        return '../' + targetFile + hashPart;
+    } else {
+        return '../' + rootRel + hashPart;
     }
 }
 
@@ -69,7 +84,7 @@ function isCurrentPage(target) {
         case 'dashboard':
             return path.endsWith('/dashboard.html') || path.endsWith('/dashboard');
         case 'home':
-            return path.endsWith('/index.html') || path.endsWith('/') || path === '';
+            return path.endsWith('/index.html') || path.endsWith('/') || path === '' || path.endsWith('/foot') || path.endsWith('/foot/');
         case 'notes':
             return path.endsWith('/notes.html') || path.endsWith('/notes');
         case 'games':
@@ -84,6 +99,12 @@ function isCurrentPage(target) {
             return path.endsWith('/ecosystem.html') || path.endsWith('/ecosystem');
         case 'assistant':
             return path.endsWith('/ai_assistant.html') || path.endsWith('/ai_assistant');
+        case 'terminal':
+            return path.endsWith('/terminal.html') || path.endsWith('/terminal');
+        case 'payloads':
+            return path.endsWith('/payloads.html') || path.endsWith('/payloads');
+        case 'ctf':
+            return path.endsWith('/ctf.html') || path.endsWith('/ctf');
         default:
             return false;
     }
@@ -783,11 +804,16 @@ function ensureShortcutsModal() {
 
     document.body.appendChild(modal);
 
-    // Attach search filter listener
+    // Attach debounced search filter listener
     const searchInput = modal.querySelector('#pwnboxShortcutsSearchInput');
     if (searchInput) {
+        let paletteDebounceTimer = null;
         searchInput.addEventListener('input', (e) => {
-            renderShortcutsList(e.target.value);
+            const query = e.target.value;
+            clearTimeout(paletteDebounceTimer);
+            paletteDebounceTimer = setTimeout(() => {
+                renderShortcutsList(query);
+            }, 120);
         });
 
         // Arrow and Enter key navigation
@@ -820,6 +846,7 @@ function ensureShortcutsModal() {
                 }
             } else if (e.key === 'Enter') {
                 e.preventDefault();
+                clearTimeout(paletteDebounceTimer);
                 const activeItem = items[currentIndex >= 0 ? currentIndex : 0];
                 if (activeItem) {
                     activeItem.click();
