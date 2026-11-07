@@ -101,10 +101,15 @@
             <!-- Left Sidebar (Notes List & Navigation) -->
             <aside class="notes-sidebar" id="notesSidebar">
                 <div class="notes-sidebar-header">
-                    <button class="notes-new-btn" onclick="window.PwnNotes.createNewNote()">
-                        <span>➕</span>
-                        <span>NEW TACTICAL NOTE</span>
-                    </button>
+                    <div style="display: flex; gap: 6px; width: 100%;">
+                        <button class="notes-new-btn" style="flex: 1;" onclick="window.PwnNotes.createNewNote()">
+                            <span>➕</span>
+                            <span>NEW NOTE</span>
+                        </button>
+                        <button class="editor-btn" id="bulkModeToggleBtn" onclick="window.PwnNotes.toggleBulkMode()" style="padding: 0 10px; font-size: 0.7rem;" title="Toggle Multi-Select Bulk Actions">
+                            ☑️ BULK
+                        </button>
+                    </div>
                     <div class="notes-search-box">
                         <input type="text" class="notes-search-input" id="notesSearchInput" placeholder="Search notes, tags, payloads...">
                         <button class="notes-search-clear" id="notesSearchClear">&times;</button>
@@ -121,6 +126,18 @@
                     <button class="notes-filter-pill" data-category="credentials">🔑 CREDENTIALS</button>
                     <button class="notes-filter-pill" data-category="web">🕸️ WEB</button>
                     <button class="notes-filter-pill" data-category="general">📝 GENERAL</button>
+                </div>
+
+                <!-- Bulk Selection & Action Bar -->
+                <div class="notes-bulk-bar" id="notesBulkBar" style="display: none; align-items: center; justify-content: space-between; padding: 6px 12px; background: rgba(147, 51, 234, 0.12); border-bottom: 1px solid rgba(147, 51, 234, 0.35); font-family: 'Space Mono', monospace; font-size: 0.72rem;">
+                    <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; margin: 0;">
+                        <input type="checkbox" id="bulkSelectAllCheckbox" style="cursor: pointer;">
+                        <span id="bulkSelectedCount" style="color: #c084fc; font-weight: 700;">0 SELECTED</span>
+                    </label>
+                    <div style="display: flex; gap: 6px;">
+                        <button class="editor-btn" onclick="window.PwnNotes.bulkExportSelected()" style="padding: 2px 8px; font-size: 0.65rem;" title="Export Selected Notes as JSON">📥 EXPORT</button>
+                        <button class="editor-btn btn-delete" onclick="window.PwnNotes.bulkDeleteSelected()" style="padding: 2px 8px; font-size: 0.65rem;" title="Delete Selected Notes">🗑️ DELETE</button>
+                    </div>
                 </div>
 
                 <!-- Notes Feed -->

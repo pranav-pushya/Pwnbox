@@ -16,6 +16,8 @@
     let currentCategoryFilter = 'all';
     let filterPinnedOnly = false;
     let activeTagFilter = '';
+    let isBulkMode = false;
+    let selectedNoteIds = new Set();
     let searchQuery = '';
     let autoSaveTimeout = null;
     let currentUser = null;
@@ -504,9 +506,13 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
             // Clean snippet for preview (strip code blocks for clean text preview)
             const cleanText = (note.content || '').replace(/```[\s\S]*?```/g, '[Code Block]').replace(/[#*`_]/g, '').trim();
 
+            const isSelected = selectedNoteIds.has(note.id);
             card.innerHTML = `
                 <div class="note-item-top">
-                    <span class="note-item-title">${note.pinned ? '📌 ' : ''}${escapeHtml(note.title || 'Untitled Note')}</span>
+                    <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+                        ${isBulkMode ? `<input type="checkbox" class="note-bulk-checkbox" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation(); window.PwnNotes.toggleSelectNote('${note.id}')" style="cursor: pointer;">` : ''}
+                        <span class="note-item-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${note.pinned ? '📌 ' : ''}${escapeHtml(note.title || 'Untitled Note')}</span>
+                    </div>
                     <span class="note-item-badge" style="color: ${badgeColor}; border-color: ${badgeColor};">${escapeHtml(note.category || 'GENERAL')}</span>
                 </div>
                 <div class="note-item-snippet">${escapeHtml(cleanText.slice(0, 95) || 'No notes content...')}</div>
@@ -1172,6 +1178,113 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         URL.revokeObjectURL(url);
     }
 
+
+    // ── BULK ACTIONS CONTROLLER ──
+    function toggleBulkMode() {
+        isBulkMode = !isBulkMode;
+        const bulkBar = document.getElementById('notesBulkBar');
+        const bulkBtn = document.getElementById('bulkModeToggleBtn');
+        if (bulkBar) bulkBar.style.display = isBulkMode ? 'flex' : 'none';
+        if (bulkBtn) {
+            bulkBtn.style.background = isBulkMode ? '#9333ea' : '';
+            bulkBtn.style.color = isBulkMode ? '#ffffff' : '';
+        }
+        if (!isBulkMode) {
+            selectedNoteIds.clear();
+        }
+        updateBulkCount();
+        renderNotesList();
+    }
+
+    function toggleSelectNote(id) {
+        if (selectedNoteIds.has(id)) {
+            selectedNoteIds.delete(id);
+        } else {
+            selectedNoteIds.add(id);
+        }
+        updateBulkCount();
+    }
+
+    function updateBulkCount() {
+        const countEl = document.getElementById('bulkSelectedCount');
+        if (countEl) countEl.textContent = `${selectedNoteIds.size} SELECTED`;
+        const selectAllCb = document.getElementById('bulkSelectAllCheckbox');
+        if (selectAllCb) {
+            const visibleNotes = getFilteredNotes();
+            selectAllCb.checked = visibleNotes.length > 0 && selectedNoteIds.size === visibleNotes.length;
+        }
+    }
+
+    function getFilteredNotes() {
+        return notes.filter(note => {
+            const matchesCat = (currentCategoryFilter === 'all') || (note.category && note.category.toLowerCase() === currentCategoryFilter.toLowerCase());
+            if (!matchesCat) return false;
+            if (filterPinnedOnly && !note.pinned) return false;
+            if (activeTagFilter && !(note.tags || '').toLowerCase().includes(activeTagFilter.toLowerCase())) return false;
+            if (!searchQuery.trim()) return true;
+            const q = searchQuery.toLowerCase();
+            return (note.title || '').toLowerCase().includes(q) || (note.content || '').toLowerCase().includes(q) || (note.tags || '').toLowerCase().includes(q);
+        });
+    }
+
+    function bulkSelectAll(checked) {
+        const visible = getFilteredNotes();
+        if (checked) {
+            visible.forEach(n => selectedNoteIds.add(n.id));
+        } else {
+            selectedNoteIds.clear();
+        }
+        updateBulkCount();
+        renderNotesList();
+    }
+
+    function bulkDeleteSelected() {
+        if (selectedNoteIds.size === 0) {
+            if (typeof window.tacticalToast === 'function') window.tacticalToast('No notes selected for bulk deletion', 'warning');
+            return;
+        }
+        const count = selectedNoteIds.size;
+        const executeDelete = () => {
+            notes = notes.filter(n => !selectedNoteIds.has(n.id));
+            selectedNoteIds.clear();
+            if (activeNoteId && !notes.some(n => n.id === activeNoteId)) {
+                activeNoteId = notes.length > 0 ? notes[0].id : null;
+                if (activeNoteId) selectNote(activeNoteId);
+                else renderEmptyEditor();
+            }
+            updateBulkCount();
+            renderNotesList();
+            persistNotes();
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast(`Successfully deleted ${count} notes`, 'success');
+            }
+        };
+
+        if (typeof window.tacticalConfirm === 'function') {
+            window.tacticalConfirm(`Permanently delete ${count} selected tactical notes?`, executeDelete);
+        } else if (confirm(`Permanently delete ${count} selected tactical notes?`)) {
+            executeDelete();
+        }
+    }
+
+    function bulkExportSelected() {
+        if (selectedNoteIds.size === 0) {
+            if (typeof window.tacticalToast === 'function') window.tacticalToast('No notes selected for export', 'warning');
+            return;
+        }
+        const selectedList = notes.filter(n => selectedNoteIds.has(n.id));
+        const exportData = {
+            exportType: 'pwnbox_bulk_export',
+            timestamp: new Date().toISOString(),
+            count: selectedList.length,
+            notes: selectedList
+        };
+        downloadBlob(JSON.stringify(exportData, null, 2), `pwnbox_bulk_export_${Date.now()}.json`, 'application/json');
+        if (typeof window.tacticalToast === 'function') {
+            window.tacticalToast(`Exported ${selectedList.length} notes`, 'success');
+        }
+    }
+
     // ── 12. EXPORT PUBLIC API ──
     window.PwnNotes = {
         createNewNote,
@@ -1191,6 +1304,12 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         rollbackOptimisticState,
         setTagFilter: (tag) => { activeTagFilter = tag || ''; renderNotesList(); },
         togglePinnedFilter: () => { filterPinnedOnly = !filterPinnedOnly; renderNotesList(); return filterPinnedOnly; },
+        toggleBulkMode,
+        toggleSelectNote,
+        bulkSelectAll,
+        bulkDeleteSelected,
+        bulkExportSelected,
+        getSelectedNoteIds: () => Array.from(selectedNoteIds),
         renderSkeletonLoader,
         getSyncStatus: () => ({ isCloudSyncing, lastCloudSyncTime, hasSnapshot: !!previousNotesSnapshot }),
         getNotes: () => notes
