@@ -4,6 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Dynamic Base for GitHub Pages & Custom Domain Resilience -->
+    <script>
+        (function() {
+            const p = window.location.pathname;
+            const isGh = p.startsWith('/Pwnbox/');
+            if (isGh) {
+                const b = document.createElement('base');
+                b.href = '/Pwnbox/';
+                document.head.prepend(b);
+            }
+        })();
+    </script>
     <meta name="description" content="The requested tactical sector does not exist or has been declassified. Return to PwnBox Cyber Command Base Camp.">
     <title>404 // Sector Not Found — PwnBox Cyber Academy</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon-main.svg">

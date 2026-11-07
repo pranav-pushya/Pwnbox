@@ -1,4 +1,25 @@
+function resolveModuleUrl(targetUrl) {
+    if (!targetUrl) return '';
+    if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) return targetUrl;
+
+    const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
+    const cleanTarget = targetUrl.replace(/^(\.\.\/|\/)+/, '');
+
+    const inSubdir = path.includes('/pages/') || path.endsWith('/pages') ||
+                     path.includes('/modules/') || path.includes('/masterguide/') ||
+                     path.includes('/games/') || path.includes('/imp_info/') ||
+                     path.includes('/imp%20info/');
+
+    if (inSubdir) {
+        return '../' + cleanTarget;
+    }
+    return cleanTarget;
+}
+
 function handleProtectedModuleLaunch(e, targetUrl) {
+    if (e && typeof e.preventDefault === 'function') {
+        e.preventDefault();
+    }
     const isAuth = localStorage.getItem('pwnbox_is_authenticated') === 'true';
     if (!isAuth) {
         // Inform user they are in Guest Mode with local progress tracking
@@ -7,13 +28,12 @@ function handleProtectedModuleLaunch(e, targetUrl) {
         }
     }
     if (targetUrl) {
-        if (window.location.pathname.includes('/pages/') && !targetUrl.startsWith('../') && !targetUrl.startsWith('/') && !targetUrl.startsWith('http')) {
-            targetUrl = '../' + targetUrl;
-        }
-        window.location.href = targetUrl;
+        const dest = resolveModuleUrl(targetUrl);
+        window.location.href = dest;
     }
-    return true;
+    return false;
 }
+window.resolveModuleUrl = resolveModuleUrl;
 window.handleProtectedModuleLaunch = handleProtectedModuleLaunch;
 
 function updateDashboardStats() {
@@ -171,7 +191,8 @@ function updateDashboardStats() {
                         badgeEl.innerText = "Completed ✓";
                     }
                     if (actionsEl) {
-                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch" onclick="handleProtectedModuleLaunch(event, '${mod.url}')">Launch Module ↗</a>`;
+                        const targetDest = resolveModuleUrl(mod.url);
+                    actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${targetDest}" class="btn-launch" onclick="return handleProtectedModuleLaunch(event, '${targetDest}')">Launch Module ↗</a>`;
                     }
                     if (nodeEl) {
                         nodeEl.className = "node completed";
@@ -215,7 +236,8 @@ function updateDashboardStats() {
                         else if (mod.key === 'activedirectory') btnStyle = ' style="background: #ea580c; color: #fff;"';
                         else if (mod.key === 'socdefense') btnStyle = ' style="background: #10b981; color: #000; font-weight: 800;"';
                         else if (mod.key === 'iotsecurity') btnStyle = ' style="background: #f59e0b; color: #000; font-weight: 800;"';
-                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${mod.url}" class="btn-launch"${btnStyle} onclick="handleProtectedModuleLaunch(event, '${mod.url}')">Launch Module ↗</a>`;
+                        const targetDest = resolveModuleUrl(mod.url);
+                        actionsEl.innerHTML = `<span class="module-meta">${mod.toolsText}</span><a href="${targetDest}" class="btn-launch"${btnStyle} onclick="return handleProtectedModuleLaunch(event, '${targetDest}')">Launch Module ↗</a>`;
                     }
                     if (nodeEl) {
                         nodeEl.className = "node active";
@@ -405,7 +427,8 @@ function updateDashboardStats() {
                         const actions = document.getElementById(m.actionsId);
                         const url = moduleUrlMap[m.cardId];
                         if (card && actions && url && !card.classList.contains('active')) {
-                            actions.innerHTML = `<span class="module-meta" style="color: #facc15;">👑 GodMode Bypass</span><a href="${url}" class="btn-launch" style="background: linear-gradient(135deg, #facc15, #f59e0b); color: #000; font-weight: 800; border: 2px solid #000; box-shadow: 2px 2px 0 #000;">⚡ Bypass Launch ↗</a>`;
+                            const dest = resolveModuleUrl(url);
+                            actions.innerHTML = `<span class="module-meta" style="color: #facc15;">👑 GodMode Bypass</span><a href="${dest}" class="btn-launch" style="background: linear-gradient(135deg, #facc15, #f59e0b); color: #000; font-weight: 800; border: 2px solid #000; box-shadow: 2px 2px 0 #000;" onclick="return handleProtectedModuleLaunch(event, '${dest}')">⚡ Bypass Launch ↗</a>`;
                         }
                     }
                 });
@@ -759,7 +782,7 @@ function updateModule08State() {
     if (node8) {
         node8.style.display = 'flex';
         node8.className = "node active" + (isCompleted ? " completed" : "");
-        node8.onclick = (e) => { handleProtectedModuleLaunch(e, 'modules/BlackOps.html'); };
+        node8.onclick = (e) => { handleProtectedModuleLaunch(e, resolveModuleUrl('modules/BlackOps.html')); };
     }
 }
 

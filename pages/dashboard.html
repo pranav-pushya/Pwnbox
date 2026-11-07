@@ -312,7 +312,7 @@
                 </div>
                 <div class="card-bottom" id="blackOpsActions">
                     <span class="module-meta" style="color: #9333ea;">🕵️‍♂️ 6 Stealth Tools</span>
-                    <a href="../modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">Launch Module ↗</a>
+                    <a href="../modules/BlackOps.html" class="btn-launch" style="background: #9333ea; color: #fff;" onclick="return handleProtectedModuleLaunch(event, '../modules/BlackOps.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -328,7 +328,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #0284c7;">☁️ 7 Cloud Tools</span>
-                    <a href="../modules/CloudSecurity.html" class="btn-launch" style="background: #0284c7; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">Launch Module ↗</a>
+                    <a href="../modules/CloudSecurity.html" class="btn-launch" style="background: #0284c7; color: #fff;" onclick="return handleProtectedModuleLaunch(event, '../modules/CloudSecurity.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -344,7 +344,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #ea580c;">🏰 7 AD Tools</span>
-                    <a href="../modules/ActiveDirectory.html" class="btn-launch" style="background: #ea580c; color: #fff;" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">Launch Module ↗</a>
+                    <a href="../modules/ActiveDirectory.html" class="btn-launch" style="background: #ea580c; color: #fff;" onclick="return handleProtectedModuleLaunch(event, '../modules/ActiveDirectory.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -360,7 +360,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #10b981;">🛡️ 7 SOC Tools</span>
-                    <a href="../modules/SocDefense.html" class="btn-launch" style="background: #10b981; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">Launch Module ↗</a>
+                    <a href="../modules/SocDefense.html" class="btn-launch" style="background: #10b981; color: #000; font-weight: 800;" onclick="return handleProtectedModuleLaunch(event, '../modules/SocDefense.html')">Launch Module ↗</a>
                 </div>
             </div>
 
@@ -376,7 +376,7 @@
                 </div>
                 <div class="card-bottom">
                     <span class="module-meta" style="color: #f59e0b;">📟 7 IoT Tools</span>
-                    <a href="../modules/IoTSecurity.html" class="btn-launch" style="background: #f59e0b; color: #000; font-weight: 800;" onclick="handleProtectedModuleLaunch(event, 'modules/IoTSecurity.html')">Launch Module ↗</a>
+                    <a href="../modules/IoTSecurity.html" class="btn-launch" style="background: #f59e0b; color: #000; font-weight: 800;" onclick="return handleProtectedModuleLaunch(event, '../modules/IoTSecurity.html')">Launch Module ↗</a>
                 </div>
             </div>
         </div>
@@ -392,7 +392,7 @@
                     <path d="M 50,60 L 50,60" class="roadmap-line-active" id="roadmapProgressLine" />
                 </svg>
                 <div class="roadmap-nodes">
-                    <div class="node active" id="node1" onclick="handleProtectedModuleLaunch(event, 'modules/Footprinting.html')">
+                    <div class="node active" id="node1" onclick="return handleProtectedModuleLaunch(event, '../modules/Footprinting.html')">
                         <div class="node-dot"></div>
                         <div class="node-label">01. Recon</div>
                     </div>
@@ -416,27 +416,27 @@
                         <div class="node-dot"></div>
                         <div class="node-label">06. Web Apps</div>
                     </div>
-                    <div class="node" id="node7" onclick="handleProtectedModuleLaunch(event, 'modules/OSINT.html')">
+                    <div class="node" id="node7" onclick="return handleProtectedModuleLaunch(event, '../modules/OSINT.html')">
                         <div class="node-dot"></div>
                         <div class="node-label">07. OSINT</div>
                     </div>
-                    <div class="node active" id="node8" onclick="handleProtectedModuleLaunch(event, 'modules/BlackOps.html')">
+                    <div class="node active" id="node8" onclick="return handleProtectedModuleLaunch(event, '../modules/BlackOps.html')">
                         <div class="node-dot" style="background: #9333ea; border-color: #c084fc;"></div>
                         <div class="node-label" style="color: #c084fc;">08. Black Ops</div>
                     </div>
-                    <div class="node active" id="node9" onclick="handleProtectedModuleLaunch(event, 'modules/CloudSecurity.html')">
+                    <div class="node active" id="node9" onclick="return handleProtectedModuleLaunch(event, '../modules/CloudSecurity.html')">
                         <div class="node-dot" style="background: #0284c7; border-color: #38bdf8;"></div>
                         <div class="node-label" style="color: #38bdf8;">09. Cloud Sec</div>
                     </div>
-                    <div class="node active" id="node10" onclick="handleProtectedModuleLaunch(event, 'modules/ActiveDirectory.html')">
+                    <div class="node active" id="node10" onclick="return handleProtectedModuleLaunch(event, '../modules/ActiveDirectory.html')">
                         <div class="node-dot" style="background: #ea580c; border-color: #fdba74;"></div>
                         <div class="node-label" style="color: #fdba74;">10. Active Dir</div>
                     </div>
-                    <div class="node active" id="node11" onclick="handleProtectedModuleLaunch(event, 'modules/SocDefense.html')">
+                    <div class="node active" id="node11" onclick="return handleProtectedModuleLaunch(event, '../modules/SocDefense.html')">
                         <div class="node-dot" style="background: #10b981; border-color: #6ee7b7;"></div>
                         <div class="node-label" style="color: #6ee7b7;">11. Blue Team</div>
                     </div>
-                    <div class="node active" id="node12" onclick="handleProtectedModuleLaunch(event, 'modules/IoTSecurity.html')">
+                    <div class="node active" id="node12" onclick="return handleProtectedModuleLaunch(event, '../modules/IoTSecurity.html')">
                         <div class="node-dot" style="background: #f59e0b; border-color: #fde68a;"></div>
                         <div class="node-label" style="color: #fde68a;">12. IoT & Hardware</div>
                     </div>
