@@ -523,8 +523,9 @@ function updateAuthUI(user) {
         if (headerName) headerName.textContent = operativeName;
         if (profileNameDisplay) profileNameDisplay.textContent = operativeName;
         if (dropdownName) dropdownName.textContent = operativeName;
-        if (userRank) userRank.textContent = "VERIFIED OPERATIVE";
-        if (dropdownRank) dropdownRank.textContent = "VERIFIED OPERATIVE";
+        const savedRank = localStorage.getItem('pwnbox_operative_rank') || "VERIFIED OPERATIVE";
+        if (userRank) userRank.textContent = savedRank;
+        if (dropdownRank) dropdownRank.textContent = savedRank;
         if (editAliasInput && (!editAliasInput.value || editAliasInput.value === 'Pranav' || editAliasInput.value === 'UNKNOWN AGENT')) {
             editAliasInput.value = operativeName;
         }
@@ -585,7 +586,8 @@ function updateAuthUI(user) {
             previewAgentAlias.textContent = operativeName.toUpperCase();
         }
         if (previewBadgeRank) {
-            previewBadgeRank.textContent = "CLEARANCE: VERIFIED OPERATIVE";
+            const savedRank = localStorage.getItem('pwnbox_operative_rank') || "VERIFIED OPERATIVE";
+            previewBadgeRank.textContent = `CLEARANCE: ${savedRank.toUpperCase()}`;
         }
 
     } else {
@@ -594,8 +596,9 @@ function updateAuthUI(user) {
         if (headerName) headerName.textContent = savedName;
         if (profileNameDisplay) profileNameDisplay.textContent = savedName;
         if (dropdownName) dropdownName.textContent = savedName;
-        if (userRank) userRank.textContent = "Apprentice";
-        if (dropdownRank) dropdownRank.textContent = "Apprentice";
+        const guestRank = localStorage.getItem('pwnbox_operative_rank') || "Apprentice";
+        if (userRank) userRank.textContent = guestRank;
+        if (dropdownRank) dropdownRank.textContent = guestRank;
 
         const savedAvatar = localStorage.getItem('agentAvatar') || "?";
         if (headerAvatar) headerAvatar.textContent = savedAvatar;
@@ -628,7 +631,8 @@ function updateAuthUI(user) {
             homeDashBtn.onclick = null; // Rule 2: Guests can freely access dashboard
         }
         if (previewBadgeRank) {
-            previewBadgeRank.textContent = "CLEARANCE: LEVEL 1 APPRENTICE";
+            const guestRank = localStorage.getItem('pwnbox_operative_rank') || "LEVEL 1 APPRENTICE";
+            previewBadgeRank.textContent = `CLEARANCE: ${guestRank.toUpperCase()}`;
         }
     }
 }

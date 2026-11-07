@@ -378,13 +378,16 @@ function updateDashboardStats() {
                 }
                 const profileCard = document.querySelector('.id-card-inner');
                 if (profileCard) profileCard.classList.add('godmode-hologram-active');
+                localStorage.setItem('pwnbox_operative_rank', '👑 ROOT ARCHITECT');
             } else {
-                userRank.innerText = rankNames[completedCount] || "Apex Cyber Commander";
+                const currentRank = rankNames[completedCount] || "Apex Cyber Commander";
+                userRank.innerText = currentRank;
                 if (dropdownRank) {
-                    dropdownRank.innerText = userRank.innerText;
+                    dropdownRank.innerText = currentRank;
                 }
                 const profileCard = document.querySelector('.id-card-inner');
                 if (profileCard) profileCard.classList.remove('godmode-hologram-active');
+                localStorage.setItem('pwnbox_operative_rank', currentRank);
             }
 
             // GodMode Perk: Grant Bypass Launch on locked curriculum modules
