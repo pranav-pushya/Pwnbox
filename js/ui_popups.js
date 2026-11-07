@@ -388,4 +388,38 @@
         return window.alert(msg);
     };
 
+    // ── 8. GLOBAL RUNTIME & PROMISE ERROR BOUNDARY ──
+    (function initGlobalErrorBoundary() {
+        let lastErrorToastTime = 0;
+        let lastRejectionToastTime = 0;
+
+        window.addEventListener('error', function (event) {
+            if (!event || !event.message || event.message.includes('Script error')) return;
+
+            const now = Date.now();
+            if (now - lastErrorToastTime < 6000) return;
+            lastErrorToastTime = now;
+
+            console.warn("[PwnBox Recovery] Runtime exception intercepted:", event.message);
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("⚠️ Non-fatal runtime exception intercepted. Systems operational.", "warning", 4000);
+            }
+        });
+
+        window.addEventListener('unhandledrejection', function (event) {
+            const reason = event.reason;
+            const msg = (reason && (reason.message || reason.statusText || String(reason))) || '';
+            if (msg.includes('AbortError') || msg.includes('Failed to fetch') || msg.includes('network') || msg.includes('cancelled')) return;
+
+            const now = Date.now();
+            if (now - lastRejectionToastTime < 6000) return;
+            lastRejectionToastTime = now;
+
+            console.warn("[PwnBox Recovery] Unhandled rejection recovered:", msg);
+            if (typeof window.tacticalToast === 'function') {
+                window.tacticalToast("⚠️ Async operation handled gracefully.", "info", 3500);
+            }
+        });
+    })();
+
 })();
