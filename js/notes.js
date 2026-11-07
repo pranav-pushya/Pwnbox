@@ -14,6 +14,8 @@
     let notes = [];
     let activeNoteId = null;
     let currentCategoryFilter = 'all';
+    let filterPinnedOnly = false;
+    let activeTagFilter = '';
     let searchQuery = '';
     let autoSaveTimeout = null;
     let currentUser = null;
@@ -434,9 +436,17 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         if (!listEl) return;
 
         let filtered = notes.filter(note => {
+            // 1. Category Criteria
             const matchesCat = (currentCategoryFilter === 'all') || (note.category && note.category.toLowerCase() === currentCategoryFilter.toLowerCase());
             if (!matchesCat) return false;
 
+            // 2. Pinned Multi-Criteria
+            if (filterPinnedOnly && !note.pinned) return false;
+
+            // 3. Tag Filter Criteria
+            if (activeTagFilter && !(note.tags || '').toLowerCase().includes(activeTagFilter.toLowerCase())) return false;
+
+            // 4. Search Query Criteria
             if (!searchQuery.trim()) return true;
             const q = searchQuery.toLowerCase();
             const inTitle = (note.title || '').toLowerCase().includes(q);
@@ -1061,9 +1071,17 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         const filterPills = document.querySelectorAll('.notes-filter-pill');
         filterPills.forEach(pill => {
             pill.addEventListener('click', () => {
-                filterPills.forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-                currentCategoryFilter = pill.getAttribute('data-category') || 'all';
+                const filterType = pill.getAttribute('data-filter');
+                if (filterType === 'pinned') {
+                    filterPinnedOnly = !filterPinnedOnly;
+                    pill.classList.toggle('active', filterPinnedOnly);
+                } else {
+                    filterPills.forEach(p => {
+                        if (p.getAttribute('data-filter') !== 'pinned') p.classList.remove('active');
+                    });
+                    pill.classList.add('active');
+                    currentCategoryFilter = pill.getAttribute('data-category') || 'all';
+                }
                 renderNotesList();
             });
         });
@@ -1171,6 +1189,8 @@ nmap -sC -sV -p 22,80,443,445 --script vuln,auth,default -oA nmap_detailed 192.1
         handleImportFile,
         flushPendingAutoSave,
         rollbackOptimisticState,
+        setTagFilter: (tag) => { activeTagFilter = tag || ''; renderNotesList(); },
+        togglePinnedFilter: () => { filterPinnedOnly = !filterPinnedOnly; renderNotesList(); return filterPinnedOnly; },
         renderSkeletonLoader,
         getSyncStatus: () => ({ isCloudSyncing, lastCloudSyncTime, hasSnapshot: !!previousNotesSnapshot }),
         getNotes: () => notes
