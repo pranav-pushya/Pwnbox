@@ -193,6 +193,13 @@
         box-shadow: 1px 1px 0 var(--border-color, #0a0a0a) !important;
     }
 
+    .pwn-mobile-nav-toggle.floating {
+        position: fixed !important;
+        top: 10px !important;
+        right: 12px !important;
+        z-index: 10002 !important;
+    }
+
     .pwn-mobile-nav-toggle.is-open {
         background: var(--bauhaus-red, #D9291C) !important;
         color: #ffffff !important;

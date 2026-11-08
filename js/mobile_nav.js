@@ -49,8 +49,17 @@
         if (path.endsWith('/terminal.html')) {
             return 'terminal';
         }
-        if (path.endsWith('/ctf.html')) {
+        if (path.endsWith('/ctf.html') || path.endsWith('/ctf')) {
             return 'ctf';
+        }
+        if (path.endsWith('/intel.html') || path.endsWith('/intel')) {
+            return 'intel';
+        }
+        if (path.includes('/ai_assistant') || path.endsWith('/ai_assistant.html')) {
+            return 'assistant';
+        }
+        if (path.includes('/contact') || path.includes('/privacy') || path.includes('/thank-you')) {
+            return 'policy';
         }
         if (path.includes('/modules/')) {
             return 'modules';
@@ -283,16 +292,35 @@
 
         // 2. All other page headers
         if (!toggleAttached) {
-            const header = document.querySelector(
-                'header.notes-top-header, header.games-top-header, header.payload-top-header, ' +
-                'header.term-top-header, header.ctf-top-header, header.roadmap-nav, ' +
-                'header.masterguide-nav, header.info-nav, header.test-header, header, .header'
-            );
-
-            if (header && !header.querySelector('.pwn-mobile-nav-toggle')) {
-                const btn = createHamburgerButton();
-                header.appendChild(btn);
+            if (pageKey === 'modules') {
+                let btn = document.getElementById('pwnMobileNavToggle');
+                if (!btn) {
+                    btn = createHamburgerButton();
+                    btn.classList.add('floating');
+                    document.body.appendChild(btn);
+                }
                 toggleAttached = true;
+            } else {
+                const header = document.querySelector(
+                    'header.notes-top-header, header.games-top-header, header.payload-top-header, ' +
+                    'header.term-top-header, header.ctf-top-header, header.roadmap-nav, ' +
+                    'header.masterguide-nav, header.info-nav, header.test-header, header.policy-header, ' +
+                    'nav.oracle-navbar, header, .header, nav'
+                );
+
+                if (header && !header.querySelector('.pwn-mobile-nav-toggle')) {
+                    const btn = createHamburgerButton();
+                    header.appendChild(btn);
+                    toggleAttached = true;
+                } else if (!header) {
+                    let btn = document.getElementById('pwnMobileNavToggle');
+                    if (!btn) {
+                        btn = createHamburgerButton();
+                        btn.classList.add('floating');
+                        document.body.appendChild(btn);
+                    }
+                    toggleAttached = true;
+                }
             }
         }
 
@@ -403,14 +431,20 @@
 
         if (!dropdown || !toggle) return;
 
-        const header = document.querySelector(
-            'header.notes-top-header, header.games-top-header, header.payload-top-header, ' +
-            'header.term-top-header, header.ctf-top-header, header.roadmap-nav, ' +
-            'header.masterguide-nav, header.info-nav, header.test-header, .pwn-mobile-top-bar, header, .header'
-        );
-        if (header) {
-            const rect = header.getBoundingClientRect();
-            dropdown.style.top = `${Math.max(48, rect.bottom)}px`;
+        if (toggle.classList.contains('floating')) {
+            dropdown.style.top = '54px';
+        } else {
+            const header = document.querySelector(
+                'header.notes-top-header, header.games-top-header, header.payload-top-header, ' +
+                'header.term-top-header, header.ctf-top-header, header.roadmap-nav, ' +
+                'header.masterguide-nav, header.info-nav, header.test-header, header.policy-header, nav.oracle-navbar, .pwn-mobile-top-bar, header, .header, nav'
+            );
+            if (header) {
+                const rect = header.getBoundingClientRect();
+                dropdown.style.top = `${Math.max(48, rect.bottom)}px`;
+            } else {
+                dropdown.style.top = '54px';
+            }
         }
 
         toggle.classList.add('is-open');

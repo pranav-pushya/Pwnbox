@@ -223,27 +223,26 @@ function showDetails(index, element) {
 
     const badgeClass = `badge-${tool.category.toLowerCase()}`;
 
+    const displayName = tool.name.includes('.') ? tool.name.split('.')[1].trim() : tool.name;
+
     details.innerHTML = `
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
-                <h1 style="margin: 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                    ${tool.name}
-                    <span class="badge ${badgeClass}">${tool.category}</span>
-                </h1>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="btn-edit-tool" onclick="openEditToolModal(${index})">✏️ Edit</button>
-                    <button class="btn-delete-tool" onclick="confirmDeleteTool(${index})">🗑️ Delete</button>
-                    <a href="${tool.link}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #000; color: #fff; border: 2px solid #000; padding: 6px 14px; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700; text-decoration: none; box-shadow: 2px 2px 0 var(--border-dim); transition: transform 0.1s;">Launch ↗</a>
+            <h1 style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+                <span>${displayName}<span class="badge ${badgeClass}">${tool.category}</span></span>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button class="btn btn-edit-tool" onclick="openEditToolModal(${index})" style="font-size:0.8rem;padding:6px 12px;">✏️ Edit</button>
+                    <button class="btn btn-delete-tool" onclick="confirmDeleteTool(${index})" style="font-size:0.8rem;padding:6px 12px;">🗑️ Delete</button>
+                    <a href="${tool.link}" target="_blank" style="font-size:0.8rem;padding:6px 12px;">Launch ↗</a>
                 </div>
-            </div>
+            </h1>
 
-            <div class="section-label">SIMPLY EXPLAINED (WHAT IS IT?)</div>
+            <div class="section-label">Simply Explained (What is it?)</div>
             <div class="section-content">${tool.brief}</div>
 
-            <div class="section-label">HOW TO ACTUALLY USE IT</div>
-            <div class="section-content"><pre><code>${tool.use}</code></pre></div>
+            <div class="section-label">How to actually use it</div>
+            <div class="section-content">${tool.use}</div>
 
-            <div class="section-label">WHY HACKERS CARE ABOUT THIS</div>
+            <div class="section-label">Why Hackers care about this</div>
             <div class="section-content">${tool.useful}</div>
         </div>
     `;

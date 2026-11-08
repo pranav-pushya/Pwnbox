@@ -191,7 +191,7 @@ function showDetails(index, element) {
             <div class="section-content">${tool.brief}</div>
             <div class="section-label">How to actually use it</div>
             <div class="section-content">${tool.use}</div>
-            <div class="section-label">Why Defenders & SOC Analysts care about this</div>
+            <div class="section-label">Why Hackers care about this</div>
             <div class="section-content">${tool.useful}</div>
         </div>`;
     if (window.innerWidth <= 768) switchMobileTab('details');
