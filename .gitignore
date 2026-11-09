@@ -1,5 +1,6 @@
 # Local test profiles and scratch files
 scratch/
+tmp_chrome_*
 *.log
 .DS_Store
 Thumbs.db

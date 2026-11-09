@@ -7,7 +7,7 @@
  * and offline WebGL/Three.js engines.
  */
 
-const CACHE_NAME = 'pwnbox-shell-v11';
+const CACHE_NAME = 'pwnbox-shell-v12';
 
 const STATIC_ASSETS = [
     // Core Application Shell & Portals
@@ -133,13 +133,20 @@ const STATIC_ASSETS = [
     '/assets/pwnbox-og-preview.png'
 ];
 
-// Install event: Precache full tactical academy
+// Install event: Precache full tactical academy with redirect resilience
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(STATIC_ASSETS).catch((err) => {
-                console.warn('[PwnBox SW v4] Non-fatal precache asset notice:', err);
-            });
+        caches.open(CACHE_NAME).then(async (cache) => {
+            for (const asset of STATIC_ASSETS) {
+                try {
+                    const response = await fetch(asset, { redirect: 'follow' });
+                    if (response && (response.ok || response.status === 200)) {
+                        await cache.put(asset, response);
+                    }
+                } catch (e) {
+                    // Non-fatal asset warning
+                }
+            }
         }).then(() => self.skipWaiting())
     );
 });
@@ -177,9 +184,27 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Top-level document navigation: Let browser natively follow HTTP 301/302 redirects,
+    // cleanUrls, and update the URL bar without Chromium ERR_FAILED opaqueredirect crash.
+    // When offline, fall back to cached document.
+    if (request.mode === 'navigate') {
+        if (!navigator.onLine) {
+            event.respondWith(
+                caches.match(request).then((cached) => {
+                    if (cached) return cached;
+                    const cleanPath = url.pathname.replace(/\.html$/, '');
+                    return caches.match(cleanPath).then((c1) => {
+                        return c1 || caches.match(cleanPath + '.html') || caches.match('/pages/offline.html') || caches.match('/404.html') || caches.match('/index.html');
+                    });
+                })
+            );
+        }
+        return;
+    }
+
+    // Subresources (CSS, JS, images, fonts): Cache-first with background revalidation
     event.respondWith(
         caches.match(request).then((cachedResponse) => {
-            // Serve cached response immediately if available, while refreshing in background
             const fetchPromise = fetch(request).then((networkResponse) => {
                 if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                     const responseToCache = networkResponse.clone();
